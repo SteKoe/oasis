@@ -23,6 +23,11 @@
 			<param-name>applicationClassName</param-name>
 			<param-value>de.stekoe.idss.WicketApplication</param-value>
 		</init-param>
+		<!-- Turn on deployment mode -->
+		<init-param>
+			<param-name>wicket.configuration</param-name>
+			<param-value>development</param-value>
+		</init-param>
 	</filter>
 
 	<filter-mapping>
@@ -30,10 +35,10 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
-	<filter-mapping>
+	<!-- <filter-mapping>
         <filter-name>OpenSessionInViewFilter</filter-name>
         <url-pattern>/*</url-pattern>
-    </filter-mapping>
+    </filter-mapping> -->
     
 	<!-- Spring -->
 	<listener>

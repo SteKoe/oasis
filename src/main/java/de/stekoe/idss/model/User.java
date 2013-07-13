@@ -37,6 +37,7 @@ public class User  {
 		sb.append("USER ==========================\n");
 		sb.append(String.format(format, "ID", getId()));
 		sb.append(String.format(format, "Username", getUsername()));
+		sb.append(String.format(format, "Password", getPassword()));
 		
 		Systemrole[] systemroles = getSystemroles().toArray(new Systemrole[0]);
 		

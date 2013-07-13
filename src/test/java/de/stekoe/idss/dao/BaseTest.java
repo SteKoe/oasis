@@ -8,6 +8,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
+@Ignore
 @ContextConfiguration({"testContext.xml"})
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true) 
 public class BaseTest extends AbstractTransactionalJUnit4SpringContextTests {

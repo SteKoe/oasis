@@ -14,6 +14,8 @@ package de.stekoe.idss.bcrypt;
 // ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 // OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
+import org.junit.Ignore;
+
 import de.stekoe.idss.security.bcrypt.BCrypt;
 import junit.framework.TestCase;
 
@@ -22,6 +24,7 @@ import junit.framework.TestCase;
  * @author Damien Miller
  * @version 0.2
  */
+@Ignore
 public class BCryptTest extends TestCase {
 	
 	String test_vectors[][] = {

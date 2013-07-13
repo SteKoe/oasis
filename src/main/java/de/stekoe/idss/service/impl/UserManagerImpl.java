@@ -28,6 +28,7 @@ public class UserManagerImpl implements UserManager {
 			return true;
 		}
 		else {
+			LOG.warn("Tried to insert new user with existing username!");
 			throw new UserAlreadyExistsException();
 		}
 	}

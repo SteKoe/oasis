@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:wicket="http://wicket.sourceforge.net/" xml:lang="en" lang="en">
+<body>
+	<wicket:panel>
+		<div class="container">
+			<div class="row">
+				<div class="span6 offset3">
+					<form class="form-horizontal" wicket:id="registrationForm">
+						<fieldset>
+							<legend>
+								<wicket:message key="form.title"></wicket:message>
+							</legend>
+
+							<div class="control-group">
+								<label class="control-label"><wicket:message key="form.label.username"></wicket:message>:</label>
+								<div class="controls">
+									<input id="username" wicket:id="username" name="username" type="text" class="input-xlarge">
+								</div>
+							</div>
+
+							<div class="control-group">
+								<label class="control-label"><wicket:message
+										key="form.label.email"></wicket:message>:</label>
+								<div class="controls">
+									<input id="username" name="username" type="text" class="input-xlarge">
+								</div>
+							</div>
+
+							<div class="control-group">
+								<label class="control-label"><wicket:message
+										key="form.label.password"></wicket:message>:</label>
+								<div class="controls">
+									<input id="passwordinput" wicket:id="password" name="passwordinput" type="password"
+										class="input-xlarge">
+								</div>
+							</div>
+
+							<div class="control-group">
+								<label class="control-label"><wicket:message
+										key="form.label.password.confirm"></wicket:message>:</label>
+								<div class="controls">
+									<input id="passwordinput" name="passwordinput" type="password"
+										class="input-xlarge">
+								</div>
+							</div>
+
+							<div class="control-group">
+								<label class="control-label"> </label>
+								<div class="controls">
+									<button id="singlebutton" name="singlebutton"
+										class="btn btn-success">
+										<wicket:message key="form.label.submit"></wicket:message>
+									</button>
+								</div>
+							</div>
+
+						</fieldset>
+					</form>
+				</div>
+			</div>
+		</div>
+	</wicket:panel>
+</body>
+</html>

@@ -28,9 +28,18 @@ public class WicketApplication extends WebApplication
 	public void init()
 	{
 		super.init();
+		switch (getConfigurationType()) {
+		case DEVELOPMENT:
+			getRequestLoggerSettings().setRequestLoggerEnabled(true);
+			break;
+		case DEPLOYMENT:
+			getMarkupSettings().setCompressWhitespace(true);
+			break;
+		}
+		
 		Bootstrap.install(Application.get(), new BootstrapSettings());
 		getComponentInstantiationListeners().add(new SpringComponentInjector(this));
-		
+
 		createURLRoutings();
 	}
 

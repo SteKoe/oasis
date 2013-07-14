@@ -15,6 +15,8 @@ public class RegistrationForm extends Panel {
 	public RegistrationForm(String id) {
 		super(id, null);
 		
+		User user = new User();
+		
 		Form<User> form = new Form<User>("registrationForm"){
 			@Override
 			protected void onSubmit() {
@@ -22,19 +24,11 @@ public class RegistrationForm extends Panel {
 				System.out.println(user);
 			}
 		};
-		form.setModel(new CompoundPropertyModel<User>(new LoadableDetachableUserModel()));
+		form.setModel(new CompoundPropertyModel<User>(user));
 		
 		form.add(new TextField<String>("username"));
 		form.add(new PasswordTextField("password"));
 		
 		add(form);
-	}
-
-	private class LoadableDetachableUserModel extends LoadableDetachableModel<User> {
-		@Override
-		protected User load() {
-			return new User();
-		}
-		
 	}
 }

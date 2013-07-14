@@ -10,9 +10,9 @@ import org.apache.wicket.model.LoadableDetachableModel;
 import de.stekoe.idss.model.User;
 
 @SuppressWarnings("serial")
-public class MainNavigation extends Panel {
+public class RegistrationForm extends Panel {
 
-	public MainNavigation(String id) {
+	public RegistrationForm(String id) {
 		super(id, null);
 		
 		User user = new User();

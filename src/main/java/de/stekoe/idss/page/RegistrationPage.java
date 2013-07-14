@@ -1,12 +1,12 @@
 package de.stekoe.idss.page;
 
-import de.stekoe.idss.component.form.registration.MainNavigation;
+import de.stekoe.idss.component.form.registration.RegistrationForm;
 
 public class RegistrationPage extends LayoutPage {
 	
 	private String message = "I am empty... Fill me with your content!";
 	
 	public RegistrationPage() {
-		add(new MainNavigation("form"));
+		add(new RegistrationForm("form"));
 	}
 }

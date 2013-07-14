@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.springframework.transaction.annotation.Transactional;
-
 public class User implements Serializable {
 	private Long id;
 	private String username;

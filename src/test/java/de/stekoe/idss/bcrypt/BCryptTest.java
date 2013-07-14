@@ -14,10 +14,11 @@ package de.stekoe.idss.bcrypt;
 // ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 // OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
+import junit.framework.TestCase;
+
 import org.junit.Ignore;
 
 import de.stekoe.idss.security.bcrypt.BCrypt;
-import junit.framework.TestCase;
 
 /**
  * JUnit unit tests for BCrypt routines

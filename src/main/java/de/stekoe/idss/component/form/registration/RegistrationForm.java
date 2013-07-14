@@ -6,15 +6,16 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 
+import de.stekoe.idss.component.behavior.Placeholder;
 import de.stekoe.idss.model.User;
 
 @SuppressWarnings("serial")
 public class RegistrationForm extends Panel {
 
+	private User user = new User();
+	
 	public RegistrationForm(String id) {
 		super(id, null);
-		
-		User user = new User();
 		
 		Form<User> form = new Form<User>("registrationForm"){
 			@Override
@@ -25,7 +26,10 @@ public class RegistrationForm extends Panel {
 		};
 		form.setModel(new CompoundPropertyModel<User>(user));
 		
-		form.add(new TextField<String>("username"));
+		TextField<String> username = new TextField<String>("username");
+		username.add(new Placeholder("form.field.username.placeholder", this));
+		form.add(username);
+		
 		form.add(new PasswordTextField("password"));
 		
 		add(form);

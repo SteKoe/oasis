@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+@SuppressWarnings("serial")
 public class User implements Serializable {
+	
 	private Long id;
 	private String username;
 	private String password;
@@ -18,7 +20,7 @@ public class User implements Serializable {
 	public void setUsername(String username) { this.username = username; }
 
 	public String getPassword() { return password; }
-	public void setPassword(String password) { this.password = password;}
+	public void setPassword(String password) { this.password = password; }
 	
 	public Set<Systemrole> getSystemroles() { return this.systemroles; }
 	public void setSystemroles(Set<Systemrole> systemroles) { this.systemroles = systemroles; }

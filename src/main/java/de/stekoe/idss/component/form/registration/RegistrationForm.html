@@ -1,6 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:wicket="http://wicket.sourceforge.net/" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html lang="en" xmlns:wicket="http://wicket.sourceforge.net/">
 <body>
 	<wicket:panel>
 		<div class="container">
@@ -11,46 +10,25 @@
 							<legend>
 								<wicket:message key="form.title"></wicket:message>
 							</legend>
-
-							<div class="control-group">
-								<label class="control-label"><wicket:message key="form.field.username.label"></wicket:message>:</label>
-								<div class="controls">
-									<input id="username" wicket:id="username" name="username" type="text" class="input-xlarge">
-								</div>
+							
+							<div class="control-group" wicket:id="usernameControlGroup">
+								<input wicket:id="username" type="text" class="input-xlarge">
 							</div>
 
-							<div class="control-group">
-								<label class="control-label"><wicket:message key="form.field.email.label"></wicket:message>:</label>
-								<div class="controls">
-									<input id="username" name="username" type="text" class="input-xlarge">
-								</div>
+							<div class="control-group" wicket:id="emailControlGroup">
+								<input wicket:id="email" type="email" class="input-xlarge">
 							</div>
 
-							<div class="control-group">
-								<label class="control-label"><wicket:message key="form.field.password.label"></wicket:message>:</label>
-								<div class="controls">
-									<input id="passwordinput" wicket:id="password" name="passwordinput" type="password"
-										class="input-xlarge">
-								</div>
+							<div class="control-group" wicket:id="passwordControlGroup">
+								<input wicket:id="password" type="password" class="input-xlarge">
 							</div>
 
-							<div class="control-group">
-								<label class="control-label"><wicket:message
-										key="form.field.password_confirm.label"></wicket:message>:</label>
-								<div class="controls">
-									<input id="passwordinput" name="passwordinput" type="password"
-										class="input-xlarge">
-								</div>
+							<div class="control-group" wicket:id="passwordConfirmControlGroup">
+								<input wicket:id="passwordConfirm" type="password" class="input-xlarge">
 							</div>
 
-							<div class="control-group">
-								<label class="control-label"> </label>
-								<div class="controls">
-									<button id="singlebutton" name="singlebutton"
-										class="btn btn-success">
-										<wicket:message key="form.field.submit.label"></wicket:message>
-									</button>
-								</div>
+							<div class="control-group" wicket:id="buttonControlGroup">
+								<input wicket:id="submit" type="submit" class="btn btn-success">
 							</div>
 
 						</fieldset>

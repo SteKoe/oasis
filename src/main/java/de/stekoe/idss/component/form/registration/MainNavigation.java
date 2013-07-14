@@ -1,4 +1,4 @@
-package de.stekoe.idss.components;
+package de.stekoe.idss.component.form.registration;
 
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
@@ -10,9 +10,9 @@ import org.apache.wicket.model.LoadableDetachableModel;
 import de.stekoe.idss.model.User;
 
 @SuppressWarnings("serial")
-public class RegistrationForm extends Panel {
+public class MainNavigation extends Panel {
 
-	public RegistrationForm(String id) {
+	public MainNavigation(String id) {
 		super(id, null);
 		
 		User user = new User();

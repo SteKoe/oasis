@@ -1,12 +1,12 @@
 package de.stekoe.idss.model;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.transaction.annotation.Transactional;
 
-@Transactional
-public class User  {
+public class User implements Serializable {
 	private Long id;
 	private String username;
 	private String password;

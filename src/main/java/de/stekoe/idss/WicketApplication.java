@@ -38,9 +38,13 @@ public class WicketApplication extends WebApplication
 		}
 		
 		Bootstrap.install(Application.get(), new BootstrapSettings());
-		getComponentInstantiationListeners().add(new SpringComponentInjector(this));
+		setUpSpring();
 
 		createURLRoutings();
+	}
+
+	public void setUpSpring() {
+		getComponentInstantiationListeners().add(new SpringComponentInjector(this));
 	}
 
 	private void createURLRoutings() {

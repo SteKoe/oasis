@@ -10,6 +10,7 @@ public class User implements Serializable {
 	private Long id;
 	private String username;
 	private String password;
+	private String email;
 	private Set<Systemrole> systemroles = new HashSet<Systemrole>(0);
 	private UserProfile userProfile;
 
@@ -28,6 +29,9 @@ public class User implements Serializable {
 	public UserProfile getUserProfile() { return userProfile; }
 	public void setUserProfile(UserProfile userProfile) { this.userProfile = userProfile; }
 	
+	public void setEmail(String email) { this.email = email; }
+	public String getEmail() { return this.email; }
+	
 	@Override
 	public String toString() {
 		String format = "%-20s: %s %n";
@@ -37,6 +41,7 @@ public class User implements Serializable {
 		sb.append("USER ==========================\n");
 		sb.append(String.format(format, "ID", getId()));
 		sb.append(String.format(format, "Username", getUsername()));
+		sb.append(String.format(format, "Username", getEmail()));
 		sb.append(String.format(format, "Password", getPassword()));
 		
 		Systemrole[] systemroles = getSystemroles().toArray(new Systemrole[0]);

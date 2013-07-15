@@ -3,6 +3,7 @@ package de.stekoe.idss.component.form.registration;
 import java.util.List;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.wicket.feedback.FencedFeedbackPanel;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.EmailTextField;
 import org.apache.wicket.markup.html.form.Form;
@@ -20,6 +21,7 @@ import org.eclipse.jetty.util.log.Logger;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.ControlGroup;
 import de.stekoe.idss.component.behavior.Placeholder;
+import de.stekoe.idss.component.feedbackpanel.MyFencedFeedbackPanel;
 import de.stekoe.idss.exception.UserAlreadyExistsException;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.security.bcrypt.BCrypt;
@@ -46,14 +48,20 @@ public class RegistrationForm extends Panel {
 	public RegistrationForm(String id) {
 		super(id, null);
 		
+		createHiddenFeedbackPanel();
 		createFields();
 		createRegistrationForm();
-		
-		List<User> allUsers = userManager.getAllUsers();
-		LOG.info("Users: "+allUsers.size());
-		for(User u : allUsers) {
-			LOG.info(u.getUsername());
-		}
+	}
+
+	/**
+	 * This method adds a hidden {@code FencedFeedbackPanel} to the Panel.
+	 * 
+	 * <p>The purpose of {@link MyFencedFeedbackPanel} is to force the framework to
+	 * not to print all the errors of the fields to the page.
+	 */
+	private void createHiddenFeedbackPanel() {
+		// TODO: Is there a better way???
+		add(new MyFencedFeedbackPanel("hiddenFeedback", this).setVisible(false));
 	}
 
 	private void createFields() {
@@ -76,7 +84,7 @@ public class RegistrationForm extends Panel {
 				try {
 					userManager.insertUser(user);
 				} catch (UserAlreadyExistsException e) {
-					error("asd");
+					error(new StringResourceModel("error.usernameAlreadyTaken", this, null));
 				}
 			}
 		};
@@ -102,7 +110,7 @@ public class RegistrationForm extends Panel {
 	private void setUsernameField() {
 		usernameField = new RequiredTextField<String>("username");
 		usernameField.setLabel(new StringResourceModel("username.label", this, null));
-		usernameField.add(new UniqueUsernameValidator(userManager.getAllUsers()));
+		usernameField.add(new UniqueContentValidator(userManager.getAllUsernames()));
 		usernameField.add(new Placeholder("username.placeholder", this));
 	}
 
@@ -120,6 +128,7 @@ public class RegistrationForm extends Panel {
 		email = new EmailTextField("email");
 		email.setRequired(true);
 		email.setLabel(new StringResourceModel("email.label", this, null));
+		email.add(new UniqueContentValidator(userManager.getAllEmailAddresses()));
 		email.add(new Placeholder("email.placeholder", this));
 	}
 

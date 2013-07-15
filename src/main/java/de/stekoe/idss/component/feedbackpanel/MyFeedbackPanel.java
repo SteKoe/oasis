@@ -40,9 +40,7 @@ public class MyFeedbackPanel extends Panel implements IFeedback {
 		}
 
 		@Override
-		protected IModel<FeedbackMessage> getListItemModel(
-				final IModel<? extends List<FeedbackMessage>> listViewModel,
-				final int index) {
+		protected IModel<FeedbackMessage> getListItemModel(final IModel<? extends List<FeedbackMessage>> listViewModel, final int index) {
 			return new AbstractReadOnlyModel<FeedbackMessage>() {
 				private static final long serialVersionUID = 1L;
 
@@ -159,7 +157,7 @@ public class MyFeedbackPanel extends Panel implements IFeedback {
 	}
 
 	protected final List<FeedbackMessage> getCurrentMessages() {
-		final List<FeedbackMessage> messages = messageListView.getModelObject();
+		List<FeedbackMessage> messages = messageListView.getModelObject();
 		return Collections.unmodifiableList(messages);
 	}
 

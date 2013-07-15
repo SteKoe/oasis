@@ -12,4 +12,6 @@ public interface UserManager {
 	void update(User user);
 	List<User> getAllUsers();
 	User findByActivationCode(String code);
+	List<String> getAllUsernames();
+	List<String> getAllEmailAddresses();
 }

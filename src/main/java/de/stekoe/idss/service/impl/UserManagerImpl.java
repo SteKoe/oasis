@@ -1,5 +1,7 @@
 package de.stekoe.idss.service.impl;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -62,5 +64,27 @@ public class UserManagerImpl implements UserManager {
 	@Transactional
 	public User findByActivationCode(String code) {
 		return userDAO.findByActivationCode(code);
+	}
+
+	@Override
+	@Transactional
+	public List<String> getAllUsernames() {
+		List<String> usernames = new ArrayList<String>();
+		for(User u : getAllUsers()) {
+			usernames.add(u.getUsername());
+		}
+		return usernames;
+	}
+
+	@Override
+	@Transactional
+	public List<String> getAllEmailAddresses() {
+		List<String> mail = new ArrayList<String>();
+		
+		for(User u : getAllUsers()) {
+			mail.add(u.getEmail());
+		}
+		
+		return mail;
 	}
 }

@@ -38,10 +38,16 @@ public class WicketApplication extends WebApplication
 			break;
 		}
 		
-		Bootstrap.install(Application.get(), new BootstrapSettings());
+		configureBootstrap();
 		setUpSpring();
 
 		createURLRoutings();
+	}
+
+	private void configureBootstrap() {
+		BootstrapSettings bootstrapSettings = new BootstrapSettings();
+		bootstrapSettings.useCdnResources(true);
+		Bootstrap.install(Application.get(), bootstrapSettings);
 	}
 
 	public void setUpSpring() {

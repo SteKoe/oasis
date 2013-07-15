@@ -28,7 +28,7 @@ public class UserDAOTest extends BaseTest {
 		User user = new User();
 		user.setUsername("hans");
 		user.setPassword("geheim");
-		userDAO.saveOrUpdate(user);
+		userDAO.insert(user);
 		flush();
 		
 		User retrievedUser = (User) getCurrentSession().get(User.class, user.getId());
@@ -41,7 +41,7 @@ public class UserDAOTest extends BaseTest {
 	public void needUsername() throws Exception {
 		User user = new User();
 		user.setPassword("geheim");
-		userDAO.saveOrUpdate(user);
+		userDAO.insert(user);
 		flush();
 	}
 	
@@ -50,7 +50,7 @@ public class UserDAOTest extends BaseTest {
 	public void needPassword() throws Exception {
 		User user = new User();
 		user.setUsername("hans");
-		userDAO.saveOrUpdate(user);
+		userDAO.insert(user);
 		flush();
 	}
 	
@@ -66,7 +66,7 @@ public class UserDAOTest extends BaseTest {
 		userWithRoles.getSystemroles().add(admin);
 		userWithRoles.getSystemroles().add(user);
 		
-		userDAO.saveOrUpdate(userWithRoles);
+		userDAO.insert(userWithRoles);
 		flush();
 		
 		User retrievedUser = (User)getCurrentSession().get(User.class, userWithRoles.getId());
@@ -90,7 +90,7 @@ public class UserDAOTest extends BaseTest {
 		user.setPassword("geheim");
 		user.setUserProfile(profile);
 		
-		userDAO.saveOrUpdate(user);
+		userDAO.insert(user);
 	}
 
 }

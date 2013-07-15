@@ -49,6 +49,6 @@ public class UserManagerImplTest extends BaseTest {
 		User user = userManager.findByUsername(USERNAMES[0]);
 		user.getSystemroles().add(new Systemrole("ADMINISTRATOR"));
 		
-		userManager.saveOrUpdate(user);
+		userManager.insertUser(user);
 	}
 }

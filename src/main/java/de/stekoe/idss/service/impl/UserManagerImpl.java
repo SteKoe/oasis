@@ -1,5 +1,7 @@
 package de.stekoe.idss.service.impl;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +26,7 @@ public class UserManagerImpl implements UserManager {
 	public boolean insertUser(User user) throws UserAlreadyExistsException {
 		User existentUser = userDAO.findByUsername(user.getUsername());
 		if(existentUser == null) {
-			userDAO.saveOrUpdate(user);
+			userDAO.insert(user);
 			return true;
 		}
 		else {
@@ -39,8 +41,8 @@ public class UserManagerImpl implements UserManager {
 	}
 
 	@Transactional
-	public void saveOrUpdate(User entity) {
-		userDAO.saveOrUpdate(entity);
+	public void update(User entity) {
+		userDAO.update(entity);
 	}
 
 	@Override
@@ -48,5 +50,17 @@ public class UserManagerImpl implements UserManager {
 	public boolean login(String username, String password) {
 		User user = userDAO.findByUsername(username);
 		return BCrypt.checkpw(password, user.getPassword());
+	}
+
+	@Override
+	@Transactional
+	public List<User> getAllUsers() {
+		return userDAO.getAllUsers();
+	}
+
+	@Override
+	@Transactional
+	public User findByActivationCode(String code) {
+		return userDAO.findByActivationCode(code);
 	}
 }

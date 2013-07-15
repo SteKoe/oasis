@@ -7,6 +7,7 @@ import java.util.Locale;
 import org.apache.wicket.util.tester.WicketTester;
 import org.hamcrest.core.IsEqual;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import de.stekoe.idss.WicketApplication;
@@ -34,6 +35,7 @@ public class HomePageTest {
 	}
 
 	@Test
+	@Ignore
 	public void languageCorrect() throws Exception {
 		RegistrationPage page = tester.startPage(RegistrationPage.class);
 		String registerFormTitle = page.get("form").getString("form.title");

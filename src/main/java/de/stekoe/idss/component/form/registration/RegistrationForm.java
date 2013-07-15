@@ -1,5 +1,8 @@
 package de.stekoe.idss.component.form.registration;
 
+import java.util.List;
+
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.EmailTextField;
 import org.apache.wicket.markup.html.form.Form;
@@ -11,15 +14,22 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.eclipse.jetty.util.log.Log;
 import org.eclipse.jetty.util.log.Logger;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.ControlGroup;
 import de.stekoe.idss.component.behavior.Placeholder;
+import de.stekoe.idss.exception.UserAlreadyExistsException;
 import de.stekoe.idss.model.User;
+import de.stekoe.idss.security.bcrypt.BCrypt;
+import de.stekoe.idss.service.UserManager;
 
 @SuppressWarnings("serial")
 public class RegistrationForm extends Panel {
+	
+	@SpringBean
+	private UserManager userManager;
 	
 	private static final Logger LOG = Log.getLogger(RegistrationForm.class);
 
@@ -35,8 +45,15 @@ public class RegistrationForm extends Panel {
 
 	public RegistrationForm(String id) {
 		super(id, null);
+		
 		createFields();
 		createRegistrationForm();
+		
+		List<User> allUsers = userManager.getAllUsers();
+		LOG.info("Users: "+allUsers.size());
+		for(User u : allUsers) {
+			LOG.info(u.getUsername());
+		}
 	}
 
 	private void createFields() {
@@ -52,7 +69,15 @@ public class RegistrationForm extends Panel {
 			@Override
 			protected void onSubmit() {
 				User user = getModelObject();
-				LOG.info(user.toString());
+				String plainPassword = user.getPassword();
+				String hashedPassword = BCrypt.hashpw(plainPassword, BCrypt.gensalt());
+				user.setPassword(hashedPassword);
+				user.setActivationKey(DigestUtils.md5Hex(BCrypt.gensalt()));
+				try {
+					userManager.insertUser(user);
+				} catch (UserAlreadyExistsException e) {
+					error("asd");
+				}
 			}
 		};
 		form.setModel(new CompoundPropertyModel<User>(user));
@@ -77,6 +102,7 @@ public class RegistrationForm extends Panel {
 	private void setUsernameField() {
 		usernameField = new RequiredTextField<String>("username");
 		usernameField.setLabel(new StringResourceModel("username.label", this, null));
+		usernameField.add(new UniqueUsernameValidator(userManager.getAllUsers()));
 		usernameField.add(new Placeholder("username.placeholder", this));
 	}
 

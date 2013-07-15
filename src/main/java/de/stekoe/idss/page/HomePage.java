@@ -9,10 +9,15 @@ public class HomePage extends LayoutPage {
 	private Logger LOG = Logger.getLogger(HomePage.class);
 	
 	public HomePage() {
-		super();
+		this(null);
 	}
 	
 	public HomePage(final PageParameters parameters) {
 		super(parameters);
+		
+		info("Infotext");
+		error("Errortext");
+		warn("Warning!");
+		success("Success");
     }
 }

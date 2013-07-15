@@ -13,6 +13,7 @@ public class User implements Serializable {
 	private String email;
 	private Set<Systemrole> systemroles = new HashSet<Systemrole>(0);
 	private UserProfile userProfile;
+	private String activationKey;
 
 	public Long getId() { return id; }
 	public void setId(Long id) { this.id = id; }
@@ -31,6 +32,9 @@ public class User implements Serializable {
 	
 	public void setEmail(String email) { this.email = email; }
 	public String getEmail() { return this.email; }
+	
+	public void setActivationKey(String key) { this.activationKey = key; }
+	public String getActivationKey() { return this.activationKey; }
 	
 	@Override
 	public String toString() {

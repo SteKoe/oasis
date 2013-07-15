@@ -7,6 +7,7 @@ import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 
 import de.agilecoders.wicket.core.Bootstrap;
 import de.agilecoders.wicket.core.settings.BootstrapSettings;
+import de.stekoe.idss.page.ActivateUserPage;
 import de.stekoe.idss.page.ContactPage;
 import de.stekoe.idss.page.HomePage;
 import de.stekoe.idss.page.RegistrationPage;
@@ -51,5 +52,6 @@ public class WicketApplication extends WebApplication
 		mountPage("/home", HomePage.class);
 		mountPage("/contact", ContactPage.class);
 		mountPage("/register", RegistrationPage.class);
+		mountPage("/activate", ActivateUserPage.class);
 	}
 }

@@ -1,9 +1,6 @@
 package de.stekoe.idss.component.form.registration;
 
-import java.util.List;
-
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.wicket.feedback.FencedFeedbackPanel;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.EmailTextField;
 import org.apache.wicket.markup.html.form.Form;

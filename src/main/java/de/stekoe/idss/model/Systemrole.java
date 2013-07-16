@@ -1,9 +1,18 @@
 package de.stekoe.idss.model;
 
+import java.io.Serializable;
+
+import javax.persistence.Transient;
+
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
-public class Systemrole {
+@SuppressWarnings("serial")
+public class Systemrole implements Serializable {
+	
+	@Transient
+	public static final String USER = "user";
+	
 	private Long id;
 	private String name;
 

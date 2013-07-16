@@ -14,6 +14,7 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarComponents;
 import de.stekoe.idss.page.ContactPage;
 import de.stekoe.idss.page.HomePage;
 import de.stekoe.idss.page.RegistrationPage;
+import de.stekoe.idss.page.UserProfilePage;
 
 @SuppressWarnings("serial")
 public class MainNavigation extends Panel {
@@ -42,7 +43,11 @@ public class MainNavigation extends Panel {
 		NavbarButton<RegistrationPage> registrationPage = new NavbarButton<RegistrationPage>(RegistrationPage.class, Model.of("Registration"));
 		registrationPage.setIconType(IconType.user);
 		
-		List<INavbarComponent> navbarComponent = NavbarComponents.transform(Navbar.ComponentPosition.LEFT, homePage, contactPage, registrationPage);
+		NavbarButton<UserProfilePage> profilePage = new NavbarButton<UserProfilePage>(UserProfilePage.class, Model.of("Profil"));
+		profilePage.setIconType(IconType.user);
+		
+		
+		List<INavbarComponent> navbarComponent = NavbarComponents.transform(Navbar.ComponentPosition.LEFT, homePage, contactPage, registrationPage, profilePage);
 		navbar.addComponents(navbarComponent);
 		return navbar;
 	}

@@ -26,7 +26,6 @@ import org.eclipse.jetty.util.log.Logger;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.dialog.Alert;
 
-@SuppressWarnings("serial")
 public class MyFeedbackPanel extends Panel implements IFeedback {
 
 	private static final Logger LOG = Log.getLogger(MyFeedbackPanel.class);

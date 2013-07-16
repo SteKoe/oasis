@@ -1,11 +1,10 @@
 package de.stekoe.idss.page;
 
-import org.apache.wicket.feedback.FencedFeedbackPanel;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
-import de.stekoe.idss.component.feedbackpanel.MyFeedbackPanel;
+import de.stekoe.idss.IDSSSession;
 import de.stekoe.idss.component.feedbackpanel.MyFencedFeedbackPanel;
 import de.stekoe.idss.component.navigation.main.MainNavigation;
 
@@ -14,20 +13,29 @@ public abstract class LayoutPage extends WebPage {
 
 	public LayoutPage() {
 		super();
-		createContents();
+		initPage();
 	}
 
 	public LayoutPage(IModel<?> model) {
 		super(model);
-		createContents();
+		initPage();
 	}
 
 	public LayoutPage(PageParameters parameters) {
 		super(parameters);
-		createContents();
+		initPage();
 	}
 
-	private void createContents() {
+	private void initPage() {
+		configureSession();
+		createContent();
+	}
+
+	private void configureSession() {
+		IDSSSession.get().bind();
+	}
+
+	private void createContent() {
 		add(new MyFencedFeedbackPanel("systemmessages"));
 		add(new MainNavigation("navbar"));
 	}

@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.wicket.authroles.authorization.strategies.role.Roles;
+
 @SuppressWarnings("serial")
 public class User implements Serializable {
 	
@@ -63,5 +65,17 @@ public class User implements Serializable {
 		sb.append(String.format(format, "Roles", roles));
 		
 		return sb.toString();
+	}
+	
+	public boolean hasAnyRole(Roles roles) {
+		
+		Roles systemroles = new Roles();
+		for(Systemrole systemrole : getSystemroles())
+			systemroles.add(systemrole.getName());
+		
+		System.out.println("User needs role: "+roles);
+		System.out.println("User has roles:  "+systemroles);
+		
+		return systemroles.hasAnyRole(roles);
 	}
 }

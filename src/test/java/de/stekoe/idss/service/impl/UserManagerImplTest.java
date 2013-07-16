@@ -1,5 +1,6 @@
 package de.stekoe.idss.service.impl;
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
@@ -26,11 +27,17 @@ public class UserManagerImplTest extends BaseTest {
 		for(int i = 0; i < USERNAMES.length; i++) {
 			User user = new User();
 			user.setUsername(USERNAMES[i]);
+			user.setEmail(USERNAMES[i]+"@example.com");
 			user.setPassword(BCrypt.hashpw(PASSWORT, BCrypt.gensalt()));
 			userManager.insertUser(user);
 		}
 	}
 
+	@Test
+	public void getAllUsers() throws Exception {
+		userManager.getAllUsers();
+	}
+	
 	@Test(expected=UserAlreadyExistsException.class)
 	public void duplicatedUsername() throws Exception {
 		User duplicatedUser = new User();
@@ -48,7 +55,6 @@ public class UserManagerImplTest extends BaseTest {
 	public void testForRoles() throws Exception {
 		User user = userManager.findByUsername(USERNAMES[0]);
 		user.getSystemroles().add(new Systemrole("ADMINISTRATOR"));
-		
-		userManager.insertUser(user);
+		userManager.update(user);
 	}
 }

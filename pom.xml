@@ -151,6 +151,11 @@
 			<artifactId>commons-codec</artifactId>
 			<version>1.5</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.wicket</groupId>
+			<artifactId>wicket-auth-roles</artifactId>
+			<version>6.7.0</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<resources>

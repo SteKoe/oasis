@@ -1,0 +1,23 @@
+<project name="Build" default="prepare-war" basedir=".">
+
+	<tstamp>
+		<format property="timestamp" pattern="yyyy-MM-dd hh:mm aa" locale="de" />
+	</tstamp>
+
+	<target name="prepare-war" depends="setVersion, replaceVersion">
+	</target>
+
+	<target name="setVersion">
+		<property name="versionNumber" value="${version} (Last build on: ${timestamp})" />
+		<echo message="${versionNumber}" />
+	</target>
+
+	<target name="replaceVersion">
+		<echo message="${versionNumber}" />
+		<replace dir="target" value="${versionNumber}">
+			<include name="**/WicketApplication.properties" />
+			<replacetoken>@@VERSION@@</replacetoken>
+		</replace>
+	</target>
+
+</project>

@@ -260,7 +260,7 @@
 								<property name="outputDir" value="${project.build.outputDirectory}" />
 								<property name="sourceDir" value="${project.build.sourceDirectory}" />
 								<property name="version" value="${project.version}" />
-								<ant antfile="build.xml" target="prepare-war" />
+								<ant antfile="build.xml" />
 							</tasks>
 						</configuration>
 					</execution>

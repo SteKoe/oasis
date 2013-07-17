@@ -13,8 +13,6 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.eclipse.jetty.util.log.Log;
-import org.eclipse.jetty.util.log.Logger;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.ControlGroup;
 import de.stekoe.idss.component.behavior.Placeholder;
@@ -29,8 +27,6 @@ public class RegistrationForm extends Panel {
 	
 	@SpringBean
 	private UserManager userManager;
-	
-	private static final Logger LOG = Log.getLogger(RegistrationForm.class);
 
 	private User user = new User();
 

@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.feedback.FeedbackMessage;
@@ -15,21 +16,17 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
-import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
-import org.apache.wicket.settings.IApplicationSettings;
-import org.eclipse.jetty.util.log.Log;
-import org.eclipse.jetty.util.log.Logger;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.dialog.Alert;
 
 public class MyFeedbackPanel extends Panel implements IFeedback {
 
-	private static final Logger LOG = Log.getLogger(MyFeedbackPanel.class);
-
+	private static final Logger LOG = Logger.getLogger(MyFeedbackPanel.class);
+	
 	private final class MessageListView extends ListView<FeedbackMessage> {
 		private static final long serialVersionUID = 1L;
 

@@ -76,12 +76,6 @@
 			<version>${wicket.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.wicket</groupId>
-			<artifactId>wicket-spring-annot</artifactId>
-			<version>6.6.0</version>
-			<type>pom.lastUpdated</type>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
 			<version>3.2.2.RELEASE</version>

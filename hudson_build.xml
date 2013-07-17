@@ -1,0 +1,8 @@
+<project name="Build" default="move-war" basedir=".">
+
+	<target name="move-war">
+		<!-- <copyfile dest="${tomcatPath}" src="target/IDSS-1.0-SNAPSHOT.war" /> -->
+		<echo message="${path}" />
+	</target>
+
+</project>

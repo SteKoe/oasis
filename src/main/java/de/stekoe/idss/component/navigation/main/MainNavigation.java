@@ -49,11 +49,11 @@ public class MainNavigation extends Panel {
 			registrationPage.setVisible(false);
 		}
 		
-		NavbarButton<LoginPage> profilePage = new NavbarButton<LoginPage>(LoginPage.class, Model.of("Anmelden"));
-		profilePage.setIconType(IconType.user);
+		NavbarButton<LoginPage> loginPage = new NavbarButton<LoginPage>(LoginPage.class, Model.of("Anmelden"));
+		loginPage.setIconType(IconType.user);
 		
 		
-		List<INavbarComponent> navbarComponent = NavbarComponents.transform(Navbar.ComponentPosition.LEFT, homePage, contactPage, registrationPage, profilePage, profilePage);
+		List<INavbarComponent> navbarComponent = NavbarComponents.transform(Navbar.ComponentPosition.LEFT, homePage, contactPage, registrationPage, loginPage);
 		navbar.addComponents(navbarComponent);
 		return navbar;
 	}

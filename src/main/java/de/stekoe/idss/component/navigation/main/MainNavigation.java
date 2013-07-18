@@ -11,8 +11,10 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.INavbarComponent;
 import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.Navbar;
 import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarButton;
 import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarComponents;
+import de.stekoe.idss.IDSSSession;
 import de.stekoe.idss.page.ContactPage;
 import de.stekoe.idss.page.HomePage;
+import de.stekoe.idss.page.LoginPage;
 import de.stekoe.idss.page.RegistrationPage;
 import de.stekoe.idss.page.UserProfilePage;
 
@@ -42,12 +44,16 @@ public class MainNavigation extends Panel {
 		
 		NavbarButton<RegistrationPage> registrationPage = new NavbarButton<RegistrationPage>(RegistrationPage.class, Model.of("Registration"));
 		registrationPage.setIconType(IconType.user);
+
+		if(IDSSSession.get().getUser() == null) {
+			registrationPage.setVisible(false);
+		}
 		
-		NavbarButton<UserProfilePage> profilePage = new NavbarButton<UserProfilePage>(UserProfilePage.class, Model.of("Profil"));
+		NavbarButton<LoginPage> profilePage = new NavbarButton<LoginPage>(LoginPage.class, Model.of("Anmelden"));
 		profilePage.setIconType(IconType.user);
 		
 		
-		List<INavbarComponent> navbarComponent = NavbarComponents.transform(Navbar.ComponentPosition.LEFT, homePage, contactPage, registrationPage, profilePage);
+		List<INavbarComponent> navbarComponent = NavbarComponents.transform(Navbar.ComponentPosition.LEFT, homePage, contactPage, registrationPage, profilePage, profilePage);
 		navbar.addComponents(navbarComponent);
 		return navbar;
 	}

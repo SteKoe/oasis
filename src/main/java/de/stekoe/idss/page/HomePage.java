@@ -21,19 +21,7 @@ public class HomePage extends LayoutPage {
 	
 	public HomePage(final PageParameters parameters) {
 		super(parameters);
-		
-		Set<Systemrole> systemroles = new HashSet<Systemrole>();
-		systemroles.add(new Systemrole(Systemrole.USER));
-		
-		User user = new User();
-		user.setUsername("username");
-		user.setEmail("username@example.com");
-		user.setPassword("geheim");
-		user.setSystemroles(systemroles);
-		
-		IDSSSession session = IDSSSession.get();
-		session.setUser(user);
-		
+
 		info("Infotext");
 		error("Errortext");
 		warn("Warning!");

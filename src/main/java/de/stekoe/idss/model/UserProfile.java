@@ -10,7 +10,7 @@ import org.joda.time.Years;
 
 /**
  * This class holds any information about a user's profile.
- * 
+ *
  * @author Stephan Köninger <mail@stekoe.de>
  */
 @SuppressWarnings("serial")
@@ -29,7 +29,7 @@ public class UserProfile implements Serializable {
 
     /**
      * Set the id.
-     * 
+     *
      * @param id Id of the UserProfile.
      */
     public void setId(Long id) {
@@ -45,7 +45,7 @@ public class UserProfile implements Serializable {
 
     /**
      * Sets the firstname.
-     * 
+     *
      * @param firstname The first name of the user.
      */
     public void setFirstname(String firstname) {
@@ -61,7 +61,7 @@ public class UserProfile implements Serializable {
 
     /**
      * Sets the surename.
-     * 
+     *
      * @param surename The surename of the user.
      */
     public void setSurename(String surename) {
@@ -77,7 +77,7 @@ public class UserProfile implements Serializable {
 
     /**
      * Sets the birthdate.
-     * 
+     *
      * @param birthdate The birthdate of the user.
      */
     public void setBirthdate(Date birthdate) {

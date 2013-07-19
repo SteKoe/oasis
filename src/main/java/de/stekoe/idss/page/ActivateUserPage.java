@@ -14,14 +14,14 @@ public class ActivateUserPage extends LayoutPage {
 	private UserManager userManager;
 
 	private String activationCode = null;
-	
+
 	public ActivateUserPage(PageParameters parameters) {
 		super(parameters);
-		
+
 		setActivationKey(parameters);
-		if(!activationCode.isEmpty()) {
+		if (!activationCode.isEmpty()) {
 			User userToActivate = getUserToActivate();
-			if(userToActivate != null) {
+			if (userToActivate != null) {
 				activateUser(userToActivate);
 			}
 		}
@@ -34,8 +34,8 @@ public class ActivateUserPage extends LayoutPage {
 
 	private void setActivationKey(PageParameters parameters) {
 		StringValue activationCode = parameters.get(0);
-		if(!activationCode.isEmpty()) {
-			this.activationCode  = activationCode.toString();
+		if (!activationCode.isEmpty()) {
+			this.activationCode = activationCode.toString();
 		}
 	}
 

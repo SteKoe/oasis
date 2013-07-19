@@ -16,18 +16,19 @@ import de.stekoe.idss.service.UserManager;
 
 public class UserManagerImplTest extends BaseTest {
 
-	private static final String[] USERNAMES = {"Stephan","Benedikt","Robert","Jonas"};
+	private static final String[] USERNAMES = { "Stephan", "Benedikt",
+			"Robert", "Jonas" };
 	private static final String PASSWORT = "geheim";
-	
+
 	@Autowired
 	private UserManager userManager;
-	
+
 	@Before
 	public void setUp() throws Exception {
-		for(int i = 0; i < USERNAMES.length; i++) {
+		for (int i = 0; i < USERNAMES.length; i++) {
 			User user = new User();
 			user.setUsername(USERNAMES[i]);
-			user.setEmail(USERNAMES[i]+"@example.com");
+			user.setEmail(USERNAMES[i] + "@example.com");
 			user.setPassword(BCrypt.hashpw(PASSWORT, BCrypt.gensalt()));
 			userManager.insertUser(user);
 		}
@@ -37,20 +38,20 @@ public class UserManagerImplTest extends BaseTest {
 	public void getAllUsers() throws Exception {
 		userManager.getAllUsers();
 	}
-	
-	@Test(expected=UserAlreadyExistsException.class)
+
+	@Test(expected = UserAlreadyExistsException.class)
 	public void duplicatedUsername() throws Exception {
 		User duplicatedUser = new User();
 		duplicatedUser.setUsername(USERNAMES[0]);
-		
+
 		userManager.insertUser(duplicatedUser);
 	}
-	
+
 	@Test
 	public void loginWorks() throws Exception {
 		assertTrue(userManager.login(USERNAMES[0], PASSWORT));
 	}
-	
+
 	@Test
 	public void testForRoles() throws Exception {
 		User user = userManager.findByUsername(USERNAMES[0]);

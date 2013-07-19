@@ -25,13 +25,12 @@ public class IDSSSession extends WebSession {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
+
 	public boolean isLoggedIn() {
 		return getUser() != null;
 	}
-	
-	public static IDSSSession get()
-	{
-		return (IDSSSession)Session.get();
+
+	public static IDSSSession get() {
+		return (IDSSSession) Session.get();
 	}
 }

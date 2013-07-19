@@ -19,21 +19,19 @@ import de.stekoe.idss.page.RegistrationPage;
 import de.stekoe.idss.page.UserProfilePage;
 
 /**
- * Application object for your web application. If you want to run this application without deploying, run the Start class.
+ * Application object for your web application. If you want to run this
+ * application without deploying, run the Start class.
  * 
  * @see de.stekoe.idss.Start#main(String[])
  */
-public class WicketApplication extends WebApplication
-{    	
+public class WicketApplication extends WebApplication {
 	@Override
-	public Class<? extends WebPage> getHomePage()
-	{
+	public Class<? extends WebPage> getHomePage() {
 		return HomePage.class;
 	}
 
 	@Override
-	public void init()
-	{
+	public void init() {
 		super.init();
 		switch (getConfigurationType()) {
 		case DEVELOPMENT:
@@ -44,24 +42,25 @@ public class WicketApplication extends WebApplication
 			getMarkupSettings().setCompressWhitespace(true);
 			break;
 		}
-		
-		getSecuritySettings().setAuthorizationStrategy(new RoleAuthorizationStrategy(new UserRolesAuthorizer()));
-		
+
+		getSecuritySettings().setAuthorizationStrategy(
+				new RoleAuthorizationStrategy(new UserRolesAuthorizer()));
+
 		configureBootstrap();
 		setUpSpring();
 
 		createURLRoutings();
-		
-//		getApplicationSettings().setPageExpiredErrorPage(MyExpiredPage.class);
+
+		// getApplicationSettings().setPageExpiredErrorPage(MyExpiredPage.class);
 		getApplicationSettings().setAccessDeniedPage(AccessDeniedPage.class);
-//		getApplicationSettings().setInternalErrorPage(MyInternalErrorPage.class);
+		// getApplicationSettings().setInternalErrorPage(MyInternalErrorPage.class);
 	}
 
 	@Override
 	public Session newSession(Request request, Response response) {
 		return new IDSSSession(request);
 	}
-	
+
 	private void configureBootstrap() {
 		BootstrapSettings bootstrapSettings = new BootstrapSettings();
 		bootstrapSettings.useCdnResources(true);
@@ -69,7 +68,8 @@ public class WicketApplication extends WebApplication
 	}
 
 	public void setUpSpring() {
-		getComponentInstantiationListeners().add(new SpringComponentInjector(this));
+		getComponentInstantiationListeners().add(
+				new SpringComponentInjector(this));
 	}
 
 	private void createURLRoutings() {

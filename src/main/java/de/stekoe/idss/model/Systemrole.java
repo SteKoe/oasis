@@ -9,18 +9,18 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @SuppressWarnings("serial")
 public class Systemrole implements Serializable {
-	
+
 	@Transient
 	public static final String USER = "user";
 	@Transient
 	public static final String ADMIN = "administrator";
-	
+
 	private Long id;
 	private String name;
 
 	public Systemrole() {
 	}
-	
+
 	public Systemrole(String name) {
 		setName(name);
 	}

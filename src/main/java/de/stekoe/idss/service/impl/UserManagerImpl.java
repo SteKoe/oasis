@@ -18,19 +18,18 @@ import de.stekoe.idss.service.UserManager;
 public class UserManagerImpl implements UserManager {
 
 	private Logger LOG = Logger.getLogger(UserManagerImpl.class);
-	
+
 	@Autowired
 	private UserDAO userDAO;
-	
+
 	@Override
 	@Transactional
 	public boolean insertUser(User user) throws UserAlreadyExistsException {
 		User existentUser = userDAO.findByUsername(user.getUsername());
-		if(existentUser == null) {
+		if (existentUser == null) {
 			userDAO.insert(user);
 			return true;
-		}
-		else {
+		} else {
 			LOG.warn("Tried to insert new user with existing username!");
 			throw new UserAlreadyExistsException();
 		}
@@ -69,7 +68,7 @@ public class UserManagerImpl implements UserManager {
 	@Transactional
 	public List<String> getAllUsernames() {
 		List<String> usernames = new ArrayList<String>();
-		for(User u : getAllUsers()) {
+		for (User u : getAllUsers()) {
 			usernames.add(u.getUsername());
 		}
 		return usernames;
@@ -79,11 +78,11 @@ public class UserManagerImpl implements UserManager {
 	@Transactional
 	public List<String> getAllEmailAddresses() {
 		List<String> mail = new ArrayList<String>();
-		
-		for(User u : getAllUsers()) {
+
+		for (User u : getAllUsers()) {
 			mail.add(u.getEmail());
 		}
-		
+
 		return mail;
 	}
 }

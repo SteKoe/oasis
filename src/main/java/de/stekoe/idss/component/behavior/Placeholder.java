@@ -9,19 +9,20 @@ import org.apache.wicket.model.StringResourceModel;
 public class Placeholder extends Behavior {
 
 	private String placeholder;
-	
+
 	public Placeholder(String placeholder) {
 		this(placeholder, null);
 	}
-	
+
 	public Placeholder(String placeholder, Component component) {
-		if(component == null) {
+		if (component == null) {
 			this.placeholder = placeholder;
 		} else {
-			this.placeholder = new StringResourceModel(placeholder, component, null).getString();
+			this.placeholder = new StringResourceModel(placeholder, component,
+					null).getString();
 		}
 	}
-	
+
 	@Override
 	public void onComponentTag(Component component, ComponentTag tag) {
 		tag.put("placeholder", this.placeholder);

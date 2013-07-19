@@ -24,7 +24,7 @@ import de.stekoe.idss.service.UserManager;
 
 @SuppressWarnings("serial")
 public class RegistrationForm extends Panel {
-	
+
 	@SpringBean
 	private UserManager userManager;
 
@@ -40,7 +40,7 @@ public class RegistrationForm extends Panel {
 
 	public RegistrationForm(String id) {
 		super(id, null);
-		
+
 		createHiddenFeedbackPanel();
 		createFields();
 		createRegistrationForm();
@@ -49,7 +49,8 @@ public class RegistrationForm extends Panel {
 	/**
 	 * This method adds a hidden {@code FencedFeedbackPanel} to the Panel.
 	 * 
-	 * <p>The purpose of {@link MyFencedFeedbackPanel} is to force the framework to
+	 * <p>
+	 * The purpose of {@link MyFencedFeedbackPanel} is to force the framework to
 	 * not to print all the errors of the fields to the page.
 	 */
 	private void createHiddenFeedbackPanel() {
@@ -66,29 +67,31 @@ public class RegistrationForm extends Panel {
 	}
 
 	private void createRegistrationForm() {
-		form = new Form<User>("registrationForm"){
+		form = new Form<User>("registrationForm") {
 			@Override
 			protected void onSubmit() {
 				User user = getModelObject();
 				String plainPassword = user.getPassword();
-				String hashedPassword = BCrypt.hashpw(plainPassword, BCrypt.gensalt());
+				String hashedPassword = BCrypt.hashpw(plainPassword,
+						BCrypt.gensalt());
 				user.setPassword(hashedPassword);
 				user.setActivationKey(DigestUtils.md5Hex(BCrypt.gensalt()));
 				try {
 					userManager.insertUser(user);
 				} catch (UserAlreadyExistsException e) {
-					error(new StringResourceModel("error.usernameAlreadyTaken", this, null));
+					error(new StringResourceModel("error.usernameAlreadyTaken",
+							this, null));
 				}
 			}
 		};
 		form.setModel(new CompoundPropertyModel<User>(user));
-		
+
 		form.add(getUsernameControlGroup());
 		form.add(getEmailControlGroup());
 		form.add(getPasswordControlGroup());
 		form.add(getPasswordConfirmControlGroup());
 		form.add(getButtonControlGroup());
-		
+
 		form.add(getPasswordsEqualBehavior());
 
 		add(form);
@@ -102,8 +105,10 @@ public class RegistrationForm extends Panel {
 
 	private void setUsernameField() {
 		usernameField = new RequiredTextField<String>("username");
-		usernameField.setLabel(new StringResourceModel("username.label", this, null));
-		usernameField.add(new UniqueContentValidator(userManager.getAllUsernames()));
+		usernameField.setLabel(new StringResourceModel("username.label", this,
+				null));
+		usernameField.add(new UniqueContentValidator(userManager
+				.getAllUsernames()));
 		usernameField.add(new Placeholder("username.placeholder", this));
 	}
 
@@ -128,7 +133,7 @@ public class RegistrationForm extends Panel {
 	private EmailTextField getEmailField() {
 		return email;
 	}
-	
+
 	private ControlGroup getPasswordControlGroup() {
 		String id = "passwordControlGroup";
 		PasswordTextField field = getPasswordField();
@@ -156,22 +161,24 @@ public class RegistrationForm extends Panel {
 
 	private void setPasswordConfirmField() {
 		passwordConfirm = new PasswordTextField("passwordConfirm", Model.of(""));
-		passwordConfirm.setLabel(new StringResourceModel("passwordConfirm.label", this, null));
+		passwordConfirm.setLabel(new StringResourceModel(
+				"passwordConfirm.label", this, null));
 	}
-	
+
 	private ControlGroup getButtonControlGroup() {
 		String id = "buttonControlGroup";
 		Button submitButton = getSubmitButton();
 		return createControlGroup(id, submitButton);
 	}
-	
+
 	private Button getSubmitButton() {
 		return submitButton;
 	}
-	
+
 	private void setSubmitButton() {
 		submitButton = new Button("submit");
-		submitButton.setModel(new StringResourceModel("submit.label", this, null));
+		submitButton.setModel(new StringResourceModel("submit.label", this,
+				null));
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -182,6 +189,7 @@ public class RegistrationForm extends Panel {
 	}
 
 	private EqualPasswordInputValidator getPasswordsEqualBehavior() {
-		return new EqualPasswordInputValidator(getPasswordField(), getPasswordConfirmField());
+		return new EqualPasswordInputValidator(getPasswordField(),
+				getPasswordConfirmField());
 	}
 }

@@ -6,7 +6,8 @@ import de.stekoe.idss.dao.UserProfileDAO;
 import de.stekoe.idss.model.UserProfile;
 
 @Service
-public class UserProfileDAOImpl extends GenericDAOImpl implements UserProfileDAO {
+public class UserProfileDAOImpl extends GenericDAOImpl implements
+		UserProfileDAO {
 
 	@Override
 	public void saveOrUpdate(UserProfile entity) {

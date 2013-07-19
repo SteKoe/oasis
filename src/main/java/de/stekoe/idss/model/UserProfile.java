@@ -16,6 +16,7 @@ public class UserProfile {
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -23,6 +24,7 @@ public class UserProfile {
 	public String getFirstname() {
 		return firstname;
 	}
+
 	public void setFirstname(String firstname) {
 		this.firstname = firstname;
 	}
@@ -30,6 +32,7 @@ public class UserProfile {
 	public String getSurename() {
 		return surename;
 	}
+
 	public void setSurename(String surename) {
 		this.surename = surename;
 	}
@@ -37,6 +40,7 @@ public class UserProfile {
 	public Date getBirthdate() {
 		return birthdate;
 	}
+
 	public void setBirthdate(Date birthdate) {
 		this.birthdate = birthdate;
 	}
@@ -44,17 +48,17 @@ public class UserProfile {
 	public int getAge() {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(getBirthdate());
-		
+
 		int year = calendar.get(Calendar.YEAR);
 		int month = calendar.get(Calendar.MONTH);
 		int day = calendar.get(Calendar.DAY_OF_MONTH);
 
 		DateMidnight birthdate = new DateMidnight(year, month, day);
 		DateTime currentDate = getCurrentDate();
-		
+
 		return Years.yearsBetween(birthdate, currentDate).getYears();
 	}
-	
+
 	// For testing purposes
 	DateTime getCurrentDate() {
 		return new DateTime();

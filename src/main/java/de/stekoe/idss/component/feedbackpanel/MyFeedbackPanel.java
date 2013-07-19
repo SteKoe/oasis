@@ -26,7 +26,7 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.dialog.Alert;
 public class MyFeedbackPanel extends Panel implements IFeedback {
 
 	private static final Logger LOG = Logger.getLogger(MyFeedbackPanel.class);
-	
+
 	private final class MessageListView extends ListView<FeedbackMessage> {
 		private static final long serialVersionUID = 1L;
 
@@ -36,7 +36,9 @@ public class MyFeedbackPanel extends Panel implements IFeedback {
 		}
 
 		@Override
-		protected IModel<FeedbackMessage> getListItemModel(final IModel<? extends List<FeedbackMessage>> listViewModel, final int index) {
+		protected IModel<FeedbackMessage> getListItemModel(
+				final IModel<? extends List<FeedbackMessage>> listViewModel,
+				final int index) {
 			return new AbstractReadOnlyModel<FeedbackMessage>() {
 				private static final long serialVersionUID = 1L;
 
@@ -161,15 +163,18 @@ public class MyFeedbackPanel extends Panel implements IFeedback {
 		return new FeedbackMessagesModel(this);
 	}
 
-	protected Component newMessageDisplayComponent(String id, FeedbackMessage message) {
+	protected Component newMessageDisplayComponent(String id,
+			FeedbackMessage message) {
 		Serializable serializable = message.getMessage();
-		Label label = new Label(id, (serializable == null) ? "" : serializable.toString());
-		label.setEscapeModelStrings(MyFeedbackPanel.this.getEscapeModelStrings());
-		
+		Label label = new Label(id, (serializable == null) ? ""
+				: serializable.toString());
+		label.setEscapeModelStrings(MyFeedbackPanel.this
+				.getEscapeModelStrings());
+
 		Alert alert = new Alert(id, Model.of(serializable.toString()));
 		int level = message.getLevel();
-		
-		switch(level) {
+
+		switch (level) {
 		case FeedbackMessage.ERROR:
 		case FeedbackMessage.FATAL:
 			alert.type(Alert.Type.Error);
@@ -181,7 +186,7 @@ public class MyFeedbackPanel extends Panel implements IFeedback {
 			alert.type(Alert.Type.Warning);
 			break;
 		case FeedbackMessage.INFO:
-			default:
+		default:
 			alert.type(Alert.Type.Info);
 		}
 		return alert;

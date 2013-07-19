@@ -19,7 +19,7 @@ public class UniqueContentValidator implements IValidator<String> {
 	public void validate(IValidatable<String> validatable) {
 		String fieldValue = validatable.getValue();
 
-		if(checkers.contains(fieldValue)) {
+		if (checkers.contains(fieldValue)) {
 			error(validatable, "notUnique");
 		}
 	}

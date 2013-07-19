@@ -39,7 +39,7 @@ public abstract class LayoutPage extends WebPage {
 		add(new MyFencedFeedbackPanel("systemmessages"));
 		add(new MainNavigation("navbar"));
 	}
-	
+
 	public IDSSSession getSession() {
 		return IDSSSession.get();
 	}

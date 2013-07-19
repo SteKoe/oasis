@@ -13,13 +13,13 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.mindrot.jbcrypt.BCrypt;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.ControlGroup;
 import de.stekoe.idss.component.behavior.Placeholder;
 import de.stekoe.idss.component.feedbackpanel.MyFencedFeedbackPanel;
 import de.stekoe.idss.exception.UserAlreadyExistsException;
 import de.stekoe.idss.model.User;
-import de.stekoe.idss.security.bcrypt.BCrypt;
 import de.stekoe.idss.service.UserManager;
 
 /**

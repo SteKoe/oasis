@@ -17,9 +17,8 @@
 	<artifactId>IDSS</artifactId>
 	<packaging>war</packaging>
 	<version>1.0-SNAPSHOT</version>
-	<!-- TODO project name -->
 	<name>IDSS Project</name>
-	<description></description>
+	<description>I am a description.</description>
 	<licenses>
 		<license>
 			<name>The Apache Software License, Version 2.0</name>
@@ -27,6 +26,22 @@
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
+	<developers>
+		<developer>
+			<name>Stephan Köninger</name>
+			<email>mail@stekoe.de</email>
+		</developer>
+	</developers>
+
+	<contributors>
+		<contributor>
+		  <name>Michael Heß</name>
+		  <organization>Lehrstuhl für Wirtschaftsinformatik und Unternehmensmodellierung</organization>
+		  <email>m.hess@uni-due.de</email>
+		  <url>http://www.wi-inf.uni-duisburg-essen.de/FGFrank/index.php?lang=de&amp;groupId=1&amp;contentType=GroupMember&amp;persId=800</url>
+		</contributor>
+	</contributors>
+
 	<properties>
 		<wicket.version>6.9.0</wicket.version>
 		<jetty.version>7.6.3.v20120416</jetty.version>
@@ -163,10 +178,9 @@
 			<type>maven-plugin</type>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-javadoc-plugin</artifactId>
-			<version>2.9</version>
-			<type>maven-plugin</type>
+			<groupId>org.mindrot</groupId>
+			<artifactId>jbcrypt</artifactId>
+			<version>0.3m</version>
 		</dependency>
 	</dependencies>
 	<build>
@@ -252,6 +266,20 @@
 				</configuration>
 			</plugin>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>2.9.1</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>
+							 checkstyle
+			                 </goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<artifactId>maven-antrun-plugin</artifactId>
 				<executions>
 					<execution>
@@ -274,4 +302,40 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<!-- mvn site -->
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>2.9.1</version>
+				<configuration>
+					<configLocation>build/checkstyle.xml</configLocation>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>findbugs-maven-plugin</artifactId>
+				<version>2.5.2</version>
+				<configuration>
+					<threshold>Normal</threshold>
+					<effort>Default</effort>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>3.0.1</version>
+				<configuration>
+					<targetJdk>${maven.compile.target}</targetJdk>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
+	<ciManagement>
+		<system>jenkins</system>
+		<url>http://stekoe.dyndns.org:8081</url>
+	</ciManagement>
+	<inceptionYear>2013</inceptionYear>
 </project>

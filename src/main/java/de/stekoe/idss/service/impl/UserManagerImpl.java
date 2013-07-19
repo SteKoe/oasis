@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import de.stekoe.idss.dao.UserDAO;
 import de.stekoe.idss.exception.UserAlreadyExistsException;
 import de.stekoe.idss.model.User;
-import de.stekoe.idss.security.bcrypt.BCrypt;
 import de.stekoe.idss.service.UserManager;
 
 /**

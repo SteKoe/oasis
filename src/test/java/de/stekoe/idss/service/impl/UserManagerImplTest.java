@@ -1,17 +1,16 @@
 package de.stekoe.idss.service.impl;
 
-import static org.junit.Assert.*;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import de.stekoe.idss.dao.BaseTest;
 import de.stekoe.idss.exception.UserAlreadyExistsException;
 import de.stekoe.idss.model.Systemrole;
 import de.stekoe.idss.model.User;
-import de.stekoe.idss.security.bcrypt.BCrypt;
 import de.stekoe.idss.service.UserManager;
 
 public class UserManagerImplTest extends BaseTest {

@@ -4,8 +4,6 @@ import java.io.Serializable;
 
 import javax.persistence.Transient;
 
-import org.springframework.transaction.annotation.Transactional;
-
 /**
  * @author Stephan Köninger <mail@stekoe.de>
  */

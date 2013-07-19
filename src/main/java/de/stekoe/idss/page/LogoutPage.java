@@ -9,6 +9,10 @@ import de.stekoe.idss.IDSSSession;
  */
 @SuppressWarnings("serial")
 public class LogoutPage extends LayoutPage {
+
+    /**
+     * Construct.
+     */
     public LogoutPage() {
         IDSSSession.get().invalidate();
         info("Sie haben sich erfolgreich abgemeldet!");

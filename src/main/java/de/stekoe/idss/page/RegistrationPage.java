@@ -14,6 +14,9 @@ import de.stekoe.idss.model.User;
 @SuppressWarnings("serial")
 public class RegistrationPage extends LayoutPage {
 
+    /**
+     * Construct.
+     */
     public RegistrationPage() {
         add(new RegistrationForm("form"));
 

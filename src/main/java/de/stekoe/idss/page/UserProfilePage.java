@@ -11,6 +11,9 @@ import de.stekoe.idss.model.User;
 @SuppressWarnings("serial")
 public class UserProfilePage extends AuthUserPage {
 
+    /**
+     * Construct.
+     */
     public UserProfilePage() {
         User user = getSession().getUser();
         add(new Label("username", Model.of(user.getUsername())));

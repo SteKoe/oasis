@@ -14,16 +14,27 @@ import de.stekoe.idss.component.navigation.main.MainNavigation;
 public abstract class LayoutPage extends WebPage {
     private static final long serialVersionUID = 1860769875900411155L;
 
+    /**
+     * Construct.
+     */
     public LayoutPage() {
         super();
         initPage();
     }
 
+    /**
+     * Construct.
+     * @param model IModel of the page
+     */
     public LayoutPage(IModel<?> model) {
         super(model);
         initPage();
     }
 
+    /**
+     * Construct.
+     * @param parameters Wrapped page parameters
+     */
     public LayoutPage(PageParameters parameters) {
         super(parameters);
         initPage();
@@ -43,6 +54,7 @@ public abstract class LayoutPage extends WebPage {
         add(new MainNavigation("navbar"));
     }
 
+    @Override
     public IDSSSession getSession() {
         return IDSSSession.get();
     }

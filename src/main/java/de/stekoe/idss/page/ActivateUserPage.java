@@ -18,6 +18,10 @@ public class ActivateUserPage extends LayoutPage {
 
     private String activationCode = null;
 
+    /**
+     * Construct.
+     * @param parameters Wrapped page parameters
+     */
     public ActivateUserPage(PageParameters parameters) {
         super(parameters);
 

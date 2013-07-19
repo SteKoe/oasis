@@ -1,13 +1,15 @@
 package de.stekoe.idss.page;
 
-import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
+import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.model.Model;
 
-import de.stekoe.idss.model.Systemrole;
+import de.stekoe.idss.model.User;
 
 @SuppressWarnings("serial")
-@AuthorizeInstantiation(Systemrole.USER)
-public class UserProfilePage extends LayoutPage {
+public class UserProfilePage extends AuthUserPage {
 
 	public UserProfilePage() {
+		User user = getSession().getUser();
+		add(new Label("username", Model.of(user.getUsername())));
 	}
 }

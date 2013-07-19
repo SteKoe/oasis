@@ -40,13 +40,22 @@ public class MainNavigation extends Panel {
 		NavbarButton<ContactPage> contactPage = createContactPageLink();
 		NavbarButton<RegistrationPage> registrationPage = createRegistrationPageLink();
 		NavbarButton<LoginPage> loginPage = createLoginPageLink();
+		NavbarButton<UserProfilePage> profilePage = createUserProfilePageLink();
+		
 		List<INavbarComponent> navbarComponent = NavbarComponents.transform(Navbar.ComponentPosition.LEFT, 
 				homePage, 
 				contactPage, 
-				registrationPage, 
+				registrationPage,
+				profilePage,
 				loginPage);
 		navbar.addComponents(navbarComponent);
 		return navbar;
+	}
+
+	private NavbarButton<UserProfilePage> createUserProfilePageLink() {
+		NavbarButton<UserProfilePage> userProfilePage = new NavbarButton<UserProfilePage>(UserProfilePage.class, Model.of("Profile"));
+		userProfilePage.setIconType(IconType.user);
+		return userProfilePage;
 	}
 
 	private NavbarButton<HomePage> createHomePageLink() {

@@ -32,11 +32,15 @@ public abstract class LayoutPage extends WebPage {
 	}
 
 	private void configureSession() {
-		IDSSSession.get().bind();
+		getSession().bind();
 	}
 
 	private void createContent() {
 		add(new MyFencedFeedbackPanel("systemmessages"));
 		add(new MainNavigation("navbar"));
+	}
+	
+	public IDSSSession getSession() {
+		return IDSSSession.get();
 	}
 }

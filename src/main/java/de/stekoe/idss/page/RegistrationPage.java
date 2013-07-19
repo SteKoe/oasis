@@ -23,7 +23,7 @@ public class RegistrationPage extends LayoutPage {
 		user.setPassword("geheim");
 		user.setSystemroles(systemroles);
 		
-		IDSSSession session = IDSSSession.get();
+		IDSSSession session = getSession();
 		session.setUser(user);
 	}
 }

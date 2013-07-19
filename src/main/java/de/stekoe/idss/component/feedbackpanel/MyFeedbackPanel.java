@@ -74,10 +74,17 @@ public class MyFeedbackPanel extends Panel implements IFeedback {
 
     private final MessageListView messageListView;
 
+    /**
+     * @see Panel#Panel(String)
+     */
     public MyFeedbackPanel(final String id) {
         this(id, null);
     }
 
+    /**
+     * @see Panel#Panel(String)
+     * @param filter A filter for feedbackmessages.
+     */
     public MyFeedbackPanel(final String id, IFeedbackMessageFilter filter) {
         super(id);
         WebMarkupContainer messagesContainer = new WebMarkupContainer(
@@ -100,14 +107,24 @@ public class MyFeedbackPanel extends Panel implements IFeedback {
         }
     }
 
+    /**
+     * @return Checks wether there are error messages.
+     */
     public final boolean anyErrorMessage() {
         return anyMessage(FeedbackMessage.ERROR);
     }
 
+    /**
+     * @return Checks wether there are any messages.
+     */
     public final boolean anyMessage() {
         return anyMessage(FeedbackMessage.UNDEFINED);
     }
 
+    /**
+     * @param level Message level defined via {@link FeedbackMessage} constants.
+     * @return Checks wether there are any messages for the fiven message level.
+     */
     public final boolean anyMessage(int level) {
         List<FeedbackMessage> msgs = getCurrentMessages();
 
@@ -120,14 +137,23 @@ public class MyFeedbackPanel extends Panel implements IFeedback {
         return false;
     }
 
+    /**
+     * @return The {@code FeedbackMessagesModel} used.
+     */
     public final FeedbackMessagesModel getFeedbackMessagesModel() {
         return (FeedbackMessagesModel) messageListView.getDefaultModel();
     }
 
+    /**
+     * @return The {@code IFeedbackMessageFilter} used.
+     */
     public final IFeedbackMessageFilter getFilter() {
         return getFeedbackMessagesModel().getFilter();
     }
 
+    /**
+     * @return The {@code Comparator} which is used to sort the {@code FeedbackMessage}s.
+     */
     public final Comparator<FeedbackMessage> getSortingComparator() {
         return getFeedbackMessagesModel().getSortingComparator();
     }
@@ -137,36 +163,51 @@ public class MyFeedbackPanel extends Panel implements IFeedback {
         return false;
     }
 
+    /**
+     * @param filter The {@code IFeedbackMessageFilter} which is applied to the {@code FeedbackMessagesModel}.
+     * @return {@code this} for chaining purpose.
+     */
     public final MyFeedbackPanel setFilter(IFeedbackMessageFilter filter) {
         getFeedbackMessagesModel().setFilter(filter);
         return this;
     }
 
+    /**
+     * @param maxMessages The maximum amount of messages to show.
+     * @return {@code this} for chaining purpose.
+     */
     public final MyFeedbackPanel setMaxMessages(int maxMessages) {
         messageListView.setViewSize(maxMessages);
         return this;
     }
 
+    /**
+     * @param sortingComparator The {@code Comparator} which should be used to sort the {@code FeedbackMessage}s.
+     * @return {@code this} for chaining purpose.
+     */
     public final MyFeedbackPanel setSortingComparator(
             Comparator<FeedbackMessage> sortingComparator) {
         getFeedbackMessagesModel().setSortingComparator(sortingComparator);
         return this;
     }
 
-    protected String getCSSClass(final FeedbackMessage message) {
+    private String getCSSClass(final FeedbackMessage message) {
         return "feedbackPanel" + message.getLevelAsString();
     }
 
-    protected final List<FeedbackMessage> getCurrentMessages() {
+    private final List<FeedbackMessage> getCurrentMessages() {
         List<FeedbackMessage> messages = messageListView.getModelObject();
         return Collections.unmodifiableList(messages);
     }
 
+    /**
+     * @return A new instance of the {@link FeedbackMessagesModel}.
+     */
     protected FeedbackMessagesModel newFeedbackMessagesModel() {
         return new FeedbackMessagesModel(this);
     }
 
-    protected Component newMessageDisplayComponent(String id,
+    private Component newMessageDisplayComponent(String id,
             FeedbackMessage message) {
         Serializable serializable = message.getMessage();
         Label label = new Label(id, (serializable == null) ? ""

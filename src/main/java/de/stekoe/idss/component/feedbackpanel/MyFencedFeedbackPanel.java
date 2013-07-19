@@ -21,20 +21,31 @@ public class MyFencedFeedbackPanel extends MyFeedbackPanel {
 
     private final Component fence;
 
+    /**
+     * @see MyFencedFeedbackPanel#MyFencedFeedbackPanel(String, Component, IFeedbackMessageFilter)
+     */
     public MyFencedFeedbackPanel(String id) {
         this(id, (Component) null);
     }
 
+    /**
+     * @see MyFencedFeedbackPanel#MyFencedFeedbackPanel(String, Component, IFeedbackMessageFilter)
+     */
     public MyFencedFeedbackPanel(String id, Component fence) {
         this(id, fence, null);
     }
 
+    /**
+     * @see MyFencedFeedbackPanel#MyFencedFeedbackPanel(String, Component, IFeedbackMessageFilter)
+     */
     public MyFencedFeedbackPanel(String id, IFeedbackMessageFilter filter) {
         this(id, null, filter);
     }
 
-    public MyFencedFeedbackPanel(String id, Component fence,
-            IFeedbackMessageFilter filter) {
+    /**
+     * @see MyFencedFeedbackPanel#MyFencedFeedbackPanel(String, Component, IFeedbackMessageFilter)
+     */
+    public MyFencedFeedbackPanel(String id, Component fence, IFeedbackMessageFilter filter) {
         super(id, filter);
         this.fence = fence;
         if (fence != null) {

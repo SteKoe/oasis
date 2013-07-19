@@ -16,23 +16,38 @@ public class IDSSSession extends WebSession {
 
     private User user;
 
+    /**
+     * @param request The current request.
+     */
     public IDSSSession(Request request) {
         super(request);
         setLocale(Locale.ENGLISH);
     }
 
+    /**
+     * @return The User saved in the session.
+     */
     public User getUser() {
         return user;
     }
 
+    /**
+     * @param user User to be stored in session.
+     */
     public void setUser(User user) {
         this.user = user;
     }
 
+    /**
+     * @return true if a user is logged in, false if not.
+     */
     public boolean isLoggedIn() {
         return getUser() != null;
     }
 
+    /**
+     * @return The current IDSSSession instance.
+     */
     public static IDSSSession get() {
         return (IDSSSession) Session.get();
     }

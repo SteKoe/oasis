@@ -14,9 +14,7 @@ public class UserRolesAuthorizer implements IRoleCheckingStrategy {
     private static final Logger LOG = Logger
             .getLogger(UserRolesAuthorizer.class);
 
-    public UserRolesAuthorizer() {
-    }
-
+    @Override
     public boolean hasAnyRole(Roles roles) {
         IDSSSession authSession = (IDSSSession) Session.get();
         User user = authSession.getUser();
@@ -29,5 +27,4 @@ public class UserRolesAuthorizer implements IRoleCheckingStrategy {
         LOG.warn("No user found!");
         return false;
     }
-
 }

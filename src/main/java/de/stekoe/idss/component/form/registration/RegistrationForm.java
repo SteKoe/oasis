@@ -31,7 +31,7 @@ public class RegistrationForm extends Panel {
     @SpringBean
     private UserManager userManager;
 
-    private User user = new User();
+    private final User user = new User();
 
     private Form<User> form;
 
@@ -41,23 +41,18 @@ public class RegistrationForm extends Panel {
     private PasswordTextField passwordConfirm;
     private Button submitButton;
 
+    /**
+     * @see Panel#Panel(String)
+     */
     public RegistrationForm(String id) {
-        super(id, null);
+        super(id);
 
         createHiddenFeedbackPanel();
         createFields();
         createRegistrationForm();
     }
 
-    /**
-     * This method adds a hidden {@code FencedFeedbackPanel} to the Panel.
-     * 
-     * <p>
-     * The purpose of {@link MyFencedFeedbackPanel} is to force the framework to
-     * not to print all the errors of the fields to the page.
-     */
     private void createHiddenFeedbackPanel() {
-        // TODO: Is there a better way???
         add(new MyFencedFeedbackPanel("hiddenFeedback", this).setVisible(false));
     }
 

@@ -12,8 +12,12 @@ import org.apache.wicket.validation.ValidationError;
 @SuppressWarnings("serial")
 public class UniqueContentValidator implements IValidator<String> {
 
-    private List<String> checkers;
+    private final List<String> checkers;
 
+    /**
+     * Construct.
+     * @param checkers List of Strings which are not allowed to be value of the textfield.
+     */
     public UniqueContentValidator(List<String> checkers) {
         this.checkers = checkers;
     }

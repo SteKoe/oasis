@@ -10,37 +10,37 @@ import de.stekoe.idss.service.UserManager;
 @SuppressWarnings("serial")
 public class ActivateUserPage extends LayoutPage {
 
-	@SpringBean
-	private UserManager userManager;
+    @SpringBean
+    private UserManager userManager;
 
-	private String activationCode = null;
+    private String activationCode = null;
 
-	public ActivateUserPage(PageParameters parameters) {
-		super(parameters);
+    public ActivateUserPage(PageParameters parameters) {
+        super(parameters);
 
-		setActivationKey(parameters);
-		if (!activationCode.isEmpty()) {
-			User userToActivate = getUserToActivate();
-			if (userToActivate != null) {
-				activateUser(userToActivate);
-			}
-		}
-	}
+        setActivationKey(parameters);
+        if (!activationCode.isEmpty()) {
+            User userToActivate = getUserToActivate();
+            if (userToActivate != null) {
+                activateUser(userToActivate);
+            }
+        }
+    }
 
-	private User getUserToActivate() {
-		User userToActivate = userManager.findByActivationCode(activationCode);
-		return userToActivate;
-	}
+    private User getUserToActivate() {
+        User userToActivate = userManager.findByActivationCode(activationCode);
+        return userToActivate;
+    }
 
-	private void setActivationKey(PageParameters parameters) {
-		StringValue activationCode = parameters.get(0);
-		if (!activationCode.isEmpty()) {
-			this.activationCode = activationCode.toString();
-		}
-	}
+    private void setActivationKey(PageParameters parameters) {
+        StringValue activationCode = parameters.get(0);
+        if (!activationCode.isEmpty()) {
+            this.activationCode = activationCode.toString();
+        }
+    }
 
-	private void activateUser(User userToActivate) {
-		userToActivate.setActivationKey(null);
-		userManager.update(userToActivate);
-	}
+    private void activateUser(User userToActivate) {
+        userToActivate.setActivationKey(null);
+        userManager.update(userToActivate);
+    }
 }

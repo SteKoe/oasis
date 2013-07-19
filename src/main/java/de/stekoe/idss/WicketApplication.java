@@ -25,58 +25,58 @@ import de.stekoe.idss.page.UserProfilePage;
  * @see de.stekoe.idss.Start#main(String[])
  */
 public class WicketApplication extends WebApplication {
-	@Override
-	public Class<? extends WebPage> getHomePage() {
-		return HomePage.class;
-	}
+    @Override
+    public Class<? extends WebPage> getHomePage() {
+        return HomePage.class;
+    }
 
-	@Override
-	public void init() {
-		super.init();
-		switch (getConfigurationType()) {
-		case DEVELOPMENT:
-			getRequestLoggerSettings().setRequestLoggerEnabled(true);
-			getDebugSettings().setDevelopmentUtilitiesEnabled(true);
-			break;
-		case DEPLOYMENT:
-			getMarkupSettings().setCompressWhitespace(true);
-			break;
-		}
+    @Override
+    public void init() {
+        super.init();
+        switch (getConfigurationType()) {
+        case DEVELOPMENT:
+            getRequestLoggerSettings().setRequestLoggerEnabled(true);
+            getDebugSettings().setDevelopmentUtilitiesEnabled(true);
+            break;
+        case DEPLOYMENT:
+            getMarkupSettings().setCompressWhitespace(true);
+            break;
+        }
 
-		getSecuritySettings().setAuthorizationStrategy(
-				new RoleAuthorizationStrategy(new UserRolesAuthorizer()));
+        getSecuritySettings().setAuthorizationStrategy(
+                new RoleAuthorizationStrategy(new UserRolesAuthorizer()));
 
-		configureBootstrap();
-		setUpSpring();
+        configureBootstrap();
+        setUpSpring();
 
-		createURLRoutings();
+        createURLRoutings();
 
-		// getApplicationSettings().setPageExpiredErrorPage(MyExpiredPage.class);
-		getApplicationSettings().setAccessDeniedPage(AccessDeniedPage.class);
-		// getApplicationSettings().setInternalErrorPage(MyInternalErrorPage.class);
-	}
+        // getApplicationSettings().setPageExpiredErrorPage(MyExpiredPage.class);
+        getApplicationSettings().setAccessDeniedPage(AccessDeniedPage.class);
+        // getApplicationSettings().setInternalErrorPage(MyInternalErrorPage.class);
+    }
 
-	@Override
-	public Session newSession(Request request, Response response) {
-		return new IDSSSession(request);
-	}
+    @Override
+    public Session newSession(Request request, Response response) {
+        return new IDSSSession(request);
+    }
 
-	private void configureBootstrap() {
-		BootstrapSettings bootstrapSettings = new BootstrapSettings();
-		bootstrapSettings.useCdnResources(true);
-		Bootstrap.install(Application.get(), bootstrapSettings);
-	}
+    private void configureBootstrap() {
+        BootstrapSettings bootstrapSettings = new BootstrapSettings();
+        bootstrapSettings.useCdnResources(true);
+        Bootstrap.install(Application.get(), bootstrapSettings);
+    }
 
-	public void setUpSpring() {
-		getComponentInstantiationListeners().add(
-				new SpringComponentInjector(this));
-	}
+    public void setUpSpring() {
+        getComponentInstantiationListeners().add(
+                new SpringComponentInjector(this));
+    }
 
-	private void createURLRoutings() {
-		mountPage("/home", HomePage.class);
-		mountPage("/contact", ContactPage.class);
-		mountPage("/register", RegistrationPage.class);
-		mountPage("/activate", ActivateUserPage.class);
-		mountPage("/profile", UserProfilePage.class);
-	}
+    private void createURLRoutings() {
+        mountPage("/home", HomePage.class);
+        mountPage("/contact", ContactPage.class);
+        mountPage("/register", RegistrationPage.class);
+        mountPage("/activate", ActivateUserPage.class);
+        mountPage("/profile", UserProfilePage.class);
+    }
 }

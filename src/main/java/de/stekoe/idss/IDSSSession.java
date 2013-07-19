@@ -11,26 +11,26 @@ import de.stekoe.idss.model.User;
 @SuppressWarnings("serial")
 public class IDSSSession extends WebSession {
 
-	private User user;
+    private User user;
 
-	public IDSSSession(Request request) {
-		super(request);
-		setLocale(Locale.ENGLISH);
-	}
+    public IDSSSession(Request request) {
+        super(request);
+        setLocale(Locale.ENGLISH);
+    }
 
-	public User getUser() {
-		return user;
-	}
+    public User getUser() {
+        return user;
+    }
 
-	public void setUser(User user) {
-		this.user = user;
-	}
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-	public boolean isLoggedIn() {
-		return getUser() != null;
-	}
+    public boolean isLoggedIn() {
+        return getUser() != null;
+    }
 
-	public static IDSSSession get() {
-		return (IDSSSession) Session.get();
-	}
+    public static IDSSSession get() {
+        return (IDSSSession) Session.get();
+    }
 }

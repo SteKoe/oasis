@@ -11,42 +11,42 @@ import org.junit.Test;
 
 public class UserProfileTest {
 
-	private Calendar checkdate;
+    private Calendar checkdate;
 
-	@Test
-	public void beforeBirthday() {
-		checkdate = Calendar.getInstance();
-		checkdate.set(2013, 3, 4);
+    @Test
+    public void beforeBirthday() {
+        checkdate = Calendar.getInstance();
+        checkdate.set(2013, 3, 4);
 
-		Calendar birthdate = Calendar.getInstance();
-		birthdate.set(1987, 3, 5);
+        Calendar birthdate = Calendar.getInstance();
+        birthdate.set(1987, 3, 5);
 
-		TestUserProfile profile = new TestUserProfile();
-		profile.setBirthdate(new Date(birthdate.getTimeInMillis()));
+        TestUserProfile profile = new TestUserProfile();
+        profile.setBirthdate(new Date(birthdate.getTimeInMillis()));
 
-		assertThat(profile.getAge(), Is.is(25));
-	}
+        assertThat(profile.getAge(), Is.is(25));
+    }
 
-	@Test
-	public void afterBirthday() {
-		checkdate = Calendar.getInstance();
-		checkdate.set(2013, 7, 20);
+    @Test
+    public void afterBirthday() {
+        checkdate = Calendar.getInstance();
+        checkdate.set(2013, 7, 20);
 
-		Calendar birthdate = Calendar.getInstance();
-		birthdate.set(1987, 3, 5);
+        Calendar birthdate = Calendar.getInstance();
+        birthdate.set(1987, 3, 5);
 
-		TestUserProfile profile = new TestUserProfile();
-		profile.setBirthdate(new Date(birthdate.getTimeInMillis()));
+        TestUserProfile profile = new TestUserProfile();
+        profile.setBirthdate(new Date(birthdate.getTimeInMillis()));
 
-		assertThat(profile.getAge(), Is.is(26));
-	}
+        assertThat(profile.getAge(), Is.is(26));
+    }
 
-	private class TestUserProfile extends UserProfile {
-		@Override
-		DateTime getCurrentDate() {
-			return new DateTime(checkdate.get(Calendar.YEAR),
-					checkdate.get(Calendar.MONTH),
-					checkdate.get(Calendar.DAY_OF_MONTH), 0, 0);
-		}
-	}
+    private class TestUserProfile extends UserProfile {
+        @Override
+        DateTime getCurrentDate() {
+            return new DateTime(checkdate.get(Calendar.YEAR),
+                    checkdate.get(Calendar.MONTH),
+                    checkdate.get(Calendar.DAY_OF_MONTH), 0, 0);
+        }
+    }
 }

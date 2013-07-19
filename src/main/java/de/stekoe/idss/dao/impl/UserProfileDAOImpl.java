@@ -7,11 +7,11 @@ import de.stekoe.idss.model.UserProfile;
 
 @Service
 public class UserProfileDAOImpl extends GenericDAOImpl implements
-		UserProfileDAO {
+        UserProfileDAO {
 
-	@Override
-	public void saveOrUpdate(UserProfile entity) {
-		getCurrentSession().saveOrUpdate(entity);
-	}
+    @Override
+    public void saveOrUpdate(UserProfile entity) {
+        getCurrentSession().saveOrUpdate(entity);
+    }
 
 }

@@ -13,36 +13,36 @@ import de.stekoe.idss.model.User;
 @Service
 public class UserDAOImpl extends GenericDAOImpl implements UserDAO {
 
-	@Override
-	public User findByUsername(String username) {
-		Criteria criteria = getCurrentSession().createCriteria(User.class).add(
-				Restrictions.eq("username", username));
-		return (User) criteria.uniqueResult();
-	}
+    @Override
+    public User findByUsername(String username) {
+        Criteria criteria = getCurrentSession().createCriteria(User.class).add(
+                Restrictions.eq("username", username));
+        return (User) criteria.uniqueResult();
+    }
 
-	@Override
-	public void update(User entity) {
-		getCurrentSession().update(entity);
-	}
+    @Override
+    public void update(User entity) {
+        getCurrentSession().update(entity);
+    }
 
-	@Override
-	public List<User> getAllUsers() {
-		return getCurrentSession().createCriteria(User.class).list();
-	}
+    @Override
+    public List<User> getAllUsers() {
+        return getCurrentSession().createCriteria(User.class).list();
+    }
 
-	@Override
-	public boolean insert(User user) {
-		try {
-			getCurrentSession().save(user);
-			return true;
-		} catch (HibernateException he) {
-			return false;
-		}
-	}
+    @Override
+    public boolean insert(User user) {
+        try {
+            getCurrentSession().save(user);
+            return true;
+        } catch (HibernateException he) {
+            return false;
+        }
+    }
 
-	@Override
-	public User findByActivationCode(String code) {
-		return (User) getCurrentSession().createCriteria(User.class)
-				.add(Restrictions.eq("activationKey", code)).uniqueResult();
-	}
+    @Override
+    public User findByActivationCode(String code) {
+        return (User) getCurrentSession().createCriteria(User.class)
+                .add(Restrictions.eq("activationKey", code)).uniqueResult();
+    }
 }

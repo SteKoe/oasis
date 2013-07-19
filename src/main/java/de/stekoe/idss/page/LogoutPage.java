@@ -6,9 +6,9 @@ import de.stekoe.idss.IDSSSession;
 
 @SuppressWarnings("serial")
 public class LogoutPage extends LayoutPage {
-	public LogoutPage() {
-		IDSSSession.get().invalidate();
-		info("Sie haben sich erfolgreich abgemeldet!");
-		throw new RestartResponseAtInterceptPageException(HomePage.class);
-	}
+    public LogoutPage() {
+        IDSSSession.get().invalidate();
+        info("Sie haben sich erfolgreich abgemeldet!");
+        throw new RestartResponseAtInterceptPageException(HomePage.class);
+    }
 }

@@ -25,170 +25,170 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.dialog.Alert;
 
 public class MyFeedbackPanel extends Panel implements IFeedback {
 
-	private static final Logger LOG = Logger.getLogger(MyFeedbackPanel.class);
+    private static final Logger LOG = Logger.getLogger(MyFeedbackPanel.class);
 
-	private final class MessageListView extends ListView<FeedbackMessage> {
-		private static final long serialVersionUID = 1L;
+    private final class MessageListView extends ListView<FeedbackMessage> {
+        private static final long serialVersionUID = 1L;
 
-		public MessageListView(final String id) {
-			super(id);
-			setDefaultModel(newFeedbackMessagesModel());
-		}
+        public MessageListView(final String id) {
+            super(id);
+            setDefaultModel(newFeedbackMessagesModel());
+        }
 
-		@Override
-		protected IModel<FeedbackMessage> getListItemModel(
-				final IModel<? extends List<FeedbackMessage>> listViewModel,
-				final int index) {
-			return new AbstractReadOnlyModel<FeedbackMessage>() {
-				private static final long serialVersionUID = 1L;
+        @Override
+        protected IModel<FeedbackMessage> getListItemModel(
+                final IModel<? extends List<FeedbackMessage>> listViewModel,
+                final int index) {
+            return new AbstractReadOnlyModel<FeedbackMessage>() {
+                private static final long serialVersionUID = 1L;
 
-				@Override
-				public FeedbackMessage getObject() {
-					if (index >= listViewModel.getObject().size()) {
-						return null;
-					} else {
-						return listViewModel.getObject().get(index);
-					}
-				}
-			};
-		}
+                @Override
+                public FeedbackMessage getObject() {
+                    if (index >= listViewModel.getObject().size()) {
+                        return null;
+                    } else {
+                        return listViewModel.getObject().get(index);
+                    }
+                }
+            };
+        }
 
-		@Override
-		protected void populateItem(final ListItem<FeedbackMessage> listItem) {
-			final FeedbackMessage message = listItem.getModelObject();
-			message.markRendered();
-			final Component label = newMessageDisplayComponent("message",
-					message);
-			final AttributeModifier levelModifier = AttributeModifier.append(
-					"class", getCSSClass(message));
-			label.add(levelModifier);
-			listItem.add(levelModifier);
-			listItem.add(label);
-		}
-	}
+        @Override
+        protected void populateItem(final ListItem<FeedbackMessage> listItem) {
+            final FeedbackMessage message = listItem.getModelObject();
+            message.markRendered();
+            final Component label = newMessageDisplayComponent("message",
+                    message);
+            final AttributeModifier levelModifier = AttributeModifier.append(
+                    "class", getCSSClass(message));
+            label.add(levelModifier);
+            listItem.add(levelModifier);
+            listItem.add(label);
+        }
+    }
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private final MessageListView messageListView;
+    private final MessageListView messageListView;
 
-	public MyFeedbackPanel(final String id) {
-		this(id, null);
-	}
+    public MyFeedbackPanel(final String id) {
+        this(id, null);
+    }
 
-	public MyFeedbackPanel(final String id, IFeedbackMessageFilter filter) {
-		super(id);
-		WebMarkupContainer messagesContainer = new WebMarkupContainer(
-				"feedbackul") {
-			private static final long serialVersionUID = 1L;
+    public MyFeedbackPanel(final String id, IFeedbackMessageFilter filter) {
+        super(id);
+        WebMarkupContainer messagesContainer = new WebMarkupContainer(
+                "feedbackul") {
+            private static final long serialVersionUID = 1L;
 
-			@Override
-			protected void onConfigure() {
-				super.onConfigure();
-				setVisible(anyMessage());
-			}
-		};
-		add(messagesContainer);
-		messageListView = new MessageListView("messages");
-		messageListView.setVersioned(false);
-		messagesContainer.add(messageListView);
+            @Override
+            protected void onConfigure() {
+                super.onConfigure();
+                setVisible(anyMessage());
+            }
+        };
+        add(messagesContainer);
+        messageListView = new MessageListView("messages");
+        messageListView.setVersioned(false);
+        messagesContainer.add(messageListView);
 
-		if (filter != null) {
-			setFilter(filter);
-		}
-	}
+        if (filter != null) {
+            setFilter(filter);
+        }
+    }
 
-	public final boolean anyErrorMessage() {
-		return anyMessage(FeedbackMessage.ERROR);
-	}
+    public final boolean anyErrorMessage() {
+        return anyMessage(FeedbackMessage.ERROR);
+    }
 
-	public final boolean anyMessage() {
-		return anyMessage(FeedbackMessage.UNDEFINED);
-	}
+    public final boolean anyMessage() {
+        return anyMessage(FeedbackMessage.UNDEFINED);
+    }
 
-	public final boolean anyMessage(int level) {
-		List<FeedbackMessage> msgs = getCurrentMessages();
+    public final boolean anyMessage(int level) {
+        List<FeedbackMessage> msgs = getCurrentMessages();
 
-		for (FeedbackMessage msg : msgs) {
-			if (msg.isLevel(level)) {
-				return true;
-			}
-		}
+        for (FeedbackMessage msg : msgs) {
+            if (msg.isLevel(level)) {
+                return true;
+            }
+        }
 
-		return false;
-	}
+        return false;
+    }
 
-	public final FeedbackMessagesModel getFeedbackMessagesModel() {
-		return (FeedbackMessagesModel) messageListView.getDefaultModel();
-	}
+    public final FeedbackMessagesModel getFeedbackMessagesModel() {
+        return (FeedbackMessagesModel) messageListView.getDefaultModel();
+    }
 
-	public final IFeedbackMessageFilter getFilter() {
-		return getFeedbackMessagesModel().getFilter();
-	}
+    public final IFeedbackMessageFilter getFilter() {
+        return getFeedbackMessagesModel().getFilter();
+    }
 
-	public final Comparator<FeedbackMessage> getSortingComparator() {
-		return getFeedbackMessagesModel().getSortingComparator();
-	}
+    public final Comparator<FeedbackMessage> getSortingComparator() {
+        return getFeedbackMessagesModel().getSortingComparator();
+    }
 
-	@Override
-	public boolean isVersioned() {
-		return false;
-	}
+    @Override
+    public boolean isVersioned() {
+        return false;
+    }
 
-	public final MyFeedbackPanel setFilter(IFeedbackMessageFilter filter) {
-		getFeedbackMessagesModel().setFilter(filter);
-		return this;
-	}
+    public final MyFeedbackPanel setFilter(IFeedbackMessageFilter filter) {
+        getFeedbackMessagesModel().setFilter(filter);
+        return this;
+    }
 
-	public final MyFeedbackPanel setMaxMessages(int maxMessages) {
-		messageListView.setViewSize(maxMessages);
-		return this;
-	}
+    public final MyFeedbackPanel setMaxMessages(int maxMessages) {
+        messageListView.setViewSize(maxMessages);
+        return this;
+    }
 
-	public final MyFeedbackPanel setSortingComparator(
-			Comparator<FeedbackMessage> sortingComparator) {
-		getFeedbackMessagesModel().setSortingComparator(sortingComparator);
-		return this;
-	}
+    public final MyFeedbackPanel setSortingComparator(
+            Comparator<FeedbackMessage> sortingComparator) {
+        getFeedbackMessagesModel().setSortingComparator(sortingComparator);
+        return this;
+    }
 
-	protected String getCSSClass(final FeedbackMessage message) {
-		return "feedbackPanel" + message.getLevelAsString();
-	}
+    protected String getCSSClass(final FeedbackMessage message) {
+        return "feedbackPanel" + message.getLevelAsString();
+    }
 
-	protected final List<FeedbackMessage> getCurrentMessages() {
-		List<FeedbackMessage> messages = messageListView.getModelObject();
-		return Collections.unmodifiableList(messages);
-	}
+    protected final List<FeedbackMessage> getCurrentMessages() {
+        List<FeedbackMessage> messages = messageListView.getModelObject();
+        return Collections.unmodifiableList(messages);
+    }
 
-	protected FeedbackMessagesModel newFeedbackMessagesModel() {
-		return new FeedbackMessagesModel(this);
-	}
+    protected FeedbackMessagesModel newFeedbackMessagesModel() {
+        return new FeedbackMessagesModel(this);
+    }
 
-	protected Component newMessageDisplayComponent(String id,
-			FeedbackMessage message) {
-		Serializable serializable = message.getMessage();
-		Label label = new Label(id, (serializable == null) ? ""
-				: serializable.toString());
-		label.setEscapeModelStrings(MyFeedbackPanel.this
-				.getEscapeModelStrings());
+    protected Component newMessageDisplayComponent(String id,
+            FeedbackMessage message) {
+        Serializable serializable = message.getMessage();
+        Label label = new Label(id, (serializable == null) ? ""
+                : serializable.toString());
+        label.setEscapeModelStrings(MyFeedbackPanel.this
+                .getEscapeModelStrings());
 
-		Alert alert = new Alert(id, Model.of(serializable.toString()));
-		int level = message.getLevel();
+        Alert alert = new Alert(id, Model.of(serializable.toString()));
+        int level = message.getLevel();
 
-		switch (level) {
-		case FeedbackMessage.ERROR:
-		case FeedbackMessage.FATAL:
-			alert.type(Alert.Type.Error);
-			break;
-		case FeedbackMessage.SUCCESS:
-			alert.type(Alert.Type.Success);
-			break;
-		case FeedbackMessage.WARNING:
-			alert.type(Alert.Type.Warning);
-			break;
-		case FeedbackMessage.INFO:
-		default:
-			alert.type(Alert.Type.Info);
-		}
-		return alert;
-	}
+        switch (level) {
+        case FeedbackMessage.ERROR:
+        case FeedbackMessage.FATAL:
+            alert.type(Alert.Type.Error);
+            break;
+        case FeedbackMessage.SUCCESS:
+            alert.type(Alert.Type.Success);
+            break;
+        case FeedbackMessage.WARNING:
+            alert.type(Alert.Type.Warning);
+            break;
+        case FeedbackMessage.INFO:
+        default:
+            alert.type(Alert.Type.Info);
+        }
+        return alert;
+    }
 }

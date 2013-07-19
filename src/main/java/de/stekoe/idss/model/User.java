@@ -9,108 +9,109 @@ import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 @SuppressWarnings("serial")
 public class User implements Serializable {
 
-	private Long id;
-	private String username;
-	private String password;
-	private String email;
-	private Set<Systemrole> systemroles = new HashSet<Systemrole>(0);
-	private UserProfile userProfile;
-	private String activationKey;
+    private Long id;
+    private String username;
+    private String password;
+    private String email;
+    private Set<Systemrole> systemroles = new HashSet<Systemrole>(0);
+    private UserProfile userProfile;
+    private String activationKey;
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getUsername() {
-		return username;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public Set<Systemrole> getSystemroles() {
-		return this.systemroles;
-	}
+    public Set<Systemrole> getSystemroles() {
+        return this.systemroles;
+    }
 
-	public void setSystemroles(Set<Systemrole> systemroles) {
-		this.systemroles = systemroles;
-	}
+    public void setSystemroles(Set<Systemrole> systemroles) {
+        this.systemroles = systemroles;
+    }
 
-	public UserProfile getUserProfile() {
-		return userProfile;
-	}
+    public UserProfile getUserProfile() {
+        return userProfile;
+    }
 
-	public void setUserProfile(UserProfile userProfile) {
-		this.userProfile = userProfile;
-	}
+    public void setUserProfile(UserProfile userProfile) {
+        this.userProfile = userProfile;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public String getEmail() {
-		return this.email;
-	}
+    public String getEmail() {
+        return this.email;
+    }
 
-	public void setActivationKey(String key) {
-		this.activationKey = key;
-	}
+    public void setActivationKey(String key) {
+        this.activationKey = key;
+    }
 
-	public String getActivationKey() {
-		return this.activationKey;
-	}
+    public String getActivationKey() {
+        return this.activationKey;
+    }
 
-	@Override
-	public String toString() {
-		String format = "%-20s: %s %n";
+    @Override
+    public String toString() {
+        String format = "%-20s: %s %n";
 
-		StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
 
-		sb.append("USER ==========================\n");
-		sb.append(String.format(format, "ID", getId()));
-		sb.append(String.format(format, "Username", getUsername()));
-		sb.append(String.format(format, "Username", getEmail()));
-		sb.append(String.format(format, "Password", getPassword()));
+        sb.append("USER ==========================\n");
+        sb.append(String.format(format, "ID", getId()));
+        sb.append(String.format(format, "Username", getUsername()));
+        sb.append(String.format(format, "Username", getEmail()));
+        sb.append(String.format(format, "Password", getPassword()));
 
-		Systemrole[] systemroles = getSystemroles().toArray(new Systemrole[0]);
+        Systemrole[] systemroles = getSystemroles().toArray(new Systemrole[0]);
 
-		String roles = "no roles";
-		if (systemroles.length > 0) {
-			roles = systemroles[0].getName();
+        StringBuilder roles = new StringBuilder();
+        if (systemroles.length > 0) {
+            roles.append(systemroles[0].getName());
 
-			for (int i = 1; i < systemroles.length; i++) {
-				roles += (",");
-				roles += systemroles[i].getName();
-			}
-		}
+            for (int i = 1; i < systemroles.length; i++) {
+                roles.append(",");
+                roles.append(systemroles[i].getName());
+            }
+        }
 
-		sb.append(String.format(format, "Roles", roles));
+        sb.append(String.format(format, "Roles", roles.toString()));
 
-		return sb.toString();
-	}
+        return sb.toString();
+    }
 
-	public boolean hasAnyRole(Roles roles) {
+    public boolean hasAnyRole(Roles roles) {
 
-		Roles systemroles = new Roles();
-		for (Systemrole systemrole : getSystemroles())
-			systemroles.add(systemrole.getName());
+        Roles systemroles = new Roles();
+        for (Systemrole systemrole : getSystemroles()) {
+            systemroles.add(systemrole.getName());
+        }
 
-		System.out.println("User needs role: " + roles);
-		System.out.println("User has roles:  " + systemroles);
+        System.out.println("User needs role: " + roles);
+        System.out.println("User has roles:  " + systemroles);
 
-		return systemroles.hasAnyRole(roles);
-	}
+        return systemroles.hasAnyRole(roles);
+    }
 }

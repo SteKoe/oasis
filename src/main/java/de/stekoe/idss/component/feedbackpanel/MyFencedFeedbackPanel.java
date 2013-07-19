@@ -10,79 +10,79 @@ import org.apache.wicket.feedback.FeedbackMessagesModel;
 import org.apache.wicket.feedback.IFeedbackMessageFilter;
 
 public class MyFencedFeedbackPanel extends MyFeedbackPanel {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private static final MetaDataKey<Integer> FENCE_KEY = new MetaDataKey<Integer>() {
-		private static final long serialVersionUID = 1L;
-	};
+    private static final MetaDataKey<Integer> FENCE_KEY = new MetaDataKey<Integer>() {
+        private static final long serialVersionUID = 1L;
+    };
 
-	private final Component fence;
+    private final Component fence;
 
-	public MyFencedFeedbackPanel(String id) {
-		this(id, (Component) null);
-	}
+    public MyFencedFeedbackPanel(String id) {
+        this(id, (Component) null);
+    }
 
-	public MyFencedFeedbackPanel(String id, Component fence) {
-		this(id, fence, null);
-	}
+    public MyFencedFeedbackPanel(String id, Component fence) {
+        this(id, fence, null);
+    }
 
-	public MyFencedFeedbackPanel(String id, IFeedbackMessageFilter filter) {
-		this(id, null, filter);
-	}
+    public MyFencedFeedbackPanel(String id, IFeedbackMessageFilter filter) {
+        this(id, null, filter);
+    }
 
-	public MyFencedFeedbackPanel(String id, Component fence,
-			IFeedbackMessageFilter filter) {
-		super(id, filter);
-		this.fence = fence;
-		if (fence != null) {
-			Integer count = fence.getMetaData(FENCE_KEY);
-			count = count == null ? 1 : count + 1;
-			fence.setMetaData(FENCE_KEY, count);
-		}
-	}
+    public MyFencedFeedbackPanel(String id, Component fence,
+            IFeedbackMessageFilter filter) {
+        super(id, filter);
+        this.fence = fence;
+        if (fence != null) {
+            Integer count = fence.getMetaData(FENCE_KEY);
+            count = count == null ? 1 : count + 1;
+            fence.setMetaData(FENCE_KEY, count);
+        }
+    }
 
-	@Override
-	protected void onRemove() {
-		super.onRemove();
-		if (fence != null) {
-			// decrement the fence count
+    @Override
+    protected void onRemove() {
+        super.onRemove();
+        if (fence != null) {
+            // decrement the fence count
 
-			Integer count = fence.getMetaData(FENCE_KEY);
-			count = (count == null || count == 1) ? null : count - 1;
-			fence.setMetaData(FENCE_KEY, count);
-		}
-	}
+            Integer count = fence.getMetaData(FENCE_KEY);
+            count = (count == null || count == 1) ? null : count - 1;
+            fence.setMetaData(FENCE_KEY, count);
+        }
+    }
 
-	@Override
-	protected FeedbackMessagesModel newFeedbackMessagesModel() {
-		return new FeedbackMessagesModel(this) {
-			private static final long serialVersionUID = 1L;
+    @Override
+    protected FeedbackMessagesModel newFeedbackMessagesModel() {
+        return new FeedbackMessagesModel(this) {
+            private static final long serialVersionUID = 1L;
 
-			@Override
-			protected List<FeedbackMessage> collectMessages(Component panel,
-					IFeedbackMessageFilter filter) {
-				if (fence == null) {
-					// this is the catch-all panel
+            @Override
+            protected List<FeedbackMessage> collectMessages(Component panel,
+                    IFeedbackMessageFilter filter) {
+                if (fence == null) {
+                    // this is the catch-all panel
 
-					return new FeedbackCollector(panel.getPage()) {
-						@Override
-						protected boolean shouldRecurseInto(Component component) {
-							return component.getMetaData(FENCE_KEY) == null;
-						}
-					}.collect(filter);
-				} else {
-					// this is a fenced panel
+                    return new FeedbackCollector(panel.getPage()) {
+                        @Override
+                        protected boolean shouldRecurseInto(Component component) {
+                            return component.getMetaData(FENCE_KEY) == null;
+                        }
+                    }.collect(filter);
+                } else {
+                    // this is a fenced panel
 
-					return new FeedbackCollector(fence) {
-						@Override
-						protected boolean shouldRecurseInto(Component component) {
-							// only recurse into components that are not fences
+                    return new FeedbackCollector(fence) {
+                        @Override
+                        protected boolean shouldRecurseInto(Component component) {
+                            // only recurse into components that are not fences
 
-							return component.getMetaData(FENCE_KEY) == null;
-						}
-					}.setIncludeSession(false).collect(filter);
-				}
-			}
-		};
-	}
+                            return component.getMetaData(FENCE_KEY) == null;
+                        }
+                    }.setIncludeSession(false).collect(filter);
+                }
+            }
+        };
+    }
 }

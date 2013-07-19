@@ -12,14 +12,14 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 @ContextConfiguration({ "/testContext.xml" })
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
 public class BaseTest extends AbstractTransactionalJUnit4SpringContextTests {
-	@Autowired
-	SessionFactory sessionFactory;
+    @Autowired
+    SessionFactory sessionFactory;
 
-	protected void flush() {
-		this.sessionFactory.getCurrentSession().flush();
-	}
+    protected void flush() {
+        this.sessionFactory.getCurrentSession().flush();
+    }
 
-	protected Session getCurrentSession() {
-		return this.sessionFactory.getCurrentSession();
-	}
+    protected Session getCurrentSession() {
+        return this.sessionFactory.getCurrentSession();
+    }
 }

@@ -11,19 +11,19 @@ import de.stekoe.idss.model.User;
 @SuppressWarnings("serial")
 public class RegistrationPage extends LayoutPage {
 
-	public RegistrationPage() {
-		add(new RegistrationForm("form"));
+    public RegistrationPage() {
+        add(new RegistrationForm("form"));
 
-		Set<Systemrole> systemroles = new HashSet<Systemrole>();
-		systemroles.add(new Systemrole(Systemrole.USER));
+        Set<Systemrole> systemroles = new HashSet<Systemrole>();
+        systemroles.add(new Systemrole(Systemrole.USER));
 
-		User user = new User();
-		user.setUsername("username");
-		user.setEmail("username@example.com");
-		user.setPassword("geheim");
-		user.setSystemroles(systemroles);
+        User user = new User();
+        user.setUsername("username");
+        user.setEmail("username@example.com");
+        user.setPassword("geheim");
+        user.setSystemroles(systemroles);
 
-		IDSSSession session = getSession();
-		session.setUser(user);
-	}
+        IDSSSession session = getSession();
+        session.setUser(user);
+    }
 }

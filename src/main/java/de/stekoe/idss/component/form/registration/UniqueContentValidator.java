@@ -9,24 +9,24 @@ import org.apache.wicket.validation.ValidationError;
 @SuppressWarnings("serial")
 public class UniqueContentValidator implements IValidator<String> {
 
-	private List<String> checkers;
+    private List<String> checkers;
 
-	public UniqueContentValidator(List<String> checkers) {
-		this.checkers = checkers;
-	}
+    public UniqueContentValidator(List<String> checkers) {
+        this.checkers = checkers;
+    }
 
-	@Override
-	public void validate(IValidatable<String> validatable) {
-		String fieldValue = validatable.getValue();
+    @Override
+    public void validate(IValidatable<String> validatable) {
+        String fieldValue = validatable.getValue();
 
-		if (checkers.contains(fieldValue)) {
-			error(validatable, "notUnique");
-		}
-	}
+        if (checkers.contains(fieldValue)) {
+            error(validatable, "notUnique");
+        }
+    }
 
-	private void error(IValidatable<String> validatable, String errorKey) {
-		ValidationError error = new ValidationError();
-		error.addKey(getClass().getSimpleName() + "." + errorKey);
-		validatable.error(error);
-	}
+    private void error(IValidatable<String> validatable, String errorKey) {
+        ValidationError error = new ValidationError();
+        error.addKey(getClass().getSimpleName() + "." + errorKey);
+        validatable.error(error);
+    }
 }

@@ -8,11 +8,11 @@ import de.stekoe.idss.dao.GenericDAO;
 
 public abstract class GenericDAOImpl implements GenericDAO {
 
-	@Autowired
-	private SessionFactory sessionFactory;
+    @Autowired
+    private SessionFactory sessionFactory;
 
-	public Session getCurrentSession() {
-		return sessionFactory.getCurrentSession();
-	}
+    public Session getCurrentSession() {
+        return sessionFactory.getCurrentSession();
+    }
 
 }

@@ -6,19 +6,19 @@ import de.stekoe.idss.exception.UserAlreadyExistsException;
 import de.stekoe.idss.model.User;
 
 public interface UserManager {
-	boolean insertUser(User user) throws UserAlreadyExistsException;
+    boolean insertUser(User user) throws UserAlreadyExistsException;
 
-	boolean login(String username, String password);
+    boolean login(String username, String password);
 
-	User findByUsername(String username);
+    User findByUsername(String username);
 
-	void update(User user);
+    void update(User user);
 
-	List<User> getAllUsers();
+    List<User> getAllUsers();
 
-	User findByActivationCode(String code);
+    User findByActivationCode(String code);
 
-	List<String> getAllUsernames();
+    List<String> getAllUsernames();
 
-	List<String> getAllEmailAddresses();
+    List<String> getAllEmailAddresses();
 }

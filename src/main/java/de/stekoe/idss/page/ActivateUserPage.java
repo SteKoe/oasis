@@ -7,6 +7,9 @@ import org.apache.wicket.util.string.StringValue;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.service.UserManager;
 
+/**
+ * @author Stephan Köninger <mail@stekoe.de>
+ */
 @SuppressWarnings("serial")
 public class ActivateUserPage extends LayoutPage {
 

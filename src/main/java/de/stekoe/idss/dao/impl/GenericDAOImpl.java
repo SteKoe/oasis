@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import de.stekoe.idss.dao.GenericDAO;
 
+/**
+ * @author Stephan Köninger <mail@stekoe.de>
+ */
 public abstract class GenericDAOImpl implements GenericDAO {
 
     @Autowired

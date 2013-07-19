@@ -6,6 +6,11 @@ import java.util.Set;
 
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 
+/**
+ * This class represents the concept of a User.
+ * 
+ * @author Stephan Köninger <mail@stekoe.de>
+ */
 @SuppressWarnings("serial")
 public class User implements Serializable {
 

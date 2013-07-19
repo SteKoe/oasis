@@ -8,6 +8,9 @@ import de.stekoe.idss.IDSSSession;
 import de.stekoe.idss.component.feedbackpanel.MyFencedFeedbackPanel;
 import de.stekoe.idss.component.navigation.main.MainNavigation;
 
+/**
+ * @author Stephan Köninger <mail@stekoe.de>
+ */
 public abstract class LayoutPage extends WebPage {
     private static final long serialVersionUID = 1860769875900411155L;
 

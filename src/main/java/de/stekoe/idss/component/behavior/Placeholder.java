@@ -5,6 +5,9 @@ import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.model.StringResourceModel;
 
+/**
+ * @author Stephan Köninger <mail@stekoe.de>
+ */
 @SuppressWarnings("serial")
 public class Placeholder extends Behavior {
 

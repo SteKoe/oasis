@@ -6,6 +6,9 @@ import javax.persistence.Transient;
 
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * @author Stephan Köninger <mail@stekoe.de>
+ */
 @SuppressWarnings("serial")
 public class Systemrole implements Serializable {
 

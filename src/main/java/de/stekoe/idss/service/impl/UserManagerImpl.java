@@ -14,6 +14,9 @@ import de.stekoe.idss.model.User;
 import de.stekoe.idss.security.bcrypt.BCrypt;
 import de.stekoe.idss.service.UserManager;
 
+/**
+ * @author Stephan Köninger <mail@stekoe.de>
+ */
 @Service
 public class UserManagerImpl implements UserManager {
 

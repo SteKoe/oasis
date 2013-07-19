@@ -5,6 +5,9 @@ import org.apache.wicket.model.Model;
 
 import de.stekoe.idss.model.User;
 
+/**
+ * @author Stephan Köninger <mail@stekoe.de>
+ */
 @SuppressWarnings("serial")
 public class UserProfilePage extends AuthUserPage {
 

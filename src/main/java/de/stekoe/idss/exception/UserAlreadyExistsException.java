@@ -1,5 +1,8 @@
 package de.stekoe.idss.exception;
 
+/**
+ * @author Stephan Köninger <mail@stekoe.de>
+ */
 public class UserAlreadyExistsException extends Exception {
     private static final long serialVersionUID = -8078241715847776796L;
 

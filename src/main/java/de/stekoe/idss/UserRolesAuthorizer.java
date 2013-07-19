@@ -7,6 +7,9 @@ import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 
 import de.stekoe.idss.model.User;
 
+/**
+ * @author Stephan Köninger <mail@stekoe.de>
+ */
 public class UserRolesAuthorizer implements IRoleCheckingStrategy {
     private static final Logger LOG = Logger
             .getLogger(UserRolesAuthorizer.class);

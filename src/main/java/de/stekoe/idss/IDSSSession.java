@@ -8,6 +8,9 @@ import org.apache.wicket.request.Request;
 
 import de.stekoe.idss.model.User;
 
+/**
+ * @author Stephan Köninger <mail@stekoe.de>
+ */
 @SuppressWarnings("serial")
 public class IDSSSession extends WebSession {
 

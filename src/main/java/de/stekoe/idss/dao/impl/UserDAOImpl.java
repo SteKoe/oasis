@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 import de.stekoe.idss.dao.UserDAO;
 import de.stekoe.idss.model.User;
 
+/**
+ * @author Stephan Köninger <mail@stekoe.de>
+ */
 @Service
 public class UserDAOImpl extends GenericDAOImpl implements UserDAO {
 

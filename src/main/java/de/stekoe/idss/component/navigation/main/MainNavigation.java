@@ -23,6 +23,9 @@ import de.stekoe.idss.page.LogoutPage;
 import de.stekoe.idss.page.RegistrationPage;
 import de.stekoe.idss.page.UserProfilePage;
 
+/**
+ * @author Stephan Köninger <mail@stekoe.de>
+ */
 @SuppressWarnings("serial")
 public class MainNavigation extends Panel {
 

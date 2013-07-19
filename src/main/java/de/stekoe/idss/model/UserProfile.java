@@ -8,6 +8,11 @@ import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
 import org.joda.time.Years;
 
+/**
+ * This class holds any information about a user's profile.
+ * 
+ * @author Stephan Köninger <mail@stekoe.de>
+ */
 @SuppressWarnings("serial")
 public class UserProfile implements Serializable {
     private Long id;

@@ -5,6 +5,9 @@ import java.util.List;
 import de.stekoe.idss.exception.UserAlreadyExistsException;
 import de.stekoe.idss.model.User;
 
+/**
+ * @author Stephan Köninger <mail@stekoe.de>
+ */
 public interface UserManager {
     boolean insertUser(User user) throws UserAlreadyExistsException;
 

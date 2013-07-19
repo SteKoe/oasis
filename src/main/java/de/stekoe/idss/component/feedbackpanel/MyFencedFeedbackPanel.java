@@ -9,6 +9,9 @@ import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.feedback.FeedbackMessagesModel;
 import org.apache.wicket.feedback.IFeedbackMessageFilter;
 
+/**
+ * @author Stephan Köninger <mail@stekoe.de>
+ */
 public class MyFencedFeedbackPanel extends MyFeedbackPanel {
     private static final long serialVersionUID = 1L;
 

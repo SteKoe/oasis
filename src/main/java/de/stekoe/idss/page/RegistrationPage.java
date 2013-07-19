@@ -8,6 +8,9 @@ import de.stekoe.idss.component.form.registration.RegistrationForm;
 import de.stekoe.idss.model.Systemrole;
 import de.stekoe.idss.model.User;
 
+/**
+ * @author Stephan Köninger <mail@stekoe.de>
+ */
 @SuppressWarnings("serial")
 public class RegistrationPage extends LayoutPage {
 

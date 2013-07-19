@@ -23,6 +23,9 @@ import org.apache.wicket.model.Model;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.dialog.Alert;
 
+/**
+ * @author Stephan Köninger <mail@stekoe.de>
+ */
 public class MyFeedbackPanel extends Panel implements IFeedback {
 
     private static final Logger LOG = Logger.getLogger(MyFeedbackPanel.class);

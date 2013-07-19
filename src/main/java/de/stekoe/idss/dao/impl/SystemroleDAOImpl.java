@@ -3,6 +3,9 @@ package de.stekoe.idss.dao.impl;
 import de.stekoe.idss.dao.SystemroleDAO;
 import de.stekoe.idss.model.Systemrole;
 
+/**
+ * @author Stephan Köninger <mail@stekoe.de>
+ */
 public class SystemroleDAOImpl extends GenericDAOImpl implements SystemroleDAO {
 
     @Override

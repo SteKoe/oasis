@@ -22,6 +22,9 @@ import de.stekoe.idss.model.User;
 import de.stekoe.idss.security.bcrypt.BCrypt;
 import de.stekoe.idss.service.UserManager;
 
+/**
+ * @author Stephan Köninger <mail@stekoe.de>
+ */
 @SuppressWarnings("serial")
 public class RegistrationForm extends Panel {
 

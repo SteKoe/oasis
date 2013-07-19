@@ -4,6 +4,9 @@ import org.apache.wicket.RestartResponseAtInterceptPageException;
 
 import de.stekoe.idss.IDSSSession;
 
+/**
+ * @author Stephan Köninger <mail@stekoe.de>
+ */
 @SuppressWarnings("serial")
 public class LogoutPage extends LayoutPage {
     public LogoutPage() {

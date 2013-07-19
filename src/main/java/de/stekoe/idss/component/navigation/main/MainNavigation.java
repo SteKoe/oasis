@@ -36,25 +36,49 @@ public class MainNavigation extends Panel {
 		navbar.setPosition(Navbar.Position.TOP);
 		navbar.brandName(Model.of("IDSS"));
 		
+		NavbarButton<HomePage> homePage = createHomePageLink();
+		NavbarButton<ContactPage> contactPage = createContactPageLink();
+		NavbarButton<RegistrationPage> registrationPage = createRegistrationPageLink();
+		NavbarButton<LoginPage> loginPage = createLoginPageLink();
+		List<INavbarComponent> navbarComponent = NavbarComponents.transform(Navbar.ComponentPosition.LEFT, 
+				homePage, 
+				contactPage, 
+				registrationPage, 
+				loginPage);
+		navbar.addComponents(navbarComponent);
+		return navbar;
+	}
+
+	private NavbarButton<HomePage> createHomePageLink() {
 		NavbarButton<HomePage> homePage = new NavbarButton<HomePage>(HomePage.class, Model.of("Home"));
 		homePage.setIconType(IconType.home);
-		
+		return homePage;
+	}
+
+	private NavbarButton<ContactPage> createContactPageLink() {
 		NavbarButton<ContactPage> contactPage = new NavbarButton<ContactPage>(ContactPage.class, Model.of("Contact"));
 		contactPage.setIconType(IconType.questionsign);
-		
+		return contactPage;
+	}
+
+	private NavbarButton<RegistrationPage> createRegistrationPageLink() {
 		NavbarButton<RegistrationPage> registrationPage = new NavbarButton<RegistrationPage>(RegistrationPage.class, Model.of("Registration"));
 		registrationPage.setIconType(IconType.user);
 
-		if(IDSSSession.get().getUser() == null) {
+		if(IDSSSession.get().isLoggedIn()) {
 			registrationPage.setVisible(false);
 		}
-		
-		NavbarButton<LoginPage> loginPage = new NavbarButton<LoginPage>(LoginPage.class, Model.of("Anmelden"));
+		return registrationPage;
+	}
+
+	private NavbarButton<LoginPage> createLoginPageLink() {
+		NavbarButton<LoginPage> loginPage = new NavbarButton<LoginPage>(LoginPage.class, Model.of("Login"));
 		loginPage.setIconType(IconType.user);
 		
+		if(IDSSSession.get().isLoggedIn()) {
+			loginPage.setVisible(false);
+		}
 		
-		List<INavbarComponent> navbarComponent = NavbarComponents.transform(Navbar.ComponentPosition.LEFT, homePage, contactPage, registrationPage, loginPage);
-		navbar.addComponents(navbarComponent);
-		return navbar;
+		return loginPage;
 	}
 }

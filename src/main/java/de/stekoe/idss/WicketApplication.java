@@ -39,8 +39,8 @@ public class WicketApplication extends WebApplication {
             getDebugSettings().setDevelopmentUtilitiesEnabled(true);
             break;
         case DEPLOYMENT:
+        default:
             getMarkupSettings().setCompressWhitespace(true);
-            break;
         }
 
         getSecuritySettings().setAuthorizationStrategy(

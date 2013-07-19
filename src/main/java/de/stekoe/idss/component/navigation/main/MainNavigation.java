@@ -25,13 +25,18 @@ import de.stekoe.idss.page.UserProfilePage;
 @SuppressWarnings("serial")
 public class MainNavigation extends Panel {
 
+    /**
+     * @see Panel#Panel(String)
+     */
     public MainNavigation(String id) {
         this(id, null);
     }
 
+    /**
+     * @see Panel#Panel(String, IModel)
+     */
     public MainNavigation(String id, IModel<?> model) {
         super(id, model);
-
         add(buildMainNavigation());
     }
 

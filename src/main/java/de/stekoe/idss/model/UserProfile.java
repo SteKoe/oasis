@@ -30,7 +30,7 @@ public class UserProfile implements Serializable {
     /**
      * Set the id.
      * 
-     * @param id
+     * @param id Id of the UserProfile.
      */
     public void setId(Long id) {
         this.id = id;
@@ -46,7 +46,7 @@ public class UserProfile implements Serializable {
     /**
      * Sets the firstname.
      * 
-     * @param firstname
+     * @param firstname The first name of the user.
      */
     public void setFirstname(String firstname) {
         this.firstname = firstname;
@@ -62,7 +62,7 @@ public class UserProfile implements Serializable {
     /**
      * Sets the surename.
      * 
-     * @param surename
+     * @param surename The surename of the user.
      */
     public void setSurename(String surename) {
         this.surename = surename;
@@ -78,7 +78,7 @@ public class UserProfile implements Serializable {
     /**
      * Sets the birthdate.
      * 
-     * @param birthdate
+     * @param birthdate The birthdate of the user.
      */
     public void setBirthdate(Date birthdate) {
         this.birthdate = birthdate;

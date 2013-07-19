@@ -47,7 +47,7 @@
       </module>
 
       <module name="RegexpSingleline">
-          <property name="format" value="\s+$"/>
+          <property name="format" value="(?<!\*)\s+$|\*\s\s+$"/>
           <property name="message" value="Line has trailing spaces."/>
       </module>
 

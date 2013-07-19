@@ -20,7 +20,7 @@ import de.stekoe.idss.service.UserManager;
 @Service
 public class UserManagerImpl implements UserManager {
 
-    private Logger LOG = Logger.getLogger(UserManagerImpl.class);
+    private static final Logger LOG = Logger.getLogger(UserManagerImpl.class);
 
     @Autowired
     private UserDAO userDAO;
@@ -38,11 +38,13 @@ public class UserManagerImpl implements UserManager {
         }
     }
 
+    @Override
     @Transactional
     public User findByUsername(String username) {
         return userDAO.findByUsername(username);
     }
 
+    @Override
     @Transactional
     public void update(User entity) {
         userDAO.update(entity);

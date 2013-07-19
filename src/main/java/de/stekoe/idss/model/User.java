@@ -80,7 +80,7 @@ public class User implements Serializable {
     /**
      * Set systemroles.
      *
-     * @param systemrole A {@code Set} of {@link Systemrole}s.
+     * @param systemroles A {@code Set} of {@link Systemrole}s.
      */
     public void setSystemroles(Set<Systemrole> systemroles) {
         this.systemroles = systemroles;
@@ -138,11 +138,6 @@ public class User implements Serializable {
         return this.activationKey;
     }
 
-    /**
-     * Returns a string representation of the user.
-     * <p>
-     * In order to prevent password leaks, the password will not be shown!
-     */
     @Override
     public String toString() {
         String format = "%-20s: %s %n";

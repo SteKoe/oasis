@@ -75,15 +75,15 @@ public class MyFeedbackPanel extends Panel implements IFeedback {
     private final MessageListView messageListView;
 
     /**
-     * @see Panel#Panel(String)
+     * @param id The id of this component
      */
     public MyFeedbackPanel(final String id) {
         this(id, null);
     }
 
     /**
-     * @see Panel#Panel(String)
-     * @param filter A filter for feedbackmessages.
+     * @param id The id of this component.
+     * @param filter Initial {@code IFeedbackMessageFilter}.
      */
     public MyFeedbackPanel(final String id, IFeedbackMessageFilter filter) {
         super(id);

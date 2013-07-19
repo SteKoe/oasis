@@ -42,7 +42,7 @@ public class RegistrationForm extends Panel {
     private Button submitButton;
 
     /**
-     * @see Panel#Panel(String)
+     * @param id The id of this component
      */
     public RegistrationForm(String id) {
         super(id);

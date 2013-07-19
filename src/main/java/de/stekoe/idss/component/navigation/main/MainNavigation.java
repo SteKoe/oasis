@@ -26,14 +26,15 @@ import de.stekoe.idss.page.UserProfilePage;
 public class MainNavigation extends Panel {
 
     /**
-     * @see Panel#Panel(String)
+     * @param id The id of this component
      */
     public MainNavigation(String id) {
         this(id, null);
     }
 
     /**
-     * @see Panel#Panel(String, IModel)
+     * @param id The id of this component
+     * @param model The model of this component
      */
     public MainNavigation(String id, IModel<?> model) {
         super(id, model);

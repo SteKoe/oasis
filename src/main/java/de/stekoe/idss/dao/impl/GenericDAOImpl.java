@@ -14,6 +14,7 @@ public abstract class GenericDAOImpl implements GenericDAO {
     @Autowired
     private SessionFactory sessionFactory;
 
+    @Override
     public Session getCurrentSession() {
         return sessionFactory.getCurrentSession();
     }

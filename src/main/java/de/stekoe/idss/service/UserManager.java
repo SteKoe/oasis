@@ -13,7 +13,7 @@ public interface UserManager {
     /**
      * @param user The User object which is to be persisted.
      * @return true on success, false otherwise.
-     * @throws UserAlreadyExistsException
+     * @throws UserAlreadyExistsException If the user is already in the database.
      */
     boolean insertUser(User user) throws UserAlreadyExistsException;
 

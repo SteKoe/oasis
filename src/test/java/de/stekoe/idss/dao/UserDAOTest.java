@@ -51,8 +51,11 @@ public class UserDAOTest extends BaseTest {
 
     @Test
     public void insertUserWithRoles() throws Exception {
-        Systemrole admin = new Systemrole("ADMINISTRATOR");
-        Systemrole user = new Systemrole("USER");
+        Systemrole admin = new Systemrole();
+        admin.setName(Systemrole.ADMIN);
+        
+        Systemrole user = new Systemrole();
+        admin.setName(Systemrole.USER);
 
         User userWithRoles = this.user;
         userWithRoles.getSystemroles().add(admin);

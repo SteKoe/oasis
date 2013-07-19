@@ -54,7 +54,9 @@ public class UserManagerImplTest extends BaseTest {
     @Test
     public void testForRoles() throws Exception {
         User user = userManager.findByUsername(USERNAMES[0]);
-        user.getSystemroles().add(new Systemrole("ADMINISTRATOR"));
+        Systemrole admin = new Systemrole();
+        admin.setName(Systemrole.ADMIN);
+        user.getSystemroles().add(admin);
         userManager.update(user);
     }
 }

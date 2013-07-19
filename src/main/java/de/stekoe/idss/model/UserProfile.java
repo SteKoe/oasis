@@ -20,38 +20,73 @@ public class UserProfile implements Serializable {
     private String surename;
     private Date birthdate;
 
+    /**
+     * @return the id.
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     * Set the id.
+     * 
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     * @return the firstname
+     */
     public String getFirstname() {
         return firstname;
     }
 
+    /**
+     * Sets the firstname.
+     * 
+     * @param firstname
+     */
     public void setFirstname(String firstname) {
         this.firstname = firstname;
     }
 
+    /**
+     * @return the surename.
+     */
     public String getSurename() {
         return surename;
     }
 
+    /**
+     * Sets the surename.
+     * 
+     * @param surename
+     */
     public void setSurename(String surename) {
         this.surename = surename;
     }
 
+    /**
+     * @return the birthdate.
+     */
     public Date getBirthdate() {
         return birthdate;
     }
 
+    /**
+     * Sets the birthdate.
+     * 
+     * @param birthdate
+     */
     public void setBirthdate(Date birthdate) {
         this.birthdate = birthdate;
     }
 
+    /**
+     * @return the age of a user.
+     */
     public int getAge() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(getBirthdate());
@@ -66,6 +101,9 @@ public class UserProfile implements Serializable {
         return Years.yearsBetween(birthdate, currentDate).getYears();
     }
 
+    /**
+     * @return the current date.
+     */
     // For testing purposes
     DateTime getCurrentDate() {
         return new DateTime();

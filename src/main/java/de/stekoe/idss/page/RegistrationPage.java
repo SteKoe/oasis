@@ -18,7 +18,9 @@ public class RegistrationPage extends LayoutPage {
         add(new RegistrationForm("form"));
 
         Set<Systemrole> systemroles = new HashSet<Systemrole>();
-        systemroles.add(new Systemrole(Systemrole.USER));
+        Systemrole systemrole = new Systemrole();
+        systemrole.setName(Systemrole.USER);
+        systemroles.add(systemrole);
 
         User user = new User();
         user.setUsername("username");

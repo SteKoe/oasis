@@ -49,7 +49,8 @@ public class MyFencedFeedbackPanel extends MyFeedbackPanel {
      * @param fence The fencing component
      * @param filter A filter applied on the feedback messages
      */
-    public MyFencedFeedbackPanel(String id, Component fence, IFeedbackMessageFilter filter) {
+    public MyFencedFeedbackPanel(String id, Component fence,
+            IFeedbackMessageFilter filter) {
         super(id, filter);
         this.fence = fence;
         if (fence != null) {
@@ -77,28 +78,24 @@ public class MyFencedFeedbackPanel extends MyFeedbackPanel {
             private static final long serialVersionUID = 1L;
 
             @Override
-            protected List<FeedbackMessage> collectMessages(Component panel,
-                    IFeedbackMessageFilter filter) {
+            protected List<FeedbackMessage> collectMessages(Component panel, IFeedbackMessageFilter filter) {
                 if (fence == null) {
-                    // this is the catch-all panel
-
-                    return new FeedbackCollector(panel.getPage()) {
+                    FeedbackCollector fc = new FeedbackCollector(panel.getPage()) {
                         @Override
                         protected boolean shouldRecurseInto(Component component) {
                             return component.getMetaData(FENCE_KEY) == null;
                         }
-                    }.collect(filter);
+                    };
+                    return fc.collect(filter);
                 } else {
-                    // this is a fenced panel
-
-                    return new FeedbackCollector(fence) {
+                    FeedbackCollector fc = new FeedbackCollector(fence) {
                         @Override
                         protected boolean shouldRecurseInto(Component component) {
-                            // only recurse into components that are not fences
-
                             return component.getMetaData(FENCE_KEY) == null;
                         }
-                    }.setIncludeSession(false).collect(filter);
+                    };
+                    fc.setIncludeSession(false);
+                    return fc.collect(filter);
                 }
             }
         };

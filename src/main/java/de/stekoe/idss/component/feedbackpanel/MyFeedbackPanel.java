@@ -207,13 +207,18 @@ public class MyFeedbackPanel extends Panel implements IFeedback {
         return new FeedbackMessagesModel(this);
     }
 
-    private Component newMessageDisplayComponent(String id,
-            FeedbackMessage message) {
+    private Component newMessageDisplayComponent(String id, FeedbackMessage message) {
+        if(message == null) {
+            return null;
+        }
+
         Serializable serializable = message.getMessage();
-        Label label = new Label(id, (serializable == null) ? ""
-                : serializable.toString());
-        label.setEscapeModelStrings(MyFeedbackPanel.this
-                .getEscapeModelStrings());
+        Label label = new Label(id, (serializable == null) ? "" : serializable.toString());
+        label.setEscapeModelStrings(MyFeedbackPanel.this.getEscapeModelStrings());
+
+        if(serializable == null) {
+            return null;
+        }
 
         Alert alert = new Alert(id, Model.of(serializable.toString()));
         int level = message.getLevel();

@@ -25,6 +25,7 @@ import de.stekoe.idss.page.UserProfilePage;
  * @see de.stekoe.idss.Start#main(String[])
  */
 public class WicketApplication extends WebApplication {
+
     @Override
     public Class<? extends WebPage> getHomePage() {
         return HomePage.class;

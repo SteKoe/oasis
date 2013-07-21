@@ -19,6 +19,7 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.form.ControlGroup;
 import de.stekoe.idss.component.behavior.Placeholder;
 import de.stekoe.idss.component.feedbackpanel.MyFencedFeedbackPanel;
 import de.stekoe.idss.exception.UserAlreadyExistsException;
+import de.stekoe.idss.mailer.Mailer;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.service.UserManager;
 
@@ -50,6 +51,8 @@ public class RegistrationForm extends Panel {
         createHiddenFeedbackPanel();
         createFields();
         createRegistrationForm();
+
+        sendActivationMail(null);
     }
 
     private void createHiddenFeedbackPanel() {
@@ -70,12 +73,12 @@ public class RegistrationForm extends Panel {
             protected void onSubmit() {
                 User user = getModelObject();
                 String plainPassword = user.getPassword();
-                String hashedPassword = BCrypt.hashpw(plainPassword,
-                        BCrypt.gensalt());
+                String hashedPassword = BCrypt.hashpw(plainPassword, BCrypt.gensalt());
                 user.setPassword(hashedPassword);
                 user.setActivationKey(DigestUtils.md5Hex(BCrypt.gensalt()));
                 try {
                     userManager.insertUser(user);
+                    sendActivationMail(user);
                 } catch (UserAlreadyExistsException e) {
                     error(new StringResourceModel("error.usernameAlreadyTaken",
                             this, null));
@@ -93,6 +96,12 @@ public class RegistrationForm extends Panel {
         form.add(getPasswordsEqualBehavior());
 
         add(form);
+    }
+
+    private void sendActivationMail(User user) {
+        Mailer mailer = new Mailer();
+        String s = mailer.renderTemplate();
+        System.out.println(s);
     }
 
     private ControlGroup getUsernameControlGroup() {

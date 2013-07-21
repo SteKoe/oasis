@@ -1,7 +1,5 @@
 package de.stekoe.idss;
 
-import java.util.Locale;
-
 import org.apache.wicket.Session;
 import org.apache.wicket.protocol.http.WebSession;
 import org.apache.wicket.request.Request;
@@ -21,7 +19,6 @@ public class IDSSSession extends WebSession {
      */
     public IDSSSession(Request request) {
         super(request);
-        setLocale(Locale.ENGLISH);
     }
 
     /**

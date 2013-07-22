@@ -43,8 +43,7 @@ public class MainNavigation extends Panel {
 
     private Navbar buildMainNavigation() {
         Navbar navbar = new Navbar("mainNavigation");
-        navbar.setPosition(Navbar.Position.TOP);
-        navbar.brandName(Model.of("IDSS"));
+        navbar.setPosition(Navbar.Position.DEFAULT);
 
         NavbarButton<HomePage> homePage = createHomePageLink();
         NavbarButton<ContactPage> contactPage = createContactPageLink();

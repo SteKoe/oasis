@@ -29,6 +29,20 @@
 	</bean>
 	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager" p:sessionFactory-ref="sessionFactory" />
 	
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="username" value="${smtp.user}" />
+        <property name="password" value="${smtp.password}" />
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.host">${smtp.host}</prop>
+                <prop key="mail.smtp.port">${smtp.port}</prop>
+                <prop key="mail.smtp.auth">${smtp.auth}</prop>
+                <prop key="mail.smtp.starttls.enable">${smtp.ssl}</prop>
+                <prop key="mail.debug">true</prop>
+            </props>
+        </property>
+    </bean>
+	
 	<!-- BEANS -->
 	<bean id="userDAO" class="de.stekoe.idss.dao.impl.UserDAOImpl" />
 	<bean id="userManager" class="de.stekoe.idss.service.impl.UserManagerImpl" />

@@ -7,16 +7,20 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.request.Response;
+import org.apache.wicket.settings.IExceptionSettings;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 
 import de.agilecoders.wicket.core.Bootstrap;
 import de.agilecoders.wicket.core.settings.BootstrapSettings;
-import de.stekoe.idss.page.AccessDeniedPage;
 import de.stekoe.idss.page.ActivateUserPage;
 import de.stekoe.idss.page.ContactPage;
 import de.stekoe.idss.page.HomePage;
 import de.stekoe.idss.page.RegistrationPage;
 import de.stekoe.idss.page.UserProfilePage;
+import de.stekoe.idss.page.error.Error403Page;
+import de.stekoe.idss.page.error.Error404Page;
+import de.stekoe.idss.page.error.Error410Page;
+import de.stekoe.idss.page.error.Error500Page;
 
 /**
  * Application object for your web application. If you want to run this
@@ -34,27 +38,53 @@ public class WicketApplication extends WebApplication {
     @Override
     public void init() {
         super.init();
-        switch (getConfigurationType()) {
-        case DEVELOPMENT:
-            getRequestLoggerSettings().setRequestLoggerEnabled(true);
-            getDebugSettings().setDevelopmentUtilitiesEnabled(true);
-            break;
-        case DEPLOYMENT:
-        default:
-            getMarkupSettings().setCompressWhitespace(true);
-        }
 
-        getSecuritySettings().setAuthorizationStrategy(
-                new RoleAuthorizationStrategy(new UserRolesAuthorizer()));
+        setConfigurationType();
+
+        setSecuritySettings();
 
         configureBootstrap();
         setUpSpring();
 
         createURLRoutings();
 
-        // getApplicationSettings().setPageExpiredErrorPage(MyExpiredPage.class);
-        getApplicationSettings().setAccessDeniedPage(AccessDeniedPage.class);
-        // getApplicationSettings().setInternalErrorPage(MyInternalErrorPage.class);
+        set403Page();
+        set404Page();
+        set410Page();
+        set500Page();
+    }
+
+    private void set410Page() {
+        getApplicationSettings().setPageExpiredErrorPage(Error410Page.class);
+    }
+
+    private void set500Page() {
+        getApplicationSettings().setInternalErrorPage(Error500Page.class);
+    }
+
+    private void set403Page() {
+        getApplicationSettings().setAccessDeniedPage(Error403Page.class);
+    }
+
+    private void set404Page() {
+        mountPage("/404", Error404Page.class);
+    }
+
+    private void setConfigurationType() {
+        switch (getConfigurationType()) {
+            case DEVELOPMENT:
+                getRequestLoggerSettings().setRequestLoggerEnabled(true);
+                getDebugSettings().setDevelopmentUtilitiesEnabled(true);
+                break;
+            case DEPLOYMENT:
+            default:
+                getExceptionSettings().setUnexpectedExceptionDisplay(IExceptionSettings.SHOW_INTERNAL_ERROR_PAGE);
+                getMarkupSettings().setCompressWhitespace(true);
+        }
+    }
+
+    private void setSecuritySettings() {
+        getSecuritySettings().setAuthorizationStrategy(new RoleAuthorizationStrategy(new UserRolesAuthorizer()));
     }
 
     @Override
@@ -72,8 +102,7 @@ public class WicketApplication extends WebApplication {
      * Set up Spring Component Injector
      */
     public void setUpSpring() {
-        getComponentInstantiationListeners().add(
-                new SpringComponentInjector(this));
+        getComponentInstantiationListeners().add(new SpringComponentInjector(this));
     }
 
     private void createURLRoutings() {

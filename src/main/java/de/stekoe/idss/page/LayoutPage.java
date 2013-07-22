@@ -52,6 +52,7 @@ public abstract class LayoutPage extends WebPage {
     private void createContent() {
         add(new MyFencedFeedbackPanel("systemmessages"));
         add(new MainNavigation("navbar"));
+        add(new LanguageSwitcher("languages"));
     }
 
     @Override

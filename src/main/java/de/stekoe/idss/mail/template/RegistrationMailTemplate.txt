@@ -1,0 +1,9 @@
+Hallo ${username},
+
+Ihr Benutzerkonto wurde erstellt. Sie müssen es jedoch erst freischalten. 
+
+Hierfür klicken Sie bitte auf folgenden Link:
+${activationlink}
+
+Herzliche Grüße
+Ihr IDSS-Team

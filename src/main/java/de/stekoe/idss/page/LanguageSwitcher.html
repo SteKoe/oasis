@@ -2,9 +2,11 @@
 <html lang="en" xmlns:wicket="http://wicket.sourceforge.net/">
 <body>
     <wicket:panel>
-        <div wicket:id="languages">
-	        <a wicket:id="language"></a>
-        </div>
+        <wicket:container wicket:id="languages">
+	        <a wicket:id="language">
+	           <span wicket:id="languageName"></span>
+	        </a>
+        </wicket:container>
     </wicket:panel>
 </body>
 </html>

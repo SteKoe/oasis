@@ -15,9 +15,9 @@ import de.stekoe.idss.IDSSSession;
 import de.stekoe.idss.page.ContactPage;
 import de.stekoe.idss.page.HomePage;
 import de.stekoe.idss.page.LoginPage;
-import de.stekoe.idss.page.LogoutPage;
 import de.stekoe.idss.page.RegistrationPage;
-import de.stekoe.idss.page.UserProfilePage;
+import de.stekoe.idss.page.auth.user.LogoutPage;
+import de.stekoe.idss.page.auth.user.UserProfilePage;
 
 /**
  * @author Stephan Köninger <mail@stekoe.de>
@@ -88,14 +88,14 @@ public class MainNavigation extends Panel {
 
     private NavbarButton<ContactPage> createContactPageLink() {
         NavbarButton<ContactPage> contactPage = new NavbarButton<ContactPage>(
-                ContactPage.class, Model.of("Contact"));
+                ContactPage.class, Model.of("Kontakt"));
         contactPage.setIconType(IconType.questionsign);
         return contactPage;
     }
 
     private NavbarButton<RegistrationPage> createRegistrationPageLink() {
         NavbarButton<RegistrationPage> registrationPage = new NavbarButton<RegistrationPage>(
-                RegistrationPage.class, Model.of("Registration"));
+                RegistrationPage.class, Model.of("Registrieren"));
         registrationPage.setIconType(IconType.user);
 
         if (IDSSSession.get().isLoggedIn()) {
@@ -106,7 +106,7 @@ public class MainNavigation extends Panel {
 
     private NavbarButton<LoginPage> createLoginPageLink() {
         NavbarButton<LoginPage> loginPage = new NavbarButton<LoginPage>(
-                LoginPage.class, Model.of("Login"));
+                LoginPage.class, Model.of("Anmelden"));
         loginPage.setIconType(IconType.user);
 
         if (IDSSSession.get().isLoggedIn()) {

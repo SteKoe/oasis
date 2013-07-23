@@ -52,9 +52,23 @@ public class UserManagerImpl implements UserManager {
 
     @Override
     @Transactional
-    public boolean login(String username, String password) {
+    public LoginStatus login(String username, String password) {
         User user = userDAO.findByUsername(username);
-        return BCrypt.checkpw(password, user.getPassword());
+
+        // User not found
+        if(user == null)
+            return LoginStatus.USER_NOT_FOUND;
+
+        // User is not activated
+        if(user.getActivationKey() != null)
+            return LoginStatus.USER_NOT_ACTIVATED;
+
+        // Check password
+        if(!BCrypt.checkpw(password, user.getPassword())) {
+            return LoginStatus.WRONG_PASSWORD;
+        } else {
+            return LoginStatus.SUCCESS;
+        }
     }
 
     @Override

@@ -6,6 +6,7 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import de.stekoe.idss.IDSSSession;
 import de.stekoe.idss.component.feedbackpanel.MyFencedFeedbackPanel;
+import de.stekoe.idss.component.navigation.language.LanguageSwitcher;
 import de.stekoe.idss.component.navigation.main.MainNavigation;
 
 /**

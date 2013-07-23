@@ -10,6 +10,14 @@ import de.stekoe.idss.model.User;
  */
 public interface UserManager {
 
+    /** Different stati for login. */
+    public enum LoginStatus {
+        WRONG_PASSWORD,
+        USER_NOT_FOUND,
+        USER_NOT_ACTIVATED,
+        SUCCESS
+    }
+
     /**
      * @param user The User object which is to be persisted.
      * @return true on success, false otherwise.
@@ -21,10 +29,10 @@ public interface UserManager {
      * Method to login a user by given username and password.
      *
      * @param username The username.
-     * @param password The password.
+     * @param password The password as plaintext.
      * @return true on success, false otherwise.
      */
-    boolean login(String username, String password);
+    LoginStatus login(String username, String password);
 
     /**
      * @param username Username to lookup.

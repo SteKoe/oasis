@@ -1,4 +1,4 @@
-package de.stekoe.idss.page;
+package de.stekoe.idss.page.auth.user;
 
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.Model;

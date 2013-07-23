@@ -12,6 +12,7 @@ import de.stekoe.idss.exception.UserAlreadyExistsException;
 import de.stekoe.idss.model.Systemrole;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.service.UserManager;
+import de.stekoe.idss.service.UserManager.LoginStatus;
 
 public class UserManagerImplTest extends BaseTest {
 
@@ -48,7 +49,8 @@ public class UserManagerImplTest extends BaseTest {
 
     @Test
     public void loginWorks() throws Exception {
-        assertTrue(userManager.login(USERNAMES[0], PASSWORT));
+        LoginStatus loginStatus = userManager.login(USERNAMES[0], PASSWORT);
+        assertTrue(UserManager.LoginStatus.SUCCESS.equals(loginStatus));
     }
 
     @Test

@@ -1,5 +1,7 @@
 package de.stekoe.idss;
 
+import java.util.Locale;
+
 import org.apache.wicket.Application;
 import org.apache.wicket.Session;
 import org.apache.wicket.authroles.authorization.strategies.role.RoleAuthorizationStrategy;
@@ -16,7 +18,7 @@ import de.stekoe.idss.page.ActivateUserPage;
 import de.stekoe.idss.page.ContactPage;
 import de.stekoe.idss.page.HomePage;
 import de.stekoe.idss.page.RegistrationPage;
-import de.stekoe.idss.page.UserProfilePage;
+import de.stekoe.idss.page.auth.user.UserProfilePage;
 import de.stekoe.idss.page.error.Error403Page;
 import de.stekoe.idss.page.error.Error404Page;
 import de.stekoe.idss.page.error.Error410Page;
@@ -30,10 +32,8 @@ import de.stekoe.idss.page.error.Error500Page;
  */
 public class WicketApplication extends WebApplication {
 
-    @Override
-    public Class<? extends WebPage> getHomePage() {
-        return HomePage.class;
-    }
+    /** Languages available for this application */
+    public static final Locale LANGUAGES[] = { Locale.GERMAN };
 
     @Override
     public void init() {
@@ -43,11 +43,11 @@ public class WicketApplication extends WebApplication {
 
         setSecuritySettings();
 
-        configureBootstrap();
+        configureBootstrapFramework();
         setUpSpring();
-
         createURLRoutings();
 
+        // HTML Status Pages
         set403Page();
         set404Page();
         set410Page();
@@ -92,7 +92,7 @@ public class WicketApplication extends WebApplication {
         return new IDSSSession(request);
     }
 
-    private void configureBootstrap() {
+    private void configureBootstrapFramework() {
         BootstrapSettings bootstrapSettings = new BootstrapSettings();
         bootstrapSettings.useCdnResources(true);
         Bootstrap.install(Application.get(), bootstrapSettings);
@@ -111,5 +111,10 @@ public class WicketApplication extends WebApplication {
         mountPage("/register", RegistrationPage.class);
         mountPage("/activate", ActivateUserPage.class);
         mountPage("/profile", UserProfilePage.class);
+    }
+
+    @Override
+    public Class<? extends WebPage> getHomePage() {
+        return HomePage.class;
     }
 }

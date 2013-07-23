@@ -1,8 +1,10 @@
-package de.stekoe.idss.page;
+package de.stekoe.idss.page.auth.user;
 
 import org.apache.wicket.RestartResponseAtInterceptPageException;
 
 import de.stekoe.idss.IDSSSession;
+import de.stekoe.idss.page.HomePage;
+import de.stekoe.idss.page.LayoutPage;
 
 /**
  * @author Stephan Köninger <mail@stekoe.de>

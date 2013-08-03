@@ -10,7 +10,6 @@
 		
 		<!-- Mappings -->
 		<mapping resource="hibernate/user.hbm.xml" />
-		<mapping resource="hibernate/systemrole.hbm.xml" />
 		<mapping resource="hibernate/userprofile.hbm.xml" />
 	</session-factory>
 </hibernate-configuration>

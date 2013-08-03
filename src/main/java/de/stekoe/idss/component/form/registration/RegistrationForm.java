@@ -88,6 +88,7 @@ public class RegistrationForm extends Panel {
                 String hashedPassword = BCrypt.hashpw(plainPassword, BCrypt.gensalt());
                 user.setPassword(hashedPassword);
                 user.setActivationKey(DigestUtils.md5Hex(BCrypt.gensalt()));
+
                 try {
                     userManager.insertUser(user);
                     sendActivationMail(user);

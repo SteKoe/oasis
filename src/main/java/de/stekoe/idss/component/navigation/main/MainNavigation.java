@@ -11,19 +11,18 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.INavbarComponent;
 import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.Navbar;
 import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarButton;
 import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarComponents;
-import de.stekoe.idss.IDSSSession;
 import de.stekoe.idss.page.ContactPage;
 import de.stekoe.idss.page.HomePage;
-import de.stekoe.idss.page.LoginPage;
 import de.stekoe.idss.page.RegistrationPage;
-import de.stekoe.idss.page.auth.user.LogoutPage;
-import de.stekoe.idss.page.auth.user.UserProfilePage;
 
 /**
  * @author Stephan Köninger <mail@stekoe.de>
  */
 @SuppressWarnings("serial")
 public class MainNavigation extends Panel {
+
+    private NavbarButton<HomePage> homePage;
+    private NavbarButton<ContactPage> contactPage;
 
     /**
      * @param id The id of this component
@@ -45,38 +44,21 @@ public class MainNavigation extends Panel {
         Navbar navbar = new Navbar("mainNavigation");
         navbar.setPosition(Navbar.Position.DEFAULT);
 
-        NavbarButton<HomePage> homePage = createHomePageLink();
-        NavbarButton<ContactPage> contactPage = createContactPageLink();
-        NavbarButton<RegistrationPage> registrationPage = createRegistrationPageLink();
-        NavbarButton<LoginPage> loginPage = createLoginPageLink();
-        NavbarButton<UserProfilePage> profilePage = createUserProfilePageLink();
-        NavbarButton<LogoutPage> logoutPage = createLogoutPageLink();
+        createPageLinks();
+
+        togglePageLinksVisibility();
 
         List<INavbarComponent> navbarComponent = NavbarComponents.transform(
-                Navbar.ComponentPosition.LEFT, homePage, contactPage,
-                registrationPage, profilePage, loginPage, logoutPage);
+                Navbar.ComponentPosition.LEFT, homePage, contactPage);
         navbar.addComponents(navbarComponent);
+
+
         return navbar;
     }
 
-    private NavbarButton<LogoutPage> createLogoutPageLink() {
-        NavbarButton<LogoutPage> userProfilePage = new NavbarButton<LogoutPage>(
-                LogoutPage.class, Model.of("Abmelden"));
-        userProfilePage.setIconType(IconType.user);
-        if (!IDSSSession.get().isLoggedIn()) {
-            userProfilePage.setVisible(false);
-        }
-        return userProfilePage;
-    }
-
-    private NavbarButton<UserProfilePage> createUserProfilePageLink() {
-        NavbarButton<UserProfilePage> userProfilePage = new NavbarButton<UserProfilePage>(
-                UserProfilePage.class, Model.of("Profile"));
-        userProfilePage.setIconType(IconType.user);
-        if (!IDSSSession.get().isLoggedIn()) {
-            userProfilePage.setVisible(false);
-        }
-        return userProfilePage;
+    private void createPageLinks() {
+        homePage = createHomePageLink();
+        contactPage = createContactPageLink();
     }
 
     private NavbarButton<HomePage> createHomePageLink() {
@@ -97,22 +79,10 @@ public class MainNavigation extends Panel {
         NavbarButton<RegistrationPage> registrationPage = new NavbarButton<RegistrationPage>(
                 RegistrationPage.class, Model.of("Registrieren"));
         registrationPage.setIconType(IconType.user);
-
-        if (IDSSSession.get().isLoggedIn()) {
-            registrationPage.setVisible(false);
-        }
         return registrationPage;
     }
 
-    private NavbarButton<LoginPage> createLoginPageLink() {
-        NavbarButton<LoginPage> loginPage = new NavbarButton<LoginPage>(
-                LoginPage.class, Model.of("Anmelden"));
-        loginPage.setIconType(IconType.user);
 
-        if (IDSSSession.get().isLoggedIn()) {
-            loginPage.setVisible(false);
-        }
-
-        return loginPage;
+    private void togglePageLinksVisibility() {
     }
 }

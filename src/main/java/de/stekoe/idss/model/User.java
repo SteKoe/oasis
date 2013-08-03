@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.ElementCollection;
+
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 
 /**
@@ -18,7 +20,8 @@ public class User implements Serializable {
     private String username;
     private String password;
     private String email;
-    private Set<Systemrole> systemroles = new HashSet<Systemrole>(0);
+    @ElementCollection
+    private Set<String> systemroles = new HashSet<String>();
     private UserProfile userProfile;
     private String activationKey;
 
@@ -73,7 +76,7 @@ public class User implements Serializable {
     /**
      * @return a set of systemroles
      */
-    public Set<Systemrole> getSystemroles() {
+    public Set<String> getSystemroles() {
         return this.systemroles;
     }
 
@@ -82,7 +85,7 @@ public class User implements Serializable {
      *
      * @param systemroles A {@code Set} of {@link Systemrole}s.
      */
-    public void setSystemroles(Set<Systemrole> systemroles) {
+    public void setSystemroles(Set<String> systemroles) {
         this.systemroles = systemroles;
     }
 
@@ -140,6 +143,9 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
+
+        if(1 == 1) return "";
+
         String format = "%-20s: %s %n";
 
         StringBuilder sb = new StringBuilder();
@@ -148,20 +154,7 @@ public class User implements Serializable {
         sb.append(String.format(format, "ID", getId()));
         sb.append(String.format(format, "Username", getUsername()));
         sb.append(String.format(format, "Username", getEmail()));
-
-        Systemrole[] systemroles = getSystemroles().toArray(new Systemrole[0]);
-
-        StringBuilder roles = new StringBuilder();
-        if (systemroles.length > 0) {
-            roles.append(systemroles[0].getName());
-
-            for (int i = 1; i < systemroles.length; i++) {
-                roles.append(",");
-                roles.append(systemroles[i].getName());
-            }
-        }
-
-        sb.append(String.format(format, "Roles", roles.toString()));
+        sb.append(String.format(format, "Roles", getSystemroles().toString()));
 
         return sb.toString();
     }
@@ -176,8 +169,8 @@ public class User implements Serializable {
     public boolean hasAnyRole(Roles roles) {
 
         Roles systemroles = new Roles();
-        for (Systemrole systemrole : getSystemroles()) {
-            systemroles.add(systemrole.getName());
+        for (String systemrole : getSystemroles()) {
+            systemroles.add(systemrole);
         }
 
         System.out.println("User needs role: " + roles);

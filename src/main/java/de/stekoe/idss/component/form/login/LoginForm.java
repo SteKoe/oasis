@@ -1,21 +1,19 @@
 package de.stekoe.idss.component.form.login;
 
+
+import org.apache.log4j.Logger;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
-import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.markup.html.form.PasswordTextField;
-import org.apache.wicket.markup.html.form.RequiredTextField;
+import org.apache.wicket.markup.html.form.StatelessForm;
+import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.ControlGroup;
-import de.stekoe.idss.IDSSSession;
 import de.stekoe.idss.component.feedbackpanel.MyFencedFeedbackPanel;
-import de.stekoe.idss.model.User;
-import de.stekoe.idss.page.HomePage;
 import de.stekoe.idss.service.UserManager;
 import de.stekoe.idss.service.UserManager.LoginStatus;
 
@@ -24,17 +22,10 @@ import de.stekoe.idss.service.UserManager.LoginStatus;
  */
 @SuppressWarnings("serial")
 public class LoginForm extends Panel {
+    private static final Logger LOG = Logger.getLogger(LoginForm.class);
 
     @SpringBean
-    private UserManager userManager;
-
-    private final User user = new User();
-
-    private Form<User> form;
-
-    private RequiredTextField<String> usernameField;
-    private PasswordTextField password;
-    private Button submitButton;
+    public static UserManager userManager;
 
     private Label successMessage;
 
@@ -43,14 +34,9 @@ public class LoginForm extends Panel {
      */
     public LoginForm(String id) {
         super(id);
-
-        createFeedbackPanel();
-        createRegistrationForm();
-        createSuccessMessage();
-    }
-
-    private void createFeedbackPanel() {
         add(new MyFencedFeedbackPanel("hiddenFeedback", this));
+        add(new SignInForm("loginForm"));
+        createSuccessMessage();
     }
 
     private void createSuccessMessage() {
@@ -59,94 +45,63 @@ public class LoginForm extends Panel {
         add(successMessage);
     }
 
-    private void createRegistrationForm() {
-        createFields();
+    /**
+     * Private inner class which creates the SignInForm based on a StatelessForm.
+     *
+     * StatelessForm is used since the user should be able to insert credentials,
+     * leave the pc and sign in at any later point.
+     */
+    @SuppressWarnings("rawtypes")
+    private static class SignInForm extends StatelessForm {
+        private String username;
+        private String password;
 
-        form = new Form<User>("loginForm") {
-            @Override
-            protected void onSubmit() {
-                User user = getModelObject();
-                LoginStatus loginStatus = userManager.login(user.getUsername(), user.getPassword());
-                if(UserManager.LoginStatus.SUCCESS.equals(loginStatus)) {
-                    IDSSSession.get().setUser(user);
-                    setResponsePage(HomePage.class);
+        @SuppressWarnings("unchecked")
+        public SignInForm(String id) {
+            super(id);
+            setModel(new CompoundPropertyModel(this));
+            add(newUsernameTextField());
+            add(newPasswordTextField());
+            add(newButton());
+        }
+
+
+        private ControlGroup newPasswordTextField() {
+            ControlGroup cg = new ControlGroup("passwordControlGroup");
+            PasswordTextField passwordTextField = new PasswordTextField("password");
+            passwordTextField.setLabel(new StringResourceModel("password.label", this, null));
+            cg.add(passwordTextField);
+            return cg;
+        }
+
+        private ControlGroup newUsernameTextField() {
+            ControlGroup cg = new ControlGroup("usernameControlGroup");
+            TextField usernameTextField = new TextField("username");
+            usernameTextField.setLabel(new StringResourceModel("username.label", this, null));
+            cg.add(usernameTextField);
+            return cg;
+        }
+
+        private ControlGroup newButton() {
+            ControlGroup cg = new ControlGroup("buttonControlGroup");
+            Button button = new Button("submit");
+            button.setModel(new StringResourceModel("submit.label", this, null));
+            cg.add(button);
+            return cg;
+        }
+
+        @Override
+        protected void onSubmit() {
+            if(username != null && password != null) {
+                LoginStatus loginStatus = userManager.login(username, password);
+                if(LoginStatus.SUCCESS.equals(loginStatus)) {
+                    LOG.info(String.format("User %s has logged in!", username));
+                    setResponsePage(getApplication().getHomePage());
                 } else {
-                    if(loginStatus.equals(UserManager.LoginStatus.WRONG_PASSWORD)) {
-                        warn("Falsches password!");
-                    }
-                    if(loginStatus.equals(UserManager.LoginStatus.USER_NOT_ACTIVATED)) {
-                        info("Benutzerkonto nicht aktiviert!");
-                    }
-                    if(loginStatus.equals(UserManager.LoginStatus.USER_NOT_FOUND)) {
-                        warn("Kein Konto mit den angegeben Daten gefunden!");
-                    }
+                    error("asd");
                 }
             }
-        };
-        form.setModel(new CompoundPropertyModel<User>(user));
+        }
 
-        form.add(getUsernameControlGroup());
-        form.add(getPasswordControlGroup());
-        form.add(getButtonControlGroup());
-
-        add(form);
-    }
-
-    private void createFields() {
-        setUsernameField();
-        setPasswordField();
-        setSubmitButton();
-    }
-
-    private ControlGroup getUsernameControlGroup() {
-        String id = "usernameControlGroup";
-        RequiredTextField<String> field = getUsernameField();
-        return createControlGroup(id, field);
-    }
-
-    private void setUsernameField() {
-        usernameField = new RequiredTextField<String>("username");
-        usernameField.setLabel(new StringResourceModel("username.label", this, null));
-    }
-
-    private RequiredTextField<String> getUsernameField() {
-        return usernameField;
-    }
-
-    private ControlGroup getPasswordControlGroup() {
-        String id = "passwordControlGroup";
-        PasswordTextField field = getPasswordField();
-        return createControlGroup(id, field);
-    }
-
-    private PasswordTextField getPasswordField() {
-        return password;
-    }
-
-    private void setPasswordField() {
-        password = new PasswordTextField("password");
-        password.setLabel(new StringResourceModel("password.label", this, null));
-    }
-
-    private ControlGroup getButtonControlGroup() {
-        String id = "buttonControlGroup";
-        Button submitButton = getSubmitButton();
-        return createControlGroup(id, submitButton);
-    }
-
-    private Button getSubmitButton() {
-        return submitButton;
-    }
-
-    private void setSubmitButton() {
-        submitButton = new Button("submit");
-        submitButton.setModel(new StringResourceModel("submit.label", this, null));
-    }
-
-    @SuppressWarnings("rawtypes")
-    private ControlGroup createControlGroup(String id, FormComponent... field) {
-        ControlGroup cg = new ControlGroup(id);
-        cg.add(field);
-        return cg;
     }
 }

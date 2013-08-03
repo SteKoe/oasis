@@ -35,4 +35,10 @@ public interface UserDAO {
      * @return The user with the given username.
      */
     User findByActivationCode(String code);
+
+    /**
+     * @param email The email address to look for.
+     * @return The user with the given email address.
+     */
+    User findByEmail(String email);
 }

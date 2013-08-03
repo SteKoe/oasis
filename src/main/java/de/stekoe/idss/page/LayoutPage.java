@@ -5,6 +5,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import de.stekoe.idss.IDSSSession;
+import de.stekoe.idss.UserPanel;
 import de.stekoe.idss.component.feedbackpanel.MyFencedFeedbackPanel;
 import de.stekoe.idss.component.navigation.language.LanguageSwitcher;
 import de.stekoe.idss.component.navigation.main.MainNavigation;
@@ -54,6 +55,7 @@ public abstract class LayoutPage extends WebPage {
         add(new MyFencedFeedbackPanel("systemmessages"));
         add(new MainNavigation("navbar"));
         add(new LanguageSwitcher("languages"));
+        add(new UserPanel("userPanel"));
     }
 
     @Override

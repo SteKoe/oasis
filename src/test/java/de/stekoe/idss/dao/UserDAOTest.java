@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.hamcrest.core.IsEqual;
 import org.hibernate.AssertionFailure;
 import org.junit.Before;
@@ -13,7 +14,6 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 
-import de.stekoe.idss.model.Systemrole;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.model.UserProfile;
 
@@ -29,6 +29,7 @@ public class UserDAOTest extends BaseTest {
         user.setUsername("hans");
         user.setEmail("hans@example.com");
         user.setPassword("geheim");
+        user.getSystemroles().add(Roles.USER);
     }
 
     @Test
@@ -51,20 +52,11 @@ public class UserDAOTest extends BaseTest {
 
     @Test
     public void insertUserWithRoles() throws Exception {
-        Systemrole admin = new Systemrole();
-        admin.setName(Systemrole.ADMIN);
-        
-        Systemrole user = new Systemrole();
-        admin.setName(Systemrole.USER);
-
         User userWithRoles = this.user;
-        userWithRoles.getSystemroles().add(admin);
-        userWithRoles.getSystemroles().add(user);
 
         userDAO.insert(userWithRoles);
 
-        User retrievedUser = (User) getCurrentSession().get(User.class,
-                userWithRoles.getId());
+        User retrievedUser = (User) getCurrentSession().get(User.class, userWithRoles.getId());
         assertTrue(retrievedUser.getSystemroles().size() == 2);
     }
 

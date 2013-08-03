@@ -13,9 +13,9 @@
 		<property name="password" type="string" not-null="true" />
 		<one-to-one name="userProfile" class="de.stekoe.idss.model.UserProfile" cascade="save-update">
 		</one-to-one>
-		<set name="systemroles" table="USER_SYSTEMROLES" cascade="save-update" lazy="false"> 
-			<key column="USER_ID" />
-			<one-to-many class="de.stekoe.idss.model.Systemrole" />
+		<set name="systemroles" table="USER_ROLES">
+            <key column="user_id"/>
+    		<element column="systemroles" type="org.apache.wicket.authroles.authorization.strategies.role.Roles" />
 		</set>
 		<property name="activationKey" type="string"></property>
 	</class>

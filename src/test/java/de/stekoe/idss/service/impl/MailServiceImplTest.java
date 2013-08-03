@@ -1,11 +1,13 @@
 package de.stekoe.idss.service.impl;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import de.stekoe.idss.service.MailService;
 
+@Ignore
 public class MailServiceImplTest {
 
     private FileSystemXmlApplicationContext context;

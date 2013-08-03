@@ -5,6 +5,7 @@ import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
+import de.stekoe.idss.WicketApplication;
 import de.stekoe.idss.service.MailService;
 
 @Service("mailService")
@@ -19,7 +20,11 @@ public class MailServiceImpl implements MailService {
         message.setTo(to);
         message.setSubject(subject);
         message.setText(body);
-        mailSender.send(message);
+
+        // Prevent sending mails in development mode
+        if(!WicketApplication.isDevelopmentMode()) {
+            mailSender.send(message);
+        }
     }
 
 }

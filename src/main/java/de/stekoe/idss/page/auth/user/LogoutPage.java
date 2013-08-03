@@ -2,7 +2,6 @@ package de.stekoe.idss.page.auth.user;
 
 import org.apache.wicket.RestartResponseAtInterceptPageException;
 
-import de.stekoe.idss.IDSSSession;
 import de.stekoe.idss.page.HomePage;
 import de.stekoe.idss.page.LayoutPage;
 
@@ -16,7 +15,7 @@ public class LogoutPage extends LayoutPage {
      * Construct.
      */
     public LogoutPage() {
-        IDSSSession.get().invalidate();
+        getSession().invalidate();
         info("Sie haben sich erfolgreich abgemeldet!");
         throw new RestartResponseAtInterceptPageException(HomePage.class);
     }

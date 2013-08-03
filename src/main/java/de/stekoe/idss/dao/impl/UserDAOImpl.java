@@ -18,8 +18,7 @@ public class UserDAOImpl extends GenericDAOImpl implements UserDAO {
 
     @Override
     public User findByUsername(String username) {
-        Criteria criteria = getCurrentSession().createCriteria(User.class).add(
-                Restrictions.eq("username", username));
+        Criteria criteria = getCurrentSession().createCriteria(User.class).add(Restrictions.eq("username", username));
         return (User) criteria.uniqueResult();
     }
 
@@ -45,7 +44,11 @@ public class UserDAOImpl extends GenericDAOImpl implements UserDAO {
 
     @Override
     public User findByActivationCode(String code) {
-        return (User) getCurrentSession().createCriteria(User.class)
-                .add(Restrictions.eq("activationKey", code)).uniqueResult();
+        return (User) getCurrentSession().createCriteria(User.class).add(Restrictions.eq("activationKey", code)).uniqueResult();
+    }
+
+    @Override
+    public User findByEmail(String email) {
+        return (User) getCurrentSession().createCriteria(User.class).add(Restrictions.eq("email", email)).uniqueResult();
     }
 }

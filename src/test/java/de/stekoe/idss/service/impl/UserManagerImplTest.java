@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import de.stekoe.idss.dao.BaseTest;
 import de.stekoe.idss.exception.UserAlreadyExistsException;
-import de.stekoe.idss.model.Systemrole;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.service.UserManager;
 import de.stekoe.idss.service.UserManager.LoginStatus;
@@ -51,14 +50,5 @@ public class UserManagerImplTest extends BaseTest {
     public void loginWorks() throws Exception {
         LoginStatus loginStatus = userManager.login(USERNAMES[0], PASSWORT);
         assertTrue(UserManager.LoginStatus.SUCCESS.equals(loginStatus));
-    }
-
-    @Test
-    public void testForRoles() throws Exception {
-        User user = userManager.findByUsername(USERNAMES[0]);
-        Systemrole admin = new Systemrole();
-        admin.setName(Systemrole.ADMIN);
-        user.getSystemroles().add(admin);
-        userManager.update(user);
     }
 }

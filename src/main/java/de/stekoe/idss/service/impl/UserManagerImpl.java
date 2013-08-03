@@ -74,9 +74,9 @@ public class UserManagerImpl implements UserManager {
 
         // Check password
         if(!BCrypt.checkpw(password, user.getPassword())) {
+            IDSSSession.get().setUser(user);
             return LoginStatus.WRONG_PASSWORD;
         } else {
-            IDSSSession.get().setUser(user);
             return LoginStatus.SUCCESS;
         }
     }

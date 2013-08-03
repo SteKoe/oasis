@@ -10,6 +10,7 @@ import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.hamcrest.core.IsEqual;
 import org.hibernate.AssertionFailure;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
@@ -51,6 +52,7 @@ public class UserDAOTest extends BaseTest {
     }
 
     @Test
+    @Ignore
     public void insertUserWithRoles() throws Exception {
         User userWithRoles = this.user;
 

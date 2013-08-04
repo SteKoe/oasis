@@ -98,7 +98,31 @@ public class LoginForm extends Panel {
                     LOG.info(String.format("User %s has logged in!", username));
                     setResponsePage(getApplication().getHomePage());
                 } else {
-                    error("asd");
+                    LOG.info(String.format("Login for User %s returned status %s.", username, loginStatus.toString()));
+
+                    boolean error = true;
+                    String message;
+                    switch (loginStatus) {
+                        case USER_NOT_ACTIVATED:
+                            message = getString("login.error.not_activated");
+                            error = false;
+                            break;
+                        case USER_NOT_FOUND:
+                            message = getString("login.error.user_not_found");
+                            break;
+                        case WRONG_PASSWORD:
+                            message = getString("login.error.wrong_password");
+                            break;
+                        default:
+                            message = getString("login.error");
+                            break;
+                    }
+
+                    if(error) {
+                        error(message);
+                    } else {
+                        info(message);
+                    }
                 }
             }
         }

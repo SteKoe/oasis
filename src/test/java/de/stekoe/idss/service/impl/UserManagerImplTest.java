@@ -17,8 +17,7 @@ import de.stekoe.idss.service.UserManager.LoginStatus;
 
 public class UserManagerImplTest extends BaseTest {
 
-    private static final String[] USERNAMES = { "Stephan", "Benedikt",
-            "Robert", "Jonas" };
+    private static final String[] USERNAMES = { "Stephan", "Benedikt", "Robert", "Jonas" };
     private static final String PASSWORT = "geheim";
 
     @Autowired
@@ -60,5 +59,24 @@ public class UserManagerImplTest extends BaseTest {
         @Override
         public void setUpSpring() {
         }
+    }
+
+    @Test
+    public void loginIfNotActivated() throws Exception {
+        User user = new User();
+        user.setUsername("unactivatedUser");
+        user.setEmail("unactivatedUser@example.com");
+        user.setPassword(BCrypt.hashpw("geheim", BCrypt.gensalt()));
+        user.setActivationKey("test");
+        userManager.insertUser(user);
+
+        LoginStatus loginStatus = userManager.login("unactivatedUser", "geheim");
+        assertTrue(UserManager.LoginStatus.USER_NOT_ACTIVATED.equals(loginStatus));
+
+        user = userManager.findByUsername("unactivatedUser");
+        user.setActivationKey(null);
+
+        loginStatus = userManager.login("unactivatedUser", "geheim");
+        assertTrue(UserManager.LoginStatus.SUCCESS.equals(loginStatus));
     }
 }

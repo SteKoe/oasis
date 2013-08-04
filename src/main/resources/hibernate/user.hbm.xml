@@ -13,7 +13,7 @@
 		<property name="password" type="string" not-null="true" />
 		<one-to-one name="userProfile" class="de.stekoe.idss.model.UserProfile" cascade="save-update">
 		</one-to-one>
-		<set name="systemroles" table="USER_ROLES" cascade="all">
+		<set name="systemroles" table="USER_ROLES" cascade="all" lazy="false">
             <key column="user_id"/>
     		<many-to-many column="role_id" class="de.stekoe.idss.model.Role"/>
 		</set>

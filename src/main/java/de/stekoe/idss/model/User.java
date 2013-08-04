@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.ElementCollection;
-
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 
 /**
@@ -20,8 +18,7 @@ public class User implements Serializable {
     private String username;
     private String password;
     private String email;
-    @ElementCollection
-    private Set<String> systemroles = new HashSet<String>();
+    private Set<Role> systemroles = new HashSet<Role>();
     private UserProfile userProfile;
     private String activationKey;
 
@@ -76,7 +73,7 @@ public class User implements Serializable {
     /**
      * @return a set of systemroles
      */
-    public Set<String> getSystemroles() {
+    public Set<Role> getSystemroles() {
         return this.systemroles;
     }
 
@@ -85,7 +82,7 @@ public class User implements Serializable {
      *
      * @param systemroles A {@code Set} of {@link Systemrole}s.
      */
-    public void setSystemroles(Set<String> systemroles) {
+    public void setSystemroles(Set<Role> systemroles) {
         this.systemroles = systemroles;
     }
 
@@ -143,9 +140,6 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-
-        if(1 == 1) return "";
-
         String format = "%-20s: %s %n";
 
         StringBuilder sb = new StringBuilder();
@@ -167,15 +161,10 @@ public class User implements Serializable {
      * @return true if the user has any of the given roles. False otherwise.
      */
     public boolean hasAnyRole(Roles roles) {
-
         Roles systemroles = new Roles();
-        for (String systemrole : getSystemroles()) {
-            systemroles.add(systemrole);
+        for (Role systemrole : getSystemroles()) {
+            systemroles.add(systemrole.getRoleName());
         }
-
-        System.out.println("User needs role: " + roles);
-        System.out.println("User has roles:  " + systemroles);
-
         return systemroles.hasAnyRole(roles);
     }
 }

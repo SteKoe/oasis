@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.EmailTextField;
@@ -27,6 +28,7 @@ import de.stekoe.idss.component.behavior.Placeholder;
 import de.stekoe.idss.component.feedbackpanel.MyFencedFeedbackPanel;
 import de.stekoe.idss.exception.UserAlreadyExistsException;
 import de.stekoe.idss.mail.template.RegistrationMailTemplate;
+import de.stekoe.idss.model.Role;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.page.ActivateUserPage;
 import de.stekoe.idss.service.MailService;
@@ -88,6 +90,7 @@ public class RegistrationForm extends Panel {
                 String hashedPassword = BCrypt.hashpw(plainPassword, BCrypt.gensalt());
                 user.setPassword(hashedPassword);
                 user.setActivationKey(DigestUtils.md5Hex(BCrypt.gensalt()));
+                user.getSystemroles().add(new Role(Roles.USER));
 
                 try {
                     userManager.insertUser(user);

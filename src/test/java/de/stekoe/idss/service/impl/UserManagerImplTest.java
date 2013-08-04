@@ -2,11 +2,13 @@ package de.stekoe.idss.service.impl;
 
 import static org.junit.Assert.assertTrue;
 
+import org.apache.wicket.util.tester.WicketTester;
 import org.junit.Before;
 import org.junit.Test;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import de.stekoe.idss.WicketApplication;
 import de.stekoe.idss.dao.BaseTest;
 import de.stekoe.idss.exception.UserAlreadyExistsException;
 import de.stekoe.idss.model.User;
@@ -24,6 +26,8 @@ public class UserManagerImplTest extends BaseTest {
 
     @Before
     public void setUp() throws Exception {
+        new WicketTester(new TestWicketApplication());
+
         for (int i = 0; i < USERNAMES.length; i++) {
             User user = new User();
             user.setUsername(USERNAMES[i]);
@@ -50,5 +54,11 @@ public class UserManagerImplTest extends BaseTest {
     public void loginWorks() throws Exception {
         LoginStatus loginStatus = userManager.login(USERNAMES[0], PASSWORT);
         assertTrue(UserManager.LoginStatus.SUCCESS.equals(loginStatus));
+    }
+
+    private class TestWicketApplication extends WicketApplication {
+        @Override
+        public void setUpSpring() {
+        }
     }
 }

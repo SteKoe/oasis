@@ -10,11 +10,11 @@ import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.hamcrest.core.IsEqual;
 import org.hibernate.AssertionFailure;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 
+import de.stekoe.idss.model.Role;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.model.UserProfile;
 
@@ -30,17 +30,14 @@ public class UserDAOTest extends BaseTest {
         user.setUsername("hans");
         user.setEmail("hans@example.com");
         user.setPassword("geheim");
-        user.getSystemroles().add(Roles.USER);
     }
 
     @Test
     @Rollback(true)
     public void insertNewUser() throws Exception {
         userDAO.insert(user);
-        User retrievedUser = (User) getCurrentSession().get(User.class,
-                user.getId());
-        assertThat(retrievedUser.getUsername(),
-                IsEqual.equalTo(user.getUsername()));
+        User retrievedUser = (User) getCurrentSession().get(User.class, user.getId());
+        assertThat(retrievedUser.getUsername(), IsEqual.equalTo(user.getUsername()));
     }
 
     @Test(expected = AssertionFailure.class)
@@ -52,10 +49,10 @@ public class UserDAOTest extends BaseTest {
     }
 
     @Test
-    @Ignore
     public void insertUserWithRoles() throws Exception {
         User userWithRoles = this.user;
-
+        userWithRoles.getSystemroles().add(new Role(Roles.USER));
+        userWithRoles.getSystemroles().add(new Role(Roles.ADMIN));
         userDAO.insert(userWithRoles);
 
         User retrievedUser = (User) getCurrentSession().get(User.class, userWithRoles.getId());

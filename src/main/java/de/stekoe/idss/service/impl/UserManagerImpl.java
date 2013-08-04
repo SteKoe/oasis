@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.stekoe.idss.IDSSSession;
+import de.stekoe.idss.dao.RoleDAO;
 import de.stekoe.idss.dao.UserDAO;
 import de.stekoe.idss.exception.UserAlreadyExistsException;
+import de.stekoe.idss.model.Role;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.service.UserManager;
 
@@ -25,6 +27,10 @@ public class UserManagerImpl implements UserManager {
 
     @Autowired
     private UserDAO userDAO;
+
+    @Autowired
+    private RoleDAO roleDAO;
+
 
     @Override
     @Transactional
@@ -74,9 +80,9 @@ public class UserManagerImpl implements UserManager {
 
         // Check password
         if(!BCrypt.checkpw(password, user.getPassword())) {
-            IDSSSession.get().setUser(user);
             return LoginStatus.WRONG_PASSWORD;
         } else {
+            IDSSSession.get().setUser(user);
             return LoginStatus.SUCCESS;
         }
     }
@@ -113,5 +119,10 @@ public class UserManagerImpl implements UserManager {
         }
 
         return mail;
+    }
+
+    @Override
+    public Role getRole(String rolename) {
+        return roleDAO.getRoleByName(rolename);
     }
 }

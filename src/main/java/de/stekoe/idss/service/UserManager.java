@@ -3,6 +3,7 @@ package de.stekoe.idss.service;
 import java.util.List;
 
 import de.stekoe.idss.exception.UserAlreadyExistsException;
+import de.stekoe.idss.model.Role;
 import de.stekoe.idss.model.User;
 
 /**
@@ -65,4 +66,12 @@ public interface UserManager {
      * @return List of all email addresses in database.
      */
     List<String> getAllEmailAddresses();
+
+    /**
+     * Get a role form database by given rolename.
+     *
+     * @param rolename The rolename to look for
+     * @return The role if found
+     */
+    Role getRole(String rolename);
 }

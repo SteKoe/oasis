@@ -15,6 +15,7 @@ import org.joda.time.Years;
  */
 @SuppressWarnings("serial")
 public class UserProfile implements Serializable {
+
     private Long id;
     private String firstname;
     private String surename;

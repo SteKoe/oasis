@@ -99,9 +99,8 @@ public class WicketApplication extends WebApplication {
     }
 
     private void configureBootstrapFramework() {
-        BootstrapSettings bootstrapSettings = new BootstrapSettings();
-        bootstrapSettings.useCdnResources(true);
-        Bootstrap.install(Application.get(), bootstrapSettings);
+        // TODO: Remove CDN resources
+        Bootstrap.install(Application.get(), new BootstrapSettings());
     }
 
     /**

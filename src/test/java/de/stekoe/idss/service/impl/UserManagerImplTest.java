@@ -12,8 +12,8 @@ import de.stekoe.idss.WicketApplication;
 import de.stekoe.idss.dao.BaseTest;
 import de.stekoe.idss.exception.UserAlreadyExistsException;
 import de.stekoe.idss.model.User;
-import de.stekoe.idss.service.UserManager;
-import de.stekoe.idss.service.UserManager.LoginStatus;
+import de.stekoe.idss.service.IUserService;
+import de.stekoe.idss.service.IUserService.LoginStatus;
 
 public class UserManagerImplTest extends BaseTest {
 
@@ -21,7 +21,7 @@ public class UserManagerImplTest extends BaseTest {
     private static final String PASSWORT = "geheim";
 
     @Autowired
-    private UserManager userManager;
+    private IUserService userManager;
 
     @Before
     public void setUp() throws Exception {
@@ -52,7 +52,7 @@ public class UserManagerImplTest extends BaseTest {
     @Test
     public void loginWorks() throws Exception {
         LoginStatus loginStatus = userManager.login(USERNAMES[0], PASSWORT);
-        assertTrue(UserManager.LoginStatus.SUCCESS.equals(loginStatus));
+        assertTrue(IUserService.LoginStatus.SUCCESS.equals(loginStatus));
     }
 
     private class TestWicketApplication extends WicketApplication {
@@ -71,12 +71,12 @@ public class UserManagerImplTest extends BaseTest {
         userManager.insertUser(user);
 
         LoginStatus loginStatus = userManager.login("unactivatedUser", "geheim");
-        assertTrue(UserManager.LoginStatus.USER_NOT_ACTIVATED.equals(loginStatus));
+        assertTrue(IUserService.LoginStatus.USER_NOT_ACTIVATED.equals(loginStatus));
 
         user = userManager.findByUsername("unactivatedUser");
         user.setActivationKey(null);
 
         loginStatus = userManager.login("unactivatedUser", "geheim");
-        assertTrue(UserManager.LoginStatus.SUCCESS.equals(loginStatus));
+        assertTrue(IUserService.LoginStatus.SUCCESS.equals(loginStatus));
     }
 }

@@ -13,8 +13,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>de.stekoe.idss</groupId>
-	<artifactId>IDSS</artifactId>
+	<artifactId>idss-application</artifactId>
 	<packaging>war</packaging>
 	<version>1.0-SNAPSHOT</version>
 	<name>IDSS Project</name>
@@ -47,6 +46,7 @@
 		<jetty.version>7.6.3.v20120416</jetty.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.version>3.2.2.RELEASE</spring.version>
+		<wicket.bootstrap>0.8.4</wicket.bootstrap>
 	</properties>
 	<dependencies>
 		<!-- WICKET DEPENDENCIES -->
@@ -147,12 +147,12 @@
 		<dependency>
 			<groupId>de.agilecoders.wicket</groupId>
 			<artifactId>wicket-bootstrap-core</artifactId>
-			<version>0.8.4</version>
+			<version>${wicket.bootstrap}</version>
 		</dependency>
 		<dependency>
 			<groupId>de.agilecoders.wicket</groupId>
 			<artifactId>wicket-bootstrap-extensions</artifactId>
-			<version>0.8.4</version>
+			<version>${wicket.bootstrap}</version>
 		</dependency>
 		
 		<dependency>
@@ -349,4 +349,5 @@
 		<url>http://stekoe.dyndns.org:8081</url>
 	</ciManagement>
 	<inceptionYear>2013</inceptionYear>
+	<groupId>de.stekoe.idss.application</groupId>
 </project>

@@ -3,7 +3,7 @@ package de.stekoe.idss.service;
 /**
  * Allows to send mails.
  */
-public interface MailService {
+public interface IMailService {
     /**
      * @param to The receipient
      * @param subject The subject of the mail

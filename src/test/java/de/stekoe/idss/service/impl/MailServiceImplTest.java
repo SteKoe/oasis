@@ -5,18 +5,18 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
-import de.stekoe.idss.service.MailService;
+import de.stekoe.idss.service.IMailService;
 
 @Ignore
 public class MailServiceImplTest {
 
     private FileSystemXmlApplicationContext context;
-    private MailService mailer;
+    private IMailService mailer;
 
     @Before
     public void setUp() {
         context = new FileSystemXmlApplicationContext("classpath:applicationContext.xml");
-        mailer = (MailService) context.getBean("mailService");
+        mailer = (IMailService) context.getBean("mailService");
     }
 
     @Test

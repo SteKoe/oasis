@@ -15,15 +15,15 @@ import de.stekoe.idss.dao.UserDAO;
 import de.stekoe.idss.exception.UserAlreadyExistsException;
 import de.stekoe.idss.model.Role;
 import de.stekoe.idss.model.User;
-import de.stekoe.idss.service.UserManager;
+import de.stekoe.idss.service.IUserService;
 
 /**
  * @author Stephan Köninger <mail@stekoe.de>
  */
 @Service
-public class UserManagerImpl implements UserManager {
+public class UserService implements IUserService {
 
-    private static final Logger LOG = Logger.getLogger(UserManagerImpl.class);
+    private static final Logger LOG = Logger.getLogger(UserService.class);
 
     @Autowired
     private UserDAO userDAO;

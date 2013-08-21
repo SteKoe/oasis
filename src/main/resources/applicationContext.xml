@@ -28,6 +28,8 @@
 		<property name="packagesToScan" value="de.stekoe.idss.model" />
 	</bean>
 
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager" p:sessionFactory-ref="sessionFactory" />
+	
 	<!-- SMTP Connector -->
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="username" value="${smtp.user}" />
@@ -46,6 +48,7 @@
 
 	<!-- DAOs -->
 	<bean id="userDAO" class="de.stekoe.idss.dao.impl.UserDAOImpl" />
-	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager" p:sessionFactory-ref="sessionFactory" />
-	<bean id="userManagerImpl" class="de.stekoe.idss.service.impl.UserManagerImpl" />
+	
+	<!-- Services -->
+	<bean id="userService" class="de.stekoe.idss.service.impl.UserService" />
 </beans>

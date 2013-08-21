@@ -5261,3 +5261,7 @@ a.badge:focus {
 .affix {
   position: fixed;
 }
+.form-centered-container {
+  margin: 0px auto;
+  width: 75%;
+}

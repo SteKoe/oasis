@@ -1,4 +1,4 @@
-package de.stekoe.idss.component.form.registration;
+package de.stekoe.idss.validator;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import org.apache.wicket.validation.ValidationError;
  * @author Stephan Köninger <mail@stekoe.de>
  */
 @SuppressWarnings("serial")
-public class UniqueContentValidator implements IValidator<String> {
+public class UniqueValueValidator implements IValidator<String> {
 
     private final List<String> checkers;
 
@@ -18,7 +18,7 @@ public class UniqueContentValidator implements IValidator<String> {
      * Construct.
      * @param checkers List of Strings which are not allowed to be value of the textfield.
      */
-    public UniqueContentValidator(List<String> checkers) {
+    public UniqueValueValidator(List<String> checkers) {
         this.checkers = checkers;
     }
 

@@ -1,4 +1,4 @@
-package de.stekoe.idss.component.form.registration;
+package de.stekoe.idss.component.form;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,6 +21,7 @@ import org.apache.wicket.request.Url;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.hibernate.AssertionFailure;
 import org.mindrot.jbcrypt.BCrypt;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.ControlGroup;
@@ -31,8 +32,9 @@ import de.stekoe.idss.mail.template.RegistrationMailTemplate;
 import de.stekoe.idss.model.Role;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.page.ActivateUserPage;
-import de.stekoe.idss.service.MailService;
-import de.stekoe.idss.service.UserManager;
+import de.stekoe.idss.service.IMailService;
+import de.stekoe.idss.service.IUserService;
+import de.stekoe.idss.validator.UniqueValueValidator;
 
 /**
  * @author Stephan Köninger <mail@stekoe.de>
@@ -41,10 +43,10 @@ import de.stekoe.idss.service.UserManager;
 public class RegistrationForm extends Panel {
 
     @SpringBean
-    private MailService mailService;
+    private IMailService mailService;
 
     @SpringBean
-    private UserManager userManager;
+    private IUserService userService;
 
     private final User user = new User();
 
@@ -85,22 +87,39 @@ public class RegistrationForm extends Panel {
         form = new Form<User>("registrationForm") {
             @Override
             protected void onSubmit() {
-                User user = getModelObject();
-                String plainPassword = user.getPassword();
-                String hashedPassword = BCrypt.hashpw(plainPassword, BCrypt.gensalt());
-                user.setPassword(hashedPassword);
-                user.setActivationKey(DigestUtils.md5Hex(BCrypt.gensalt()));
-                user.getSystemroles().add(new Role(Roles.USER));
-
                 try {
-                    userManager.insertUser(user);
+                    User user = createUser();
+                    userService.insertUser(user);
                     sendActivationMail(user);
                     successMessage.setVisible(true);
                     form.setVisible(false);
                 } catch (UserAlreadyExistsException e) {
-                    error(new StringResourceModel("error.usernameAlreadyTaken",
-                            this, null));
+                    error(new StringResourceModel("error.usernameAlreadyTaken", this, null));
+                } catch (AssertionFailure e) {
+                    error(new StringResourceModel("error.hibernate.assertion", this, null));
                 }
+            }
+
+            private User createUser() {
+                User user = getModelObject();
+                String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
+                user.setPassword(hashedPassword);
+                user.setActivationKey(DigestUtils.md5Hex(BCrypt.gensalt()));
+                user.getSystemroles().add(new Role(Roles.USER));
+                return user;
+            }
+
+            private void sendActivationMail(User user) {
+                String address = user.getEmail();
+                String subject = "Successfully registered!";
+
+                Map<String, String> variables = new HashMap<String, String>();
+                variables.put("username", user.getUsername());
+                variables.put("activationlink", createActivationLink(user));
+
+                String message = new RegistrationMailTemplate().setVariables(variables);
+
+                mailService.sendMail(address, subject, message);
             }
         };
         form.setModel(new CompoundPropertyModel<User>(user));
@@ -124,20 +143,6 @@ public class RegistrationForm extends Panel {
         setSubmitButton();
     }
 
-    private void sendActivationMail(User user) {
-        String address = user.getEmail();
-        String subject = "Successfully registered!";
-
-        Map<String, String> variables = new HashMap<String, String>();
-        variables.put("username", user.getUsername());
-        variables.put("activationlink", createActivationLink(user));
-
-        RegistrationMailTemplate template = new RegistrationMailTemplate();
-        String message = template.asString(variables);
-
-        mailService.sendMail(address, subject, message);
-    }
-
     private String createActivationLink(User user) {
         PageParameters pp = new PageParameters();
         pp.set(0, user.getActivationKey());
@@ -154,7 +159,7 @@ public class RegistrationForm extends Panel {
     private void setUsernameField() {
         usernameField = new RequiredTextField<String>("username");
         usernameField.setLabel(new StringResourceModel("username.label", this, null));
-        usernameField.add(new UniqueContentValidator(userManager.getAllUsernames()));
+        usernameField.add(new UniqueValueValidator(userService.getAllUsernames()));
         usernameField.add(new Placeholder("username.placeholder", this));
     }
 
@@ -172,7 +177,7 @@ public class RegistrationForm extends Panel {
         email = new EmailTextField("email");
         email.setRequired(true);
         email.setLabel(new StringResourceModel("email.label", this, null));
-        email.add(new UniqueContentValidator(userManager.getAllEmailAddresses()));
+        email.add(new UniqueValueValidator(userService.getAllEmailAddresses()));
         email.add(new Placeholder("email.placeholder", this));
     }
 

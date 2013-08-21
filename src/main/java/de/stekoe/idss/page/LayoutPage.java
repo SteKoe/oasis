@@ -5,10 +5,10 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import de.stekoe.idss.IDSSSession;
-import de.stekoe.idss.UserPanel;
 import de.stekoe.idss.component.feedbackpanel.MyFencedFeedbackPanel;
 import de.stekoe.idss.component.navigation.language.LanguageSwitcher;
 import de.stekoe.idss.component.navigation.main.MainNavigation;
+import de.stekoe.idss.panel.UserPanel;
 
 /**
  * @author Stephan Köninger <mail@stekoe.de>

@@ -7,9 +7,9 @@ import de.stekoe.idss.model.Role;
 import de.stekoe.idss.model.User;
 
 /**
- * @author Stephan Köninger <mail@stekoe.de>
+ * @author Stephan Koeninger <mail@stekoe.de>
  */
-public interface UserManager {
+public interface IUserService {
 
     /** Different stati for login. */
     public enum LoginStatus {

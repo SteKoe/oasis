@@ -1,4 +1,4 @@
-package de.stekoe.idss.component.form.login;
+package de.stekoe.idss.component.form;
 
 
 import org.apache.log4j.Logger;
@@ -13,9 +13,11 @@ import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.ControlGroup;
+import de.stekoe.idss.IDSSSession;
 import de.stekoe.idss.component.feedbackpanel.MyFencedFeedbackPanel;
-import de.stekoe.idss.service.UserManager;
-import de.stekoe.idss.service.UserManager.LoginStatus;
+import de.stekoe.idss.model.User;
+import de.stekoe.idss.service.IUserService;
+import de.stekoe.idss.service.IUserService.LoginStatus;
 
 /**
  * @author Stephan Köninger <mail@stekoe.de>
@@ -25,7 +27,7 @@ public class LoginForm extends Panel {
     private static final Logger LOG = Logger.getLogger(LoginForm.class);
 
     @SpringBean
-    public static UserManager userManager;
+    public static IUserService userManager;
 
     private Label successMessage;
 
@@ -96,6 +98,8 @@ public class LoginForm extends Panel {
                 LoginStatus loginStatus = userManager.login(username, password);
                 if(LoginStatus.SUCCESS.equals(loginStatus)) {
                     LOG.info(String.format("User %s has logged in!", username));
+                    User user = IDSSSession.get().getUser();
+                    LOG.info(user.toString());
                     setResponsePage(getApplication().getHomePage());
                 } else {
                     LOG.info(String.format("Login for User %s returned status %s.", username, loginStatus.toString()));

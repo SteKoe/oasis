@@ -167,4 +167,17 @@ public class User implements Serializable {
         }
         return systemroles.hasAnyRole(roles);
     }
+
+    /**
+     * Returns true or false depending on user has role "ADMIN".
+     *
+     * @return true if user is admin, false otherwise.
+     */
+    public boolean isAdmin() {
+        for (Role systemrole : getSystemroles()) {
+            if(systemrole.getRoleName().equals(Roles.ADMIN))
+                return true;
+        }
+        return false;
+    }
 }

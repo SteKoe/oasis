@@ -5,7 +5,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.string.StringValue;
 
 import de.stekoe.idss.model.User;
-import de.stekoe.idss.service.UserManager;
+import de.stekoe.idss.service.IUserService;
 
 /**
  * @author Stephan Köninger <mail@stekoe.de>
@@ -14,7 +14,7 @@ import de.stekoe.idss.service.UserManager;
 public class ActivateUserPage extends LayoutPage {
 
     @SpringBean
-    private UserManager userManager;
+    private IUserService userManager;
 
     private String activationCode = null;
 

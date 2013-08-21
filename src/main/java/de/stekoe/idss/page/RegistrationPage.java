@@ -1,6 +1,7 @@
 package de.stekoe.idss.page;
 
-import de.stekoe.idss.component.form.registration.RegistrationForm;
+import de.stekoe.idss.component.form.RegistrationForm;
+
 
 /**
  * @author Stephan Köninger <mail@stekoe.de>

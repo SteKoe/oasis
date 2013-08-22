@@ -13,19 +13,26 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
 
-import de.stekoe.idss.IDSSSession;
 import de.stekoe.idss.IDSSApplication;
+import de.stekoe.idss.IDSSSession;
 
 
+/**
+ * This class provides a language switcher panel.
+ */
 @SuppressWarnings("serial")
 public class LanguageSwitcher extends Panel {
 
     private final List<Locale> languages = new ArrayList<Locale>();
 
+    /**
+     * Construct.
+     * @param id the wicket:id
+     */
     public LanguageSwitcher(String id) {
         super(id);
 
-        if(getLanguages().size() <= 1) {
+        if (getLanguages().size() <= 1) {
             setVisible(false);
         } else {
             createLanguageSwitcher();
@@ -42,7 +49,7 @@ public class LanguageSwitcher extends Panel {
                 WebMarkupContainer li = new WebMarkupContainer("languageItem");
                 Locale currentLocale = IDSSSession.get().getLocale();
                 boolean languageEqual = languageKey.getLanguage().equals(currentLocale.getLanguage());
-                if(languageEqual) {
+                if (languageEqual) {
                     li.add(new AttributeModifier("class", "active"));
                 }
                 item.add(li);
@@ -66,7 +73,7 @@ public class LanguageSwitcher extends Panel {
     private List<Locale> getLanguages() {
         List<Locale> languages = new ArrayList<Locale>();
 
-        for(Locale l : IDSSApplication.LANGUAGES) {
+        for (Locale l : IDSSApplication.LANGUAGES) {
             languages.add(l);
         }
 

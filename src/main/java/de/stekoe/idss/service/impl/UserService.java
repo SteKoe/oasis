@@ -59,6 +59,9 @@ public class UserService implements IUserService {
 
     /**
      * Method to login a user by username/email and password.
+     * @param username The username
+     * @param password The password
+     * @return The status of login indicated by {@code LoginStatus}
      */
     @Override
     @Transactional
@@ -66,20 +69,22 @@ public class UserService implements IUserService {
         User user = userDAO.findByUsername(username);
 
         // User not found by username, try email instead
-        if(user == null) {
+        if (user == null) {
             user = userDAO.findByEmail(username);
         }
 
         // User definitely not found.
-        if(user == null)
+        if (user == null) {
             return LoginStatus.USER_NOT_FOUND;
+        }
 
         // User is not activated
-        if(user.getActivationKey() != null)
+        if (user.getActivationKey() != null) {
             return LoginStatus.USER_NOT_ACTIVATED;
+        }
 
         // Check password
-        if(!BCrypt.checkpw(password, user.getPassword())) {
+        if (!BCrypt.checkpw(password, user.getPassword())) {
             return LoginStatus.WRONG_PASSWORD;
         } else {
             IDSSSession.get().setUser(user);

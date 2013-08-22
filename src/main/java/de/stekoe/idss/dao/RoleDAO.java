@@ -10,7 +10,7 @@ import de.stekoe.idss.model.Role;
 public interface RoleDAO {
 
     /**
-     * @param entity Update the given User.
+     * @param role Update the given Role.
      */
     void update(Role role);
 
@@ -20,7 +20,7 @@ public interface RoleDAO {
     List<Role> getAllRoles();
 
     /**
-     * @param user A User to be saved in database.
+     * @param role A role to be saved in database.
      * @return true on success, false otherwise.
      */
     boolean insert(Role role);
@@ -28,7 +28,7 @@ public interface RoleDAO {
     /**
      * Get a role by its name.
      *
-     * @param Rolename The role name to retrieve from database
+     * @param rolename The role name to retrieve from database
      * @return The role if found
      */
     Role getRoleByName(String rolename);

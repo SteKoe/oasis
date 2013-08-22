@@ -90,8 +90,9 @@ public class User implements Serializable {
      * @return the user's profile.
      */
     public UserProfile getUserProfile() {
-        if(userProfile == null)
+        if (userProfile == null) {
             userProfile = new UserProfile();
+        }
         return userProfile;
     }
 
@@ -177,8 +178,9 @@ public class User implements Serializable {
      */
     public boolean isAdmin() {
         for (Role systemrole : getSystemroles()) {
-            if(systemrole.getRoleName().equals(Roles.ADMIN))
+            if (systemrole.getRoleName().equals(Roles.ADMIN)) {
                 return true;
+            }
         }
         return false;
     }

@@ -46,6 +46,27 @@ public abstract class LayoutPage extends WebPage {
         initPage();
     }
 
+    /**
+     * Set the page title.
+     * @param pageTitle Must not be null
+     */
+    public void setTitle(String pageTitle) {
+        add(new Label("pageTitle", Model.of(pageTitle)));
+    }
+
+    /**
+     * Set the page title.
+     * @param pageTitle Must not be null
+     */
+    public void setTitle(StringResourceModel pageTitle) {
+        add(new Label("pageTitle", pageTitle));
+    }
+
+    @Override
+    public IDSSSession getSession() {
+        return IDSSSession.get();
+    }
+
     private void initPage() {
         configureSession();
 
@@ -53,36 +74,14 @@ public abstract class LayoutPage extends WebPage {
         createContent();
     }
 
-    public void setTitle(String pageTitle) {
-        add(new Label("pageTitle", Model.of(pageTitle)));
-    }
-
-    public void setTitle(StringResourceModel pageTitle) {
-        add(new Label("pageTitle", pageTitle));
-    }
-
     private void configureSession() {
         getSession().bind();
     }
 
     private void createContent() {
-        createFeedbackPanel();
-        add(getGlobalFeedbackPanel());
+        add(new MyFencedFeedbackPanel("systemmessages"));
         add(new MainNavigation("navbar"));
         add(new LanguageSwitcher("languages"));
         add(new UserPanel("userPanel"));
-    }
-
-    private void createFeedbackPanel() {
-        myFencedFeedbackPanel = new MyFencedFeedbackPanel("systemmessages");
-    }
-
-    public MyFencedFeedbackPanel getGlobalFeedbackPanel() {
-        return myFencedFeedbackPanel;
-    }
-
-    @Override
-    public IDSSSession getSession() {
-        return IDSSSession.get();
     }
 }

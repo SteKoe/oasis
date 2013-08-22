@@ -3,7 +3,6 @@ package de.stekoe.idss;
 import java.util.Locale;
 
 import org.apache.wicket.Application;
-import org.apache.wicket.RuntimeConfigurationType;
 import org.apache.wicket.Session;
 import org.apache.wicket.authroles.authorization.strategies.role.RoleAuthorizationStrategy;
 import org.apache.wicket.markup.html.WebPage;
@@ -34,10 +33,9 @@ import de.stekoe.idss.page.error.Error500Page;
 public class IDSSApplication extends WebApplication {
 
     /** Languages available for this application. */
-    public static final Locale LANGUAGES[] = { Locale.GERMAN };
-
-    /** Used to access current runtime mode in other classes. */
-    public static RuntimeConfigurationType CURRENT_MODE = RuntimeConfigurationType.DEPLOYMENT;
+    public static final Locale[] LANGUAGES = {
+        Locale.GERMAN
+    };
 
     @Override
     public void init() {
@@ -80,13 +78,11 @@ public class IDSSApplication extends WebApplication {
                 getRequestLoggerSettings().setRequestLoggerEnabled(true);
                 getDebugSettings().setDevelopmentUtilitiesEnabled(true);
                 getDebugSettings().setOutputComponentPath(true);
-                CURRENT_MODE = RuntimeConfigurationType.DEVELOPMENT;
                 break;
             case DEPLOYMENT:
             default:
                 getExceptionSettings().setUnexpectedExceptionDisplay(IExceptionSettings.SHOW_INTERNAL_ERROR_PAGE);
                 getMarkupSettings().setCompressWhitespace(true);
-                CURRENT_MODE = RuntimeConfigurationType.DEPLOYMENT;
         }
     }
 
@@ -100,7 +96,6 @@ public class IDSSApplication extends WebApplication {
     }
 
     private void configureBootstrapFramework() {
-        // TODO: Remove CDN resources
         Bootstrap.install(Application.get(), new BootstrapSettings());
     }
 
@@ -122,9 +117,5 @@ public class IDSSApplication extends WebApplication {
     @Override
     public Class<? extends WebPage> getHomePage() {
         return HomePage.class;
-    }
-
-    public static final boolean isDevelopmentMode() {
-        return CURRENT_MODE.equals(RuntimeConfigurationType.DEVELOPMENT);
     }
 }

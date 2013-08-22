@@ -1,6 +1,5 @@
 package de.stekoe.idss.component.form;
 
-
 import org.apache.log4j.Logger;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
@@ -27,7 +26,7 @@ public class LoginForm extends Panel {
     private static final Logger LOG = Logger.getLogger(LoginForm.class);
 
     @SpringBean
-    public static IUserService userManager;
+    private static IUserService userManager;
 
     private Label successMessage;
 
@@ -94,9 +93,9 @@ public class LoginForm extends Panel {
 
         @Override
         protected void onSubmit() {
-            if(username != null && password != null) {
+            if (username != null && password != null) {
                 LoginStatus loginStatus = userManager.login(username, password);
-                if(LoginStatus.SUCCESS.equals(loginStatus)) {
+                if (LoginStatus.SUCCESS.equals(loginStatus)) {
                     LOG.info(String.format("User %s has logged in!", username));
                     User user = IDSSSession.get().getUser();
                     LOG.info(user.toString());
@@ -122,7 +121,7 @@ public class LoginForm extends Panel {
                             break;
                     }
 
-                    if(error) {
+                    if (error) {
                         error(message);
                     } else {
                         info(message);

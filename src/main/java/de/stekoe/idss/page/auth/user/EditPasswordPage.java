@@ -14,6 +14,9 @@ import de.stekoe.idss.IDSSSession;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.service.IUserService;
 
+/**
+ * Page for changing password and/or email address.
+ */
 @SuppressWarnings("serial")
 public class EditPasswordPage extends AuthUserPage {
 
@@ -31,6 +34,9 @@ public class EditPasswordPage extends AuthUserPage {
     private EmailTextField newEmailField;
     private EmailTextField newEmailConfirmField;
 
+    /**
+     * Construct.
+     */
     public EditPasswordPage() {
         @SuppressWarnings("rawtypes")
         Form form = new Form("editPassword") {
@@ -38,23 +44,24 @@ public class EditPasswordPage extends AuthUserPage {
             @Override
             protected void onSubmit() {
                 User user = ((IDSSSession) getSession()).getUser();
-                if(!BCrypt.checkpw(currentPassword, user.getPassword())) {
+                if (!BCrypt.checkpw(currentPassword, user.getPassword())) {
                     error(getString("currentPasswort.wrong"));
                     return;
                 }
 
-                if(newPassword != null && newPasswordConfirm != null) {
+                if (newPassword != null && newPasswordConfirm != null) {
                     user.setPassword(BCrypt.hashpw(newPassword, BCrypt.gensalt()));
                     info(getString("passwordChanged.success"));
                 }
 
-                if(newEmail != null && newEmailConfirm != null) {
+                if (newEmail != null && newEmailConfirm != null) {
                     user.setEmail(newEmail);
                     info(getString("emailChanged.success"));
                 }
 
-                if(userService != null)
+                if (userService != null) {
                     userService.update(user);
+                }
             }
         };
 

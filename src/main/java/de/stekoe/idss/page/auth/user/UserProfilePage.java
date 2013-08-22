@@ -2,6 +2,7 @@ package de.stekoe.idss.page.auth.user;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
@@ -58,7 +59,8 @@ public class UserProfilePage extends AuthUserPage {
     }
 
     private String getDateFormat() {
-        final SimpleDateFormat dateInstance = (SimpleDateFormat) SimpleDateFormat.getDateInstance(DateFormat.SHORT, getSession().getLocale());
+        Locale currentLocale = getSession().getLocale();
+        final SimpleDateFormat dateInstance = (SimpleDateFormat) SimpleDateFormat.getDateInstance(DateFormat.SHORT, currentLocale);
         final String pattern = dateInstance.toPattern();
         return pattern;
     }

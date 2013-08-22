@@ -208,7 +208,7 @@ public class MyFeedbackPanel extends Panel implements IFeedback {
     }
 
     private Component newMessageDisplayComponent(String id, FeedbackMessage message) {
-        if(message == null) {
+        if (message == null) {
             return null;
         }
 
@@ -216,7 +216,7 @@ public class MyFeedbackPanel extends Panel implements IFeedback {
         Label label = new Label(id, (serializable == null) ? "" : serializable.toString());
         label.setEscapeModelStrings(MyFeedbackPanel.this.getEscapeModelStrings());
 
-        if(serializable == null) {
+        if (serializable == null) {
             return null;
         }
 

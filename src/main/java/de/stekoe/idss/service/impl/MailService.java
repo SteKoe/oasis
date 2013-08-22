@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 
 import de.stekoe.idss.service.IMailService;
 
+/**
+ * The mail service.
+ */
 @Service("mailService")
 public class MailService implements IMailService {
 

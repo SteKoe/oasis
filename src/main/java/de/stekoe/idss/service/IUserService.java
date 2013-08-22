@@ -13,9 +13,13 @@ public interface IUserService {
 
     /** Different stati for login. */
     public enum LoginStatus {
+        /** Status when password was wrong */
         WRONG_PASSWORD,
+        /** Status when user hasn't been found */
         USER_NOT_FOUND,
+        /** Status when user hasn't been activated */
         USER_NOT_ACTIVATED,
+        /** Status when user has successfully been logged in */
         SUCCESS
     }
 

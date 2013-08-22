@@ -15,9 +15,16 @@ import de.stekoe.idss.page.auth.admin.EditUserPage;
 import de.stekoe.idss.page.auth.user.LogoutPage;
 import de.stekoe.idss.page.auth.user.UserProfilePage;
 
+/**
+ * Panel shown when user is logged in.
+ */
 @SuppressWarnings("serial")
 public class UserPanel extends Panel {
 
+    /**
+     * Construct.
+     * @param id wicket:id
+     */
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public UserPanel(String id) {
         super(id);
@@ -76,8 +83,9 @@ public class UserPanel extends Panel {
             @Override
             public boolean isVisible() {
                 User user = IDSSSession.get().getUser();
-                if(user == null)
+                if (user == null) {
                     return false;
+                }
                 return user.isAdmin();
             }
         });

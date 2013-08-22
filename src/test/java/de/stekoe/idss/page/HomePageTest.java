@@ -10,8 +10,6 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import de.stekoe.idss.WicketApplication;
-
 public class HomePageTest {
 
     private static final Locale LOCALE = Locale.ENGLISH;
@@ -19,7 +17,7 @@ public class HomePageTest {
 
     @Before
     public void setUp() {
-        tester = new WicketTester(new TestWicketApplication());
+        tester = new WicketTester(new TestIDSSApplication());
         tester.getSession().setLocale(LOCALE);
     }
 
@@ -41,11 +39,4 @@ public class HomePageTest {
         String registerFormTitle = page.get("form").getString("form.title");
         assertThat(registerFormTitle, IsEqual.equalTo("Register"));
     }
-
-    private class TestWicketApplication extends WicketApplication {
-        @Override
-        public void setUpSpring() {
-        }
-    }
-
 }

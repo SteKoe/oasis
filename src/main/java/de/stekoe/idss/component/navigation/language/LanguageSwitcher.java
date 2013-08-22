@@ -14,7 +14,7 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
 
 import de.stekoe.idss.IDSSSession;
-import de.stekoe.idss.WicketApplication;
+import de.stekoe.idss.IDSSApplication;
 
 
 @SuppressWarnings("serial")
@@ -66,7 +66,7 @@ public class LanguageSwitcher extends Panel {
     private List<Locale> getLanguages() {
         List<Locale> languages = new ArrayList<Locale>();
 
-        for(Locale l : WicketApplication.LANGUAGES) {
+        for(Locale l : IDSSApplication.LANGUAGES) {
             languages.add(l);
         }
 

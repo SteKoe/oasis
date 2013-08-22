@@ -1,7 +1,10 @@
 package de.stekoe.idss.page;
 
 import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
+import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import de.stekoe.idss.IDSSSession;
@@ -44,7 +47,17 @@ public abstract class LayoutPage extends WebPage {
 
     private void initPage() {
         configureSession();
+
+        setTitle(getString("application.title"));
         createContent();
+    }
+
+    public void setTitle(String pageTitle) {
+        add(new Label("pageTitle", Model.of(pageTitle)));
+    }
+
+    public void setTitle(StringResourceModel pageTitle) {
+        add(new Label("pageTitle", pageTitle));
     }
 
     private void configureSession() {

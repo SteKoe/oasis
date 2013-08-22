@@ -19,7 +19,7 @@ public class User implements Serializable {
     private String password;
     private String email;
     private Set<Role> systemroles = new HashSet<Role>();
-    private UserProfile userProfile;
+    private UserProfile userProfile = new UserProfile();
     private String activationKey;
 
     /**
@@ -90,6 +90,8 @@ public class User implements Serializable {
      * @return the user's profile.
      */
     public UserProfile getUserProfile() {
+        if(userProfile == null)
+            userProfile = new UserProfile();
         return userProfile;
     }
 

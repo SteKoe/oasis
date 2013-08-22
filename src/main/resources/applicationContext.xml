@@ -51,4 +51,5 @@
 	
 	<!-- Services -->
 	<bean id="userService" class="de.stekoe.idss.service.impl.UserService" />
+	<bean id="mailService" class="de.stekoe.idss.service.impl.MailService" />
 </beans>

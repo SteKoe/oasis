@@ -3,53 +3,54 @@
 	xmlns:wicket="http://wicket.sourceforge.net/" xml:lang="en" lang="en">
 <body>
 	<wicket:extend>
-		<h1 wicket:id="username"></h1>
-		<div class="form-centered-container">
-			<form class="form-horizontal">
-				<fieldset>
-					<legend>Erforderliche Angaben zur Registrierung.</legend>
-					<div class="control-group">
-						<label class="control-label" for="inputEmail">E-Mail &amp; Passwort:</label>
-						<div class="controls">
-							<a href="#" class="btn" wicket:id="changePasswordOrEmailLink">E-Mail oder Passwort ändern</a>
-							<span class="help-block">
-							  Bitte klicken Sie auf obigen Link, um die E-Mail-Adresse und/oder das Kennwort zu ändern. 
-							  Alle Änderungen, die auf dieser Seite vorgenommen wurden, werden nicht gespeichert.
-	                        </span>
+        <div class="row">
+            <div class="span8 offset2">
+				<form class="form-horizontal" wicket:id="userprofile">
+					<fieldset>
+						<legend>Erforderliche Angaben zur Registrierung.</legend>
+						<div class="control-group">
+							<label class="control-label" for="email">E-Mail &amp; Passwort:</label>
+							<div class="controls">
+								<a href="#" class="btn" wicket:id="changePasswordOrEmailLink">E-Mail oder Passwort ändern</a>
+								<span class="help-block">
+								  Bitte klicken Sie auf obigen Link, um die E-Mail-Adresse und/oder das Kennwort zu ändern. 
+								  Alle Änderungen, die auf dieser Seite vorgenommen wurden, werden nicht gespeichert.
+		                        </span>
+							</div>
 						</div>
-					</div>
-					
-					<legend>Freiwillige Angaben - Diese Informationen sind von allen Benutzern des Forums einsehbar.</legend>
-					<!-- Firstname -->
-					<div class="control-group">
-	                    <label class="control-label" for="inputFirstname">Vorname:</label>
-	                    <div class="controls">
-	                        <input type="text" id="inputFirstname" />
-	                    </div>
-	                </div>
-					<!-- Surename -->
-					<div class="control-group">
-	                    <label class="control-label" for="inputSurename">Nachname:</label>
-	                    <div class="controls">
-	                        <input type="text" id="inputSurename" />
-	                    </div>
-	                </div>
-					<!-- Birthday -->
-					<div class="control-group">
-	                    <label class="control-label" for="inputBirthday">Geburtstag:</label>
-	                    <div class="controls">
-	                        <input type="text" id="inputBirthday" wicket:id="inputBirthday" />
-	                    </div>
-	                </div>
-	                <!-- Submit -->
-	                <div class="control-group">
-	                   <div class="controls">
-	                       <button type="submit" class="btn btn-success">Speichern</button>
-	                       <button type="reset" class="btn">Zurücksetzen</button>
-	                   </div>
-	                </div>
-				</fieldset>
-			</form>
+						
+						<legend>Freiwillige Angaben - Diese Informationen sind von allen Benutzern einsehbar.</legend>
+						<!-- Firstname -->
+						<div class="control-group">
+		                    <label class="control-label" for="firstname">Vorname:</label>
+		                    <div class="controls">
+		                        <input type="text" id="firstname" wicket:id="firstname" />
+		                    </div>
+		                </div>
+						<!-- Surename -->
+						<div class="control-group">
+		                    <label class="control-label" for="surename">Nachname:</label>
+		                    <div class="controls">
+		                        <input type="text" id="surename" wicket:id="surename" />
+		                    </div>
+		                </div>
+						<!-- Birthday -->
+						<div class="control-group">
+		                    <label class="control-label" for="birthday">Geburtstag:</label>
+		                    <div class="controls">
+		                        <input type="text" id="birthday" wicket:id="birthday" />
+		                    </div>
+		                </div>
+		                <!-- Submit -->
+		                <div class="control-group">
+		                   <div class="controls">
+		                       <button type="submit" class="btn btn-success">Speichern</button>
+		                       <button type="reset" class="btn">Zurücksetzen</button>
+		                   </div>
+		                </div>
+					</fieldset>
+				</form>
+			</div>
         </div>
 	</wicket:extend>
 </body>

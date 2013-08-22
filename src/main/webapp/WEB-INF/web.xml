@@ -8,7 +8,7 @@
 		<filter-class>org.apache.wicket.protocol.http.WicketFilter</filter-class>
 		<init-param>
 			<param-name>applicationClassName</param-name>
-			<param-value>de.stekoe.idss.WicketApplication</param-value>
+			<param-value>de.stekoe.idss.IDSSApplication</param-value>
 		</init-param>
 		<!-- Turn on deployment mode -->
 		<init-param>

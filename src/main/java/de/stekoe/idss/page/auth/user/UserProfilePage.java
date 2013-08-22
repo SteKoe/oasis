@@ -1,14 +1,18 @@
 package de.stekoe.idss.page.auth.user;
 
-import org.apache.wicket.markup.head.IHeaderResponse;
-import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.link.Link;
-import org.apache.wicket.model.Model;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
+import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
+import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.form.DateTextField;
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.form.DateTextFieldConfig;
-import de.stekoe.idss.IDSSSession;
 import de.stekoe.idss.model.User;
+import de.stekoe.idss.service.IUserService;
 
 /**
  * @author Stephan Köninger <mail@stekoe.de>
@@ -16,31 +20,46 @@ import de.stekoe.idss.model.User;
 @SuppressWarnings("serial")
 public class UserProfilePage extends AuthUserPage {
 
-    @Override
-    public void renderHead(IHeaderResponse response) {
-        super.renderHead(response);
+    @SpringBean
+    private IUserService userService;
 
-    }
+    private final User user = getSession().getUser();
 
     /**
      * Construct.
      */
     public UserProfilePage() {
-        User user = getSession().getUser();
-        add(new Label("username", Model.of(user.getUsername())));
-        add(new Link("changePasswordOrEmailLink") {
+        final User user = getSession().getUser();
+
+        Form form = new Form<User>("userprofile") {
             @Override
-            public void onClick() {
+            protected void onSubmit() {
+                userService.update(user);
             }
-        });
-        add(createDateTextField());
+        };
+
+        form.add(new BookmarkablePageLink("changePasswordOrEmailLink", EditPasswordPage.class));
+        form.add(new TextField("firstname", new PropertyModel(user
+                .getUserProfile(), "firstname")));
+        form.add(new TextField("surename", new PropertyModel(user
+                .getUserProfile(), "surename")));
+        form.add(createDateTextField());
+
+        add(form);
     }
 
     private DateTextField createDateTextField() {
         DateTextFieldConfig config = new DateTextFieldConfig();
         config.autoClose(true);
-        config.withLanguage(IDSSSession.get().getLocale().getLanguage());
+        config.withLanguage(getSession().getLocale().getLanguage());
         config.showTodayButton(true);
-        return new DateTextField("inputBirthday", config);
+        config.withFormat(getDateFormat());
+        return new DateTextField("birthday", new PropertyModel(user.getUserProfile(), "birthdate"), config);
+    }
+
+    private String getDateFormat() {
+        final SimpleDateFormat dateInstance = (SimpleDateFormat) SimpleDateFormat.getDateInstance(DateFormat.SHORT, getSession().getLocale());
+        final String pattern = dateInstance.toPattern();
+        return pattern;
     }
 }

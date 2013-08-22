@@ -8,7 +8,7 @@ import org.junit.Test;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import de.stekoe.idss.WicketApplication;
+import de.stekoe.idss.IDSSApplication;
 import de.stekoe.idss.dao.BaseTest;
 import de.stekoe.idss.exception.UserAlreadyExistsException;
 import de.stekoe.idss.model.User;
@@ -55,7 +55,7 @@ public class UserManagerImplTest extends BaseTest {
         assertTrue(IUserService.LoginStatus.SUCCESS.equals(loginStatus));
     }
 
-    private class TestWicketApplication extends WicketApplication {
+    private class TestWicketApplication extends IDSSApplication {
         @Override
         public void setUpSpring() {
         }

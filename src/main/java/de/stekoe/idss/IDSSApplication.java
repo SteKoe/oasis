@@ -31,7 +31,7 @@ import de.stekoe.idss.page.error.Error500Page;
  *
  * @see de.stekoe.idss.Start#main(String[])
  */
-public class WicketApplication extends WebApplication {
+public class IDSSApplication extends WebApplication {
 
     /** Languages available for this application. */
     public static final Locale LANGUAGES[] = { Locale.GERMAN };
@@ -79,6 +79,7 @@ public class WicketApplication extends WebApplication {
             case DEVELOPMENT:
                 getRequestLoggerSettings().setRequestLoggerEnabled(true);
                 getDebugSettings().setDevelopmentUtilitiesEnabled(true);
+                getDebugSettings().setOutputComponentPath(true);
                 CURRENT_MODE = RuntimeConfigurationType.DEVELOPMENT;
                 break;
             case DEPLOYMENT:

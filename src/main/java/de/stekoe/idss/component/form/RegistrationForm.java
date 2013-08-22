@@ -66,6 +66,7 @@ public class RegistrationForm extends Panel {
     public RegistrationForm(String id) {
         super(id);
 
+
         createFeedbackPanel();
         createRegistrationForm();
         createSuccessMessage();

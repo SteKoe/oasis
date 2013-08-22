@@ -18,6 +18,7 @@ import de.stekoe.idss.panel.UserPanel;
  */
 public abstract class LayoutPage extends WebPage {
     private static final long serialVersionUID = 1860769875900411155L;
+    private MyFencedFeedbackPanel myFencedFeedbackPanel;
 
     /**
      * Construct.
@@ -65,10 +66,19 @@ public abstract class LayoutPage extends WebPage {
     }
 
     private void createContent() {
-        add(new MyFencedFeedbackPanel("systemmessages"));
+        createFeedbackPanel();
+        add(getGlobalFeedbackPanel());
         add(new MainNavigation("navbar"));
         add(new LanguageSwitcher("languages"));
         add(new UserPanel("userPanel"));
+    }
+
+    private void createFeedbackPanel() {
+        myFencedFeedbackPanel = new MyFencedFeedbackPanel("systemmessages");
+    }
+
+    public MyFencedFeedbackPanel getGlobalFeedbackPanel() {
+        return myFencedFeedbackPanel;
     }
 
     @Override

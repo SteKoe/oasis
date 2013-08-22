@@ -14,6 +14,5 @@ public class RegistrationPage extends LayoutPage {
      */
     public RegistrationPage() {
         add(new RegistrationForm("form"));
-
     }
 }

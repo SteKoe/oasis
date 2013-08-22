@@ -1,5 +1,7 @@
 package de.stekoe.idss.page.auth.user;
 
+import java.util.Locale;
+
 import org.apache.wicket.util.tester.FormTester;
 import org.apache.wicket.util.tester.WicketTester;
 import org.junit.Assert;
@@ -23,6 +25,7 @@ public class EditPasswordPageTest {
     public void setUp() {
         tester = new WicketTester(new TestIDSSApplication());
         getSession().setUser(new UserAuthUser());
+        getSession().setLocale(Locale.GERMAN);
     }
 
     private IDSSSession getSession() {

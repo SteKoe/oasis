@@ -31,6 +31,7 @@ import de.stekoe.idss.exception.UserAlreadyExistsException;
 import de.stekoe.idss.mail.template.RegistrationMailTemplate;
 import de.stekoe.idss.model.Role;
 import de.stekoe.idss.model.User;
+import de.stekoe.idss.model.UserProfile;
 import de.stekoe.idss.page.ActivateUserPage;
 import de.stekoe.idss.service.IMailService;
 import de.stekoe.idss.service.IUserService;
@@ -106,9 +107,16 @@ public class RegistrationForm extends Panel {
                 String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
                 user.setPassword(hashedPassword);
                 user.setActivationKey(DigestUtils.md5Hex(BCrypt.gensalt()));
+
+                // Set standard roles
                 Role role = new Role();
                 role.setRoleName(Roles.USER);
                 user.getRoles().add(role);
+
+                // Create a user profile
+                UserProfile userProfile = new UserProfile();
+                user.setUserProfile(userProfile);
+
                 return user;
             }
 

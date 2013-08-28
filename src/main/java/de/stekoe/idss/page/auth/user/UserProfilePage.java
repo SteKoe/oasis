@@ -40,10 +40,8 @@ public class UserProfilePage extends AuthUserPage {
         };
 
         form.add(new BookmarkablePageLink("changePasswordOrEmailLink", EditPasswordPage.class));
-        form.add(new TextField("firstname", new PropertyModel(user
-                .getUserProfile(), "firstname")));
-        form.add(new TextField("surename", new PropertyModel(user
-                .getUserProfile(), "surename")));
+        form.add(new TextField("firstname", new PropertyModel(user.getUserProfile(), "firstname")));
+        form.add(new TextField("surename", new PropertyModel(user.getUserProfile(), "surename")));
         form.add(createDateTextField());
 
         add(form);

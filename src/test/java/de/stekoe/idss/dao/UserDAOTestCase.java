@@ -16,7 +16,7 @@ import de.stekoe.idss.model.Role;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.model.UserProfile;
 
-public class UserDAOTest extends BaseTest {
+public class UserDAOTestCase extends BaseTest {
 
     @Autowired
     private UserDAO userDAO;
@@ -32,9 +32,10 @@ public class UserDAOTest extends BaseTest {
     @Test
     public void insertNewUser() throws Exception {
         User user = getUser();
+        user.setUsername("miau");
         userDAO.save(user);
 
-        User retrievedUser = userDAO.findByUsername("hans");
+        User retrievedUser = userDAO.findByUsername("miau");
         assertThat(retrievedUser.getUsername(), IsEqual.equalTo(user.getUsername()));
     }
 

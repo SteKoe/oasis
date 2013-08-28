@@ -11,7 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
@@ -43,7 +44,8 @@ public class User implements java.io.Serializable {
 
     private String activationKey;
 
-    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+    @ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+    @JoinTable(name="UserRoles")
     private Set<Role> roles = new HashSet<Role>(0);
 
     public String getId() {

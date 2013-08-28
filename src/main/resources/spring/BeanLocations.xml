@@ -28,6 +28,7 @@
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
                 <prop key="hibernate.show_sql">false</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
             </props>
         </property>
         <property name="packagesToScan" value="de.stekoe.idss.model" />
@@ -54,6 +55,7 @@
     <!-- DAOs -->
     <bean id="userDAO" class="de.stekoe.idss.dao.impl.UserDAOImpl" />
     <bean id="roleDAO" class="de.stekoe.idss.dao.impl.RoleDAOImpl" />
+    <bean id="projectDAO" class="de.stekoe.idss.dao.impl.ProjectDAOImpl" />
     
     <!-- Services -->
     <bean id="userService" class="de.stekoe.idss.service.impl.UserService" />

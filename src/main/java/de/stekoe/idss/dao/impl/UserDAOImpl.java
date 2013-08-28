@@ -33,11 +33,7 @@ public class UserDAOImpl extends GenericDAOImpl implements UserDAO {
     @Override
     public boolean save(User user) {
         try {
-            if (user.getId() != null) {
-                getCurrentSession().save(user);
-            } else {
-                getCurrentSession().merge(user);
-            }
+            getCurrentSession().saveOrUpdate(user);
             return true;
         } catch (Exception e) {
             LOG.warn("Error while saving/updating user!", e);

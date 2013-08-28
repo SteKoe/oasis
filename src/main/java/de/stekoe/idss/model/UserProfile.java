@@ -3,12 +3,13 @@ package de.stekoe.idss.model;
 // Generated 26.08.2013 06:13:04 by Hibernate Tools 4.0.0
 
 import java.util.Date;
-import java.util.UUID;
 
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.joda.time.DateMidnight;
@@ -20,9 +21,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class UserProfile implements java.io.Serializable {
 
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name="uuid", strategy="uuid2")
-    private UUID id;
+    @GeneratedValue(generator="system-uuid")
+    @GenericGenerator(name="system-uuid", strategy = "uuid")
+    private String id;
 
     @Basic
     private String firstname;
@@ -30,14 +31,15 @@ public class UserProfile implements java.io.Serializable {
     @Basic
     private String surename;
 
+    @Temporal(TemporalType.DATE)
     @DateTimeFormat
     private Date birthdate;
 
-    public UUID getId() {
+    public String getId() {
         return this.id;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 

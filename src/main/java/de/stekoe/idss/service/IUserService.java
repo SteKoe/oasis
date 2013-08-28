@@ -28,7 +28,7 @@ public interface IUserService {
      * @return true on success, false otherwise.
      * @throws UserAlreadyExistsException If the user is already in the database.
      */
-    boolean insertUser(User user) throws UserAlreadyExistsException;
+    boolean create(User user) throws UserAlreadyExistsException;
 
     /**
      * Method to login a user by given username and password.
@@ -45,10 +45,6 @@ public interface IUserService {
      */
     User findByUsername(String username);
 
-    /**
-     * @param user User to update.
-     */
-    void update(User user);
 
     /**
      * @return List of all users in database.
@@ -78,4 +74,10 @@ public interface IUserService {
      * @return The role if found
      */
     Role getRole(String rolename);
+
+    /**
+     * @param entity The user to save
+     * @return
+     */
+    boolean save(User entity);
 }

@@ -28,9 +28,16 @@ public class AdminAuthUser extends User {
         setUsername("root");
 
         Set<Role> systemroles = new HashSet<Role>();
-        systemroles.add(new Role(Roles.USER));
-        systemroles.add(new Role(Roles.ADMIN));
-        setSystemroles(systemroles);
+
+        Role userRole = new Role();
+        userRole.setRoleName(Roles.USER);
+        systemroles.add(userRole);
+
+        Role adminRole = new Role();
+        adminRole.setRoleName(Roles.ADMIN);
+        systemroles.add(adminRole);
+
+        setRoles(systemroles);
 
         setPassword(BCrypt.hashpw(PASSWORD, BCrypt.gensalt()));
     }

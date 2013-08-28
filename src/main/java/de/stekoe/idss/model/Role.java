@@ -1,66 +1,68 @@
 package de.stekoe.idss.model;
 
-import java.io.Serializable;
+// Generated 26.08.2013 06:13:04 by Hibernate Tools 4.0.0
 
-/**
- * @author Stephan Köninger <mail@stekoe.de>
- */
-@SuppressWarnings("serial")
-public class Role implements Serializable {
-    private Long id;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import org.apache.wicket.authroles.authorization.strategies.role.Roles;
+import org.hibernate.annotations.GenericGenerator;
+
+@Entity
+public class Role implements java.io.Serializable {
+
+    private static final Role USER = new Role(Roles.USER);
+    private static final Role ADMIN = new Role(Roles.ADMIN);
+
+    @Id
+    @GeneratedValue(generator="system-uuid")
+    @GenericGenerator(name="system-uuid", strategy = "uuid")
+    private String id;
+
     private String roleName;
 
-    /**
-     * Construct.
-     */
+    @OneToMany
+    private Set<User> users = new HashSet<User>(0);
+
     public Role() {
-
     }
 
-    /**
-     * Construct.
-     *
-     * @param roleName The role name
-     */
+    public Role(String roleName, Set<User> users) {
+        this.roleName = roleName;
+        this.users = users;
+    }
+
     public Role(String roleName) {
-        setRoleName(roleName);
+        this.roleName = roleName;
     }
 
-    /**
-     * @return The id of the Role
-     */
-    public Long getId() {
-        return id;
+    public String getId() {
+        return this.id;
     }
 
-    /**
-     * Set the id of the role.
-     *
-     * @param id Id of role
-     */
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    /**
-     * @return The role name
-     */
     public String getRoleName() {
-        return roleName;
+        return this.roleName;
     }
 
-    /**
-     * Sets the role name.
-     *
-     * @param roleName The role name
-     */
     public void setRoleName(String roleName) {
         this.roleName = roleName;
     }
 
-    @Override
-    public String toString() {
-        return getRoleName();
+    public Set<User> getUsers() {
+        return this.users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 
 }

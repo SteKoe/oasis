@@ -15,11 +15,6 @@ public interface UserDAO {
     User findByUsername(String username);
 
     /**
-     * @param entity Update the given User.
-     */
-    void update(User entity);
-
-    /**
      * @return A List of all users.
      */
     List<User> getAllUsers();
@@ -28,7 +23,7 @@ public interface UserDAO {
      * @param user A User to be saved in database.
      * @return true on success, false otherwise.
      */
-    boolean insert(User user);
+    boolean save(User user);
 
     /**
      * @param code The activationcode to look for.
@@ -41,4 +36,10 @@ public interface UserDAO {
      * @return The user with the given email address.
      */
     User findByEmail(String email);
+
+    /**
+     * @param id The id of the user to look for.
+     * @return The user with given id.
+     */
+    User findById(String id);
 }

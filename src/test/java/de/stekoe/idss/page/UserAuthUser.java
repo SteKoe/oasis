@@ -3,6 +3,7 @@ package de.stekoe.idss.page;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.mindrot.jbcrypt.BCrypt;
 
 import de.stekoe.idss.model.Role;
@@ -29,8 +30,12 @@ public class UserAuthUser extends User {
         setEmail(EMAIL);
 
         Set<Role> systemroles = new HashSet<Role>();
-        systemroles.add(new Role("USER"));
-        setSystemroles(systemroles);
+
+        Role userRole = new Role();
+        userRole.setRoleName(Roles.USER);
+        systemroles.add(userRole);
+
+        setRoles(systemroles);
 
         setPassword(BCrypt.hashpw(PASSWORD, BCrypt.gensalt()));
     }

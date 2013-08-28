@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:tx="http://www.springframework.org/schema/tx" xmlns:p="http://www.springframework.org/schema/p"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+    http://www.springframework.org/schema/tx 
+    http://www.springframework.org/schema/tx/spring-tx.xsd">
+    
+    <tx:annotation-driven />
+
+    <context:property-placeholder location="classpath:/properties/application.properties" />
+    <context:component-scan base-package="de.stekoe.idss.dao.impl, de.stekoe.idss.service.impl" />
+    
+    <!-- Database Source -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="driverClass" value="${jdbc.driverClassName}" />
+        <property name="url" value="${jdbc.url}" />
+        <property name="username" value="${jdbc.username}" />
+        <property name="password" value="${jdbc.password}" />
+    </bean>
+
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"></property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+                <prop key="hibernate.show_sql">false</prop>
+            </props>
+        </property>
+        <property name="packagesToScan" value="de.stekoe.idss.model" />
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager" p:sessionFactory-ref="sessionFactory" />
+    
+    <!-- SMTP Connector -->
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="username" value="${smtp.user}" />
+        <property name="password" value="${smtp.password}" />
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.from">${smtp.from}</prop>
+                <prop key="mail.smtp.host">${smtp.host}</prop>
+                <prop key="mail.smtp.port">${smtp.port}</prop>
+                <prop key="mail.smtp.auth">${smtp.auth}</prop>
+                <prop key="mail.smtp.starttls.enable">${smtp.ssl}</prop>
+                <prop key="mail.debug">${smtp.debug}</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- DAOs -->
+    <bean id="userDAO" class="de.stekoe.idss.dao.impl.UserDAOImpl" />
+    <bean id="roleDAO" class="de.stekoe.idss.dao.impl.RoleDAOImpl" />
+    
+    <!-- Services -->
+    <bean id="userService" class="de.stekoe.idss.service.impl.UserService" />
+    <bean id="mailService" class="de.stekoe.idss.service.impl.MailService" />
+</beans>

@@ -1,5 +1,6 @@
 package de.stekoe.idss.dao;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
@@ -8,11 +9,8 @@ import java.util.Date;
 
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.hamcrest.core.IsEqual;
-import org.hibernate.AssertionFailure;
-import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Rollback;
 
 import de.stekoe.idss.model.Role;
 import de.stekoe.idss.model.User;
@@ -22,41 +20,44 @@ public class UserDAOTest extends BaseTest {
 
     @Autowired
     private UserDAO userDAO;
-    private User user;
 
-    @Before
-    public void setUp() {
-        user = new User();
+    private User getUser() {
+        User user = new User();
         user.setUsername("hans");
         user.setEmail("hans@example.com");
         user.setPassword("geheim");
+        return user;
     }
 
     @Test
-    @Rollback(true)
     public void insertNewUser() throws Exception {
-        userDAO.insert(user);
-        User retrievedUser = (User) getCurrentSession().get(User.class, user.getId());
+        User user = getUser();
+        userDAO.save(user);
+
+        User retrievedUser = userDAO.findByUsername("hans");
         assertThat(retrievedUser.getUsername(), IsEqual.equalTo(user.getUsername()));
     }
 
-    @Test(expected = AssertionFailure.class)
+    @Test
     public void needUsername() throws Exception {
         User user = new User();
-        user.setUsername("asd");
-        userDAO.insert(user);
-        flush();
+        user.setUsername("miau");
+        assertFalse(userDAO.save(user));
     }
 
     @Test
     public void insertUserWithRoles() throws Exception {
-        User userWithRoles = this.user;
-        userWithRoles.getSystemroles().add(new Role(Roles.USER));
-        userWithRoles.getSystemroles().add(new Role(Roles.ADMIN));
-        userDAO.insert(userWithRoles);
+        User userWithRoles = getUser();
+        Role userRole = new Role();
+        userRole.setRoleName(Roles.USER);
+        userWithRoles.getRoles().add(userRole);
+        Role adminRole = new Role();
+        adminRole.setRoleName(Roles.ADMIN);
+        userWithRoles.getRoles().add(adminRole);
+        userDAO.save(userWithRoles);
 
-        User retrievedUser = (User) getCurrentSession().get(User.class, userWithRoles.getId());
-        assertTrue(retrievedUser.getSystemroles().size() == 2);
+        User retrievedUser = userDAO.findByUsername("hans");
+        assertTrue(retrievedUser.getRoles().size() == 2);
     }
 
     @Test
@@ -69,9 +70,10 @@ public class UserDAOTest extends BaseTest {
         profile.setFirstname("Stephan");
         profile.setSurename("Köninger");
 
+        User user = getUser();
         user.setUserProfile(profile);
 
-        userDAO.insert(user);
+        userDAO.save(user);
     }
 
 }

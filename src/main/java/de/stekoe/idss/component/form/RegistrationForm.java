@@ -90,7 +90,7 @@ public class RegistrationForm extends Panel {
             protected void onSubmit() {
                 try {
                     User user = createUser();
-                    userService.insertUser(user);
+                    userService.create(user);
                     sendActivationMail(user);
                     successMessage.setVisible(true);
                     form.setVisible(false);
@@ -106,7 +106,9 @@ public class RegistrationForm extends Panel {
                 String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
                 user.setPassword(hashedPassword);
                 user.setActivationKey(DigestUtils.md5Hex(BCrypt.gensalt()));
-                user.getSystemroles().add(new Role(Roles.USER));
+                Role role = new Role();
+                role.setRoleName(Roles.USER);
+                user.getRoles().add(role);
                 return user;
             }
 

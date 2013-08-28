@@ -1,112 +1,77 @@
 package de.stekoe.idss.model;
 
-import java.io.Serializable;
-import java.util.Calendar;
-import java.util.Date;
+// Generated 26.08.2013 06:13:04 by Hibernate Tools 4.0.0
 
+import java.util.Date;
+import java.util.UUID;
+
+import javax.persistence.Basic;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+import org.hibernate.annotations.GenericGenerator;
 import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
 import org.joda.time.Years;
+import org.springframework.format.annotation.DateTimeFormat;
 
-/**
- * This class holds any information about a user's profile.
- *
- * @author Stephan Köninger <mail@stekoe.de>
- */
-@SuppressWarnings("serial")
-public class UserProfile implements Serializable {
+@Entity
+public class UserProfile implements java.io.Serializable {
 
-    private Long id;
+    @Id
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name="uuid", strategy="uuid2")
+    private UUID id;
+
+    @Basic
     private String firstname;
+
+    @Basic
     private String surename;
+
+    @DateTimeFormat
     private Date birthdate;
 
-    /**
-     * @return the id.
-     */
-    public Long getId() {
-        return id;
+    public UUID getId() {
+        return this.id;
     }
 
-    /**
-     * Set the id.
-     *
-     * @param id Id of the UserProfile.
-     */
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
-    /**
-     * @return the firstname
-     */
     public String getFirstname() {
-        return firstname;
+        return this.firstname;
     }
 
-    /**
-     * Sets the firstname.
-     *
-     * @param firstname The first name of the user.
-     */
     public void setFirstname(String firstname) {
         this.firstname = firstname;
     }
 
-    /**
-     * @return the surename.
-     */
     public String getSurename() {
-        return surename;
+        return this.surename;
     }
 
-    /**
-     * Sets the surename.
-     *
-     * @param surename The surename of the user.
-     */
     public void setSurename(String surename) {
         this.surename = surename;
     }
 
-    /**
-     * @return the birthdate.
-     */
     public Date getBirthdate() {
-        return birthdate;
+        return this.birthdate;
     }
 
-    /**
-     * Sets the birthdate.
-     *
-     * @param birthdate The birthdate of the user.
-     */
     public void setBirthdate(Date birthdate) {
         this.birthdate = birthdate;
     }
 
-    /**
-     * @return the age of a user.
-     */
     public int getAge() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(getBirthdate());
-
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-        DateMidnight birthdate = new DateMidnight(year, month, day);
-        DateTime currentDate = getCurrentDate();
-
-        return Years.yearsBetween(birthdate, currentDate).getYears();
+        DateMidnight birthdate = new DateMidnight(getBirthdate());
+        return Years.yearsBetween(birthdate, getCurrentDate()).getYears();
     }
 
-    /**
-     * @return the current date.
-     */
-    // For testing purposes
     DateTime getCurrentDate() {
         return new DateTime();
     }
+
 }

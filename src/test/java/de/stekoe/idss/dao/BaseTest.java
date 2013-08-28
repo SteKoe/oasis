@@ -9,8 +9,8 @@ import org.springframework.test.context.junit4.AbstractTransactionalJUnit4Spring
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
 @Ignore
-@ContextConfiguration(locations = { "classpath:applicationContext.xml","classpath:testContext.xml" })
-@TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
+@ContextConfiguration(locations = { "classpath:/spring/BeanLocations.xml","classpath:/spring/TestBeanLocations.xml" })
+@TransactionConfiguration(transactionManager = "transactionManager", defaultRollback=true)
 public class BaseTest extends AbstractTransactionalJUnit4SpringContextTests {
     @Autowired
     SessionFactory sessionFactory;

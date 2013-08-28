@@ -8,6 +8,7 @@ import org.junit.Ignore;
 
 @Ignore
 public class Start {
+    @Ignore
     public static void main(String[] args) throws Exception {
         int timeout = (int) Duration.ONE_HOUR.getMilliseconds();
 

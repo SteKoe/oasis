@@ -60,7 +60,7 @@ public class EditPasswordPage extends AuthUserPage {
                 }
 
                 if (userService != null) {
-                    userService.update(user);
+                    userService.save(user);
                 }
             }
         };

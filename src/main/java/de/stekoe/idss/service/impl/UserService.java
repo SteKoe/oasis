@@ -34,11 +34,10 @@ public class UserService implements IUserService {
 
     @Override
     @Transactional
-    public boolean insertUser(User user) throws UserAlreadyExistsException {
+    public boolean create(User user) throws UserAlreadyExistsException {
         User existentUser = userDAO.findByUsername(user.getUsername());
         if (existentUser == null) {
-            userDAO.insert(user);
-            return true;
+            return save(user);
         } else {
             LOG.warn("Tried to insert new user with existing username!");
             throw new UserAlreadyExistsException();
@@ -53,8 +52,8 @@ public class UserService implements IUserService {
 
     @Override
     @Transactional
-    public void update(User entity) {
-        userDAO.update(entity);
+    public boolean save(User entity) {
+        return userDAO.save(entity);
     }
 
     /**

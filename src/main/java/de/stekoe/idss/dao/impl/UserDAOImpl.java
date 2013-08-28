@@ -2,8 +2,8 @@ package de.stekoe.idss.dao.impl;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Service;
 
@@ -15,17 +15,15 @@ import de.stekoe.idss.model.User;
  */
 @Service
 public class UserDAOImpl extends GenericDAOImpl implements UserDAO {
+    private static final Logger LOG = Logger.getLogger(UserDAOImpl.class);
 
     @Override
     public User findByUsername(String username) {
-        Criteria criteria = getCurrentSession().createCriteria(User.class).add(Restrictions.eq("username", username));
+        Criteria criteria = getCurrentSession().createCriteria(User.class);
+        criteria.add(Restrictions.eq("username", username));
         return (User) criteria.uniqueResult();
     }
 
-    @Override
-    public void update(User entity) {
-        getCurrentSession().update(entity);
-    }
 
     @Override
     public List<User> getAllUsers() {
@@ -33,22 +31,37 @@ public class UserDAOImpl extends GenericDAOImpl implements UserDAO {
     }
 
     @Override
-    public boolean insert(User user) {
+    public boolean save(User user) {
         try {
-            getCurrentSession().save(user);
+            if (user.getId() != null) {
+                getCurrentSession().save(user);
+            } else {
+                getCurrentSession().merge(user);
+            }
             return true;
-        } catch (HibernateException he) {
+        } catch (Exception e) {
+            LOG.warn("Error while saving/updating user!", e);
             return false;
         }
     }
 
     @Override
     public User findByActivationCode(String code) {
-        return (User) getCurrentSession().createCriteria(User.class).add(Restrictions.eq("activationKey", code)).uniqueResult();
+        Criteria criteria = getCurrentSession().createCriteria(User.class);
+        criteria.add(Restrictions.eq("activationKey", code));
+        return (User) criteria.uniqueResult();
     }
 
     @Override
     public User findByEmail(String email) {
-        return (User) getCurrentSession().createCriteria(User.class).add(Restrictions.eq("email", email)).uniqueResult();
+        Criteria criteria = getCurrentSession().createCriteria(User.class);
+        criteria.add(Restrictions.eq("email", email));
+        return (User) criteria.uniqueResult();
+    }
+
+
+    @Override
+    public User findById(String id) {
+        return (User) getCurrentSession().get(User.class, id);
     }
 }

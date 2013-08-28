@@ -1,8 +1,18 @@
 package de.stekoe.idss.service.impl;
 
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+
+import org.apache.log4j.Logger;
 import org.apache.wicket.util.tester.WicketTester;
+import org.hamcrest.core.Is;
+import org.hamcrest.core.IsEqual;
+import org.hamcrest.core.IsNot;
 import org.junit.Before;
 import org.junit.Test;
 import org.mindrot.jbcrypt.BCrypt;
@@ -11,12 +21,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import de.stekoe.idss.IDSSApplication;
 import de.stekoe.idss.dao.BaseTest;
 import de.stekoe.idss.exception.UserAlreadyExistsException;
+import de.stekoe.idss.model.Role;
 import de.stekoe.idss.model.User;
+import de.stekoe.idss.model.UserProfile;
 import de.stekoe.idss.service.IUserService;
 import de.stekoe.idss.service.IUserService.LoginStatus;
 
 public class UserManagerImplTest extends BaseTest {
 
+    private static final String ACTIVATION_KEY = "ACTIVATION_KEY";
+    private static final Logger LOG = Logger.getLogger(UserManagerImplTest.class);
     private static final String[] USERNAMES = { "Stephan", "Benedikt", "Robert", "Jonas" };
     private static final String PASSWORT = "geheim";
 
@@ -32,13 +46,18 @@ public class UserManagerImplTest extends BaseTest {
             user.setUsername(USERNAMES[i]);
             user.setEmail(USERNAMES[i] + "@example.com");
             user.setPassword(BCrypt.hashpw(PASSWORT, BCrypt.gensalt()));
-            userManager.insertUser(user);
+            userManager.create(user);
+        }
+
+        List<User> allUsers = userManager.getAllUsers();
+        for (int i = 0; i < allUsers.size(); i++) {
+            LOG.info(String.format("User [%s]: %s (%s)", i, allUsers.get(i).getUsername(), allUsers.get(i).getId().toString()));
         }
     }
 
     @Test
     public void getAllUsers() throws Exception {
-        userManager.getAllUsers();
+        assertThat(userManager.getAllUsers().size(), Is.is(IsNot.not(0)));
     }
 
     @Test(expected = UserAlreadyExistsException.class)
@@ -46,13 +65,13 @@ public class UserManagerImplTest extends BaseTest {
         User duplicatedUser = new User();
         duplicatedUser.setUsername(USERNAMES[0]);
 
-        userManager.insertUser(duplicatedUser);
+        userManager.create(duplicatedUser);
     }
 
     @Test
     public void loginWorks() throws Exception {
         LoginStatus loginStatus = userManager.login(USERNAMES[0], PASSWORT);
-        assertTrue(IUserService.LoginStatus.SUCCESS.equals(loginStatus));
+        assertThat(loginStatus, IsEqual.equalTo(LoginStatus.SUCCESS));
     }
 
     private class TestWicketApplication extends IDSSApplication {
@@ -63,20 +82,32 @@ public class UserManagerImplTest extends BaseTest {
 
     @Test
     public void loginIfNotActivated() throws Exception {
+        String username = "unactivatedUser";
+
         User user = new User();
-        user.setUsername("unactivatedUser");
+        user.setUsername(username);
         user.setEmail("unactivatedUser@example.com");
-        user.setPassword(BCrypt.hashpw("geheim", BCrypt.gensalt()));
-        user.setActivationKey("test");
-        userManager.insertUser(user);
+        Set<Role> noRoles = Collections.emptySet();
+        user.setRoles(noRoles);
+        user.setUserProfile(new UserProfile());
+        user.setPassword(BCrypt.hashpw(PASSWORT, BCrypt.gensalt()));
+        user.setActivationKey(ACTIVATION_KEY);
+        userManager.create(user);
 
-        LoginStatus loginStatus = userManager.login("unactivatedUser", "geheim");
-        assertTrue(IUserService.LoginStatus.USER_NOT_ACTIVATED.equals(loginStatus));
+        LoginStatus loginStatus = userManager.login(username, "geheim");
+        assertThat(loginStatus, IsEqual.equalTo(LoginStatus.USER_NOT_ACTIVATED));
 
-        user = userManager.findByUsername("unactivatedUser");
+        user = userManager.findByUsername(username);
         user.setActivationKey(null);
+        assertTrue(userManager.save(user));
 
-        loginStatus = userManager.login("unactivatedUser", "geheim");
-        assertTrue(IUserService.LoginStatus.SUCCESS.equals(loginStatus));
+        loginStatus = userManager.login("unactivatedUser", PASSWORT);
+        assertThat(loginStatus, IsEqual.equalTo(LoginStatus.SUCCESS));
+    }
+
+    @Test
+    public void lookupNotExistingUser() throws Exception {
+        User user = userManager.findByUsername("i do not exist");
+        assertNull(user);
     }
 }

@@ -48,6 +48,6 @@ public class ActivateUserPage extends LayoutPage {
 
     private void activateUser(User userToActivate) {
         userToActivate.setActivationKey(null);
-        userManager.update(userToActivate);
+        userManager.save(userToActivate);
     }
 }

@@ -1,26 +1,20 @@
 package de.stekoe.idss.service.impl;
 
-import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 
 import de.stekoe.idss.service.IMailService;
 
-@Ignore
-public class MailServiceImplTest {
+@ContextConfiguration(locations = { "classpath:/spring/BeanLocations.xml","classpath:/spring/TestBeanLocations.xml" })
+public class MailServiceImplTest extends AbstractTransactionalJUnit4SpringContextTests {
 
-    private FileSystemXmlApplicationContext context;
+    @Autowired
     private IMailService mailer;
-
-    @Before
-    public void setUp() {
-        context = new FileSystemXmlApplicationContext("classpath:applicationContext.xml");
-        mailer = (IMailService) context.getBean("mailService");
-    }
 
     @Test
     public void sendMail() throws Exception {
-        mailer.sendMail("mail@stekoe.de", "Test Subject", "Testing body");
+        mailer.sendMail("mail@stekoe.de", "IDSS Test Mail", "IDSS Test Body");
     }
 }

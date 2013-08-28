@@ -35,7 +35,7 @@ public class UserProfilePage extends AuthUserPage {
         Form form = new Form<User>("userprofile") {
             @Override
             protected void onSubmit() {
-                userService.update(user);
+                userService.save(user);
             }
         };
 
@@ -60,7 +60,7 @@ public class UserProfilePage extends AuthUserPage {
 
     private String getDateFormat() {
         Locale currentLocale = getSession().getLocale();
-        final SimpleDateFormat dateInstance = (SimpleDateFormat) SimpleDateFormat.getDateInstance(DateFormat.SHORT, currentLocale);
+        final SimpleDateFormat dateInstance = (SimpleDateFormat) SimpleDateFormat.getDateInstance(DateFormat.MEDIUM, currentLocale);
         final String pattern = dateInstance.toPattern();
         return pattern;
     }

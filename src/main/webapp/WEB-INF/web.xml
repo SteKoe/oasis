@@ -10,12 +10,12 @@
 			<param-name>applicationClassName</param-name>
 			<param-value>de.stekoe.idss.IDSSApplication</param-value>
 		</init-param>
-		<!-- Turn on deployment mode -->
-		<init-param>
-			<param-name>wicket.configuration</param-name>
-			<param-value>development</param-value>
-		</init-param>
 	</filter>
+
+    <context-param>
+        <param-name>configuration</param-name>
+        <param-value>development</param-value>
+    </context-param>
 
 	<filter-mapping>
 		<filter-name>WicketFilter</filter-name>

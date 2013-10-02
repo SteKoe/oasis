@@ -42,6 +42,12 @@ public class UserDAOImpl extends GenericDAOImpl implements UserDAO {
     }
 
     @Override
+    public boolean update(User user) {
+        getCurrentSession().update(user);
+        return false;
+    }
+
+    @Override
     public User findByActivationCode(String code) {
         Criteria criteria = getCurrentSession().createCriteria(User.class);
         criteria.add(Restrictions.eq("activationKey", code));

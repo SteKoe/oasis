@@ -1,7 +1,13 @@
 package de.stekoe.idss.page;
 
+import org.apache.log4j.Logger;
+import org.apache.wicket.devutils.debugbar.DebugBar;
+import org.apache.wicket.feedback.FeedbackMessage;
+import org.apache.wicket.feedback.IFeedbackMessageFilter;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.FormComponent;
+import org.apache.wicket.markup.html.panel.EmptyPanel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
@@ -16,9 +22,10 @@ import de.stekoe.idss.panel.UserPanel;
 /**
  * @author Stephan Köninger <mail@stekoe.de>
  */
+@SuppressWarnings("serial")
 public abstract class LayoutPage extends WebPage {
-    private static final long serialVersionUID = 1860769875900411155L;
-    private MyFencedFeedbackPanel myFencedFeedbackPanel;
+
+    private static final Logger LOG = Logger.getLogger(LayoutPage.class);
 
     /**
      * Construct.
@@ -72,6 +79,16 @@ public abstract class LayoutPage extends WebPage {
 
         setTitle(getString("application.title"));
         createContent();
+        createDebugPanel();
+    }
+
+    private void createDebugPanel() {
+        if (getApplication().getDebugSettings().isDevelopmentUtilitiesEnabled()) {
+            DebugBar debugBar = new DebugBar("dev");
+            add(debugBar);
+        } else {
+            add(new EmptyPanel("dev").setVisible(false));
+        }
     }
 
     private void configureSession() {
@@ -79,7 +96,16 @@ public abstract class LayoutPage extends WebPage {
     }
 
     private void createContent() {
-        add(new MyFencedFeedbackPanel("systemmessages"));
+        add(new MyFencedFeedbackPanel("systemmessages", new IFeedbackMessageFilter() {
+            @Override
+            public boolean accept(FeedbackMessage message) {
+                LOG.info("Accept message from " + message.getReporter() + " with content " + message.getMessage() + "?");
+                if (message.getReporter() instanceof FormComponent)
+                    return false;
+
+                return true;
+            }
+        }));
         add(new MainNavigation("navbar"));
         add(new LanguageSwitcher("languages"));
         add(new UserPanel("userPanel"));

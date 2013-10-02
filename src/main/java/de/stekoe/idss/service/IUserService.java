@@ -2,7 +2,8 @@ package de.stekoe.idss.service;
 
 import java.util.List;
 
-import de.stekoe.idss.exception.UserAlreadyExistsException;
+import de.stekoe.idss.exception.EmailAddressAlreadyInUseException;
+import de.stekoe.idss.exception.UsernameAlreadyInUseException;
 import de.stekoe.idss.model.Role;
 import de.stekoe.idss.model.User;
 
@@ -22,13 +23,6 @@ public interface IUserService {
         /** Status when user has successfully been logged in */
         SUCCESS
     }
-
-    /**
-     * @param user The User object which is to be persisted.
-     * @return true on success, false otherwise.
-     * @throws UserAlreadyExistsException If the user is already in the database.
-     */
-    boolean create(User user) throws UserAlreadyExistsException;
 
     /**
      * Method to login a user by given username and password.
@@ -76,8 +70,10 @@ public interface IUserService {
     Role getRole(String rolename);
 
     /**
-     * @param entity The user to save
-     * @return
+     * @param user The user to save
+     * @return True on success, false otherwise.
+     * @throws EmailAddressAlreadyInUseException
+     * @throws UsernameAlreadyInUseException
      */
-    boolean save(User entity);
+    boolean save(User user) throws EmailAddressAlreadyInUseException, UsernameAlreadyInUseException;
 }

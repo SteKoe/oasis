@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
+import org.apache.log4j.Logger;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
@@ -12,6 +13,8 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.form.DateTextField;
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.form.DateTextFieldConfig;
+import de.stekoe.idss.exception.EmailAddressAlreadyInUseException;
+import de.stekoe.idss.exception.UsernameAlreadyInUseException;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.service.IUserService;
 
@@ -20,6 +23,7 @@ import de.stekoe.idss.service.IUserService;
  */
 @SuppressWarnings("serial")
 public class UserProfilePage extends AuthUserPage {
+    private static final Logger LOG = Logger.getLogger(UserProfilePage.class);
 
     @SpringBean
     private IUserService userService;
@@ -35,7 +39,13 @@ public class UserProfilePage extends AuthUserPage {
         Form form = new Form<User>("userprofile") {
             @Override
             protected void onSubmit() {
-                userService.save(user);
+                    try {
+                        userService.save(user);
+                    } catch (UsernameAlreadyInUseException e) {
+                        LOG.error("A user tried to register with existing username: " + user.getUsername());
+                    } catch (EmailAddressAlreadyInUseException e) {
+                        LOG.error("A user tried to register with existing email: " + user.getUsername());
+                    }
             }
         };
 

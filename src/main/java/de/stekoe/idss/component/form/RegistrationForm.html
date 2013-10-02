@@ -2,8 +2,10 @@
 <html lang="en" xmlns:wicket="http://wicket.sourceforge.net/">
 <body>
 	<wicket:panel>
-		<div wicket:id="hiddenFeedback"></div>
 		<div class="container">
+			<div wicket:id="error" class="alert alert-error"><button type="button" class="close" data-dismiss="alert">&times;</button>[success message]</div>
+			<div wicket:id="success" class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>[success message]</div>
+
 			<div class="row">
 				<div class="span6 offset3">
 					<form class="form-horizontal" wicket:id="registrationForm">
@@ -35,10 +37,6 @@
 						</fieldset>
 					</form>
 				</div>
-			</div>
-
-			<div wicket:id="success">
-                [success message]
 			</div>
 		</div>
 	</wicket:panel>

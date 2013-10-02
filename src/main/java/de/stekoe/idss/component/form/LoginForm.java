@@ -14,7 +14,6 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.ControlGroup;
 import de.stekoe.idss.IDSSSession;
 import de.stekoe.idss.component.feedbackpanel.MyFencedFeedbackPanel;
-import de.stekoe.idss.model.User;
 import de.stekoe.idss.service.IUserService;
 import de.stekoe.idss.service.IUserService.LoginStatus;
 
@@ -26,7 +25,7 @@ public class LoginForm extends Panel {
     private static final Logger LOG = Logger.getLogger(LoginForm.class);
 
     @SpringBean
-    private static IUserService userManager;
+    private IUserService userManager;
 
     private Label successMessage;
 
@@ -53,7 +52,7 @@ public class LoginForm extends Panel {
      * leave the pc and sign in at any later point.
      */
     @SuppressWarnings("rawtypes")
-    private static class SignInForm extends StatelessForm {
+    private class SignInForm extends StatelessForm {
         private String username;
         private String password;
 
@@ -94,14 +93,13 @@ public class LoginForm extends Panel {
         @Override
         protected void onSubmit() {
             if (username != null && password != null) {
-                LoginStatus loginStatus = userManager.login(username, password);
-                if (LoginStatus.SUCCESS.equals(loginStatus)) {
+                if (IDSSSession.get().signIn(username, password)) {
                     LOG.info(String.format("User %s has logged in!", username));
-                    User user = IDSSSession.get().getUser();
-                    LOG.info(user.toString());
                     setResponsePage(getApplication().getHomePage());
                 } else {
-                    LOG.info(String.format("Login for User %s returned status %s.", username, loginStatus.toString()));
+                    LoginStatus loginStatus = IDSSSession.get().getLoginStatus();
+
+                    LOG.warn(String.format("Login for User %s returned status %s.", username, loginStatus.toString()));
 
                     boolean error = true;
                     String message;

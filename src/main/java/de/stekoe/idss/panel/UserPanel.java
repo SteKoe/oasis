@@ -46,7 +46,7 @@ public class UserPanel extends Panel {
         add(new BookmarkablePageLink("signout", LogoutPage.class) {
             @Override
             public boolean isVisible() {
-                return IDSSSession.get().isLoggedIn();
+                return IDSSSession.get().isSignedIn();
             }
         });
     }
@@ -61,7 +61,7 @@ public class UserPanel extends Panel {
 
             @Override
             public boolean isVisible() {
-                return !IDSSSession.get().isLoggedIn();
+                return !IDSSSession.get().isSignedIn();
             }
         });
         add(new Link("register") {
@@ -72,7 +72,7 @@ public class UserPanel extends Panel {
 
             @Override
             public boolean isVisible() {
-                return !IDSSSession.get().isLoggedIn();
+                return !IDSSSession.get().isSignedIn();
             }
         });
     }

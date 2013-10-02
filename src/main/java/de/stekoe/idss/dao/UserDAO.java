@@ -9,6 +9,18 @@ import de.stekoe.idss.model.User;
  */
 public interface UserDAO {
     /**
+     * @param user A User to be saved in database.
+     * @return true on success, false otherwise.
+     */
+    boolean save(User user);
+
+    /**
+     * @param user The user to update
+     * @return True on success, false otherwise.
+     */
+    boolean update(User user);
+
+    /**
      * @param username The username to look for.
      * @return The user with the given username.
      */
@@ -18,12 +30,6 @@ public interface UserDAO {
      * @return A List of all users.
      */
     List<User> getAllUsers();
-
-    /**
-     * @param user A User to be saved in database.
-     * @return true on success, false otherwise.
-     */
-    boolean save(User user);
 
     /**
      * @param code The activationcode to look for.
@@ -42,4 +48,5 @@ public interface UserDAO {
      * @return The user with given id.
      */
     User findById(String id);
+
 }

@@ -1,5 +1,6 @@
 package de.stekoe.idss.page.auth.user;
 
+import org.apache.log4j.Logger;
 import org.apache.wicket.markup.html.form.EmailTextField;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
@@ -11,6 +12,7 @@ import org.mindrot.jbcrypt.BCrypt;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.ControlGroup;
 import de.stekoe.idss.IDSSSession;
+import de.stekoe.idss.exception.UserException;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.service.IUserService;
 
@@ -19,6 +21,7 @@ import de.stekoe.idss.service.IUserService;
  */
 @SuppressWarnings("serial")
 public class EditPasswordPage extends AuthUserPage {
+    private static final Logger LOG = Logger.getLogger(EditPasswordPage.class);
 
     @SpringBean
     private IUserService userService;
@@ -45,22 +48,26 @@ public class EditPasswordPage extends AuthUserPage {
             protected void onSubmit() {
                 User user = ((IDSSSession) getSession()).getUser();
                 if (!BCrypt.checkpw(currentPassword, user.getPassword())) {
-                    error(getString("currentPasswort.wrong"));
+                    getSession().error(getString("currentPasswort.wrong"));
                     return;
                 }
 
                 if (newPassword != null && newPasswordConfirm != null) {
                     user.setPassword(BCrypt.hashpw(newPassword, BCrypt.gensalt()));
-                    info(getString("passwordChanged.success"));
+                    getSession().info(getString("passwordChanged.success"));
                 }
 
                 if (newEmail != null && newEmailConfirm != null) {
                     user.setEmail(newEmail);
-                    info(getString("emailChanged.success"));
+                    getSession().info(getString("emailChanged.success"));
                 }
 
                 if (userService != null) {
-                    userService.save(user);
+                    try {
+                        userService.save(user);
+                    } catch (UserException e) {
+                        LOG.error(String.format("User %s tried to change email address to %s. But this address is already registered.", user.getUsername(), user.getEmail()));
+                    }
                 }
             }
         };

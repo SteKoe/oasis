@@ -1,17 +1,23 @@
 package de.stekoe.idss.component.form;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import de.agilecoders.wicket.core.markup.html.bootstrap.dialog.Alert;
+import de.agilecoders.wicket.core.markup.html.bootstrap.dialog.Alert.Type;
+import de.agilecoders.wicket.core.markup.html.bootstrap.form.ControlGroup;
+import de.stekoe.idss.component.behavior.Placeholder;
+import de.stekoe.idss.exception.EmailAddressAlreadyInUseException;
+import de.stekoe.idss.exception.UsernameAlreadyInUseException;
+import de.stekoe.idss.mail.template.RegistrationMailTemplate;
+import de.stekoe.idss.model.Role;
+import de.stekoe.idss.model.User;
+import de.stekoe.idss.model.UserProfile;
+import de.stekoe.idss.page.ActivateUserPage;
+import de.stekoe.idss.service.IMailService;
+import de.stekoe.idss.service.IUserService;
+import de.stekoe.idss.validator.UniqueValueValidator;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.log4j.Logger;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
-import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.Button;
-import org.apache.wicket.markup.html.form.EmailTextField;
-import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.FormComponent;
-import org.apache.wicket.markup.html.form.PasswordTextField;
-import org.apache.wicket.markup.html.form.RequiredTextField;
+import org.apache.wicket.markup.html.form.*;
 import org.apache.wicket.markup.html.form.validation.EqualPasswordInputValidator;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
@@ -21,27 +27,17 @@ import org.apache.wicket.request.Url;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.hibernate.AssertionFailure;
 import org.mindrot.jbcrypt.BCrypt;
 
-import de.agilecoders.wicket.core.markup.html.bootstrap.form.ControlGroup;
-import de.stekoe.idss.component.behavior.Placeholder;
-import de.stekoe.idss.component.feedbackpanel.MyFencedFeedbackPanel;
-import de.stekoe.idss.exception.UserAlreadyExistsException;
-import de.stekoe.idss.mail.template.RegistrationMailTemplate;
-import de.stekoe.idss.model.Role;
-import de.stekoe.idss.model.User;
-import de.stekoe.idss.model.UserProfile;
-import de.stekoe.idss.page.ActivateUserPage;
-import de.stekoe.idss.service.IMailService;
-import de.stekoe.idss.service.IUserService;
-import de.stekoe.idss.validator.UniqueValueValidator;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Stephan Köninger <mail@stekoe.de>
  */
 @SuppressWarnings("serial")
 public class RegistrationForm extends Panel {
+    private static final Logger LOG = Logger.getLogger(RegistrationForm.class);
 
     @SpringBean
     private IMailService mailService;
@@ -59,46 +55,63 @@ public class RegistrationForm extends Panel {
     private PasswordTextField passwordConfirm;
     private Button submitButton;
 
-    private Label successMessage;
+    private Alert successMessage;
+    private Alert errorMessage;
 
     /**
+     * Construct.
      * @param id The id of this component
      */
     public RegistrationForm(String id) {
         super(id);
 
-
-        createFeedbackPanel();
         createRegistrationForm();
         createSuccessMessage();
-    }
-
-    private void createFeedbackPanel() {
-        add(new MyFencedFeedbackPanel("hiddenFeedback", this).setVisible(false));
+        createErrorMessage();
     }
 
     private void createSuccessMessage() {
-        successMessage = new Label("success", new StringResourceModel("success.message", this, null));
+        successMessage = new Alert("success", new StringResourceModel("success.message", this, null));
+        successMessage.type(Type.Success);
+        successMessage.setCloseButtonVisible(true);
         successMessage.setVisible(false);
         add(successMessage);
+    }
+
+    private void createErrorMessage() {
+        errorMessage = new Alert("error", new StringResourceModel("error.message", this, null));
+        errorMessage.type(Type.Error);
+        errorMessage.setCloseButtonVisible(true);
+        errorMessage.setVisible(false);
+        add(errorMessage);
     }
 
     private void createRegistrationForm() {
         createFields();
 
         form = new Form<User>("registrationForm") {
+
+            @Override
+            protected void onValidate() {
+                errorMessage.setVisible(false);
+                successMessage.setVisible(false);
+                super.onValidate();
+            }
+
             @Override
             protected void onSubmit() {
                 try {
                     User user = createUser();
-                    userService.create(user);
+                    userService.save(user);
                     sendActivationMail(user);
                     successMessage.setVisible(true);
                     form.setVisible(false);
-                } catch (UserAlreadyExistsException e) {
-                    error(new StringResourceModel("error.usernameAlreadyTaken", this, null));
-                } catch (AssertionFailure e) {
-                    error(new StringResourceModel("error.hibernate.assertion", this, null));
+                } catch(UsernameAlreadyInUseException e) {
+                    errorMessage.setVisible(true);
+                    LOG.error("A user tried to register with existing username!");
+                } catch (EmailAddressAlreadyInUseException e) {
+                    errorMessage.setVisible(true);
+                    LOG.error("A user tried to register with existing email address!");
                 }
             }
 

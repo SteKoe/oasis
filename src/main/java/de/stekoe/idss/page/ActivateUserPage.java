@@ -1,9 +1,12 @@
 package de.stekoe.idss.page;
 
+import org.apache.log4j.Logger;
+import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.string.StringValue;
 
+import de.stekoe.idss.exception.UserException;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.service.IUserService;
 
@@ -12,6 +15,7 @@ import de.stekoe.idss.service.IUserService;
  */
 @SuppressWarnings("serial")
 public class ActivateUserPage extends LayoutPage {
+    private static final Logger LOG = Logger.getLogger(ActivateUserPage.class);
 
     @SpringBean
     private IUserService userManager;
@@ -48,6 +52,12 @@ public class ActivateUserPage extends LayoutPage {
 
     private void activateUser(User userToActivate) {
         userToActivate.setActivationKey(null);
-        userManager.save(userToActivate);
+        try {
+            userManager.save(userToActivate);
+            info("TEst");
+            throw new RestartResponseException(LoginPage.class);
+        } catch (UserException e) {
+            LOG.error("Error while activating user " + userToActivate.getUsername() + "!");
+        }
     }
 }

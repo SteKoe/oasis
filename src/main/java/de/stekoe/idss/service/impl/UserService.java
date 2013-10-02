@@ -12,7 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import de.stekoe.idss.IDSSSession;
 import de.stekoe.idss.dao.RoleDAO;
 import de.stekoe.idss.dao.UserDAO;
-import de.stekoe.idss.exception.UserAlreadyExistsException;
+import de.stekoe.idss.exception.EmailAddressAlreadyInUseException;
+import de.stekoe.idss.exception.UsernameAlreadyInUseException;
 import de.stekoe.idss.model.Role;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.service.IUserService;
@@ -34,26 +35,31 @@ public class UserService implements IUserService {
 
     @Override
     @Transactional
-    public boolean create(User user) throws UserAlreadyExistsException {
-        User existentUser = userDAO.findByUsername(user.getUsername());
-        if (existentUser == null) {
-            return save(user);
-        } else {
-            LOG.warn("Tried to insert new user with existing username!");
-            throw new UserAlreadyExistsException();
-        }
-    }
-
-    @Override
-    @Transactional
     public User findByUsername(String username) {
         return userDAO.findByUsername(username);
     }
 
     @Override
     @Transactional
-    public boolean save(User entity) {
-        return userDAO.save(entity);
+    public boolean save(User user) throws EmailAddressAlreadyInUseException, UsernameAlreadyInUseException {
+        if (user.getId() == null) {
+            if (emailInUse(user.getEmail())) {
+                throw new EmailAddressAlreadyInUseException();
+            }
+            if (usernameInUse(user.getUsername())) {
+                throw new UsernameAlreadyInUseException();
+            }
+        }
+
+        return userDAO.save(user);
+    }
+
+    private boolean usernameInUse(String username) {
+        return userDAO.findByUsername(username) != null;
+    }
+
+    private boolean emailInUse(String email) {
+        return userDAO.findByEmail(email) != null;
     }
 
     /**

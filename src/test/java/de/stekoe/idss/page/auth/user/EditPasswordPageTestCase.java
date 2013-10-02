@@ -13,7 +13,7 @@ import de.stekoe.idss.IDSSSession;
 import de.stekoe.idss.page.TestIDSSApplication;
 import de.stekoe.idss.page.UserAuthUser;
 
-public class EditPasswordPageTest {
+public class EditPasswordPageTestCase {
 
     private static final String NEWPASSWORD = "i am your new password!";
     private static final String NEWEMAIL = "new_mail@example.com";

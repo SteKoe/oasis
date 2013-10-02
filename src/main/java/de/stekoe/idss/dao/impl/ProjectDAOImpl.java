@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import de.stekoe.idss.dao.ProjectDAO;
 import de.stekoe.idss.model.Project;
 
+/**
+ * @author Stephan Köninger <mail@stekoe.de>
+ */
 @Service
 public class ProjectDAOImpl extends GenericDAOImpl implements ProjectDAO {
 
@@ -23,6 +26,11 @@ public class ProjectDAOImpl extends GenericDAOImpl implements ProjectDAO {
         Criteria criteria = getCurrentSession().createCriteria(Project.class);
         criteria.add(Restrictions.eq("projectName", projectName));
         return criteria.list();
+    }
+
+    @Override
+    public Project findById(String id) {
+        return (Project) getCurrentSession().get(Project.class, id);
     }
 
 }

@@ -12,7 +12,7 @@
     <tx:annotation-driven />
 
     <context:property-placeholder location="classpath:/properties/application.properties" />
-    <context:component-scan base-package="de.stekoe.idss.dao.impl, de.stekoe.idss.service.impl" />
+    <context:component-scan base-package="de.stekoe.idss, de.stekoe.idss.dao.impl, de.stekoe.idss.service.impl" />
     
     <!-- Database Source -->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">

@@ -7,7 +7,7 @@ import org.junit.Test;
 /**
  * Since Layoutpage is abstract all tests will be run with HomePage.class
  */
-public class LayoutPageTest {
+public class LayoutPageTestCase {
 
     private WicketTester tester;
 

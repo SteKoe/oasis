@@ -4,9 +4,9 @@ import java.util.Locale;
 
 import org.apache.wicket.Application;
 import org.apache.wicket.Session;
-import org.apache.wicket.authroles.authorization.strategies.role.RoleAuthorizationStrategy;
+import org.apache.wicket.authroles.authentication.AbstractAuthenticatedWebSession;
+import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
 import org.apache.wicket.markup.html.WebPage;
-import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.request.Response;
 import org.apache.wicket.settings.IExceptionSettings;
@@ -17,6 +17,7 @@ import de.agilecoders.wicket.core.settings.BootstrapSettings;
 import de.stekoe.idss.page.ActivateUserPage;
 import de.stekoe.idss.page.ContactPage;
 import de.stekoe.idss.page.HomePage;
+import de.stekoe.idss.page.LoginPage;
 import de.stekoe.idss.page.RegistrationPage;
 import de.stekoe.idss.page.auth.user.UserProfilePage;
 import de.stekoe.idss.page.error.Error403Page;
@@ -30,7 +31,7 @@ import de.stekoe.idss.page.error.Error500Page;
  *
  * @see de.stekoe.idss.Start#main(String[])
  */
-public class IDSSApplication extends WebApplication {
+public class IDSSApplication extends AuthenticatedWebApplication {
 
     /** Languages available for this application. */
     public static final Locale[] LANGUAGES = {
@@ -76,7 +77,7 @@ public class IDSSApplication extends WebApplication {
         switch (getConfigurationType()) {
             case DEVELOPMENT:
                 getRequestLoggerSettings().setRequestLoggerEnabled(true);
-                getDebugSettings().setDevelopmentUtilitiesEnabled(true);
+                getDebugSettings().setDevelopmentUtilitiesEnabled(false);
                 getDebugSettings().setOutputComponentPath(true);
                 break;
             case DEPLOYMENT:
@@ -87,7 +88,7 @@ public class IDSSApplication extends WebApplication {
     }
 
     private void setSecuritySettings() {
-        getSecuritySettings().setAuthorizationStrategy(new RoleAuthorizationStrategy(new UserRolesAuthorizer()));
+        getSecuritySettings().setAuthorizationStrategy(new IDSSAuthorizationStrategy());
     }
 
     @Override
@@ -117,5 +118,15 @@ public class IDSSApplication extends WebApplication {
     @Override
     public Class<? extends WebPage> getHomePage() {
         return HomePage.class;
+    }
+
+    @Override
+    protected Class<? extends AbstractAuthenticatedWebSession> getWebSessionClass() {
+        return IDSSSession.class;
+    }
+
+    @Override
+    protected Class<? extends WebPage> getSignInPageClass() {
+        return LoginPage.class;
     }
 }

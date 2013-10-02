@@ -1,18 +1,24 @@
 package de.stekoe.idss;
 
+import org.apache.log4j.Logger;
 import org.apache.wicket.Session;
-import org.apache.wicket.protocol.http.WebSession;
+import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
+import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.apache.wicket.request.Request;
 
 import de.stekoe.idss.model.User;
+import de.stekoe.idss.service.IUserService.LoginStatus;
 
 /**
  * @author Stephan Köninger <mail@stekoe.de>
  */
 @SuppressWarnings("serial")
-public class IDSSSession extends WebSession {
+public class IDSSSession extends AuthenticatedWebSession {
+
+    private static final Logger LOG = Logger.getLogger(IDSSSession.class);
 
     private User user;
+    private LoginStatus loginStatus;
 
     /**
      * @param request The current request.
@@ -36,10 +42,17 @@ public class IDSSSession extends WebSession {
     }
 
     /**
-     * @return true if a user is logged in, false if not.
+     * @param loginStatus The current loginStatus
      */
-    public boolean isLoggedIn() {
-        return getUser() != null;
+    private void setLoginStatus(LoginStatus loginStatus) {
+        this.loginStatus = loginStatus;
+    }
+
+    /**
+     * @return the last known login status.
+     */
+    public LoginStatus getLoginStatus() {
+        return this.loginStatus;
     }
 
     /**
@@ -47,5 +60,28 @@ public class IDSSSession extends WebSession {
      */
     public static IDSSSession get() {
         return (IDSSSession) Session.get();
+    }
+
+    @Override
+    public Roles getRoles() {
+        LOG.info("Checking roles on user " + getUser());
+        if(getUser() != null) {
+            return new Roles(getUser().getRoles().toArray(new String[getUser().getRoles().size()]));
+        }
+
+        return new Roles();
+    }
+
+    @Override
+    public boolean authenticate(String username, String password) {
+        setLoginStatus(null);
+
+        LoginStatus loginStatus = IDSSServices.getUserService().login(username, password);
+        if (loginStatus.equals(LoginStatus.SUCCESS)) {
+            return true;
+        } else {
+            setLoginStatus(loginStatus);
+            return false;
+        }
     }
 }

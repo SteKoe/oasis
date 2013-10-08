@@ -1,29 +1,34 @@
 package de.stekoe.idss;
 
-import java.util.Locale;
-
-import org.apache.wicket.Application;
-import org.apache.wicket.Session;
-import org.apache.wicket.authroles.authentication.AbstractAuthenticatedWebSession;
-import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
-import org.apache.wicket.markup.html.WebPage;
-import org.apache.wicket.request.Request;
-import org.apache.wicket.request.Response;
-import org.apache.wicket.settings.IExceptionSettings;
-import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
-
 import de.agilecoders.wicket.core.Bootstrap;
 import de.agilecoders.wicket.core.settings.BootstrapSettings;
-import de.stekoe.idss.page.ActivateUserPage;
-import de.stekoe.idss.page.ContactPage;
-import de.stekoe.idss.page.HomePage;
-import de.stekoe.idss.page.LoginPage;
-import de.stekoe.idss.page.RegistrationPage;
+import de.stekoe.idss.dao.SystemRoleDAO;
+import de.stekoe.idss.page.*;
+import de.stekoe.idss.page.auth.user.LogoutPage;
 import de.stekoe.idss.page.auth.user.UserProfilePage;
+import de.stekoe.idss.page.auth.user.project.CreateProjectPage;
+import de.stekoe.idss.page.auth.user.project.ProjectOverviewPage;
 import de.stekoe.idss.page.error.Error403Page;
 import de.stekoe.idss.page.error.Error404Page;
 import de.stekoe.idss.page.error.Error410Page;
 import de.stekoe.idss.page.error.Error500Page;
+import org.apache.log4j.Logger;
+import org.apache.wicket.Application;
+import org.apache.wicket.Session;
+import org.apache.wicket.authroles.authentication.AbstractAuthenticatedWebSession;
+import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
+import org.apache.wicket.bean.validation.BeanValidationConfiguration;
+import org.apache.wicket.event.IEvent;
+import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.request.Request;
+import org.apache.wicket.request.Response;
+import org.apache.wicket.settings.IExceptionSettings;
+import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
+
+import java.util.Locale;
+
+import static org.junit.Assert.assertTrue;
 
 /**
  * Application object for your web application. If you want to run this
@@ -33,14 +38,27 @@ import de.stekoe.idss.page.error.Error500Page;
  */
 public class IDSSApplication extends AuthenticatedWebApplication {
 
+    private static Logger LOG = Logger.getLogger(IDSSApplication.class);
+
+    @SpringBean(name = "systemRoleDAO")
+    private SystemRoleDAO systemRoleDAO;
+
     /** Languages available for this application. */
     public static final Locale[] LANGUAGES = {
         Locale.GERMAN
     };
 
     @Override
+    public void onEvent(IEvent<?> event) {
+        LOG.info(event.toString());
+        super.onEvent(event);    //To change body of overridden methods use File | Settings | File Templates.
+    }
+
+    @Override
     public void init() {
         super.init();
+
+        new BeanValidationConfiguration().configure(this);
 
         setConfigurationType();
 
@@ -48,7 +66,7 @@ public class IDSSApplication extends AuthenticatedWebApplication {
 
         configureBootstrapFramework();
         setUpSpring();
-        createURLRoutings();
+        createRoutes();
 
         // HTML Status Pages
         set403Page();
@@ -107,12 +125,20 @@ public class IDSSApplication extends AuthenticatedWebApplication {
         getComponentInstantiationListeners().add(new SpringComponentInjector(this));
     }
 
-    private void createURLRoutings() {
+    private void createRoutes() {
         mountPage("/home", HomePage.class);
         mountPage("/contact", ContactPage.class);
-        mountPage("/register", RegistrationPage.class);
         mountPage("/activate", ActivateUserPage.class);
         mountPage("/profile", UserProfilePage.class);
+
+        mountPage("/register", RegistrationPage.class);
+        mountPage("/login", LoginPage.class);
+        mountPage("/logout", LogoutPage.class);
+
+        // Projects
+        mountPage("/project", ProjectOverviewPage.class);
+        mountPage("/project/create", CreateProjectPage.class);
+        mountPage("/project/edit", CreateProjectPage.class);
     }
 
     @Override

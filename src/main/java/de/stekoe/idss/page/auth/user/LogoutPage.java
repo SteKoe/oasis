@@ -19,7 +19,7 @@ public class LogoutPage extends LayoutPage {
     public LogoutPage() {
         LOG.info("User " + getSession().getUser().getUsername() + " is about to log out!");
         getSession().invalidate();
-        getSession().success("Sie haben sich erfolgreich abgemeldet!");
+        getSession().success(getString("message.logout.success"));
         setResponsePage(HomePage.class);
     }
 }

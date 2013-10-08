@@ -1,9 +1,11 @@
 package de.stekoe.idss.page.auth.user;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Locale;
-
+import de.agilecoders.wicket.extensions.markup.html.bootstrap.form.DateTextField;
+import de.agilecoders.wicket.extensions.markup.html.bootstrap.form.DateTextFieldConfig;
+import de.stekoe.idss.exception.EmailAddressAlreadyInUseException;
+import de.stekoe.idss.exception.UsernameAlreadyInUseException;
+import de.stekoe.idss.model.User;
+import de.stekoe.idss.service.IUserService;
 import org.apache.log4j.Logger;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
@@ -11,12 +13,9 @@ import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-import de.agilecoders.wicket.extensions.markup.html.bootstrap.form.DateTextField;
-import de.agilecoders.wicket.extensions.markup.html.bootstrap.form.DateTextFieldConfig;
-import de.stekoe.idss.exception.EmailAddressAlreadyInUseException;
-import de.stekoe.idss.exception.UsernameAlreadyInUseException;
-import de.stekoe.idss.model.User;
-import de.stekoe.idss.service.IUserService;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 /**
  * @author Stephan Köninger <mail@stekoe.de>
@@ -50,8 +49,8 @@ public class UserProfilePage extends AuthUserPage {
         };
 
         form.add(new BookmarkablePageLink("changePasswordOrEmailLink", EditPasswordPage.class));
-        form.add(new TextField("firstname", new PropertyModel(user.getUserProfile(), "firstname")));
-        form.add(new TextField("surename", new PropertyModel(user.getUserProfile(), "surename")));
+        form.add(new TextField("firstname", new PropertyModel(user.getProfile(), "firstname")));
+        form.add(new TextField("surname", new PropertyModel(user.getProfile(), "surname")));
         form.add(createDateTextField());
 
         add(form);
@@ -63,7 +62,7 @@ public class UserProfilePage extends AuthUserPage {
         config.withLanguage(getSession().getLocale().getLanguage());
         config.showTodayButton(true);
         config.withFormat(getDateFormat());
-        return new DateTextField("birthday", new PropertyModel(user.getUserProfile(), "birthdate"), config);
+        return new DateTextField("birthday", new PropertyModel(user.getProfile(), "birthdate"), config);
     }
 
     private String getDateFormat() {

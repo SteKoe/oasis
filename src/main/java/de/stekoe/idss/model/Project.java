@@ -1,40 +1,27 @@
 package de.stekoe.idss.model;
 
-// Generated 26.08.2013 06:45:56 by Hibernate Tools 4.0.0
-
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-
 import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.Set;
+
+/**
+ * @author Stephan Koeninger <mail@stephan-koeninger.de>
+ */
 @Entity
-public class Project implements java.io.Serializable {
+@Table(name = "Project")
+public class Project implements Serializable {
+
+    private String id;
+    private String name;
+    private String description;
+    private Set<ProjectMember> projectTeam;
 
     @Id
     @GeneratedValue(generator="system-uuid")
-    @GenericGenerator(name="system-uuid", strategy = "uuid")
-    private String id;
-
-    @Column(nullable=false)
-    private String projectName;
-
-    @ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-    @JoinTable(name="ProjectLeader")
-    private final Set<User> projectLeader = new HashSet<User>();
-
-    @ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-    @JoinTable(name="ProjectMember")
-    private Set<User> projectMember = new HashSet<User>();
-
+    @GenericGenerator(name="system-uuid", strategy = "uuid2")
     public String getId() {
         return this.id;
     }
@@ -43,27 +30,42 @@ public class Project implements java.io.Serializable {
         this.id = id;
     }
 
-    public String getProjectName() {
-        return this.projectName;
+    @NotNull
+    @Column(nullable=false)
+    public String getName() {
+        return this.name;
     }
 
-    public void setProjectName(String projectName) {
-        this.projectName = projectName;
+    public void setName(String projectName) {
+        this.name = projectName;
     }
 
-    public Set<User> getProjectMember() {
-        return projectMember;
+    @Lob
+    public String getDescription() {
+        return this.description;
     }
 
-    public void setProjectMember(Set<User> projectMember) {
-        this.projectMember = projectMember;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public Set<User> getProjectLeader() {
-        return projectMember;
+    @ManyToMany(fetch = FetchType.EAGER, targetEntity = ProjectMember.class)
+    @JoinTable(name = "ProjectToProjectMember")
+    public Set<ProjectMember> getProjectTeam() {
+        return projectTeam;
     }
 
-    public void setProjectLeader(Set<User> projectLeader) {
-        this.projectMember = projectLeader;
+    public void setProjectTeam(Set<ProjectMember> projectTeam) {
+        this.projectTeam = projectTeam;
+    }
+
+    @Override
+    public String toString() {
+        return "Project{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", projectTeam=" + projectTeam +
+                '}';
     }
 }

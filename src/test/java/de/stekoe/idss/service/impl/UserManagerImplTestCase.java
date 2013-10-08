@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import de.stekoe.idss.model.SystemRole;
 import org.apache.log4j.Logger;
 import org.apache.wicket.util.tester.WicketTester;
 import org.hamcrest.core.Is;
@@ -22,7 +23,6 @@ import de.stekoe.idss.IDSSApplication;
 import de.stekoe.idss.TestFactory;
 import de.stekoe.idss.dao.BaseTest;
 import de.stekoe.idss.exception.UsernameAlreadyInUseException;
-import de.stekoe.idss.model.Role;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.model.UserProfile;
 import de.stekoe.idss.service.IUserService;
@@ -88,9 +88,9 @@ public class UserManagerImplTestCase extends BaseTest {
         User user = new User();
         user.setUsername(username);
         user.setEmail("unactivatedUser@example.com");
-        Set<Role> noRoles = Collections.emptySet();
+        Set<SystemRole> noRoles = Collections.emptySet();
         user.setRoles(noRoles);
-        user.setUserProfile(new UserProfile());
+        user.setProfile(new UserProfile());
         user.setPassword(BCrypt.hashpw(PASSWORT, BCrypt.gensalt()));
         user.setActivationKey(ACTIVATION_KEY);
         userManager.save(user);

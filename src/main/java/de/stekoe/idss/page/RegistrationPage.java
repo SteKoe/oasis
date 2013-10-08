@@ -1,6 +1,6 @@
 package de.stekoe.idss.page;
 
-import de.stekoe.idss.component.form.RegistrationForm;
+import de.stekoe.idss.component.form.auth.register.RegistrationForm;
 
 
 /**

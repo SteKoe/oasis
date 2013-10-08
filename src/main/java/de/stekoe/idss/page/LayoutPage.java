@@ -1,5 +1,10 @@
 package de.stekoe.idss.page;
 
+import de.stekoe.idss.IDSSSession;
+import de.stekoe.idss.component.feedbackpanel.MyFencedFeedbackPanel;
+import de.stekoe.idss.component.navigation.language.LanguageSwitcher;
+import de.stekoe.idss.component.navigation.main.MainNavigation;
+import de.stekoe.idss.component.navigation.user.UserPanel;
 import org.apache.log4j.Logger;
 import org.apache.wicket.devutils.debugbar.DebugBar;
 import org.apache.wicket.feedback.FeedbackMessage;
@@ -12,12 +17,6 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
-
-import de.stekoe.idss.IDSSSession;
-import de.stekoe.idss.component.feedbackpanel.MyFencedFeedbackPanel;
-import de.stekoe.idss.component.navigation.language.LanguageSwitcher;
-import de.stekoe.idss.component.navigation.main.MainNavigation;
-import de.stekoe.idss.panel.UserPanel;
 
 /**
  * @author Stephan Köninger <mail@stekoe.de>

@@ -6,6 +6,9 @@ import org.eclipse.jetty.server.bio.SocketConnector;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.junit.Ignore;
 
+/**
+ * "Test" Ignored since this just starts a sever.
+ */
 @Ignore
 public class Start {
     @Ignore

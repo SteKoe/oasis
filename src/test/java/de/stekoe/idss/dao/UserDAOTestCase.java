@@ -1,25 +1,39 @@
 package de.stekoe.idss.dao;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import de.stekoe.idss.model.SystemRole;
+import de.stekoe.idss.model.User;
+import de.stekoe.idss.model.UserProfile;
+import org.hamcrest.core.Is;
+import org.hamcrest.core.IsEqual;
+import org.junit.Before;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Calendar;
 import java.util.Date;
 
-import org.apache.wicket.authroles.authorization.strategies.role.Roles;
-import org.hamcrest.core.IsEqual;
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import de.stekoe.idss.model.Role;
-import de.stekoe.idss.model.User;
-import de.stekoe.idss.model.UserProfile;
+import static org.junit.Assert.*;
 
 public class UserDAOTestCase extends BaseTest {
 
     @Autowired
     private UserDAO userDAO;
+
+    @Autowired
+    private SystemRoleDAO systemRoleDAO;
+
+    @Before
+    public void setUp() {
+        SystemRole user = new SystemRole();
+        user.setName(SystemRole.USER);
+        systemRoleDAO.save(user);
+
+        SystemRole admin = new SystemRole();
+        admin.setName(SystemRole.ADMIN);
+        systemRoleDAO.save(admin);
+
+        assertThat(systemRoleDAO.getAllRoles().size(), Is.is(2));
+    }
 
     private User getUser() {
         User user = new User();
@@ -49,12 +63,8 @@ public class UserDAOTestCase extends BaseTest {
     @Test
     public void insertUserWithRoles() throws Exception {
         User userWithRoles = getUser();
-        Role userRole = new Role();
-        userRole.setRoleName(Roles.USER);
-        userWithRoles.getRoles().add(userRole);
-        Role adminRole = new Role();
-        adminRole.setRoleName(Roles.ADMIN);
-        userWithRoles.getRoles().add(adminRole);
+        userWithRoles.getRoles().add(systemRoleDAO.getRoleByName(SystemRole.USER));
+        userWithRoles.getRoles().add(systemRoleDAO.getRoleByName(SystemRole.ADMIN));
         userDAO.save(userWithRoles);
 
         User retrievedUser = userDAO.findByUsername("hans");
@@ -69,10 +79,10 @@ public class UserDAOTestCase extends BaseTest {
         UserProfile profile = new UserProfile();
         profile.setBirthdate(new Date(bd.getTimeInMillis()));
         profile.setFirstname("Stephan");
-        profile.setSurename("Köninger");
+        profile.setSurname("Köninger");
 
         User user = getUser();
-        user.setUserProfile(profile);
+        user.setProfile(profile);
 
         userDAO.save(user);
     }

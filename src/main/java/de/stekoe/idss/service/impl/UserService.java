@@ -1,22 +1,21 @@
 package de.stekoe.idss.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import de.stekoe.idss.IDSSSession;
+import de.stekoe.idss.dao.SystemRoleDAO;
+import de.stekoe.idss.dao.UserDAO;
+import de.stekoe.idss.exception.EmailAddressAlreadyInUseException;
+import de.stekoe.idss.exception.UsernameAlreadyInUseException;
+import de.stekoe.idss.model.SystemRole;
+import de.stekoe.idss.model.User;
+import de.stekoe.idss.service.IUserService;
 import org.apache.log4j.Logger;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import de.stekoe.idss.IDSSSession;
-import de.stekoe.idss.dao.RoleDAO;
-import de.stekoe.idss.dao.UserDAO;
-import de.stekoe.idss.exception.EmailAddressAlreadyInUseException;
-import de.stekoe.idss.exception.UsernameAlreadyInUseException;
-import de.stekoe.idss.model.Role;
-import de.stekoe.idss.model.User;
-import de.stekoe.idss.service.IUserService;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Stephan Köninger <mail@stekoe.de>
@@ -30,7 +29,7 @@ public class UserService implements IUserService {
     private UserDAO userDAO;
 
     @Autowired
-    private RoleDAO roleDAO;
+    private SystemRoleDAO systemRoleDAO;
 
 
     @Override
@@ -132,7 +131,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public Role getRole(String rolename) {
-        return roleDAO.getRoleByName(rolename);
+    public SystemRole getRole(String rolename) {
+        return systemRoleDAO.getRoleByName(rolename);
     }
 }

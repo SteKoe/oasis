@@ -1,0 +1,34 @@
+<html xmlns:wicket>
+<body>
+<wicket:panel>
+    <div>
+        <wicket:enclosure child="editUsers">
+            <a href="" wicket:id="editUsers" class="btn btn-mini">Benutzer bearbeiten</a>
+        </wicket:enclosure>
+
+        <wicket:enclosure child="signin">
+            <a href="" wicket:id="register" class="btn btn-mini">Registrieren</a>
+            <a href="" wicket:id="signin" class="btn btn-mini btn-success">Anmelden</a>
+        </wicket:enclosure>
+
+        <wicket:enclosure child="signout">
+            <div class="loginPanel">
+                <div class="btn-group">
+                    <a class="btn btn-mini" href="" wicket:id="userProfile"><i class="icon-user"></i> <strong wicket:id="username"></strong></a>
+                    <button class="btn btn-mini dropdown-toggle" data-toggle="dropdown">
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="">Link 1</a></li>
+                        <li><a href="">Link 2</a></li>
+                        <li><a href="">Link 3</a></li>
+                        <li><a href="">Link 4</a></li>
+                    </ul>
+                </div>
+                <a href="" wicket:id="signout" class="btn btn-mini">Abmelden</a>
+            </div>
+        </wicket:enclosure>
+    </div>
+</wicket:panel>
+</body>
+</html>

@@ -1,40 +1,30 @@
 package de.stekoe.idss.model;
 
-// Generated 26.08.2013 06:13:04 by Hibernate Tools 4.0.0
-
-import java.util.Date;
-
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
 import org.hibernate.annotations.GenericGenerator;
 import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
 import org.joda.time.Years;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Date;
+
+/**
+ * @author Stephan Koeninger <mail@stephan-koeninger.de>
+ */
 @Entity
-public class UserProfile implements java.io.Serializable {
+@Table(name = "UserProfile")
+public class UserProfile implements Serializable {
+
+    private String id;
+    private String firstname;
+    private String surname;
+    private Date birthdate;
 
     @Id
     @GeneratedValue(generator="system-uuid")
-    @GenericGenerator(name="system-uuid", strategy = "uuid")
-    private String id;
-
-    @Basic
-    private String firstname;
-
-    @Basic
-    private String surename;
-
-    @Temporal(TemporalType.DATE)
-    @DateTimeFormat
-    private Date birthdate;
-
+    @GenericGenerator(name="system-uuid", strategy = "uuid2")
     public String getId() {
         return this.id;
     }
@@ -43,6 +33,7 @@ public class UserProfile implements java.io.Serializable {
         this.id = id;
     }
 
+    @Column
     public String getFirstname() {
         return this.firstname;
     }
@@ -51,14 +42,17 @@ public class UserProfile implements java.io.Serializable {
         this.firstname = firstname;
     }
 
-    public String getSurename() {
-        return this.surename;
+    @Column
+    public String getSurname() {
+        return this.surname;
     }
 
-    public void setSurename(String surename) {
-        this.surename = surename;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat
     public Date getBirthdate() {
         return this.birthdate;
     }
@@ -67,11 +61,14 @@ public class UserProfile implements java.io.Serializable {
         this.birthdate = birthdate;
     }
 
+    @Transient
     public int getAge() {
         DateMidnight birthdate = new DateMidnight(getBirthdate());
         return Years.yearsBetween(birthdate, getCurrentDate()).getYears();
     }
 
+    @Transient
+    // Package private for testing purpose
     DateTime getCurrentDate() {
         return new DateTime();
     }

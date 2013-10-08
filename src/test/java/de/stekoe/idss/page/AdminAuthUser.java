@@ -3,10 +3,10 @@ package de.stekoe.idss.page;
 import java.util.HashSet;
 import java.util.Set;
 
+import de.stekoe.idss.model.SystemRole;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.mindrot.jbcrypt.BCrypt;
 
-import de.stekoe.idss.model.Role;
 import de.stekoe.idss.model.User;
 
 /**
@@ -27,14 +27,14 @@ public class AdminAuthUser extends User {
     public AdminAuthUser() {
         setUsername("root");
 
-        Set<Role> systemroles = new HashSet<Role>();
+        Set<SystemRole> systemroles = new HashSet<SystemRole>();
 
-        Role userRole = new Role();
-        userRole.setRoleName(Roles.USER);
+        SystemRole userRole = new SystemRole();
+        userRole.setName(Roles.USER);
         systemroles.add(userRole);
 
-        Role adminRole = new Role();
-        adminRole.setRoleName(Roles.ADMIN);
+        SystemRole adminRole = new SystemRole();
+        adminRole.setName(Roles.ADMIN);
         systemroles.add(adminRole);
 
         setRoles(systemroles);

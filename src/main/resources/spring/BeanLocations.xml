@@ -23,7 +23,7 @@
     </bean>
 
     <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-        <property name="dataSource" ref="dataSource"></property>
+        <property name="dataSource" ref="dataSource" />
         <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
@@ -54,10 +54,11 @@
 
     <!-- DAOs -->
     <bean id="userDAO" class="de.stekoe.idss.dao.impl.UserDAOImpl" />
-    <bean id="roleDAO" class="de.stekoe.idss.dao.impl.RoleDAOImpl" />
+    <bean id="systemRoleDAO" class="de.stekoe.idss.dao.impl.SystemRoleDAOImpl" />
     <bean id="projectDAO" class="de.stekoe.idss.dao.impl.ProjectDAOImpl" />
     
     <!-- Services -->
     <bean id="userService" class="de.stekoe.idss.service.impl.UserService" />
+    <bean id="systemRoleService" class="de.stekoe.idss.service.impl.SystemRoleService" />
     <bean id="mailService" class="de.stekoe.idss.service.impl.MailService" />
 </beans>

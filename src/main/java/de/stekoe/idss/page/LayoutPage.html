@@ -5,7 +5,8 @@
 	<title wicket:id="pageTitle"></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	
-	<link rel="stylesheet" type="text/css" href="css/custom.min.css">
+	<link rel="stylesheet" type="text/css" href="plugins/bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/custom.css">
 
 	<!--[if lt IE 9]>
       <script src="js/html5shiv.js"></script>
@@ -23,10 +24,14 @@
     <div wicket:id="dev"></div>
 	<div class="container">
         <div class="masthead">
-            <div class="pull-right" wicket:id="userPanel"></div>
-            <div class="pull-right" wicket:id="languages"></div>
-            <h3 class="muted"><wicket:message key="application.name"/></h3>
-    		<div wicket:id="navbar"></div>
+            <div class="navbar-secondary">
+                <div class="pull-right" wicket:id="userPanel"></div>
+                <div class="pull-right" wicket:id="languages"></div>
+            </div>
+            <a href="/">
+                <img src="img/logo.png" id="logo">
+            </a>
+    		<div wicket:id="navbar" c></div>
         </div>
 		
 		<div wicket:id="systemmessages"></div>
@@ -40,5 +45,9 @@
 			<p class="text-center">&copy; <wicket:message key="application.name"/> 2013 &ndash; <wicket:message key="application.version"/></p>
 		</footer>
 	</div>
+
+    <!-- le js -->
+    <script src="plugins/jquery/jquery.min.js"></script>
+    <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

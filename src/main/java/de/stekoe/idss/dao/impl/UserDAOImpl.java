@@ -1,14 +1,13 @@
 package de.stekoe.idss.dao.impl;
 
-import java.util.List;
-
+import de.stekoe.idss.dao.UserDAO;
+import de.stekoe.idss.model.User;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Service;
 
-import de.stekoe.idss.dao.UserDAO;
-import de.stekoe.idss.model.User;
+import java.util.List;
 
 /**
  * @author Stephan Köninger <mail@stekoe.de>
@@ -60,7 +59,6 @@ public class UserDAOImpl extends GenericDAOImpl implements UserDAO {
         criteria.add(Restrictions.eq("email", email));
         return (User) criteria.uniqueResult();
     }
-
 
     @Override
     public User findById(String id) {

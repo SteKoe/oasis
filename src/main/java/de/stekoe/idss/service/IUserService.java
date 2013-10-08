@@ -1,11 +1,11 @@
 package de.stekoe.idss.service;
 
-import java.util.List;
-
 import de.stekoe.idss.exception.EmailAddressAlreadyInUseException;
 import de.stekoe.idss.exception.UsernameAlreadyInUseException;
-import de.stekoe.idss.model.Role;
+import de.stekoe.idss.model.SystemRole;
 import de.stekoe.idss.model.User;
+
+import java.util.List;
 
 /**
  * @author Stephan Koeninger <mail@stekoe.de>
@@ -67,7 +67,7 @@ public interface IUserService {
      * @param rolename The rolename to look for
      * @return The role if found
      */
-    Role getRole(String rolename);
+    SystemRole getRole(String rolename);
 
     /**
      * @param user The user to save

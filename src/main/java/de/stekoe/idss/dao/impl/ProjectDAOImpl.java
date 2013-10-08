@@ -24,7 +24,7 @@ public class ProjectDAOImpl extends GenericDAOImpl implements ProjectDAO {
     @Override
     public List<Project> findByProjectName(String projectName) {
         Criteria criteria = getCurrentSession().createCriteria(Project.class);
-        criteria.add(Restrictions.eq("projectName", projectName));
+        criteria.add(Restrictions.eq("name", projectName));
         return criteria.list();
     }
 

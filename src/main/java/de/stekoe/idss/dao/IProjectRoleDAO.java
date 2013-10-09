@@ -1,29 +1,28 @@
 package de.stekoe.idss.dao;
 
-import de.stekoe.idss.model.SystemRole;
+import de.stekoe.idss.model.ProjectRole;
 
 import java.util.List;
 
 /**
  * @author Stephan Köninger <mail@stekoe.de>
  */
-public interface SystemRoleDAO {
-
+public interface IProjectRoleDAO {
     /**
      * @param role Update the given Role.
      */
-    void update(SystemRole role);
+    void update(ProjectRole role);
 
     /**
      * @return A List of all roles.
      */
-    List<SystemRole> getAllRoles();
+    List<ProjectRole> getAllRoles();
 
     /**
      * @param role A role to be saved in database.
      * @return true on success, false otherwise.
      */
-    boolean save(SystemRole role);
+    boolean save(ProjectRole role);
 
     /**
      * Get a role by its name.
@@ -31,5 +30,5 @@ public interface SystemRoleDAO {
      * @param rolename The role name to retrieve from database
      * @return The role if found
      */
-    SystemRole getRoleByName(String rolename);
+    ProjectRole getRoleByName(String rolename);
 }

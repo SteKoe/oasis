@@ -5,7 +5,7 @@ import org.hibernate.Session;
 /**
  * @author Stephan Köninger <mail@stekoe.de>
  */
-public interface GenericDAO {
+public interface IGenericDAO {
 
     /**
      * @return The current Hibernate Session.

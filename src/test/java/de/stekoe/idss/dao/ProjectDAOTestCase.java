@@ -5,5 +5,5 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class ProjectDAOTestCase extends BaseTest {
 
     @Autowired
-    private ProjectDAO projectDAO;
+    private IProjectDAO projectDAO;
 }

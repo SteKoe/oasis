@@ -1,6 +1,6 @@
 package de.stekoe.idss.dao.impl;
 
-import de.stekoe.idss.dao.SystemRoleDAO;
+import de.stekoe.idss.dao.ISystemRoleDAO;
 import de.stekoe.idss.model.SystemRole;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.Restrictions;
@@ -11,8 +11,7 @@ import java.util.List;
 /**
  * @author Stephan Köninger <mail@stekoe.de>
  */
-@Service
-public class SystemRoleDAOImpl extends GenericDAOImpl implements SystemRoleDAO {
+public class SystemRoleDAO extends GenericDAO implements ISystemRoleDAO {
 
     @Override
     public void update(SystemRole role) {
@@ -29,10 +28,10 @@ public class SystemRoleDAOImpl extends GenericDAOImpl implements SystemRoleDAO {
     public boolean save(SystemRole role) {
         try {
             getCurrentSession().save(role);
-            return true;
         } catch (HibernateException he) {
             return false;
         }
+        return true;
     }
 
     @Override

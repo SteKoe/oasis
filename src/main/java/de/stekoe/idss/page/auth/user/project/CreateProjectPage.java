@@ -10,6 +10,4 @@ public class CreateProjectPage extends AuthUserPage {
     public CreateProjectPage() {
         add(new CreateProjectForm("createProjectForm"));
     }
-
-
 }

@@ -1,13 +1,13 @@
 package de.stekoe.idss.dao;
 
-import java.util.List;
-
 import de.stekoe.idss.model.User;
+
+import java.util.List;
 
 /**
  * @author Stephan Köninger <mail@stekoe.de>
  */
-public interface UserDAO {
+public interface IUserDAO {
     /**
      * @param user A User to be saved in database.
      * @return true on success, false otherwise.

@@ -1,8 +1,8 @@
 package de.stekoe.idss.service.impl;
 
 import de.stekoe.idss.IDSSSession;
-import de.stekoe.idss.dao.SystemRoleDAO;
-import de.stekoe.idss.dao.UserDAO;
+import de.stekoe.idss.dao.ISystemRoleDAO;
+import de.stekoe.idss.dao.IUserDAO;
 import de.stekoe.idss.exception.EmailAddressAlreadyInUseException;
 import de.stekoe.idss.exception.UsernameAlreadyInUseException;
 import de.stekoe.idss.model.SystemRole;
@@ -21,25 +21,24 @@ import java.util.List;
  * @author Stephan Köninger <mail@stekoe.de>
  */
 @Service
+@Transactional
 public class UserService implements IUserService {
 
     private static final Logger LOG = Logger.getLogger(UserService.class);
 
     @Autowired
-    private UserDAO userDAO;
+    private IUserDAO userDAO;
 
     @Autowired
-    private SystemRoleDAO systemRoleDAO;
+    private ISystemRoleDAO systemRoleDAO;
 
 
     @Override
-    @Transactional
     public User findByUsername(String username) {
         return userDAO.findByUsername(username);
     }
 
     @Override
-    @Transactional
     public boolean save(User user) throws EmailAddressAlreadyInUseException, UsernameAlreadyInUseException {
         if (user.getId() == null) {
             if (emailInUse(user.getEmail())) {
@@ -68,7 +67,6 @@ public class UserService implements IUserService {
      * @return The status of login indicated by {@code LoginStatus}
      */
     @Override
-    @Transactional
     public LoginStatus login(String username, String password) {
         User user = userDAO.findByUsername(username);
 
@@ -97,19 +95,16 @@ public class UserService implements IUserService {
     }
 
     @Override
-    @Transactional
     public List<User> getAllUsers() {
         return userDAO.getAllUsers();
     }
 
     @Override
-    @Transactional
     public User findByActivationCode(String code) {
         return userDAO.findByActivationCode(code);
     }
 
     @Override
-    @Transactional
     public List<String> getAllUsernames() {
         List<String> usernames = new ArrayList<String>();
         for (User u : getAllUsers()) {
@@ -119,7 +114,6 @@ public class UserService implements IUserService {
     }
 
     @Override
-    @Transactional
     public List<String> getAllEmailAddresses() {
         List<String> mail = new ArrayList<String>();
 

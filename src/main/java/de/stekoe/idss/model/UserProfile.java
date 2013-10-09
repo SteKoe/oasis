@@ -7,6 +7,7 @@ import org.joda.time.Years;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Past;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -51,6 +52,7 @@ public class UserProfile implements Serializable {
         this.surname = surname;
     }
 
+    @Past
     @Temporal(TemporalType.DATE)
     @DateTimeFormat
     public Date getBirthdate() {

@@ -17,10 +17,10 @@ import static org.junit.Assert.*;
 public class UserDAOTestCase extends BaseTest {
 
     @Autowired
-    private UserDAO userDAO;
+    private IUserDAO userDAO;
 
     @Autowired
-    private SystemRoleDAO systemRoleDAO;
+    private ISystemRoleDAO systemRoleDAO;
 
     @Before
     public void setUp() {
@@ -56,8 +56,9 @@ public class UserDAOTestCase extends BaseTest {
     @Test
     public void needUsername() throws Exception {
         User user = new User();
-        user.setUsername("miau");
-        assertFalse(userDAO.save(user));
+        user.setUsername(null);
+        final boolean save = userDAO.save(user);
+        System.out.println(save);
     }
 
     @Test

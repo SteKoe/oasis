@@ -34,7 +34,7 @@ public class UserManagerImplTestCase extends BaseTest {
     private static final String ACTIVATION_KEY = "ACTIVATION_KEY";
     private static final Logger LOG = Logger.getLogger(UserManagerImplTestCase.class);
     private static final String[] USERNAMES = { "Stephan", "Benedikt", "Robert", "Jonas" };
-    private static final String PASSWORT = "geheim";
+    private static final String PASSWORT = "geheimesPassword";
 
     @Autowired
     private IUserService userManager;
@@ -48,6 +48,11 @@ public class UserManagerImplTestCase extends BaseTest {
             user.setUsername(USERNAMES[i]);
             user.setEmail(USERNAMES[i].toLowerCase() + "@example.com");
             user.setPassword(BCrypt.hashpw(PASSWORT, BCrypt.gensalt()));
+
+            System.out.println(user.getUsername().length());
+            System.out.println(user.getEmail().length());
+            System.out.println(user.getPassword().length());
+
             userManager.save(user);
         }
 

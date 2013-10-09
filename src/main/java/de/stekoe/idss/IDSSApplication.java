@@ -2,7 +2,7 @@ package de.stekoe.idss;
 
 import de.agilecoders.wicket.core.Bootstrap;
 import de.agilecoders.wicket.core.settings.BootstrapSettings;
-import de.stekoe.idss.dao.SystemRoleDAO;
+import de.stekoe.idss.dao.ISystemRoleDAO;
 import de.stekoe.idss.page.*;
 import de.stekoe.idss.page.auth.user.LogoutPage;
 import de.stekoe.idss.page.auth.user.UserProfilePage;
@@ -41,7 +41,7 @@ public class IDSSApplication extends AuthenticatedWebApplication {
     private static Logger LOG = Logger.getLogger(IDSSApplication.class);
 
     @SpringBean(name = "systemRoleDAO")
-    private SystemRoleDAO systemRoleDAO;
+    private ISystemRoleDAO systemRoleDAO;
 
     /** Languages available for this application. */
     public static final Locale[] LANGUAGES = {
@@ -51,7 +51,7 @@ public class IDSSApplication extends AuthenticatedWebApplication {
     @Override
     public void onEvent(IEvent<?> event) {
         LOG.info(event.toString());
-        super.onEvent(event);    //To change body of overridden methods use File | Settings | File Templates.
+        super.onEvent(event);
     }
 
     @Override

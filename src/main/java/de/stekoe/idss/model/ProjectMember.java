@@ -4,6 +4,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -15,7 +16,7 @@ public class ProjectMember implements Serializable {
 
     private String id;
     private User user;
-    private Set<ProjectRole> projectRoles;
+    private Set<ProjectRole> projectRoles = new HashSet<ProjectRole>(0);
 
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -37,7 +38,7 @@ public class ProjectMember implements Serializable {
         this.user = user;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = ProjectRole.class)
+    @ManyToMany(fetch = FetchType.EAGER, targetEntity = ProjectRole.class)
     @JoinTable(name = "ProjectMemberToProjectRole")
     public Set<ProjectRole> getProjectRoles() {
         return this.projectRoles;

@@ -3,6 +3,7 @@ package de.stekoe.idss.model;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
@@ -32,6 +33,7 @@ public class SystemRole implements Serializable {
         this.id = id;
     }
 
+    @NotNull
     @Column(nullable = false, unique = true)
     public String getName() {
         return this.name;

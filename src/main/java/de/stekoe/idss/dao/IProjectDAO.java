@@ -1,13 +1,14 @@
 package de.stekoe.idss.dao;
 
-import java.util.List;
-
 import de.stekoe.idss.model.Project;
+import de.stekoe.idss.model.User;
+
+import java.util.List;
 
 /**
  * @author Stephan Köninger <mail@stekoe.de>
  */
-public interface ProjectDAO {
+public interface IProjectDAO {
     /**
      * @param project The project object to persist.
      * @return True on success, false otherwise.
@@ -25,4 +26,9 @@ public interface ProjectDAO {
      * @return The project identified by id.
      */
     Project findById(String id);
+
+    /**
+     * @return List of Projects
+     */
+    List<Project> findAllForUser(User user);
 }

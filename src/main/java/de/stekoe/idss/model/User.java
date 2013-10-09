@@ -4,6 +4,8 @@ import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
@@ -12,8 +14,10 @@ import java.util.HashSet;
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
 @Entity
-@Table(name = "User")
+@Table(name = "User", uniqueConstraints = @UniqueConstraint(columnNames = {"username","email"}))
 public class User implements Serializable {
+
+    private static final int MIN_PASSWORD_LENGTH = 5;
 
     private String id;
     private Collection<SystemRole> roles = new HashSet<SystemRole>(0);
@@ -43,7 +47,9 @@ public class User implements Serializable {
         this.userProfile = userProfile;
     }
 
-    @Column(nullable=false, unique=true)
+    @NotNull
+    @Size(min = 1)
+    @Column(unique = true, nullable = false)
     public String getUsername() {
         return this.username;
     }
@@ -52,7 +58,9 @@ public class User implements Serializable {
         this.username = username;
     }
 
-    @Column(nullable=false)
+    @NotNull
+    @Size(min = MIN_PASSWORD_LENGTH)
+    @Column(unique = true, nullable = false)
     public String getPassword() {
         return this.password;
     }
@@ -61,7 +69,9 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    @Column(nullable = false)
+    @NotNull
+    @Size(min = 1)
+    @Column(unique = true, nullable = false)
     public String getEmail() {
         return this.email;
     }
@@ -70,7 +80,7 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    @Column
+    @Basic
     public String getActivationKey() {
         return this.activationKey;
     }

@@ -2,6 +2,9 @@ package de.stekoe.idss.service;
 
 import de.stekoe.idss.exception.ProjectNotFoundException;
 import de.stekoe.idss.model.Project;
+import de.stekoe.idss.model.User;
+
+import java.util.List;
 
 /**
  * @author Stephan Köninger <mail@stekoe.de>
@@ -30,4 +33,9 @@ public interface IProjectService {
      */
     Project findById(String id);
 
+    /**
+     * Reads all projects from database which are related to a user.
+     * @return A list with Projects
+     */
+    List<Project> findAllForUser(User user);
 }

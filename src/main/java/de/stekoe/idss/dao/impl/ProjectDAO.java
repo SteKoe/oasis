@@ -1,19 +1,17 @@
 package de.stekoe.idss.dao.impl;
 
-import java.util.List;
-
+import de.stekoe.idss.dao.IProjectDAO;
+import de.stekoe.idss.model.Project;
+import de.stekoe.idss.model.User;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.stereotype.Service;
 
-import de.stekoe.idss.dao.ProjectDAO;
-import de.stekoe.idss.model.Project;
+import java.util.List;
 
 /**
  * @author Stephan Köninger <mail@stekoe.de>
  */
-@Service
-public class ProjectDAOImpl extends GenericDAOImpl implements ProjectDAO {
+public class ProjectDAO extends GenericDAO implements IProjectDAO {
 
     @Override
     public boolean save(Project project) {
@@ -31,6 +29,13 @@ public class ProjectDAOImpl extends GenericDAOImpl implements ProjectDAO {
     @Override
     public Project findById(String id) {
         return (Project) getCurrentSession().get(Project.class, id);
+    }
+
+    @Override
+    public List<Project> findAllForUser(User user) {
+        final Criteria criteria = getCurrentSession().createCriteria(Project.class);
+        criteria.createCriteria("projectTeam").add(Restrictions.eq("user", user));
+        return criteria.list();
     }
 
 }

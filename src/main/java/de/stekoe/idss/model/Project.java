@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -17,7 +18,7 @@ public class Project implements Serializable {
     private String id;
     private String name;
     private String description;
-    private Set<ProjectMember> projectTeam;
+    private Set<ProjectMember> projectTeam = new HashSet<ProjectMember>(0);
 
     @Id
     @GeneratedValue(generator="system-uuid")
@@ -36,8 +37,8 @@ public class Project implements Serializable {
         return this.name;
     }
 
-    public void setName(String projectName) {
-        this.name = projectName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Lob
@@ -49,7 +50,7 @@ public class Project implements Serializable {
         this.description = description;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER, targetEntity = ProjectMember.class)
+    @ManyToMany(fetch = FetchType.EAGER, targetEntity = ProjectMember.class, cascade = CascadeType.ALL)
     @JoinTable(name = "ProjectToProjectMember")
     public Set<ProjectMember> getProjectTeam() {
         return projectTeam;

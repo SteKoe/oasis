@@ -1,6 +1,6 @@
 package de.stekoe.idss.dao.impl;
 
-import de.stekoe.idss.dao.UserDAO;
+import de.stekoe.idss.dao.IUserDAO;
 import de.stekoe.idss.model.User;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
@@ -12,9 +12,8 @@ import java.util.List;
 /**
  * @author Stephan Köninger <mail@stekoe.de>
  */
-@Service
-public class UserDAOImpl extends GenericDAOImpl implements UserDAO {
-    private static final Logger LOG = Logger.getLogger(UserDAOImpl.class);
+public class UserDAO extends GenericDAO implements IUserDAO {
+    private static final Logger LOG = Logger.getLogger(UserDAO.class);
 
     @Override
     public User findByUsername(String username) {
@@ -33,11 +32,11 @@ public class UserDAOImpl extends GenericDAOImpl implements UserDAO {
     public boolean save(User user) {
         try {
             getCurrentSession().saveOrUpdate(user);
-            return true;
         } catch (Exception e) {
             LOG.warn("Error while saving/updating user!", e);
             return false;
         }
+        return true;
     }
 
     @Override

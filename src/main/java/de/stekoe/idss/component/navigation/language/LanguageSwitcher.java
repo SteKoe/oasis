@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import de.stekoe.idss.session.WebSession;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
@@ -13,8 +14,7 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
 
-import de.stekoe.idss.IDSSApplication;
-import de.stekoe.idss.IDSSSession;
+import de.stekoe.idss.WebApplication;
 
 
 /**
@@ -47,7 +47,7 @@ public class LanguageSwitcher extends Panel {
                 final Locale languageKey = item.getModelObject();
 
                 WebMarkupContainer li = new WebMarkupContainer("languageItem");
-                Locale currentLocale = IDSSSession.get().getLocale();
+                Locale currentLocale = WebSession.get().getLocale();
                 boolean languageEqual = languageKey.getLanguage().equals(currentLocale.getLanguage());
                 if (languageEqual) {
                     li.add(new AttributeModifier("class", "active"));
@@ -58,7 +58,7 @@ public class LanguageSwitcher extends Panel {
                     @Override
                     public void onClick() {
                         Locale key = languageKey;
-                        IDSSSession.get().setLocale(key);
+                        WebSession.get().setLocale(key);
                     }
                 };
                 link.add(new Label("languageName", Model.of(item.getModelObject())));
@@ -73,7 +73,7 @@ public class LanguageSwitcher extends Panel {
     private List<Locale> getLanguages() {
         List<Locale> languages = new ArrayList<Locale>();
 
-        for (Locale l : IDSSApplication.LANGUAGES) {
+        for (Locale l : WebApplication.LANGUAGES) {
             languages.add(l);
         }
 

@@ -1,4 +1,4 @@
-package de.stekoe.idss.page.auth.user;
+package de.stekoe.idss.page.auth;
 
 import org.apache.log4j.Logger;
 

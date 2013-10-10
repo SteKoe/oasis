@@ -1,4 +1,4 @@
 package de.stekoe.idss;
 /**
- * This package contains classes which have not been moved to appropriate packages.
+ * This package contains the WebApplication Class which is the starting point of this Application.
  */

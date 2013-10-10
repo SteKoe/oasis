@@ -1,7 +1,9 @@
-package de.stekoe.idss.page.auth.user;
+package de.stekoe.idss.page.user;
 
 import java.util.Locale;
 
+import de.stekoe.idss.session.WebSession;
+import de.stekoe.idss.page.TestWebApplication;
 import org.apache.wicket.util.tester.FormTester;
 import org.apache.wicket.util.tester.WicketTester;
 import org.junit.Assert;
@@ -9,8 +11,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mindrot.jbcrypt.BCrypt;
 
-import de.stekoe.idss.IDSSSession;
-import de.stekoe.idss.page.TestIDSSApplication;
 import de.stekoe.idss.page.UserAuthUser;
 
 public class EditPasswordPageTestCase {
@@ -23,13 +23,13 @@ public class EditPasswordPageTestCase {
 
     @Before
     public void setUp() {
-        tester = new WicketTester(new TestIDSSApplication());
+        tester = new WicketTester(new TestWebApplication());
         getSession().setUser(new UserAuthUser());
         getSession().setLocale(Locale.GERMAN);
     }
 
-    private IDSSSession getSession() {
-        return (IDSSSession)tester.getSession();
+    private WebSession getSession() {
+        return (WebSession)tester.getSession();
     }
 
     @Test

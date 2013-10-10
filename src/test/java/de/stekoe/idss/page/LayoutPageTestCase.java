@@ -13,7 +13,7 @@ public class LayoutPageTestCase {
 
     @Test
     public void pageTitleIsSet() {
-        TestIDSSApplication testIDSSApplication = new TestIDSSApplication();
+        TestWebApplication testIDSSApplication = new TestWebApplication();
         tester = new WicketTester(testIDSSApplication);
         tester.startPage(HomePage.class);
         Label label = (Label) tester.getComponentFromLastRenderedPage("pageTitle");

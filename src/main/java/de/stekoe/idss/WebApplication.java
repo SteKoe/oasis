@@ -3,18 +3,23 @@ package de.stekoe.idss;
 import de.agilecoders.wicket.core.Bootstrap;
 import de.agilecoders.wicket.core.settings.BootstrapSettings;
 import de.stekoe.idss.dao.ISystemRoleDAO;
-import de.stekoe.idss.page.*;
-import de.stekoe.idss.page.auth.user.LogoutPage;
-import de.stekoe.idss.page.auth.user.UserProfilePage;
-import de.stekoe.idss.page.auth.user.project.CreateProjectPage;
-import de.stekoe.idss.page.auth.user.project.ProjectOverviewPage;
+import de.stekoe.idss.page.ContactPage;
+import de.stekoe.idss.page.HomePage;
+import de.stekoe.idss.page.auth.AuthorizationStrategy;
+import de.stekoe.idss.page.auth.LoginPage;
+import de.stekoe.idss.page.auth.LogoutPage;
+import de.stekoe.idss.page.auth.RegistrationPage;
 import de.stekoe.idss.page.error.Error403Page;
 import de.stekoe.idss.page.error.Error404Page;
 import de.stekoe.idss.page.error.Error410Page;
 import de.stekoe.idss.page.error.Error500Page;
+import de.stekoe.idss.page.project.CreateProjectPage;
+import de.stekoe.idss.page.project.ProjectOverviewPage;
+import de.stekoe.idss.page.user.ActivateUserPage;
+import de.stekoe.idss.page.user.UserProfilePage;
+import de.stekoe.idss.session.WebSession;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Application;
-import org.apache.wicket.Session;
 import org.apache.wicket.authroles.authentication.AbstractAuthenticatedWebSession;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
 import org.apache.wicket.bean.validation.BeanValidationConfiguration;
@@ -28,17 +33,15 @@ import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 
 import java.util.Locale;
 
-import static org.junit.Assert.assertTrue;
-
 /**
  * Application object for your web application. If you want to run this
  * application without deploying, run the Start class.
  *
  * @see de.stekoe.idss.Start#main(String[])
  */
-public class IDSSApplication extends AuthenticatedWebApplication {
+public class WebApplication extends AuthenticatedWebApplication {
 
-    private static Logger LOG = Logger.getLogger(IDSSApplication.class);
+    private static Logger LOG = Logger.getLogger(WebApplication.class);
 
     @SpringBean(name = "systemRoleDAO")
     private ISystemRoleDAO systemRoleDAO;
@@ -106,12 +109,12 @@ public class IDSSApplication extends AuthenticatedWebApplication {
     }
 
     private void setSecuritySettings() {
-        getSecuritySettings().setAuthorizationStrategy(new IDSSAuthorizationStrategy());
+        getSecuritySettings().setAuthorizationStrategy(new AuthorizationStrategy());
     }
 
     @Override
-    public Session newSession(Request request, Response response) {
-        return new IDSSSession(request);
+    public org.apache.wicket.Session newSession(Request request, Response response) {
+        return new WebSession(request);
     }
 
     private void configureBootstrapFramework() {
@@ -148,7 +151,7 @@ public class IDSSApplication extends AuthenticatedWebApplication {
 
     @Override
     protected Class<? extends AbstractAuthenticatedWebSession> getWebSessionClass() {
-        return IDSSSession.class;
+        return WebSession.class;
     }
 
     @Override

@@ -1,14 +1,15 @@
-package de.stekoe.idss.page;
+package de.stekoe.idss.page.user;
 
+import de.stekoe.idss.exception.UserException;
+import de.stekoe.idss.model.User;
+import de.stekoe.idss.page.LayoutPage;
+import de.stekoe.idss.page.auth.LoginPage;
+import de.stekoe.idss.service.IUserService;
 import org.apache.log4j.Logger;
 import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.string.StringValue;
-
-import de.stekoe.idss.exception.UserException;
-import de.stekoe.idss.model.User;
-import de.stekoe.idss.service.IUserService;
 
 /**
  * @author Stephan Köninger <mail@stekoe.de>

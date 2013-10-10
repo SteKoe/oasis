@@ -1,16 +1,13 @@
 package de.stekoe.idss.component.form.project.create;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.ControlGroup;
-import de.stekoe.idss.IDSSSession;
+import de.stekoe.idss.session.WebSession;
 import de.stekoe.idss.model.Project;
 import de.stekoe.idss.model.ProjectMember;
-import de.stekoe.idss.model.ProjectRole;
 import de.stekoe.idss.model.User;
-import de.stekoe.idss.page.auth.user.project.ProjectOverviewPage;
+import de.stekoe.idss.page.project.ProjectOverviewPage;
 import de.stekoe.idss.service.IProjectRoleService;
 import de.stekoe.idss.service.IProjectService;
-import de.stekoe.idss.service.ISystemRoleService;
-import de.stekoe.idss.service.IUserService;
 import org.apache.wicket.bean.validation.PropertyValidator;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
@@ -49,7 +46,7 @@ public class CreateProjectForm extends Panel {
 
                 System.out.println(project.getName());
 
-                final User user = IDSSSession.get().getUser();
+                final User user = WebSession.get().getUser();
 
                 ProjectMember projectLeader = new ProjectMember();
                 projectLeader.setUser(user);
@@ -59,7 +56,7 @@ public class CreateProjectForm extends Panel {
 
                 projectService.create(project);
 
-                IDSSSession.get().success("Projekt wurde erstellt!");
+                WebSession.get().success("Projekt wurde erstellt!");
                 setResponsePage(ProjectOverviewPage.class);
             }
         };

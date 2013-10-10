@@ -5,11 +5,11 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.INavbarComponent;
 import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.Navbar;
 import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarButton;
 import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarComponents;
-import de.stekoe.idss.IDSSSession;
+import de.stekoe.idss.session.WebSession;
 import de.stekoe.idss.page.ContactPage;
 import de.stekoe.idss.page.HomePage;
-import de.stekoe.idss.page.RegistrationPage;
-import de.stekoe.idss.page.auth.user.project.ProjectOverviewPage;
+import de.stekoe.idss.page.auth.RegistrationPage;
+import de.stekoe.idss.page.project.ProjectOverviewPage;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
@@ -73,7 +73,7 @@ public class MainNavigation extends Panel {
 
     private NavbarButton<ProjectOverviewPage> createProjectOverviewPageLink() {
         NavbarButton<ProjectOverviewPage> projectOverview = new NavbarButton<ProjectOverviewPage>(ProjectOverviewPage.class, Model.of("Project overview"));
-        projectOverview.setVisible(IDSSSession.get().getUser() != null);
+        projectOverview.setVisible(WebSession.get().getUser() != null);
         return projectOverview;
     }
 }

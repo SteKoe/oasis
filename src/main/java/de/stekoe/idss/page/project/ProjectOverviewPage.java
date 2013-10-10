@@ -1,7 +1,7 @@
-package de.stekoe.idss.page.auth.user.project;
+package de.stekoe.idss.page.project;
 
 import de.stekoe.idss.model.Project;
-import de.stekoe.idss.page.auth.user.AuthUserPage;
+import de.stekoe.idss.page.AuthUserPage;
 import de.stekoe.idss.service.IProjectService;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;

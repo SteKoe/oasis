@@ -1,19 +1,18 @@
 package de.stekoe.idss.component.navigation.user;
 
+import de.stekoe.idss.session.WebSession;
+import de.stekoe.idss.model.User;
+import de.stekoe.idss.page.auth.LoginPage;
+import de.stekoe.idss.page.auth.LogoutPage;
+import de.stekoe.idss.page.auth.RegistrationPage;
+import de.stekoe.idss.page.user.EditUserPage;
+import de.stekoe.idss.page.user.UserProfilePage;
 import org.apache.wicket.RestartResponseAtInterceptPageException;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.PropertyModel;
-
-import de.stekoe.idss.IDSSSession;
-import de.stekoe.idss.model.User;
-import de.stekoe.idss.page.LoginPage;
-import de.stekoe.idss.page.RegistrationPage;
-import de.stekoe.idss.page.auth.admin.EditUserPage;
-import de.stekoe.idss.page.auth.user.LogoutPage;
-import de.stekoe.idss.page.auth.user.UserProfilePage;
 
 /**
  * Panel shown when user is logged in.
@@ -46,7 +45,7 @@ public class UserPanel extends Panel {
         add(new BookmarkablePageLink("signout", LogoutPage.class) {
             @Override
             public boolean isVisible() {
-                return IDSSSession.get().isSignedIn();
+                return WebSession.get().isSignedIn();
             }
         });
     }
@@ -61,7 +60,7 @@ public class UserPanel extends Panel {
 
             @Override
             public boolean isVisible() {
-                return !IDSSSession.get().isSignedIn();
+                return !WebSession.get().isSignedIn();
             }
         });
         add(new Link("register") {
@@ -72,7 +71,7 @@ public class UserPanel extends Panel {
 
             @Override
             public boolean isVisible() {
-                return !IDSSSession.get().isSignedIn();
+                return !WebSession.get().isSignedIn();
             }
         });
     }
@@ -82,7 +81,7 @@ public class UserPanel extends Panel {
         add(new BookmarkablePageLink("editUsers", EditUserPage.class) {
             @Override
             public boolean isVisible() {
-                User user = IDSSSession.get().getUser();
+                User user = WebSession.get().getUser();
                 if (user == null) {
                     return false;
                 }

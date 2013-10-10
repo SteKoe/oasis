@@ -1,6 +1,6 @@
 package de.stekoe.idss.page;
 
-import de.stekoe.idss.IDSSSession;
+import de.stekoe.idss.session.WebSession;
 import de.stekoe.idss.component.feedbackpanel.MyFencedFeedbackPanel;
 import de.stekoe.idss.component.navigation.language.LanguageSwitcher;
 import de.stekoe.idss.component.navigation.main.MainNavigation;
@@ -69,8 +69,8 @@ public abstract class LayoutPage extends WebPage {
     }
 
     @Override
-    public IDSSSession getSession() {
-        return IDSSSession.get();
+    public WebSession getSession() {
+        return WebSession.get();
     }
 
     private void initPage() {

@@ -10,7 +10,7 @@ import de.stekoe.idss.mail.template.RegistrationMailTemplate;
 import de.stekoe.idss.model.SystemRole;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.model.UserProfile;
-import de.stekoe.idss.page.ActivateUserPage;
+import de.stekoe.idss.page.user.ActivateUserPage;
 import de.stekoe.idss.service.IMailService;
 import de.stekoe.idss.service.ISystemRoleService;
 import de.stekoe.idss.service.IUserService;

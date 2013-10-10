@@ -1,6 +1,6 @@
 package de.stekoe.idss.service.impl;
 
-import de.stekoe.idss.IDSSSession;
+import de.stekoe.idss.session.WebSession;
 import de.stekoe.idss.dao.ISystemRoleDAO;
 import de.stekoe.idss.dao.IUserDAO;
 import de.stekoe.idss.exception.EmailAddressAlreadyInUseException;
@@ -89,7 +89,7 @@ public class UserService implements IUserService {
         if (!BCrypt.checkpw(password, user.getPassword())) {
             return LoginStatus.WRONG_PASSWORD;
         } else {
-            IDSSSession.get().setUser(user);
+            WebSession.get().setUser(user);
             return LoginStatus.SUCCESS;
         }
     }

@@ -1,4 +1,4 @@
-package de.stekoe.idss.page.auth.user;
+package de.stekoe.idss.page.project;
 
 import de.stekoe.idss.page.LayoutPage;
 

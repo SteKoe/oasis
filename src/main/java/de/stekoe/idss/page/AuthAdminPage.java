@@ -1,7 +1,6 @@
-package de.stekoe.idss.page.auth.admin;
+package de.stekoe.idss.page;
 
-import de.stekoe.idss.annotation.auth.AdminOnly;
-import de.stekoe.idss.page.LayoutPage;
+import de.stekoe.idss.annotation.AdminOnly;
 
 /**
  * @author Stephan Köninger <mail@stekoe.de>

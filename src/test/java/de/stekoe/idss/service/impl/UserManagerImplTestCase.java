@@ -19,7 +19,7 @@ import org.junit.Test;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import de.stekoe.idss.IDSSApplication;
+import de.stekoe.idss.WebApplication;
 import de.stekoe.idss.TestFactory;
 import de.stekoe.idss.dao.BaseTest;
 import de.stekoe.idss.exception.UsernameAlreadyInUseException;
@@ -80,7 +80,7 @@ public class UserManagerImplTestCase extends BaseTest {
         assertThat(loginStatus, IsEqual.equalTo(LoginStatus.SUCCESS));
     }
 
-    private class TestWicketApplication extends IDSSApplication {
+    private class TestWicketApplication extends WebApplication {
         @Override
         public void setUpSpring() {
         }

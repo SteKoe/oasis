@@ -1,4 +1,6 @@
-package de.stekoe.idss.page.auth.admin;
+package de.stekoe.idss.page.user;
+
+import de.stekoe.idss.page.AuthAdminPage;
 
 /**
  * Edit a particular user.

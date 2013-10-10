@@ -1,5 +1,7 @@
-package de.stekoe.idss.page.auth.user;
+package de.stekoe.idss.page.user;
 
+import de.stekoe.idss.session.WebSession;
+import de.stekoe.idss.page.AuthUserPage;
 import org.apache.log4j.Logger;
 import org.apache.wicket.markup.html.form.EmailTextField;
 import org.apache.wicket.markup.html.form.Form;
@@ -11,7 +13,6 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.mindrot.jbcrypt.BCrypt;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.ControlGroup;
-import de.stekoe.idss.IDSSSession;
 import de.stekoe.idss.exception.UserException;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.service.IUserService;
@@ -46,7 +47,7 @@ public class EditPasswordPage extends AuthUserPage {
 
             @Override
             protected void onSubmit() {
-                User user = ((IDSSSession) getSession()).getUser();
+                User user = ((WebSession) getSession()).getUser();
                 if (!BCrypt.checkpw(currentPassword, user.getPassword())) {
                     getSession().error(getString("currentPasswort.wrong"));
                     return;

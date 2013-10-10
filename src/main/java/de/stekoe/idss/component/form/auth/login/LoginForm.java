@@ -1,5 +1,6 @@
 package de.stekoe.idss.component.form.auth.login;
 
+import de.stekoe.idss.session.WebSession;
 import org.apache.log4j.Logger;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
@@ -12,7 +13,6 @@ import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.ControlGroup;
-import de.stekoe.idss.IDSSSession;
 import de.stekoe.idss.component.feedbackpanel.MyFencedFeedbackPanel;
 import de.stekoe.idss.service.IUserService;
 import de.stekoe.idss.service.IUserService.LoginStatus;
@@ -93,11 +93,11 @@ public class LoginForm extends Panel {
         @Override
         protected void onSubmit() {
             if (username != null && password != null) {
-                if (IDSSSession.get().signIn(username, password)) {
+                if (WebSession.get().signIn(username, password)) {
                     LOG.info(String.format("User %s has logged in!", username));
                     setResponsePage(getApplication().getHomePage());
                 } else {
-                    LoginStatus loginStatus = IDSSSession.get().getLoginStatus();
+                    LoginStatus loginStatus = WebSession.get().getLoginStatus();
 
                     LOG.warn(String.format("Login for User %s returned status %s.", username, loginStatus.toString()));
 

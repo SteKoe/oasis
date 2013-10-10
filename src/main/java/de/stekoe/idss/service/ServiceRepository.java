@@ -1,18 +1,16 @@
-package de.stekoe.idss;
-
-import java.net.URL;
+package de.stekoe.idss.service;
 
 import org.apache.log4j.Logger;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import de.stekoe.idss.service.IUserService;
+import java.net.URL;
 
 /**
  * @author Stephan Köninger <mail@stekoe.de>
  */
-public class IDSSServices {
+public class ServiceRepository {
 
-    private static final Logger LOG = Logger.getLogger(IDSSServices.class);
+    private static final Logger LOG = Logger.getLogger(ServiceRepository.class);
 
     private static ClassPathXmlApplicationContext context;
 
@@ -33,7 +31,7 @@ public class IDSSServices {
     }
 
     private static final String getApplicationContextUrl() {
-        URL resource = IDSSServices.class.getResource("/spring/BeanLocations.xml");
+        URL resource = ServiceRepository.class.getResource("/spring/BeanLocations.xml");
         LOG.info("Loading bean definitions from: " + resource);
         return resource.toString();
     }

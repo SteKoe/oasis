@@ -1,6 +1,6 @@
 package de.stekoe.idss.component.form.auth.register;
 
-import de.stekoe.idss.page.TestIDSSApplication;
+import de.stekoe.idss.page.TestWebApplication;
 import org.apache.wicket.util.tester.WicketTester;
 import org.junit.After;
 import org.junit.Before;
@@ -14,7 +14,7 @@ public class RegistrationFormTest {
 
     @Before
     public void setUp() throws Exception {
-        tester = new WicketTester(new TestIDSSApplication());
+        tester = new WicketTester(new TestWebApplication());
     }
 
     @After

@@ -41,6 +41,12 @@ public interface IUserService {
 
 
     /**
+     * @param id of the user to lookup
+     * @return the user with given id
+     */
+    User findById(String id);
+
+    /**
      * @return List of all users in database.
      */
     List<User> getAllUsers();

@@ -1,10 +1,13 @@
 package de.stekoe.idss.model;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -60,13 +63,20 @@ public class Project implements Serializable {
         this.projectTeam = projectTeam;
     }
 
-    @Override
-    public String toString() {
-        return "Project{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", projectTeam=" + projectTeam +
-                '}';
+    @Transient
+    public Set<ProjectRole> getProjectRolesForUser(final User user) {
+
+        ProjectMember projectMemberObject = (ProjectMember)CollectionUtils.find(this.getProjectTeam(), new Predicate() {
+            public boolean evaluate(Object o) {
+                ProjectMember c = (ProjectMember) o;
+                return c.getUser().equals(user);
+            }
+        });
+
+        if(projectMemberObject == null) {
+            return Collections.emptySet();
+        }
+
+        return projectMemberObject.getProjectRoles();
     }
 }

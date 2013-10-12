@@ -206,6 +206,11 @@
             <artifactId>hibernate-tools</artifactId>
             <version>4.0.0-CR1</version>
         </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.2.1</version>
+        </dependency>
     </dependencies>
     <build>
         <resources>

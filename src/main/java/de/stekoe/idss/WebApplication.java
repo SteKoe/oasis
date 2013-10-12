@@ -14,6 +14,8 @@ import de.stekoe.idss.page.error.Error404Page;
 import de.stekoe.idss.page.error.Error410Page;
 import de.stekoe.idss.page.error.Error500Page;
 import de.stekoe.idss.page.project.CreateProjectPage;
+import de.stekoe.idss.page.project.ProjectDetailsPage;
+import de.stekoe.idss.page.project.ProjectEditPage;
 import de.stekoe.idss.page.project.ProjectOverviewPage;
 import de.stekoe.idss.page.user.ActivateUserPage;
 import de.stekoe.idss.page.user.UserProfilePage;
@@ -23,6 +25,8 @@ import org.apache.wicket.Application;
 import org.apache.wicket.authroles.authentication.AbstractAuthenticatedWebSession;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
 import org.apache.wicket.bean.validation.BeanValidationConfiguration;
+import org.apache.wicket.core.request.mapper.CryptoMapper;
+import org.apache.wicket.core.util.crypt.KeyInSessionSunJceCryptFactory;
 import org.apache.wicket.event.IEvent;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.request.Request;
@@ -138,10 +142,14 @@ public class WebApplication extends AuthenticatedWebApplication {
         mountPage("/login", LoginPage.class);
         mountPage("/logout", LogoutPage.class);
 
+        mountPage("/profile/${id}", UserProfilePage.class);
+
         // Projects
         mountPage("/project", ProjectOverviewPage.class);
         mountPage("/project/create", CreateProjectPage.class);
-        mountPage("/project/edit", CreateProjectPage.class);
+        mountPage("/project/show/${id}", ProjectDetailsPage.class);
+        mountPage("/project/edit/${id}", ProjectEditPage.class);
+        mountPage("/project/delete/${id}", ProjectEditPage.class);
     }
 
     @Override

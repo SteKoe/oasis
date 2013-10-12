@@ -2,6 +2,7 @@ package de.stekoe.idss.session;
 
 import de.stekoe.idss.service.ServiceRepository;
 import org.apache.log4j.Logger;
+import org.apache.wicket.RuntimeConfigurationType;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.apache.wicket.request.Request;
@@ -77,6 +78,14 @@ public class WebSession extends AuthenticatedWebSession {
         setLoginStatus(null);
 
         LoginStatus loginStatus = ServiceRepository.getUserService().login(username, password);
+
+        // No testusers in production mode!
+        if(RuntimeConfigurationType.DEPLOYMENT.equals(getApplication().getConfigurationType())) {
+            if("test@example.com".equals(username)) {
+                return false;
+            }
+        }
+
         if (loginStatus.equals(LoginStatus.SUCCESS)) {
             return true;
         } else {

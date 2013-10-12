@@ -47,4 +47,9 @@ public class ProjectMember implements Serializable {
     public void setProjectRoles(Set<ProjectRole> projectRoles) {
         this.projectRoles = projectRoles;
     }
+
+    @Transient
+    public boolean isLeader() {
+        return this.projectRoles.contains(ProjectRole.LEADER);
+    }
 }

@@ -4,7 +4,10 @@
       xmlns:wicket="http://wicket.sourceforge.net/" xml:lang="en" lang="en">
 <body>
 <wicket:extend>
-    <a href="" wicket:id="createProject" class="btn">Projekt erstellen</a>
+    <div class="well">
+        <a href="" wicket:id="createProject" class="btn btn-success"><i class="icon-white icon-plus"></i> Projekt erstellen</a>
+    </div>
+
     <h4>Vorhandene Projekte</h4>
     <table class="table">
         <thead>
@@ -16,7 +19,10 @@
         <tbody>
         <tr wicket:id="projectItem">
             <td><span wicket:id="projectTitle">[Project Title]</span></td>
-            <td>asdsd</td>
+            <td class="text-right">
+                <a href="" class="btn btn-mini" wicket:id="showProjectDetailsLink"></a>
+                <a href="" class="btn btn-mini btn-danger" wicket:id="deleteProjectLink"></a>
+            </td>
         </tr>
         </tbody>
     </table>

@@ -26,12 +26,12 @@ public class ProjectRoleService implements IProjectRoleService {
 
     @Override
     public ProjectRole getProjectLeaderRole() {
-        return projectRoleDAO.getRoleByName(ProjectRole.LEADER);
+        return projectRoleDAO.getRoleByName(ProjectRole.LEADER_CONSTANT);
     }
 
     @Override
     public ProjectRole getProjectMemberRole() {
-        return projectRoleDAO.getRoleByName(ProjectRole.MEMBER);
+        return projectRoleDAO.getRoleByName(ProjectRole.MEMBER_CONSTANT);
     }
 
 }

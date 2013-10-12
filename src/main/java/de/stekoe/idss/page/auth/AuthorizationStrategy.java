@@ -1,8 +1,8 @@
 package de.stekoe.idss.page.auth;
 
-import de.stekoe.idss.annotation.AdminOnly;
-import de.stekoe.idss.annotation.UserOnly;
 import de.stekoe.idss.model.User;
+import de.stekoe.idss.page.auth.annotation.AdminOnly;
+import de.stekoe.idss.page.auth.annotation.UserOnly;
 import de.stekoe.idss.session.WebSession;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
@@ -37,16 +37,18 @@ public class AuthorizationStrategy implements IAuthorizationStrategy, IUnauthori
     }
 
     private boolean isAuthorized(Class c) {
+        final User currentUser = WebSession.get().getUser();
+
         AdminOnly adminRequired = (AdminOnly) c.getAnnotation(AdminOnly.class);
         UserOnly userRequired = (UserOnly) c.getAnnotation(UserOnly.class);
 
         if (adminRequired != null) {
-            User user = WebSession.get().getUser();
+            User user = currentUser;
             return (user != null && user.isAdmin());
         }
 
         if (userRequired != null) {
-            User user = WebSession.get().getUser();
+            User user = currentUser;
             return (user != null);
         }
 

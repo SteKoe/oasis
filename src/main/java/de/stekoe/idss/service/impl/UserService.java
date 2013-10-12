@@ -39,6 +39,11 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public User findById(String id) {
+        return userDAO.findById(id);
+    }
+
+    @Override
     public boolean save(User user) throws EmailAddressAlreadyInUseException, UsernameAlreadyInUseException {
         if (user.getId() == null) {
             if (emailInUse(user.getEmail())) {

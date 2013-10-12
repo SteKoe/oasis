@@ -12,7 +12,9 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.apache.wicket.util.string.StringValue;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -27,14 +29,21 @@ public class UserProfilePage extends AuthUserPage {
 
     @SpringBean
     private IUserService userService;
+    private User user;
 
-    private final User user = getSession().getUser();
+    public UserProfilePage(PageParameters params) {
+        final StringValue paramUserId = params.get("id");
+        final String userId = paramUserId.toString();
 
-    /**
-     * Construct.
-     */
+        if(userId == null) {
+            return;
+        }
+
+        user = userService.findById(userId);
+    }
+
     public UserProfilePage() {
-        final User user = getSession().getUser();
+        user = getSession().getUser();
 
         Form form = new Form<User>("userprofile") {
             @Override

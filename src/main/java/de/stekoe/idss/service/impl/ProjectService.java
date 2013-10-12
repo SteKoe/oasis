@@ -1,12 +1,11 @@
 package de.stekoe.idss.service.impl;
 
 import de.stekoe.idss.dao.IProjectDAO;
-import de.stekoe.idss.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import de.stekoe.idss.exception.ProjectNotFoundException;
 import de.stekoe.idss.model.Project;
+import de.stekoe.idss.model.User;
 import de.stekoe.idss.service.IProjectService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,5 +43,14 @@ public class ProjectService implements IProjectService {
     @Override
     public List<Project> findAllForUser(User user) {
         return projectDAO.findAllForUser(user);
+    }
+
+    @Override
+    public boolean isAuthorized(User user, Project project) {
+        if (project.getProjectTeam().contains(user) == false) {
+            return false;
+        }
+
+        return true;
     }
 }

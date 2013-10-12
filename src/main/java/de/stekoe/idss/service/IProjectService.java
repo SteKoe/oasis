@@ -38,4 +38,13 @@ public interface IProjectService {
      * @return A list with Projects
      */
     List<Project> findAllForUser(User user);
+
+    /**
+     * Checks wether a user is allowed to perform an action on project.
+     *
+     * @param user
+     * @param project
+     * @return true if access granted, false otherwise
+     */
+    boolean isAuthorized(User user, Project project);
 }

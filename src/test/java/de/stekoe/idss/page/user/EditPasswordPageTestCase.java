@@ -1,17 +1,16 @@
 package de.stekoe.idss.page.user;
 
-import java.util.Locale;
-
-import de.stekoe.idss.session.WebSession;
 import de.stekoe.idss.page.TestWebApplication;
+import de.stekoe.idss.page.UserAuthUser;
+import de.stekoe.idss.session.WebSession;
+import de.stekoe.idss.util.PasswordUtil;
 import org.apache.wicket.util.tester.FormTester;
 import org.apache.wicket.util.tester.WicketTester;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mindrot.jbcrypt.BCrypt;
 
-import de.stekoe.idss.page.UserAuthUser;
+import java.util.Locale;
 
 public class EditPasswordPageTestCase {
 
@@ -84,7 +83,7 @@ public class EditPasswordPageTestCase {
         formTester.submit();
 
         String currentNewPassword = getSession().getUser().getPassword();
-        Assert.assertTrue(BCrypt.checkpw(NEWPASSWORD, currentNewPassword));
+        Assert.assertTrue(new PasswordUtil().checkPassword(NEWPASSWORD, currentNewPassword));
 
         tester.assertInfoMessages("Sie haben ihr Passwort erfolgreich geändert!");
         tester.assertRenderedPage(EditPasswordPage.class);
@@ -104,7 +103,7 @@ public class EditPasswordPageTestCase {
         formTester.submit();
 
         String currentNewPassword = getSession().getUser().getPassword();
-        Assert.assertFalse(BCrypt.checkpw(NEWPASSWORD, currentNewPassword));
+        Assert.assertFalse(new PasswordUtil().checkPassword(NEWPASSWORD, currentNewPassword));
 
         tester.assertRenderedPage(EditPasswordPage.class);
     }

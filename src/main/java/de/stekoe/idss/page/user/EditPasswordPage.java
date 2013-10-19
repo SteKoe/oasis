@@ -1,7 +1,12 @@
 package de.stekoe.idss.page.user;
 
-import de.stekoe.idss.session.WebSession;
+import de.agilecoders.wicket.core.markup.html.bootstrap.form.ControlGroup;
+import de.stekoe.idss.exception.UserException;
+import de.stekoe.idss.model.User;
 import de.stekoe.idss.page.AuthUserPage;
+import de.stekoe.idss.service.IUserService;
+import de.stekoe.idss.session.WebSession;
+import de.stekoe.idss.util.PasswordUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.markup.html.form.EmailTextField;
 import org.apache.wicket.markup.html.form.Form;
@@ -10,12 +15,6 @@ import org.apache.wicket.markup.html.form.validation.EqualInputValidator;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.mindrot.jbcrypt.BCrypt;
-
-import de.agilecoders.wicket.core.markup.html.bootstrap.form.ControlGroup;
-import de.stekoe.idss.exception.UserException;
-import de.stekoe.idss.model.User;
-import de.stekoe.idss.service.IUserService;
 
 /**
  * Page for changing password and/or email address.
@@ -48,13 +47,13 @@ public class EditPasswordPage extends AuthUserPage {
             @Override
             protected void onSubmit() {
                 User user = ((WebSession) getSession()).getUser();
-                if (!BCrypt.checkpw(currentPassword, user.getPassword())) {
+                if (!new PasswordUtil().checkPassword(currentPassword, user.getPassword())) {
                     getSession().error(getString("currentPasswort.wrong"));
                     return;
                 }
 
                 if (newPassword != null && newPasswordConfirm != null) {
-                    user.setPassword(BCrypt.hashpw(newPassword, BCrypt.gensalt()));
+                    user.setPassword(new PasswordUtil().hashPassword(newPassword));
                     getSession().info(getString("passwordChanged.success"));
                 }
 

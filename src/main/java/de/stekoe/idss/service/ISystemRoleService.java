@@ -3,6 +3,7 @@ package de.stekoe.idss.service;
 import de.stekoe.idss.model.SystemRole;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
@@ -26,4 +27,9 @@ public interface ISystemRoleService {
      * @return the User SystemRole
      */
     SystemRole getUserRole();
+
+    /**
+     * @return
+     */
+    Map<Integer, String> getAsSelectionList();
 }

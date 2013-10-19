@@ -19,13 +19,13 @@ public interface IProjectService {
      * @param id Id of the project to be deleted.
      * @throws ProjectNotFoundException Thrown if project to delete does not exist.
      */
-    void delete(String id) throws ProjectNotFoundException;
+    void delete(String id);
 
     /**
      * @param project The project to update
      * @throws ProjectNotFoundException Thrown if the project to update does not exist.
      */
-    void update(Project project) throws ProjectNotFoundException;
+    void update(Project project);
 
     /**
      * @param id The id of the project to load

@@ -1,13 +1,12 @@
 package de.stekoe.idss.page;
 
+import de.stekoe.idss.model.SystemRole;
+import de.stekoe.idss.model.User;
+import de.stekoe.idss.util.PasswordUtil;
+import org.apache.wicket.authroles.authorization.strategies.role.Roles;
+
 import java.util.HashSet;
 import java.util.Set;
-
-import de.stekoe.idss.model.SystemRole;
-import org.apache.wicket.authroles.authorization.strategies.role.Roles;
-import org.mindrot.jbcrypt.BCrypt;
-
-import de.stekoe.idss.model.User;
 
 /**
  * This class provides a very basic user object which has access
@@ -37,6 +36,6 @@ public class UserAuthUser extends User {
 
         setRoles(systemroles);
 
-        setPassword(BCrypt.hashpw(PASSWORD, BCrypt.gensalt()));
+        setPassword(new PasswordUtil().hashPassword(PASSWORD));
     }
 }

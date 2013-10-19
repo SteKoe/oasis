@@ -1,7 +1,10 @@
 package de.stekoe.idss.model;
 
+import de.stekoe.idss.model.enums.UserStatus;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.hibernate.annotations.GenericGenerator;
+import org.mindrot.jbcrypt.BCrypt;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -26,8 +29,19 @@ public class User implements Serializable {
     private String password;
     private String email;
     private String activationKey;
+    private UserStatus userStatus = UserStatus.UNKNOWN;
+    private Collection<ProjectMember> projectMemberships = new HashSet<ProjectMember>(0);
+
+    /**
+     * Initialises a standard user object with activation key and user status UserStatus.ACTIVATION_PENDING
+     */
+    public User() {
+        setUserStatus(UserStatus.ACTIVATION_PENDING);
+        setActivationKey(DigestUtils.md5Hex(BCrypt.gensalt()));
+    }
 
     @Id
+    @Column(name = "user_id")
     @GeneratedValue(generator="system-uuid")
     @GenericGenerator(name="system-uuid", strategy = "uuid2")
     public String getId() {
@@ -38,7 +52,7 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    @OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+    @OneToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY, targetEntity = UserProfile.class, mappedBy = "user")
     public UserProfile getProfile() {
         return this.userProfile;
     }
@@ -60,7 +74,7 @@ public class User implements Serializable {
 
     @NotNull
     @Size(min = MIN_PASSWORD_LENGTH)
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     public String getPassword() {
         return this.password;
     }
@@ -89,7 +103,7 @@ public class User implements Serializable {
         this.activationKey = activationKey;
     }
 
-    @ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, targetEntity = SystemRole.class)
+    @ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, targetEntity = SystemRole.class)
     @JoinTable(name="UserToSystemRole", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     public Collection<SystemRole> getRoles() {
         return this.roles;
@@ -97,6 +111,27 @@ public class User implements Serializable {
 
     public void setRoles(Collection<SystemRole> roles) {
         this.roles = roles;
+    }
+
+    @Enumerated(EnumType.STRING)
+    public UserStatus getUserStatus() {
+        return this.userStatus;
+    }
+
+    public void setUserStatus(UserStatus userStatus) {
+        if(UserStatus.ACTIVATED.equals(userStatus)) {
+            setActivationKey(null);
+        }
+        this.userStatus = userStatus;
+    }
+
+    @OneToMany(mappedBy = "user")
+    public Collection<ProjectMember> getProjectMemberships() {
+        return this.projectMemberships;
+    }
+
+    public void setProjectMemberships(Collection<ProjectMember> projectMemberships) {
+        this.projectMemberships = projectMemberships;
     }
 
     @Transient

@@ -17,7 +17,10 @@ public class LogoutPage extends LayoutPage {
      * Construct.
      */
     public LogoutPage() {
-        LOG.info("User " + getSession().getUser().getUsername() + " is about to log out!");
+        if(getSession().getUser() != null) {
+            LOG.info("User " + getSession().getUser().getUsername() + " is about to log out!");
+        }
+
         getSession().invalidate();
         getSession().success(getString("message.logout.success"));
         setResponsePage(HomePage.class);

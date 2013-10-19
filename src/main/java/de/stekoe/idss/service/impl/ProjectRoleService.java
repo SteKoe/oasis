@@ -21,7 +21,7 @@ public class ProjectRoleService implements IProjectRoleService {
 
     @Override
     public List<ProjectRole> findAllRoles() {
-        return projectRoleDAO.getAllRoles();
+        return projectRoleDAO.findAll();
     }
 
     @Override

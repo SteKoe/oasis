@@ -1,14 +1,16 @@
 package de.stekoe.idss.service.impl;
 
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
-
+import de.stekoe.idss.TestFactory;
+import de.stekoe.idss.WebApplication;
+import de.stekoe.idss.dao.BaseTest;
+import de.stekoe.idss.exception.UsernameAlreadyInUseException;
 import de.stekoe.idss.model.SystemRole;
+import de.stekoe.idss.model.User;
+import de.stekoe.idss.model.UserProfile;
+import de.stekoe.idss.model.enums.UserStatus;
+import de.stekoe.idss.service.IUserService;
+import de.stekoe.idss.service.IUserService.LoginStatus;
+import de.stekoe.idss.util.PasswordUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.util.tester.WicketTester;
 import org.hamcrest.core.Is;
@@ -16,17 +18,13 @@ import org.hamcrest.core.IsEqual;
 import org.hamcrest.core.IsNot;
 import org.junit.Before;
 import org.junit.Test;
-import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import de.stekoe.idss.WebApplication;
-import de.stekoe.idss.TestFactory;
-import de.stekoe.idss.dao.BaseTest;
-import de.stekoe.idss.exception.UsernameAlreadyInUseException;
-import de.stekoe.idss.model.User;
-import de.stekoe.idss.model.UserProfile;
-import de.stekoe.idss.service.IUserService;
-import de.stekoe.idss.service.IUserService.LoginStatus;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+
+import static org.junit.Assert.*;
 
 public class UserManagerImplTestCase extends BaseTest {
 
@@ -47,12 +45,7 @@ public class UserManagerImplTestCase extends BaseTest {
             User user = new User();
             user.setUsername(USERNAMES[i]);
             user.setEmail(USERNAMES[i].toLowerCase() + "@example.com");
-            user.setPassword(BCrypt.hashpw(PASSWORT, BCrypt.gensalt()));
-
-            System.out.println(user.getUsername().length());
-            System.out.println(user.getEmail().length());
-            System.out.println(user.getPassword().length());
-
+            user.setPassword(new PasswordUtil().hashPassword(PASSWORT));
             userManager.save(user);
         }
 
@@ -76,6 +69,13 @@ public class UserManagerImplTestCase extends BaseTest {
 
     @Test
     public void loginWorks() throws Exception {
+        final User user = userManager.findByUsername(USERNAMES[0]);
+        user.setActivationKey(null);
+        user.setUserStatus(UserStatus.ACTIVATED);
+        userManager.save(user);
+
+        assertTrue(new PasswordUtil().checkPassword(PASSWORT, user.getPassword()));
+
         LoginStatus loginStatus = userManager.login(USERNAMES[0], PASSWORT);
         assertThat(loginStatus, IsEqual.equalTo(LoginStatus.SUCCESS));
     }
@@ -88,26 +88,14 @@ public class UserManagerImplTestCase extends BaseTest {
 
     @Test
     public void loginIfNotActivated() throws Exception {
-        String username = "unactivatedUser";
-
-        User user = new User();
-        user.setUsername(username);
-        user.setEmail("unactivatedUser@example.com");
-        Set<SystemRole> noRoles = Collections.emptySet();
-        user.setRoles(noRoles);
-        user.setProfile(new UserProfile());
-        user.setPassword(BCrypt.hashpw(PASSWORT, BCrypt.gensalt()));
-        user.setActivationKey(ACTIVATION_KEY);
-        userManager.save(user);
-
-        LoginStatus loginStatus = userManager.login(username, "geheim");
+        LoginStatus loginStatus = userManager.login(USERNAMES[0], "geheim");
         assertThat(loginStatus, IsEqual.equalTo(LoginStatus.USER_NOT_ACTIVATED));
 
-        user = userManager.findByUsername(username);
-        user.setActivationKey(null);
-        assertTrue(userManager.save(user));
+        User user = userManager.findByUsername(USERNAMES[0]);
+        user.setUserStatus(UserStatus.ACTIVATED);
+        userManager.save(user);
 
-        loginStatus = userManager.login("unactivatedUser", PASSWORT);
+        loginStatus = userManager.login(USERNAMES[0], PASSWORT);
         assertThat(loginStatus, IsEqual.equalTo(LoginStatus.SUCCESS));
     }
 

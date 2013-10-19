@@ -6,6 +6,8 @@ import org.hibernate.validator.constraints.Length;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.HashSet;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
@@ -15,13 +17,14 @@ import java.io.Serializable;
 public class ProjectRole implements Serializable {
 
     public static final String LEADER_CONSTANT = "LEADER";
-    public static final String MEMBER_CONSTANT = "LEADER";
+    public static final String MEMBER_CONSTANT = "MEMBER";
 
     public static final ProjectRole LEADER = new ProjectRole(LEADER_CONSTANT);
     public static final ProjectRole MEMBER = new ProjectRole(MEMBER_CONSTANT);
 
     private String id;
     private String name;
+    private Collection<ProjectMember> projectMembers = new HashSet<ProjectMember>(0);
 
     public ProjectRole() {
 
@@ -32,6 +35,7 @@ public class ProjectRole implements Serializable {
     }
 
     @Id
+    @Column(name = "project_role_id")
     @GeneratedValue(generator="system-uuid")
     @GenericGenerator(name="system-uuid", strategy = "uuid2")
     public String getId() {
@@ -51,6 +55,15 @@ public class ProjectRole implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @ManyToMany(mappedBy = "projectRoles")
+    public Collection<ProjectMember> getProjectMembers() {
+        return this.projectMembers;
+    }
+
+    public void setProjectMembers(Collection<ProjectMember> projectMembers) {
+        this.projectMembers = projectMembers;
     }
 
     @Override

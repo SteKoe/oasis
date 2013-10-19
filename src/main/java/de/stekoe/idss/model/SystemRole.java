@@ -23,6 +23,7 @@ public class SystemRole implements Serializable {
     private Collection<User> users = new HashSet<User>(0);
 
     @Id
+    @Column(name = "system_role_id")
     @GeneratedValue(generator="system-uuid")
     @GenericGenerator(name="system-uuid", strategy = "uuid2")
     public String getId() {
@@ -43,8 +44,7 @@ public class SystemRole implements Serializable {
         this.name = roleName;
     }
 
-    @ManyToMany
-    @JoinTable(name="UserToSystemRole", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+    @ManyToMany(mappedBy = "roles")
     public Collection<User> getUsers() {
         return this.users;
     }

@@ -9,12 +9,12 @@ import static org.junit.Assert.assertTrue;
  */
 public class ProjectMemberTest {
     @Test
-    public void userIsMemberOfProject() throws Exception {
+    public void userIsProjectLeader() throws Exception {
         User member = new User();
 
         ProjectMember pm = new ProjectMember();
         pm.setUser(member);
-        pm.getProjectRoles().add(ProjectRole.MEMBER);
+        pm.getProjectRoles().add(ProjectRole.LEADER);
 
         assertTrue(pm.isLeader());
     }

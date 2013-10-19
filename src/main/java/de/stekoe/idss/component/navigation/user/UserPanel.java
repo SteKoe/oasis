@@ -1,12 +1,12 @@
 package de.stekoe.idss.component.navigation.user;
 
-import de.stekoe.idss.session.WebSession;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.page.auth.LoginPage;
 import de.stekoe.idss.page.auth.LogoutPage;
 import de.stekoe.idss.page.auth.RegistrationPage;
-import de.stekoe.idss.page.user.EditUserPage;
+import de.stekoe.idss.page.user.CreateUserPage;
 import de.stekoe.idss.page.user.UserProfilePage;
+import de.stekoe.idss.session.WebSession;
 import org.apache.wicket.RestartResponseAtInterceptPageException;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
@@ -78,7 +78,7 @@ public class UserPanel extends Panel {
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
     private void createAdminPanel() {
-        add(new BookmarkablePageLink("editUsers", EditUserPage.class) {
+        add(new BookmarkablePageLink("editUsers", CreateUserPage.class) {
             @Override
             public boolean isVisible() {
                 User user = WebSession.get().getUser();

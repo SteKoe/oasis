@@ -3,6 +3,7 @@ package de.stekoe.idss.model;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -43,7 +44,7 @@ public class ProjectTest {
 
         Project p = new Project();
         p.setProjectTeam(projectTeam);
-        final Set<ProjectRole> projectRolesForUser = p.getProjectRolesForUser(leaderUser);
+        final Collection<ProjectRole> projectRolesForUser = p.getProjectRolesForUser(leaderUser);
 
         assertNotNull(projectRolesForUser);
         assertTrue(projectRolesForUser.contains(leaderRole));

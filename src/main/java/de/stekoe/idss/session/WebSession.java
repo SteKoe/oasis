@@ -79,13 +79,6 @@ public class WebSession extends AuthenticatedWebSession {
 
         LoginStatus loginStatus = ServiceRepository.getUserService().login(username, password);
 
-        // No testusers in production mode!
-        if(RuntimeConfigurationType.DEPLOYMENT.equals(getApplication().getConfigurationType())) {
-            if("test@example.com".equals(username)) {
-                return false;
-            }
-        }
-
         if (loginStatus.equals(LoginStatus.SUCCESS)) {
             return true;
         } else {

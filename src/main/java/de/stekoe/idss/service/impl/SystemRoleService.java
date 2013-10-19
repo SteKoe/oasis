@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
@@ -21,7 +22,7 @@ public class SystemRoleService implements ISystemRoleService {
 
     @Override
     public List<SystemRole> findAllRoles() {
-        return systemRoleDAO.getAllRoles();
+        return systemRoleDAO.findAll();
     }
 
     @Override
@@ -32,5 +33,10 @@ public class SystemRoleService implements ISystemRoleService {
     @Override
     public SystemRole getUserRole() {
         return systemRoleDAO.getRoleByName(SystemRole.USER);
+    }
+
+    @Override
+    public Map<Integer, String> getAsSelectionList() {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 }

@@ -18,6 +18,7 @@ import de.stekoe.idss.page.project.ProjectDetailsPage;
 import de.stekoe.idss.page.project.ProjectEditPage;
 import de.stekoe.idss.page.project.ProjectOverviewPage;
 import de.stekoe.idss.page.user.ActivateUserPage;
+import de.stekoe.idss.page.user.UserDetailsPage;
 import de.stekoe.idss.page.user.UserProfilePage;
 import de.stekoe.idss.session.WebSession;
 import org.apache.log4j.Logger;
@@ -135,14 +136,16 @@ public class WebApplication extends AuthenticatedWebApplication {
     private void createRoutes() {
         mountPage("/home", HomePage.class);
         mountPage("/contact", ContactPage.class);
-        mountPage("/activate", ActivateUserPage.class);
-        mountPage("/profile", UserProfilePage.class);
 
+        // Login, Logout, Register, ...
         mountPage("/register", RegistrationPage.class);
         mountPage("/login", LoginPage.class);
+        mountPage("/activate", ActivateUserPage.class);
         mountPage("/logout", LogoutPage.class);
 
-        mountPage("/profile/${id}", UserProfilePage.class);
+        // User Profile
+        mountPage("/profile", UserProfilePage.class);
+        mountPage("/profile/${id}", UserDetailsPage.class);
 
         // Projects
         mountPage("/project", ProjectOverviewPage.class);

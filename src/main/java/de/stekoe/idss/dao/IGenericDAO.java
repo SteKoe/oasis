@@ -1,14 +1,35 @@
 package de.stekoe.idss.dao;
 
-import org.hibernate.Session;
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author Stephan Köninger <mail@stekoe.de>
  */
-public interface IGenericDAO {
+public interface IGenericDAO<T> {
+    /**
+     * @param entity
+     */
+    void save(T entity);
 
     /**
-     * @return The current Hibernate Session.
+     * @param id
      */
-    Session getCurrentSession();
+    void delete(Serializable id);
+
+    /**
+     * @param entity
+     */
+    void delete(T entity);
+
+    /**
+     * @param id
+     * @return
+     */
+    T findById(Serializable id);
+
+    /**
+     * @return
+     */
+    List<T> findAll();
 }

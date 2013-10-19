@@ -22,8 +22,10 @@ public class UserProfile implements Serializable {
     private String firstname;
     private String surname;
     private Date birthdate;
+    private User user;
 
     @Id
+    @Column(name = "user_profile_id")
     @GeneratedValue(generator="system-uuid")
     @GenericGenerator(name="system-uuid", strategy = "uuid2")
     public String getId() {
@@ -61,6 +63,15 @@ public class UserProfile implements Serializable {
 
     public void setBirthdate(Date birthdate) {
         this.birthdate = birthdate;
+    }
+
+    @OneToOne
+    public User getUser() {
+        return this.user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Transient

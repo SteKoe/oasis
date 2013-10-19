@@ -2,10 +2,9 @@ package de.stekoe.idss.dao.impl;
 
 import de.stekoe.idss.dao.ISystemRoleDAO;
 import de.stekoe.idss.model.SystemRole;
-import org.hibernate.HibernateException;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -14,24 +13,29 @@ import java.util.List;
 public class SystemRoleDAO extends GenericDAO implements ISystemRoleDAO {
 
     @Override
-    public void update(SystemRole role) {
-        getCurrentSession().update(role);
+    public void save(SystemRole entity) {
+        getCurrentSession().save(entity);
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public List<SystemRole> getAllRoles() {
+    public void delete(Serializable id) {
+        final SystemRole entity = findById(id);
+        delete(entity);
+    }
+
+    @Override
+    public void delete(SystemRole entity) {
+        getCurrentSession().delete(entity);
+    }
+
+    @Override
+    public SystemRole findById(Serializable id) {
+        return (SystemRole) getCurrentSession().load(SystemRole.class, id);
+    }
+
+    @Override
+    public List<SystemRole> findAll() {
         return getCurrentSession().createCriteria(SystemRole.class).list();
-    }
-
-    @Override
-    public boolean save(SystemRole role) {
-        try {
-            getCurrentSession().save(role);
-        } catch (HibernateException he) {
-            return false;
-        }
-        return true;
     }
 
     @Override

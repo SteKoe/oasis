@@ -10,7 +10,9 @@
     http://www.springframework.org/schema/tx/spring-tx.xsd
     http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd"
     xmlns:jdbc="http://www.springframework.org/schema/jdbc">
-    
+
+    <import resource="classpath*:test-component.xml" />
+
     <context:property-placeholder location="classpath:/properties/application.properties" />
     <context:annotation-config/>
     <tx:annotation-driven />
@@ -31,8 +33,8 @@
                 <prop key="hibernate.dialect">${hibernate.dialect}</prop>
                 <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
                 <prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
-                <prop key="hibernate.hbm2ddl.auto">create-drop</prop>
-                <prop key="hibernate.hbm2ddl.import_files">/sql/setup.sql</prop>
+                <prop key="hibernate.hbm2ddl.auto">create</prop>
+                <prop key="hibernate.hbm2ddl.import_files">/sql/setup.sql,/sql/exampleProject.sql</prop>
             </props>
         </property>
         <property name="dataSource" ref="dataSource" />

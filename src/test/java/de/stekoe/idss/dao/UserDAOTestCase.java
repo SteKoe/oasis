@@ -32,7 +32,7 @@ public class UserDAOTestCase extends BaseTest {
         admin.setName(SystemRole.ADMIN);
         systemRoleDAO.save(admin);
 
-        assertThat(systemRoleDAO.getAllRoles().size(), Is.is(2));
+        assertThat(systemRoleDAO.findAll().size(), Is.is(2));
     }
 
     private User getUser() {
@@ -57,8 +57,7 @@ public class UserDAOTestCase extends BaseTest {
     public void needUsername() throws Exception {
         User user = new User();
         user.setUsername(null);
-        final boolean save = userDAO.save(user);
-        System.out.println(save);
+        userDAO.save(user);
     }
 
     @Test

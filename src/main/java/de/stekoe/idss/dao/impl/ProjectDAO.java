@@ -6,6 +6,7 @@ import de.stekoe.idss.model.User;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -14,9 +15,14 @@ import java.util.List;
 public class ProjectDAO extends GenericDAO implements IProjectDAO {
 
     @Override
-    public boolean save(Project project) {
-        getCurrentSession().saveOrUpdate(project);
-        return false;
+    public void save(Project project) {
+        getCurrentSession().save(project);
+    }
+
+    @Override
+    public void delete(Serializable id) {
+        final Project project = findById(id);
+        delete(project);
     }
 
     @Override
@@ -27,8 +33,18 @@ public class ProjectDAO extends GenericDAO implements IProjectDAO {
     }
 
     @Override
-    public Project findById(String id) {
+    public Project findById(Serializable id) {
         return (Project) getCurrentSession().get(Project.class, id);
+    }
+
+    @Override
+    public void delete(Project entity) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public List<Project> findAll() {
+        return getCurrentSession().createCriteria(Project.class).list();
     }
 
     @Override

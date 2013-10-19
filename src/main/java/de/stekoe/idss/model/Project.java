@@ -7,9 +7,9 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Set;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
@@ -21,9 +21,10 @@ public class Project implements Serializable {
     private String id;
     private String name;
     private String description;
-    private Set<ProjectMember> projectTeam = new HashSet<ProjectMember>(0);
+    private Collection<ProjectMember> projectTeam = new HashSet<ProjectMember>(0);
 
     @Id
+    @Column(name = "project_id")
     @GeneratedValue(generator="system-uuid")
     @GenericGenerator(name="system-uuid", strategy = "uuid2")
     public String getId() {
@@ -53,18 +54,17 @@ public class Project implements Serializable {
         this.description = description;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER, targetEntity = ProjectMember.class, cascade = CascadeType.ALL)
-    @JoinTable(name = "ProjectToProjectMember")
-    public Set<ProjectMember> getProjectTeam() {
+    @OneToMany(mappedBy = "project")
+    public Collection<ProjectMember> getProjectTeam() {
         return projectTeam;
     }
 
-    public void setProjectTeam(Set<ProjectMember> projectTeam) {
+    public void setProjectTeam(Collection<ProjectMember> projectTeam) {
         this.projectTeam = projectTeam;
     }
 
     @Transient
-    public Set<ProjectRole> getProjectRolesForUser(final User user) {
+    public Collection<ProjectRole> getProjectRolesForUser(final User user) {
 
         ProjectMember projectMemberObject = (ProjectMember)CollectionUtils.find(this.getProjectTeam(), new Predicate() {
             public boolean evaluate(Object o) {
@@ -78,5 +78,12 @@ public class Project implements Serializable {
         }
 
         return projectMemberObject.getProjectRoles();
+    }
+
+    @Transient
+    public boolean userHasRole(ProjectRole role, User user) {
+        Collection<ProjectRole> userRoles = getProjectRolesForUser(user);
+
+        return userRoles.contains(role);
     }
 }

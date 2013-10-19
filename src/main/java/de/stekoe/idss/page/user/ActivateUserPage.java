@@ -2,6 +2,7 @@ package de.stekoe.idss.page.user;
 
 import de.stekoe.idss.exception.UserException;
 import de.stekoe.idss.model.User;
+import de.stekoe.idss.model.enums.UserStatus;
 import de.stekoe.idss.page.LayoutPage;
 import de.stekoe.idss.page.auth.LoginPage;
 import de.stekoe.idss.service.IUserService;
@@ -53,6 +54,7 @@ public class ActivateUserPage extends LayoutPage {
 
     private void activateUser(User userToActivate) {
         userToActivate.setActivationKey(null);
+        userToActivate.setUserStatus(UserStatus.ACTIVATED);
         try {
             userManager.save(userToActivate);
             info("TEst");

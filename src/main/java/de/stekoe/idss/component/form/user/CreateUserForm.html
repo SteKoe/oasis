@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:wicket="http://wicket.sourceforge.net/">
+<body>
+<wicket:panel>
+    <form class="form-horizontal" wicket:id="createUserForm">
+        <div class="control-group" wicket:id="usernameControlGroup">
+            <input wicket:id="username" type="text" class="input-xlarge">
+        </div>
+
+        <div class="control-group" wicket:id="emailControlGroup">
+            <input wicket:id="email" type="email" class="input-xlarge">
+        </div>
+
+        <div class="control-group" wicket:id="passwordControlGroup">
+            <input wicket:id="password" type="password" class="input-xlarge">
+        </div>
+
+        <div class="control-group" wicket:id="systemRoleControlGroup">
+            <select wicket:id="systemRole" class="input-xlarge">
+            </select>
+        </div>
+
+        <div class="control-group" wicket:id="buttonControlGroup">
+            <input wicket:id="submit" type="submit" class="btn btn-success">
+        </div>
+    </form>
+</wicket:panel>
+</body>
+</html>

@@ -7,10 +7,16 @@ import org.apache.wicket.model.Model;
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
 public class JavascriptEventConfirmation extends AttributeModifier {
+
+    /**
+     * @param event Name of JS event like "onClick".
+     * @param msg Message to be shown by JS confirm.
+     */
     public JavascriptEventConfirmation(String event, String msg) {
         super(event, new Model<String>(msg));
     }
 
+    @Override
     protected String newValue(final String currentValue, final String replacementValue) {
         String prefix = "var conf = confirm('" + replacementValue + "'); " +
                 "if (!conf) return false; ";

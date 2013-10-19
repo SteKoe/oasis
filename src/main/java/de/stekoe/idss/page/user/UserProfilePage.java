@@ -31,17 +31,6 @@ public class UserProfilePage extends AuthUserPage {
     private IUserService userService;
     private User user;
 
-    public UserProfilePage(PageParameters params) {
-        final StringValue paramUserId = params.get("id");
-        final String userId = paramUserId.toString();
-
-        if(userId == null) {
-            return;
-        }
-
-        user = userService.findById(userId);
-    }
-
     public UserProfilePage() {
         user = getSession().getUser();
 

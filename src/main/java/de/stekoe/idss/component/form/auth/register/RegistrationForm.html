@@ -1,44 +1,50 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:wicket="http://wicket.sourceforge.net/">
 <body>
-	<wicket:panel>
-		<div class="container">
-			<div wicket:id="error" class="alert alert-error"><button type="button" class="close" data-dismiss="alert">&times;</button>[success message]</div>
-			<div wicket:id="success" class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>[success message]</div>
+<wicket:panel>
+    <div class="container">
+        <div wicket:id="error" class="alert alert-error">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            [success message]
+        </div>
+        <div wicket:id="success" class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            [success message]
+        </div>
 
-			<div class="row">
-				<div class="span6 offset3">
-					<form class="form-horizontal" wicket:id="registrationForm">
-						<fieldset>
-							<legend>
-								<wicket:message key="form.title"></wicket:message>
-							</legend>
+        <div class="row">
+            <div class="span6 offset3">
+                <form class="form-horizontal" wicket:id="registrationForm">
+                    <fieldset>
+                        <legend>
+                            <wicket:message key="form.title"></wicket:message>
+                        </legend>
 
-							<div class="control-group" wicket:id="usernameControlGroup">
-								<input wicket:id="username" type="text" class="input-xlarge">
-							</div>
+                        <div class="control-group" wicket:id="usernameControlGroup">
+                            <input wicket:id="username" type="text" class="input-xlarge">
+                        </div>
 
-							<div class="control-group" wicket:id="emailControlGroup">
-								<input wicket:id="email" type="email" class="input-xlarge">
-							</div>
+                        <div class="control-group" wicket:id="emailControlGroup">
+                            <input wicket:id="email" type="email" class="input-xlarge">
+                        </div>
 
-							<div class="control-group" wicket:id="passwordControlGroup">
-								<input wicket:id="password" type="password" class="input-xlarge">
-							</div>
+                        <div class="control-group" wicket:id="passwordControlGroup">
+                            <input wicket:id="password" type="password" class="input-xlarge">
+                        </div>
 
-							<div class="control-group" wicket:id="passwordConfirmControlGroup">
-								<input wicket:id="passwordConfirm" type="password" class="input-xlarge">
-							</div>
+                        <div class="control-group" wicket:id="passwordConfirmControlGroup">
+                            <input wicket:id="passwordConfirm" type="password" class="input-xlarge">
+                        </div>
 
-							<div class="control-group" wicket:id="buttonControlGroup">
-								<input wicket:id="submit" type="submit" class="btn btn-success">
-							</div>
+                        <div class="control-group" wicket:id="buttonControlGroup">
+                            <input wicket:id="submit" type="submit" class="btn btn-success">
+                        </div>
 
-						</fieldset>
-					</form>
-				</div>
-			</div>
-		</div>
-	</wicket:panel>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</wicket:panel>
 </body>
 </html>

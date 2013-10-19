@@ -1,7 +1,9 @@
 package de.stekoe.idss.page.project;
 
+import de.stekoe.idss.component.behavior.CustomTinyMCESettings;
 import de.stekoe.idss.model.Project;
 import de.stekoe.idss.model.ProjectMember;
+import de.stekoe.idss.model.ProjectRole;
 import de.stekoe.idss.page.HomePage;
 import de.stekoe.idss.page.auth.annotation.ProjectMemberOnly;
 import de.stekoe.idss.page.user.UserProfilePage;
@@ -9,20 +11,21 @@ import de.stekoe.idss.service.IProjectService;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
-import org.apache.wicket.util.string.StringValue;
+import wicket.contrib.tinymce.TinyMceBehavior;
 
 import javax.inject.Inject;
 import java.text.MessageFormat;
+import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 @ProjectMemberOnly
-public class ProjectDetailsPage extends AuthProjectPage {
+public class ProjectDetailsPage extends ProjectPage {
 
     @Inject
     IProjectService projectService;
@@ -30,30 +33,38 @@ public class ProjectDetailsPage extends AuthProjectPage {
     public ProjectDetailsPage(PageParameters pageParameters) {
         super(pageParameters);
 
-        final StringValue id = pageParameters.get("id");
-        if(id == null) {
-            getSession().error("Project could not be found!");
-            redirectToOverviewPage();
-            return;
-        }
-
-        final Project project = projectService.findById(id.toString());
-
-        if (!isAuthorized(getSession().getUser(), project)) {
-            getSession().error("You are not allowed to access this project.");
-            redirectToOverviewPage();
-            return;
-        }
+        Project project = getProject();
 
         final Label projectTitle = new Label("projectTitle", Model.of(project.getName()));
         add(projectTitle);
 
-        final Set<ProjectMember> projectTeam = project.getProjectTeam();
+        // TinyMCE
+        final TextArea descriptionTextArea = new TextArea("descriptionTextArea", Model.of(project.getDescription()));
+        add(descriptionTextArea);
+        final TinyMceBehavior tinyMceBehavior = new TinyMceBehavior(CustomTinyMCESettings.getStandard());
+        descriptionTextArea.add(tinyMceBehavior);
+
+        // Description
+        final Label descriptionText = new Label("descriptionText", Model.of(project.getDescription()));
+        add(descriptionText);
+
+        if(project.userHasRole(ProjectRole.LEADER, getSession().getUser())) {
+            descriptionText.setVisible(false);
+            descriptionTextArea.setVisible(true);
+        } else {
+            descriptionText.setVisible(true);
+            descriptionTextArea.setVisible(false);
+        }
+
+        final BookmarkablePageLink<ProjectAddMember> addMemberLink = new BookmarkablePageLink<ProjectAddMember>("addMember", ProjectAddMember.class, new PageParameters().add("id", project.getId()));
+        add(addMemberLink);
+
+        final Collection<ProjectMember> projectTeam = project.getProjectTeam();
         listOfProjectLeader(projectTeam);
         listOfProjectMember(projectTeam);
     }
 
-    private void listOfProjectLeader(Set<ProjectMember> projectTeam) {
+    private void listOfProjectLeader(Collection<ProjectMember> projectTeam) {
         final List<ProjectMember> projectLeaders = (List<ProjectMember>) CollectionUtils.select(projectTeam, new Predicate() {
             @Override
             public boolean evaluate(Object object) {
@@ -84,7 +95,7 @@ public class ProjectDetailsPage extends AuthProjectPage {
 
     /* Creates necessary ui elements for Project Member section
      */
-    private void listOfProjectMember(Set<ProjectMember> projectTeam) {
+    private void listOfProjectMember(Collection<ProjectMember> projectTeam) {
         final List<ProjectMember> projectMember = (List<ProjectMember>) CollectionUtils.select(projectTeam, new Predicate() {
             @Override
             public boolean evaluate(Object object) {

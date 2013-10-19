@@ -14,8 +14,8 @@ import de.stekoe.idss.page.user.ActivateUserPage;
 import de.stekoe.idss.service.IMailService;
 import de.stekoe.idss.service.ISystemRoleService;
 import de.stekoe.idss.service.IUserService;
+import de.stekoe.idss.util.PasswordUtil;
 import de.stekoe.idss.validator.UniqueValueValidator;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.log4j.Logger;
 import org.apache.wicket.markup.html.form.*;
 import org.apache.wicket.markup.html.form.validation.EqualPasswordInputValidator;
@@ -27,7 +27,6 @@ import org.apache.wicket.request.Url;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -120,9 +119,8 @@ public class RegistrationForm extends Panel {
 
             private User createUser() {
                 User user = getModelObject();
-                String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
+                String hashedPassword = new PasswordUtil().hashPassword(user.getPassword());
                 user.setPassword(hashedPassword);
-                user.setActivationKey(DigestUtils.md5Hex(BCrypt.gensalt()));
 
                 // Set standard roles
                 SystemRole userRole = systemRoleService.getUserRole();

@@ -2,11 +2,12 @@ package de.stekoe.idss.dao.impl;
 
 import de.stekoe.idss.dao.IUserDAO;
 import de.stekoe.idss.model.User;
+import de.stekoe.idss.model.enums.UserStatus;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -22,27 +23,33 @@ public class UserDAO extends GenericDAO implements IUserDAO {
         return (User) criteria.uniqueResult();
     }
 
-
     @Override
-    public List<User> getAllUsers() {
+    public List<User> findAll() {
         return getCurrentSession().createCriteria(User.class).list();
     }
 
     @Override
-    public boolean save(User user) {
-        try {
-            getCurrentSession().saveOrUpdate(user);
-        } catch (Exception e) {
-            LOG.warn("Error while saving/updating user!", e);
-            return false;
-        }
-        return true;
+    public void save(User user) {
+        getCurrentSession().saveOrUpdate(user);
     }
 
     @Override
-    public boolean update(User user) {
-        getCurrentSession().update(user);
-        return false;
+    public void delete(Serializable id) {
+        final User user = findById(id);
+        delete(user);
+    }
+
+    /**
+     * Soft deletes a user by resetting personal data without removing the entity itself
+     * in order to ensure integrity of the whole system.
+     * @param entity
+     */
+    @Override
+    public void delete(User entity) {
+        // Reset username with "user" and "id"
+        final String[] split = entity.getId().split("-");
+        entity.setUsername("User_" + split[0]);
+        entity.setUserStatus(UserStatus.DELETED);
     }
 
     @Override
@@ -60,7 +67,7 @@ public class UserDAO extends GenericDAO implements IUserDAO {
     }
 
     @Override
-    public User findById(String id) {
+    public User findById(Serializable id) {
         return (User) getCurrentSession().get(User.class, id);
     }
 }

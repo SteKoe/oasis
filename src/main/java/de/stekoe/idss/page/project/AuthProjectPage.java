@@ -13,7 +13,7 @@ import org.apache.log4j.Logger;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
-import java.util.Set;
+import java.util.Collection;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
@@ -72,7 +72,7 @@ public class AuthProjectPage extends AuthUserPage {
     }
 
     private boolean isUserProjectLeader(final User user, final Project project) {
-        final Set<ProjectMember> projectTeam = project.getProjectTeam();
+        final Collection<ProjectMember> projectTeam = project.getProjectTeam();
 
         ProjectMember pm = (ProjectMember) CollectionUtils.find(projectTeam, new Predicate() {
             @Override

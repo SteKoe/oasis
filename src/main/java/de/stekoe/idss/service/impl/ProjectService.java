@@ -1,7 +1,6 @@
 package de.stekoe.idss.service.impl;
 
 import de.stekoe.idss.dao.IProjectDAO;
-import de.stekoe.idss.exception.ProjectNotFoundException;
 import de.stekoe.idss.model.Project;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.service.IProjectService;
@@ -27,11 +26,12 @@ public class ProjectService implements IProjectService {
     }
 
     @Override
-    public void delete(String id) throws ProjectNotFoundException {
+    public void delete(String id) {
+        projectDAO.delete(id);
     }
 
     @Override
-    public void update(Project project) throws ProjectNotFoundException {
+    public void update(Project project) {
         projectDAO.save(project);
     }
 

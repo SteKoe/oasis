@@ -65,7 +65,7 @@ public class UserProfile implements Serializable {
         this.birthdate = birthdate;
     }
 
-    @OneToOne
+    @OneToOne(mappedBy = "profile")
     public User getUser() {
         return this.user;
     }

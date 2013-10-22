@@ -2,6 +2,7 @@ package de.stekoe.idss.page.project;
 
 import de.stekoe.idss.model.Project;
 import de.stekoe.idss.model.ProjectRole;
+import de.stekoe.idss.model.User;
 import de.stekoe.idss.page.AuthUserPage;
 import de.stekoe.idss.service.IProjectRoleService;
 import de.stekoe.idss.service.IProjectService;
@@ -61,11 +62,8 @@ public class ProjectOverviewPage extends AuthUserPage {
 
                     @Override
                     public boolean isVisible() {
-                        if(p.getProjectRolesForUser(WebSession.get().getUser()).contains(projectRoleService.getProjectLeaderRole())) {
-                            return true;
-                        }
-
-                        return false;
+                        final User user = WebSession.get().getUser();
+                        return p.userHasRole(ProjectRole.LEADER, user);
                     }
                 };
                 deleteLink.add(new JavascriptEventConfirmation("onClick", String.format(getString("project.delete.confirm"), p.getName())));

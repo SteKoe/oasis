@@ -1,5 +1,7 @@
 package de.stekoe.idss.model;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -51,5 +53,26 @@ public class SystemRole implements Serializable {
 
     public void setUsers(Collection<User> users) {
         this.users = users;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null) { return false; }
+        if (o == this) { return true; }
+        if (o.getClass() != getClass()) { return false; }
+        SystemRole that = (SystemRole) o;
+        return new EqualsBuilder()
+                .appendSuper(super.equals(o))
+                .append(getName(), that.getName())
+                .append(getUsers(), that.getUsers())
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(getName())
+                .append(getUsers())
+                .hashCode();
     }
 }

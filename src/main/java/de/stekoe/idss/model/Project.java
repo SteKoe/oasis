@@ -54,7 +54,7 @@ public class Project implements Serializable {
         this.description = description;
     }
 
-    @OneToMany(mappedBy = "project")
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     public Collection<ProjectMember> getProjectTeam() {
         return projectTeam;
     }
@@ -64,12 +64,25 @@ public class Project implements Serializable {
     }
 
     @Transient
+    public boolean userIsMember(final User user) {
+        for(ProjectMember pm : getProjectTeam()) {
+            if(pm.getUser().equals(user)) {
+                return true;
+            }
+        }
+
+        return true;
+    }
+
+    @Transient
     public Collection<ProjectRole> getProjectRolesForUser(final User user) {
 
         ProjectMember projectMemberObject = (ProjectMember)CollectionUtils.find(this.getProjectTeam(), new Predicate() {
             public boolean evaluate(Object o) {
                 ProjectMember c = (ProjectMember) o;
-                return c.getUser().equals(user);
+                final String userIdToCheck = user.getId();
+                final String currentUserId = c.getUser().getId();
+                return currentUserId.equals(userIdToCheck);
             }
         });
 

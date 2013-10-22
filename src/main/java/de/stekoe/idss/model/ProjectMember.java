@@ -1,7 +1,8 @@
 package de.stekoe.idss.model;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.IndexColumn;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -34,7 +35,7 @@ public class ProjectMember implements Serializable {
     }
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @IndexColumn(name = "asd")
+    @JoinColumn(name = "user_id")
     public User getUser() {
         return this.user;
     }
@@ -63,7 +64,7 @@ public class ProjectMember implements Serializable {
         this.projectGroups = projectGroups;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "project_id")
     public Project getProject() {
         return this.project;
@@ -78,5 +79,30 @@ public class ProjectMember implements Serializable {
     @Transient
     public boolean isLeader() {
         return this.projectRoles.contains(ProjectRole.LEADER);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null) { return false; }
+        if (o == this) { return true; }
+        if (o.getClass() != getClass()) { return false; }
+        ProjectMember that = (ProjectMember) o;
+        return new EqualsBuilder()
+                .appendSuper(super.equals(o))
+                .append(getUser(), that.getUser())
+                .append(getProjectRoles(), that.getProjectRoles())
+                .append(getProjectGroups(), that.getProjectGroups())
+                .append(getProject(), that.getProject())
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(getUser())
+                .append(getProjectRoles())
+                .append(getProjectGroups())
+                .append(getProject())
+                .hashCode();
     }
 }

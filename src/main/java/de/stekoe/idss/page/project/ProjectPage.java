@@ -44,7 +44,7 @@ public abstract class ProjectPage extends AuthUserPage {
         final ProjectMemberOnly projectMemberOnly = this.getClass().getAnnotation(ProjectMemberOnly.class);
 
         if(projectMemberOnly != null) {
-            if(!project.userHasRole(ProjectRole.MEMBER, getSession().getUser())) {
+            if(!project.userIsMember(getSession().getUser())) {
                 getSession().error("You must be a member of this Project in order to access this page!");
                 setResponsePage(getResponsePage());
                 return;

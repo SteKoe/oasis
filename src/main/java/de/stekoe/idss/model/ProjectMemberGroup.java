@@ -38,6 +38,7 @@ public class ProjectMemberGroup {
 
     @NotNull
     @ManyToOne(targetEntity = Project.class)
+    @JoinTable(name = "ProjectToProjectMemberGroup", joinColumns = @JoinColumn(name = "project_member_group_id"), inverseJoinColumns = @JoinColumn(name = "project_id"))
     public Project getProject() {
         return this.project;
     }

@@ -46,6 +46,7 @@ public class ProjectDetailsPage extends ProjectPage {
 
         // Description
         final Label descriptionText = new Label("descriptionText", Model.of(project.getDescription()));
+        descriptionText.setEscapeModelStrings(false);
         add(descriptionText);
 
         if(project.userHasRole(ProjectRole.LEADER, getSession().getUser())) {

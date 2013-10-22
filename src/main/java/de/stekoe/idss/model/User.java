@@ -2,6 +2,8 @@ package de.stekoe.idss.model;
 
 import de.stekoe.idss.model.enums.UserStatus;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.hibernate.annotations.GenericGenerator;
 import org.mindrot.jbcrypt.BCrypt;
@@ -52,7 +54,8 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    @OneToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY, targetEntity = UserProfile.class, mappedBy = "user")
+    @OneToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY, targetEntity = UserProfile.class)
+    @PrimaryKeyJoinColumn
     public UserProfile getProfile() {
         return this.userProfile;
     }
@@ -103,8 +106,9 @@ public class User implements Serializable {
         this.activationKey = activationKey;
     }
 
-    @ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, targetEntity = SystemRole.class)
-    @JoinTable(name="UserToSystemRole", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    // FetchType.EAGER since Roles have to be available all the time
+    @ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, targetEntity = SystemRole.class)
+    @JoinTable(name="UserToSystemRole", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "system_role_id"))
     public Collection<SystemRole> getRoles() {
         return this.roles;
     }
@@ -156,19 +160,35 @@ public class User implements Serializable {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        User user = (User) o;
-
-        if (!id.equals(user.id)) return false;
-
-        return true;
+    public boolean equals(Object obj) {
+        if (obj == null) { return false; }
+        if (obj == this) { return true; }
+        if (obj.getClass() != getClass()) { return false; }
+        User rhs = (User) obj;
+        return new EqualsBuilder()
+                .appendSuper(super.equals(obj))
+                .append(getRoles(), rhs.getRoles())
+                .append(getProfile(), rhs.getProfile())
+                .append(getUsername(), rhs.getUsername())
+                .append(getPassword(), rhs.getPassword())
+                .append(getEmail(), rhs.getEmail())
+                .append(getActivationKey(), rhs.getActivationKey())
+                .append(getUserStatus(), rhs.getUserStatus())
+                .append(getProjectMemberships(), rhs.getProjectMemberships())
+                .isEquals();
     }
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        return new HashCodeBuilder(17, 37)
+                .append(getRoles())
+                .append(getProfile())
+                .append(getUsername())
+                .append(getPassword())
+                .append(getEmail())
+                .append(getActivationKey())
+                .append(getUserStatus())
+                .append(getProjectMemberships())
+                .hashCode();
     }
 }

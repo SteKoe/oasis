@@ -53,6 +53,7 @@ public class CreateProjectForm extends Panel {
                 ProjectMember projectLeader = new ProjectMember();
                 projectLeader.setUser(user);
                 projectLeader.getProjectRoles().add(projectRoleService.getProjectLeaderRole());
+                projectLeader.setProject(project);
 
                 project.getProjectTeam().add(projectLeader);
 

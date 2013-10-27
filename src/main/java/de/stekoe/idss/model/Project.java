@@ -22,6 +22,7 @@ public class Project implements Serializable {
     private String name;
     private String description;
     private Collection<ProjectMember> projectTeam = new HashSet<ProjectMember>(0);
+    private Collection<File> files = new HashSet<File>(0);
 
     @Id
     @Column(name = "project_id")
@@ -61,6 +62,16 @@ public class Project implements Serializable {
 
     public void setProjectTeam(Collection<ProjectMember> projectTeam) {
         this.projectTeam = projectTeam;
+    }
+
+    @ManyToMany
+    @JoinTable(name = "ProjectFiles", joinColumns = @JoinColumn(name = "project_id"), inverseJoinColumns = @JoinColumn(name = "file_id"))
+    public Collection<File> getFiles() {
+        return this.files;
+    }
+
+    public void setFiles(Collection<File> files) {
+        this.files = files;
     }
 
     @Transient

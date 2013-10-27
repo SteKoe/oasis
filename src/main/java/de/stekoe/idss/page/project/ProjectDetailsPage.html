@@ -5,6 +5,7 @@
 <body>
 <wicket:extend>
     <h1><wicket:container wicket:id="projectTitle"></wicket:container></h1>
+    <input type="text" wicket:id="projectTitleField">
 
     <div class="row-fluid">
         <div class="span3">
@@ -30,10 +31,12 @@
                 </li>
             </ul>
 
-            <div class="well">
-                <a href="#" class="btn btn-block">Projekt bearbeiten</a>
-                <a href="#" class="btn btn-block" wicket:id="addMember">Person(en) hinzufügen</a>
-            </div>
+            <wicket:enclosure child="addMember">
+                <div class="well">
+                    <a href="#" class="btn btn-block" wicket:id="editProject">Projekt bearbeiten</a>
+                    <a href="#" class="btn btn-block" wicket:id="addMember">Person(en) hinzufügen</a>
+                </div>
+            </wicket:enclosure>
         </div>
 
         <div class="span9">

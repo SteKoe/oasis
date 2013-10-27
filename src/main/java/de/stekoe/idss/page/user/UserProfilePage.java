@@ -5,16 +5,16 @@ import de.agilecoders.wicket.extensions.markup.html.bootstrap.form.DateTextField
 import de.stekoe.idss.exception.EmailAddressAlreadyInUseException;
 import de.stekoe.idss.exception.UsernameAlreadyInUseException;
 import de.stekoe.idss.model.User;
+import de.stekoe.idss.model.UserProfile;
 import de.stekoe.idss.page.AuthUserPage;
 import de.stekoe.idss.service.IUserService;
+import de.stekoe.idss.session.WebSession;
 import org.apache.log4j.Logger;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.model.PropertyModel;
-import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.apache.wicket.util.string.StringValue;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -32,7 +32,7 @@ public class UserProfilePage extends AuthUserPage {
     private User user;
 
     public UserProfilePage() {
-        user = getSession().getUser();
+        user = WebSession.get().getUser();
 
         Form form = new Form<User>("userprofile") {
             @Override
@@ -48,8 +48,10 @@ public class UserProfilePage extends AuthUserPage {
         };
 
         form.add(new BookmarkablePageLink("changePasswordOrEmailLink", EditPasswordPage.class));
-        form.add(new TextField("firstname", new PropertyModel(user.getProfile(), "firstname")));
-        form.add(new TextField("surname", new PropertyModel(user.getProfile(), "surname")));
+
+        final UserProfile profile = user.getProfile();
+        form.add(new TextField("firstname", new PropertyModel(profile, "firstname")));
+        form.add(new TextField("surname", new PropertyModel(profile, "surname")));
         form.add(createDateTextField());
 
         add(form);

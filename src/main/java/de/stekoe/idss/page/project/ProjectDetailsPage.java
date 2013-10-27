@@ -1,9 +1,11 @@
 package de.stekoe.idss.page.project;
 
+import de.agilecoders.wicket.core.markup.html.bootstrap.behavior.CssClassNameAppender;
 import de.stekoe.idss.component.behavior.CustomTinyMCESettings;
 import de.stekoe.idss.model.Project;
 import de.stekoe.idss.model.ProjectMember;
 import de.stekoe.idss.model.ProjectRole;
+import de.stekoe.idss.model.enums.PageMode;
 import de.stekoe.idss.page.HomePage;
 import de.stekoe.idss.page.auth.annotation.ProjectMemberOnly;
 import de.stekoe.idss.page.user.UserProfilePage;
@@ -12,6 +14,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.TextArea;
+import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
@@ -30,13 +33,25 @@ public class ProjectDetailsPage extends ProjectPage {
     @Inject
     IProjectService projectService;
 
+    private PageMode pageMode = PageMode.STANDARD;
+
     public ProjectDetailsPage(PageParameters pageParameters) {
         super(pageParameters);
 
         Project project = getProject();
+        final boolean userIsProjectLeader = project.userHasRole(ProjectRole.LEADER, getSession().getUser());
 
+        if(!pageParameters.get("edit").isNull() && userIsProjectLeader) {
+            pageMode = PageMode.EDIT;
+        }
+
+        // Project Title
         final Label projectTitle = new Label("projectTitle", Model.of(project.getName()));
         add(projectTitle);
+
+        final TextField<String> projectTitleField = new TextField<String>("projectTitleField", Model.of(project.getName()));
+        add(projectTitleField);
+
 
         // TinyMCE
         final TextArea descriptionTextArea = new TextArea("descriptionTextArea", Model.of(project.getDescription()));
@@ -49,13 +64,22 @@ public class ProjectDetailsPage extends ProjectPage {
         descriptionText.setEscapeModelStrings(false);
         add(descriptionText);
 
-        if(project.userHasRole(ProjectRole.LEADER, getSession().getUser())) {
-            descriptionText.setVisible(false);
-            descriptionTextArea.setVisible(true);
+
+        final boolean pageIsInEditMode = pageMode.equals(PageMode.EDIT);
+        descriptionText.setVisible(!pageIsInEditMode);
+        projectTitle.setVisible(!pageIsInEditMode);
+
+        descriptionTextArea.setVisible(pageIsInEditMode);
+        projectTitleField.setVisible(pageIsInEditMode);
+
+        final BookmarkablePageLink<ProjectDetailsPage> editProjectLink = new BookmarkablePageLink<ProjectDetailsPage>("editProject", ProjectDetailsPage.class, new PageParameters().add("id", project.getId()).add("edit", true));
+        if(PageMode.EDIT.equals(pageMode)) {
+            editProjectLink.setBody(Model.of(getString("form.button.save")));
+            editProjectLink.add(new CssClassNameAppender("btn btn-success"));
         } else {
-            descriptionText.setVisible(true);
-            descriptionTextArea.setVisible(false);
+            editProjectLink.setBody(Model.of(getString("button.edit.project")));
         }
+        add(editProjectLink);
 
         final BookmarkablePageLink<ProjectAddMember> addMemberLink = new BookmarkablePageLink<ProjectAddMember>("addMember", ProjectAddMember.class, new PageParameters().add("id", project.getId()));
         add(addMemberLink);

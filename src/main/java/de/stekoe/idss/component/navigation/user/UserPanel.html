@@ -2,9 +2,6 @@
 <body>
 <wicket:panel>
     <div>
-        <wicket:enclosure child="editUsers">
-            <a href="" wicket:id="editUsers" class="btn ">Benutzer bearbeiten</a>
-        </wicket:enclosure>
 
         <wicket:enclosure child="signin">
             <a href="" wicket:id="register" class="btn ">Registrieren</a>
@@ -13,6 +10,8 @@
 
         <wicket:enclosure child="signout">
             <div class="loginPanel">
+
+
                 <div class="btn-group">
                     <a class="btn " href="" wicket:id="userProfile"><i class="icon-user"></i> <strong wicket:id="username"></strong></a>
                     <button class="btn dropdown-toggle" data-toggle="dropdown">
@@ -23,9 +22,14 @@
                         <li><a href="">Link 2</a></li>
                         <li><a href="">Link 3</a></li>
                         <li><a href="">Link 4</a></li>
+                        <wicket:enclosure child="editUsers">
+                            <li class="divider">Admin</li>
+                            <li><a href="" wicket:id="editUsers">Benutzer bearbeiten</a></li>
+                        </wicket:enclosure>
                     </ul>
                 </div>
-                <a href="" wicket:id="signout" class="btn ">Abmelden</a>
+
+                <a href="" wicket:id="signout" class="btn "><i class="icon-off"></i> Abmelden</a>
             </div>
         </wicket:enclosure>
     </div>

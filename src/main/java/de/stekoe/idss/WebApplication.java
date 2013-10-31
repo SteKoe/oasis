@@ -169,4 +169,6 @@ public class WebApplication extends AuthenticatedWebApplication {
     protected Class<? extends WebPage> getSignInPageClass() {
         return LoginPage.class;
     }
+
+
 }

@@ -5,13 +5,6 @@
     <property environment="env"/>
     <property file="./src/main/resources/properties/application.properties"/>
 
-    <property name="classpathProp">
-        <classpath id="classpath">
-            <pathelement path="${java.class.path}"/>
-            <fileset dir="./" includes="**/*.jar" />
-        </classpath>
-    </property>
-
     <target name="replaceVersion">
         <echo message="${label}"/>
         <replace dir="target" value="${label}">
@@ -20,23 +13,5 @@
         </replace>
     </target>
 
-    <target name="createSchema">
-        <sql driver="${jdbc.driverClassName}" url="${jdbc.root.url}" userid="${jdbc.username}" password="${jdbc.password}">
-            <transaction src="./src/main/resources/sql/createSchema.sql"/>
-            <classpath refid="classpath" />
-        </sql>
-    </target>
-
-    <target name="dropSchemaIfExists">
-        <sql driver="${jdbc.driverClassName}" url="${jdbc.root.url}" userid="${jdbc.username}" password="${jdbc.password}">
-            <transaction src="./src/main/resources/sql/dropSchema.sql"/>
-            <classpath refid="classpath" />
-        </sql>
-    </target>
-
-    <target name="initDB">
-        <antcall target="dropSchemaIfExists" />
-        <antcall target="createSchema" />
-    </target>
 
 </project>

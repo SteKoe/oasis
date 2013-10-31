@@ -6,3 +6,6 @@ target/
 /logs
 *.iml
 *.log
+*.aux
+*.toc
+*.synctex.gz

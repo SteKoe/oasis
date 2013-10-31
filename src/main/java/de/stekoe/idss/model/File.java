@@ -21,7 +21,7 @@ public class File implements Serializable {
     private Date created;
 
     public File() {
-        setCreated(Date);
+        setCreated(new Date());
     }
 
     @Id

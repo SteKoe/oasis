@@ -1,22 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor 
-    license agreements. See the NOTICE file distributed with this work for additional 
-    information regarding copyright ownership. The ASF licenses this file to 
-    You under the Apache License, Version 2.0 (the "License"); you may not use 
-    this file except in compliance with the License. You may obtain a copy of 
-    the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required 
-    by applicable law or agreed to in writing, software distributed under the 
-    License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS 
-    OF ANY KIND, either express or implied. See the License for the specific 
-    language governing permissions and limitations under the License. -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>IDSS</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>OASIS</artifactId>
+    <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>IDSS Project</name>
-    <description>I am a description.</description>
+    <name>OASIS - Online Assessed Innovations</name>
+    <description>
+        Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+        Aenean commodo ligula eget dolor. Aenean massa.
+        Cum sociis natoque penatibus et magnis dis parturient montes,
+        nascetur ridiculus mus. Donec quam felis, ultricies nec,
+        pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
+        Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
+        In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.
+        Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras
+        dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus.
+        Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.
+        Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus.
+        Phasellus viverra nulla ut metus varius laoreet.
+    </description>
+    <inceptionYear>2013</inceptionYear>
+    <groupId>de.stekoe.idss</groupId>
+    <!--
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
@@ -24,6 +30,7 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
+    -->
     <developers>
         <developer>
             <name>Stephan Köninger</name>
@@ -38,13 +45,68 @@
             <url>http://www.wi-inf.uni-duisburg-essen.de/FGFrank/index.php?lang=de&amp;groupId=1&amp;contentType=GroupMember&amp;persId=800</url>
         </contributor>
     </contributors>
+
     <properties>
         <wicket.version>6.11.0</wicket.version>
-        <jetty.version>7.6.3.v20120416</jetty.version>
+        <jetty.version>6.1.25</jetty.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.version>3.2.2.RELEASE</spring.version>
         <wicket.bootstrap>0.8.4</wicket.bootstrap>
+        <maven.compiler.source>1.6</maven.compiler.source>
+        <maven.compiler.target>1.6</maven.compiler.target>
+        <production.mode>DEVELOPMENT</production.mode>
     </properties>
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <!-- Runtime -->
+                <jdbc.url>jdbc:mysql://127.0.0.1:3306/idss</jdbc.url>
+                <jdbc.username>idss</jdbc.username>
+                <jdbc.password>idss</jdbc.password>
+                <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
+
+                <!-- Testing -->
+                <jdbc.test.url>jdbc:mysql://127.0.0.1:3306/idss_test</jdbc.test.url>
+                <jdbc.test.username>idss</jdbc.test.username>
+                <jdbc.test.password>idss</jdbc.test.password>
+                <jdbc.test.driverClassName>com.mysql.jdbc.Driver</jdbc.test.driverClassName>
+
+                <!-- Hibernate -->
+                <hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
+                <hibernate.show_sql>true</hibernate.show_sql>
+                <hibernate.formal_sql>true</hibernate.formal_sql>
+            </properties>
+        </profile>
+        <profile>
+            <id>release</id>
+            <properties>
+                <production.mode>DEPLOYMENT</production.mode>
+
+                <!-- Runtime -->
+                <jdbc.url>jdbc:mysql://127.0.0.1:3306/idss</jdbc.url>
+                <jdbc.username>idss</jdbc.username>
+                <jdbc.password>idss</jdbc.password>
+                <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
+
+                <!-- Testing -->
+                <jdbc.test.url>jdbc:mysql://127.0.0.1:3306/idss_test</jdbc.test.url>
+                <jdbc.test.username>idss</jdbc.test.username>
+                <jdbc.test.password>idss</jdbc.test.password>
+                <jdbc.test.driverClassName>com.mysql.jdbc.Driver</jdbc.test.driverClassName>
+
+                <!-- Hibernate -->
+                <hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
+                <hibernate.show_sql>false</hibernate.show_sql>
+                <hibernate.formal_sql>false</hibernate.formal_sql>
+            </properties>
+        </profile>
+    </profiles>
+
     <dependencies>
         <!-- WICKET DEPENDENCIES -->
         <dependency>
@@ -96,15 +158,27 @@
         </dependency>
         <!-- JETTY DEPENDENCIES FOR TESTING -->
         <dependency>
-            <groupId>org.eclipse.jetty.aggregate</groupId>
-            <artifactId>jetty-all-server</artifactId>
+            <groupId>org.apache.wicket</groupId>
+            <artifactId>wicket-spring</artifactId>
+            <version>${wicket.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mortbay.jetty</groupId>
+            <artifactId>jetty</artifactId>
             <version>${jetty.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.apache.wicket</groupId>
-            <artifactId>wicket-spring</artifactId>
-            <version>${wicket.version}</version>
+            <groupId>org.mortbay.jetty</groupId>
+            <artifactId>jetty-util</artifactId>
+            <version>${jetty.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mortbay.jetty</groupId>
+            <artifactId>jetty-management</artifactId>
+            <version>${jetty.version}</version>
+            <scope>provided</scope>
         </dependency>
         <!-- Springframework -->
         <dependency>
@@ -176,12 +250,6 @@
             <type>maven-plugin</type>
         </dependency>
         <dependency>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-antrun-plugin</artifactId>
-            <version>1.7</version>
-            <type>maven-plugin</type>
-        </dependency>
-        <dependency>
             <groupId>org.mindrot</groupId>
             <artifactId>jbcrypt</artifactId>
             <version>0.3m</version>
@@ -202,11 +270,6 @@
             <version>${spring.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-tools</artifactId>
-            <version>4.0.0-CR1</version>
-        </dependency>
-        <dependency>
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
             <version>3.2.1</version>
@@ -225,8 +288,15 @@
     <build>
         <resources>
             <resource>
-                <filtering>false</filtering>
+                <filtering>true</filtering>
                 <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <filtering>true</filtering>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/WebApplication.properties</include>
+                </includes>
             </resource>
             <resource>
                 <filtering>false</filtering>
@@ -255,27 +325,14 @@
                 </excludes>
             </testResource>
         </testResources>
+
         <plugins>
             <plugin>
-                <!-- run "mvn hibernate3:hbm2ddl" to generate a schema -->
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>hibernate3-maven-plugin</artifactId>
-                <version>2.2</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.6</version>
                 <configuration>
-                    <components>
-                        <component>
-                            <name>hbm2ddl</name>
-                            <implementation>jpaconfiguration</implementation>
-                        </component>
-                    </components>
-                    <componentProperties>
-                        <persistenceunit>idss-default</persistenceunit>
-                        <outputfilename>schema.ddl</outputfilename>
-                        <drop>false</drop>
-                        <create>true</create>
-                        <export>false</export>
-                        <format>true</format>
-                    </componentProperties>
+                    <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
             <plugin>
@@ -292,72 +349,26 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.mortbay.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>${jetty.version}</version>
-                <configuration>
-                    <connectors>
-                        <connector
-                            implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
-                            <port>8080</port>
-                            <maxIdleTime>3600000</maxIdleTime>
-                        </connector>
-                        <connector
-                            implementation="org.eclipse.jetty.server.ssl.SslSocketConnector">
-                            <port>8443</port>
-                            <maxIdleTime>3600000</maxIdleTime>
-                            <keystore>${project.build.directory}/test-classes/keystore</keystore>
-                            <password>wicket</password>
-                            <keyPassword>wicket</keyPassword>
-                        </connector>
-                    </connectors>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-eclipse-plugin</artifactId>
-                <version>2.9</version>
-                <configuration>
-                    <downloadSources>true</downloadSources>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.1.1</version>
                 <configuration>
-                    <outputDirectory>${tomcat.path}</outputDirectory>
+                    <webResources>
+                        <webResource>
+                            <directory>${basedir}/src/main/webapp/WEB-INF</directory>
+                            <includes>
+                                <include>web.xml</include>
+                            </includes>
+                            <targetPath>WEB-INF</targetPath>
+                            <filtering>true</filtering>
+                        </webResource>
+                    </webResources>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>2.9.1</version>
-            </plugin>
-            <plugin>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>ant-magic</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <tasks>
-                                <property name="compile_classpath"
-                                    refid="maven.compile.classpath" />
-                                <property name="outputDir"
-                                    value="${project.build.outputDirectory}" />
-                                <property name="sourceDir"
-                                    value="${project.build.sourceDirectory}" />
-                                <property name="version"
-                                    value="${project.version}" />
-                                <ant antfile="build.xml" />
-                            </tasks>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
@@ -386,7 +397,7 @@
                 <artifactId>maven-pmd-plugin</artifactId>
                 <version>3.0.1</version>
                 <configuration>
-                    <targetJdk>${maven.compile.target}</targetJdk>
+                    <targetJdk>${maven.compiler.target}</targetJdk>
                 </configuration>
             </plugin>
             <plugin>
@@ -396,10 +407,4 @@
             </plugin>
         </plugins>
     </reporting>
-    <ciManagement>
-        <system>jenkins</system>
-        <url>http://stekoe.dyndns.org:8081</url>
-    </ciManagement>
-    <inceptionYear>2013</inceptionYear>
-    <groupId>de.stekoe.idss.application</groupId>
 </project>

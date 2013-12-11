@@ -3,8 +3,12 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <artifactId>OASIS</artifactId>
-    <packaging>war</packaging>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>idss-services</module>
+        <module>idss-webui</module>
+    </modules>
     <name>OASIS - Online Assessed Innovations</name>
     <description>
         Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
@@ -22,15 +26,6 @@
     </description>
     <inceptionYear>2013</inceptionYear>
     <groupId>de.stekoe.idss</groupId>
-    <!--
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-    -->
     <developers>
         <developer>
             <name>Stephan Köninger</name>
@@ -47,14 +42,10 @@
     </contributors>
 
     <properties>
-        <wicket.version>6.11.0</wicket.version>
-        <jetty.version>6.1.25</jetty.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.version>3.2.2.RELEASE</spring.version>
-        <wicket.bootstrap>0.8.4</wicket.bootstrap>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.6</maven.compiler.source>
         <maven.compiler.target>1.6</maven.compiler.target>
-        <production.mode>DEVELOPMENT</production.mode>
     </properties>
 
     <profiles>
@@ -79,8 +70,22 @@
                 <!-- Hibernate -->
                 <hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
                 <hibernate.show_sql>true</hibernate.show_sql>
-                <hibernate.formal_sql>true</hibernate.formal_sql>
+                <hibernate.format_sql>true</hibernate.format_sql>
             </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.15</version>
+                        <configuration>
+                            <excludes>
+                                <exclude>**/*IT.java</exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
         <profile>
             <id>release</id>
@@ -105,81 +110,39 @@
                 <hibernate.formal_sql>false</hibernate.formal_sql>
             </properties>
         </profile>
+
+        <profile>
+            <id>run-integrationtests</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.15</version>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
 
     <dependencies>
-        <!-- WICKET DEPENDENCIES -->
+        <!-- Apache Stuff -->
         <dependency>
-            <groupId>org.apache.wicket</groupId>
-            <artifactId>wicket-core</artifactId>
-            <version>${wicket.version}</version>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.2.1</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.wicket</groupId>
-            <artifactId>wicket-auth-roles</artifactId>
-            <version>${wicket.version}</version>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.5</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.wicket</groupId>
-            <artifactId>wicket-devutils</artifactId>
-            <version>${wicket.version}</version>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.1</version>
         </dependency>
-        <dependency>
-            <groupId>org.apache.wicket</groupId>
-            <artifactId>wicket-bean-validation</artifactId>
-            <version>0.13</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator</artifactId>
-            <version>4.3.0.Final</version>
-        </dependency>
-        <!-- LOGGING DEPENDENCIES - LOG4J -->
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.16</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>1.6.4</version>
-        </dependency>
-        <!-- JUNIT DEPENDENCY FOR TESTING -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.11</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest-core</artifactId>
-            <version>1.3</version>
-        </dependency>
-        <!-- JETTY DEPENDENCIES FOR TESTING -->
-        <dependency>
-            <groupId>org.apache.wicket</groupId>
-            <artifactId>wicket-spring</artifactId>
-            <version>${wicket.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mortbay.jetty</groupId>
-            <artifactId>jetty</artifactId>
-            <version>${jetty.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mortbay.jetty</groupId>
-            <artifactId>jetty-util</artifactId>
-            <version>${jetty.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mortbay.jetty</groupId>
-            <artifactId>jetty-management</artifactId>
-            <version>${jetty.version}</version>
-            <scope>provided</scope>
-        </dependency>
+
         <!-- Springframework -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -211,54 +174,6 @@
             <artifactId>spring-test</artifactId>
             <version>${spring.version}</version>
         </dependency>
-        <!-- Database -->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>4.2.6.Final</version>
-        </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.24</version>
-        </dependency>
-        <!-- Twitter Bootstrap integration for Wicket -->
-        <dependency>
-            <groupId>de.agilecoders.wicket</groupId>
-            <artifactId>wicket-bootstrap-core</artifactId>
-            <version>${wicket.bootstrap}</version>
-        </dependency>
-        <dependency>
-            <groupId>de.agilecoders.wicket</groupId>
-            <artifactId>wicket-bootstrap-extensions</artifactId>
-            <version>${wicket.bootstrap}</version>
-        </dependency>
-        <dependency>
-            <groupId>joda-time</groupId>
-            <artifactId>joda-time</artifactId>
-            <version>2.2</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
-            <version>1.5</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-war-plugin</artifactId>
-            <version>2.1.1</version>
-            <type>maven-plugin</type>
-        </dependency>
-        <dependency>
-            <groupId>org.mindrot</groupId>
-            <artifactId>jbcrypt</artifactId>
-            <version>0.3m</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.mail</groupId>
-            <artifactId>mail</artifactId>
-            <version>1.4</version>
-        </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
@@ -269,27 +184,61 @@
             <artifactId>spring-orm</artifactId>
             <version>${spring.version}</version>
         </dependency>
+
+        <!-- LOGGING DEPENDENCIES - LOG4J -->
         <dependency>
-            <groupId>commons-collections</groupId>
-            <artifactId>commons-collections</artifactId>
-            <version>3.2.1</version>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.16</version>
         </dependency>
         <dependency>
-            <groupId>de.bripkens</groupId>
-            <artifactId>gravatar4java</artifactId>
-            <version>1.1</version>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.6.4</version>
+        </dependency>
+
+        <!-- JUNIT DEPENDENCY FOR TESTING -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
         </dependency>
         <dependency>
-            <groupId>org.wicketstuff</groupId>
-            <artifactId>wicketstuff-tinymce</artifactId>
-            <version>6.11.0</version>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-core</artifactId>
+            <version>1.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>2.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-war-plugin</artifactId>
+            <version>2.1.1</version>
+            <type>maven-plugin</type>
         </dependency>
     </dependencies>
+
     <build>
+        <!-- Resource filtering -->
         <resources>
             <resource>
                 <filtering>true</filtering>
                 <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+            <resource>
+                <filtering>false</filtering>
+                <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>**/*.properties</exclude>
+                </excludes>
             </resource>
             <resource>
                 <filtering>true</filtering>
@@ -350,28 +299,12 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>2.1.1</version>
-                <configuration>
-                    <webResources>
-                        <webResource>
-                            <directory>${basedir}/src/main/webapp/WEB-INF</directory>
-                            <includes>
-                                <include>web.xml</include>
-                            </includes>
-                            <targetPath>WEB-INF</targetPath>
-                            <filtering>true</filtering>
-                        </webResource>
-                    </webResources>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>2.9.1</version>
             </plugin>
         </plugins>
     </build>
+
     <!-- mvn site -->
     <reporting>
         <plugins>

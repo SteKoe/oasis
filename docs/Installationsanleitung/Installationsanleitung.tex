@@ -12,7 +12,7 @@
 \usepackage{lipsum}
 
 \newcommand{\appname}{OASIS~}
-\newcommand{\tomcathome}{\texttt{TOMCAT\_HOME}}
+\newcommand{\tomcathome}{\texttt{<TOMCAT\_HOME>}}
  
 \title{Installationsanleitung \appname{}}
 \subtitle{F\"ur Linux/Mac OS}
@@ -30,11 +30,16 @@
 	\hline
 	\textbf{Version} & \textbf{Datum} & \textbf{Grund f\"ur \"Anderungen}  \\
 	\hline
-	0.2	& 31.10.2013	& Anpassungen f\"ur die Systemanforderungen \\
+	0.3	& 01.11.2013	& Systemanforderungen: Min. Arbeitsspeicher auf 2~GB erh\"oht \\
+	0.2	& 31.10.2013	& Anpassungen an den Systemanforderungen \\
   	0.1 	& 28.10.2013	& Initiale Version der Installationsanleitung 		 \\
 	\hline
 \end{tabular}
 \end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Lieferumfang}
+Sie erhalten ein Zip-Archiv, welches folgende Dateien enth\"alt:
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Systemanforderungen}
@@ -43,11 +48,11 @@ F\"ur die Installation der Web-Applikation \appname sind folgende Systemanforder
 \begin{itemize}
 	\item Java 1.7
 	\item Apache Tomcat 7.0
-	\item Mindestens 1GB freier Arbeitsspeicher
+	\item Mindestens 2~GB freier Arbeitsspeicher
 	\item MySQL Server 5.5
 \end{itemize}
 
-Sie k\"onnen versuchen die Applikation auf neueren Versionen der angegebenen Software zu installieren, jedoch empfehlen wir Ihnen sich an die vorgegebenen Versionsnummern zu halten, da mit diesen das System getestet wurde.
+Sie k\"onnen versuchen die Applikation mit neueren Versionen der angegebenen Software zu installieren, jedoch empfehlen wir Ihnen sich an die vorgegebenen Informationen zu halten, da mit diesen das System getestet wurde.
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Installationsanleitung}
@@ -108,8 +113,8 @@ Im folgenden Abschnitt werden weiter \"Anderungen an Ihrer Tomcat-Installation n
 Ersetzen Sie im folgenden die Variable \tomcathome~mit dem Pfad zu Ihrer Tomcat-Installation.
 
 \minisec{1. Schritt}
-Kopieren Sie den Kontext-Descriptor (\texttt{oasis.xml}) in den Ordner \\
-\texttt{\tomcathome/conf/Catalina/localhost/}
+Kopieren Sie den Kontext-Descriptor (\texttt{oasis.xml}) in den Ordner \texttt{\tomcathome/conf/\\Catalina/localhost/}. 
+Ggf. m\"ussen Sie die angegebenen Ordner erstellen.
 
 \minisec{2. Schritt}
 Legen Sie einen neuen Ordner im \tomcathome-Verzeichnis an (bspw. \texttt{mywebapps}) und kopieren sie die WAR-Datei in dieses Verzeichnis.

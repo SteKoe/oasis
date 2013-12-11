@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:wicket="http://wicket.sourceforge.net/">
+<body>
+<wicket:panel>
+    <form class="form-horizontal" wicket:id="createProjectForm">
+        <fieldset>
+            <legend>
+                <h4>Projekt erstellen</h4>
+            </legend>
+
+            <div class="control-group" wicket:id="projectNameControlGroup">
+                <input wicket:id="name" type="text" class="input-block-level">
+            </div>
+
+            <div class="control-group" wicket:id="projectDescriptionControlGroup">
+                <textarea wicket:id="description" class="input-block-level"></textarea>
+            </div>
+
+            <div class="control-group" wicket:id="projectFileUploadControlGroup">
+                <div wicket:id="file" class="fileUpload">
+
+                </div>
+            </div>
+
+            <div class="control-group" wicket:id="buttonControlGroup">
+                <button type="submit" class="btn btn-success" wicket:id="submitButton">
+                    <wicket:message key="form.button.save"></wicket:message>
+                </button>
+            </div>
+        </fieldset>
+    </form>
+</wicket:panel>
+</body>
+</html>

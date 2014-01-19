@@ -5,7 +5,7 @@ import de.stekoe.idss.model.User;
 import de.stekoe.idss.model.enums.UserStatus;
 import de.stekoe.idss.page.LayoutPage;
 import de.stekoe.idss.page.auth.LoginPage;
-import de.stekoe.idss.service.IUserService;
+import de.stekoe.idss.service.UserService;
 import org.apache.log4j.Logger;
 import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -20,9 +20,9 @@ public class ActivateUserPage extends LayoutPage {
     private static final Logger LOG = Logger.getLogger(ActivateUserPage.class);
 
     @SpringBean
-    private IUserService userManager;
+    private UserService userManager;
 
-    private String activationCode = null;
+    private java.lang.String activationCode = null;
 
     /**
      * Construct.
@@ -31,7 +31,7 @@ public class ActivateUserPage extends LayoutPage {
     public ActivateUserPage(PageParameters parameters) {
         super(parameters);
 
-        setActivationKey(parameters);
+        extractActivationKeyFromPageParameters(parameters);
         if (!activationCode.isEmpty()) {
             User userToActivate = getUserToActivate();
             if (userToActivate != null) {
@@ -45,7 +45,7 @@ public class ActivateUserPage extends LayoutPage {
         return userToActivate;
     }
 
-    private void setActivationKey(PageParameters parameters) {
+    private void extractActivationKeyFromPageParameters(PageParameters parameters) {
         StringValue activationCode = parameters.get(0);
         if (!activationCode.isEmpty()) {
             this.activationCode = activationCode.toString();
@@ -57,7 +57,6 @@ public class ActivateUserPage extends LayoutPage {
         userToActivate.setUserStatus(UserStatus.ACTIVATED);
         try {
             userManager.save(userToActivate);
-            info("TEst");
             throw new RestartResponseException(LoginPage.class);
         } catch (UserException e) {
             LOG.error("Error while activating user " + userToActivate.getUsername() + "!");

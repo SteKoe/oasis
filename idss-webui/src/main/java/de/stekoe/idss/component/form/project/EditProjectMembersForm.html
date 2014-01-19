@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:wicket="http://wicket.sourceforge.net/">
+<body>
+<wicket:panel>
+    <div class="well">
+        <a href="" class="btn btn-success" wicket:id="button.add.member"><i class="fa fa-plus"></i> <wicket:message key="label.add" /></a>
+    </div>
+
+    <div wicket:id="members">
+        <a href="" wicket:id="user.edit" class="btn btn-mini btn-danger pull-right"><i class="fa fa-times"></i></a>
+        <a href="" wicket:id="user.delete" class="btn btn-mini pull-right"><i class="fa fa-pencil"></i></a>
+
+        <div wicket:id="user.info.block"></div>
+    </div>
+
+    <div wicket:id="modal.add.member"></div>
+</wicket:panel>
+</body>
+</html>

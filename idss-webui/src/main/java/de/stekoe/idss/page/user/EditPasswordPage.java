@@ -4,9 +4,9 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.form.ControlGroup;
 import de.stekoe.idss.exception.UserException;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.page.AuthUserPage;
-import de.stekoe.idss.service.IUserService;
+import de.stekoe.idss.service.AuthService;
+import de.stekoe.idss.service.UserService;
 import de.stekoe.idss.session.WebSession;
-import de.stekoe.idss.util.PasswordUtil;
 import org.apache.log4j.Logger;
 import org.apache.wicket.markup.html.form.EmailTextField;
 import org.apache.wicket.markup.html.form.Form;
@@ -21,39 +21,40 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
  */
 @SuppressWarnings("serial")
 public class EditPasswordPage extends AuthUserPage {
-    private static final Logger LOG = Logger.getLogger(EditPasswordPage.class);
+    private static final Logger LOG = null;
 
-    @SpringBean
-    private IUserService userService;
+    @SpringBean private UserService userService;
+    @SpringBean private AuthService authService;
 
     private String currentPassword;
     private String newPassword;
     private String newPasswordConfirm;
     private String newEmail;
     private String newEmailConfirm;
+
     private PasswordTextField currentPasswordField;
     private PasswordTextField newPasswordField;
     private PasswordTextField newPasswordConfirmField;
     private EmailTextField newEmailField;
     private EmailTextField newEmailConfirmField;
 
-    /**
-     * Construct.
-     */
-    public EditPasswordPage() {
+    @Override
+    protected void onInitialize() {
+        super.onInitialize();
+
         @SuppressWarnings("rawtypes")
         Form form = new Form("editPassword") {
 
             @Override
             protected void onSubmit() {
-                User user = ((WebSession) getSession()).getUser();
-                if (!new PasswordUtil().checkPassword(currentPassword, user.getPassword())) {
+                User user = (User)((WebSession) getSession()).getUser();
+                if (!authService.checkPassword(currentPassword, user.getPassword())) {
                     getSession().error(getString("currentPasswort.wrong"));
                     return;
                 }
 
                 if (newPassword != null && newPasswordConfirm != null) {
-                    user.setPassword(new PasswordUtil().hashPassword(newPassword));
+                    user.setPassword(authService.hashPassword(newPassword));
                     getSession().info(getString("passwordChanged.success"));
                 }
 
@@ -90,7 +91,7 @@ public class EditPasswordPage extends AuthUserPage {
     private ControlGroup createCurrentPasswordGroup() {
         currentPasswordField = new PasswordTextField("currentPassword", new PropertyModel(this, "currentPassword"));
         currentPasswordField.setRequired(true);
-        currentPasswordField.setLabel(new StringResourceModel("currentPassword.label", this, null));
+        currentPasswordField.setLabel(new StringResourceModel("label.password.current", this, null));
 
         ControlGroup group = new ControlGroup("currentPasswordControlGroup");
         group.add(currentPasswordField);

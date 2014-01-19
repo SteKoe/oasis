@@ -9,7 +9,7 @@ package de.stekoe.idss.model.enums;
 public enum UserStatus {
     /**
      * Just for test users. Users having this status will not be able to
-     * login in production mode!
+     * authenticate in production mode!
      */
     TEST,
     /**

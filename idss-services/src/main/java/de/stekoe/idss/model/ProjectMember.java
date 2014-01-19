@@ -1,13 +1,13 @@
 package de.stekoe.idss.model;
 
+import de.stekoe.idss.IDGenerator;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
@@ -16,25 +16,22 @@ import java.util.HashSet;
 @Table(name = "ProjectMember")
 public class ProjectMember implements Serializable {
 
-    private String id;
+    private java.lang.String id = IDGenerator.createId();
     private User user;
-    private Collection<ProjectRole> projectRoles = new HashSet<ProjectRole>(0);
-    private Collection<ProjectMemberGroup> projectGroups = new HashSet<ProjectMemberGroup>(0);
-    private Project project;
+    private Set<ProjectRole> projectRoles = new HashSet<ProjectRole>();
+    private Set<ProjectMemberGroup> projectGroups = new HashSet<ProjectMemberGroup>();
 
     @Id
     @Column(name = "project_member_id")
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
-    public String getId() {
+    public java.lang.String getId() {
         return this.id;
     }
 
-    public void setId(String id) {
+    public void setId(java.lang.String id) {
         this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     public User getUser() {
         return this.user;
@@ -44,41 +41,24 @@ public class ProjectMember implements Serializable {
         this.user = user;
     }
 
-    @ManyToMany(fetch = FetchType.LAZY, targetEntity = ProjectRole.class)
+    @ManyToMany(targetEntity = ProjectRole.class)
     @JoinTable(name = "ProjectMemberToProjectRole", joinColumns = @JoinColumn(name = "project_member_id"), inverseJoinColumns = @JoinColumn(name = "project_role_id"))
-    public Collection<ProjectRole> getProjectRoles() {
+    public Set<ProjectRole> getProjectRoles() {
         return this.projectRoles;
     }
 
-    public void setProjectRoles(Collection<ProjectRole> projectRoles) {
+    public void setProjectRoles(Set<ProjectRole> projectRoles) {
         this.projectRoles = projectRoles;
     }
 
-    @ManyToMany(fetch = FetchType.LAZY, targetEntity = ProjectMemberGroup.class)
+    @ManyToMany(targetEntity = ProjectMemberGroup.class)
     @JoinTable(name = "ProjectMemberToProjectGroup", joinColumns = @JoinColumn(name = "project_member_id"), inverseJoinColumns = @JoinColumn(name = "project_group_id"))
-    public Collection<ProjectMemberGroup> getProjectGroups() {
+    public Set<ProjectMemberGroup> getProjectGroups() {
         return this.projectGroups;
     }
 
-    public void setProjectGroups(Collection<ProjectMemberGroup> projectGroups) {
+    public void setProjectGroups(Set<ProjectMemberGroup> projectGroups) {
         this.projectGroups = projectGroups;
-    }
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "project_id")
-    public Project getProject() {
-        return this.project;
-    }
-
-    public void setProject(Project project) {
-        this.project = project;
-    }
-
-    // UTILS ==================================================
-
-    @Transient
-    public boolean isLeader() {
-        return this.projectRoles.contains(ProjectRole.LEADER);
     }
 
     @Override
@@ -92,7 +72,6 @@ public class ProjectMember implements Serializable {
                 .append(getUser(), that.getUser())
                 .append(getProjectRoles(), that.getProjectRoles())
                 .append(getProjectGroups(), that.getProjectGroups())
-                .append(getProject(), that.getProject())
                 .isEquals();
     }
 
@@ -102,7 +81,6 @@ public class ProjectMember implements Serializable {
                 .append(getUser())
                 .append(getProjectRoles())
                 .append(getProjectGroups())
-                .append(getProject())
                 .hashCode();
     }
 }

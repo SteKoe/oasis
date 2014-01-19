@@ -9,10 +9,6 @@ import de.stekoe.idss.page.LayoutPage;
  */
 @SuppressWarnings("serial")
 public class RegistrationPage extends LayoutPage {
-
-    /**
-     * Construct.
-     */
     public RegistrationPage() {
         add(new RegistrationForm("form"));
     }

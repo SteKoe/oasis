@@ -4,22 +4,13 @@
       xmlns:wicket="http://wicket.sourceforge.net/" xml:lang="en" lang="en">
 <body>
 <wicket:extend>
-    <h1><wicket:container wicket:id="projectTitle"></wicket:container></h1>
-    <input type="text" wicket:id="projectTitleField">
-
+    <h1>
+        <wicket:container wicket:id="projectTitle"></wicket:container>
+        <small wicket:id="project.status"></small>
+    </h1>
+    <hr>
     <div class="row-fluid">
         <div class="span3">
-            <h4>Leitung
-                <small wicket:id="projectLeaderCount">3 Personen</small>
-            </h4>
-            <ul class="nav nav-tabs nav-stacked">
-                <li wicket:id="projectLeaderItem">
-                    <a href="" wicket:id="projectLeaderItemLink">
-                        <i class="icon-chevron-right"></i> <span wicket:id="projectLeaderItemLabel"></span>
-                    </a>
-                </li>
-            </ul>
-
             <h4>Mitarbeiter
                 <small wicket:id="projectMemberCount"></small>
             </h4>
@@ -31,26 +22,28 @@
                 </li>
             </ul>
 
-            <wicket:enclosure child="addMember">
-                <div class="well">
-                    <a href="#" class="btn btn-block" wicket:id="editProject">Projekt bearbeiten</a>
-                    <a href="#" class="btn btn-block" wicket:id="addMember">Person(en) hinzufügen</a>
-                </div>
+            <wicket:enclosure child="editProject">
+                <hr>
+                <h4>Verwaltung</h4>
+                <ul class="nav nav-tabs nav-stacked">
+                    <li>
+                        <a href="#" wicket:id="editProject">
+                            <i class="icon-chevron-right"></i> <span wicket:id="editProjectLinkLabel"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" wicket:id="addMember">
+                            <i class="icon-chevron-right"></i> <span wicket:id="addProjectMemberLink"></span>
+                        </a>
+                    </li>
+                </ul>
             </wicket:enclosure>
         </div>
 
         <div class="span9">
             <h4>Beschreibung</h4>
 
-            <wicket:enclosure child="descriptionTextArea">
-                <textarea wicket:id="descriptionTextArea" class="input-block-level"></textarea>
-            </wicket:enclosure>
-
-            <wicket:enclosure child="descriptionText">
-                <div wicket:id="descriptionText">
-
-                </div>
-            </wicket:enclosure>
+            <div wicket:id="descriptionText"></div>
 
             <h4>Überblick</h4>
             <ul>

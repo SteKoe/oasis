@@ -1,121 +1,59 @@
 package de.stekoe.idss.page.project;
 
-import de.agilecoders.wicket.core.markup.html.bootstrap.behavior.CssClassNameAppender;
-import de.stekoe.idss.component.behavior.CustomTinyMCESettings;
 import de.stekoe.idss.model.Project;
 import de.stekoe.idss.model.ProjectMember;
-import de.stekoe.idss.model.ProjectRole;
-import de.stekoe.idss.model.enums.PageMode;
+import de.stekoe.idss.model.enums.PermissionType;
 import de.stekoe.idss.page.HomePage;
-import de.stekoe.idss.page.auth.annotation.ProjectMemberOnly;
-import de.stekoe.idss.page.user.UserProfilePage;
-import de.stekoe.idss.service.IProjectService;
+import de.stekoe.idss.service.ProjectService;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.TextArea;
-import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
-import wicket.contrib.tinymce.TinyMceBehavior;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 
-import javax.inject.Inject;
 import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.List;
 
-@ProjectMemberOnly
 public class ProjectDetailsPage extends ProjectPage {
 
-    @Inject
-    IProjectService projectService;
-
-    private PageMode pageMode = PageMode.STANDARD;
+    @SpringBean ProjectService projectService;
 
     public ProjectDetailsPage(PageParameters pageParameters) {
         super(pageParameters);
 
         Project project = getProject();
-        final boolean userIsProjectLeader = project.userHasRole(ProjectRole.LEADER, getSession().getUser());
-
-        if(!pageParameters.get("edit").isNull() && userIsProjectLeader) {
-            pageMode = PageMode.EDIT;
-        }
 
         // Project Title
-        final Label projectTitle = new Label("projectTitle", Model.of(project.getName()));
-        add(projectTitle);
-
-        final TextField<String> projectTitleField = new TextField<String>("projectTitleField", Model.of(project.getName()));
-        add(projectTitleField);
-
-
-        // TinyMCE
-        final TextArea descriptionTextArea = new TextArea("descriptionTextArea", Model.of(project.getDescription()));
-        add(descriptionTextArea);
-        final TinyMceBehavior tinyMceBehavior = new TinyMceBehavior(CustomTinyMCESettings.getStandard());
-        descriptionTextArea.add(tinyMceBehavior);
+        add(new Label("projectTitle", Model.of(project.getName())));
+        add(new Label("project.status", Model.of(getString(project.getProjectStatus().getKey()))));
 
         // Description
-        final Label descriptionText = new Label("descriptionText", Model.of(project.getDescription()));
-        descriptionText.setEscapeModelStrings(false);
-        add(descriptionText);
-
-
-        final boolean pageIsInEditMode = pageMode.equals(PageMode.EDIT);
-        descriptionText.setVisible(!pageIsInEditMode);
-        projectTitle.setVisible(!pageIsInEditMode);
-
-        descriptionTextArea.setVisible(pageIsInEditMode);
-        projectTitleField.setVisible(pageIsInEditMode);
-
-        final BookmarkablePageLink<ProjectDetailsPage> editProjectLink = new BookmarkablePageLink<ProjectDetailsPage>("editProject", ProjectDetailsPage.class, new PageParameters().add("id", project.getId()).add("edit", true));
-        if(PageMode.EDIT.equals(pageMode)) {
-            editProjectLink.setBody(Model.of(getString("form.button.save")));
-            editProjectLink.add(new CssClassNameAppender("btn btn-success"));
-        } else {
-            editProjectLink.setBody(Model.of(getString("button.edit.project")));
+        String description = project.getDescription();
+        if(StringUtils.isEmpty(description)) {
+            description = getString("label.description.na");
         }
-        add(editProjectLink);
+        final Label descriptionText = new Label("descriptionText", Model.of(description));
+        add(descriptionText);
+        descriptionText.setEscapeModelStrings(false);
 
-        final BookmarkablePageLink<ProjectAddMember> addMemberLink = new BookmarkablePageLink<ProjectAddMember>("addMember", ProjectAddMember.class, new PageParameters().add("id", project.getId()));
+        final BookmarkablePageLink<ProjectEditPage> editProjectLink = new BookmarkablePageLink<ProjectEditPage>("editProject", ProjectEditPage.class, new PageParameters().add("id", project.getId()));
+        add(editProjectLink);
+        editProjectLink.add(new Label("editProjectLinkLabel", Model.of(getString("label.project.edit"))));
+        editProjectLink.setVisibilityAllowed(projectService.isAuthorized(getUser().getId(), project.getId(), PermissionType.UPDATE));
+
+        final BookmarkablePageLink<ProjectEditMemberPage> addMemberLink = new BookmarkablePageLink<ProjectEditMemberPage>("addMember", ProjectEditMemberPage.class, new PageParameters().add("id", project.getId()));
         add(addMemberLink);
+        addMemberLink.add(new Label("addProjectMemberLink", Model.of(getString("label.project.edit.member"))));
+        addMemberLink.setVisibilityAllowed(projectService.isAuthorized(getUser().getId(), project.getId(), PermissionType.PROJECT_EDIT_MEMBER));
 
         final Collection<ProjectMember> projectTeam = project.getProjectTeam();
-        listOfProjectLeader(projectTeam);
         listOfProjectMember(projectTeam);
-    }
-
-    private void listOfProjectLeader(Collection<ProjectMember> projectTeam) {
-        final List<ProjectMember> projectLeaders = (List<ProjectMember>) CollectionUtils.select(projectTeam, new Predicate() {
-            @Override
-            public boolean evaluate(Object object) {
-                ProjectMember pm = (ProjectMember) object;
-                return pm.isLeader();
-            }
-        });
-
-        add(new Label("projectLeaderCount", MessageFormat.format(getString("numberOfPersons"), projectLeaders.size())));
-
-        add(new ListView<ProjectMember>("projectLeaderItem", projectLeaders) {
-            @Override
-            protected void populateItem(ListItem<ProjectMember> item) {
-                ProjectMember pm = item.getModelObject();
-
-                PageParameters pageParams = new PageParameters();
-                pageParams.add("id", pm.getUser().getId());
-
-                final BookmarkablePageLink<UserProfilePage> userDetailsLink = new BookmarkablePageLink<UserProfilePage>("projectLeaderItemLink", UserProfilePage.class, pageParams);
-
-                Label userName = new Label("projectLeaderItemLabel", Model.of(pm.getUser().getUsername()));
-                userDetailsLink.add(userName);
-
-                item.add(userDetailsLink);
-            }
-        });
     }
 
     /* Creates necessary ui elements for Project Member section
@@ -125,11 +63,11 @@ public class ProjectDetailsPage extends ProjectPage {
             @Override
             public boolean evaluate(Object object) {
                 ProjectMember pm = (ProjectMember) object;
-                return !pm.isLeader();
+                return true;
             }
         });
 
-        add(new Label("projectMemberCount", MessageFormat.format(getString("numberOfPersons"), projectMember.size())));
+        add(new Label("projectMemberCount", MessageFormat.format(getString("label.project.numOfPersons"), projectMember.size())));
 
         add(new ListView<ProjectMember>("projectMemberItem", projectMember) {
             @Override
@@ -147,7 +85,7 @@ public class ProjectDetailsPage extends ProjectPage {
     }
 
     private void redirectToOverviewPage() {
-        setResponsePage(ProjectOverviewPage.class);
+        setResponsePage(ProjectListPage.class);
     }
 
 }

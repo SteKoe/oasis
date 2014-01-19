@@ -3,14 +3,8 @@
       xmlns:wicket="http://wicket.sourceforge.net/" xml:lang="en" lang="en">
 <body>
 <wicket:extend>
-    <div class="row-fluid">
-        <div class="span3">
-            <p>Dieses Formular ermöglicht Ihnen die Erstellung eines neuen Projekts. Als Ersteller des Projekts nehmen Sie
-            automatisch die Rolle des Projektleiters ein.</p>
-        </div>
-        <div class="span9" wicket:id="createProjectForm">
-        </div>
-    </div>
+    <h1><wicket:message key="form.project.create.title" /></h1>
+    <div wicket:id="form.create.project"></div>
 </wicket:extend>
 </body>
 </html>

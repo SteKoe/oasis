@@ -3,18 +3,15 @@ package de.stekoe.idss.component.form.auth.register;
 import de.agilecoders.wicket.core.markup.html.bootstrap.dialog.Alert;
 import de.agilecoders.wicket.core.markup.html.bootstrap.dialog.Alert.Type;
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.ControlGroup;
-import de.stekoe.idss.component.behavior.Placeholder;
 import de.stekoe.idss.exception.EmailAddressAlreadyInUseException;
 import de.stekoe.idss.exception.UsernameAlreadyInUseException;
 import de.stekoe.idss.mail.template.RegistrationMailTemplate;
-import de.stekoe.idss.model.SystemRole;
-import de.stekoe.idss.model.User;
-import de.stekoe.idss.model.UserProfile;
+import de.stekoe.idss.model.*;
 import de.stekoe.idss.page.user.ActivateUserPage;
-import de.stekoe.idss.service.IMailService;
-import de.stekoe.idss.service.ISystemRoleService;
-import de.stekoe.idss.service.IUserService;
-import de.stekoe.idss.util.PasswordUtil;
+import de.stekoe.idss.service.AuthService;
+import de.stekoe.idss.service.MailService;
+import de.stekoe.idss.service.SystemRoleService;
+import de.stekoe.idss.service.UserService;
 import de.stekoe.idss.validator.UniqueValueValidator;
 import org.apache.log4j.Logger;
 import org.apache.wicket.markup.html.form.*;
@@ -38,20 +35,16 @@ import java.util.Map;
 public class RegistrationForm extends Panel {
     private static final Logger LOG = Logger.getLogger(RegistrationForm.class);
 
-    @SpringBean
-    private IMailService mailService;
-
-    @SpringBean
-    private IUserService userService;
-
-    @SpringBean
-    private ISystemRoleService systemRoleService;
+    @SpringBean private MailService mailService;
+    @SpringBean private UserService userService;
+    @SpringBean private SystemRoleService systemRoleService;
+    @SpringBean private AuthService authService;
 
     private final User user = new User();
 
     private Form<User> form;
 
-    private RequiredTextField<String> usernameField;
+    private RequiredTextField<java.lang.String> usernameField;
     private EmailTextField email;
     private PasswordTextField password;
     private PasswordTextField passwordConfirm;
@@ -60,12 +53,13 @@ public class RegistrationForm extends Panel {
     private Alert successMessage;
     private Alert errorMessage;
 
-    /**
-     * Construct.
-     * @param id The id of this component
-     */
-    public RegistrationForm(String id) {
+    public RegistrationForm(java.lang.String id) {
         super(id);
+    }
+
+    @Override
+    protected void onInitialize() {
+        super.onInitialize();
 
         createRegistrationForm();
         createSuccessMessage();
@@ -73,7 +67,7 @@ public class RegistrationForm extends Panel {
     }
 
     private void createSuccessMessage() {
-        successMessage = new Alert("success", new StringResourceModel("success.message", this, null));
+        successMessage = new Alert("success", new StringResourceModel("message.registration.success", this, null));
         successMessage.type(Type.Success);
         successMessage.setCloseButtonVisible(true);
         successMessage.setVisible(false);
@@ -81,7 +75,7 @@ public class RegistrationForm extends Panel {
     }
 
     private void createErrorMessage() {
-        errorMessage = new Alert("error", new StringResourceModel("error.message", this, null));
+        errorMessage = new Alert("error", new StringResourceModel("message.registration.error", this, null));
         errorMessage.type(Type.Error);
         errorMessage.setCloseButtonVisible(true);
         errorMessage.setVisible(false);
@@ -119,7 +113,7 @@ public class RegistrationForm extends Panel {
 
             private User createUser() {
                 User user = getModelObject();
-                String hashedPassword = new PasswordUtil().hashPassword(user.getPassword());
+                java.lang.String hashedPassword = authService.hashPassword(user.getPassword());
                 user.setPassword(hashedPassword);
 
                 // Set standard roles
@@ -134,14 +128,14 @@ public class RegistrationForm extends Panel {
             }
 
             private void sendActivationMail(User user) {
-                String address = user.getEmail();
-                String subject = "Successfully registered!";
+                java.lang.String address = user.getEmail();
+                java.lang.String subject = "Successfully registered!";
 
-                Map<String, String> variables = new HashMap<String, String>();
+                Map<java.lang.String, java.lang.String> variables = new HashMap<java.lang.String, java.lang.String>();
                 variables.put("username", user.getUsername());
                 variables.put("activationlink", createActivationLink(user));
 
-                String message = new RegistrationMailTemplate().setVariables(variables);
+                java.lang.String message = new RegistrationMailTemplate().setVariables(variables);
 
                 mailService.sendMail(address, subject, message);
             }
@@ -167,7 +161,7 @@ public class RegistrationForm extends Panel {
         setSubmitButton();
     }
 
-    private String createActivationLink(User user) {
+    private java.lang.String createActivationLink(User user) {
         PageParameters pp = new PageParameters();
         pp.set(0, user.getActivationKey());
 
@@ -175,24 +169,23 @@ public class RegistrationForm extends Panel {
     }
 
     private ControlGroup getUsernameControlGroup() {
-        String id = "usernameControlGroup";
-        RequiredTextField<String> field = getUsernameField();
+        java.lang.String id = "usernameControlGroup";
+        RequiredTextField<java.lang.String> field = getUsernameField();
         return createControlGroup(id, field);
     }
 
     private void setUsernameField() {
-        usernameField = new RequiredTextField<String>("username");
-        usernameField.setLabel(new StringResourceModel("username.label", this, null));
+        usernameField = new RequiredTextField<java.lang.String>("username");
+        usernameField.setLabel(Model.of(getString("label.username")));
         usernameField.add(new UniqueValueValidator(userService.getAllUsernames()));
-        usernameField.add(new Placeholder("username.placeholder", this));
     }
 
-    private RequiredTextField<String> getUsernameField() {
+    private RequiredTextField<java.lang.String> getUsernameField() {
         return usernameField;
     }
 
     private ControlGroup getEmailControlGroup() {
-        String id = "emailControlGroup";
+        java.lang.String id = "emailControlGroup";
         EmailTextField field = getEmailField();
         return createControlGroup(id, field);
     }
@@ -200,9 +193,8 @@ public class RegistrationForm extends Panel {
     private void setEmailField() {
         email = new EmailTextField("email");
         email.setRequired(true);
-        email.setLabel(new StringResourceModel("email.label", this, null));
+        email.setLabel(Model.of(getString("label.email")));
         email.add(new UniqueValueValidator(userService.getAllEmailAddresses()));
-        email.add(new Placeholder("email.placeholder", this));
     }
 
     private EmailTextField getEmailField() {
@@ -210,7 +202,7 @@ public class RegistrationForm extends Panel {
     }
 
     private ControlGroup getPasswordControlGroup() {
-        String id = "passwordControlGroup";
+        java.lang.String id = "passwordControlGroup";
         PasswordTextField field = getPasswordField();
         return createControlGroup(id, field);
     }
@@ -221,11 +213,11 @@ public class RegistrationForm extends Panel {
 
     private void setPasswordField() {
         password = new PasswordTextField("password");
-        password.setLabel(new StringResourceModel("password.label", this, null));
+        password.setLabel(Model.of(getString("label.password")));
     }
 
     private ControlGroup getPasswordConfirmControlGroup() {
-        String id = "passwordConfirmControlGroup";
+        java.lang.String id = "passwordConfirmControlGroup";
         PasswordTextField field = getPasswordConfirmField();
         return createControlGroup(id, field);
     }
@@ -236,11 +228,11 @@ public class RegistrationForm extends Panel {
 
     private void setPasswordConfirmField() {
         passwordConfirm = new PasswordTextField("passwordConfirm", Model.of(""));
-        passwordConfirm.setLabel(new StringResourceModel("passwordConfirm.label", this, null));
+        passwordConfirm.setLabel(Model.of(getString("label.password.confirm")));
     }
 
     private ControlGroup getButtonControlGroup() {
-        String id = "buttonControlGroup";
+        java.lang.String id = "buttonControlGroup";
         Button submitButton = getSubmitButton();
         return createControlGroup(id, submitButton);
     }
@@ -251,11 +243,11 @@ public class RegistrationForm extends Panel {
 
     private void setSubmitButton() {
         submitButton = new Button("submit");
-        submitButton.setModel(new StringResourceModel("submit.label", this, null));
+        submitButton.setModel(Model.of(getString("label.submit")));
     }
 
     @SuppressWarnings("rawtypes")
-    private ControlGroup createControlGroup(String id, FormComponent... field) {
+    private ControlGroup createControlGroup(java.lang.String id, FormComponent... field) {
         ControlGroup cg = new ControlGroup(id);
         cg.add(field);
         return cg;

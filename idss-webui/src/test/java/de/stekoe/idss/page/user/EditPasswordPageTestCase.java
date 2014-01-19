@@ -1,122 +1,123 @@
 package de.stekoe.idss.page.user;
 
-import de.stekoe.idss.TestWebApplication;
-import de.stekoe.idss.page.UserAuthUser;
-import de.stekoe.idss.session.WebSession;
-import de.stekoe.idss.util.PasswordUtil;
+import de.stekoe.idss.TestFactory;
+import de.stekoe.idss.page.AbstractWicketApplicationTester;
+import de.stekoe.idss.service.AuthService;
 import org.apache.wicket.util.tester.FormTester;
-import org.apache.wicket.util.tester.WicketTester;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.test.annotation.DirtiesContext;
 
+import javax.inject.Inject;
 import java.util.Locale;
 
-public class EditPasswordPageTestCase {
+public class EditPasswordPageTestCase extends AbstractWicketApplicationTester {
 
     private static final String NEWPASSWORD = "i am your new password!";
     private static final String NEWEMAIL = "new_mail@example.com";
     private static final String NEWEMAIL_INVALID = "#@%^%#$@#$@#.com";
 
-    private WicketTester tester;
-
+    @Inject
+    private AuthService authService;
 
     @Before
     public void setUp() {
-        tester = new WicketTester(new TestWebApplication());
-        getSession().setUser(new UserAuthUser());
+        getSession().signIn(TestFactory.USER_USERNAME, TestFactory.USER_PASSWORD);
         getSession().setLocale(Locale.GERMAN);
     }
 
-    private WebSession getSession() {
-        return (WebSession)tester.getSession();
-    }
-
     @Test
+    @DirtiesContext
     public void currentPasswordRequired() throws Exception {
-        tester.startPage(EditPasswordPage.class);
-        tester.assertNoErrorMessage();
+        wicketTester.startPage(EditPasswordPage.class);
+        wicketTester.assertNoErrorMessage();
 
-        FormTester formTester = tester.newFormTester("editPassword");
+        FormTester formTester = wicketTester.newFormTester("editPassword");
         formTester.submit();
 
-        tester.assertRenderedPage(EditPasswordPage.class);
-        tester.assertErrorMessages("Bitte tragen Sie einen Wert im Feld 'Aktuelles Passwort' ein.");
+        wicketTester.assertRenderedPage(EditPasswordPage.class);
+        wicketTester.assertErrorMessages("Bitte tragen Sie einen Wert im Feld 'Aktuelles Passwort' ein.");
     }
 
     @Test
+    @DirtiesContext
     public void currentPasswortCorrect() throws Exception {
-        tester.startPage(EditPasswordPage.class);
-        tester.assertNoErrorMessage();
+        wicketTester.startPage(EditPasswordPage.class);
+        wicketTester.assertNoErrorMessage();
 
-        FormTester formTester = tester.newFormTester("editPassword");
-        formTester.setValue("currentPasswordControlGroup:currentPasswordControlGroup_body:currentPassword", UserAuthUser.PASSWORD);
+        FormTester formTester = wicketTester.newFormTester("editPassword");
+        formTester.setValue("currentPasswordControlGroup:currentPasswordControlGroup_body:currentPassword", TestFactory.USER_PASSWORD);
         formTester.submit();
 
-        tester.assertRenderedPage(EditPasswordPage.class);
-        tester.assertNoErrorMessage();
+        wicketTester.assertRenderedPage(EditPasswordPage.class);
+        wicketTester.assertNoErrorMessage();
     }
 
     @Test
+    @DirtiesContext
     public void currentPasswortInvalid() throws Exception {
-        tester.startPage(EditPasswordPage.class);
-        tester.assertNoErrorMessage();
+        wicketTester.startPage(EditPasswordPage.class);
+        wicketTester.assertNoErrorMessage();
 
-        FormTester formTester = tester.newFormTester("editPassword");
-        formTester.setValue("currentPasswordControlGroup:currentPasswordControlGroup_body:currentPassword", UserAuthUser.PASSWORD+"iambullshit");
+        FormTester formTester = wicketTester.newFormTester("editPassword");
+        formTester.setValue("currentPasswordControlGroup:currentPasswordControlGroup_body:currentPassword", TestFactory.USER_PASSWORD + "iambullshit");
         formTester.submit();
 
-        tester.assertRenderedPage(EditPasswordPage.class);
-        tester.assertErrorMessages("Das aktuelle Passwort ist falsch!");
+        wicketTester.assertRenderedPage(EditPasswordPage.class);
+        wicketTester.assertErrorMessages("Das aktuelle Passwort ist falsch!");
     }
 
     @Test
+    @DirtiesContext
     public void changePassword() throws Exception {
-        tester.startPage(EditPasswordPage.class);
+        wicketTester.startPage(EditPasswordPage.class);
 
-        FormTester formTester = tester.newFormTester("editPassword");
+        FormTester formTester = wicketTester.newFormTester("editPassword");
 
         // Set the current password
-        formTester.setValue("currentPasswordControlGroup:currentPasswordControlGroup_body:currentPassword", UserAuthUser.PASSWORD);
+        formTester.setValue("currentPasswordControlGroup:currentPasswordControlGroup_body:currentPassword", TestFactory.USER_PASSWORD);
 
         formTester.setValue("newPasswordControlGroup:newPasswordControlGroup_body:newPassword", NEWPASSWORD);
         formTester.setValue("newPasswordConfirmControlGroup:newPasswordConfirmControlGroup_body:newPasswordConfirm", NEWPASSWORD);
         formTester.submit();
 
         String currentNewPassword = getSession().getUser().getPassword();
-        Assert.assertTrue(new PasswordUtil().checkPassword(NEWPASSWORD, currentNewPassword));
+        Assert.assertTrue(authService.checkPassword(NEWPASSWORD, currentNewPassword));
 
-        tester.assertInfoMessages("Sie haben ihr Passwort erfolgreich geändert!");
-        tester.assertRenderedPage(EditPasswordPage.class);
+        wicketTester.assertInfoMessages("Sie haben ihr Passwort erfolgreich geändert!");
+        wicketTester.assertRenderedPage(EditPasswordPage.class);
     }
 
     @Test
+    @DirtiesContext
     public void newPasswordsAreNotEqual() throws Exception {
-        tester.startPage(EditPasswordPage.class);
+        wicketTester.startPage(EditPasswordPage.class);
 
-        FormTester formTester = tester.newFormTester("editPassword");
+        FormTester formTester = wicketTester.newFormTester("editPassword");
 
         // Set the current password
-        formTester.setValue("currentPasswordControlGroup:currentPasswordControlGroup_body:currentPassword", UserAuthUser.PASSWORD);
+        formTester.setValue("currentPasswordControlGroup:currentPasswordControlGroup_body:currentPassword", TestFactory.USER_PASSWORD);
 
         formTester.setValue("newPasswordControlGroup:newPasswordControlGroup_body:newPassword", NEWPASSWORD);
-        formTester.setValue("newPasswordConfirmControlGroup:newPasswordConfirmControlGroup_body:newPasswordConfirm", NEWPASSWORD+"dumbass");
+        formTester.setValue("newPasswordConfirmControlGroup:newPasswordConfirmControlGroup_body:newPasswordConfirm", NEWPASSWORD + "dumbass");
         formTester.submit();
 
         String currentNewPassword = getSession().getUser().getPassword();
-        Assert.assertFalse(new PasswordUtil().checkPassword(NEWPASSWORD, currentNewPassword));
+        Assert.assertFalse(authService.checkPassword(NEWPASSWORD, currentNewPassword));
 
-        tester.assertRenderedPage(EditPasswordPage.class);
+        wicketTester.assertRenderedPage(EditPasswordPage.class);
     }
 
     @Test
+    @DirtiesContext
     public void changeEmail() throws Exception {
-        tester.startPage(EditPasswordPage.class);
+        wicketTester.startPage(EditPasswordPage.class);
 
-        FormTester formTester = tester.newFormTester("editPassword");
+        FormTester formTester = wicketTester.newFormTester("editPassword");
 
         // Set the current password
-        formTester.setValue("currentPasswordControlGroup:currentPasswordControlGroup_body:currentPassword", UserAuthUser.PASSWORD);
+        formTester.setValue("currentPasswordControlGroup:currentPasswordControlGroup_body:currentPassword", TestFactory.USER_PASSWORD);
 
         formTester.setValue("newEmailControlGroup:newEmailControlGroup_body:newEmail", NEWEMAIL);
         formTester.setValue("newEmailConfirmControlGroup:newEmailConfirmControlGroup_body:newEmailConfirm", NEWEMAIL);
@@ -125,37 +126,39 @@ public class EditPasswordPageTestCase {
         String currentNewEmail = getSession().getUser().getEmail();
         Assert.assertTrue(currentNewEmail.equals(NEWEMAIL));
 
-        tester.assertInfoMessages("Sie haben ihre E-Mail-Adresse erfolgreich geändert!");
-        tester.assertRenderedPage(EditPasswordPage.class);
+        wicketTester.assertInfoMessages("Sie haben ihre E-Mail-Adresse erfolgreich geändert!");
+        wicketTester.assertRenderedPage(EditPasswordPage.class);
     }
 
     @Test
+    @DirtiesContext
     public void newEmailsAreNotEqual() throws Exception {
-        tester.startPage(EditPasswordPage.class);
+        wicketTester.startPage(EditPasswordPage.class);
 
-        FormTester formTester = tester.newFormTester("editPassword");
+        FormTester formTester = wicketTester.newFormTester("editPassword");
 
         // Set the current password
-        formTester.setValue("currentPasswordControlGroup:currentPasswordControlGroup_body:currentPassword", UserAuthUser.PASSWORD);
+        formTester.setValue("currentPasswordControlGroup:currentPasswordControlGroup_body:currentPassword", TestFactory.USER_PASSWORD);
 
         formTester.setValue("newEmailControlGroup:newEmailControlGroup_body:newEmail", NEWEMAIL);
-        formTester.setValue("newEmailConfirmControlGroup:newEmailConfirmControlGroup_body:newEmailConfirm", NEWEMAIL+"imakeyoubullshit");
+        formTester.setValue("newEmailConfirmControlGroup:newEmailConfirmControlGroup_body:newEmailConfirm", NEWEMAIL + "imakeyoubullshit");
         formTester.submit();
 
         String currentNewEmail = getSession().getUser().getEmail();
         Assert.assertFalse(currentNewEmail.equals(NEWEMAIL));
 
-        tester.assertRenderedPage(EditPasswordPage.class);
+        wicketTester.assertRenderedPage(EditPasswordPage.class);
     }
 
     @Test
+    @DirtiesContext
     public void newEmailsAreInvalidEmailAddresses() throws Exception {
-        tester.startPage(EditPasswordPage.class);
+        wicketTester.startPage(EditPasswordPage.class);
 
-        FormTester formTester = tester.newFormTester("editPassword");
+        FormTester formTester = wicketTester.newFormTester("editPassword");
 
         // Set the current password
-        formTester.setValue("currentPasswordControlGroup:currentPasswordControlGroup_body:currentPassword", UserAuthUser.PASSWORD);
+        formTester.setValue("currentPasswordControlGroup:currentPasswordControlGroup_body:currentPassword", TestFactory.USER_PASSWORD);
 
         formTester.setValue("newEmailControlGroup:newEmailControlGroup_body:newEmail", NEWEMAIL_INVALID);
         formTester.setValue("newEmailConfirmControlGroup:newEmailConfirmControlGroup_body:newEmailConfirm", NEWEMAIL_INVALID);
@@ -164,6 +167,6 @@ public class EditPasswordPageTestCase {
         String currentNewEmail = getSession().getUser().getEmail();
         Assert.assertFalse(currentNewEmail.equals(NEWEMAIL));
 
-        tester.assertRenderedPage(EditPasswordPage.class);
+        wicketTester.assertRenderedPage(EditPasswordPage.class);
     }
 }

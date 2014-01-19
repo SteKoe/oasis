@@ -1,5 +1,6 @@
 package de.stekoe.idss.model;
 
+import de.stekoe.idss.IDGenerator;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -14,9 +15,9 @@ import java.util.Date;
 @Table(name = "File")
 public class File implements Serializable {
 
-    private String id;
+    private java.lang.String id = IDGenerator.createId();
     private long size;
-    private String name;
+    private java.lang.String name;
     private User user;
     private Date created;
 
@@ -28,11 +29,11 @@ public class File implements Serializable {
     @Column(name = "file_id")
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid2")
-    public String getId() {
+    public java.lang.String getId() {
         return this.id;
     }
 
-    public void setId(String id) {
+    public void setId(java.lang.String id) {
         this.id = id;
     }
 
@@ -47,16 +48,16 @@ public class File implements Serializable {
 
     @NotNull
     @Basic(optional = false)
-    public String getName() {
+    public java.lang.String getName() {
         return this.name;
     }
 
-    public void setName(String name) {
+    public void setName(java.lang.String name) {
         this.name = name;
     }
 
     @NotNull
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "user_id", nullable = false)
     public User getUser() {
         return this.user;

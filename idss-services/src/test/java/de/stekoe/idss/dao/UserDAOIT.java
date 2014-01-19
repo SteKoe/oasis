@@ -1,8 +1,6 @@
 package de.stekoe.idss.dao;
 
-import de.stekoe.idss.model.SystemRole;
-import de.stekoe.idss.model.User;
-import de.stekoe.idss.model.UserProfile;
+import de.stekoe.idss.model.*;
 import org.hamcrest.core.Is;
 import org.hamcrest.core.IsEqual;
 import org.junit.Before;

@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:wicket="http://wicket.sourceforge.net/" xml:lang="en" lang="en">
+<body>
+<wicket:extend>
+    <form class="form-horizontal" wicket:id="userprofile">
+        <fieldset>
+            <legend>Erforderliche Angaben zur Registrierung.</legend>
+            <div class="control-group">
+                <label class="control-label" for="email">E-Mail &amp; Passwort:</label>
+
+                <div class="controls">
+                    <a href="#" class="btn" wicket:id="changePasswordOrEmailLink">E-Mail oder Passwort
+                        ändern</a>
+                        <span class="help-block">
+                          Bitte klicken Sie auf obigen Link, um die E-Mail-Adresse und/oder das Kennwort zu ändern.
+                          Alle Änderungen, die auf dieser Seite vorgenommen wurden, werden nicht gespeichert.
+                        </span>
+                </div>
+            </div>
+
+            <legend>Freiwillige Angaben - Diese Informationen sind von allen Benutzern einsehbar.</legend>
+            <!-- Firstname -->
+            <div class="control-group">
+                <label class="control-label" for="firstname">Vorname:</label>
+
+                <div class="controls">
+                    <input type="text" id="firstname" wicket:id="firstname"/>
+                </div>
+            </div>
+            <!-- Surename -->
+            <div class="control-group">
+                <label class="control-label" for="surename">Nachname:</label>
+
+                <div class="controls">
+                    <input type="text" id="surename" wicket:id="surname"/>
+                </div>
+            </div>
+            <!-- Birthday -->
+            <div class="control-group">
+                <label class="control-label" for="birthday">Geburtstag:</label>
+
+                <div class="controls">
+                    <input type="text" id="birthday" wicket:id="birthday"/>
+                </div>
+            </div>
+            <!-- Submit -->
+            <div class="control-group">
+                <div class="controls">
+                    <button type="submit" class="btn btn-success">Speichern</button>
+                    <button type="reset" class="btn">Zurücksetzen</button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</wicket:extend>
+</body>
+</html>

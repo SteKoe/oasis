@@ -1,12 +1,7 @@
 package de.stekoe.idss.page.project;
 
-import de.stekoe.idss.model.Project;
-import de.stekoe.idss.model.ProjectMember;
-import de.stekoe.idss.model.ProjectRole;
-import de.stekoe.idss.model.User;
+import de.stekoe.idss.model.*;
 import de.stekoe.idss.page.AuthUserPage;
-import de.stekoe.idss.page.auth.annotation.ProjectLeaderOnly;
-import de.stekoe.idss.page.auth.annotation.ProjectMemberOnly;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.log4j.Logger;
@@ -53,21 +48,6 @@ public class AuthProjectPage extends AuthUserPage {
      * @return
      */
     protected boolean isAuthorized(User user, Project project) {
-        final ProjectMemberOnly projectMemberOnly = this.getClass().getAnnotation(ProjectMemberOnly.class);
-        final ProjectLeaderOnly projectLeaderOnly = this.getClass().getAnnotation(ProjectLeaderOnly.class);
-
-        if (projectMemberOnly != null) {
-            if (isUserProjectMember(user, project) == false) {
-                return false;
-            }
-        }
-
-        if (projectLeaderOnly != null) {
-            if (isUserProjectLeader(user, project) == false) {
-                return false;
-            }
-        }
-
         return true;
     }
 

@@ -2,7 +2,6 @@ package de.stekoe.idss.dao.impl;
 
 import de.stekoe.idss.dao.IProjectRoleDAO;
 import de.stekoe.idss.model.ProjectRole;
-import de.stekoe.idss.model.SystemRole;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 
@@ -16,7 +15,7 @@ public class ProjectRoleDAO extends GenericDAO implements IProjectRoleDAO {
 
     @Override
     public void save(ProjectRole role) {
-        getCurrentSession().update(role);
+        getCurrentSession().saveOrUpdate(role);
     }
 
     @Override
@@ -32,12 +31,12 @@ public class ProjectRoleDAO extends GenericDAO implements IProjectRoleDAO {
 
     @Override
     public ProjectRole findById(Serializable id) {
-        return (ProjectRole) getCurrentSession().get(SystemRole.class, id);
+        return (ProjectRole) getCurrentSession().get(ProjectRole.class, id);
     }
 
     @Override
     public List<ProjectRole> findAll() {
-        return getCurrentSession().createCriteria(SystemRole.class).list();
+        return getCurrentSession().createCriteria(ProjectRole.class).list();
     }
 
     @Override

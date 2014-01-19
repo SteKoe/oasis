@@ -1,0 +1,27 @@
+<html xmlns:wicket>
+<body>
+<wicket:panel>
+    <ul>
+        <li>
+            <a wicket:id="first">first</a>
+        </li>
+        <li>
+            <a wicket:id="prev"><i class="fa fa-backward"></i></a>
+        </li>
+        <wicket:container wicket:id="navigation">
+            <li>
+                <a wicket:id="pageLink" href="#">
+                    <span wicket:id="pageNumber">5</span>
+                </a>
+            </li>
+        </wicket:container>
+        <li>
+            <a wicket:id="next"><i class="fa fa-forward"></i></a>
+        </li>
+        <li>
+            <a wicket:id="last">last</a>
+        </li>
+    </ul>
+</wicket:panel>
+</body>
+</html>

@@ -1,7 +1,6 @@
 package de.stekoe.idss.component.behavior;
 
-import org.apache.wicket.request.Url;
-import org.apache.wicket.request.resource.UrlResourceReference;
+import de.stekoe.idss.theme.BootstrapTheme;
 import wicket.contrib.tinymce.settings.TinyMCESettings;
 
 /**
@@ -12,7 +11,8 @@ public class CustomTinyMCESettings {
         TinyMCESettings settings = new TinyMCESettings();
         settings.setToolbarLocation(TinyMCESettings.Location.top);
         settings.setToolbarAlign(TinyMCESettings.Align.left);
-        settings.setContentCss(new UrlResourceReference(Url.parse("/css/tinymce.css")));
+        settings.setContentCss(BootstrapTheme.CSS_TINYMCE);
+        settings.addCustomSetting("width: '100%'");
 
         return settings;
     }

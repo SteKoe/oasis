@@ -2,14 +2,19 @@ package de.stekoe.idss.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
-@ContextConfiguration(locations = { "classpath:/spring/BeanLocations.xml", "classpath:/spring/TestBeanLocations.xml"})
-@TransactionConfiguration(transactionManager = "transactionManager", defaultRollback=true)
-public abstract class BaseTest extends AbstractTransactionalJUnit4SpringContextTests {
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations={"classpath:services/BeanLocations.xml","classpath:services/TestBeanLocations.xml"})
+@TransactionConfiguration
+@Transactional
+public abstract class BaseTest {
+
     @Autowired
     SessionFactory sessionFactory;
 

@@ -1,6 +1,6 @@
 package de.stekoe.idss.model;
 
-import org.hibernate.annotations.GenericGenerator;
+import de.stekoe.idss.IDGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -10,14 +10,12 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 public class ProjectMemberGroup {
-    private String id;
+    private String id = IDGenerator.createId();
     private String name;
     private Project project;
 
     @Id
     @Column(name = "project_member_group_id")
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
     public String getId() {
         return this.id;
     }

@@ -20,6 +20,7 @@ public class AuthorizationStrategy implements IAuthorizationStrategy, IUnauthori
     @Override
     public void onUnauthorizedInstantiation(Component component) {
         LOG.error("ERROR 403: Redirecting user!");
+        WebSession.get().error("WHAAATT????");
         throw new RestartResponseAtInterceptPageException(LoginPage.class);
     }
 
@@ -37,18 +38,16 @@ public class AuthorizationStrategy implements IAuthorizationStrategy, IUnauthori
     }
 
     private boolean isAuthorized(Class c) {
-        final User currentUser = WebSession.get().getUser();
+        final User user = WebSession.get().getUser();
 
         AdminOnly adminRequired = (AdminOnly) c.getAnnotation(AdminOnly.class);
         UserOnly userRequired = (UserOnly) c.getAnnotation(UserOnly.class);
 
         if (adminRequired != null) {
-            User user = currentUser;
             return (user != null && user.isAdmin());
         }
 
         if (userRequired != null) {
-            User user = currentUser;
             return (user != null);
         }
 

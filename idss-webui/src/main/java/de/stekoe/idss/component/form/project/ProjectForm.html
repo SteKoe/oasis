@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:wicket="http://wicket.sourceforge.net/">
+<body>
+<wicket:panel>
+    <form wicket:id="form.project">
+        <div class="control-group well" wicket:id="buttonControlGroup">
+            <button type="submit" class="btn btn-success" wicket:id="submitButton">
+                <i class="fa fa-save"></i> <wicket:message key="label.save"></wicket:message>
+            </button>
+            <a href="" class="btn" wicket:id="cancelButton">
+                <wicket:message key="label.cancel"></wicket:message>
+            </a>
+        </div>
+
+        <div class="control-group" wicket:id="projectNameControlGroup">
+            <input wicket:id="name" type="text" class="input-block-level">
+        </div>
+
+        <div class="control-group" wicket:id="projectDescriptionControlGroup">
+            <textarea wicket:id="description" class="input-block-level"></textarea>
+        </div>
+
+        <div class="control-group" wicket:id="projectFileUploadControlGroup">
+            <div wicket:id="files" class="fileUpload">
+            </div>
+        </div>
+    </form>
+</wicket:panel>
+</body>
+</html>

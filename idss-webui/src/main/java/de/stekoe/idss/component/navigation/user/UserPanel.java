@@ -5,14 +5,11 @@ import de.stekoe.idss.page.auth.LoginPage;
 import de.stekoe.idss.page.auth.LogoutPage;
 import de.stekoe.idss.page.auth.RegistrationPage;
 import de.stekoe.idss.page.user.CreateUserPage;
-import de.stekoe.idss.page.user.UserProfilePage;
+import de.stekoe.idss.page.user.EditUserProfilePage;
 import de.stekoe.idss.session.WebSession;
-import org.apache.wicket.RestartResponseAtInterceptPageException;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
-import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.PropertyModel;
 
 /**
  * Panel shown when user is logged in.
@@ -20,13 +17,21 @@ import org.apache.wicket.model.PropertyModel;
 @SuppressWarnings("serial")
 public class UserPanel extends Panel {
 
+    private java.lang.String username = "N/A";
+
     /**
      * Construct.
      * @param id wicket:id
      */
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    public UserPanel(String id) {
+    public UserPanel(java.lang.String id) {
         super(id);
+
+        final User currentUser = WebSession.get().getUser();
+        if(currentUser != null) {
+            username = currentUser.getUsername();
+        }
+
         createLoggedInPanel();
         createLoggedOutPanel();
         createAdminPanel();
@@ -34,13 +39,9 @@ public class UserPanel extends Panel {
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
     private void createLoggedInPanel() {
-        Link userProfileLink = new Link("userProfile") {
-            @Override
-            public void onClick() {
-                throw new RestartResponseAtInterceptPageException(UserProfilePage.class);
-            }
-        };
-        userProfileLink.add(new Label("username", new PropertyModel(this, "session.user.username")));
+        final BookmarkablePageLink<EditUserProfilePage> userProfileLink = new BookmarkablePageLink<EditUserProfilePage>("userProfile", EditUserProfilePage.class);
+        userProfileLink.add(new Label("username", username));
+
         add(userProfileLink);
         add(new BookmarkablePageLink("signout", LogoutPage.class) {
             @Override
@@ -50,30 +51,14 @@ public class UserPanel extends Panel {
         });
     }
 
-    @SuppressWarnings("rawtypes")
     private void createLoggedOutPanel() {
-        add(new Link("signin") {
-            @Override
-            public void onClick() {
-                throw new RestartResponseAtInterceptPageException(LoginPage.class);
-            }
+        final BookmarkablePageLink<LoginPage> signin = new BookmarkablePageLink<LoginPage>("signin", LoginPage.class);
+        signin.setVisible(!WebSession.get().isSignedIn());
+        add(signin);
 
-            @Override
-            public boolean isVisible() {
-                return !WebSession.get().isSignedIn();
-            }
-        });
-        add(new Link("register") {
-            @Override
-            public void onClick() {
-                throw new RestartResponseAtInterceptPageException(RegistrationPage.class);
-            }
-
-            @Override
-            public boolean isVisible() {
-                return !WebSession.get().isSignedIn();
-            }
-        });
+        final BookmarkablePageLink<RegistrationPage> register = new BookmarkablePageLink<RegistrationPage>("register", RegistrationPage.class);
+        register.setVisible(!WebSession.get().isSignedIn());
+        add(register);
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })

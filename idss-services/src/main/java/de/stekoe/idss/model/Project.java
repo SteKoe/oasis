@@ -1,113 +1,93 @@
 package de.stekoe.idss.model;
 
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Predicate;
-import org.hibernate.annotations.GenericGenerator;
+import de.stekoe.idss.IDGenerator;
+import de.stekoe.idss.model.enums.ProjectStatus;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
 @Entity
 @Table(name = "Project")
-public class Project implements Serializable {
+public class Project implements Serializable, Identifyable {
 
-    private String id;
-    private String name;
-    private String description;
-    private Collection<ProjectMember> projectTeam = new HashSet<ProjectMember>(0);
-    private Collection<File> files = new HashSet<File>(0);
+    private java.lang.String id = IDGenerator.createId();
+    private java.lang.String name;
+    private java.lang.String description;
+    private Set<ProjectMember> projectTeam = new HashSet<ProjectMember>(0);
+    private Set<File> files = new HashSet<File>(0);
+    private Set<ProjectRole> projectRoles = new HashSet<ProjectRole>();
+    private ProjectStatus projectStatus = ProjectStatus.EDITING;
 
     @Id
     @Column(name = "project_id")
-    @GeneratedValue(generator="system-uuid")
-    @GenericGenerator(name="system-uuid", strategy = "uuid2")
-    public String getId() {
+    public java.lang.String getId() {
         return this.id;
     }
 
-    public void setId(String id) {
+    public void setId(java.lang.String id) {
         this.id = id;
     }
 
     @NotNull
     @Column(nullable=false)
-    public String getName() {
+    public java.lang.String getName() {
         return this.name;
     }
 
-    public void setName(String name) {
+    public void setName(java.lang.String name) {
         this.name = name;
     }
 
     @Lob
-    public String getDescription() {
+    @NotNull
+    public java.lang.String getDescription() {
         return this.description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(java.lang.String description) {
         this.description = description;
     }
 
-    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
-    public Collection<ProjectMember> getProjectTeam() {
+    @OneToMany(cascade = CascadeType.ALL, targetEntity = ProjectMember.class)
+    public Set<ProjectMember> getProjectTeam() {
         return projectTeam;
     }
 
-    public void setProjectTeam(Collection<ProjectMember> projectTeam) {
+    public void setProjectTeam(Set<ProjectMember> projectTeam) {
         this.projectTeam = projectTeam;
     }
 
-    @ManyToMany
+    @ManyToMany(targetEntity = File.class)
     @JoinTable(name = "ProjectFiles", joinColumns = @JoinColumn(name = "project_id"), inverseJoinColumns = @JoinColumn(name = "file_id"))
-    public Collection<File> getFiles() {
+    public Set<File> getFiles() {
         return this.files;
     }
 
-    public void setFiles(Collection<File> files) {
+    public void setFiles(Set<File> files) {
         this.files = files;
     }
 
-    @Transient
-    public boolean userIsMember(final User user) {
-        for(ProjectMember pm : getProjectTeam()) {
-            if(pm.getUser().equals(user)) {
-                return true;
-            }
-        }
-
-        return true;
+    @OneToMany(targetEntity = ProjectRole.class, cascade = CascadeType.ALL)
+    public Set<ProjectRole> getProjectRoles() {
+        return projectRoles;
     }
 
-    @Transient
-    public Collection<ProjectRole> getProjectRolesForUser(final User user) {
-
-        ProjectMember projectMemberObject = (ProjectMember)CollectionUtils.find(this.getProjectTeam(), new Predicate() {
-            public boolean evaluate(Object o) {
-                ProjectMember c = (ProjectMember) o;
-                final String userIdToCheck = user.getId();
-                final String currentUserId = c.getUser().getId();
-                return currentUserId.equals(userIdToCheck);
-            }
-        });
-
-        if(projectMemberObject == null) {
-            return Collections.emptySet();
-        }
-
-        return projectMemberObject.getProjectRoles();
+    public void setProjectRoles(Set<ProjectRole> projectRoles) {
+        this.projectRoles = projectRoles;
     }
 
-    @Transient
-    public boolean userHasRole(ProjectRole role, User user) {
-        Collection<ProjectRole> userRoles = getProjectRolesForUser(user);
+    @Enumerated(value = EnumType.STRING)
+    public ProjectStatus getProjectStatus() {
+        return projectStatus;
+    }
 
-        return userRoles.contains(role);
+    public void setProjectStatus(ProjectStatus projectStatus) {
+        this.projectStatus = projectStatus;
     }
 }

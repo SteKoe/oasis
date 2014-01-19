@@ -1,13 +1,15 @@
 package de.stekoe.idss.session;
 
-import de.stekoe.idss.service.ServiceRepository;
+import de.stekoe.idss.model.User;
+import de.stekoe.idss.service.AuthService;
+import de.stekoe.idss.service.AuthStatus;
+import de.stekoe.idss.service.UserService;
 import org.apache.log4j.Logger;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
+import org.apache.wicket.injection.Injector;
 import org.apache.wicket.request.Request;
-
-import de.stekoe.idss.model.User;
-import de.stekoe.idss.service.IUserService.LoginStatus;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 
 /**
  * @author Stephan Köninger <mail@stekoe.de>
@@ -15,48 +17,36 @@ import de.stekoe.idss.service.IUserService.LoginStatus;
 @SuppressWarnings("serial")
 public class WebSession extends AuthenticatedWebSession {
 
-    private static final Logger LOG = Logger.getLogger(WebSession.class);
+    @SpringBean UserService userService;
+    @SpringBean AuthService authService;
 
     private User user;
-    private LoginStatus loginStatus;
+    private static final Logger LOG = Logger.getLogger(WebSession.class);
 
     /**
      * @param request The current request.
      */
     public WebSession(Request request) {
         super(request);
+        Injector.get().inject(this);
     }
 
     /**
      * @return The User saved in the session.
      */
     public User getUser() {
-        return user;
+        return this.user;
     }
 
     /**
      * @param user User to be stored in session.
      */
-    public void setUser(User user) {
+    void setUser(User user) {
         this.user = user;
     }
 
     /**
-     * @param loginStatus The current loginStatus
-     */
-    private void setLoginStatus(LoginStatus loginStatus) {
-        this.loginStatus = loginStatus;
-    }
-
-    /**
-     * @return the last known login status.
-     */
-    public LoginStatus getLoginStatus() {
-        return this.loginStatus;
-    }
-
-    /**
-     * @return The current IDSSSession instance.
+     * @return The current session instance.
      */
     public static WebSession get() {
         return (WebSession) org.apache.wicket.Session.get();
@@ -66,23 +56,47 @@ public class WebSession extends AuthenticatedWebSession {
     public Roles getRoles() {
         LOG.info("Checking roles on user " + getUser());
         if(getUser() != null) {
-            return new Roles(getUser().getRoles().toArray(new String[getUser().getRoles().size()]));
+            return new Roles(getUser().getRoles().toArray(new java.lang.String[getUser().getRoles().size()]));
         }
 
         return new Roles();
     }
 
+    /**
+     * This method is called by {@link #signIn(java.lang.String, java.lang.String)}
+     *
+     * @param username  The username to authenticate
+     * @param password  The password of the user to authenticate
+     * @return true if username and password match, false otherwise
+     */
     @Override
-    public boolean authenticate(String username, String password) {
-        setLoginStatus(null);
+    public boolean authenticate(java.lang.String username, java.lang.String password) {
+        final AuthStatus authStatus = authenticateByService(username, password);
 
-        LoginStatus loginStatus = ServiceRepository.getUserService().login(username, password);
-
-        if (loginStatus.equals(LoginStatus.SUCCESS)) {
+        if(authStatus.equals(AuthStatus.SUCCESS)) {
+            final User user = getUserFromService(username);
+            setUser(user);
             return true;
-        } else {
-            setLoginStatus(loginStatus);
-            return false;
         }
+
+        return false;
     }
+
+    @Override
+    public void signOut() {
+        super.signOut();
+        setUser(null);
+    }
+
+    /*
+     * Since this object is instanciated manually, we have to get the beans for user service manually, too.
+     */
+    protected User getUserFromService(java.lang.String username) {
+        return userService.findByUsernameOrEmail(username);
+    }
+
+    protected AuthStatus authenticateByService(java.lang.String username, java.lang.String password) {
+        return authService.authenticate(username, password);
+    }
+
 }

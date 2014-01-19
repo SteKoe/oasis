@@ -1,5 +1,10 @@
 package de.stekoe.idss.component.form.auth.login;
 
+import de.agilecoders.wicket.core.markup.html.bootstrap.form.ControlGroup;
+import de.stekoe.idss.component.feedbackpanel.MyFencedFeedbackPanel;
+import de.stekoe.idss.page.project.ProjectListPage;
+import de.stekoe.idss.service.AuthService;
+import de.stekoe.idss.service.AuthStatus;
 import de.stekoe.idss.session.WebSession;
 import org.apache.log4j.Logger;
 import org.apache.wicket.markup.html.basic.Label;
@@ -9,13 +14,9 @@ import org.apache.wicket.markup.html.form.StatelessForm;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-
-import de.agilecoders.wicket.core.markup.html.bootstrap.form.ControlGroup;
-import de.stekoe.idss.component.feedbackpanel.MyFencedFeedbackPanel;
-import de.stekoe.idss.service.IUserService;
-import de.stekoe.idss.service.IUserService.LoginStatus;
 
 /**
  * @author Stephan Köninger <mail@stekoe.de>
@@ -25,7 +26,7 @@ public class LoginForm extends Panel {
     private static final Logger LOG = Logger.getLogger(LoginForm.class);
 
     @SpringBean
-    private IUserService userManager;
+    private AuthService authService;
 
     private Label successMessage;
 
@@ -40,7 +41,7 @@ public class LoginForm extends Panel {
     }
 
     private void createSuccessMessage() {
-        successMessage = new Label("success", new StringResourceModel("success.message", this, null));
+        successMessage = new Label("success", new StringResourceModel("message.registration.success", this, null));
         successMessage.setVisible(false);
         add(successMessage);
     }
@@ -69,7 +70,7 @@ public class LoginForm extends Panel {
         private ControlGroup newPasswordTextField() {
             ControlGroup cg = new ControlGroup("passwordControlGroup");
             PasswordTextField passwordTextField = new PasswordTextField("password");
-            passwordTextField.setLabel(new StringResourceModel("password.label", this, null));
+            passwordTextField.setLabel(Model.of(getString("label.password")));
             cg.add(passwordTextField);
             return cg;
         }
@@ -77,7 +78,7 @@ public class LoginForm extends Panel {
         private ControlGroup newUsernameTextField() {
             ControlGroup cg = new ControlGroup("usernameControlGroup");
             TextField usernameTextField = new TextField("username");
-            usernameTextField.setLabel(new StringResourceModel("username.label", this, null));
+            usernameTextField.setLabel(Model.of(getString("label.username")));
             cg.add(usernameTextField);
             return cg;
         }
@@ -85,44 +86,45 @@ public class LoginForm extends Panel {
         private ControlGroup newButton() {
             ControlGroup cg = new ControlGroup("buttonControlGroup");
             Button button = new Button("submit");
-            button.setModel(new StringResourceModel("submit.label", this, null));
+            button.setModel(Model.of(getString("label.submit")));
             cg.add(button);
             return cg;
         }
 
         @Override
         protected void onSubmit() {
+
             if (username != null && password != null) {
-                if (WebSession.get().signIn(username, password)) {
-                    LOG.info(String.format("User %s has logged in!", username));
-                    setResponsePage(getApplication().getHomePage());
+
+                final AuthStatus authStatus = authService.authenticate(username, password);
+                LOG.info(String.format("Login for User %s returned status %s.", username, authStatus.toString()));
+
+                if (authStatus.equals(AuthStatus.SUCCESS)) {
+                    WebSession.get().success(getString("message.login.success"));
+                    WebSession.get().signIn(username, password);
+                    setResponsePage(ProjectListPage.class);
                 } else {
-                    LoginStatus loginStatus = WebSession.get().getLoginStatus();
-
-                    LOG.warn(String.format("Login for User %s returned status %s.", username, loginStatus.toString()));
-
                     boolean error = true;
                     String message;
-                    switch (loginStatus) {
+                    switch (authStatus) {
                         case USER_NOT_ACTIVATED:
-                            message = getString("login.error.not_activated");
+                            message = getString("message.login.error.not_activated");
                             error = false;
                             break;
                         case USER_NOT_FOUND:
-                            message = getString("login.error.user_not_found");
+                            message = getString("message.login.error.user_not_found");
                             break;
                         case WRONG_PASSWORD:
-                            message = getString("login.error.wrong_password");
+                            message = getString("message.login.error.wrong_password");
                             break;
                         default:
-                            message = getString("login.error");
-                            break;
+                            message = getString("message.login.error");
                     }
 
                     if (error) {
-                        error(message);
+                        WebSession.get().error(message);
                     } else {
-                        info(message);
+                        WebSession.get().info(message);
                     }
                 }
             }

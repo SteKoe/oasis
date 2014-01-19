@@ -5,11 +5,12 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.INavbarComponent;
 import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.Navbar;
 import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarButton;
 import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarComponents;
+import de.stekoe.idss.page.InjectCheckPage;
+import de.stekoe.idss.page.project.ProjectListPage;
 import de.stekoe.idss.session.WebSession;
 import de.stekoe.idss.page.ContactPage;
 import de.stekoe.idss.page.HomePage;
 import de.stekoe.idss.page.auth.RegistrationPage;
-import de.stekoe.idss.page.project.ProjectOverviewPage;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
@@ -43,11 +44,21 @@ public class MainNavigation extends Panel {
         navbar.setPosition(Navbar.Position.DEFAULT);
 
         List<INavbarComponent> navbarComponent = NavbarComponents.transform(
-                Navbar.ComponentPosition.LEFT, createHomePageLink(), createContactPageLink(), createProjectOverviewPageLink());
+                Navbar.ComponentPosition.LEFT,
+                createHomePageLink(),
+                createContactPageLink(),
+                createProjectOverviewPageLink(),
+                createInjectCheckPage());
         navbar.addComponents(navbarComponent);
 
 
         return navbar;
+    }
+
+    private NavbarButton<InjectCheckPage> createInjectCheckPage() {
+        NavbarButton<InjectCheckPage> injectTestPage = new NavbarButton<InjectCheckPage>(
+                InjectCheckPage.class, Model.of("Test Page"));
+        return injectTestPage;
     }
 
     private NavbarButton<HomePage> createHomePageLink() {
@@ -71,8 +82,8 @@ public class MainNavigation extends Panel {
         return registrationPage;
     }
 
-    private NavbarButton<ProjectOverviewPage> createProjectOverviewPageLink() {
-        NavbarButton<ProjectOverviewPage> projectOverview = new NavbarButton<ProjectOverviewPage>(ProjectOverviewPage.class, Model.of("Project overview"));
+    private NavbarButton<ProjectListPage> createProjectOverviewPageLink() {
+        NavbarButton<ProjectListPage> projectOverview = new NavbarButton<ProjectListPage>(ProjectListPage.class, Model.of("Project overview"));
         projectOverview.setVisible(WebSession.get().getUser() != null);
         return projectOverview;
     }

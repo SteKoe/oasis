@@ -2,6 +2,7 @@ package de.stekoe.idss.dao.impl;
 
 import de.stekoe.idss.dao.IUserProfileDAO;
 import de.stekoe.idss.model.UserProfile;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.List;
@@ -9,11 +10,12 @@ import java.util.List;
 /**
  * @author Stephan Köninger <mail@stekoe.de>
  */
+@Transactional
 public class UserProfileDAO extends GenericDAO implements IUserProfileDAO {
 
     @Override
     public void save(UserProfile entity) {
-        getCurrentSession().save(entity);
+        getCurrentSession().saveOrUpdate(entity);
     }
 
     @Override

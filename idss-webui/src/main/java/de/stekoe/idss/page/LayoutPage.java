@@ -1,23 +1,26 @@
 package de.stekoe.idss.page;
 
+import de.agilecoders.wicket.core.Bootstrap;
 import de.stekoe.idss.component.feedbackpanel.MyFencedFeedbackPanel;
 import de.stekoe.idss.component.navigation.language.LanguageSwitcher;
 import de.stekoe.idss.component.navigation.main.MainNavigation;
 import de.stekoe.idss.component.navigation.user.UserPanel;
+import de.stekoe.idss.model.User;
 import de.stekoe.idss.session.WebSession;
-import org.apache.log4j.Logger;
+import de.stekoe.idss.theme.BootstrapTheme;
 import org.apache.wicket.devutils.debugbar.DebugBar;
 import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.feedback.IFeedbackMessageFilter;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.FormComponent;
-import org.apache.wicket.markup.html.image.ContextImage;
+import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.panel.EmptyPanel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.apache.wicket.request.resource.ContextRelativeResource;
 
 /**
  * @author Stephan Köninger <mail@stekoe.de>
@@ -25,34 +28,16 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 @SuppressWarnings("serial")
 public abstract class LayoutPage extends WebPage {
 
-    private static final Logger LOG = Logger.getLogger(LayoutPage.class);
-
-    /**
-     * Construct.
-     */
     public LayoutPage() {
         super();
-        initPage();
     }
 
-    /**
-     * Construct.
-     *
-     * @param model IModel of the page
-     */
     public LayoutPage(IModel<?> model) {
         super(model);
-        initPage();
     }
 
-    /**
-     * Construct.
-     *
-     * @param parameters Wrapped page parameters
-     */
     public LayoutPage(PageParameters parameters) {
         super(parameters);
-        initPage();
     }
 
     /**
@@ -60,7 +45,7 @@ public abstract class LayoutPage extends WebPage {
      *
      * @param pageTitle Must not be null
      */
-    public void setTitle(String pageTitle) {
+    public void addPageTitle(String pageTitle) {
         add(new Label("pageTitle", Model.of(pageTitle)));
     }
 
@@ -78,20 +63,29 @@ public abstract class LayoutPage extends WebPage {
         return WebSession.get();
     }
 
-    private void initPage() {
+    public User getUser() {
+        return getSession().getUser();
+    }
+
+    @Override
+    protected void onInitialize() {
+        super.onInitialize();
+
         configureSession();
 
-        setLogo();
-        setTitle(getString("application.title"));
-        createContent();
-        createDebugPanel();
+        Bootstrap.getSettings().getActiveThemeProvider().setActiveTheme(new BootstrapTheme());
+
+        addPageLogo();
+        addPageTitle(getString("application.title"));
+        addContentElements();
+        addDebugPanel();
     }
 
-    private void setLogo() {
-        add(new ContextImage("logo","/img/logo.png"));
+    private void addPageLogo() {
+        add(new Image("logo", new ContextRelativeResource("/img/logo.png")));
     }
 
-    private void createDebugPanel() {
+    private void addDebugPanel() {
         if (getApplication().getDebugSettings().isDevelopmentUtilitiesEnabled()) {
             DebugBar debugBar = new DebugBar("dev");
             add(debugBar);
@@ -104,7 +98,7 @@ public abstract class LayoutPage extends WebPage {
         getSession().bind();
     }
 
-    private void createContent() {
+    private void addContentElements() {
         add(new MyFencedFeedbackPanel("systemmessages", new IFeedbackMessageFilter() {
             @Override
             public boolean accept(FeedbackMessage message) {
@@ -114,8 +108,8 @@ public abstract class LayoutPage extends WebPage {
                 return true;
             }
         }));
-        add(new MainNavigation("navbar"));
-        add(new LanguageSwitcher("languages"));
-        add(new UserPanel("userPanel"));
+        add(new MainNavigation("nav.main"));
+        add(new LanguageSwitcher("nav.lang"));
+        add(new UserPanel("nav.user"));
     }
 }

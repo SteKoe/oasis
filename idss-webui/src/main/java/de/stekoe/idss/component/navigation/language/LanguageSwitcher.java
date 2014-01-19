@@ -2,14 +2,9 @@ package de.stekoe.idss.component.navigation.language;
 
 import de.stekoe.idss.WebApplication;
 import de.stekoe.idss.session.WebSession;
-import org.apache.wicket.AttributeModifier;
-import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.Model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,31 +36,20 @@ public class LanguageSwitcher extends Panel {
     private void createLanguageSwitcher() {
         ListView<Locale> loop = new ListView<Locale>("languages", getLanguages()) {
 
+
+
             @Override
             protected void populateItem(final ListItem<Locale> item) {
                 final Locale languageKey = item.getModelObject();
-
-                WebMarkupContainer li = new WebMarkupContainer("languageItem");
                 Locale currentLocale = WebSession.get().getLocale();
-                boolean languageEqual = languageKey.getLanguage().equals(currentLocale.getLanguage());
-                if (languageEqual) {
-                    li.add(new AttributeModifier("class", "active"));
-                }
-                item.add(li);
 
-                Link link = new Link("languageLink") {
-                    @Override
-                    public void onClick() {
-                        Locale key = languageKey;
-                        WebSession.get().setLocale(key);
-                    }
-                };
-                link.add(new Label("languageName", Model.of(item.getModelObject())));
-                li.add(link);
+                boolean languageEqual = languageKey.getLanguage().equals(currentLocale.getLanguage());
+                final LanguageSwitchLink languageLink = new LanguageSwitchLink("languageLink", languageKey);
+                languageLink.setEnabled(!languageEqual);
+
+                item.add(languageLink);
             }
         };
-        loop.setRenderBodyOnly(true);
-
         add(loop);
     }
 

@@ -17,9 +17,13 @@ public class ServiceRepository {
     /**
      * @return The UserService Bean
      */
-    public static IUserService getUserService() {
-        return getBeanInternal("userService");
-    }
+//    public static UserService getUserService() {
+//        return getBeanInternal("userService");
+//    }
+
+//    public static AuthService getAuthService() {
+//        return getBeanInternal("authService");
+//    }
 
     // ################# Utilities              ´
     @SuppressWarnings("unused")
@@ -31,7 +35,7 @@ public class ServiceRepository {
     }
 
     private static final String getApplicationContextUrl() {
-        URL resource = ServiceRepository.class.getResource("/spring/BeanLocations.xml");
+        URL resource = ServiceRepository.class.getResource("/services/BeanLocations.xml");
         LOG.info("Loading bean definitions from: " + resource);
         return resource.toString();
     }

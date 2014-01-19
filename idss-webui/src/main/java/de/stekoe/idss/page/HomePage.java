@@ -23,4 +23,9 @@ public class HomePage extends LayoutPage {
     public HomePage(final PageParameters parameters) {
         super(parameters);
     }
+
+    @Override
+    protected void onInitialize() {
+        super.onInitialize();
+    }
 }

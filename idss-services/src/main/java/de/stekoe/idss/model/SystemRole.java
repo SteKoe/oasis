@@ -1,14 +1,14 @@
 package de.stekoe.idss.model;
 
+import de.stekoe.idss.IDGenerator;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
@@ -17,17 +17,15 @@ import java.util.HashSet;
 @Table(name = "SystemRole")
 public class SystemRole implements Serializable {
 
-    public static final String USER = "USER";
-    public static final String ADMIN = "ADMIN";
+    public static final transient String USER = "USER";
+    public static final transient String ADMIN = "ADMIN";
 
-    private String id;
+    private String id = IDGenerator.createId();
     private String name;
-    private Collection<User> users = new HashSet<User>(0);
+    private Set<User> users = new HashSet<User>(0);
 
     @Id
     @Column(name = "system_role_id")
-    @GeneratedValue(generator="system-uuid")
-    @GenericGenerator(name="system-uuid", strategy = "uuid2")
     public String getId() {
         return this.id;
     }
@@ -46,13 +44,18 @@ public class SystemRole implements Serializable {
         this.name = roleName;
     }
 
-    @ManyToMany(mappedBy = "roles")
-    public Collection<User> getUsers() {
+    @ManyToMany(mappedBy = "roles", targetEntity = User.class)
+    public Set<User> getUsers() {
         return this.users;
     }
 
-    public void setUsers(Collection<User> users) {
+    public void setUsers(Set<User> users) {
         this.users = users;
+    }
+
+    @Override
+    public String toString() {
+        return getName();
     }
 
     @Override

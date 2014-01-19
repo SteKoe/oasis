@@ -20,6 +20,7 @@
         <wicket.version>6.12.0</wicket.version>
         <jetty.version>6.1.25</jetty.version>
         <wicket.bootstrap>0.8.4</wicket.bootstrap>
+        <rest.api>6.12.0</rest.api>
     </properties>
 
     <dependencies>
@@ -99,6 +100,18 @@
             <artifactId>jetty-management</artifactId>
             <version>${jetty.version}</version>
             <scope>provided</scope>
+        </dependency>
+
+        <!-- REST -->
+        <dependency>
+            <groupId>org.wicketstuff</groupId>
+            <artifactId>wicketstuff-restannotations</artifactId>
+            <version>${rest.api}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.wicketstuff</groupId>
+            <artifactId>wicketstuff-restannotations-json</artifactId>
+            <version>${rest.api}</version>
         </dependency>
     </dependencies>
 

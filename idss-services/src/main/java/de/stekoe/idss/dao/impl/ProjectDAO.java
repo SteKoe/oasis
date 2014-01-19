@@ -2,9 +2,12 @@ package de.stekoe.idss.dao.impl;
 
 import de.stekoe.idss.dao.IProjectDAO;
 import de.stekoe.idss.model.Project;
-import de.stekoe.idss.model.User;
 import org.hibernate.Criteria;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.Subqueries;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,11 +15,12 @@ import java.util.List;
 /**
  * @author Stephan Köninger <mail@stekoe.de>
  */
+@Transactional
 public class ProjectDAO extends GenericDAO implements IProjectDAO {
 
     @Override
     public void save(Project project) {
-        getCurrentSession().save(project);
+        getCurrentSession().saveOrUpdate(project);
     }
 
     @Override
@@ -26,7 +30,7 @@ public class ProjectDAO extends GenericDAO implements IProjectDAO {
     }
 
     @Override
-    public List<Project> findByProjectName(String projectName) {
+    public List<Project> findByProjectName(java.lang.String projectName) {
         Criteria criteria = getCurrentSession().createCriteria(Project.class);
         criteria.add(Restrictions.eq("name", projectName));
         return criteria.list();
@@ -39,7 +43,7 @@ public class ProjectDAO extends GenericDAO implements IProjectDAO {
 
     @Override
     public void delete(Project entity) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        getCurrentSession().delete(entity);
     }
 
     @Override
@@ -48,9 +52,26 @@ public class ProjectDAO extends GenericDAO implements IProjectDAO {
     }
 
     @Override
-    public List<Project> findAllForUser(User user) {
+    public List<Project> findAllForUser(String user) {
+        final Criteria criteria = getAllProjectsForUser(user);
+        return criteria.list();
+    }
+
+    private Criteria getAllProjectsForUser(String userId) {
+        DetachedCriteria idsOnlyCriteria = DetachedCriteria.forClass(Project.class);
+        idsOnlyCriteria.createCriteria("projectTeam").add(Restrictions.eq("user.id", userId));
+        idsOnlyCriteria.setProjection(Projections.distinct(Projections.id()));
+
         final Criteria criteria = getCurrentSession().createCriteria(Project.class);
-        criteria.createCriteria("projectTeam").add(Restrictions.eq("user", user));
+        criteria.add(Subqueries.propertyIn("id", idsOnlyCriteria));
+        return criteria;
+    }
+
+    @Override
+    public List<Project> findAllForUserPaginated(String userId, int perPage, int curPage) {
+        final Criteria criteria = getAllProjectsForUser(userId);
+        criteria.setFirstResult(perPage * curPage);
+        criteria.setMaxResults(perPage);
         return criteria.list();
     }
 

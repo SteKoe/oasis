@@ -56,21 +56,21 @@
             </activation>
             <properties>
                 <!-- Runtime -->
-                <jdbc.url>jdbc:mysql://127.0.0.1:3306/idss</jdbc.url>
+                <jdbc.url>jdbc:mysql://127.0.0.1/idss</jdbc.url>
                 <jdbc.username>idss</jdbc.username>
                 <jdbc.password>idss</jdbc.password>
                 <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
 
                 <!-- Testing -->
-                <jdbc.test.url>jdbc:mysql://127.0.0.1:3306/idss_test</jdbc.test.url>
+                <jdbc.test.url>jdbc:mysql://127.0.0.1/idss_test</jdbc.test.url>
                 <jdbc.test.username>idss</jdbc.test.username>
                 <jdbc.test.password>idss</jdbc.test.password>
                 <jdbc.test.driverClassName>com.mysql.jdbc.Driver</jdbc.test.driverClassName>
 
                 <!-- Hibernate -->
                 <hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
-                <hibernate.show_sql>true</hibernate.show_sql>
-                <hibernate.format_sql>true</hibernate.format_sql>
+                <hibernate.show_sql>false</hibernate.show_sql>
+                <hibernate.format_sql>false</hibernate.format_sql>
             </properties>
             <build>
                 <plugins>
@@ -231,6 +231,7 @@
                 <directory>src/main/resources</directory>
                 <includes>
                     <include>**/*.properties</include>
+                    <include>**/*.properties.xml</include>
                 </includes>
             </resource>
             <resource>
@@ -238,13 +239,15 @@
                 <directory>src/main/resources</directory>
                 <excludes>
                     <exclude>**/*.properties</exclude>
+                    <exclude>**/*.properties.xml</exclude>
                 </excludes>
             </resource>
             <resource>
                 <filtering>true</filtering>
                 <directory>src/main/java</directory>
                 <includes>
-                    <include>**/WebApplication.properties</include>
+                    <include>**/*.properties</include>
+                    <include>**/*.properties.xml</include>
                 </includes>
             </resource>
             <resource>
@@ -258,22 +261,6 @@
                 </excludes>
             </resource>
         </resources>
-        <testResources>
-            <testResource>
-                <filtering>false</filtering>
-                <directory>src/test/resources</directory>
-            </testResource>
-            <testResource>
-                <filtering>false</filtering>
-                <directory>src/test/java</directory>
-                <includes>
-                    <include>**</include>
-                </includes>
-                <excludes>
-                    <exclude>**/*.java</exclude>
-                </excludes>
-            </testResource>
-        </testResources>
 
         <plugins>
             <plugin>

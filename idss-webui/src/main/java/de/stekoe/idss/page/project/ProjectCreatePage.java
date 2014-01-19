@@ -1,6 +1,6 @@
 package de.stekoe.idss.page.project;
 
-import de.stekoe.idss.component.form.project.create.CreateProjectForm;
+import de.stekoe.idss.component.form.project.CreateProjectForm;
 import de.stekoe.idss.page.AuthUserPage;
 
 /**
@@ -8,6 +8,6 @@ import de.stekoe.idss.page.AuthUserPage;
  */
 public class ProjectCreatePage extends AuthUserPage {
     public ProjectCreatePage() {
-        add(new CreateProjectForm("createProjectForm"));
+        add(new CreateProjectForm("form.create.project"));
     }
 }

@@ -1,11 +1,9 @@
 package de.stekoe.idss.service.impl;
 
-import de.stekoe.idss.service.IMailService;
+import de.stekoe.idss.dao.BaseTest;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 
 /**
  * Test to check wether email server configuration works.
@@ -16,11 +14,10 @@ import org.springframework.test.context.junit4.AbstractTransactionalJUnit4Spring
  * @author Stephan Köninger <mail@stekoe.de>
  */
 @Ignore
-@ContextConfiguration(locations = { "classpath:/spring/BeanLocations.xml","classpath:/spring/TestBeanLocations.xml" })
-public class MailServiceIT extends AbstractTransactionalJUnit4SpringContextTests {
+public class MailServiceIT extends BaseTest {
 
     @Autowired
-    private IMailService mailer;
+    private de.stekoe.idss.service.MailService mailer;
 
     @Test
     public void sendMail() throws Exception {

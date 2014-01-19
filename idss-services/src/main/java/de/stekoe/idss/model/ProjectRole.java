@@ -1,13 +1,12 @@
 package de.stekoe.idss.model;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.validator.constraints.Length;
+import de.stekoe.idss.IDGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
@@ -22,9 +21,9 @@ public class ProjectRole implements Serializable {
     public static final ProjectRole LEADER = new ProjectRole(LEADER_CONSTANT);
     public static final ProjectRole MEMBER = new ProjectRole(MEMBER_CONSTANT);
 
-    private String id;
+    private String id = IDGenerator.createId();
     private String name;
-    private Collection<ProjectMember> projectMembers = new HashSet<ProjectMember>(0);
+    private Set<Permission> permissions = new HashSet<Permission>();
 
     public ProjectRole() {
 
@@ -34,10 +33,10 @@ public class ProjectRole implements Serializable {
         this.name = name;
     }
 
+    // =====
+
     @Id
     @Column(name = "project_role_id")
-    @GeneratedValue(generator="system-uuid")
-    @GenericGenerator(name="system-uuid", strategy = "uuid2")
     public String getId() {
         return this.id;
     }
@@ -47,8 +46,7 @@ public class ProjectRole implements Serializable {
     }
 
     @NotNull
-    @Length(min = 5)
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     public String getName() {
         return this.name;
     }
@@ -57,14 +55,16 @@ public class ProjectRole implements Serializable {
         this.name = name;
     }
 
-    @ManyToMany(mappedBy = "projectRoles")
-    public Collection<ProjectMember> getProjectMembers() {
-        return this.projectMembers;
+    @OneToMany(targetEntity = Permission.class, cascade = CascadeType.ALL)
+    public Set<Permission> getPermissions() {
+        return permissions;
     }
 
-    public void setProjectMembers(Collection<ProjectMember> projectMembers) {
-        this.projectMembers = projectMembers;
+    public void setPermissions(Set<Permission> permissions) {
+        this.permissions = permissions;
     }
+
+    // =====
 
     @Override
     public boolean equals(Object o) {
@@ -82,4 +82,10 @@ public class ProjectRole implements Serializable {
     public int hashCode() {
         return name.hashCode();
     }
+
+    @Override
+    public String toString() {
+        return this.name;
+    }
+
 }

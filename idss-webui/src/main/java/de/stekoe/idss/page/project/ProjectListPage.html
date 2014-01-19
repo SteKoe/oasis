@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:wicket="http://wicket.sourceforge.net/" xml:lang="en" lang="en">
+<body>
+<wicket:extend>
+    <h1>Projekte verwalten</h1>
+    <div class="well">
+        <a href="" wicket:id="createProject" class="btn btn-success"><i class="icon-white icon-plus"></i> Projekt erstellen</a>
+    </div>
+
+    <h4>Vorhandene Projekte</h4>
+    <table class="table">
+        <thead>
+        <tr>
+            <th><wicket:message key="table.header.name" /></th>
+            <th class="text-right"><wicket:message key="table.header.actions" /></th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr wicket:id="projectItem">
+                <td><span wicket:id="project.title">[Project Title]</span> <small wicket:id="project.status">Project Status</small></td>
+                <td class="text-right">
+                    <a href="" class="btn btn-mini" wicket:id="button.project.details"></a>
+                    <a href="" class="btn btn-mini btn-danger" wicket:id="button.project.delete"></a>
+                </td>
+            </tr>
+            <tr wicket:enclosure="noItemLabel">
+                <td colspan="2" class="text-center">
+                    <span wicket:id="noItemLabel"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div wicket:id="navigator"></div>
+</wicket:extend>
+</body>
+</html>

@@ -1,6 +1,6 @@
 package de.stekoe.idss.model;
 
-import org.hibernate.annotations.GenericGenerator;
+import de.stekoe.idss.IDGenerator;
 import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
 import org.joda.time.Years;
@@ -18,39 +18,37 @@ import java.util.Date;
 @Table(name = "UserProfile")
 public class UserProfile implements Serializable {
 
-    private String id;
-    private String firstname;
-    private String surname;
+    private java.lang.String id = IDGenerator.createId();
+    private java.lang.String firstname;
+    private java.lang.String surname;
     private Date birthdate;
     private User user;
 
     @Id
     @Column(name = "user_profile_id")
-    @GeneratedValue(generator="system-uuid")
-    @GenericGenerator(name="system-uuid", strategy = "uuid2")
-    public String getId() {
+    public java.lang.String getId() {
         return this.id;
     }
 
-    public void setId(String id) {
+    public void setId(java.lang.String id) {
         this.id = id;
     }
 
     @Column
-    public String getFirstname() {
+    public java.lang.String getFirstname() {
         return this.firstname;
     }
 
-    public void setFirstname(String firstname) {
+    public void setFirstname(java.lang.String firstname) {
         this.firstname = firstname;
     }
 
     @Column
-    public String getSurname() {
+    public java.lang.String getSurname() {
         return this.surname;
     }
 
-    public void setSurname(String surname) {
+    public void setSurname(java.lang.String surname) {
         this.surname = surname;
     }
 

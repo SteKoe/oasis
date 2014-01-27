@@ -31,7 +31,7 @@ public class User implements Serializable {
     private String password;
     private String email;
     private String activationKey;
-    private UserStatus userStatus = UserStatus.UNKNOWN;
+    private UserStatus userStatus = UserStatus.ACTIVATION_PENDING;
     private Set<ProjectMember> projectMemberships = new HashSet<ProjectMember>(0);
     private Set<Permission> permissions = new HashSet<Permission>();
 

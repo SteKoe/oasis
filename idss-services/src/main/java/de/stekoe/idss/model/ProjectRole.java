@@ -15,25 +15,9 @@ import java.util.Set;
 @Table(name = "ProjectRole")
 public class ProjectRole implements Serializable {
 
-    public static final String LEADER_CONSTANT = "LEADER";
-    public static final String MEMBER_CONSTANT = "MEMBER";
-
-    public static final ProjectRole LEADER = new ProjectRole(LEADER_CONSTANT);
-    public static final ProjectRole MEMBER = new ProjectRole(MEMBER_CONSTANT);
-
     private String id = IDGenerator.createId();
     private String name;
     private Set<Permission> permissions = new HashSet<Permission>();
-
-    public ProjectRole() {
-
-    }
-
-    private ProjectRole(String name) {
-        this.name = name;
-    }
-
-    // =====
 
     @Id
     @Column(name = "project_role_id")

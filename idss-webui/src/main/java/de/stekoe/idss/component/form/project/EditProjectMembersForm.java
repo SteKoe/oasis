@@ -9,7 +9,6 @@ import de.stekoe.idss.model.enums.PermissionType;
 import de.stekoe.idss.page.HomePage;
 import de.stekoe.idss.service.ProjectService;
 import de.stekoe.idss.session.WebSession;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
@@ -47,7 +46,7 @@ public class EditProjectMembersForm extends Panel {
         final Button buttonAddMember = new Button("button.add.member");
         add(buttonAddMember);
 
-        final AddProjectMemberModal addProjectMemberModal = new AddProjectMemberModal("modal.add.member") {
+        final AddProjectMemberModal addProjectMemberModal = new AddProjectMemberModal("modal.add.member", projectId) {
             @Override
             public void onSave(ProjectMember projectMember) {
                 LOG.error(projectMember);
@@ -71,18 +70,22 @@ public class EditProjectMembersForm extends Panel {
                 ProjectMember pm = (ProjectMember) item.getModelObject();
                 final User user = pm.getUser();
 
-                final UserInfoBlock userInfoBlock = new UserInfoBlock("user.info.block", user, StringUtils.join(pm.getProjectRoles().iterator(), ", "));
+                final UserInfoBlock userInfoBlock = new UserInfoBlock("user.info.block", user, pm.getProjectRole().toString());
                 item.add(userInfoBlock);
 
                 final BookmarkablePageLink<HomePage> editUserLink = new BookmarkablePageLink<HomePage>("user.edit", HomePage.class);
                 item.add(editUserLink);
-                editUserLink.setVisible(projectService.isAuthorized(WebSession.get().getUser().getId(), project.getId(), PermissionType.PROJECT_EDIT_MEMBER));
+                editUserLink.setVisible(projectService.isAuthorized(getCurrentUser().getId(), project.getId(), PermissionType.UPDATE_PROJECT_MEMBER));
 
                 final BookmarkablePageLink<HomePage> deleteUserLink = new BookmarkablePageLink<HomePage>("user.delete", HomePage.class);
                 item.add(deleteUserLink);
-                deleteUserLink.setVisible(projectService.isAuthorized(WebSession.get().getUser().getId(), project.getId(), PermissionType.PROJECT_EDIT_MEMBER) && !user.getId().equals(WebSession.get().getUser().getId()));
+                deleteUserLink.setVisible(projectService.isAuthorized(getCurrentUser().getId(), project.getId(), PermissionType.UPDATE_PROJECT_MEMBER) && !user.getId().equals(getCurrentUser().getId()));
             }
         };
         add(projectMembersList);
+    }
+
+    private User getCurrentUser() {
+        return WebSession.get().getUser();
     }
 }

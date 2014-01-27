@@ -28,9 +28,5 @@ public enum UserStatus {
      * If a user wants the admin not just to disable the account, this status marks the user as
      * deleted.
      */
-    DELETED,
-    /**
-     *
-     */
-    UNKNOWN
+    DELETED
 }

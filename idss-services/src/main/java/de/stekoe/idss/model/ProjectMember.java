@@ -18,7 +18,7 @@ public class ProjectMember implements Serializable {
 
     private java.lang.String id = IDGenerator.createId();
     private User user;
-    private Set<ProjectRole> projectRoles = new HashSet<ProjectRole>();
+    private ProjectRole projectRole;
     private Set<ProjectMemberGroup> projectGroups = new HashSet<ProjectMemberGroup>();
 
     @Id
@@ -32,7 +32,6 @@ public class ProjectMember implements Serializable {
     }
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
     public User getUser() {
         return this.user;
     }
@@ -41,14 +40,13 @@ public class ProjectMember implements Serializable {
         this.user = user;
     }
 
-    @ManyToMany(targetEntity = ProjectRole.class)
-    @JoinTable(name = "ProjectMemberToProjectRole", joinColumns = @JoinColumn(name = "project_member_id"), inverseJoinColumns = @JoinColumn(name = "project_role_id"))
-    public Set<ProjectRole> getProjectRoles() {
-        return this.projectRoles;
+    @ManyToOne
+    public ProjectRole getProjectRole() {
+        return this.projectRole;
     }
 
-    public void setProjectRoles(Set<ProjectRole> projectRoles) {
-        this.projectRoles = projectRoles;
+    public void setProjectRole(ProjectRole projectRole) {
+        this.projectRole = projectRole;
     }
 
     @ManyToMany(targetEntity = ProjectMemberGroup.class)
@@ -69,18 +67,14 @@ public class ProjectMember implements Serializable {
         ProjectMember that = (ProjectMember) o;
         return new EqualsBuilder()
                 .appendSuper(super.equals(o))
-                .append(getUser(), that.getUser())
-                .append(getProjectRoles(), that.getProjectRoles())
-                .append(getProjectGroups(), that.getProjectGroups())
+                .append(getId(), that.getId())
                 .isEquals();
     }
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
-                .append(getUser())
-                .append(getProjectRoles())
-                .append(getProjectGroups())
+                .append(getId())
                 .hashCode();
     }
 }

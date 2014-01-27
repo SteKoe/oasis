@@ -1,60 +1,129 @@
 package de.stekoe.idss.page.project;
 
-import de.stekoe.idss.model.Project;
-import de.stekoe.idss.model.ProjectRole;
-import de.stekoe.idss.page.AuthUserPage;
+import de.stekoe.idss.model.ProjectMember;
+import de.stekoe.idss.model.enums.PermissionType;
+import de.stekoe.idss.model.enums.ProjectStatus;
+import de.stekoe.idss.page.HomePage;
 import de.stekoe.idss.service.ProjectService;
-import org.apache.wicket.request.component.IRequestablePage;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
+import org.apache.wicket.MarkupContainer;
+import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
+import org.apache.wicket.markup.html.link.Link;
+import org.apache.wicket.markup.html.list.ListItem;
+import org.apache.wicket.markup.html.list.ListView;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
-import org.apache.wicket.util.string.StringValue;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 
-import javax.inject.Inject;
+import java.text.MessageFormat;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
-public abstract class ProjectPage extends AuthUserPage {
+public abstract class ProjectPage extends AuthProjectPage {
 
-    @Inject private ProjectService projectService;
-    private Class<? extends IRequestablePage> responsePage = ProjectListPage.class;
-
-    private Project project = null;
+    @SpringBean ProjectService projectService;
 
     public ProjectPage(PageParameters pageParameters) {
+        super(pageParameters);
 
-        final StringValue id = pageParameters.get("id");
-        if(id == null || id.isEmpty()) {
-            getSession().error("Project could not be found!");
-            setResponsePage(getResponsePage());
-            return;
-        }
+        addProjectTitle();
+        addProjectStatus();
 
+        addLinkProjectOverview();
+        addLinkProjectDelete();
 
-        project = projectService.findById(id.toString());
-        if (project == null) {
-            getSession().error("Project could not be found!");
-            setResponsePage(getResponsePage());
-            return;
-        }
+        addUploadDocumentLink();
+        addEditProjectLink();
+        addEditProjectMemberLink();
+        addEditProjectRolesLink();
+
+        addListOfProjectMember();
     }
 
-    private Class<? extends IRequestablePage> getResponsePage() {
-        return responsePage;
+    private void addUploadDocumentLink() {
+        final BookmarkablePageLink<ProjectUploadDocument> linkUploadPage = new BookmarkablePageLink<ProjectUploadDocument>("link.upload.document", ProjectUploadDocument.class, getPageParameters());
+        add(linkUploadPage);
     }
 
-    /**
-     * Allows to set different redirection page which defaults to ProjectOverviewPage
-     * @param responsePage
+
+    private void addLinkProjectDelete() {
+        final Link<Void> linkProjectDelete = new Link<Void>("link.project.delete") {
+            @Override
+            public void onClick() {
+                //To change body of implemented methods use File | Settings | File Templates.
+            }
+        };
+        add(linkProjectDelete);
+        linkProjectDelete.setVisible(projectService.isAuthorized(getUser().getId(), getProject().getId(), PermissionType.DELETE));
+    }
+
+    private void addLinkProjectOverview() {
+        final BookmarkablePageLink<ProjectDetailsPage> linkProjectOverview = new BookmarkablePageLink<ProjectDetailsPage>("link.project.overview", ProjectDetailsPage.class, getPageParameters());
+        add(linkProjectOverview);
+    }
+
+    private void addProjectStatus() {
+        final Label projectStatusLabel = new Label("project.status", Model.of(getString(getProject().getProjectStatus().getKey())));
+        add(projectStatusLabel);
+        projectStatusLabel.setVisible(!getProject().getProjectStatus().equals(ProjectStatus.UNDEFINED));
+    }
+
+    private MarkupContainer addProjectTitle() {
+        return add(new Label("projectTitle", Model.of(getProject().getName())));
+    }
+
+    private void addEditProjectRolesLink() {
+        final BookmarkablePageLink<ProjectRoleListPage> editProjectRolesLink = new BookmarkablePageLink<ProjectRoleListPage>("editProjectRolesLink", ProjectRoleListPage.class, new PageParameters().add("id", getProject().getId()));
+        add(editProjectRolesLink);
+        editProjectRolesLink.add(new Label("editProjectRolesLinkLabel", Model.of(getString("label.project.edit.roles"))));
+        editProjectRolesLink.setVisibilityAllowed(projectService.isAuthorized(getUser().getId(), getProject().getId(), PermissionType.UPDATE_PROJECT_ROLES));
+    }
+
+    private void addEditProjectMemberLink() {
+        final BookmarkablePageLink<ProjectMemberListPage> addMemberLink = new BookmarkablePageLink<ProjectMemberListPage>("addMember", ProjectMemberListPage.class, new PageParameters().add("id", getProject().getId()));
+        add(addMemberLink);
+        addMemberLink.add(new Label("addProjectMemberLink", Model.of(getString("label.project.edit.member"))));
+        addMemberLink.setVisibilityAllowed(projectService.isAuthorized(getUser().getId(), getProject().getId(), PermissionType.UPDATE_PROJECT_MEMBER));
+    }
+
+    private void addEditProjectLink() {
+        final BookmarkablePageLink<ProjectEditPage> editProjectLink = new BookmarkablePageLink<ProjectEditPage>("editProject", ProjectEditPage.class, new PageParameters().add("id", getProject().getId()));
+        add(editProjectLink);
+        editProjectLink.add(new Label("editProjectLinkLabel", Model.of(getString("label.project.edit"))));
+        editProjectLink.setVisibilityAllowed(projectService.isAuthorized(getUser().getId(), getProject().getId(), PermissionType.UPDATE));
+    }
+
+    /* Creates necessary ui elements for Project Member section
      */
-    public void setRedirectPage(Class<? extends IRequestablePage> responsePage) {
-        this.responsePage = responsePage;
-    }
+    private void addListOfProjectMember() {
+        final Collection<ProjectMember> projectTeam = getProject().getProjectTeam();
+        final List<ProjectMember> projectMember = (List<ProjectMember>) CollectionUtils.select(projectTeam, new Predicate() {
+            @Override
+            public boolean evaluate(Object object) {
+                ProjectMember pm = (ProjectMember) object;
+                return true;
+            }
+        });
 
-    /**
-     * Get the project identified by the id value in ProjectPage
-     * @return The current project
-     */
-    public Project getProject() {
-        return this.project;
+        add(new Label("projectMemberCount", MessageFormat.format(getString("label.project.numOfPersons"), projectMember.size())));
+
+        add(new ListView<ProjectMember>("projectMemberItem", projectMember) {
+            @Override
+            protected void populateItem(ListItem<ProjectMember> item) {
+                ProjectMember pm = item.getModelObject();
+
+                final BookmarkablePageLink<HomePage> userDetailsLink = new BookmarkablePageLink<HomePage>("projectMemberItemLink", HomePage.class);
+
+                Label userName = new Label("projectMemberItemLabel", Model.of(pm.getUser().getUsername()));
+                userDetailsLink.add(userName);
+
+                item.add(userDetailsLink);
+            }
+        });
     }
 }

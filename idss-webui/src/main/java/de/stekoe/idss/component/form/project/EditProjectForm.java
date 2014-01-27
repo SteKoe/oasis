@@ -1,7 +1,6 @@
 package de.stekoe.idss.component.form.project;
 
 import de.stekoe.idss.model.Project;
-import de.stekoe.idss.page.project.ProjectListPage;
 import de.stekoe.idss.service.ProjectRoleService;
 import de.stekoe.idss.service.ProjectService;
 import de.stekoe.idss.session.WebSession;
@@ -22,7 +21,8 @@ public class EditProjectForm extends ProjectForm {
 
     @Override
     public void onSave(IModel<Project> model) {
+        projectService.save(model.getObject());
         WebSession.get().success("Projekt wurde bearbeitet!");
-        setResponsePage(ProjectListPage.class);
+        setResponsePage(getPage().getPageClass(), getPage().getPageParameters());
     }
 }

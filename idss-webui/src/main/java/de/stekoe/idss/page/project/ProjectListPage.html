@@ -18,13 +18,15 @@
         </tr>
         </thead>
         <tbody>
-            <tr wicket:id="projectItem">
-                <td><span wicket:id="project.title">[Project Title]</span> <small wicket:id="project.status">Project Status</small></td>
+            <wicket:container wicket:id="projectItem">
+            <tr>
+                <td><span wicket:id="project.title">[Project Title]</span> <small wicket:id="project.status" style="color:#aaa"></small></td>
                 <td class="text-right">
                     <a href="" class="btn btn-mini" wicket:id="button.project.details"></a>
                     <a href="" class="btn btn-mini btn-danger" wicket:id="button.project.delete"></a>
                 </td>
             </tr>
+            </wicket:container>
             <tr wicket:enclosure="noItemLabel">
                 <td colspan="2" class="text-center">
                     <span wicket:id="noItemLabel"></span>

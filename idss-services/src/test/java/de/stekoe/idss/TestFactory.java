@@ -18,6 +18,10 @@ public class TestFactory {
         return createUser(username, "secret");
     }
 
+    public static User createRandomUser() {
+        return createUser(createUUID(), "secret");
+    }
+
     public static ProjectMember createProjectMember() {
         final ProjectMember projectMember = new ProjectMember();
         projectMember.setId(createUUID());
@@ -27,6 +31,8 @@ public class TestFactory {
     public static Project createProject() {
         final Project project = new Project();
         project.setId(createUUID());
+        project.setName("Random Project Name");
+        project.setDescription("Random Project Description");
         return project;
     }
 

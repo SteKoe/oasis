@@ -6,11 +6,11 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
-public class ProjectEditMemberPage extends ProjectPage {
+public class ProjectMemberListPage extends ProjectPage {
 
     private final String projectId;
 
-    public ProjectEditMemberPage(PageParameters pageParameters) {
+    public ProjectMemberListPage(PageParameters pageParameters) {
         super(pageParameters);
         this.projectId = pageParameters.get("id").toString();
 

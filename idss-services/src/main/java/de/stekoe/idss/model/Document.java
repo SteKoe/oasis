@@ -1,7 +1,6 @@
 package de.stekoe.idss.model;
 
 import de.stekoe.idss.IDGenerator;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -12,28 +11,24 @@ import java.util.Date;
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
 @Entity
-@Table(name = "File")
-public class File implements Serializable {
+@Table(name = "Document")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public class Document implements Serializable {
 
-    private java.lang.String id = IDGenerator.createId();
+    private String id = IDGenerator.createId();
     private long size;
-    private java.lang.String name;
+    private String name;
     private User user;
-    private Date created;
-
-    public File() {
-        setCreated(new Date());
-    }
+    private Date created = new Date();
+    private String contentType;
 
     @Id
     @Column(name = "file_id")
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
-    public java.lang.String getId() {
+    public String getId() {
         return this.id;
     }
 
-    public void setId(java.lang.String id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -48,11 +43,11 @@ public class File implements Serializable {
 
     @NotNull
     @Basic(optional = false)
-    public java.lang.String getName() {
+    public String getName() {
         return this.name;
     }
 
-    public void setName(java.lang.String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -75,5 +70,13 @@ public class File implements Serializable {
 
     public void setCreated(Date created) {
         this.created = created;
+    }
+
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
+
+    public String getContentType() {
+        return contentType;
     }
 }

@@ -2,6 +2,7 @@ package de.stekoe.idss.page.project;
 
 import de.stekoe.idss.component.BootstrapPagingNavigator;
 import de.stekoe.idss.model.Project;
+import de.stekoe.idss.model.enums.ProjectStatus;
 import de.stekoe.idss.model.provider.ProjectDataProvider;
 import de.stekoe.idss.page.AuthUserPage;
 import de.stekoe.idss.model.enums.PermissionType;
@@ -32,10 +33,7 @@ public class ProjectListPage extends AuthUserPage {
 
     private static final int ENTRIES_PER_PAGE = 20;
 
-    @Override
-    protected void onInitialize() {
-        super.onInitialize();
-
+    public ProjectListPage() {
         addCreateProjectLink();
         addProjectList();
     }
@@ -54,6 +52,7 @@ public class ProjectListPage extends AuthUserPage {
 
                 final Label projectStatusLabel = new Label("project.status", Model.of(getString(project.getProjectStatus().getKey())));
                 item.add(projectStatusLabel);
+                projectStatusLabel.setVisible(!project.getProjectStatus().equals(ProjectStatus.UNDEFINED));
 
                 // Details link
                 BookmarkablePageLink<ProjectDetailsPage> detailsPage = new BookmarkablePageLink<ProjectDetailsPage>("button.project.details", ProjectDetailsPage.class, pageDetailsParameters);

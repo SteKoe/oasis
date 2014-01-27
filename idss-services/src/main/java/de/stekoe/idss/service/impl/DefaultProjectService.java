@@ -2,7 +2,10 @@ package de.stekoe.idss.service.impl;
 
 import de.stekoe.idss.dao.IProjectDAO;
 import de.stekoe.idss.dao.IUserDAO;
-import de.stekoe.idss.model.*;
+import de.stekoe.idss.model.Permission;
+import de.stekoe.idss.model.Project;
+import de.stekoe.idss.model.ProjectMember;
+import de.stekoe.idss.model.User;
 import de.stekoe.idss.model.enums.PermissionObject;
 import de.stekoe.idss.model.enums.PermissionType;
 import de.stekoe.idss.service.AuthService;
@@ -12,7 +15,6 @@ import org.apache.commons.collections.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -75,14 +77,11 @@ public class DefaultProjectService implements ProjectService {
         if(pm == null)
             return false;
 
-        final Collection<ProjectRole> projectRoles = pm.getProjectRoles();
-        for(ProjectRole projectRole : projectRoles) {
-            final Set<Permission> permissions = projectRole.getPermissions();
+        final Set<Permission> permissions = pm.getProjectRole().getPermissions();
 
-            for(Permission permission : permissions) {
-                if(permission.getObjectType().equals(PermissionObject.valueOf(Project.class)) && permission.getPermissionType().equals(permissionType)) {
-                    return true;
-                }
+        for(Permission permission : permissions) {
+            if(permission.getObjectType().equals(PermissionObject.valueOf(Project.class)) && permission.getPermissionType().equals(permissionType)) {
+                return true;
             }
         }
 

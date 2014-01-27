@@ -7,8 +7,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
@@ -62,23 +60,6 @@ public class Permission implements Serializable {
 
     public boolean hasObjectId() {
         return !StringUtils.isBlank(getObjectId());
-    }
-
-    // =====
-
-    public static Set<Permission> createAll(PermissionObject objectType, String objectId) {
-        Set<Permission> permissions = new HashSet<Permission>();
-        permissions.add(new Permission(objectType, PermissionType.CREATE, objectId));
-        permissions.add(new Permission(objectType, PermissionType.READ, objectId));
-        permissions.add(new Permission(objectType, PermissionType.UPDATE, objectId));
-        permissions.add(new Permission(objectType, PermissionType.DELETE, objectId));
-        return permissions;
-    }
-
-    public static Set<Permission> createReadOnly(PermissionObject objectType, String objectId) {
-        Set<Permission> permissions = new HashSet<Permission>();
-        permissions.add(new Permission(objectType, PermissionType.READ, objectId));
-        return permissions;
     }
 
     public String getObjectId() {

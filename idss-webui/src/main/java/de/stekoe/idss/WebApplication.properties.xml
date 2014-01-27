@@ -3,8 +3,9 @@
 <properties>
     <entry key="application.title">${project.parent.name}</entry>
     <entry key="application.name">${project.parent.artifactId}</entry>
-    <entry key="application.version">${project.parent.version}</entry>
+    <entry key="application.version">${project.parent.version} - ${timestamp}</entry>
     <entry key="application.upload.folder">/Volumes/HDD/stekoe2000/Development/java/workspaces/Masterprojekt/workspace/IDSS/uploads</entry>
+
 
     <entry key="page.meta.author">Stephan Köninger</entry>
     <entry key="page.meta.author">Test</entry>
@@ -17,6 +18,7 @@
     <entry key="label.delete">Löschen</entry>
     <entry key="label.cancel">Abbrechen</entry>
     <entry key="label.submit">Senden</entry>
+    <entry key="label.upload">Datei hochladen</entry>
     <entry key="label.username">Benutzername</entry>
     <entry key="label.email">E-Mail</entry>
     <entry key="label.password">Passwort</entry>
@@ -29,8 +31,10 @@
     <entry key="label.project">Projekt</entry>
     <entry key="label.project.edit">Projekt bearbeiten</entry>
     <entry key="label.project.numOfPersons">{0,choice,0#Keine|1#Eine Person|1&lt;{0} Personen}</entry>
+    <entry key="label.project.numOfPermissions">{0,choice,0#Kein Zugriff|1#Ein Zugriffsrecht|1&lt;{0} Zugriffsrechte}</entry>
     <entry key="label.project.add.member">Projektmitglied hinzufügen</entry>
-    <entry key="label.project.edit.member">Projektmitglied hinzufügen</entry>
+    <entry key="label.project.edit.member">Mitglieder bearbeiten</entry>
+    <entry key="label.project.edit.roles">Rollen bearbeiten</entry>
 
     <!-- Registration Form -->
     <entry key="form.login.title">Anmelden</entry>
@@ -84,8 +88,23 @@
     <entry key="message.registration.error">Fehler beim Registrieren. Bitte versuchen Sie es erneut, oder wenden Sie sich an einen Administrator!</entry>
     <entry key="message.project.create.success">Das Projekt wurde erfolgreich angelegt!</entry>
 
-    <!-- STATI -->
+    <!-- Project stati -->
     <entry key="status.project.editing">In Bearbeitung</entry>
     <entry key="status.project.inprogress">Läuft</entry>
     <entry key="status.project.canceled">Abgebrochen</entry>
+    <entry key="status.project.undefined">Nicht definiert</entry>
+    <entry key="status.project.unknown">Unbekannt</entry>
+
+    <!-- Permission Types -->
+    <entry key="permissiontype.create">{0} erstellen</entry>
+    <entry key="permissiontype.read">{0} lesen</entry>
+    <entry key="permissiontype.update">{0} bearbeiten</entry>
+    <entry key="permissiontype.delete">{0} löschen</entry>
+    <entry key="permissiontype.update.project.member">Mitglieder bearbeiten</entry>
+    <entry key="permissiontype.update.project.roles">Projektrollen bearbeiten</entry>
+
+    <!-- Wicket override properties -->
+    <entry key="RequiredValidator">Das Feld "${label}" ist obligatorisch!</entry>
+    <entry key="LengthValidator">Der eingegebene Wert muss zwischen ${min} und ${max} Zeichen lang sein!</entry>
+
 </properties>

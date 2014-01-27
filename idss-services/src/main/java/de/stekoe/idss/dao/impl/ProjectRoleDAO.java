@@ -45,5 +45,4 @@ public class ProjectRoleDAO extends GenericDAO implements IProjectRoleDAO {
         criteria.add(Restrictions.eq("name", rolename));
         return (ProjectRole) criteria.uniqueResult();
     }
-
 }

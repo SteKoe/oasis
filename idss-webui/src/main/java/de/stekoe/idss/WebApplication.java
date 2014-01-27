@@ -13,7 +13,9 @@ import org.apache.wicket.Application;
 import org.apache.wicket.authroles.authentication.AbstractAuthenticatedWebSession;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
 import org.apache.wicket.bean.validation.BeanValidationConfiguration;
+import org.apache.wicket.core.request.mapper.CryptoMapper;
 import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.request.IRequestMapper;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.request.Response;
 import org.apache.wicket.request.Url;
@@ -36,8 +38,7 @@ public class WebApplication extends AuthenticatedWebApplication implements Appli
 
     /** Languages available for this application. */
     public static final Locale[] LANGUAGES = {
-        Locale.GERMAN,
-        Locale.ENGLISH
+        Locale.GERMAN
     };
 
     private ApplicationContext ctx;
@@ -52,6 +53,7 @@ public class WebApplication extends AuthenticatedWebApplication implements Appli
     @Override
     public void init() {
         super.init();
+
 
         new BeanValidationConfiguration().configure(this);
 
@@ -79,6 +81,8 @@ public class WebApplication extends AuthenticatedWebApplication implements Appli
             default:
                 getExceptionSettings().setUnexpectedExceptionDisplay(IExceptionSettings.SHOW_INTERNAL_ERROR_PAGE);
                 getMarkupSettings().setCompressWhitespace(true);
+                IRequestMapper cryptoMapper = new CryptoMapper(getRootRequestMapper(), this);
+                setRootRequestMapper(cryptoMapper);
         }
     }
 

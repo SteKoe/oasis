@@ -19,8 +19,8 @@ public class Project implements Serializable, Identifyable {
     private java.lang.String id = IDGenerator.createId();
     private java.lang.String name;
     private java.lang.String description;
-    private Set<ProjectMember> projectTeam = new HashSet<ProjectMember>(0);
-    private Set<File> files = new HashSet<File>(0);
+    private Set<ProjectMember> projectTeam = new HashSet<ProjectMember>();
+    private Set<Document> documents = new HashSet<Document>();
     private Set<ProjectRole> projectRoles = new HashSet<ProjectRole>();
     private ProjectStatus projectStatus = ProjectStatus.EDITING;
 
@@ -63,14 +63,14 @@ public class Project implements Serializable, Identifyable {
         this.projectTeam = projectTeam;
     }
 
-    @ManyToMany(targetEntity = File.class)
+    @ManyToMany(targetEntity = Document.class)
     @JoinTable(name = "ProjectFiles", joinColumns = @JoinColumn(name = "project_id"), inverseJoinColumns = @JoinColumn(name = "file_id"))
-    public Set<File> getFiles() {
-        return this.files;
+    public Set<Document> getDocuments() {
+        return this.documents;
     }
 
-    public void setFiles(Set<File> files) {
-        this.files = files;
+    public void setDocuments(Set<Document> documents) {
+        this.documents = documents;
     }
 
     @OneToMany(targetEntity = ProjectRole.class, cascade = CascadeType.ALL)

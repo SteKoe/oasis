@@ -15,6 +15,7 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.markup.html.image.Image;
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.panel.EmptyPanel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
@@ -82,7 +83,9 @@ public abstract class LayoutPage extends WebPage {
     }
 
     private void addPageLogo() {
-        add(new Image("logo", new ContextRelativeResource("/img/logo.png")));
+        final BookmarkablePageLink<HomePage> logoLink = new BookmarkablePageLink<HomePage>("logo.link", getApplication().getHomePage());
+        add(logoLink);
+        logoLink.add(new Image("logo", new ContextRelativeResource("/img/logo.png")));
     }
 
     private void addDebugPanel() {

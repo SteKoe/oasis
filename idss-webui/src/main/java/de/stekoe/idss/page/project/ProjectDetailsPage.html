@@ -4,54 +4,15 @@
       xmlns:wicket="http://wicket.sourceforge.net/" xml:lang="en" lang="en">
 <body>
 <wicket:extend>
-    <h1>
-        <wicket:container wicket:id="projectTitle"></wicket:container>
-        <small wicket:id="project.status"></small>
-    </h1>
-    <hr>
-    <div class="row-fluid">
-        <div class="span3">
-            <h4>Mitarbeiter
-                <small wicket:id="projectMemberCount"></small>
-            </h4>
-            <ul class="nav nav-tabs nav-stacked">
-                <li wicket:id="projectMemberItem">
-                    <a href="" wicket:id="projectMemberItemLink">
-                        <i class="icon-chevron-right"></i> <span wicket:id="projectMemberItemLabel"></span>
-                    </a>
-                </li>
-            </ul>
+    <h4>Beschreibung</h4>
 
-            <wicket:enclosure child="editProject">
-                <hr>
-                <h4>Verwaltung</h4>
-                <ul class="nav nav-tabs nav-stacked">
-                    <li>
-                        <a href="#" wicket:id="editProject">
-                            <i class="icon-chevron-right"></i> <span wicket:id="editProjectLinkLabel"></span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" wicket:id="addMember">
-                            <i class="icon-chevron-right"></i> <span wicket:id="addProjectMemberLink"></span>
-                        </a>
-                    </li>
-                </ul>
-            </wicket:enclosure>
-        </div>
+    <div wicket:id="descriptionText"></div>
 
-        <div class="span9">
-            <h4>Beschreibung</h4>
-
-            <div wicket:id="descriptionText"></div>
-
-            <h4>Überblick</h4>
-            <ul>
-                <li>8 Beteiligte Personen davon 3 Projektleiter und 5 Mitarbeiter</li>
-                <li>27 Kriterien mit 1203 Ausprägungen</li>
-            </ul>
-        </div>
-    </div>
+    <h4>Überblick</h4>
+    <ul>
+        <li>8 Beteiligte Personen davon 3 Projektleiter und 5 Mitarbeiter</li>
+        <li>27 Kriterien mit 1203 Ausprägungen</li>
+    </ul>
 </wicket:extend>
 </body>
 </html>

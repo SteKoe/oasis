@@ -1,13 +1,16 @@
 package de.stekoe.idss.service.impl;
 
 import de.stekoe.idss.AbstractBaseTest;
+import de.stekoe.idss.TestFactory;
 import de.stekoe.idss.model.*;
 import de.stekoe.idss.model.enums.PermissionObject;
 import de.stekoe.idss.model.enums.PermissionType;
+import de.stekoe.idss.service.ProjectRoleService;
 import de.stekoe.idss.service.ProjectService;
 import de.stekoe.idss.service.UserService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,9 +23,11 @@ import static org.junit.Assert.assertTrue;
  */
 public class DefaultProjectServiceTest extends AbstractBaseTest {
     @Autowired ProjectService projectService;
+    @Autowired ProjectRoleService projectRoleService;
     @Autowired UserService userService;
 
     @Test
+    @Transactional
     public void projectRoleBasedAuthWorks() throws Exception {
         java.lang.String projectId = "P2345";
 
@@ -33,18 +38,16 @@ public class DefaultProjectServiceTest extends AbstractBaseTest {
         ProjectRole projectRole = new ProjectRole();
         projectRole.setName("LEADER");
         projectRole.setPermissions(permissions);
+        projectRoleService.save(projectRole);
 
-        Set<ProjectRole> projectRoles = new HashSet<ProjectRole>();
-        projectRoles.add(projectRole);
-
-        final User user = new User();
+        final User user = TestFactory.createRandomUser();
         userService.save(user);
 
         ProjectMember pm = new ProjectMember();
         pm.setUser(user);
-        pm.setProjectRoles(projectRoles);
+        pm.setProjectRole(projectRole);
 
-        final Project project = new Project();
+        final Project project = TestFactory.createProject();
         project.setId(projectId);
         project.getProjectTeam().add(pm);
 
@@ -57,23 +60,30 @@ public class DefaultProjectServiceTest extends AbstractBaseTest {
     }
 
     @Test
+    @Transactional
     public void saving() throws Exception {
-        Project project = new Project();
+        Project project = TestFactory.createProject();
 
         ProjectRole projectRoleCreator = new ProjectRole();
         projectRoleCreator.setName("Projektleiter");
-        projectRoleCreator.setPermissions(Permission.createAll(PermissionObject.PROJECT, project.getId()));
+        for (PermissionType permissionType : PermissionType.forProject()) {
+            projectRoleCreator.getPermissions().add(new Permission(PermissionObject.PROJECT, permissionType, project.getId()));
+        }
+        projectRoleService.save(projectRoleCreator);
 
         ProjectRole projectRoleMember = new ProjectRole();
         projectRoleMember.setName("Projektmitglied");
-        projectRoleMember.setPermissions(Permission.createReadOnly(PermissionObject.PROJECT, project.getId()));
+        for (PermissionType permissionType : PermissionType.forReadOnly()) {
+            projectRoleMember.getPermissions().add(new Permission(PermissionObject.PROJECT, permissionType, project.getId()));
+        }
+        projectRoleService.save(projectRoleMember);
 
         project.getProjectRoles().add(projectRoleCreator);
         project.getProjectRoles().add(projectRoleMember);
 
         ProjectMember projectCreator = new ProjectMember();
         projectCreator.setUser(new User());
-        projectCreator.getProjectRoles().add(projectRoleCreator);
+        projectCreator.setProjectRole(projectRoleCreator);
 
         project.getProjectTeam().add(projectCreator);
         projectService.save(project);

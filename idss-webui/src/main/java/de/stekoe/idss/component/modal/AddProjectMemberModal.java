@@ -4,34 +4,48 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.button.ButtonBehavior;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
 import de.agilecoders.wicket.core.markup.html.bootstrap.dialog.Modal;
 import de.agilecoders.wicket.core.markup.html.bootstrap.dialog.ModalCloseButton;
-import de.stekoe.idss.model.*;
-import de.stekoe.idss.service.ProjectRoleService;
+import de.stekoe.idss.model.Project;
+import de.stekoe.idss.model.ProjectMember;
+import de.stekoe.idss.model.ProjectRole;
+import de.stekoe.idss.model.User;
+import de.stekoe.idss.service.ProjectService;
 import de.stekoe.idss.service.UserService;
-import org.apache.wicket.markup.html.form.*;
-import org.apache.wicket.model.IModel;
+import org.apache.wicket.AttributeModifier;
+import org.apache.wicket.markup.html.form.ChoiceRenderer;
+import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.ListChoice;
+import org.apache.wicket.markup.html.form.SubmitLink;
+import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
 public abstract class AddProjectMemberModal extends Modal {
 
+    private final LoadableDetachableModel<Project> projectModel;
     @SpringBean private UserService userService;
-    @SpringBean private ProjectRoleService projectRoleService;
+    @SpringBean private ProjectService projectService;
+
+    private final String projectId;
 
     private ProjectMember projectMember = new ProjectMember();
 
-    public AddProjectMemberModal(java.lang.String markupId) {
-        this(markupId, null);
-    }
+    public AddProjectMemberModal(String id, final String projectId) {
+        super(id);
+        this.projectId = projectId;
 
-    public AddProjectMemberModal(java.lang.String id, IModel<java.lang.String> model) {
-        super(id, model);
+        this.projectModel = new LoadableDetachableModel<Project>() {
+            @Override
+            protected Project load() {
+                return projectService.findById(projectId);
+            }
+        };
 
         final Form form = new Form("form.add.member") {
             @Override
@@ -44,9 +58,11 @@ public abstract class AddProjectMemberModal extends Modal {
 
         final ListChoice<User> userSelection = new ListChoice<User>("user", new PropertyModel<User>(projectMember, "user"), userService.getAllUsers(), new ChoiceRenderer<User>("username", "id"));
         form.add(userSelection);
+        userSelection.add(new AttributeModifier("size", 1));
 
-        final ListMultipleChoice<ProjectRole> projectRoleSelection = new ListMultipleChoice<ProjectRole>("projectRole", new PropertyModel<List<ProjectRole>>(projectMember, "projectRoles"), projectRoleService.getProjectRolesForProject("asd"), new ChoiceRenderer<ProjectRole>("name", "id"));
+        final ListChoice<ProjectRole> projectRoleSelection = new ListChoice<ProjectRole>("projectRole", new PropertyModel<ProjectRole>(projectMember, "projectRole"), new ArrayList<ProjectRole>(projectModel.getObject().getProjectRoles()), new ChoiceRenderer<ProjectRole>("name", "id"));
         form.add(projectRoleSelection);
+        projectRoleSelection.add(new AttributeModifier("size", 1));
 
         addButton(new ModalCloseButton(new ResourceModel("label.cancel")));
 

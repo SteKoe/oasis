@@ -1,6 +1,7 @@
 package de.stekoe.idss.service.impl;
 
 import de.stekoe.idss.AbstractBaseTest;
+import de.stekoe.idss.TestFactory;
 import de.stekoe.idss.model.Permission;
 import de.stekoe.idss.model.Project;
 import de.stekoe.idss.model.ProjectMember;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -41,12 +43,12 @@ public class DefaultAuthServiceTest extends AbstractBaseTest {
         permissionList.add(new Permission(PermissionObject.PROJECT, PermissionType.DELETE, projectId));
         permissionList.add(new Permission(PermissionObject.PROJECT, PermissionType.UPDATE, projectId));
 
-        User user = new User();
+        User user = TestFactory.createUser(UUID.randomUUID().toString());
         user.setPermissions(permissionList);
 
         userService.save(user);
 
-        Project project = new Project();
+        Project project = TestFactory.createProject();
         project.setId(projectId);
 
         ProjectMember pm = new ProjectMember();

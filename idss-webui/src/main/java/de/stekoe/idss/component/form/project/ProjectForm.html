@@ -5,7 +5,7 @@
     <form wicket:id="form.project">
         <div class="control-group well" wicket:id="buttonControlGroup">
             <button type="submit" class="btn btn-success" wicket:id="submitButton">
-                <i class="fa fa-save"></i> <wicket:message key="label.save"></wicket:message>
+                <wicket:message key="label.save"></wicket:message>
             </button>
             <a href="" class="btn" wicket:id="cancelButton">
                 <wicket:message key="label.cancel"></wicket:message>
@@ -20,9 +20,8 @@
             <textarea wicket:id="description" class="input-block-level"></textarea>
         </div>
 
-        <div class="control-group" wicket:id="projectFileUploadControlGroup">
-            <div wicket:id="files" class="fileUpload">
-            </div>
+        <div class="control-group" wicket:id="project.status.group">
+            <select size="1" wicket:id="projectStatus"></select>
         </div>
     </form>
 </wicket:panel>

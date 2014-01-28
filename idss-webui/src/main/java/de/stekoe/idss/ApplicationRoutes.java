@@ -2,7 +2,6 @@ package de.stekoe.idss;
 
 import de.stekoe.idss.page.ContactPage;
 import de.stekoe.idss.page.HomePage;
-import de.stekoe.idss.page.admin.SystemInfoPage;
 import de.stekoe.idss.page.auth.LoginPage;
 import de.stekoe.idss.page.auth.LogoutPage;
 import de.stekoe.idss.page.auth.RegistrationPage;
@@ -73,8 +72,6 @@ public class ApplicationRoutes {
         getWebApplication().mountPage("/project/${id}/member", ProjectMemberListPage.class);
         getWebApplication().mountPage("/project/${id}/roles", ProjectRoleListPage.class);
         getWebApplication().mountPage("/project/${id}/roles/${roleId}/edit", ProjectRoleEditPage.class);
-
-        getWebApplication().mountPage("/admin/sysinfo", SystemInfoPage.class);
     }
 
     public WebApplication getWebApplication() {

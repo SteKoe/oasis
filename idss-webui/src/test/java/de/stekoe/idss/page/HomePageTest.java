@@ -1,5 +1,6 @@
 package de.stekoe.idss.page;
 
+import de.stekoe.idss.AbstractWicketApplicationTester;
 import de.stekoe.idss.FakeWebSession;
 import de.stekoe.idss.TestFactory;
 import org.junit.Test;

@@ -1,8 +1,7 @@
 package de.stekoe.idss.session;
 
+import de.stekoe.idss.AbstractWicketApplicationTester;
 import de.stekoe.idss.TestFactory;
-import de.stekoe.idss.page.AbstractWicketApplicationTester;
-import org.apache.wicket.util.tester.WicketTester;
 import org.junit.Test;
 import org.springframework.test.annotation.DirtiesContext;
 
@@ -13,7 +12,6 @@ import static org.junit.Assert.assertTrue;
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
 public class WebSessionTest extends AbstractWicketApplicationTester {
-    private WicketTester testApp;
 
     @Test
     @DirtiesContext

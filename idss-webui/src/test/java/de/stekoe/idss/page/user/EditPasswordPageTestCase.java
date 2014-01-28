@@ -1,7 +1,7 @@
 package de.stekoe.idss.page.user;
 
 import de.stekoe.idss.TestFactory;
-import de.stekoe.idss.page.AbstractWicketApplicationTester;
+import de.stekoe.idss.AbstractWicketApplicationTester;
 import de.stekoe.idss.service.AuthService;
 import org.apache.wicket.util.tester.FormTester;
 import org.junit.Assert;

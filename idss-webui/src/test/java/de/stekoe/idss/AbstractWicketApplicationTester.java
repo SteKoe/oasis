@@ -1,7 +1,5 @@
-package de.stekoe.idss.page;
+package de.stekoe.idss;
 
-import de.stekoe.idss.FakeWebApplication;
-import de.stekoe.idss.FakeWebSession;
 import org.apache.wicket.util.tester.WicketTester;
 import org.junit.Before;
 import org.junit.runner.RunWith;

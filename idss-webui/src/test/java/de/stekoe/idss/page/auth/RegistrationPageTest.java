@@ -1,6 +1,6 @@
 package de.stekoe.idss.page.auth;
 
-import de.stekoe.idss.page.AbstractWicketApplicationTester;
+import de.stekoe.idss.AbstractWicketApplicationTester;
 import org.junit.Test;
 import org.springframework.test.annotation.DirtiesContext;
 

@@ -31,7 +31,7 @@
                 <prop key="hibernate.dialect">${hibernate.dialect}</prop>
                 <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
                 <prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
-                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.hbm2ddl.auto">create</prop>
                 <!--<prop key="hibernate.hbm2ddl.import_files">/sql/setup.sql</prop>-->
             </props>
         </property>
@@ -75,6 +75,8 @@
     <bean id="projectService" class="de.stekoe.idss.service.impl.DefaultProjectService" />
     <bean id="systemRoleService" class="de.stekoe.idss.service.impl.DefaultSystemRoleService" />
     <bean id="projectRoleService" class="de.stekoe.idss.service.impl.DefaultProjectRoleService" />
-    <bean id="documentService" class="de.stekoe.idss.service.impl.DefaultDocumentService" />
+    <bean id="documentService" class="de.stekoe.idss.service.impl.DefaultDocumentService">
+        <property name="documentPath" value="${document.path}" />
+    </bean>
     <bean id="mailService" class="de.stekoe.idss.service.impl.DefaultMailService" />
 </beans>

@@ -5,6 +5,7 @@ import de.stekoe.idss.model.Document;
 import de.stekoe.idss.service.DocumentService;
 
 import javax.inject.Inject;
+import java.io.File;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
@@ -12,6 +13,7 @@ import javax.inject.Inject;
 public class DefaultDocumentService implements DocumentService {
     @Inject
     private IDocumentDAO documentDAO;
+    private String path;
 
     @Override
     public void save(Document document) {
@@ -20,6 +22,17 @@ public class DefaultDocumentService implements DocumentService {
 
     @Override
     public String getAbsolutePath(String id) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        final String[] idParts = id.split("-");
+        return getDocumentPath() + File.separator + idParts[1] + File.separator + idParts[0] + ".data";
+    }
+
+    @Override
+    public void setDocumentPath(String path) {
+        this.path = path;
+    }
+
+    @Override
+    public String getDocumentPath() {
+        return path;
     }
 }

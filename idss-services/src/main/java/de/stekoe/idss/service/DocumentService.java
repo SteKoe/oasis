@@ -8,4 +8,6 @@ import de.stekoe.idss.model.Document;
 public interface DocumentService {
     void save(Document document);
     String getAbsolutePath(String id);
+    void setDocumentPath(String path);
+    String getDocumentPath();
 }

@@ -5,6 +5,7 @@
     <entry key="page.meta.author">Test</entry>
 
     <!-- General Labels -->
+    <entry key="label.download">Herunterladen</entry>
     <entry key="label.save">Speichern</entry>
     <entry key="label.edit">Bearbeiten</entry>
     <entry key="label.details">Details</entry>

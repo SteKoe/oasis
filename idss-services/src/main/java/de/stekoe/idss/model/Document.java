@@ -12,7 +12,6 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "Document")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Document implements Serializable {
 
     private String id = IDGenerator.createId();

@@ -3,6 +3,7 @@ package de.stekoe.idss.component.form.upload;
 import de.stekoe.idss.model.Document;
 import de.stekoe.idss.service.DocumentService;
 import de.stekoe.idss.session.WebSession;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.upload.FileUpload;
@@ -38,7 +39,7 @@ public class DocumentUploadForm extends Panel {
 
                     Document document = new Document();
                     document.setName(uploadedFile.getClientFileName());
-                    document.setContentType(uploadedFile.getContentType());
+                    document.setContentType(StringUtils.substringAfterLast(uploadedFile.getClientFileName(), "."));
                     document.setSize(uploadedFile.getSize());
                     document.setUser(WebSession.get().getUser());
 
@@ -48,7 +49,6 @@ public class DocumentUploadForm extends Panel {
                         File newFile = new File(absolutePath);
                         createFolders(newFile);
                         createFile(newFile);
-
                         uploadedFile.writeTo(newFile);
 
                         documentService.save(document);

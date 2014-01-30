@@ -24,8 +24,12 @@
                 <td class="text-right"><span wicket:id="file.size"></span></td>
                 <td><span wicket:id="file.type"></span></td>
                 <td class="text-right">
-                    <a href="" class="btn btn-mini" wicket:id="file.download">[Download]</a>
-                    <a href="" class="btn btn-mini btn-danger" wicket:id="file.delete">[Löschen]</a>
+                    <a href="" class="btn btn-mini" wicket:id="file.download">
+                        <wicket:message key="label.download" />
+                    </a>
+                    <a href="" class="btn btn-mini btn-danger" wicket:id="file.delete">
+                        <wicket:message key="label.delete" />
+                    </a>
                 </td>
             </tr>
             </wicket:container>

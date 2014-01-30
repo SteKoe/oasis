@@ -12,7 +12,7 @@
     <entry key="label.delete">Löschen</entry>
     <entry key="label.cancel">Abbrechen</entry>
     <entry key="label.submit">Senden</entry>
-    <entry key="label.upload">Datei hochladen</entry>
+    <entry key="label.upload">Dokument hochladen</entry>
     <entry key="label.username">Benutzername</entry>
     <entry key="label.email">E-Mail</entry>
     <entry key="label.password">Passwort</entry>
@@ -31,6 +31,12 @@
     <entry key="label.project.add.member">Projektmitglied hinzufügen</entry>
     <entry key="label.project.edit.member">Mitglieder bearbeiten</entry>
     <entry key="label.project.edit.roles">Rollen bearbeiten</entry>
+
+    <entry key="label.file.name">Name</entry>
+    <entry key="label.file.date">Hochgeladen am</entry>
+    <entry key="label.file.size">Dokumentgröße</entry>
+    <entry key="label.file.type">Dokumententyp</entry>
+    <entry key="label.file.none">Keine Dokumente gefunden</entry>
 
     <!-- Registration Form -->
     <entry key="form.login.title">Anmelden</entry>

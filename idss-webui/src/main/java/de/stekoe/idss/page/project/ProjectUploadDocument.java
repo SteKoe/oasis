@@ -6,6 +6,7 @@ import de.stekoe.idss.model.Project;
 import de.stekoe.idss.service.DocumentService;
 import de.stekoe.idss.service.ProjectService;
 import de.stekoe.idss.session.WebSession;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.DownloadLink;
 import org.apache.wicket.markup.html.link.Link;
@@ -20,6 +21,7 @@ import org.apache.wicket.util.lang.Bytes;
 import java.io.File;
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Set;
 
 
 /**
@@ -27,18 +29,22 @@ import java.util.ArrayList;
  */
 public class ProjectUploadDocument extends ProjectPage {
 
-    @SpringBean
-    private ProjectService projectService;
-
-    @SpringBean
-    private DocumentService documentService;
+    @SpringBean private ProjectService projectService;
+    @SpringBean private DocumentService documentService;
 
     public ProjectUploadDocument(PageParameters pageParameters) {
         super(pageParameters);
 
         addUploadForm();
+        addDocumentList();
 
-        final ListView<Document> filesList = new ListView<Document>("files.list", new ArrayList<Document>(getProject().getDocuments())) {
+        final WebMarkupContainer emptyList = new WebMarkupContainer("files.list.empty");
+        emptyList.setVisible(getDocumentsOfCurrentProject().isEmpty());
+        add(emptyList);
+    }
+
+    private void addDocumentList() {
+        final ListView<Document> filesList = new ListView<Document>("files.list", new ArrayList<Document>(getDocumentsOfCurrentProject())) {
             @Override
             protected void populateItem(ListItem<Document> item) {
                 final Document document = item.getModelObject();
@@ -76,6 +82,10 @@ public class ProjectUploadDocument extends ProjectPage {
             }
         };
         add(filesList);
+    }
+
+    private Set<Document> getDocumentsOfCurrentProject() {
+        return getProject().getDocuments();
     }
 
     private void addUploadForm() {

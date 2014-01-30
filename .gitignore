@@ -3,7 +3,7 @@
 .settings
 .idea
 target/
-logs/*
+logs/
 *.iml
 *.log
 *.aux

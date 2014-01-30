@@ -3,16 +3,16 @@
       xmlns:wicket="http://wicket.sourceforge.net/" xml:lang="en" lang="en">
 <body>
 <wicket:extend>
-    <h2>[Document hochladen]</h2>
+    <h2><wicket:message key="label.upload" /></h2>
     <div wicket:id="form.document.upload"></div>
 
     <table class="table">
         <thead>
             <tr>
-                <th>[Name]</th>
-                <th class="text-center">[Hinzugefügt am]</th>
-                <th class="text-right">[Größe]</th>
-                <th>[Art]</th>
+                <th><wicket:message key="label.file.name" /></th>
+                <th class="text-center"><wicket:message key="label.file.date" /></th>
+                <th class="text-right"><wicket:message key="label.file.size" /></th>
+                <th><wicket:message key="label.file.type" /></th>
                 <th></th>
             </tr>
         </thead>
@@ -27,6 +27,12 @@
                     <a href="" class="btn btn-mini" wicket:id="file.download">[Download]</a>
                     <a href="" class="btn btn-mini btn-danger" wicket:id="file.delete">[Löschen]</a>
                 </td>
+            </tr>
+            </wicket:container>
+
+            <wicket:container wicket:id="files.list.empty">
+            <tr>
+                <td colspan="5" class="text-center"><wicket:message key="label.file.none" /></td>
             </tr>
             </wicket:container>
         </tbody>

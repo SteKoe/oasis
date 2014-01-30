@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-    <entry key="application.title">${project.parent.name}</entry>
-    <entry key="application.name">${project.parent.artifactId}</entry>
-    <entry key="application.version">${project.parent.version} - ${timestamp}</entry>
-    <entry key="application.upload.folder">/Volumes/HDD/stekoe2000/Development/java/workspaces/Masterprojekt/workspace/IDSS/uploads</entry>
-
-
     <entry key="page.meta.author">Stephan Köninger</entry>
     <entry key="page.meta.author">Test</entry>
 
@@ -29,7 +23,9 @@
     <entry key="label.thisisyou">Das sind sie!</entry>
 
     <entry key="label.project">Projekt</entry>
+    <entry key="label.project.overview">Projektdetails</entry>
     <entry key="label.project.edit">Projekt bearbeiten</entry>
+    <entry key="label.project.delete">Projekt löschen</entry>
     <entry key="label.project.numOfPersons">{0,choice,0#Keine|1#Eine Person|1&lt;{0} Personen}</entry>
     <entry key="label.project.numOfPermissions">{0,choice,0#Kein Zugriff|1#Ein Zugriffsrecht|1&lt;{0} Zugriffsrechte}</entry>
     <entry key="label.project.add.member">Projektmitglied hinzufügen</entry>

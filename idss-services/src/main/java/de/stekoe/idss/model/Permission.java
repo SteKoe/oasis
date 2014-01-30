@@ -69,4 +69,9 @@ public class Permission implements Serializable {
     public void setObjectId(String objectId) {
         this.objectId = objectId;
     }
+
+    @Override
+    public String toString() {
+        return this.getPermissionType().getKey();
+    }
 }

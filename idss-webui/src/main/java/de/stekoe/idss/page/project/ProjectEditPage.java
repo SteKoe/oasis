@@ -1,6 +1,7 @@
 package de.stekoe.idss.page.project;
 
 import de.stekoe.idss.component.form.project.EditProjectForm;
+import de.stekoe.idss.model.enums.PermissionType;
 import de.stekoe.idss.service.ProjectService;
 import org.apache.log4j.Logger;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -11,7 +12,6 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
  */
 public class ProjectEditPage extends ProjectPage {
 
-    private final String projectId;
     @SpringBean private ProjectService projectService;
 
     private static final Logger LOG = Logger.getLogger(ProjectEditPage.class);
@@ -19,8 +19,8 @@ public class ProjectEditPage extends ProjectPage {
     public ProjectEditPage(PageParameters params) {
         super(params);
 
-        this.projectId = params.get("id").toString();
+        projectService.isAuthorized(getUser().getId(), getProjectId(), PermissionType.UPDATE);
 
-        add(new EditProjectForm("form.project.edit", this.projectId));
+        add(new EditProjectForm("form.project.edit", getProjectId()));
     }
 }

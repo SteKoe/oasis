@@ -13,4 +13,5 @@ public class FakeWebApplication extends WebApplication {
     public Session newSession(Request request, Response response) {
         return new FakeWebSession(request);
     }
+
 }

@@ -33,7 +33,6 @@ public enum PermissionType implements L10NEnum {
 
     public static final Set<PermissionType> forCrud() {
         final HashSet<PermissionType> permissionTypes = new HashSet<PermissionType>();
-        permissionTypes.add(CREATE);
         permissionTypes.add(READ);
         permissionTypes.add(UPDATE);
         permissionTypes.add(DELETE);

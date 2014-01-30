@@ -38,13 +38,6 @@
         <url-pattern>/*</url-pattern>
     </servlet-mapping>
 
-    <!-- The Application -->
-    <context-param>
-        <param-name>configuration</param-name>
-        <!-- <param-value>DEPLOYMENT</param-value> -->
-        <param-value>DEVELOPMENT</param-value>
-    </context-param>
-
     <!-- Spring -->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -56,5 +49,33 @@
             classpath:services/BeanLocations.xml
             classpath:web-ui/BeanLocations.xml
         </param-value>
+    </context-param>
+
+
+    <!-- Params which can be overriden by context descriptors -->
+    <context-param>
+        <param-name>configuration</param-name>
+        <!-- <param-value>DEPLOYMENT</param-value> -->
+        <param-value>DEVELOPMENT</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>application.title</param-name>
+        <param-value>${project.parent.name}</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>application.name</param-name>
+        <param-value>${project.parent.artifactId}</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>application.version</param-name>
+        <param-value>${project.parent.version} - ${timestamp}</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>uploadPath</param-name>
+        <param-value>/Volumes/HDD/stekoe2000/Development/java/workspaces/Masterprojekt/workspace/IDSS/uploads</param-value>
     </context-param>
 </web-app>

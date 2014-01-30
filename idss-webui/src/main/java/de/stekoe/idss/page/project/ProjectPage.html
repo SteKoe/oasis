@@ -1,8 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:wicket="http://wicket.sourceforge.net/" xml:lang="en" lang="en">
-<body>
+<html xmlns:wicket="http://wicket.sourceforge.net/">
 <wicket:extend>
     <h1>
         <wicket:container wicket:id="projectTitle"></wicket:container>
@@ -12,7 +8,9 @@
     <div class="row-fluid">
         <div class="span3">
 
-            <a href="" wicket:id="link.project.overview" class="btn btn-large btn-block text-center">[Übersicht]</a>
+            <a href="" wicket:id="link.project.overview" class="btn btn-large btn-block text-center">
+                <wicket:message key="label.project.overview" />
+            </a>
 
             <hr>
 
@@ -32,28 +30,30 @@
             <ul class="nav nav-tabs nav-stacked">
                 <li>
                     <a href="#" wicket:id="editProject">
-                        <i class="icon-chevron-right"></i> <span wicket:id="editProjectLinkLabel"></span>
+                        <i class="icon-chevron-right"></i> <wicket:message key="label.project.edit" />
                     </a>
                 </li>
                 <li>
                     <a href="#" wicket:id="addMember">
-                        <i class="icon-chevron-right"></i> <span wicket:id="addProjectMemberLink"></span>
+                        <i class="icon-chevron-right"></i> <wicket:message key="label.project.edit.member" />
                     </a>
                 </li>
                 <li>
                     <a href="#" wicket:id="editProjectRolesLink">
-                        <i class="icon-chevron-right"></i> <span wicket:id="editProjectRolesLinkLabel"></span>
+                        <i class="icon-chevron-right"></i> <wicket:message key="label.project.edit.roles" />
                     </a>
                 </li>
                 <li>
                     <a href="#" wicket:id="link.upload.document">
-                        <i class="icon-chevron-right"></i> [Dokument hochladen]
+                        <i class="icon-chevron-right"></i> <wicket:message key="label.upload" />
                     </a>
                 </li>
 
             </ul>
 
-            <a href="" wicket:id="link.project.delete" class="btn btn-block btn-danger">[Projekt löschen]</a>
+            <a href="" wicket:id="link.project.delete" class="btn btn-block btn-danger">
+                <wicket:message key="label.project.delete" />
+            </a>
         </div>
 
         <div class="span9">
@@ -61,5 +61,4 @@
         </div>
     </div>
 </wicket:extend>
-</body>
 </html>

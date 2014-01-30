@@ -1,6 +1,7 @@
 package de.stekoe.idss.page;
 
 import de.agilecoders.wicket.core.Bootstrap;
+import de.stekoe.idss.WebApplication;
 import de.stekoe.idss.component.feedbackpanel.MyFencedFeedbackPanel;
 import de.stekoe.idss.component.navigation.language.LanguageSwitcher;
 import de.stekoe.idss.component.navigation.main.MainNavigation;
@@ -26,19 +27,21 @@ import org.apache.wicket.request.resource.ContextRelativeResource;
 /**
  * @author Stephan Köninger <mail@stekoe.de>
  */
-@SuppressWarnings("serial")
 public abstract class LayoutPage extends WebPage {
 
     public LayoutPage() {
         super();
+        init();
     }
 
     public LayoutPage(IModel<?> model) {
         super(model);
+        init();
     }
 
     public LayoutPage(PageParameters parameters) {
         super(parameters);
+        init();
     }
 
     /**
@@ -48,6 +51,11 @@ public abstract class LayoutPage extends WebPage {
      */
     public void addPageTitle(String pageTitle) {
         add(new Label("pageTitle", Model.of(pageTitle)));
+    }
+
+    public String getContextParameter(String key) {
+        final String param = WebApplication.get().getServletContext().getInitParameter(key);
+        return param;
     }
 
     /**
@@ -68,18 +76,22 @@ public abstract class LayoutPage extends WebPage {
         return getSession().getUser();
     }
 
-    @Override
-    protected void onInitialize() {
-        super.onInitialize();
-
+    protected void init() {
         configureSession();
 
         Bootstrap.getSettings().getActiveThemeProvider().setActiveTheme(new BootstrapTheme());
 
         addPageLogo();
-        addPageTitle(getString("application.title"));
+        addPageTitle(getContextParameter("application.title"));
         addContentElements();
+        addPageFooter();
         addDebugPanel();
+    }
+
+    private void addPageFooter() {
+        String applicationName = getContextParameter("application.name");
+        String applicationVersion = getContextParameter("application.version");
+        add(new Label("application.footer", applicationName + " " + applicationVersion));
     }
 
     private void addPageLogo() {

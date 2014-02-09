@@ -1,6 +1,6 @@
 package de.stekoe.idss.page.project;
 
-import de.stekoe.idss.model.Project;
+import de.stekoe.idss.model.project.Project;
 import de.stekoe.idss.model.enums.PermissionType;
 import de.stekoe.idss.page.AuthUserPage;
 import de.stekoe.idss.service.ProjectService;
@@ -16,11 +16,12 @@ import org.apache.wicket.util.string.StringValue;
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
 public class AuthProjectPage extends AuthUserPage {
-
     private static final Logger LOG = Logger.getLogger(AuthProjectPage.class);
-    private final String projectId;
+
     @SpringBean
     private ProjectService projectService;
+
+    private final String projectId;
     private Class<? extends IRequestablePage> responsePage = ProjectListPage.class;
     private LoadableDetachableModel<Project> projectModel;
 

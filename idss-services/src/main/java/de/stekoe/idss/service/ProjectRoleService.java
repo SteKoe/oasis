@@ -1,6 +1,6 @@
 package de.stekoe.idss.service;
 
-import de.stekoe.idss.model.ProjectRole;
+import de.stekoe.idss.model.project.ProjectRole;
 import org.springframework.stereotype.Service;
 
 /**

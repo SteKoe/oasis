@@ -16,16 +16,8 @@
  
 ## Source function library.
 #. /etc/rc.d/init.d/functions
-TOMCAT_HOME="/home/tomcat/apache-tomcat-7.0.47"
+TOMCAT_HOME="/home/tomcat/tomcat"
 TOMCAT_USER="tomcat"
-
-export JAVA_OPTS="-Dfile.encoding=UTF-8 \
-  -XX:+DoEscapeAnalysis \
-  -XX:+UseConcMarkSweepGC \
-  -XX:+CMSClassUnloadingEnabled \
-  -XX:+UseParNewGC \
-  -XX:MaxPermSize=128m \
-  -Xms1024m -Xmx1024m"
 
 SHUTDOWN_WAIT=20
  

@@ -9,7 +9,10 @@ public class ProjectDetailsPage extends ProjectPage {
     public ProjectDetailsPage(PageParameters pageParameters) {
         super(pageParameters);
 
-        // Description
+        addDescription();
+    }
+
+    private void addDescription() {
         String description = getProject().getDescription();
         if(StringUtils.isEmpty(description)) {
             description = getString("label.description.na");

@@ -1,0 +1,55 @@
+@outerBorderColor: #333;
+@categoryTitleBg: lighten(@outerBorderColor, 40%);
+@categoryBg: lighten(@outerBorderColor, 70%);
+@innerBorderColor: @categoryTitleBg;
+@innerPadding: 10px;
+
+.criterion-category {
+  border: 1px solid @outerBorderColor;
+  background-color: @categoryBg;
+  overflow: hidden;
+  margin-bottom: 15px;
+
+  .criterion-category-title {
+    color: contrast(@categoryTitleBg);
+    background-color: @categoryTitleBg;
+    font-weight: bold;
+    text-align: center;
+    padding: @innerPadding;
+    margin-bottom: @innerPadding - 3px;
+  }
+}
+
+.criterion-block {
+  margin: 0 5px 5px 5px;
+  padding: 5px @innerPadding;
+  border: 1px solid @innerBorderColor;
+  background-color: #fff;
+
+  &:last-child {
+    margin-bottom: 6px;
+  }
+
+  .criterion {
+    font-weight: bold;
+    color: #000;
+  }
+  .measure {
+    .control-group:last-child {
+      margin-bottom: 0px;
+    }
+
+    .table {
+      margin-bottom: 0px;
+
+      th, td {
+        text-align: center;
+        vertical-align: middle;
+      }
+
+      td.sub-measure {
+        text-align: left;
+      }
+    }
+  }
+}

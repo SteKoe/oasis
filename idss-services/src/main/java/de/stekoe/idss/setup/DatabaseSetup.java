@@ -52,7 +52,8 @@ public class DatabaseSetup {
             "melita.kaffee",
             "jonas.sprenger",
             "benedikt.ritter",
-            "michael.hess"
+            "michael.hess",
+            "stephan.koeninger"
     );
 
     public void createSystemRoles() {

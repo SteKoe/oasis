@@ -1,6 +1,6 @@
 package de.stekoe.idss.service;
 
-import de.stekoe.idss.model.Project;
+import de.stekoe.idss.model.project.Project;
 import de.stekoe.idss.model.enums.PermissionType;
 import org.springframework.stereotype.Service;
 

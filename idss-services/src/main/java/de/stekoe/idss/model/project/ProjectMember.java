@@ -1,6 +1,7 @@
-package de.stekoe.idss.model;
+package de.stekoe.idss.model.project;
 
 import de.stekoe.idss.IDGenerator;
+import de.stekoe.idss.model.User;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -50,7 +51,6 @@ public class ProjectMember implements Serializable {
     }
 
     @ManyToMany(targetEntity = ProjectMemberGroup.class)
-    @JoinTable(name = "ProjectMemberToProjectGroup", joinColumns = @JoinColumn(name = "project_member_id"), inverseJoinColumns = @JoinColumn(name = "project_group_id"))
     public Set<ProjectMemberGroup> getProjectGroups() {
         return this.projectGroups;
     }

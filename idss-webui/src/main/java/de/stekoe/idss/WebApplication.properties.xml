@@ -22,6 +22,7 @@
     <entry key="label.description.na">Keine Beschreibung gesetzt</entry>
     <entry key="label.remove.from">Von %s entfernen!</entry>
     <entry key="label.thisisyou">Das sind sie!</entry>
+    <entry key="label.systeminfo">Systeminformationenz</entry>
 
     <entry key="label.project">Projekt</entry>
     <entry key="label.project.overview">Projektdetails</entry>

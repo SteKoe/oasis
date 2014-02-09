@@ -2,7 +2,7 @@ package de.stekoe.idss.component.form.project;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.ControlGroup;
 import de.stekoe.idss.component.behavior.CustomTinyMCESettings;
-import de.stekoe.idss.model.Project;
+import de.stekoe.idss.model.project.Project;
 import de.stekoe.idss.model.enums.ProjectStatus;
 import de.stekoe.idss.page.project.ProjectListPage;
 import de.stekoe.idss.service.ProjectService;

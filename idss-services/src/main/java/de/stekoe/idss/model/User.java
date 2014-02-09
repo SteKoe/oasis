@@ -2,6 +2,7 @@ package de.stekoe.idss.model;
 
 import de.stekoe.idss.IDGenerator;
 import de.stekoe.idss.model.enums.UserStatus;
+import de.stekoe.idss.model.project.ProjectMember;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -106,7 +107,6 @@ public class User implements Serializable {
     }
 
     @ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, targetEntity = SystemRole.class)
-    @JoinTable(name="UserToSystemRole", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "system_role_id"))
     public Set<SystemRole> getRoles() {
         return this.roles;
     }

@@ -75,7 +75,7 @@
     </context-param>
 
     <context-param>
-        <param-name>uploadPath</param-name>
+        <param-name>document.upload.path</param-name>
         <param-value>/Volumes/HDD/stekoe2000/Development/java/workspaces/Masterprojekt/workspace/IDSS/uploads</param-value>
     </context-param>
 </web-app>

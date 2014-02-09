@@ -1,5 +1,6 @@
 package de.stekoe.idss.model;
 
+import de.stekoe.idss.model.project.Project;
 import de.stekoe.idss.service.ProjectService;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;

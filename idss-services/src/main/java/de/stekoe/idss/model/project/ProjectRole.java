@@ -1,6 +1,7 @@
-package de.stekoe.idss.model;
+package de.stekoe.idss.model.project;
 
 import de.stekoe.idss.IDGenerator;
+import de.stekoe.idss.model.Permission;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

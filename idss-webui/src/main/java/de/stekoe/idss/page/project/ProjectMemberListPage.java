@@ -8,17 +8,9 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
  */
 public class ProjectMemberListPage extends ProjectPage {
 
-    private final String projectId;
-
     public ProjectMemberListPage(PageParameters pageParameters) {
         super(pageParameters);
-        this.projectId = pageParameters.get("id").toString();
 
-        add(new EditProjectMembersForm("form.project.members.edit", this.projectId));
-    }
-
-    @Override
-    protected void onBeforeRender() {
-        super.onBeforeRender();
+        add(new EditProjectMembersForm("form.project.members.edit", getProjectId()));
     }
 }

@@ -1,6 +1,6 @@
 package de.stekoe.idss.dao;
 
-import de.stekoe.idss.model.Project;
+import de.stekoe.idss.model.project.Project;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

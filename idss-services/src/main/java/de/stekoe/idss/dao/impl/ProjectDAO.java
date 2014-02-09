@@ -1,7 +1,7 @@
 package de.stekoe.idss.dao.impl;
 
 import de.stekoe.idss.dao.IProjectDAO;
-import de.stekoe.idss.model.Project;
+import de.stekoe.idss.model.project.Project;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Projections;

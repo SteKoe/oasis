@@ -2,8 +2,8 @@ package de.stekoe.idss.component.form.project;
 
 import de.stekoe.idss.component.modal.AddProjectMemberModal;
 import de.stekoe.idss.component.user.UserInfoBlock;
-import de.stekoe.idss.model.Project;
-import de.stekoe.idss.model.ProjectMember;
+import de.stekoe.idss.model.project.Project;
+import de.stekoe.idss.model.project.ProjectMember;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.model.enums.PermissionType;
 import de.stekoe.idss.page.HomePage;

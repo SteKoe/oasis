@@ -14,6 +14,9 @@
     <name>OASIS - Services</name>
 
     <build>
+        <filters>
+            <filter>src/main/resources/application.properties</filter>
+        </filters>
         <resources>
             <resource>
                 <filtering>true</filtering>
@@ -62,6 +65,11 @@
             <groupId>javax.inject</groupId>
             <artifactId>javax.inject</artifactId>
             <version>1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.jolbox</groupId>
+            <artifactId>bonecp</artifactId>
+            <version>0.8.0.RELEASE</version>
         </dependency>
     </dependencies>
 </project>

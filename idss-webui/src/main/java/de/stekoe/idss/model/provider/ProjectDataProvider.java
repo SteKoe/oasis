@@ -1,6 +1,6 @@
 package de.stekoe.idss.model.provider;
 
-import de.stekoe.idss.model.Project;
+import de.stekoe.idss.model.project.Project;
 import de.stekoe.idss.service.ProjectService;
 import de.stekoe.idss.session.WebSession;
 import org.apache.wicket.markup.repeater.data.IDataProvider;

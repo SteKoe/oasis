@@ -2,9 +2,11 @@ package de.stekoe.idss;
 
 import de.stekoe.idss.page.ContactPage;
 import de.stekoe.idss.page.HomePage;
+import de.stekoe.idss.page.admin.SystemInformationPage;
 import de.stekoe.idss.page.auth.LoginPage;
 import de.stekoe.idss.page.auth.LogoutPage;
 import de.stekoe.idss.page.auth.RegistrationPage;
+import de.stekoe.idss.page.project.criterion.CriteriaListPage;
 import de.stekoe.idss.page.error.Error403Page;
 import de.stekoe.idss.page.error.Error404Page;
 import de.stekoe.idss.page.error.Error410Page;
@@ -60,6 +62,9 @@ public class ApplicationRoutes {
         getWebApplication().mountPage("/activate", ActivateUserPage.class);
         getWebApplication().mountPage("/logout", LogoutPage.class);
 
+        // Admin
+        getWebApplication().mountPage("/admin/system", SystemInformationPage.class);
+
         // User Profile
         getWebApplication().mountPage("/profile/edit/#{id}", EditUserProfilePage.class);
         getWebApplication().mountPage("/profile/view/#{id}", ViewUserProfilePage.class);
@@ -72,6 +77,7 @@ public class ApplicationRoutes {
         getWebApplication().mountPage("/project/${id}/member", ProjectMemberListPage.class);
         getWebApplication().mountPage("/project/${id}/roles", ProjectRoleListPage.class);
         getWebApplication().mountPage("/project/${id}/roles/${roleId}/edit", ProjectRoleEditPage.class);
+        getWebApplication().mountPage("/project/${id}/criteria", CriteriaListPage.class);
     }
 
     public WebApplication getWebApplication() {

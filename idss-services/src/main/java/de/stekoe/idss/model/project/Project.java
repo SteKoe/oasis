@@ -1,13 +1,16 @@
-package de.stekoe.idss.model;
+package de.stekoe.idss.model.project;
 
 import de.stekoe.idss.IDGenerator;
+import de.stekoe.idss.model.Document;
+import de.stekoe.idss.model.Identifyable;
 import de.stekoe.idss.model.enums.ProjectStatus;
+import de.stekoe.idss.model.scale.Scale;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
@@ -16,41 +19,44 @@ import java.util.Set;
 @Table(name = "Project")
 public class Project implements Serializable, Identifyable {
 
-    private java.lang.String id = IDGenerator.createId();
-    private java.lang.String name;
-    private java.lang.String description;
+    private String id = IDGenerator.createId();
+    private String name;
+    private String description;
     private Set<ProjectMember> projectTeam = new HashSet<ProjectMember>();
     private Set<Document> documents = new HashSet<Document>();
     private Set<ProjectRole> projectRoles = new HashSet<ProjectRole>();
+    private List<Scale> scaleList = new ArrayList<Scale>();
     private ProjectStatus projectStatus = ProjectStatus.EDITING;
+    private Date projectStartDate = new Date();
+    private Date projectEndDate;
 
     @Id
     @Column(name = "project_id")
-    public java.lang.String getId() {
+    public String getId() {
         return this.id;
     }
 
-    public void setId(java.lang.String id) {
+    public void setId(String id) {
         this.id = id;
     }
 
     @NotNull
     @Column(nullable=false)
-    public java.lang.String getName() {
+    public String getName() {
         return this.name;
     }
 
-    public void setName(java.lang.String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
     @Lob
     @NotNull
-    public java.lang.String getDescription() {
+    public String getDescription() {
         return this.description;
     }
 
-    public void setDescription(java.lang.String description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
@@ -64,7 +70,6 @@ public class Project implements Serializable, Identifyable {
     }
 
     @ManyToMany(targetEntity = Document.class)
-    @JoinTable(name = "ProjectFiles", joinColumns = @JoinColumn(name = "project_id"), inverseJoinColumns = @JoinColumn(name = "file_id"))
     public Set<Document> getDocuments() {
         return this.documents;
     }
@@ -82,6 +87,15 @@ public class Project implements Serializable, Identifyable {
         this.projectRoles = projectRoles;
     }
 
+    @OneToMany(targetEntity = Scale.class)
+    public List<Scale> getScaleList() {
+        return scaleList;
+    }
+
+    public void setScaleList(List<Scale> scaleList) {
+        this.scaleList = scaleList;
+    }
+
     @Enumerated(value = EnumType.STRING)
     public ProjectStatus getProjectStatus() {
         return projectStatus;
@@ -89,5 +103,25 @@ public class Project implements Serializable, Identifyable {
 
     public void setProjectStatus(ProjectStatus projectStatus) {
         this.projectStatus = projectStatus;
+    }
+
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat
+    public Date getProjectStartDate() {
+        return projectStartDate;
+    }
+
+    public void setProjectStartDate(Date projectStartDate) {
+        this.projectStartDate = projectStartDate;
+    }
+
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat
+    public Date getProjectEndDate() {
+        return projectEndDate;
+    }
+
+    public void setProjectEndDate(Date projectEndDate) {
+        this.projectEndDate = projectEndDate;
     }
 }

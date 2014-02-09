@@ -4,9 +4,9 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.button.ButtonBehavior;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
 import de.agilecoders.wicket.core.markup.html.bootstrap.dialog.Modal;
 import de.agilecoders.wicket.core.markup.html.bootstrap.dialog.ModalCloseButton;
-import de.stekoe.idss.model.Project;
-import de.stekoe.idss.model.ProjectMember;
-import de.stekoe.idss.model.ProjectRole;
+import de.stekoe.idss.model.project.Project;
+import de.stekoe.idss.model.project.ProjectMember;
+import de.stekoe.idss.model.project.ProjectRole;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.service.ProjectService;
 import de.stekoe.idss.service.UserService;
@@ -39,13 +39,14 @@ public abstract class AddProjectMemberModal extends Modal {
     public AddProjectMemberModal(String id, final String projectId) {
         super(id);
         this.projectId = projectId;
-
         this.projectModel = new LoadableDetachableModel<Project>() {
             @Override
             protected Project load() {
                 return projectService.findById(projectId);
             }
         };
+
+        header(Model.of(getString("label.project.add.member")));
 
         final Form form = new Form("form.add.member") {
             @Override

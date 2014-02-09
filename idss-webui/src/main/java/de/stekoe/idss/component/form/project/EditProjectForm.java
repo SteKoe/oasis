@@ -1,6 +1,6 @@
 package de.stekoe.idss.component.form.project;
 
-import de.stekoe.idss.model.Project;
+import de.stekoe.idss.model.project.Project;
 import de.stekoe.idss.service.ProjectRoleService;
 import de.stekoe.idss.service.ProjectService;
 import de.stekoe.idss.session.WebSession;

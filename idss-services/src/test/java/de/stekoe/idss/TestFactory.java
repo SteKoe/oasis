@@ -1,6 +1,8 @@
 package de.stekoe.idss;
 
 import de.stekoe.idss.model.*;
+import de.stekoe.idss.model.project.Project;
+import de.stekoe.idss.model.project.ProjectMember;
 
 import java.util.UUID;
 

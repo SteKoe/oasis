@@ -1,7 +1,7 @@
 package de.stekoe.idss.dao.impl;
 
 import de.stekoe.idss.dao.IProjectRoleDAO;
-import de.stekoe.idss.model.ProjectRole;
+import de.stekoe.idss.model.project.ProjectRole;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 

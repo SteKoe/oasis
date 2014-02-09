@@ -1,7 +1,7 @@
 package de.stekoe.idss.page.project;
 
 import de.stekoe.idss.model.Permission;
-import de.stekoe.idss.model.ProjectRole;
+import de.stekoe.idss.model.project.ProjectRole;
 import de.stekoe.idss.service.ProjectService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.markup.html.basic.Label;

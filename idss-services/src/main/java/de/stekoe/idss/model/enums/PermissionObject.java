@@ -1,6 +1,6 @@
 package de.stekoe.idss.model.enums;
 
-import de.stekoe.idss.model.Project;
+import de.stekoe.idss.model.project.Project;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>

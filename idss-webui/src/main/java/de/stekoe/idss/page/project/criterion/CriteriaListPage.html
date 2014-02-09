@@ -1,0 +1,130 @@
+<html xmlns:wicket="http://wicket.sourceforge.net/">
+<body>
+<wicket:extend>
+    <h1>Kriterienkatalogverwaltung</h1>
+
+    <div class="criterion-category">
+        <div class="criterion-category-title">Lehrangebot</div>
+
+        <!-- -->
+        <div class="criterion-block">
+            <div class="criterion">Bitte nennen sie uns ihr Geschlecht.</div>
+            <div class="measure">
+                <label class="radio inline">
+                    <input type="radio" name="crit-123" value="1" /> männlich
+                </label>
+                <label class="radio inline">
+                    <input type="radio" name="crit-123" value="2" /> weiblich
+                </label>
+            </div>
+        </div>
+        <!-- -->
+
+        <!-- -->
+        <div class="criterion-block">
+            <div class="criterion">
+                Wir haben eine Reihe von Aussagen aufgelistet, denen man zustimmen kann oder die man ablehnen kann.
+                Lies bitte jede Aussage durch und kreuze eine Antwort an.
+            </div>
+            <div class="measure">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th width="10%">trifft zu</th>
+                            <th width="10%">&nbsp;</th>
+                            <th width="10%">&nbsp;</th>
+                            <th width="10%">&nbsp;</th>
+                            <th width="10%">trifft nicht zu</th>
+                            <th width="10%">keine Angabe</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="sub-measure">Was du heute kannst besorgen, das verschiebe nicht auf morgen!</td>
+                            <td><input type="radio" name="crit-2"/></td>
+                            <td><input type="radio" name="crit-2"/></td>
+                            <td><input type="radio" name="crit-2"/></td>
+                            <td><input type="radio" name="crit-2"/></td>
+                            <td><input type="radio" name="crit-2"/></td>
+                            <td><input type="radio" name="crit-2"/></td>
+                        </tr>
+                        <tr>
+                            <td class="sub-measure">Alles was man tut, muss sich letztendlich rechnen.</td>
+                            <td><input type="radio" name="crit-3"/></td>
+                            <td><input type="radio" name="crit-3"/></td>
+                            <td><input type="radio" name="crit-3"/></td>
+                            <td><input type="radio" name="crit-3"/></td>
+                            <td><input type="radio" name="crit-3"/></td>
+                            <td><input type="radio" name="crit-3"/></td>
+                        </tr>
+                        <tr>
+                            <td class="sub-measure">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras auctor nunc et condimentum laoreet.</td>
+                            <td><input type="radio" name="crit-3"/></td>
+                            <td><input type="radio" name="crit-3"/></td>
+                            <td><input type="radio" name="crit-3"/></td>
+                            <td><input type="radio" name="crit-3"/></td>
+                            <td><input type="radio" name="crit-3"/></td>
+                            <td><input type="radio" name="crit-3"/></td>
+                        </tr>
+                        <tr>
+                            <td class="sub-measure">Nunc lobortis mauris nulla, vestibulum ultrices orci consectetur vitae.</td>
+                            <td><input type="radio" name="crit-3"/></td>
+                            <td><input type="radio" name="crit-3"/></td>
+                            <td><input type="radio" name="crit-3"/></td>
+                            <td><input type="radio" name="crit-3"/></td>
+                            <td><input type="radio" name="crit-3"/></td>
+                            <td><input type="radio" name="crit-3"/></td>
+                        </tr>
+                        <tr>
+                            <td class="sub-measure">Quisque sollicitudin et nibh non adipiscing.</td>
+                            <td><input type="radio" name="crit-3"/></td>
+                            <td><input type="radio" name="crit-3"/></td>
+                            <td><input type="radio" name="crit-3"/></td>
+                            <td><input type="radio" name="crit-3"/></td>
+                            <td><input type="radio" name="crit-3"/></td>
+                            <td><input type="radio" name="crit-3"/></td>
+                        </tr>
+                        <tr>
+                            <td class="sub-measure">Nullam ut libero vitae dolor ultrices pulvinar vitae ut mi. Vestibulum vehicula sollicitudin est eu blandit.</td>
+                            <td><input type="radio" name="crit-3"/></td>
+                            <td><input type="radio" name="crit-3"/></td>
+                            <td><input type="radio" name="crit-3"/></td>
+                            <td><input type="radio" name="crit-3"/></td>
+                            <td><input type="radio" name="crit-3"/></td>
+                            <td><input type="radio" name="crit-3"/></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- -->
+
+    </div>
+
+    <div class="criterion-category">
+        <div class="criterion-category-title">Demografische Angaben</div>
+
+        <!-- -->
+        <div class="criterion-block">
+            <div class="criterion">Bitte nennen Sie uns ihr Alter</div>
+            <div class="measure form-horizontal">
+                <div class="control-group">
+                    <label class="control-label" for="inputAge">Alter</label>
+                    <div class="controls">
+                        <select id="inputAge">
+                            <option>&lt; 18</option>
+                            <option>18-24</option>
+                            <option>25-40</option>
+                            <option>41-60</option>
+                            <option>&gt; 60</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- -->
+    </div>
+</wicket:extend>
+</body>
+</html>

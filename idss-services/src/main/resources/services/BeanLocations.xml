@@ -11,18 +11,20 @@
     http://www.springframework.org/schema/tx
     http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
     ">
-
-    <context:property-placeholder location="classpath:properties/application.properties" />
     <context:annotation-config/>
 
     <tx:annotation-driven transaction-manager="transactionManager" />
 
     <!-- Database Source -->
-    <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+    <bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource">
         <property name="driverClass" value="${jdbc.driverClassName}" />
-        <property name="url" value="${jdbc.url}" />
+        <property name="jdbcUrl" value="${jdbc.url}" />
         <property name="username" value="${jdbc.username}" />
         <property name="password" value="${jdbc.password}" />
+
+        <property name="maxConnectionsPerPartition" value="16"/>
+        <property name="minConnectionsPerPartition" value="1"/>
+        <property name="partitionCount" value="2"/>
     </bean>
 
     <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
@@ -36,6 +38,7 @@
             </props>
         </property>
         <property name="dataSource" ref="dataSource" />
+
         <property name="packagesToScan" value="de.stekoe.idss.model" />
     </bean>
 
@@ -67,6 +70,7 @@
     <bean id="projectDAO" class="de.stekoe.idss.dao.impl.ProjectDAO" />
     <bean id="projectRoleDAO" class="de.stekoe.idss.dao.impl.ProjectRoleDAO" />
     <bean id="documentDAO" class="de.stekoe.idss.dao.impl.DocumentDAO" />
+    <bean id="scaleDAO" class="de.stekoe.idss.dao.impl.ScaleDAO" />
 
 
     <!-- Services -->
@@ -76,7 +80,7 @@
     <bean id="systemRoleService" class="de.stekoe.idss.service.impl.DefaultSystemRoleService" />
     <bean id="projectRoleService" class="de.stekoe.idss.service.impl.DefaultProjectRoleService" />
     <bean id="documentService" class="de.stekoe.idss.service.impl.DefaultDocumentService">
-        <property name="documentPath" value="${document.path}" />
+        <property name="documentPath" value="${document.upload.path}" />
     </bean>
     <bean id="mailService" class="de.stekoe.idss.service.impl.DefaultMailService" />
 </beans>

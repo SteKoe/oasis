@@ -52,7 +52,6 @@ public class Document implements Serializable {
 
     @NotNull
     @ManyToOne()
-    @JoinColumn(name = "user_id", nullable = false)
     public User getUser() {
         return this.user;
     }

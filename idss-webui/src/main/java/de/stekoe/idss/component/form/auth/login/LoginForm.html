@@ -1,35 +1,38 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:wicket="http://wicket.sourceforge.net/">
 <body>
-	<wicket:panel>
-		<div wicket:id="hiddenFeedback"></div>
-		<div class="container">
-			<div class="row">
-				<div class="span6 offset3">
-					<form class="form-horizontal" wicket:id="loginForm">
-						<fieldset>
-							<legend>
-								<wicket:message key="form.login.title"></wicket:message>
-							</legend>
-							<div class="control-group" wicket:id="usernameControlGroup">
-								<input wicket:id="username" type="text" class="input-xlarge">
-							</div>
+<wicket:panel>
+    <div wicket:id="hiddenFeedback"></div>
 
-							<div class="control-group" wicket:id="passwordControlGroup">
-								<input wicket:id="password" type="password" class="input-xlarge">
-							</div>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
 
-							<div class="control-group" wicket:id="buttonControlGroup">
-								<input wicket:id="submit" type="submit" class="btn btn-success">
-							</div>
-						</fieldset>
-					</form>
-				</div>
-			</div>
-			<div wicket:id="success">
-                [success message]
-			</div>
-		</div>
-	</wicket:panel>
+            <form role="form" wicket:id="loginForm">
+                <fieldset>
+                    <legend>
+                        <wicket:message key="form.login.title"></wicket:message>
+                    </legend>
+
+                    <div class="form-group">
+                        <label for="username"><wicket:message key="label.username" /></label>
+                        <input id="username" wicket:id="username" type="text" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password"><wicket:message key="label.password" /></label>
+                        <input id="password" wicket:id="password" type="password" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <button wicket:id="submit" type="submit" class="btn btn-default">
+                            <wicket:message key="form.login.title" />
+                        </button>
+                    </div>
+                </fieldset>
+            </form>
+
+        </div>
+    </div>
+</wicket:panel>
 </body>
 </html>

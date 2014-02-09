@@ -47,7 +47,7 @@ public class EditPasswordPageTestCase extends AbstractWicketApplicationTester {
         wicketTester.assertNoErrorMessage();
 
         FormTester formTester = wicketTester.newFormTester("editPassword");
-        formTester.setValue("currentPasswordControlGroup:currentPasswordControlGroup_body:currentPassword", TestFactory.USER_PASSWORD);
+        formTester.setValue("currentPasswordFormGroup:currentPasswordFormGroup_body:currentPassword", TestFactory.USER_PASSWORD);
         formTester.submit();
 
         wicketTester.assertRenderedPage(EditPasswordPage.class);
@@ -61,7 +61,7 @@ public class EditPasswordPageTestCase extends AbstractWicketApplicationTester {
         wicketTester.assertNoErrorMessage();
 
         FormTester formTester = wicketTester.newFormTester("editPassword");
-        formTester.setValue("currentPasswordControlGroup:currentPasswordControlGroup_body:currentPassword", TestFactory.USER_PASSWORD + "iambullshit");
+        formTester.setValue("currentPasswordFormGroup:currentPasswordFormGroup_body:currentPassword", TestFactory.USER_PASSWORD + "iambullshit");
         formTester.submit();
 
         wicketTester.assertRenderedPage(EditPasswordPage.class);
@@ -76,10 +76,10 @@ public class EditPasswordPageTestCase extends AbstractWicketApplicationTester {
         FormTester formTester = wicketTester.newFormTester("editPassword");
 
         // Set the current password
-        formTester.setValue("currentPasswordControlGroup:currentPasswordControlGroup_body:currentPassword", TestFactory.USER_PASSWORD);
+        formTester.setValue("currentPasswordFormGroup:currentPasswordFormGroup_body:currentPassword", TestFactory.USER_PASSWORD);
 
-        formTester.setValue("newPasswordControlGroup:newPasswordControlGroup_body:newPassword", NEWPASSWORD);
-        formTester.setValue("newPasswordConfirmControlGroup:newPasswordConfirmControlGroup_body:newPasswordConfirm", NEWPASSWORD);
+        formTester.setValue("newPasswordFormGroup:newPasswordFormGroup_body:newPassword", NEWPASSWORD);
+        formTester.setValue("newPasswordConfirmFormGroup:newPasswordConfirmFormGroup_body:newPasswordConfirm", NEWPASSWORD);
         formTester.submit();
 
         String currentNewPassword = getSession().getUser().getPassword();
@@ -97,10 +97,10 @@ public class EditPasswordPageTestCase extends AbstractWicketApplicationTester {
         FormTester formTester = wicketTester.newFormTester("editPassword");
 
         // Set the current password
-        formTester.setValue("currentPasswordControlGroup:currentPasswordControlGroup_body:currentPassword", TestFactory.USER_PASSWORD);
+        formTester.setValue("currentPasswordFormGroup:currentPasswordFormGroup_body:currentPassword", TestFactory.USER_PASSWORD);
 
-        formTester.setValue("newPasswordControlGroup:newPasswordControlGroup_body:newPassword", NEWPASSWORD);
-        formTester.setValue("newPasswordConfirmControlGroup:newPasswordConfirmControlGroup_body:newPasswordConfirm", NEWPASSWORD + "dumbass");
+        formTester.setValue("newPasswordFormGroup:newPasswordFormGroup_body:newPassword", NEWPASSWORD);
+        formTester.setValue("newPasswordConfirmFormGroup:newPasswordConfirmFormGroup_body:newPasswordConfirm", NEWPASSWORD + "dumbass");
         formTester.submit();
 
         String currentNewPassword = getSession().getUser().getPassword();
@@ -117,10 +117,10 @@ public class EditPasswordPageTestCase extends AbstractWicketApplicationTester {
         FormTester formTester = wicketTester.newFormTester("editPassword");
 
         // Set the current password
-        formTester.setValue("currentPasswordControlGroup:currentPasswordControlGroup_body:currentPassword", TestFactory.USER_PASSWORD);
+        formTester.setValue("currentPasswordFormGroup:currentPasswordFormGroup_body:currentPassword", TestFactory.USER_PASSWORD);
 
-        formTester.setValue("newEmailControlGroup:newEmailControlGroup_body:newEmail", NEWEMAIL);
-        formTester.setValue("newEmailConfirmControlGroup:newEmailConfirmControlGroup_body:newEmailConfirm", NEWEMAIL);
+        formTester.setValue("newEmailFormGroup:newEmailFormGroup_body:newEmail", NEWEMAIL);
+        formTester.setValue("newEmailConfirmFormGroup:newEmailConfirmFormGroup_body:newEmailConfirm", NEWEMAIL);
         formTester.submit();
 
         String currentNewEmail = getSession().getUser().getEmail();
@@ -138,10 +138,10 @@ public class EditPasswordPageTestCase extends AbstractWicketApplicationTester {
         FormTester formTester = wicketTester.newFormTester("editPassword");
 
         // Set the current password
-        formTester.setValue("currentPasswordControlGroup:currentPasswordControlGroup_body:currentPassword", TestFactory.USER_PASSWORD);
+        formTester.setValue("currentPasswordFormGroup:currentPasswordFormGroup_body:currentPassword", TestFactory.USER_PASSWORD);
 
-        formTester.setValue("newEmailControlGroup:newEmailControlGroup_body:newEmail", NEWEMAIL);
-        formTester.setValue("newEmailConfirmControlGroup:newEmailConfirmControlGroup_body:newEmailConfirm", NEWEMAIL + "imakeyoubullshit");
+        formTester.setValue("newEmailFormGroup:newEmailFormGroup_body:newEmail", NEWEMAIL);
+        formTester.setValue("newEmailConfirmFormGroup:newEmailConfirmFormGroup_body:newEmailConfirm", NEWEMAIL + "imakeyoubullshit");
         formTester.submit();
 
         String currentNewEmail = getSession().getUser().getEmail();
@@ -158,10 +158,10 @@ public class EditPasswordPageTestCase extends AbstractWicketApplicationTester {
         FormTester formTester = wicketTester.newFormTester("editPassword");
 
         // Set the current password
-        formTester.setValue("currentPasswordControlGroup:currentPasswordControlGroup_body:currentPassword", TestFactory.USER_PASSWORD);
+        formTester.setValue("currentPasswordFormGroup:currentPasswordFormGroup_body:currentPassword", TestFactory.USER_PASSWORD);
 
-        formTester.setValue("newEmailControlGroup:newEmailControlGroup_body:newEmail", NEWEMAIL_INVALID);
-        formTester.setValue("newEmailConfirmControlGroup:newEmailConfirmControlGroup_body:newEmailConfirm", NEWEMAIL_INVALID);
+        formTester.setValue("newEmailFormGroup:newEmailFormGroup_body:newEmail", NEWEMAIL_INVALID);
+        formTester.setValue("newEmailConfirmFormGroup:newEmailConfirmFormGroup_body:newEmailConfirm", NEWEMAIL_INVALID);
         formTester.submit();
 
         String currentNewEmail = getSession().getUser().getEmail();

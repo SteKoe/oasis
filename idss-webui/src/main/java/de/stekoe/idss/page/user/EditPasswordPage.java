@@ -1,6 +1,6 @@
 package de.stekoe.idss.page.user;
 
-import de.agilecoders.wicket.core.markup.html.bootstrap.form.ControlGroup;
+import de.agilecoders.wicket.core.markup.html.bootstrap.form.FormGroup;
 import de.stekoe.idss.exception.UserException;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.page.AuthUserPage;
@@ -88,52 +88,52 @@ public class EditPasswordPage extends AuthUserPage {
         add(form);
     }
 
-    private ControlGroup createCurrentPasswordGroup() {
+    private FormGroup createCurrentPasswordGroup() {
         currentPasswordField = new PasswordTextField("currentPassword", new PropertyModel(this, "currentPassword"));
         currentPasswordField.setRequired(true);
         currentPasswordField.setLabel(new StringResourceModel("label.password.current", this, null));
 
-        ControlGroup group = new ControlGroup("currentPasswordControlGroup");
+        FormGroup group = new FormGroup("currentPasswordFormGroup");
         group.add(currentPasswordField);
         return group;
     }
 
-    private ControlGroup createNewPasswordGroup() {
+    private FormGroup createNewPasswordGroup() {
         newPasswordField = new PasswordTextField("newPassword", new PropertyModel(this, "newPassword"));
         newPasswordField.setRequired(false);
         newPasswordField.setLabel(new StringResourceModel("newPassword.label", this, null));
 
-        ControlGroup group = new ControlGroup("newPasswordControlGroup");
+        FormGroup group = new FormGroup("newPasswordFormGroup");
         group.add(newPasswordField);
         return group;
     }
 
-    private ControlGroup createNewPasswordConfirmGroup() {
+    private FormGroup createNewPasswordConfirmGroup() {
         newPasswordConfirmField = new PasswordTextField("newPasswordConfirm", new PropertyModel(this, "newPasswordConfirm"));
         newPasswordConfirmField.setRequired(false);
         newPasswordConfirmField.setLabel(new StringResourceModel("newPasswordConfirm.label", this, null));
 
-        ControlGroup group = new ControlGroup("newPasswordConfirmControlGroup");
+        FormGroup group = new FormGroup("newPasswordConfirmFormGroup");
         group.add(newPasswordConfirmField);
         return group;
     }
 
-    private ControlGroup createNewEmailGroup() {
+    private FormGroup createNewEmailGroup() {
         newEmailField = new EmailTextField("newEmail", new PropertyModel(this, "newEmail"));
         newEmailField.setRequired(false);
         newEmailField.setLabel(new StringResourceModel("newEmail.label", this, null));
 
-        ControlGroup group = new ControlGroup("newEmailControlGroup");
+        FormGroup group = new FormGroup("newEmailFormGroup");
         group.add(newEmailField);
         return group;
     }
 
-    private ControlGroup createNewEmailConfirmGroup() {
+    private FormGroup createNewEmailConfirmGroup() {
         newEmailConfirmField = new EmailTextField("newEmailConfirm", new PropertyModel(this, "newEmailConfirm"));
         newEmailConfirmField.setRequired(false);
         newEmailConfirmField.setLabel(new StringResourceModel("newEmailConfirm.label", this, null));
 
-        ControlGroup group = new ControlGroup("newEmailConfirmControlGroup");
+        FormGroup group = new FormGroup("newEmailConfirmFormGroup");
         group.add(newEmailConfirmField);
         return group;
     }

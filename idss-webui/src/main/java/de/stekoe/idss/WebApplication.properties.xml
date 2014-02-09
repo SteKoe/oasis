@@ -19,20 +19,30 @@
     <entry key="label.password">Passwort</entry>
     <entry key="label.password.confirm">Password (erneut)</entry>
     <entry key="label.password.current">Aktuelles Passwort</entry>
+    <entry key="label.description">Beschreibung</entry>
     <entry key="label.description.na">Keine Beschreibung gesetzt</entry>
     <entry key="label.remove.from">Von %s entfernen!</entry>
     <entry key="label.thisisyou">Das sind sie!</entry>
     <entry key="label.systeminfo">Systeminformationenz</entry>
+    <entry key="label.name">Projektname</entry>
 
     <entry key="label.project">Projekt</entry>
     <entry key="label.project.overview">Projektdetails</entry>
+    <entry key="label.project.details">Projektdetails</entry>
+    <entry key="label.project.status">Projektstatus</entry>
     <entry key="label.project.edit">Projekt bearbeiten</entry>
     <entry key="label.project.delete">Projekt löschen</entry>
     <entry key="label.project.numOfPersons">{0,choice,0#Keine|1#Eine Person|1&lt;{0} Personen}</entry>
     <entry key="label.project.numOfPermissions">{0,choice,0#Kein Zugriff|1#Ein Zugriffsrecht|1&lt;{0} Zugriffsrechte}</entry>
     <entry key="label.project.add.member">Projektmitglied hinzufügen</entry>
     <entry key="label.project.edit.member">Mitglieder bearbeiten</entry>
-    <entry key="label.project.edit.roles">Rollen bearbeiten</entry>
+    <entry key="label.project.edit.role">Projektrolle bearbeiten</entry>
+    <entry key="label.project.edit.roles">Projektrollen bearbeiten</entry>
+    <entry key="label.project.start.date">Startdatum</entry>
+    <entry key="label.project.end.date">Enddatum</entry>
+    <entry key="label.project.progress.time">Status</entry>
+    <entry key="label.project.role.edit.introduction">Sie sind dabei die Projektrolle "{0}" zu bearbeiten.</entry>
+
 
     <entry key="label.file.name">Name</entry>
     <entry key="label.file.date">Hochgeladen am</entry>
@@ -111,4 +121,6 @@
     <entry key="RequiredValidator">Das Feld "${label}" ist obligatorisch!</entry>
     <entry key="LengthValidator">Der eingegebene Wert muss zwischen ${min} und ${max} Zeichen lang sein!</entry>
 
+    <!-- Permission Object Types -->
+    <entry key="PROJECT">Projekt</entry>
 </properties>

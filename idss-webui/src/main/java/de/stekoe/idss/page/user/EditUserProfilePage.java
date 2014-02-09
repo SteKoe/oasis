@@ -62,7 +62,7 @@ public class EditUserProfilePage extends AuthUserPage {
         DateTextFieldConfig config = new DateTextFieldConfig();
         config.autoClose(true);
         config.withLanguage(getSession().getLocale().getLanguage());
-        config.showTodayButton(true);
+        config.showTodayButton(DateTextFieldConfig.TodayButton.TRUE);
         config.withFormat(getDateFormat());
         return new DateTextField("birthday", new PropertyModel(user.getProfile(), "birthdate"), config);
     }

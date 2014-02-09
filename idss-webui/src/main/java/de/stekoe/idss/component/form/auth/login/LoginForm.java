@@ -1,6 +1,6 @@
 package de.stekoe.idss.component.form.auth.login;
 
-import de.agilecoders.wicket.core.markup.html.bootstrap.form.ControlGroup;
+import de.agilecoders.wicket.core.markup.html.bootstrap.form.FormGroup;
 import de.stekoe.idss.component.feedbackpanel.MyFencedFeedbackPanel;
 import de.stekoe.idss.page.project.ProjectListPage;
 import de.stekoe.idss.service.AuthService;
@@ -15,7 +15,6 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.Model;
-import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 /**
@@ -37,13 +36,6 @@ public class LoginForm extends Panel {
         super(id);
         add(new MyFencedFeedbackPanel("hiddenFeedback", this));
         add(new SignInForm("loginForm"));
-        createSuccessMessage();
-    }
-
-    private void createSuccessMessage() {
-        successMessage = new Label("success", new StringResourceModel("message.registration.success", this, null));
-        successMessage.setVisible(false);
-        add(successMessage);
     }
 
     /**
@@ -61,34 +53,16 @@ public class LoginForm extends Panel {
         public SignInForm(String id) {
             super(id);
             setModel(new CompoundPropertyModel(this));
-            add(newUsernameTextField());
-            add(newPasswordTextField());
-            add(newButton());
-        }
 
-
-        private ControlGroup newPasswordTextField() {
-            ControlGroup cg = new ControlGroup("passwordControlGroup");
-            PasswordTextField passwordTextField = new PasswordTextField("password");
-            passwordTextField.setLabel(Model.of(getString("label.password")));
-            cg.add(passwordTextField);
-            return cg;
-        }
-
-        private ControlGroup newUsernameTextField() {
-            ControlGroup cg = new ControlGroup("usernameControlGroup");
             TextField usernameTextField = new TextField("username");
-            usernameTextField.setLabel(Model.of(getString("label.username")));
-            cg.add(usernameTextField);
-            return cg;
-        }
+            add(usernameTextField);
 
-        private ControlGroup newButton() {
-            ControlGroup cg = new ControlGroup("buttonControlGroup");
-            Button button = new Button("submit");
-            button.setModel(Model.of(getString("label.submit")));
-            cg.add(button);
-            return cg;
+            PasswordTextField passwordTextField = new PasswordTextField("password");
+            add(passwordTextField);
+
+            Button submitButton = new Button("submit");
+            submitButton.setModel(Model.of(getString("label.submit")));
+            add(submitButton);
         }
 
         @Override

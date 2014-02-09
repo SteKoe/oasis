@@ -17,12 +17,12 @@ public class OrdinalScaleTest {
     @Before
     public void setUp() {
         ordinalScale = new OrdinalScale();
-        ordinalScale.getValues().add(new OrdinalValue(1, 6, "sehr gut"));
-        ordinalScale.getValues().add(new OrdinalValue(2, 5, "gut"));
-        ordinalScale.getValues().add(new OrdinalValue(3, 4, "befriedingend"));
-        ordinalScale.getValues().add(new OrdinalValue(4, 3, "ausreichend"));
-        ordinalScale.getValues().add(new OrdinalValue(5, 2, "mangelhaft"));
-        ordinalScale.getValues().add(new OrdinalValue(6, 1, "ungenügend"));
+        ordinalScale.getValues().add(new OrdinalValue(1, "sehr gut"));
+        ordinalScale.getValues().add(new OrdinalValue(2, "gut"));
+        ordinalScale.getValues().add(new OrdinalValue(3, "befriedingend"));
+        ordinalScale.getValues().add(new OrdinalValue(4, "ausreichend"));
+        ordinalScale.getValues().add(new OrdinalValue(5, "mangelhaft"));
+        ordinalScale.getValues().add(new OrdinalValue(6, "ungenügend"));
     }
 
     @Test

@@ -1,6 +1,6 @@
 package de.stekoe.idss.component.form.user;
 
-import de.agilecoders.wicket.core.markup.html.bootstrap.form.ControlGroup;
+import de.agilecoders.wicket.core.markup.html.bootstrap.form.FormGroup;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.service.SystemRoleService;
 import org.apache.wicket.markup.html.form.*;
@@ -28,32 +28,32 @@ public class CreateUserForm extends Panel {
         };
         add(form);
 
-        final ControlGroup usernameControlGroup = new ControlGroup("usernameControlGroup");
-        form.add(usernameControlGroup);
+        final FormGroup usernameFormGroup = new FormGroup("usernameFormGroup");
+        form.add(usernameFormGroup);
         final TextField<java.lang.String> username = new TextField<java.lang.String>("username", new PropertyModel<java.lang.String>(userModel, "username"));
-        usernameControlGroup.add(username);
+        usernameFormGroup.add(username);
         username.setLabel(Model.of(getString("label.username")));
 
-        final ControlGroup emailControlGroup = new ControlGroup("emailControlGroup");
-        form.add(emailControlGroup);
+        final FormGroup emailFormGroup = new FormGroup("emailFormGroup");
+        form.add(emailFormGroup);
         final EmailTextField email = new EmailTextField("email", new PropertyModel<java.lang.String>(userModel, "email"));
-        emailControlGroup.add(email);
+        emailFormGroup.add(email);
         email.setLabel(Model.of(getString("label.email")));
 
-        final ControlGroup passwordControlGroup = new ControlGroup("passwordControlGroup");
-        form.add(passwordControlGroup);
+        final FormGroup passwordFormGroup = new FormGroup("passwordFormGroup");
+        form.add(passwordFormGroup);
         final PasswordTextField password = new PasswordTextField("password", new PropertyModel<java.lang.String>(userModel, "password"));
-        passwordControlGroup.add(password);
+        passwordFormGroup.add(password);
         password.setLabel(Model.of(getString("label.password")));
 
-        final ControlGroup systemRoleControlGroup = new ControlGroup("systemRoleControlGroup");
-        form.add(systemRoleControlGroup);
+        final FormGroup systemRoleFormGroup = new FormGroup("systemRoleFormGroup");
+        form.add(systemRoleFormGroup);
         final ListMultipleChoice listMultipleChoice = new ListMultipleChoice("systemRole", new PropertyModel(userModel, "roles"), systemRoleService.findAllRoles());
-        systemRoleControlGroup.add(listMultipleChoice);
+        systemRoleFormGroup.add(listMultipleChoice);
 
-        final ControlGroup buttonControlGroup = new ControlGroup("buttonControlGroup");
-        form.add(buttonControlGroup);
+        final FormGroup buttonFormGroup = new FormGroup("buttonFormGroup");
+        form.add(buttonFormGroup);
         final Button submit = new Button("submit");
-        buttonControlGroup.add(submit);
+        buttonFormGroup.add(submit);
     }
 }

@@ -15,8 +15,8 @@ public class BootstrapTheme extends Theme {
 
     public static final String NAME = "OASISBootstrapTheme";
 
-    public static final CssResourceReference CSS_BOOTSTRAP = new CssResourceReference(BootstrapTheme.class, "vendors/bootstrap/css/bootstrap.css");
-    public static final CssResourceReference CSS_BOOTSTRAP_RESPONSIVE = new CssResourceReference(BootstrapTheme.class, "vendors/bootstrap/css/bootstrap-responsive.css");
+    public static final CssResourceReference CSS_BOOTSTRAP = new CssResourceReference(BootstrapTheme.class, "vendors/bootstrap/css/bootstrap.min.css");
+    public static final CssResourceReference CSS_BOOTSTRAP_THEME = new CssResourceReference(BootstrapTheme.class, "vendors/bootstrap/css/bootstrap-theme.min.css");
     public static final CssResourceReference CSS_JQUERY_UI = new CssResourceReference(BootstrapTheme.class, "vendors/jquery-ui/css/theme/jquery-ui-1.10.3.custom.css");
     public static final CssResourceReference CSS_FONT_AWESOME = new CssResourceReference(BootstrapTheme.class, "vendors/font-awesome/css/font-awesome.min.css");
     public static final CssResourceReference CSS_CUSTOM = new CssResourceReference(BootstrapTheme.class, "css/custom.css");
@@ -36,7 +36,7 @@ public class BootstrapTheme extends Theme {
         super.renderHead(response);
 
         response.render(CssReferenceHeaderItem.forReference(BootstrapTheme.CSS_BOOTSTRAP));
-        response.render(CssReferenceHeaderItem.forReference(BootstrapTheme.CSS_BOOTSTRAP_RESPONSIVE));
+        //response.render(CssReferenceHeaderItem.forReference(BootstrapTheme.CSS_BOOTSTRAP_THEME));
         response.render(CssReferenceHeaderItem.forReference(BootstrapTheme.CSS_JQUERY_UI));
         response.render(CssReferenceHeaderItem.forReference(BootstrapTheme.CSS_FONT_AWESOME));
         response.render(CssReferenceHeaderItem.forReference(BootstrapTheme.CSS_CUSTOM));

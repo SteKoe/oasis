@@ -13,6 +13,7 @@ public class CustomTinyMCESettings {
         settings.setToolbarAlign(TinyMCESettings.Align.left);
         settings.setContentCss(BootstrapTheme.CSS_TINYMCE);
         settings.addCustomSetting("width: '100%'");
+        settings.addCustomSetting("height: '200px'");
 
         return settings;
     }

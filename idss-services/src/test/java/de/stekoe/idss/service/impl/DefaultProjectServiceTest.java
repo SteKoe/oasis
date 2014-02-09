@@ -65,6 +65,9 @@ public class DefaultProjectServiceTest extends AbstractBaseTest {
     @Test
     @Transactional
     public void saving() throws Exception {
+        final User user = TestFactory.createUser("test");
+        userService.save(user);
+
         Project project = TestFactory.createProject();
 
         ProjectRole projectRoleCreator = new ProjectRole();
@@ -85,7 +88,7 @@ public class DefaultProjectServiceTest extends AbstractBaseTest {
         project.getProjectRoles().add(projectRoleMember);
 
         ProjectMember projectCreator = new ProjectMember();
-        projectCreator.setUser(new User());
+        projectCreator.setUser(userService.findById(user.getId()));
         projectCreator.setProjectRole(projectRoleCreator);
 
         project.getProjectTeam().add(projectCreator);

@@ -17,7 +17,7 @@ public class ScaleFactory {
         return likertScale;
     }
 
-    private static OrdinalScale createOddLikertScale() {
+    public static OrdinalScale createOddLikertScale() {
         final OrdinalScale likertScale = new OrdinalScale();
         likertScale.getValues().add(new OrdinalValue(1, "scale.likert.agree.totally"));
         likertScale.getValues().add(new OrdinalValue(2, "scale.likert.agree"));

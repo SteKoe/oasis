@@ -1,6 +1,7 @@
 package de.stekoe.idss;
 
 import org.apache.wicket.util.tester.WicketTester;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,11 @@ public abstract class AbstractWicketApplicationTester {
     @Before
     public void setup() {
         wicketTester = new WicketTester(webApplication);
+    }
+
+    @After
+    public void tearDown() {
+        wicketTester = null;
     }
 
     protected FakeWebSession getSession() {

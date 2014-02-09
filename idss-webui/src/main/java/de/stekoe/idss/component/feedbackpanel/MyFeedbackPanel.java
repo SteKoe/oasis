@@ -1,10 +1,6 @@
 package de.stekoe.idss.component.feedbackpanel;
 
-import java.io.Serializable;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
+import de.agilecoders.wicket.core.markup.html.bootstrap.dialog.Alert;
 import org.apache.log4j.Logger;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
@@ -21,7 +17,10 @@ import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 
-import de.agilecoders.wicket.core.markup.html.bootstrap.dialog.Alert;
+import java.io.Serializable;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * @author Stephan Köninger <mail@stekoe.de>
@@ -226,7 +225,7 @@ public class MyFeedbackPanel extends Panel implements IFeedback {
         switch (level) {
         case FeedbackMessage.ERROR:
         case FeedbackMessage.FATAL:
-            alert.type(Alert.Type.Error);
+            alert.type(Alert.Type.Danger);
             break;
         case FeedbackMessage.SUCCESS:
             alert.type(Alert.Type.Success);

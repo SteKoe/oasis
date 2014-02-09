@@ -2,16 +2,18 @@ package de.stekoe.idss;
 
 import de.stekoe.idss.page.ContactPage;
 import de.stekoe.idss.page.HomePage;
+import de.stekoe.idss.page.SetupPage;
 import de.stekoe.idss.page.admin.SystemInformationPage;
 import de.stekoe.idss.page.auth.LoginPage;
 import de.stekoe.idss.page.auth.LogoutPage;
 import de.stekoe.idss.page.auth.RegistrationPage;
-import de.stekoe.idss.page.project.criterion.CriteriaListPage;
 import de.stekoe.idss.page.error.Error403Page;
 import de.stekoe.idss.page.error.Error404Page;
 import de.stekoe.idss.page.error.Error410Page;
 import de.stekoe.idss.page.error.Error500Page;
 import de.stekoe.idss.page.project.*;
+import de.stekoe.idss.page.project.criterion.CriteriaListPage;
+import de.stekoe.idss.page.project.role.ProjectRoleEditPage;
 import de.stekoe.idss.page.user.ActivateUserPage;
 import de.stekoe.idss.page.user.EditUserProfilePage;
 import de.stekoe.idss.page.user.ViewUserProfilePage;
@@ -78,6 +80,8 @@ public class ApplicationRoutes {
         getWebApplication().mountPage("/project/${id}/roles", ProjectRoleListPage.class);
         getWebApplication().mountPage("/project/${id}/roles/${roleId}/edit", ProjectRoleEditPage.class);
         getWebApplication().mountPage("/project/${id}/criteria", CriteriaListPage.class);
+
+        getWebApplication().mountPage("/setup", SetupPage.class);
     }
 
     public WebApplication getWebApplication() {

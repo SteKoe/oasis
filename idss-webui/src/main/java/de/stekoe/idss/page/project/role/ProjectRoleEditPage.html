@@ -1,0 +1,19 @@
+<html xmlns:wicket="http://wicket.sourceforge.net/">
+<body>
+<wicket:extend>
+    <h4><wicket:message key="label.project.edit.role" /> <small wicket:id="projectRoleName"></small></h4>
+    <p wicket:id="introduction"></p>
+
+    <form>
+        <wicket:container wicket:id="roles">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value="" wicket:id="role.checkbox">
+                    <span wicket:id="role.label"></span>
+                </label>
+            </div>
+        </wicket:container>
+    </form>
+</wicket:extend>
+</body>
+</html>

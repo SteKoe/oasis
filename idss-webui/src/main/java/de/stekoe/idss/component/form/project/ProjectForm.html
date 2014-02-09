@@ -3,25 +3,38 @@
 <body>
 <wicket:panel>
     <form wicket:id="form.project">
-        <div class="control-group well" wicket:id="buttonControlGroup">
+        <div class="form-group">
+            <label for="name"><wicket:message key="label.name" /></label>
+            <input id="name" wicket:id="name" type="text" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="description"><wicket:message key="label.description" /></label>
+            <textarea id="description" wicket:id="description" class="form-control"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="projectStatus"><wicket:message key="label.project.status" /></label>
+            <select id="projectStatus" wicket:id="projectStatus" class="form-control"></select>
+        </div>
+
+        <div class="form-group">
+            <label for="projectStartDate"><wicket:message key="label.project.start.date" /></label>
+            <input id="projectStartDate" wicket:id="projectStartDate" type="text" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="projectEndDate"><wicket:message key="label.project.end.date" /></label>
+            <input id="projectEndDate" wicket:id="projectEndDate" type="text" class="form-control">
+        </div>
+
+        <div class="form-group well">
             <button type="submit" class="btn btn-success" wicket:id="submitButton">
                 <wicket:message key="label.save"></wicket:message>
             </button>
-            <a href="" class="btn" wicket:id="cancelButton">
+            <a href="" class="btn btn-default" wicket:id="cancelButton">
                 <wicket:message key="label.cancel"></wicket:message>
             </a>
-        </div>
-
-        <div class="control-group" wicket:id="projectNameControlGroup">
-            <input wicket:id="name" type="text" class="input-block-level">
-        </div>
-
-        <div class="control-group" wicket:id="projectDescriptionControlGroup">
-            <textarea wicket:id="description" class="input-block-level"></textarea>
-        </div>
-
-        <div class="control-group" wicket:id="project.status.group">
-            <select size="1" wicket:id="projectStatus"></select>
         </div>
     </form>
 </wicket:panel>

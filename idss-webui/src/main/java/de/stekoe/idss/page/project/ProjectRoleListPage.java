@@ -2,9 +2,11 @@ package de.stekoe.idss.page.project;
 
 import de.stekoe.idss.model.Permission;
 import de.stekoe.idss.model.project.ProjectRole;
+import de.stekoe.idss.page.project.role.ProjectRoleEditPage;
 import de.stekoe.idss.service.ProjectService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -42,12 +44,13 @@ public class ProjectRoleListPage extends ProjectPage {
                 item.add(new Label("project.roles.role.name", projectRole.getName()));
 
                 List<String> permissions = new ArrayList<String>();
-
                 for(Permission p : projectRole.getPermissions()) {
                     final String permissionKey = MessageFormat.format(getString(p.getPermissionType().getKey()), getString("label.project"));
                     permissions.add(permissionKey);
                 }
                 item.add(new Label("project.roles.role.permissions", StringUtils.join(permissions, ", ")));
+
+                item.add(new BookmarkablePageLink<ProjectRoleEditPage>("project.role.link.edit", ProjectRoleEditPage.class, new PageParameters(getPageParameters()).add("roleId", projectRole.getId())));
             }
         };
         add(projectRolesList);

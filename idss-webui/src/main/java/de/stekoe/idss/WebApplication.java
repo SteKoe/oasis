@@ -3,6 +3,7 @@ package de.stekoe.idss;
 import de.agilecoders.wicket.core.Bootstrap;
 import de.agilecoders.wicket.core.settings.BootstrapSettings;
 import de.agilecoders.wicket.core.settings.DefaultThemeProvider;
+import de.agilecoders.wicket.core.settings.ITheme;
 import de.stekoe.idss.page.HomePage;
 import de.stekoe.idss.page.auth.AuthorizationStrategy;
 import de.stekoe.idss.page.auth.LoginPage;
@@ -54,7 +55,6 @@ public class WebApplication extends AuthenticatedWebApplication implements Appli
     public void init() {
         super.init();
 
-
         new BeanValidationConfiguration().configure(this);
 
         getJavaScriptLibrarySettings().setJQueryReference(new UrlResourceReference(Url.parse("//code.jquery.com/jquery-1.10.2.min.js")));
@@ -99,7 +99,21 @@ public class WebApplication extends AuthenticatedWebApplication implements Appli
         Bootstrap.install(this, new BootstrapSettings());
 
         final DefaultThemeProvider themeProvider = (DefaultThemeProvider) Bootstrap.getSettings().getThemeProvider();
-        themeProvider.add(new BootstrapTheme());
+
+        final BootstrapTheme bootstrapTheme = new BootstrapTheme();
+        if(!customThemeAlreadyAdded()) {
+            themeProvider.add(bootstrapTheme);
+        }
+    }
+
+    private boolean customThemeAlreadyAdded() {
+        final DefaultThemeProvider themeProvider = (DefaultThemeProvider) Bootstrap.getSettings().getThemeProvider();
+        for(ITheme theme : themeProvider.available()) {
+            if(theme.name().equals(BootstrapTheme.NAME)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void setUpSpring() {

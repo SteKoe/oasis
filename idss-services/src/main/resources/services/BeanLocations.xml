@@ -33,7 +33,7 @@
                 <prop key="hibernate.dialect">${hibernate.dialect}</prop>
                 <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
                 <prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
-                <prop key="hibernate.hbm2ddl.auto">create</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
                 <!--<prop key="hibernate.hbm2ddl.import_files">/sql/setup.sql</prop>-->
             </props>
         </property>
@@ -71,6 +71,7 @@
     <bean id="projectRoleDAO" class="de.stekoe.idss.dao.impl.ProjectRoleDAO" />
     <bean id="documentDAO" class="de.stekoe.idss.dao.impl.DocumentDAO" />
     <bean id="scaleDAO" class="de.stekoe.idss.dao.impl.ScaleDAO" />
+    <bean id="choiceDAO" class="de.stekoe.idss.dao.impl.ChoiceDAO" />
 
 
     <!-- Services -->

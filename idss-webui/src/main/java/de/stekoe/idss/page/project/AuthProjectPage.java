@@ -23,7 +23,7 @@ public class AuthProjectPage extends AuthUserPage {
 
     private final String projectId;
     private Class<? extends IRequestablePage> responsePage = ProjectListPage.class;
-    private LoadableDetachableModel<Project> projectModel;
+    private LoadableDetachableModel<Project> projectRoleModel;
 
     public AuthProjectPage(PageParameters pageParameters) {
 
@@ -42,7 +42,7 @@ public class AuthProjectPage extends AuthUserPage {
             setResponsePage(getResponsePage());
         }
 
-        projectModel = new LoadableDetachableModel<Project>() {
+        projectRoleModel = new LoadableDetachableModel<Project>() {
             @Override
             protected Project load() {
                 LOG.info("Project with id '" + projectId + "' loaded from database!");
@@ -74,6 +74,6 @@ public class AuthProjectPage extends AuthUserPage {
      * @return The current project
      */
     public Project getProject() {
-        return projectModel.getObject();
+        return projectRoleModel.getObject();
     }
 }

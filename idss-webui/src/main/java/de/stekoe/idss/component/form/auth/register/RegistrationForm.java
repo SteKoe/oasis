@@ -2,11 +2,12 @@ package de.stekoe.idss.component.form.auth.register;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.dialog.Alert;
 import de.agilecoders.wicket.core.markup.html.bootstrap.dialog.Alert.Type;
-import de.agilecoders.wicket.core.markup.html.bootstrap.form.ControlGroup;
 import de.stekoe.idss.exception.EmailAddressAlreadyInUseException;
 import de.stekoe.idss.exception.UsernameAlreadyInUseException;
 import de.stekoe.idss.mail.template.RegistrationMailTemplate;
-import de.stekoe.idss.model.*;
+import de.stekoe.idss.model.SystemRole;
+import de.stekoe.idss.model.User;
+import de.stekoe.idss.model.UserProfile;
 import de.stekoe.idss.page.user.ActivateUserPage;
 import de.stekoe.idss.service.AuthService;
 import de.stekoe.idss.service.MailService;
@@ -42,24 +43,12 @@ public class RegistrationForm extends Panel {
 
     private final User user = new User();
 
-    private Form<User> form;
-
-    private RequiredTextField<java.lang.String> usernameField;
-    private EmailTextField email;
-    private PasswordTextField password;
-    private PasswordTextField passwordConfirm;
-    private Button submitButton;
-
     private Alert successMessage;
     private Alert errorMessage;
+    private Form<User> form;
 
     public RegistrationForm(java.lang.String id) {
         super(id);
-    }
-
-    @Override
-    protected void onInitialize() {
-        super.onInitialize();
 
         createRegistrationForm();
         createSuccessMessage();
@@ -76,15 +65,13 @@ public class RegistrationForm extends Panel {
 
     private void createErrorMessage() {
         errorMessage = new Alert("error", new StringResourceModel("message.registration.error", this, null));
-        errorMessage.type(Type.Error);
+        errorMessage.type(Type.Danger);
         errorMessage.setCloseButtonVisible(true);
         errorMessage.setVisible(false);
         add(errorMessage);
     }
 
     private void createRegistrationForm() {
-        createFields();
-
         form = new Form<User>("registrationForm") {
 
             @Override
@@ -101,7 +88,7 @@ public class RegistrationForm extends Panel {
                     userService.save(user);
                     sendActivationMail(user);
                     successMessage.setVisible(true);
-                    form.setVisible(false);
+                    setVisible(false);
                 } catch(UsernameAlreadyInUseException e) {
                     errorMessage.setVisible(true);
                     LOG.error("A user tried to register with existing username!");
@@ -140,121 +127,40 @@ public class RegistrationForm extends Panel {
                 mailService.sendMail(address, subject, message);
             }
         };
-        form.setModel(new CompoundPropertyModel<User>(user));
-
-        form.add(getUsernameControlGroup());
-        form.add(getEmailControlGroup());
-        form.add(getPasswordControlGroup());
-        form.add(getPasswordConfirmControlGroup());
-        form.add(getButtonControlGroup());
-
-        form.add(getPasswordsEqualBehavior());
-
         add(form);
+
+        RequiredTextField usernameField = new RequiredTextField<java.lang.String>("username");
+        usernameField.add(new UniqueValueValidator(userService.getAllUsernames()));
+        form.add(usernameField);
+
+        EmailTextField email = new EmailTextField("email");
+        email.setRequired(true);
+        email.add(new UniqueValueValidator(userService.getAllEmailAddresses()));
+        form.add(email);
+
+        PasswordTextField password = new PasswordTextField("password");
+        password.setLabel(Model.of(getString("label.password")));
+        form.add(password);
+
+        PasswordTextField passwordConfirm = new PasswordTextField("passwordConfirm", Model.of(""));
+        form.add(passwordConfirm);
+
+        Button submitButton = new Button("submit");
+        submitButton.setModel(Model.of(getString("label.submit")));
+        form.add(submitButton);
+
+        form.setModel(new CompoundPropertyModel<User>(user));
+        form.add(getPasswordsEqualBehavior());
     }
 
-    private void createFields() {
-        setUsernameField();
-        setEmailField();
-        setPasswordField();
-        setPasswordConfirmField();
-        setSubmitButton();
-    }
-
-    private java.lang.String createActivationLink(User user) {
+    private String createActivationLink(User user) {
         PageParameters pp = new PageParameters();
         pp.set(0, user.getActivationKey());
 
         return RequestCycle.get().getUrlRenderer().renderFullUrl(Url.parse(urlFor(ActivateUserPage.class, pp)));
     }
 
-    private ControlGroup getUsernameControlGroup() {
-        java.lang.String id = "usernameControlGroup";
-        RequiredTextField<java.lang.String> field = getUsernameField();
-        return createControlGroup(id, field);
-    }
-
-    private void setUsernameField() {
-        usernameField = new RequiredTextField<java.lang.String>("username");
-        usernameField.setLabel(Model.of(getString("label.username")));
-        usernameField.add(new UniqueValueValidator(userService.getAllUsernames()));
-    }
-
-    private RequiredTextField<java.lang.String> getUsernameField() {
-        return usernameField;
-    }
-
-    private ControlGroup getEmailControlGroup() {
-        java.lang.String id = "emailControlGroup";
-        EmailTextField field = getEmailField();
-        return createControlGroup(id, field);
-    }
-
-    private void setEmailField() {
-        email = new EmailTextField("email");
-        email.setRequired(true);
-        email.setLabel(Model.of(getString("label.email")));
-        email.add(new UniqueValueValidator(userService.getAllEmailAddresses()));
-    }
-
-    private EmailTextField getEmailField() {
-        return email;
-    }
-
-    private ControlGroup getPasswordControlGroup() {
-        java.lang.String id = "passwordControlGroup";
-        PasswordTextField field = getPasswordField();
-        return createControlGroup(id, field);
-    }
-
-    private PasswordTextField getPasswordField() {
-        return password;
-    }
-
-    private void setPasswordField() {
-        password = new PasswordTextField("password");
-        password.setLabel(Model.of(getString("label.password")));
-    }
-
-    private ControlGroup getPasswordConfirmControlGroup() {
-        java.lang.String id = "passwordConfirmControlGroup";
-        PasswordTextField field = getPasswordConfirmField();
-        return createControlGroup(id, field);
-    }
-
-    private PasswordTextField getPasswordConfirmField() {
-        return passwordConfirm;
-    }
-
-    private void setPasswordConfirmField() {
-        passwordConfirm = new PasswordTextField("passwordConfirm", Model.of(""));
-        passwordConfirm.setLabel(Model.of(getString("label.password.confirm")));
-    }
-
-    private ControlGroup getButtonControlGroup() {
-        java.lang.String id = "buttonControlGroup";
-        Button submitButton = getSubmitButton();
-        return createControlGroup(id, submitButton);
-    }
-
-    private Button getSubmitButton() {
-        return submitButton;
-    }
-
-    private void setSubmitButton() {
-        submitButton = new Button("submit");
-        submitButton.setModel(Model.of(getString("label.submit")));
-    }
-
-    @SuppressWarnings("rawtypes")
-    private ControlGroup createControlGroup(java.lang.String id, FormComponent... field) {
-        ControlGroup cg = new ControlGroup(id);
-        cg.add(field);
-        return cg;
-    }
-
     private EqualPasswordInputValidator getPasswordsEqualBehavior() {
-        return new EqualPasswordInputValidator(getPasswordField(),
-                getPasswordConfirmField());
+        return new EqualPasswordInputValidator((FormComponent)form.get("password"), (FormComponent)form.get("passwordConfirm"));
     }
 }

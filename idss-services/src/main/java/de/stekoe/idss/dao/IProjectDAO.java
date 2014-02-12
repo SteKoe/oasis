@@ -1,14 +1,12 @@
 package de.stekoe.idss.dao;
 
 import de.stekoe.idss.model.project.Project;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * @author Stephan Köninger <mail@stekoe.de>
  */
-@Repository
 public interface IProjectDAO extends IGenericDAO<Project> {
 
     List<Project> findByProjectName(java.lang.String projectName);

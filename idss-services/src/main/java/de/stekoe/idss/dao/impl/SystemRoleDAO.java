@@ -3,7 +3,7 @@ package de.stekoe.idss.dao.impl;
 import de.stekoe.idss.dao.ISystemRoleDAO;
 import de.stekoe.idss.model.SystemRole;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * @author Stephan Köninger <mail@stekoe.de>
  */
-@Transactional
+@Repository
 public class SystemRoleDAO extends GenericDAO implements ISystemRoleDAO {
 
     @Override

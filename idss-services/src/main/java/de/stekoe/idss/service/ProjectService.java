@@ -1,15 +1,13 @@
 package de.stekoe.idss.service;
 
-import de.stekoe.idss.model.project.Project;
 import de.stekoe.idss.model.enums.PermissionType;
-import org.springframework.stereotype.Service;
+import de.stekoe.idss.model.project.Project;
 
 import java.util.List;
 
 /**
  * @author Stephan Köninger <mail@stekoe.de>
  */
-@Service
 public interface ProjectService {
 
     void delete(java.lang.String id);

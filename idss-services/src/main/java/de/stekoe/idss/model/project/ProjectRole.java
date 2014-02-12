@@ -49,25 +49,6 @@ public class ProjectRole implements Serializable {
         this.permissions = permissions;
     }
 
-    // =====
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        ProjectRole that = (ProjectRole) o;
-
-        if (!name.equals(that.name)) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        return name.hashCode();
-    }
-
     @Override
     public String toString() {
         return this.name;

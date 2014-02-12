@@ -2,6 +2,7 @@ package de.stekoe.idss.dao.impl;
 
 import de.stekoe.idss.dao.IChoiceDAO;
 import de.stekoe.idss.model.scale.Choice;
+import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
+@Repository
 public class ChoiceDAO extends GenericDAO implements IChoiceDAO {
     @Override
     public void save(Choice entity) {

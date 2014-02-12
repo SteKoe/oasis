@@ -9,7 +9,6 @@ import java.util.Map;
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
-@Service
 public interface SystemRoleService {
 
     /**

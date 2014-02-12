@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
-@Service
 public interface AuthService {
 
     AuthStatus authenticate(String username, String password);

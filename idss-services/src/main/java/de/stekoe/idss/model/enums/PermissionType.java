@@ -11,8 +11,9 @@ public enum PermissionType implements L10NEnum {
     READ("permissiontype.read"),
     UPDATE("permissiontype.update"),
     DELETE("permissiontype.delete"),
-    UPDATE_PROJECT_MEMBER("permissiontype.update.project.member"),
-    UPDATE_PROJECT_ROLES("permissiontype.update.project.roles");
+    PROJECT_ADD_MEMBER("permissiontype.update.project.member"),
+    PROJECT_ADD_ROLES("permissiontype.update.project.roles"),
+    PROJECT_UPLOAD_FILE("permissiontype.project.upload.file");
 
     private final String key;
 
@@ -42,8 +43,9 @@ public enum PermissionType implements L10NEnum {
     public static final Set<PermissionType> forProject() {
         final HashSet<PermissionType> permissionTypes = new HashSet<PermissionType>();
         permissionTypes.addAll(forCrud());
-        permissionTypes.add(UPDATE_PROJECT_MEMBER);
-        permissionTypes.add(UPDATE_PROJECT_ROLES);
+        permissionTypes.add(PROJECT_ADD_MEMBER);
+        permissionTypes.add(PROJECT_ADD_ROLES);
+        permissionTypes.add(PROJECT_UPLOAD_FILE);
         return permissionTypes;
     }
 

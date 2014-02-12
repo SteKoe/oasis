@@ -13,6 +13,7 @@ import de.stekoe.idss.page.error.Error410Page;
 import de.stekoe.idss.page.error.Error500Page;
 import de.stekoe.idss.page.project.*;
 import de.stekoe.idss.page.project.criterion.CriteriaListPage;
+import de.stekoe.idss.page.project.criterion.FormTestPage;
 import de.stekoe.idss.page.project.role.ProjectRoleEditPage;
 import de.stekoe.idss.page.user.ActivateUserPage;
 import de.stekoe.idss.page.user.EditUserProfilePage;
@@ -82,6 +83,10 @@ public class ApplicationRoutes {
         getWebApplication().mountPage("/project/${id}/criteria", CriteriaListPage.class);
 
         getWebApplication().mountPage("/setup", SetupPage.class);
+
+
+        // TEST
+        getWebApplication().mountPage("/test", FormTestPage.class);
     }
 
     public WebApplication getWebApplication() {

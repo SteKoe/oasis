@@ -68,7 +68,7 @@
         <dependency>
             <groupId>org.wicketstuff</groupId>
             <artifactId>wicketstuff-tinymce</artifactId>
-            <version>6.11.0</version>
+            <version>6.12.0</version>
         </dependency>
 
         <!-- Le Gravatar -->

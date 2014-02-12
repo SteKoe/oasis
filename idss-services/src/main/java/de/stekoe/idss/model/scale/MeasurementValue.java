@@ -4,13 +4,14 @@ import de.stekoe.idss.IDGenerator;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class MeasurementValue {
+public abstract class MeasurementValue implements Serializable {
 
     private String id = IDGenerator.createId();
     private String value;

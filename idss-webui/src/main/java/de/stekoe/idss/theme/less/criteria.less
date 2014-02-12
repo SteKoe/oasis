@@ -5,7 +5,6 @@
 @innerPadding: 10px;
 
 .criterion-category {
-  border: 1px solid @outerBorderColor;
   background-color: @categoryBg;
   overflow: hidden;
   margin-bottom: 15px;
@@ -21,18 +20,16 @@
 }
 
 .criterion-block {
-  margin: 0 5px 5px 5px;
-  padding: 5px @innerPadding;
-  border: 1px solid @innerBorderColor;
   background-color: #fff;
+  margin-bottom: 6px;
 
-  &:last-child {
-    margin-bottom: 6px;
-  }
 
   .criterion {
     font-weight: bold;
     color: #000;
+  }
+  .criterion-description {
+    margin-bottom: 5px;
   }
   .measure {
     .control-group:last-child {

@@ -4,6 +4,7 @@ import de.stekoe.idss.dao.IProjectRoleDAO;
 import de.stekoe.idss.model.project.ProjectRole;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 /**
  * @author Stephan Köninger <mail@stekoe.de>
  */
+@Repository
 public class ProjectRoleDAO extends GenericDAO implements IProjectRoleDAO {
 
     @Override

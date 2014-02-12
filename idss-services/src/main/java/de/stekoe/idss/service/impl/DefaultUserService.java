@@ -7,6 +7,8 @@ import de.stekoe.idss.exception.UsernameAlreadyInUseException;
 import de.stekoe.idss.model.*;
 import de.stekoe.idss.service.UserService;
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -15,6 +17,8 @@ import java.util.List;
 /**
  * @author Stephan Köninger <mail@stekoe.de>
  */
+@Service
+@Transactional
 public class DefaultUserService implements UserService {
 
     private static final Logger LOG = Logger.getLogger(DefaultUserService.class);

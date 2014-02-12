@@ -1,1 +1,135 @@
-.clearfix{*zoom:1}.clearfix:before,.clearfix:after{display:table;content:"";line-height:0}.clearfix:after{clear:both}.hide-text{font:0/0 a;color:transparent;background-color:transparent;border:0}.input-block-level{display:block;width:100%;min-height:30px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}.userInfoBlock{border:1px solid #ccc;padding:5px;margin:0 0 5px 0;background-color:#fff}.userInfoBlock.placeholder{height:41px !important}.userInfoBlock img{margin-right:5px}.userInfoBlock .username{font-weight:bold}.userInfoBlock .email{font-style:italic}.userInfoBlock .additional{font-size:75%;color:#aaa}.criterion-category{border:1px solid #333;background-color:#e5e5e5;overflow:hidden;margin-bottom:15px}.criterion-category .criterion-category-title{color:#000;background-color:#999;font-weight:bold;text-align:center;padding:10px;margin-bottom:7px}.criterion-block{margin:0 5px 5px 5px;padding:5px 10px;border:1px solid #999;background-color:#fff}.criterion-block:last-child{margin-bottom:6px}.criterion-block .criterion{font-weight:bold;color:#000}.criterion-block .measure .control-group:last-child{margin-bottom:0}.criterion-block .measure .table{margin-bottom:0}.criterion-block .measure .table th,.criterion-block .measure .table td{text-align:center;vertical-align:middle}.criterion-block .measure .table td.sub-measure{text-align:left}.monospace{font-family:Monaco,Menlo,Consolas,"Courier New",monospace}.75px{width:75%}.570px{width:570px}.control-label{font-weight:bold}.form-centered-container{margin:0 auto}#logo{margin:5px 10px 20px 10px}.navbar-secondary{margin-top:10px}input[type="file"]{line-height:normal;height:20px}.fileUpload{padding:5px;background:#eee;border:1px solid #ccc}.fileUpload .wicket-mfu-container{padding:5px;margin-top:3px;background-color:#fff;border:1px solid #ccc;font-size:xx-small}.fileUpload .wicket-mfu-caption{font-weight:bold}.text-left{text-align:left !important}.text-right{text-align:right !important}.text-center{text-align:center !important}
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.clearfix:after {
+  clear: both;
+}
+.hide-text {
+  font: 0/0 a;
+  color: transparent;
+  background-color: transparent;
+  border: 0;
+}
+.input-block-level {
+  display: block;
+  width: 100%;
+  min-height: 30px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.userInfoBlock {
+  border: 1px solid #cccccc;
+  padding: 5px;
+  margin: 0 0 5px 0;
+  background-color: #fff;
+}
+.userInfoBlock.placeholder {
+  height: 41px !important;
+}
+.userInfoBlock img {
+  margin-right: 5px;
+}
+.userInfoBlock .username {
+  font-weight: bold;
+}
+.userInfoBlock .email {
+  font-style: italic;
+}
+.userInfoBlock .additional {
+  font-size: 75%;
+  color: #aaa;
+}
+.criterion-category {
+  background-color: #e5e5e5;
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+.criterion-category .criterion-category-title {
+  color: #000000;
+  background-color: #999999;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px;
+  margin-bottom: 7px;
+}
+.criterion-block {
+  background-color: #fff;
+  margin-bottom: 6px;
+}
+.criterion-block .criterion {
+  font-weight: bold;
+  color: #000;
+}
+.criterion-block .criterion-description {
+  margin-bottom: 5px;
+}
+.criterion-block .measure .control-group:last-child {
+  margin-bottom: 0px;
+}
+.criterion-block .measure .table {
+  margin-bottom: 0px;
+}
+.criterion-block .measure .table th,
+.criterion-block .measure .table td {
+  text-align: center;
+  vertical-align: middle;
+}
+.criterion-block .measure .table td.sub-measure {
+  text-align: left;
+}
+.monospace {
+  font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+}
+.75px {
+  width: 75%;
+}
+.570px {
+  width: 570px;
+}
+.control-label {
+  font-weight: bold;
+}
+.form-centered-container {
+  margin: 0px auto;
+}
+#logo {
+  margin: 5px 10px 20px 10px;
+}
+.navbar-secondary {
+  margin-top: 10px;
+}
+input[type="file"] {
+  line-height: normal;
+  height: 20px;
+}
+.fileUpload {
+  padding: 5px;
+  background: #eee;
+  border: 1px solid #cccccc;
+}
+.fileUpload .wicket-mfu-container {
+  padding: 5px;
+  margin-top: 3px;
+  background-color: white;
+  border: 1px solid #cccccc;
+  font-size: xx-small;
+}
+.fileUpload .wicket-mfu-caption {
+  font-weight: bold;
+}
+.text-left {
+  text-align: left !important;
+}
+.text-right {
+  text-align: right !important;
+}
+.text-center {
+  text-align: center !important;
+}

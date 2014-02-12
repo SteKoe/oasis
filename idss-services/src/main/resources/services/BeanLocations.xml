@@ -72,6 +72,7 @@
     <bean id="documentDAO" class="de.stekoe.idss.dao.impl.DocumentDAO" />
     <bean id="scaleDAO" class="de.stekoe.idss.dao.impl.ScaleDAO" />
     <bean id="choiceDAO" class="de.stekoe.idss.dao.impl.ChoiceDAO" />
+    <bean id="permissionDAO" class="de.stekoe.idss.dao.impl.PermissionDAO" />
 
 
     <!-- Services -->
@@ -84,4 +85,5 @@
         <property name="documentPath" value="${document.upload.path}" />
     </bean>
     <bean id="mailService" class="de.stekoe.idss.service.impl.DefaultMailService" />
+    <bean id="permissionService" class="de.stekoe.idss.service.impl.DefaultPermissionService" />
 </beans>

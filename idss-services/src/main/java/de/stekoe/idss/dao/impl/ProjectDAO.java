@@ -7,7 +7,7 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Subqueries;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * @author Stephan Köninger <mail@stekoe.de>
  */
-@Transactional
+@Repository
 public class ProjectDAO extends GenericDAO implements IProjectDAO {
 
     @Override

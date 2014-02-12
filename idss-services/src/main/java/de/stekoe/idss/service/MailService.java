@@ -1,11 +1,8 @@
 package de.stekoe.idss.service;
 
-import org.springframework.stereotype.Service;
-
 /**
  * Allows to send mails.
  */
-@Service
 public interface MailService {
     /**
      * @param to The receipient

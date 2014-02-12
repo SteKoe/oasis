@@ -2,7 +2,7 @@ package de.stekoe.idss.dao.impl;
 
 import de.stekoe.idss.dao.IUserProfileDAO;
 import de.stekoe.idss.model.UserProfile;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * @author Stephan Köninger <mail@stekoe.de>
  */
-@Transactional
+@Repository
 public class UserProfileDAO extends GenericDAO implements IUserProfileDAO {
 
     @Override

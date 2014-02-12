@@ -15,6 +15,8 @@ import org.apache.commons.lang3.Validate;
 import org.apache.log4j.Logger;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +24,8 @@ import java.util.List;
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
+@Service
+@Transactional
 public class DefaultAuthService implements AuthService {
 
     private static final Logger LOG = Logger.getLogger(DefaultAuthService.class);

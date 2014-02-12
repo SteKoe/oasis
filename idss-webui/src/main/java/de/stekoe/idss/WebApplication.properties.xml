@@ -12,6 +12,7 @@
     <entry key="label.add">Hinzufügen</entry>
     <entry key="label.delete">Löschen</entry>
     <entry key="label.cancel">Abbrechen</entry>
+    <entry key="label.name">Name</entry>
     <entry key="label.submit">Senden</entry>
     <entry key="label.upload">Dokument hochladen</entry>
     <entry key="label.username">Benutzername</entry>
@@ -24,10 +25,11 @@
     <entry key="label.remove.from">Von %s entfernen!</entry>
     <entry key="label.thisisyou">Das sind sie!</entry>
     <entry key="label.systeminfo">Systeminformationenz</entry>
-    <entry key="label.name">Projektname</entry>
+    <entry key="label.permissions">Zugriffsrechte</entry>
 
     <entry key="label.project">Projekt</entry>
-    <entry key="label.project.overview">Projektdetails</entry>
+    <entry key="label.project.overview">Projektübersicht</entry>
+    <entry key="label.project.manage">Projektverwaltung</entry>
     <entry key="label.project.details">Projektdetails</entry>
     <entry key="label.project.status">Projektstatus</entry>
     <entry key="label.project.edit">Projekt bearbeiten</entry>
@@ -41,7 +43,10 @@
     <entry key="label.project.start.date">Startdatum</entry>
     <entry key="label.project.end.date">Enddatum</entry>
     <entry key="label.project.progress.time">Status</entry>
-    <entry key="label.project.role.edit.introduction">Sie sind dabei die Projektrolle "{0}" zu bearbeiten.</entry>
+    <entry key="label.project.role.edit.introduction">Sie sind dabei die Projektrolle "{0}" des Projekts "{1}" zu bearbeiten.</entry>
+
+    <entry key="label.select.user">Benutzer auswählen</entry>
+    <entry key="label.select.project.role">Projektrolle auswählen</entry>
 
 
     <entry key="label.file.name">Name</entry>
@@ -116,6 +121,7 @@
     <entry key="permissiontype.delete">{0} löschen</entry>
     <entry key="permissiontype.update.project.member">Mitglieder bearbeiten</entry>
     <entry key="permissiontype.update.project.roles">Projektrollen bearbeiten</entry>
+    <entry key="permissiontype.project.upload.file">Dokumente hochladen</entry>
 
     <!-- Wicket override properties -->
     <entry key="RequiredValidator">Das Feld "${label}" ist obligatorisch!</entry>

@@ -7,9 +7,7 @@
     <hr>
     <div class="row">
         <div class="col-md-3">
-            <h4>Mitarbeiter
-                <small wicket:id="projectMemberCount"></small>
-            </h4>
+            <h4>Mitarbeiter <small wicket:id="projectMemberCount"></small></h4>
             <div class="list-group">
                 <wicket:container wicket:id="projectMemberItem">
                 <a href="" class="list-group-item" wicket:id="projectMemberItemLink">
@@ -18,7 +16,7 @@
                 </wicket:container>
             </div>
 
-            <h4>Verwaltung</h4>
+            <h4><wicket:message key="label.project.manage" /></h4>
             <div class="list-group">
                 <a href="#" class="list-group-item" wicket:id="editProject">
                     <i class="glyphicon glyphicon-chevron-right pull-right"></i> <wicket:message key="label.project.edit" />

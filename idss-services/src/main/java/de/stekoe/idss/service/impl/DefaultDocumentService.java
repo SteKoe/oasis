@@ -3,6 +3,8 @@ package de.stekoe.idss.service.impl;
 import de.stekoe.idss.dao.IDocumentDAO;
 import de.stekoe.idss.model.Document;
 import de.stekoe.idss.service.DocumentService;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.io.File;
@@ -10,6 +12,8 @@ import java.io.File;
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
+@Service
+@Transactional
 public class DefaultDocumentService implements DocumentService {
     @Inject
     private IDocumentDAO documentDAO;

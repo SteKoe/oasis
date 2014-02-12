@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 /**
  * @author Stephan Köninger <mail@stekoe.de>
  */
-@Repository
 public interface ISystemRoleDAO extends IGenericDAO<SystemRole> {
     /**
      * Get a role by its name.

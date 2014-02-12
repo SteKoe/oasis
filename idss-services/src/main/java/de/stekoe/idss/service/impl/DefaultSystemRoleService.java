@@ -4,6 +4,8 @@ import de.stekoe.idss.dao.ISystemRoleDAO;
 import de.stekoe.idss.model.SystemRole;
 import de.stekoe.idss.service.SystemRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -11,6 +13,8 @@ import java.util.Map;
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
+@Service
+@Transactional
 public class DefaultSystemRoleService implements SystemRoleService {
 
     @Autowired

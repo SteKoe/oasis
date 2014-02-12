@@ -5,7 +5,7 @@ import de.stekoe.idss.model.User;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * @author Stephan Köninger <mail@stekoe.de>
  */
-@Transactional
+@Repository
 public class UserDAO extends GenericDAO implements IUserDAO {
     private static final Logger LOG = Logger.getLogger(UserDAO.class);
 

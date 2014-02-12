@@ -13,6 +13,8 @@ import de.stekoe.idss.service.ProjectService;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +23,8 @@ import java.util.Set;
 /**
  * @author Stephan Köninger <mail@stekoe.de>
  */
+@Service
+@Transactional
 public class DefaultProjectService implements ProjectService {
 
     @Autowired private IProjectDAO projectDAO;

@@ -2,10 +2,7 @@ package de.stekoe.idss.model.criterion;
 
 import de.stekoe.idss.IDGenerator;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OrderBy;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -40,6 +37,7 @@ public class CriterionPage implements Serializable {
     }
 
     @OrderBy(value = "order")
+    @OneToMany(targetEntity = CriterionPageElement.class)
     public List<CriterionPageElement> getPageElements() {
         return pageElements;
     }

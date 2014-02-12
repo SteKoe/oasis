@@ -2,7 +2,8 @@ package de.stekoe.idss.service.impl;
 
 import de.stekoe.idss.AbstractBaseTest;
 import de.stekoe.idss.TestFactory;
-import de.stekoe.idss.model.*;
+import de.stekoe.idss.model.Permission;
+import de.stekoe.idss.model.User;
 import de.stekoe.idss.model.enums.PermissionObject;
 import de.stekoe.idss.model.enums.PermissionType;
 import de.stekoe.idss.model.project.Project;
@@ -13,7 +14,6 @@ import de.stekoe.idss.service.ProjectService;
 import de.stekoe.idss.service.UserService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -30,7 +30,6 @@ public class DefaultProjectServiceTest extends AbstractBaseTest {
     @Autowired UserService userService;
 
     @Test
-    @Transactional
     public void projectRoleBasedAuthWorks() throws Exception {
         java.lang.String projectId = "P2345";
 
@@ -63,9 +62,8 @@ public class DefaultProjectServiceTest extends AbstractBaseTest {
     }
 
     @Test
-    @Transactional
     public void saving() throws Exception {
-        final User user = TestFactory.createUser("test");
+        final User user = TestFactory.createUser("Projektleiter User");
         userService.save(user);
 
         Project project = TestFactory.createProject();

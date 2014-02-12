@@ -130,6 +130,7 @@ public class Project implements Serializable, Identifyable {
 
 
     @OrderBy("ordering")
+    @OneToMany(targetEntity = CriterionPage.class)
     public List<CriterionPage> getCriterionPages() {
         return criterionPages;
     }

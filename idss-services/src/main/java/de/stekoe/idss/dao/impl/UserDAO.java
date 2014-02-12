@@ -7,14 +7,13 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
  * @author Stephan Köninger <mail@stekoe.de>
  */
 @Repository
-public class UserDAO extends GenericDAO implements IUserDAO {
+public class UserDAO extends GenericDAO<User> implements IUserDAO {
     private static final Logger LOG = Logger.getLogger(UserDAO.class);
 
     @Override
@@ -22,27 +21,6 @@ public class UserDAO extends GenericDAO implements IUserDAO {
         Criteria criteria = getCurrentSession().createCriteria(User.class);
         criteria.add(Restrictions.eq("username", username));
         return (User) criteria.uniqueResult();
-    }
-
-    @Override
-    public List<User> findAll() {
-        return getCurrentSession().createCriteria(User.class).list();
-    }
-
-    @Override
-    public void save(User user) {
-        getCurrentSession().saveOrUpdate(user);
-    }
-
-    @Override
-    public void delete(Serializable id) {
-        final User user = findById(id);
-        delete(user);
-    }
-
-    @Override
-    public void delete(User user) {
-        getCurrentSession().delete(user);
     }
 
     @Override
@@ -67,7 +45,7 @@ public class UserDAO extends GenericDAO implements IUserDAO {
     }
 
     @Override
-    public User findById(Serializable id) {
-        return (User) getCurrentSession().get(User.class, id);
+    protected Class getPersistedClass() {
+        return User.class;
     }
 }

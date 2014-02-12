@@ -4,34 +4,13 @@ import de.stekoe.idss.dao.IDocumentDAO;
 import de.stekoe.idss.model.Document;
 import org.springframework.stereotype.Repository;
 
-import java.io.Serializable;
-import java.util.List;
-
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
 @Repository
-public class DocumentDAO  extends GenericDAO implements IDocumentDAO {
+public class DocumentDAO  extends GenericDAO<Document> implements IDocumentDAO {
     @Override
-    public void save(Document entity) {
-        getCurrentSession().saveOrUpdate(entity);
-    }
-
-    @Override
-    public void delete(Serializable id) {
-    }
-
-    @Override
-    public void delete(Document entity) {
-    }
-
-    @Override
-    public Document findById(Serializable id) {
-        return null;
-    }
-
-    @Override
-    public List<Document> findAll() {
-        return null;
+    protected Class getPersistedClass() {
+        return Document.class;
     }
 }

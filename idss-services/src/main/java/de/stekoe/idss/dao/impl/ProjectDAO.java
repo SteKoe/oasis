@@ -9,46 +9,19 @@ import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Subqueries;
 import org.springframework.stereotype.Repository;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
  * @author Stephan Köninger <mail@stekoe.de>
  */
 @Repository
-public class ProjectDAO extends GenericDAO implements IProjectDAO {
-
-    @Override
-    public void save(Project project) {
-        getCurrentSession().saveOrUpdate(project);
-    }
-
-    @Override
-    public void delete(Serializable id) {
-        final Project project = findById(id);
-        delete(project);
-    }
+public class ProjectDAO extends GenericDAO<Project> implements IProjectDAO {
 
     @Override
     public List<Project> findByProjectName(java.lang.String projectName) {
         Criteria criteria = getCurrentSession().createCriteria(Project.class);
         criteria.add(Restrictions.eq("name", projectName));
         return criteria.list();
-    }
-
-    @Override
-    public Project findById(Serializable id) {
-        return (Project) getCurrentSession().get(Project.class, id);
-    }
-
-    @Override
-    public void delete(Project entity) {
-        getCurrentSession().delete(entity);
-    }
-
-    @Override
-    public List<Project> findAll() {
-        return getCurrentSession().createCriteria(Project.class).list();
     }
 
     @Override
@@ -75,4 +48,8 @@ public class ProjectDAO extends GenericDAO implements IProjectDAO {
         return criteria.list();
     }
 
+    @Override
+    protected Class getPersistedClass() {
+        return Project.class;
+    }
 }

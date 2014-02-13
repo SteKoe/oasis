@@ -19,7 +19,7 @@ public class DefaultPermissionService implements PermissionService {
 
     @Override
     public void save(Permission permission) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        permissionDAO.save(permission);
     }
 
     @Override

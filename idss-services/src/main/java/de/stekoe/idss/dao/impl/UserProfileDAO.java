@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class UserProfileDAO extends GenericDAO<UserProfile> implements IUserProfileDAO {
     @Override
-    protected Class getPersistedClass() {
+    protected Class<UserProfile> getPersistedClass() {
         return UserProfile.class;
     }
 }

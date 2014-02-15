@@ -13,11 +13,11 @@ public class SystemRoleDAO extends GenericDAO<SystemRole> implements ISystemRole
 
     @Override
     public SystemRole getRoleByName(String rolename) {
-        return (SystemRole) getCurrentSession().createCriteria(SystemRole.class).add(Restrictions.eq("name", rolename)).uniqueResult();
+        return (SystemRole) getSession().createCriteria(SystemRole.class).add(Restrictions.eq("name", rolename)).uniqueResult();
     }
 
     @Override
-    protected Class getPersistedClass() {
+    protected Class<SystemRole> getPersistedClass() {
         return SystemRole.class;
     }
 }

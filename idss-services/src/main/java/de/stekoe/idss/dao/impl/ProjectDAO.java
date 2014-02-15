@@ -19,7 +19,7 @@ public class ProjectDAO extends GenericDAO<Project> implements IProjectDAO {
 
     @Override
     public List<Project> findByProjectName(java.lang.String projectName) {
-        Criteria criteria = getCurrentSession().createCriteria(Project.class);
+        Criteria criteria = getSession().createCriteria(Project.class);
         criteria.add(Restrictions.eq("name", projectName));
         return criteria.list();
     }
@@ -35,7 +35,7 @@ public class ProjectDAO extends GenericDAO<Project> implements IProjectDAO {
         idsOnlyCriteria.createCriteria("projectTeam").add(Restrictions.eq("user.id", userId));
         idsOnlyCriteria.setProjection(Projections.distinct(Projections.id()));
 
-        final Criteria criteria = getCurrentSession().createCriteria(Project.class);
+        final Criteria criteria = getSession().createCriteria(Project.class);
         criteria.add(Subqueries.propertyIn("id", idsOnlyCriteria));
         return criteria;
     }
@@ -49,7 +49,7 @@ public class ProjectDAO extends GenericDAO<Project> implements IProjectDAO {
     }
 
     @Override
-    protected Class getPersistedClass() {
+    protected Class<Project> getPersistedClass() {
         return Project.class;
     }
 }

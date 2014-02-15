@@ -116,6 +116,9 @@
     </dependencies>
 
     <build>
+        <filters>
+            <filter>src/main/resources/application.properties</filter>
+        </filters>
         <resources>
             <resource>
                 <filtering>false</filtering>

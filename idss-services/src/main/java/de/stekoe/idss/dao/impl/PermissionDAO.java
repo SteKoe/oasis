@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class PermissionDAO extends GenericDAO<Permission> implements IPermissionDAO {
     @Override
-    protected Class getPersistedClass() {
+    protected Class<Permission> getPersistedClass() {
         return Permission.class;
     }
 }

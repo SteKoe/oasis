@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class DocumentDAO  extends GenericDAO<Document> implements IDocumentDAO {
     @Override
-    protected Class getPersistedClass() {
+    protected Class<Document> getPersistedClass() {
         return Document.class;
     }
 }

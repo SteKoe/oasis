@@ -1,6 +1,7 @@
 package de.stekoe.idss.model.criterion;
 
 import de.stekoe.idss.IDGenerator;
+import de.stekoe.idss.model.project.Project;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -16,6 +17,7 @@ public class CriterionPage implements Serializable {
     private String id = IDGenerator.createId();
     private int ordering;
     private List<CriterionPageElement> pageElements = new ArrayList<CriterionPageElement>();
+    private Project project;
 
     @Id
     @Column(name = "criterion_page_id")
@@ -28,6 +30,7 @@ public class CriterionPage implements Serializable {
     }
 
     @NotNull
+    @Column(nullable = false)
     public int getOrdering() {
         return ordering;
     }
@@ -36,7 +39,7 @@ public class CriterionPage implements Serializable {
         this.ordering = ordering;
     }
 
-    @OrderBy(value = "order")
+    @OrderBy(value = "ordering")
     @OneToMany(targetEntity = CriterionPageElement.class)
     public List<CriterionPageElement> getPageElements() {
         return pageElements;
@@ -44,5 +47,14 @@ public class CriterionPage implements Serializable {
 
     public void setPageElements(List<CriterionPageElement> pageElements) {
         this.pageElements = pageElements;
+    }
+
+    @ManyToOne(targetEntity = Project.class, optional = false)
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
     }
 }

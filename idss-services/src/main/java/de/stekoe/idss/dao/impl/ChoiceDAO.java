@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ChoiceDAO extends GenericDAO<Choice> implements IChoiceDAO {
     @Override
-    protected Class getPersistedClass() {
+    protected Class<Choice> getPersistedClass() {
         return Choice.class;
     }
 }

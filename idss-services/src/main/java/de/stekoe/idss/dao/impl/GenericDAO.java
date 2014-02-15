@@ -1,6 +1,8 @@
 package de.stekoe.idss.dao.impl;
 
 import de.stekoe.idss.dao.IGenericDAO;
+import org.apache.log4j.Logger;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,15 +15,23 @@ import java.util.List;
  */
 public abstract class GenericDAO<T> implements IGenericDAO<T> {
 
+    private static final Logger LOG = Logger.getLogger(GenericDAO.class);
+
     @Autowired private SessionFactory sessionFactory;
 
-    public Session getCurrentSession() {
+    public Session getSession() {
         return sessionFactory.getCurrentSession();
     }
 
     @Override
     public void save(T entity) {
-        getCurrentSession().saveOrUpdate(entity);
+        try {
+            getSession().saveOrUpdate(entity);
+            getSession().flush();
+            getSession().clear();
+        } catch (HibernateException e) {
+            LOG.error("Error during saving entity " + entity, e);
+        }
     }
 
     @Override
@@ -31,18 +41,20 @@ public abstract class GenericDAO<T> implements IGenericDAO<T> {
 
     @Override
     public void delete(T entity) {
-        getCurrentSession().delete(entity);
+        getSession().delete(entity);
+        getSession().flush();
+        getSession().clear();
     }
 
     @Override
     public T findById(Serializable id) {
-        return (T) getCurrentSession().get(getPersistedClass(), id);
+        return (T) getSession().get(getPersistedClass(), id);
     }
 
     @Override
     public List<T> findAll() {
-        return getCurrentSession().createCriteria(getPersistedClass()).list();
+        return getSession().createCriteria(getPersistedClass()).list();
     }
 
-    protected abstract Class getPersistedClass();
+    protected abstract Class<? extends Serializable> getPersistedClass();
 }

@@ -35,15 +35,23 @@ public class BootstrapTheme extends Theme {
     public void renderHead(IHeaderResponse response) {
         super.renderHead(response);
 
+        // jQuery =====
+        response.render(JavaScriptReferenceHeaderItem.forReference(BootstrapTheme.JS_JQUERY));
+
+        // jQuery UI =====
+        //response.render(CssReferenceHeaderItem.forReference(BootstrapTheme.CSS_JQUERY_UI));
+        //response.render(JavaScriptReferenceHeaderItem.forReference(BootstrapTheme.JS_JQUERY_UI));
+
+        // Bootstrap =====
         response.render(CssReferenceHeaderItem.forReference(BootstrapTheme.CSS_BOOTSTRAP));
         //response.render(CssReferenceHeaderItem.forReference(BootstrapTheme.CSS_BOOTSTRAP_THEME));
-        response.render(CssReferenceHeaderItem.forReference(BootstrapTheme.CSS_JQUERY_UI));
-        response.render(CssReferenceHeaderItem.forReference(BootstrapTheme.CSS_FONT_AWESOME));
-        response.render(CssReferenceHeaderItem.forReference(BootstrapTheme.CSS_CUSTOM));
-
-        response.render(JavaScriptReferenceHeaderItem.forReference(BootstrapTheme.JS_JQUERY));
         response.render(JavaScriptReferenceHeaderItem.forReference(BootstrapTheme.JS_BOOTSTRAP));
-        response.render(JavaScriptReferenceHeaderItem.forReference(BootstrapTheme.JS_JQUERY_UI));
+
+        // Font Awesome =====
+        response.render(CssReferenceHeaderItem.forReference(BootstrapTheme.CSS_FONT_AWESOME));
+
+        // Custom CSS / JS =====
+        response.render(CssReferenceHeaderItem.forReference(BootstrapTheme.CSS_CUSTOM));
         response.render(JavaScriptReferenceHeaderItem.forReference(BootstrapTheme.JS_CUSTOM));
     }
 }

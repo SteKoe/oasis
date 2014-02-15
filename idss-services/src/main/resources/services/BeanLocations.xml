@@ -34,7 +34,6 @@
                 <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
                 <prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
                 <prop key="hibernate.hbm2ddl.auto">update</prop>
-                <!--<prop key="hibernate.hbm2ddl.import_files">/sql/setup.sql</prop>-->
             </props>
         </property>
         <property name="dataSource" ref="dataSource" />
@@ -73,6 +72,7 @@
     <bean id="scaleDAO" class="de.stekoe.idss.dao.impl.ScaleDAO" />
     <bean id="choiceDAO" class="de.stekoe.idss.dao.impl.ChoiceDAO" />
     <bean id="permissionDAO" class="de.stekoe.idss.dao.impl.PermissionDAO" />
+    <bean id="criterionPageDAO" class="de.stekoe.idss.dao.impl.CriterionPageDAO" />
 
 
     <!-- Services -->
@@ -86,4 +86,5 @@
     </bean>
     <bean id="mailService" class="de.stekoe.idss.service.impl.DefaultMailService" />
     <bean id="permissionService" class="de.stekoe.idss.service.impl.DefaultPermissionService" />
+    <bean id="criterionPageService" class="de.stekoe.idss.service.impl.DefaultCriterionPageService" />
 </beans>

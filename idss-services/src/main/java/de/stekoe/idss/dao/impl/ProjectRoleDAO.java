@@ -14,13 +14,13 @@ public class ProjectRoleDAO extends GenericDAO<ProjectRole> implements IProjectR
 
     @Override
     public ProjectRole getRoleByName(String rolename) {
-        final Criteria criteria = getCurrentSession().createCriteria(ProjectRole.class);
+        final Criteria criteria = getSession().createCriteria(ProjectRole.class);
         criteria.add(Restrictions.eq("name", rolename));
         return (ProjectRole) criteria.uniqueResult();
     }
 
     @Override
-    protected Class getPersistedClass() {
+    protected Class<ProjectRole> getPersistedClass() {
         return ProjectRole.class;
     }
 }

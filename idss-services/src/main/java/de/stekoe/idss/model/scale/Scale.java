@@ -3,6 +3,7 @@ package de.stekoe.idss.model.scale;
 import de.stekoe.idss.IDGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -13,7 +14,7 @@ import java.util.List;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Scale<T extends MeasurementValue> {
+public abstract class Scale<T extends MeasurementValue> implements Serializable {
 
     private String id = IDGenerator.createId();
     private String name;

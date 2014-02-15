@@ -3,7 +3,6 @@ package de.stekoe.idss.model.project;
 import de.stekoe.idss.IDGenerator;
 import de.stekoe.idss.model.Document;
 import de.stekoe.idss.model.Identifyable;
-import de.stekoe.idss.model.criterion.CriterionPage;
 import de.stekoe.idss.model.enums.ProjectStatus;
 import de.stekoe.idss.model.scale.Scale;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -30,8 +29,6 @@ public class Project implements Serializable, Identifyable {
     private ProjectStatus projectStatus = ProjectStatus.EDITING;
     private Date projectStartDate = new Date();
     private Date projectEndDate;
-
-    private List<CriterionPage> criterionPages = new ArrayList<CriterionPage>();
 
     @Id
     @Column(name = "project_id")
@@ -126,16 +123,5 @@ public class Project implements Serializable, Identifyable {
 
     public void setProjectEndDate(Date projectEndDate) {
         this.projectEndDate = projectEndDate;
-    }
-
-
-    @OrderBy("ordering")
-    @OneToMany(targetEntity = CriterionPage.class)
-    public List<CriterionPage> getCriterionPages() {
-        return criterionPages;
-    }
-
-    public void setCriterionPages(List<CriterionPage> criterionPages) {
-        this.criterionPages = criterionPages;
     }
 }

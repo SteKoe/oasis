@@ -6,12 +6,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import java.io.Serializable;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
 @Entity
-public class Choice {
+public class Choice implements Serializable {
     private String id = IDGenerator.createId();
     private Scale scale;
     private MeasurementValue measurementValue;

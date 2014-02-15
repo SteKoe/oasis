@@ -4,6 +4,7 @@ import de.stekoe.idss.model.project.ProjectMember;
 import de.stekoe.idss.model.enums.PermissionType;
 import de.stekoe.idss.model.enums.ProjectStatus;
 import de.stekoe.idss.page.HomePage;
+import de.stekoe.idss.page.project.criterion.SetOfCriteriaPage;
 import de.stekoe.idss.service.ProjectService;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
@@ -41,6 +42,9 @@ public abstract class ProjectPage extends AuthProjectPage {
         addEditProjectLink();
         addEditProjectMemberLink();
         addEditProjectRolesLink();
+
+        final BookmarkablePageLink<SetOfCriteriaPage> setOfCriteriaPageLink = new BookmarkablePageLink<SetOfCriteriaPage>("link.setofcriteria.edit", SetOfCriteriaPage.class, getPageParameters());
+        add(setOfCriteriaPageLink);
 
         addListOfProjectMember();
     }

@@ -18,34 +18,34 @@ public class UserDAO extends GenericDAO<User> implements IUserDAO {
 
     @Override
     public User findByUsername(String username) {
-        Criteria criteria = getCurrentSession().createCriteria(User.class);
+        Criteria criteria = getSession().createCriteria(User.class);
         criteria.add(Restrictions.eq("username", username));
         return (User) criteria.uniqueResult();
     }
 
     @Override
     public User findByActivationCode(java.lang.String code) {
-        Criteria criteria = getCurrentSession().createCriteria(User.class);
+        Criteria criteria = getSession().createCriteria(User.class);
         criteria.add(Restrictions.eq("activationKey", code));
         return (User) criteria.uniqueResult();
     }
 
     @Override
     public User findByEmail(java.lang.String email) {
-        Criteria criteria = getCurrentSession().createCriteria(User.class);
+        Criteria criteria = getSession().createCriteria(User.class);
         criteria.add(Restrictions.eq("email", email));
         return (User) criteria.uniqueResult();
     }
 
     @Override
     public List<User> findAllByUsername(String username) {
-        final Criteria criteria = getCurrentSession().createCriteria(User.class);
+        final Criteria criteria = getSession().createCriteria(User.class);
         criteria.add(Restrictions.ilike("username", "%"+username+"%"));
         return criteria.list();
     }
 
     @Override
-    protected Class getPersistedClass() {
+    protected Class<User> getPersistedClass() {
         return User.class;
     }
 }

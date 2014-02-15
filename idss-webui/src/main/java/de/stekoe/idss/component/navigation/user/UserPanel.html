@@ -10,26 +10,14 @@
 
         <wicket:enclosure child="signout">
             <div class="loginPanel">
+                <a class="btn btn-default" href="" wicket:id="userProfile">
+                    <i class="fa fa-user"></i>
+                    <strong wicket:id="username"></strong>
+                </a>
 
-
-                <div class="btn-group">
-                    <a class="btn " href="" wicket:id="userProfile"><i class="icon-user"></i> <strong wicket:id="username"></strong></a>
-                    <button class="btn dropdown-toggle" data-toggle="dropdown">
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a href="">Link 1</a></li>
-                        <li><a href="">Link 2</a></li>
-                        <li><a href="">Link 3</a></li>
-                        <li><a href="">Link 4</a></li>
-                        <wicket:enclosure child="editUsers">
-                            <li class="divider">Admin</li>
-                            <li><a href="" wicket:id="editUsers">Benutzer bearbeiten</a></li>
-                        </wicket:enclosure>
-                    </ul>
-                </div>
-
-                <a href="" wicket:id="signout" class="btn "><i class="icon-off"></i> Abmelden</a>
+                <a href="" wicket:id="signout" class="btn btn-default">
+                    Abmelden
+                </a>
             </div>
         </wicket:enclosure>
     </div>

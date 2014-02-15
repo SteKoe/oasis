@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ScaleDAO extends GenericDAO<Scale> implements IScaleDAO {
     @Override
-    protected Class getPersistedClass() {
+    protected Class<Scale> getPersistedClass() {
         return Scale.class;
     }
 }

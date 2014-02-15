@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.validation.ConstraintViolationException;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -52,10 +53,12 @@ public class UserDAOIT extends BaseTest {
         assertThat(retrievedUser.getUsername(), IsEqual.equalTo(user.getUsername()));
     }
 
-    @Test
+    @Test(expected = ConstraintViolationException.class)
     public void needUsername() throws Exception {
         User user = new User();
         user.setUsername(null);
+        user.setPassword("abc");
+        user.setEmail("asd");
         userDAO.save(user);
     }
 

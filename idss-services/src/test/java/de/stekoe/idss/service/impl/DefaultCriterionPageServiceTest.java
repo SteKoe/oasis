@@ -100,21 +100,50 @@ public class DefaultCriterionPageServiceTest extends AbstractBaseTest {
     }
 
     @Test
+    public void movePageUp() throws Exception {
+        final Project project = TestFactory.createProject();
+        projectService.save(project);
+
+        CriterionPage page1 = new CriterionPage();
+        page1.setProject(project);
+        criterionPageService.save(page1);
+
+        CriterionPage page2 = new CriterionPage();
+        page2.setProject(project);
+        criterionPageService.save(page2);
+
+        assertThat(page1.getOrdering(), IsEqual.equalTo(1));
+        assertThat(page2.getOrdering(), IsEqual.equalTo(2));
+
+        criterionPageService.movePage(page2, CriterionPageService.Direction.UP);
+
+        page1 = criterionPageService.findById(page1.getId());
+        page2 = criterionPageService.findById(page2.getId());
+        assertThat(page1.getOrdering(), IsEqual.equalTo(2));
+        assertThat(page2.getOrdering(), IsEqual.equalTo(1));
+    }
+
+    @Test
     public void movePageDown() throws Exception {
         final Project project = TestFactory.createProject();
         projectService.save(project);
 
-        final CriterionPage page1 = new CriterionPage();
+        CriterionPage page1 = new CriterionPage();
         page1.setProject(project);
         criterionPageService.save(page1);
 
-        final CriterionPage page2 = new CriterionPage();
+        CriterionPage page2 = new CriterionPage();
         page2.setProject(project);
         criterionPageService.save(page2);
 
-        criterionPageService.movePage(page2, CriterionPageService.Direction.UP);
+        assertThat(page1.getOrdering(), IsEqual.equalTo(1));
+        assertThat(page2.getOrdering(), IsEqual.equalTo(2));
 
-        final CriterionPage byId = criterionPageService.findById(page2.getId());
-        assertThat(byId.getOrdering(), IsEqual.equalTo(1));
+        criterionPageService.movePage(page1, CriterionPageService.Direction.DOWN);
+
+        page1 = criterionPageService.findById(page1.getId());
+        page2 = criterionPageService.findById(page2.getId());
+        assertThat(page1.getOrdering(), IsEqual.equalTo(2));
+        assertThat(page2.getOrdering(), IsEqual.equalTo(1));
     }
 }

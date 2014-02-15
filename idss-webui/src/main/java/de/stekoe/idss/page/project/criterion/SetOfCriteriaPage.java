@@ -47,6 +47,7 @@ public class SetOfCriteriaPage extends ProjectPage {
             protected void populateItem(ListItem<CriterionPage> item) {
                 final CriterionPage criterionPage = item.getModelObject();
                 item.add(new Label("id", criterionPage.getId()));
+                item.add(new Label("order", criterionPage.getOrdering()));
 
                 item.add(deletePageLink(criterionPage));
                 item.add(movePageUpLink(criterionPage));
@@ -58,6 +59,8 @@ public class SetOfCriteriaPage extends ProjectPage {
                     @Override
                     public void onClick() {
                         criterionPageService.movePage(criterionPage, CriterionPageService.Direction.UP);
+                        loadableDetachableModel.detach();
+                        setResponsePage(getPage());
                     }
 
                     @Override
@@ -74,6 +77,9 @@ public class SetOfCriteriaPage extends ProjectPage {
                 final Link link = new Link("move.page.down") {
                     @Override
                     public void onClick() {
+                        criterionPageService.movePage(criterionPage, CriterionPageService.Direction.DOWN);
+                        loadableDetachableModel.detach();
+                        setResponsePage(getPage());
                     }
 
                     @Override
@@ -91,7 +97,6 @@ public class SetOfCriteriaPage extends ProjectPage {
                     @Override
                     public void onClick() {
                         criterionPageService.delete(criterionPage);
-                        loadableDetachableModel.detach();
                         setResponsePage(getPage());
                     }
                 };
@@ -109,7 +114,6 @@ public class SetOfCriteriaPage extends ProjectPage {
                 CriterionPage criterionPage = new CriterionPage();
                 criterionPage.setProject(getProject());
                 criterionPageService.save(criterionPage);
-                loadableDetachableModel.detach();
 
                 setResponsePage(getPage());
             }

@@ -43,7 +43,8 @@ public class DefaultCriterionPageService implements CriterionPageService {
 
     @Override
     public List<CriterionPage> getCriterionPagesForProject(String projectId) {
-        return criterionPageDAO.findAllForProject(projectId);
+        final List<CriterionPage> allForProject = criterionPageDAO.findAllForProject(projectId);
+        return allForProject;
     }
 
     @Override
@@ -56,23 +57,24 @@ public class DefaultCriterionPageService implements CriterionPageService {
         final int ordering = criterionPage.getOrdering();
         final Project project = criterionPage.getProject();
 
+        int newOrdering = 0;
         if(Direction.UP.equals(direction)) {
-            final CriterionPage otherPage = findByOrdering(ordering - 1, project.getId());
-
-            criterionPage.setOrdering(ordering - 1);
-            criterionPageDAO.save(criterionPage);
-
-            otherPage.setOrdering(ordering);
-            criterionPageDAO.save(otherPage);
+            newOrdering = ordering - 1;
         } else if(Direction.DOWN.equals(direction)) {
-            final CriterionPage otherPage = findByOrdering(ordering + 1, project.getId());
-
-            criterionPage.setOrdering(ordering + 1);
-            criterionPageDAO.save(criterionPage);
-
-            otherPage.setOrdering(ordering);
-            criterionPageDAO.save(otherPage);
+            newOrdering = ordering + 1;
         }
+
+        if(newOrdering == 0) {
+            return;
+        }
+
+        final CriterionPage otherPage = findByOrdering(newOrdering, project.getId());
+
+        criterionPage.setOrdering(newOrdering);
+        criterionPageDAO.save(criterionPage);
+
+        otherPage.setOrdering(ordering);
+        criterionPageDAO.save(otherPage);
     }
 
     @Override

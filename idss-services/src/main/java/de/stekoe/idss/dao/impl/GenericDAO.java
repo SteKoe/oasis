@@ -26,7 +26,7 @@ public abstract class GenericDAO<T> implements IGenericDAO<T> {
     @Override
     public void save(T entity) {
         try {
-            getSession().saveOrUpdate(entity);
+            getSession().merge(entity);
             getSession().flush();
             getSession().clear();
         } catch (HibernateException e) {

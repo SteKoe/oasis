@@ -2,6 +2,9 @@ package de.stekoe.idss.model.criterion;
 
 import de.stekoe.idss.IDGenerator;
 import de.stekoe.idss.model.project.Project;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -13,6 +16,7 @@ import java.util.List;
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
 @Entity
+@DynamicUpdate
 public class CriterionPage implements Serializable {
     private String id = IDGenerator.createId();
     private int ordering;
@@ -56,5 +60,24 @@ public class CriterionPage implements Serializable {
 
     public void setProject(Project project) {
         this.project = project;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) { return false; }
+        if (obj == this) { return true; }
+        if (obj.getClass() != getClass()) {
+            return false;
+        }
+        CriterionPage rhs = (CriterionPage) obj;
+        return new EqualsBuilder()
+                .appendSuper(super.equals(obj))
+                .append(id, rhs.id)
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder().append(id).hashCode();
     }
 }

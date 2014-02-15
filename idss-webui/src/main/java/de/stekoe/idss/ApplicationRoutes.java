@@ -14,6 +14,7 @@ import de.stekoe.idss.page.error.Error500Page;
 import de.stekoe.idss.page.project.*;
 import de.stekoe.idss.page.project.criterion.CriteriaListPage;
 import de.stekoe.idss.page.project.criterion.FormTestPage;
+import de.stekoe.idss.page.project.criterion.SetOfCriteriaPage;
 import de.stekoe.idss.page.project.role.ProjectRoleEditPage;
 import de.stekoe.idss.page.user.ActivateUserPage;
 import de.stekoe.idss.page.user.EditUserProfilePage;
@@ -80,7 +81,7 @@ public class ApplicationRoutes {
         getWebApplication().mountPage("/project/${id}/member", ProjectMemberListPage.class);
         getWebApplication().mountPage("/project/${id}/roles", ProjectRoleListPage.class);
         getWebApplication().mountPage("/project/${id}/roles/${roleId}/edit", ProjectRoleEditPage.class);
-        getWebApplication().mountPage("/project/${id}/criteria", CriteriaListPage.class);
+        getWebApplication().mountPage("/project/${id}/criteria", SetOfCriteriaPage.class);
 
         getWebApplication().mountPage("/setup", SetupPage.class);
 

@@ -26,6 +26,8 @@
     <entry key="label.thisisyou">Das sind sie!</entry>
     <entry key="label.systeminfo">Systeminformationenz</entry>
     <entry key="label.permissions">Zugriffsrechte</entry>
+    <entry key="label.move.up">Nach oben verschieben</entry>
+    <entry key="label.move.down">Nach unten verschieben</entry>
 
     <entry key="label.project">Projekt</entry>
     <entry key="label.project.overview">Projektübersicht</entry>

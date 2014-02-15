@@ -50,4 +50,33 @@ public class DefaultCriterionPageService implements CriterionPageService {
     public int getNextPageNumForProject(String projectId) {
         return criterionPageDAO.getNextPageNumForProject(projectId);
     }
+
+    @Override
+    public void movePage(CriterionPage criterionPage, Direction direction) {
+        final int ordering = criterionPage.getOrdering();
+        final Project project = criterionPage.getProject();
+
+        if(Direction.UP.equals(direction)) {
+            final CriterionPage otherPage = findByOrdering(ordering - 1, project.getId());
+
+            criterionPage.setOrdering(ordering - 1);
+            criterionPageDAO.save(criterionPage);
+
+            otherPage.setOrdering(ordering);
+            criterionPageDAO.save(otherPage);
+        } else if(Direction.DOWN.equals(direction)) {
+            final CriterionPage otherPage = findByOrdering(ordering + 1, project.getId());
+
+            criterionPage.setOrdering(ordering + 1);
+            criterionPageDAO.save(criterionPage);
+
+            otherPage.setOrdering(ordering);
+            criterionPageDAO.save(otherPage);
+        }
+    }
+
+    @Override
+    public CriterionPage findByOrdering(int ordering, String projectId) {
+        return criterionPageDAO.findByOrdering(ordering, projectId);
+    }
 }

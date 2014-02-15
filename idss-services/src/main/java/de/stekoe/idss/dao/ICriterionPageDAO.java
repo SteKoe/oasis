@@ -10,4 +10,5 @@ import java.util.List;
 public interface ICriterionPageDAO extends IGenericDAO<CriterionPage> {
     List<CriterionPage> findAllForProject(String projectId);
     int getNextPageNumForProject(String projectId);
+    CriterionPage findByOrdering(int ordering, String projectId);
 }

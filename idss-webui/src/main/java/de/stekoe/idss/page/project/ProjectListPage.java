@@ -31,7 +31,7 @@ public class ProjectListPage extends AuthUserPage {
 
     @SpringBean private ProjectDataProvider projectDataProvider;
 
-    private static final int ENTRIES_PER_PAGE = 20;
+    private static final int ENTRIES_PER_PAGE = 1;
 
     public ProjectListPage() {
         addCreateProjectLink();

@@ -18,23 +18,31 @@ public class CriterionPageDAO extends GenericDAO<CriterionPage> implements ICrit
 
     @Override
     public List<CriterionPage> findAllForProject(String projectId) {
-        final Criteria c = getSession().createCriteria(getPersistedClass());
-        c.add(Restrictions.eq("project.id", projectId));
-        c.addOrder(Order.asc("ordering"));
-        return c.list();
+        final Criteria criteria = getSession().createCriteria(getPersistedClass());
+        criteria.add(Restrictions.eq("project.id", projectId));
+        criteria.addOrder(Order.asc("ordering"));
+        return criteria.list();
     }
 
     @Override
     public int getNextPageNumForProject(String projectId) {
-        final Criteria c = getSession().createCriteria(getPersistedClass());
-        c.add(Restrictions.eq("project.id", projectId));
-        c.setProjection(Projections.max("ordering"));
+        final Criteria criteria = getSession().createCriteria(getPersistedClass());
+        criteria.add(Restrictions.eq("project.id", projectId));
+        criteria.setProjection(Projections.max("ordering"));
 
-        final Object o = c.uniqueResult();
+        final Object o = criteria.uniqueResult();
         if(o == null)
             return 1;
 
         return (int)o + 1;
+    }
+
+    @Override
+    public CriterionPage findByOrdering(int ordering, String projectId) {
+        final Criteria criteria = getSession().createCriteria(getPersistedClass());
+        criteria.add(Restrictions.eq("project.id", projectId));
+        criteria.add(Restrictions.eq("ordering", ordering));
+        return (CriterionPage)criteria.uniqueResult();
     }
 
     @Override

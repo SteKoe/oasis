@@ -98,4 +98,23 @@ public class DefaultCriterionPageServiceTest extends AbstractBaseTest {
 
         assertThat(criterionPageService.getNextPageNumForProject(project.getId()), IsEqual.equalTo(2));
     }
+
+    @Test
+    public void movePageDown() throws Exception {
+        final Project project = TestFactory.createProject();
+        projectService.save(project);
+
+        final CriterionPage page1 = new CriterionPage();
+        page1.setProject(project);
+        criterionPageService.save(page1);
+
+        final CriterionPage page2 = new CriterionPage();
+        page2.setProject(project);
+        criterionPageService.save(page2);
+
+        criterionPageService.movePage(page2, CriterionPageService.Direction.UP);
+
+        final CriterionPage byId = criterionPageService.findById(page2.getId());
+        assertThat(byId.getOrdering(), IsEqual.equalTo(1));
+    }
 }

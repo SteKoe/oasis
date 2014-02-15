@@ -1,15 +1,57 @@
 <html xmlns:wicket="http://wicket.sourceforge.net/">
 <body>
 <wicket:extend>
+    <style>
+        .criterion-page {
+            box-shadow: 0 0 0 1px #D1D1D1, 0 0 4px 1px #CCCCCC;
+            background-color: #fff;
+            margin-bottom: 10px;
+        }
+        .criterion-page-header {
+            padding: 3px 5px;
+            border-bottom: #aaa;
+            background-color: #eee;
+        }
+        .criterion-page-body {
+            padding: 5px;
+        }
+    </style>
+
     <h1>Kriterienkatalogverwaltung</h1>
 
-    <div style="border: 1px solid #ddd; margin-bottom: 10px;" wicket:id="page.list">
-        <div style="background-color: #F8F8F8; padding: 3px 5px; border-bottom: 1px solid #ddd;">
-            <span wicket:id="id"></span>
-            <a href="#" class="btn-xs btn-danger pull-right" wicket:id="delete.page">Delete</a>
-        </div>
-        <div style="padding: 3px 5px;">
-            asd
+    <div style="background-color: #eeeeee; padding: 15px 0px 5px 0px; margin-bottom: 10px;">
+
+        <div wicket:id="page.list" class="container-fluid">
+            <div class="criterion-page">
+                <div class="criterion-page-header">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <span class="badge">Id</span> <span wicket:id="id"></span>
+                        </div>
+
+                        <div class="col-md-2 text-right">
+                            <div class="btn-group btn-group-xs">
+                                <a href="#" class="btn btn-default" wicket:id="move.page.up"><i class="fa fa-caret-up"></i></a>
+                                <a href="#" class="btn btn-default" wicket:id="move.page.down"><i class="fa fa-caret-down"></i></a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2 text-right">
+                            <div class="btn-group btn-group-xs">
+                                <a href="#" class="btn btn-default"><i class="fa fa-search"></i></a>
+                                <a href="#" class="btn btn-default"><i class="fa fa-plus"></i></a>
+                                <a href="#" class="btn btn-default" wicket:id="delete.page"><i class="fa fa-times"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="criterion-page-body">
+                    <div style="color: #aaaaaa" class="text-center">
+                        Leer
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

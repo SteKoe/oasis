@@ -21,51 +21,34 @@ public class AuthProjectPage extends AuthUserPage {
     @SpringBean
     private ProjectService projectService;
 
-    private final String projectId;
     private Class<? extends IRequestablePage> responsePage = ProjectListPage.class;
-    private LoadableDetachableModel<Project> projectRoleModel;
+    private LoadableDetachableModel<Project> projectModel;
 
     public AuthProjectPage(PageParameters pageParameters) {
+        super(pageParameters);
 
-        final StringValue idParam = pageParameters.get("id");
-        if (idParam == null || idParam.isEmpty()) {
-            projectId = null;
-            getSession().error("Project could not be found!");
-            setResponsePage(getResponsePage());
-            return;
-        } else {
-            projectId = idParam.toString();
-        }
-
-        if (!projectService.isAuthorized(getUser().getId(), projectId, PermissionType.READ)) {
-            WebSession.get().error("You are not allowed to access this project!");
-            setResponsePage(getResponsePage());
-        }
-
-        projectRoleModel = new LoadableDetachableModel<Project>() {
+        final StringValue projectId = pageParameters.get("projectId");
+        projectModel = new LoadableDetachableModel<Project>() {
             @Override
             protected Project load() {
-                LOG.info("Project with id '" + projectId + "' loaded from database!");
-                return projectService.findById(projectId);
+                return projectService.findById(projectId.toString());
             }
         };
-    }
+        if(projectModel.getObject() == null) {
+            setResponsePage(ProjectListPage.class);
+        }
 
-    private Class<? extends IRequestablePage> getResponsePage() {
-        return responsePage;
+        if (!projectService.isAuthorized(getUser().getId(), projectId.toString(), PermissionType.READ)) {
+            WebSession.get().error("You are not allowed to access this project!");
+            setResponsePage(ProjectListPage.class);
+        }
     }
 
     /**
-     * Allows to set different redirection page which defaults to ProjectOverviewPage
-     *
-     * @param responsePage
+     * @return The project id
      */
-    public void setRedirectPage(Class<? extends IRequestablePage> responsePage) {
-        this.responsePage = responsePage;
-    }
-
     public String getProjectId() {
-        return projectId;
+        return getProject().getId();
     }
 
     /**
@@ -74,6 +57,6 @@ public class AuthProjectPage extends AuthUserPage {
      * @return The current project
      */
     public Project getProject() {
-        return projectRoleModel.getObject();
+        return projectModel.getObject();
     }
 }

@@ -13,6 +13,7 @@ import de.stekoe.idss.page.error.Error410Page;
 import de.stekoe.idss.page.error.Error500Page;
 import de.stekoe.idss.page.project.*;
 import de.stekoe.idss.page.project.criterion.CriteriaListPage;
+import de.stekoe.idss.page.project.criterion.CriteriaPageDetailsPage;
 import de.stekoe.idss.page.project.criterion.FormTestPage;
 import de.stekoe.idss.page.project.criterion.SetOfCriteriaPage;
 import de.stekoe.idss.page.project.role.ProjectRoleEditPage;
@@ -76,12 +77,17 @@ public class ApplicationRoutes {
         // Projects
         getWebApplication().mountPage("/project/list", ProjectListPage.class);
         getWebApplication().mountPage("/project/create", ProjectCreatePage.class);
-        getWebApplication().mountPage("/project/${id}/show", ProjectDetailsPage.class);
-        getWebApplication().mountPage("/project/${id}/edit", ProjectEditPage.class);
-        getWebApplication().mountPage("/project/${id}/member", ProjectMemberListPage.class);
-        getWebApplication().mountPage("/project/${id}/roles", ProjectRoleListPage.class);
-        getWebApplication().mountPage("/project/${id}/roles/${roleId}/edit", ProjectRoleEditPage.class);
-        getWebApplication().mountPage("/project/${id}/criteria", SetOfCriteriaPage.class);
+
+        getWebApplication().mountPage("/project/${projectId}/show", ProjectDetailsPage.class);
+        getWebApplication().mountPage("/project/${projectId}/edit", ProjectEditPage.class);
+        getWebApplication().mountPage("/project/${projectId}/member", ProjectMemberListPage.class);
+        getWebApplication().mountPage("/project/${projectId}/documents", ProjectUploadDocument.class);
+
+        getWebApplication().mountPage("/project/${projectId}/roles", ProjectRoleListPage.class);
+        getWebApplication().mountPage("/project/${projectId}/roles/${roleId}/edit", ProjectRoleEditPage.class);
+
+        getWebApplication().mountPage("/project/${projectId}/setofcriteria", SetOfCriteriaPage.class);
+        getWebApplication().mountPage("/project/${projectId}/setofcriteria/page/${pageId}", CriteriaPageDetailsPage.class);
 
         getWebApplication().mountPage("/setup", SetupPage.class);
 

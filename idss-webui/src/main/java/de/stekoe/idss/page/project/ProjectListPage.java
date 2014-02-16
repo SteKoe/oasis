@@ -45,7 +45,7 @@ public class ProjectListPage extends AuthUserPage {
             protected void populateItem(Item<Project> item) {
                 final Project project = item.getModelObject();
                 PageParameters pageDetailsParameters = new PageParameters();
-                pageDetailsParameters.add("id", project.getId());
+                pageDetailsParameters.add("projectId", project.getId());
 
                 final Label projectTitleLabel = new Label("project.title", Model.of(project.getName()));
                 item.add(projectTitleLabel);

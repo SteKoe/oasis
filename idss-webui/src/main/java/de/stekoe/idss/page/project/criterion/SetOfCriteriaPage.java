@@ -6,6 +6,7 @@ import de.stekoe.idss.service.CriterionPageService;
 import de.stekoe.idss.service.ProjectService;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
@@ -49,9 +50,11 @@ public class SetOfCriteriaPage extends ProjectPage {
                 item.add(new Label("id", criterionPage.getId()));
                 item.add(new Label("order", criterionPage.getOrdering()));
 
-                item.add(deletePageLink(criterionPage));
                 item.add(movePageUpLink(criterionPage));
                 item.add(movePageDownLink(criterionPage));
+
+                item.add(new BookmarkablePageLink<CriteriaPageDetailsPage>("page.show", CriteriaPageDetailsPage.class, new PageParameters(getPageParameters()).add("pageId", criterionPage.getId())));
+                item.add(deletePageLink(criterionPage));
             }
 
             private Link movePageUpLink(final CriterionPage criterionPage) {
@@ -93,7 +96,7 @@ public class SetOfCriteriaPage extends ProjectPage {
             }
 
             private Link deletePageLink(final CriterionPage criterionPage) {
-                final Link link = new Link("delete.page") {
+                final Link link = new Link("page.delete") {
                     @Override
                     public void onClick() {
                         criterionPageService.delete(criterionPage);

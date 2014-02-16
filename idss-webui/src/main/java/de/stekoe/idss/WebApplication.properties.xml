@@ -108,6 +108,8 @@
     <entry key="message.registration.success">Ihr Benutzerkonto wurde erstellt. Sie müssen es jedoch erst freischalten. Dazu wurde ein Aktivierungs-Schlüssel an die von Ihnen angegebene Adresse geschickt. Bitte überprüfen Sie Ihre E-Mails für weitere Informationen.</entry>
     <entry key="message.registration.error">Fehler beim Registrieren. Bitte versuchen Sie es erneut, oder wenden Sie sich an einen Administrator!</entry>
     <entry key="message.project.create.success">Das Projekt wurde erfolgreich angelegt!</entry>
+    <entry key="message.error.404">Die angeforderte Seite konnte nicht gefunden werden!</entry>
+
 
     <!-- Project stati -->
     <entry key="status.project.editing">In Bearbeitung</entry>

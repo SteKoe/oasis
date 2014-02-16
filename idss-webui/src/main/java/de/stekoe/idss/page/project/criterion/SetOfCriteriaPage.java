@@ -55,6 +55,7 @@ public class SetOfCriteriaPage extends ProjectPage {
 
                 item.add(new BookmarkablePageLink<CriteriaPageDetailsPage>("page.show", CriteriaPageDetailsPage.class, new PageParameters(getPageParameters()).add("pageId", criterionPage.getId())));
                 item.add(deletePageLink(criterionPage));
+                item.add(new BookmarkablePageLink<SelectCriterionPage>("page.add.criterion", SelectCriterionPage.class, new PageParameters(getPageParameters())));
             }
 
             private Link movePageUpLink(final CriterionPage criterionPage) {

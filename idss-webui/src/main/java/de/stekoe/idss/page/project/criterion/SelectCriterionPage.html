@@ -1,0 +1,53 @@
+<html xmlns:wicket="http://wicket.sourceforge.net/">
+<body>
+<wicket:extend>
+    <h1>Skalenauswahl</h1>
+    <p>
+        Bitte wählen sie für das Kriterium eine Skala aus, mit welcher das Kritierum gemessen werden soll.
+        Die gewählte Skala bestimmt die Auswertungsmöglichkeiten für das jeweilige Kriterium.
+    </p>
+
+    <div class="list-group">
+        <a wicketpath="addMember" class="list-group-item" href="">
+            <h4>Nominalskala</h4>
+            <p>
+                Skala, deren Ausprägungen keine Ordnung besitzen, aber unterscheidbar sind.
+            </p>
+            <dl class="dl-horizontal small">
+                <dt>Geschlecht</dt>
+                <dd>männlich, weiblich</dd>
+
+                <dt>Orte</dt>
+                <dd>Köln, Berlin, München</dd>
+            </dl>
+        </a>
+        <a wicketpath="editProject" class="list-group-item" href="">
+            <h4>Ordinalskala</h4>
+            <p>
+                Erstellen Sie eine Skala, deren Werte geordnet und unterscheidbar sind.
+            </p>
+            <dl class="dl-horizontal small">
+                <dt>Zensuren</dt>
+                <dd>sehr gut &lt; gut &lt; befriedigend &lt; ausreichend &lt; mangelhaft &lt; ungenügend </dd>
+
+                <dt>Zufriedenheit</dt>
+                <dd>sehr zufrieden &lt; zufrieden &lt; unzufrieden &lt; sehr unzufrieden</dd>
+            </dl>
+        </a>
+        <a wicketpath="editProjectRolesLink" class="list-group-item" href="">
+            <h4>Metrische Skala / Kardinalskala</h4>
+            <p>
+                Abstände der Werte dieser Skala sind messbar, jedoch besitzt diese Skala keinen natürlichen Nullpunkt.
+            </p>
+            <dl class="dl-horizontal small">
+                <dt>Temperatur</dt>
+                <dd>Grad Celsius; Grad Fahrenheit; Kelvin</dd>
+
+                <dt>Zeitdauer</dt>
+                <dd>Jahre; Tage</dd>
+            </dl>
+        </a>
+    </div>
+</wicket:extend>
+</body>
+</html>

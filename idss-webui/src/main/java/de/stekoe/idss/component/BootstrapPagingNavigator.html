@@ -1,23 +1,21 @@
 <html xmlns:wicket>
 <body>
 <wicket:panel>
-    <ul class="pagination">
-        <li>
-            <a wicket:id="first">first</a>
+    <ul class="pagination pagination-sm">
+        <li wicket:id="page.first">
+            <a wicket:id="page.first.link"><wicket:message key="label.page.first" /></a>
         </li>
-        <li>
-            <a wicket:id="prev">&laquo;</a>
+        <li wicket:id="page.prev">
+            <a wicket:id="page.prev.link"><wicket:message key="label.page.prev" /></a>
         </li>
-        <li wicket:id="navigation">
-            <a wicket:id="pageLink" href="#">
-                <span wicket:id="pageNumber">5</span>
-            </a>
+        <li wicket:id="page.list">
+            <a wicket:id="page.list.link" href="#">5</a>
         </li>
-        <li>
-            <a wicket:id="next">&raquo;</a>
+        <li wicket:id="page.next">
+            <a wicket:id="page.next.link"><wicket:message key="label.page.next" /></a>
         </li>
-        <li>
-            <a wicket:id="last">last</a>
+        <li wicket:id="page.last">
+            <a wicket:id="page.last.link"><wicket:message key="label.page.last" /></a>
         </li>
     </ul>
 </wicket:panel>

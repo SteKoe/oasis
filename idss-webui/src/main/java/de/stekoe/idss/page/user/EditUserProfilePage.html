@@ -4,15 +4,12 @@
       xmlns:wicket="http://wicket.sourceforge.net/" xml:lang="en" lang="en">
 <body>
 <wicket:extend>
-    <form class="form-horizontal" wicket:id="userprofile">
+    <form wicket:id="userprofile">
         <fieldset>
             <legend>Erforderliche Angaben zur Registrierung.</legend>
-            <div class="control-group">
-                <label class="control-label" for="email">E-Mail &amp; Passwort:</label>
-
+            <div class="form-group">
                 <div class="controls">
-                    <a href="#" class="btn" wicket:id="changePasswordOrEmailLink">E-Mail oder Passwort
-                        ändern</a>
+                        <a href="#" class="btn" wicket:id="changePasswordOrEmailLink">E-Mail oder Passwort ändern</a>
                         <span class="help-block">
                           Bitte klicken Sie auf obigen Link, um die E-Mail-Adresse und/oder das Kennwort zu ändern.
                           Alle Änderungen, die auf dieser Seite vorgenommen wurden, werden nicht gespeichert.
@@ -22,31 +19,22 @@
 
             <legend>Freiwillige Angaben - Diese Informationen sind von allen Benutzern einsehbar.</legend>
             <!-- Firstname -->
-            <div class="control-group">
-                <label class="control-label" for="firstname">Vorname:</label>
-
-                <div class="controls">
-                    <input type="text" id="firstname" wicket:id="firstname"/>
-                </div>
+            <div class="form-group">
+                <label for="firstname">Vorname:</label>
+                <input class="form-control" type="text" id="firstname" wicket:id="firstname"/>
             </div>
             <!-- Surename -->
-            <div class="control-group">
-                <label class="control-label" for="surename">Nachname:</label>
-
-                <div class="controls">
-                    <input type="text" id="surename" wicket:id="surname"/>
-                </div>
+            <div class="form-group">
+                <label for="surename">Nachname:</label>
+                <input class="form-control" type="text" id="surename" wicket:id="surname"/>
             </div>
             <!-- Birthday -->
-            <div class="control-group">
-                <label class="control-label" for="birthday">Geburtstag:</label>
-
-                <div class="controls">
-                    <input type="text" id="birthday" wicket:id="birthday"/>
-                </div>
+            <div class="form-group">
+                <label for="birthday">Geburtstag:</label>
+                <input class="form-control" type="text" id="birthday" wicket:id="birthday"/>
             </div>
             <!-- Submit -->
-            <div class="control-group">
+            <div class="form-group">
                 <div class="controls">
                     <button type="submit" class="btn btn-success">Speichern</button>
                     <button type="reset" class="btn">Zurücksetzen</button>

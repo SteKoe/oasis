@@ -84,6 +84,24 @@
 .criterion-block .measure .table td.sub-measure {
   text-align: left;
 }
+.page-canvas {
+  background-color: #eeeeee;
+  padding: 15px 0px 5px 0px;
+  margin-bottom: 10px;
+}
+.criterion-page {
+  box-shadow: 0 0 0 1px #D1D1D1, 0 0 4px 1px #CCCCCC;
+  background-color: #fff;
+  margin-bottom: 10px;
+}
+.criterion-page .criterion-page-header {
+  padding: 3px 5px;
+  border-bottom: #aaa;
+  background-color: #eee;
+}
+.criterion-page .criterion-page-body {
+  padding: 5px;
+}
 .monospace {
   font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
 }

@@ -28,6 +28,9 @@
     <entry key="label.permissions">Zugriffsrechte</entry>
     <entry key="label.move.up">Nach oben verschieben</entry>
     <entry key="label.move.down">Nach unten verschieben</entry>
+    <entry key="label.page.counter">Seite {0} von {1}</entry>
+    <entry key="label.page.prev">Vorherige Seite</entry>
+    <entry key="label.page.next">Nächste Seite</entry>
 
     <entry key="label.project">Projekt</entry>
     <entry key="label.project.overview">Projektübersicht</entry>

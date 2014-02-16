@@ -2,6 +2,25 @@
 <body>
 <wicket:extend>
     <h1>Details</h1>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3 text-left">
+                <a wicket:id="page.prev" href="" class="btn btn-default">&laquo; <wicket:message key="label.page.prev" /></a>
+            </div>
+            <div class="col-md-6 text-center">
+                <h5 wicket:id="pageCounter">Page 1 of 4</h5>
+            </div>
+            <div class="col-md-3 text-right">
+                <a wicket:id="page.next" href="" class="btn btn-default"><wicket:message key="label.page.next" /> &raquo;</a>
+            </div>
+        </div>
+    </div>
+
+    <div style="color: #aaaaaa" class="text-center">
+        Leer
+    </div>
+
+
 </wicket:extend>
 </body>
 </html>

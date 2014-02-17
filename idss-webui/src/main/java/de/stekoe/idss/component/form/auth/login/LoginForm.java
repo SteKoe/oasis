@@ -1,6 +1,5 @@
 package de.stekoe.idss.component.form.auth.login;
 
-import de.agilecoders.wicket.core.markup.html.bootstrap.form.FormGroup;
 import de.stekoe.idss.component.feedbackpanel.MyFencedFeedbackPanel;
 import de.stekoe.idss.page.project.ProjectListPage;
 import de.stekoe.idss.service.AuthService;
@@ -76,6 +75,7 @@ public class LoginForm extends Panel {
                 if (authStatus.equals(AuthStatus.SUCCESS)) {
                     WebSession.get().success(getString("message.login.success"));
                     WebSession.get().signIn(username, password);
+                    continueToOriginalDestination();
                     setResponsePage(ProjectListPage.class);
                 } else {
                     boolean error = true;

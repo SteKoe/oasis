@@ -19,8 +19,7 @@ public class AuthorizationStrategy implements IAuthorizationStrategy, IUnauthori
 
     @Override
     public void onUnauthorizedInstantiation(Component component) {
-        LOG.error("ERROR 403: Redirecting user!");
-        WebSession.get().error("WHAAATT????");
+        LOG.warn("Error 403");
         throw new RestartResponseAtInterceptPageException(LoginPage.class);
     }
 

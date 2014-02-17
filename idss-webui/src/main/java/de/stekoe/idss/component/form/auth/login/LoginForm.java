@@ -75,7 +75,10 @@ public class LoginForm extends Panel {
                 if (authStatus.equals(AuthStatus.SUCCESS)) {
                     WebSession.get().success(getString("message.login.success"));
                     WebSession.get().signIn(username, password);
+
+                    // Try to redirect to page which required authentication
                     continueToOriginalDestination();
+                    // If that did not happen, redirect to standard landing page
                     setResponsePage(ProjectListPage.class);
                 } else {
                     boolean error = true;

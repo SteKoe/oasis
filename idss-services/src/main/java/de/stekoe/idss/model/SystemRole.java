@@ -60,9 +60,15 @@ public class SystemRole implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null) { return false; }
-        if (o == this) { return true; }
-        if (o.getClass() != getClass()) { return false; }
+        if (o == null) {
+            return false;
+        }
+        if (o == this) {
+            return true;
+        }
+        if (o.getClass() != getClass()) {
+            return false;
+        }
         SystemRole that = (SystemRole) o;
         return new EqualsBuilder()
                 .appendSuper(super.equals(o))

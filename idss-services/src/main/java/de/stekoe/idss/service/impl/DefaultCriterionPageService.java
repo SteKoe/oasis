@@ -43,8 +43,7 @@ public class DefaultCriterionPageService implements CriterionPageService {
 
     @Override
     public List<CriterionPage> getCriterionPagesForProject(String projectId) {
-        final List<CriterionPage> allForProject = criterionPageDAO.findAllForProject(projectId);
-        return allForProject;
+        return criterionPageDAO.findAllForProject(projectId);
     }
 
     @Override

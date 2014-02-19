@@ -14,17 +14,6 @@ public class ServiceRepository {
 
     private static ClassPathXmlApplicationContext context;
 
-    /**
-     * @return The UserService Bean
-     */
-//    public static UserService getUserService() {
-//        return getBeanInternal("userService");
-//    }
-
-//    public static AuthService getAuthService() {
-//        return getBeanInternal("authService");
-//    }
-
     // ################# Utilities              ´
     @SuppressWarnings("unused")
     private static final <T> T getBeanInternal(final String beanName) {

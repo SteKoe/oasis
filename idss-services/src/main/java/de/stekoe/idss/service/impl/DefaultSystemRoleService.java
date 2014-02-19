@@ -37,7 +37,7 @@ public class DefaultSystemRoleService implements SystemRoleService {
 
     @Override
     public Map<Integer, String> getAsSelectionList() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return null;
     }
 
     @Override

@@ -31,18 +31,10 @@ public class User implements Serializable {
     private String username;
     private String password;
     private String email;
-    private String activationKey;
+    private String activationKey = DigestUtils.md5Hex(UUID.randomUUID().toString());
     private UserStatus userStatus = UserStatus.ACTIVATION_PENDING;
     private Set<ProjectMember> projectMemberships = new HashSet<ProjectMember>(0);
     private Set<Permission> permissions = new HashSet<Permission>();
-
-    /**
-     * Initialises a standard user object with activation key and user status UserStatus.ACTIVATION_PENDING
-     */
-    public User() {
-        setUserStatus(UserStatus.ACTIVATION_PENDING);
-        setActivationKey(DigestUtils.md5Hex(UUID.randomUUID().toString()));
-    }
 
     @Id
     @Column(name = "user_id")
@@ -168,9 +160,15 @@ public class User implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null) { return false; }
-        if (obj == this) { return true; }
-        if (obj.getClass() != getClass()) { return false; }
+        if (obj == null) {
+            return false;
+        }
+        if (obj == this) {
+            return true;
+        }
+        if (obj.getClass() != getClass()) {
+            return false;
+        }
         User rhs = (User) obj;
         return new EqualsBuilder()
                 .appendSuper(super.equals(obj))

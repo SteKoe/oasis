@@ -22,6 +22,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -55,17 +56,21 @@ public class ProjectRoleEditPage extends ProjectPage {
         }
 
 
-        final CheckBoxMultipleChoice<PermissionType> permissions = new CheckBoxMultipleChoice<PermissionType>("permissionTypes", new Model(select), new ArrayList(PermissionType.forProject()), new IChoiceRenderer<PermissionType>() {
+
+        final IChoiceRenderer<PermissionType> iChoiceRenderer = new IChoiceRenderer<PermissionType>() {
             @Override
             public Object getDisplayValue(PermissionType object) {
-                return " " + MessageFormat.format(getString(object.getKey()), getString(PermissionObject.PROJECT.getKey()));  //To change body of implemented methods use File | Settings | File Templates.
+                return " " + MessageFormat.format(getString(object.getKey()), getString(PermissionObject.PROJECT.getKey()));
             }
 
             @Override
             public String getIdValue(PermissionType object, int index) {
                 return object.getKey();
             }
-        });
+        };
+
+
+        final CheckBoxMultipleChoice<PermissionType> permissions = new CheckBoxMultipleChoice<PermissionType>("permissionTypes", new Model(select), new ArrayList(PermissionType.forProject()), iChoiceRenderer);
         permissions.setPrefix("<div class='checkbox'>");
         permissions.setSuffix("</div>");
 

@@ -27,13 +27,13 @@ public enum PermissionType implements L10NEnum {
     }
 
     public static final Set<PermissionType> forReadOnly() {
-        final HashSet<PermissionType> permissionTypes = new HashSet<PermissionType>();
+        final Set<PermissionType> permissionTypes = new HashSet<PermissionType>();
         permissionTypes.add(READ);
         return permissionTypes;
     }
 
     public static final Set<PermissionType> forCrud() {
-        final HashSet<PermissionType> permissionTypes = new HashSet<PermissionType>();
+        final Set<PermissionType> permissionTypes = new HashSet<PermissionType>();
         permissionTypes.add(READ);
         permissionTypes.add(UPDATE);
         permissionTypes.add(DELETE);
@@ -41,7 +41,7 @@ public enum PermissionType implements L10NEnum {
     }
 
     public static final Set<PermissionType> forProject() {
-        final HashSet<PermissionType> permissionTypes = new HashSet<PermissionType>();
+        final Set<PermissionType> permissionTypes = new HashSet<PermissionType>();
         permissionTypes.addAll(forCrud());
         permissionTypes.add(PROJECT_ADD_MEMBER);
         permissionTypes.add(PROJECT_ADD_ROLES);

@@ -41,8 +41,7 @@ public class ActivateUserPage extends LayoutPage {
     }
 
     private User getUserToActivate() {
-        User userToActivate = userManager.findByActivationCode(activationCode);
-        return userToActivate;
+        return userManager.findByActivationCode(activationCode);
     }
 
     private void extractActivationKeyFromPageParameters(PageParameters parameters) {

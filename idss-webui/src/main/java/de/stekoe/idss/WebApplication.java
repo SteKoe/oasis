@@ -83,6 +83,7 @@ public class WebApplication extends AuthenticatedWebApplication implements Appli
                 getMarkupSettings().setCompressWhitespace(true);
                 IRequestMapper cryptoMapper = new CryptoMapper(getRootRequestMapper(), this);
                 setRootRequestMapper(cryptoMapper);
+                break;
         }
     }
 

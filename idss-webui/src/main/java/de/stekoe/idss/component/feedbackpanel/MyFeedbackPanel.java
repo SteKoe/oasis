@@ -236,6 +236,7 @@ public class MyFeedbackPanel extends Panel implements IFeedback {
         case FeedbackMessage.INFO:
         default:
             alert.type(Alert.Type.Info);
+            break;
         }
         return alert;
     }

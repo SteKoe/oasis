@@ -54,8 +54,7 @@ public abstract class LayoutPage extends WebPage {
     }
 
     public String getContextParameter(String key) {
-        final String param = WebApplication.get().getServletContext().getInitParameter(key);
-        return param;
+        return WebApplication.get().getServletContext().getInitParameter(key);
     }
 
     /**
@@ -76,7 +75,7 @@ public abstract class LayoutPage extends WebPage {
         return getSession().getUser();
     }
 
-    protected void init() {
+    private void init() {
         configureSession();
 
         Bootstrap.getSettings().getActiveThemeProvider().setActiveTheme(new BootstrapTheme());

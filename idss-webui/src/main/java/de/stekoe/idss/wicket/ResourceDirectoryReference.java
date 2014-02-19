@@ -25,7 +25,7 @@ public class ResourceDirectoryReference extends ResourceReference {
      * @param directory
      */
     public ResourceDirectoryReference(File directory) {
-        super(directory.getAbsolutePath());  // Use pathname as ResourceReference key
+        super(directory.getAbsolutePath());
         resourceDirectory = directory;
     }
 

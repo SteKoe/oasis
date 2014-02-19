@@ -11,16 +11,16 @@ import java.util.List;
 public class BootstrapThemeProvider implements ThemeProvider {
     @Override
     public ITheme byName(String name) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return null;
     }
 
     @Override
     public List<ITheme> available() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return null;
     }
 
     @Override
     public ITheme defaultTheme() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return null;
     }
 }

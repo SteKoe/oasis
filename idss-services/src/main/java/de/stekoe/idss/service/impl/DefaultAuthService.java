@@ -127,10 +127,8 @@ public class DefaultAuthService implements AuthService {
         }
 
         for(Permission permission : permissions) {
-            if(permission.hasObjectId()) {
-                if(identifyable.getId().equals(permission.getObjectId())) {
-                    return true;
-                }
+            if(permission.hasObjectId() && identifyable.getId().equals(permission.getObjectId())) {
+                return true;
             }
         }
 

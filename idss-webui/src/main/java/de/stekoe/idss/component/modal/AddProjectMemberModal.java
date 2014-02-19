@@ -29,10 +29,9 @@ import java.util.ArrayList;
 public abstract class AddProjectMemberModal extends Modal {
 
     private final LoadableDetachableModel<Project> projectModel;
+    private final String projectId;
     @SpringBean private UserService userService;
     @SpringBean private ProjectService projectService;
-
-    private final String projectId;
 
     private ProjectMember projectMember = new ProjectMember();
 

@@ -43,7 +43,9 @@ public class RestRoutes extends GsonRestResource {
         private java.lang.String label;
         private java.lang.String value;
 
-        public UserPojo() {}
+        public UserPojo() {
+            // NOP
+        }
 
         public UserPojo(User user) {
             this.id = user.getId();

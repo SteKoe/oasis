@@ -61,9 +61,15 @@ public class ProjectMember implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null) { return false; }
-        if (o == this) { return true; }
-        if (o.getClass() != getClass()) { return false; }
+        if (o == null) {
+            return false;
+        }
+        if (o == this) {
+            return true;
+        }
+        if (o.getClass() != getClass()) {
+            return false;
+        }
         ProjectMember that = (ProjectMember) o;
         return new EqualsBuilder()
                 .appendSuper(super.equals(o))

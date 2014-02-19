@@ -37,7 +37,7 @@ import java.io.IOException;
  *
  */
 public class ResourceDirectory extends AbstractResource {
-    private static final Logger log = LoggerFactory.getLogger(ResourceDirectory.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ResourceDirectory.class);
 
     private static final long serialVersionUID = 1L;
 
@@ -69,7 +69,7 @@ public class ResourceDirectory extends AbstractResource {
 
         String absolutePath = new File(resourceDirectory, name)
                 .getAbsolutePath();
-        log.debug("Sending RR for path={}", absolutePath);
+        LOG.debug("Sending RR for path={}", absolutePath);
 
         final ResourceResponse resourceResponse = new ResourceResponse();
 
@@ -112,18 +112,18 @@ public class ResourceDirectory extends AbstractResource {
                     }
                 });
             } catch (IOException e) {
-                log.debug(e.getMessage(), e);
+                LOG.debug(e.getMessage(), e);
                 return sendResourceError(absolutePath, resourceResponse, 500,
                         "Unable to read resource stream");
             } catch (ResourceStreamNotFoundException e) {
-                log.debug(e.getMessage(), e);
+                LOG.debug(e.getMessage(), e);
                 return sendResourceError(absolutePath, resourceResponse, 500,
                         "Unable to open resource stream");
             } finally {
                 try {
                     resourceStream.close();
                 } catch (IOException e) {
-                    log.warn("Unable to close the resource stream", e);
+                    LOG.warn("Unable to close the resource stream", e);
                 }
             }
         }
@@ -148,7 +148,7 @@ public class ResourceDirectory extends AbstractResource {
         String msg = String.format("resource [path = %s]: %s (status=%d)",
                 absolutePath, errorMessage, errorCode);
 
-        log.warn(msg);
+        LOG.warn(msg);
 
         resourceResponse.setError(errorCode, errorMessage);
         return resourceResponse;
@@ -160,7 +160,7 @@ public class ResourceDirectory extends AbstractResource {
      * @return resource stream or <code>null</code> if not found
      */
     public IResourceStream getResourceStream(String absolutePath) {
-        if (accept(Application.class, absolutePath) == false) {
+        if (!accept(Application.class, absolutePath)) {
             throw new PackageResourceBlockedException(
                     "Access denied to (static) package resource "
                             + absolutePath + ". See IPackageResourceGuard");

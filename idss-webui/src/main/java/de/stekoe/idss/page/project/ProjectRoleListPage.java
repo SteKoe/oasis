@@ -33,7 +33,7 @@ public class ProjectRoleListPage extends ProjectPage {
     }
 
     private void addProjectRolesList() {
-        ArrayList<ProjectRole> projectRoles = new ArrayList<ProjectRole>(getProject().getProjectRoles());
+        List<ProjectRole> projectRoles = new ArrayList<ProjectRole>(getProject().getProjectRoles());
         projectRoles = sortProjectRolesByAmountOfPermissionsDesc(projectRoles);
 
         final ListView<ProjectRole> projectRolesList = new ListView<ProjectRole>("project.roles.list", projectRoles) {
@@ -56,7 +56,7 @@ public class ProjectRoleListPage extends ProjectPage {
         add(projectRolesList);
     }
 
-    private ArrayList<ProjectRole> sortProjectRolesByAmountOfPermissionsDesc(ArrayList<ProjectRole> projectRoles) {
+    private List<ProjectRole> sortProjectRolesByAmountOfPermissionsDesc(List<ProjectRole> projectRoles) {
         Collections.sort(projectRoles, new Comparator<ProjectRole>() {
             @Override
             public int compare(ProjectRole role1, ProjectRole role2) {

@@ -20,12 +20,14 @@ public class  Permission implements Serializable {
     private PermissionType permissionType;
     private String objectId;
 
-    public Permission() {}
+    public Permission() {
+        // NOP
+    }
 
     public Permission(PermissionObject objectType, PermissionType permissionType, String objectId) {
-        setObjectType(objectType);
-        setPermissionType(permissionType);
-        setObjectId(objectId);
+        this.objectType = objectType;
+        this.permissionType = permissionType;
+        this.objectId = objectId;
     }
 
     @Id

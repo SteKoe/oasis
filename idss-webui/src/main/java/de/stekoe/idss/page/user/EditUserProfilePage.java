@@ -70,7 +70,6 @@ public class EditUserProfilePage extends AuthUserPage {
     private java.lang.String getDateFormat() {
         Locale currentLocale = getSession().getLocale();
         final SimpleDateFormat dateInstance = (SimpleDateFormat) SimpleDateFormat.getDateInstance(DateFormat.MEDIUM, currentLocale);
-        final java.lang.String pattern = dateInstance.toPattern();
-        return pattern;
+        return dateInstance.toPattern();
     }
 }

@@ -20,10 +20,7 @@ import org.apache.wicket.util.lang.Bytes;
 
 import java.io.File;
 import java.text.DateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Set;
+import java.util.*;
 
 
 /**
@@ -46,7 +43,7 @@ public class ProjectUploadDocument extends ProjectPage {
     }
 
     private void addDocumentList() {
-        final ArrayList<Document> documentsList = new ArrayList<Document>(getDocumentsOfCurrentProject());
+        final List<Document> documentsList = new ArrayList<Document>(getDocumentsOfCurrentProject());
         Collections.sort(documentsList, new Comparator<Document>() {
             @Override
             public int compare(Document d1, Document d2) {

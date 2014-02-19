@@ -18,7 +18,7 @@ import java.io.IOException;
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
-public class DocumentUploadForm extends Panel {
+public abstract class DocumentUploadForm extends Panel {
 
     private static final Logger LOG = Logger.getLogger(DocumentUploadForm.class);
 
@@ -77,5 +77,5 @@ public class DocumentUploadForm extends Panel {
         add(form);
     }
 
-    public void onAfterSubmit(Document document) {}
+    public abstract void onAfterSubmit(Document document);
 }

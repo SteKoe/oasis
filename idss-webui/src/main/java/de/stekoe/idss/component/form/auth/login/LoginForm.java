@@ -96,6 +96,7 @@ public class LoginForm extends Panel {
                             break;
                         default:
                             message = getString("message.login.error");
+                            break;
                     }
 
                     if (error) {

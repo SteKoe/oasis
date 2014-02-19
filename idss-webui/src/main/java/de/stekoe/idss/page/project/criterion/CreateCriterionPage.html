@@ -1,0 +1,83 @@
+<html xmlns:wicket="http://wicket.sourceforge.net/">
+<body>
+<wicket:head>
+    <script>
+    jQuery(document).ready(function(){
+
+        function showAll() {
+            $(this).find('option').removeAttr('disabled');
+        };
+
+        var $typeDropDown = $('#type');
+        $typeDropDown.showAll = showAll;
+
+        var $metricDropDown = $('#metric');
+        $metricDropDown.showAll = showAll;
+
+        $typeDropDown.change(function(){
+            $metricDropDown.showAll();
+
+            var selectedValue = $(this).val();
+            if(selectedValue == "STRING") {
+                var $option = $("[value='METRIC']", $metricDropDown);
+                $option.attr("disabled","disabled");
+            }
+        });
+
+        $metricDropDown.change(function(){
+            $typeDropDown.showAll();
+
+            var selectedValue = $(this).val();
+            if(selectedValue == "METRIC") {
+                var $option = $("[value='STRING']", $typeDropDown);
+                $option.attr("disabled","disabled");
+            }
+        });
+    });
+    </script>
+</wicket:head>
+<wicket:extend>
+    <h1>Kriterium definieren</h1>
+
+    <form wicket:id="form">
+        <fieldset>
+            <legend>Kriteriendefinition</legend>
+            <div class="form-group">
+                <label for="name"><wicket:message key="label.name" /></label>
+                <input type="text" name="name" id="name" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Messniveau</label>
+                <input type="text" wicket:id="criterionType" class="form-control" readonly="readonly">
+            </div>
+        </fieldset>
+
+        <fieldset class="form-horizontal">
+            <legend>Ausprägungen</legend>
+
+            <a href="" class="btn btn-block">Neue Ausprägung erstellen</a>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="text-center id">#</th>
+                        <th>Wert</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr wicket:id="table.entries">
+                        <td class="text-center"><strong wicket:id="table.entry.key">1:</strong></td>
+                        <td wicket:id="table.entry.value">männlich</td>
+                        <td></td>
+                    </tr>
+                    <tr wicket:id="table.empty">
+                        <td colspan="3" class="empty text-center">Leer</td>
+                    </tr>
+                </tbody>
+            </table>
+        </fieldset>
+    </form>
+</wicket:extend>
+</body>
+</html>

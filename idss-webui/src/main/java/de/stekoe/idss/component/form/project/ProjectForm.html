@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:wicket="http://wicket.sourceforge.net/">
 <body>
+<wicket:head>
+<script>
+jQuery(document).ready(function(){
+    $('.input-group.date').datepicker({
+        calendarWeeks: true,
+        todayHighlight: true
+    });
+});
+</script>
+</wicket:head>
 <wicket:panel>
     <form wicket:id="form.project">
         <div class="form-group">
@@ -21,12 +31,21 @@
         <div class="form-group">
         <div class="row">
             <div class="col-md-6">
-                <label for="projectStartDate"><wicket:message key="label.project.start.date" /></label>
-                <input id="projectStartDate" wicket:id="projectStartDate" type="text" class="form-control">
+                <div class="form-group">
+                    <label for="projectStartDate"><wicket:message key="label.project.start.date" /></label>
+                    <input id="projectStartDate" wicket:id="projectStartDate" type="text" class="form-control">
+                </div>
             </div>
             <div class="col-md-6">
-                <label for="projectEndDate"><wicket:message key="label.project.end.date" /></label>
-                <input id="projectEndDate" wicket:id="projectEndDate" type="text" class="form-control">
+                <div class="form-group">
+                    <label for="projectStartDate"><wicket:message key="label.project.end.date" /></label>
+                    <div class="input-group date col-md-4">
+                        <input id="projectEndDate" wicket:id="projectEndDate" type="text" class="form-control" readonly="readonly">
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
             </div>
         </div>
         </div>

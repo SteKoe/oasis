@@ -77,7 +77,7 @@ public abstract class ProjectForm extends Panel {
     }
 
     private void addProjectEndDateField(Form<Project> projectForm) {
-        final DateTextField projectEndDate = new DateTextField("projectEndDate");
+        final TextField projectEndDate = new TextField("projectEndDate");
         projectForm.add(projectEndDate);
     }
 

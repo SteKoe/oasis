@@ -6,6 +6,7 @@ import de.stekoe.idss.service.CriterionPageService;
 import de.stekoe.idss.service.ProjectService;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
@@ -14,6 +15,7 @@ import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -56,6 +58,8 @@ public class SetOfCriteriaPage extends ProjectPage {
                 item.add(new BookmarkablePageLink<CriteriaPageDetailsPage>("page.show", CriteriaPageDetailsPage.class, new PageParameters(getPageParameters()).add("pageId", criterionPage.getId())));
                 item.add(deletePageLink(criterionPage));
                 item.add(new BookmarkablePageLink<SelectCriterionPage>("page.add.criterion", SelectCriterionPage.class, new PageParameters(getPageParameters())));
+
+                item.add(new DropDownChoice<String>("select.test", Arrays.asList("männlich","weiblich","keine Angabe")));
             }
 
             private Link movePageUpLink(final CriterionPage criterionPage) {

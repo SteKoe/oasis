@@ -4,6 +4,8 @@
     <entry key="page.meta.author">Stephan Köninger</entry>
     <entry key="page.meta.author">Test</entry>
 
+    <entry key="date.format">dd.mm.yyyy</entry>
+
     <!-- General Labels -->
     <entry key="label.download">Herunterladen</entry>
     <entry key="label.save">Speichern</entry>
@@ -29,6 +31,14 @@
     <entry key="label.move.up">Nach oben verschieben</entry>
     <entry key="label.move.down">Nach unten verschieben</entry>
     <entry key="label.page.counter">Seite {0} von {1}</entry>
+
+    <entry key="label.criterion.nominal">Nominal</entry>
+    <entry key="label.criterion.ordinal">Ordinal</entry>
+    <entry key="label.criterion.metric">Metrisch</entry>
+
+    <entry key="label.criterion.type.ordinal">Ordinalskala</entry>
+    <entry key="label.criterion.type.nominal">Nominalskala</entry>
+    <entry key="label.criterion.type.metric">Metrische Skala</entry>
 
     <entry key="label.page.first">Erste</entry>
     <entry key="label.page.prev"><![CDATA[&laquo;]]></entry>

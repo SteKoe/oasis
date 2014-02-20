@@ -11,6 +11,11 @@ import java.util.List;
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
 public class CustomTinyMCESettings {
+
+    private CustomTinyMCESettings() {
+        // NOP
+    }
+
     public static TinyMCESettings getStandard() {
         TinyMCESettings settings = new TinyMCESettings(TinyMCESettings.Theme.advanced);
         settings.setToolbarButtons(TinyMCESettings.Toolbar.first, getButtonsForFirstToolbar());

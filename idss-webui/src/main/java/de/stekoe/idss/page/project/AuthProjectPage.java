@@ -1,7 +1,7 @@
 package de.stekoe.idss.page.project;
 
-import de.stekoe.idss.model.project.Project;
 import de.stekoe.idss.model.enums.PermissionType;
+import de.stekoe.idss.model.project.Project;
 import de.stekoe.idss.page.AuthUserPage;
 import de.stekoe.idss.service.ProjectService;
 import de.stekoe.idss.session.WebSession;

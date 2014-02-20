@@ -1,13 +1,13 @@
 package de.stekoe.idss.component.feedbackpanel;
 
-import java.util.List;
-
 import org.apache.wicket.Component;
 import org.apache.wicket.MetaDataKey;
 import org.apache.wicket.feedback.FeedbackCollector;
 import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.feedback.FeedbackMessagesModel;
 import org.apache.wicket.feedback.IFeedbackMessageFilter;
+
+import java.util.List;
 
 /**
  * @author Stephan Köninger <mail@stekoe.de>

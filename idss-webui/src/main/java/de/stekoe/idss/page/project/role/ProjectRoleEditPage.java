@@ -22,7 +22,6 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 
 /**

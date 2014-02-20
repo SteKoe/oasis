@@ -1,11 +1,11 @@
 package de.stekoe.idss.component.form.project;
 
 import de.stekoe.idss.model.Permission;
+import de.stekoe.idss.model.enums.PermissionObject;
+import de.stekoe.idss.model.enums.PermissionType;
 import de.stekoe.idss.model.project.Project;
 import de.stekoe.idss.model.project.ProjectMember;
 import de.stekoe.idss.model.project.ProjectRole;
-import de.stekoe.idss.model.enums.PermissionObject;
-import de.stekoe.idss.model.enums.PermissionType;
 import de.stekoe.idss.page.project.ProjectListPage;
 import de.stekoe.idss.service.ProjectRoleService;
 import de.stekoe.idss.service.ProjectService;

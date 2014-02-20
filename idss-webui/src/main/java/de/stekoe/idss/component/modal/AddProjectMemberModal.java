@@ -4,10 +4,10 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.button.ButtonBehavior;
 import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
 import de.agilecoders.wicket.core.markup.html.bootstrap.dialog.Modal;
 import de.agilecoders.wicket.core.markup.html.bootstrap.dialog.ModalCloseButton;
+import de.stekoe.idss.model.User;
 import de.stekoe.idss.model.project.Project;
 import de.stekoe.idss.model.project.ProjectMember;
 import de.stekoe.idss.model.project.ProjectRole;
-import de.stekoe.idss.model.User;
 import de.stekoe.idss.service.ProjectService;
 import de.stekoe.idss.service.UserService;
 import org.apache.wicket.AttributeModifier;
@@ -28,8 +28,6 @@ import java.util.ArrayList;
  */
 public abstract class AddProjectMemberModal extends Modal {
 
-    private final LoadableDetachableModel<Project> projectModel;
-    private final String projectId;
     @SpringBean private UserService userService;
     @SpringBean private ProjectService projectService;
 
@@ -37,8 +35,8 @@ public abstract class AddProjectMemberModal extends Modal {
 
     public AddProjectMemberModal(String id, final String projectId) {
         super(id);
-        this.projectId = projectId;
-        this.projectModel = new LoadableDetachableModel<Project>() {
+
+        final LoadableDetachableModel<Project> projectModel = new LoadableDetachableModel<Project>() {
             @Override
             protected Project load() {
                 return projectService.findById(projectId);

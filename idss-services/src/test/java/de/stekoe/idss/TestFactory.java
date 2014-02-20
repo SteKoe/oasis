@@ -1,6 +1,6 @@
 package de.stekoe.idss;
 
-import de.stekoe.idss.model.*;
+import de.stekoe.idss.model.User;
 import de.stekoe.idss.model.project.Project;
 import de.stekoe.idss.model.project.ProjectMember;
 

@@ -18,7 +18,7 @@ public class CreateUserForm extends Panel {
     @SpringBean
     SystemRoleService systemRoleService;
 
-    final IModel<String> userModel = Model.of(new String());
+    final IModel<User> userModel = Model.of(new User());
 
     public CreateUserForm(java.lang.String id) {
         super(id);

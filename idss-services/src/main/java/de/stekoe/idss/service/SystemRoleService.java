@@ -1,7 +1,6 @@
 package de.stekoe.idss.service;
 
 import de.stekoe.idss.model.SystemRole;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;

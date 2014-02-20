@@ -4,7 +4,8 @@ import de.agilecoders.wicket.extensions.markup.html.bootstrap.form.DateTextField
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.form.DateTextFieldConfig;
 import de.stekoe.idss.exception.EmailAddressAlreadyInUseException;
 import de.stekoe.idss.exception.UsernameAlreadyInUseException;
-import de.stekoe.idss.model.*;
+import de.stekoe.idss.model.User;
+import de.stekoe.idss.model.UserProfile;
 import de.stekoe.idss.page.AuthUserPage;
 import de.stekoe.idss.service.UserService;
 import de.stekoe.idss.session.WebSession;

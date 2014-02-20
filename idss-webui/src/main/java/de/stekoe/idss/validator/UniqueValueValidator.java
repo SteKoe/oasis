@@ -1,10 +1,10 @@
 package de.stekoe.idss.validator;
 
-import java.util.List;
-
 import org.apache.wicket.validation.IValidatable;
 import org.apache.wicket.validation.IValidator;
 import org.apache.wicket.validation.ValidationError;
+
+import java.util.List;
 
 /**
  * @author Stephan Köninger <mail@stekoe.de>

@@ -8,6 +8,10 @@ import de.stekoe.idss.model.scale.OrdinalValue;
  */
 public class ScaleFactory {
 
+    private ScaleFactory() {
+        // NOP
+    }
+
     public static OrdinalScale createEvenLikertScale() {
         final OrdinalScale likertScale = new OrdinalScale();
         likertScale.getValues().add(new OrdinalValue(1, "scale.likert.agree.totally"));

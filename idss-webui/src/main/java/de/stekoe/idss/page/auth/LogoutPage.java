@@ -1,9 +1,8 @@
 package de.stekoe.idss.page.auth;
 
-import org.apache.log4j.Logger;
-
 import de.stekoe.idss.page.HomePage;
 import de.stekoe.idss.page.LayoutPage;
+import org.apache.log4j.Logger;
 
 /**
  * @author Stephan Köninger <mail@stekoe.de>

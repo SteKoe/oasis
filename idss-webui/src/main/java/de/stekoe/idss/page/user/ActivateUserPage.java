@@ -19,20 +19,15 @@ import org.apache.wicket.util.string.StringValue;
 public class ActivateUserPage extends LayoutPage {
     private static final Logger LOG = Logger.getLogger(ActivateUserPage.class);
 
-    @SpringBean
-    private UserService userManager;
+    @SpringBean private UserService itsUserManager;
 
-    private java.lang.String activationCode = null;
+    private String itsActivationCode = null;
 
-    /**
-     * Construct.
-     * @param parameters Wrapped page parameters
-     */
-    public ActivateUserPage(PageParameters parameters) {
-        super(parameters);
+    public ActivateUserPage(PageParameters aParams) {
+        super(aParams);
 
-        extractActivationKeyFromPageParameters(parameters);
-        if (!activationCode.isEmpty()) {
+        extractActivationKeyFromPageParameters(aParams);
+        if (!itsActivationCode.isEmpty()) {
             User userToActivate = getUserToActivate();
             if (userToActivate != null) {
                 activateUser(userToActivate);
@@ -41,24 +36,24 @@ public class ActivateUserPage extends LayoutPage {
     }
 
     private User getUserToActivate() {
-        return userManager.findByActivationCode(activationCode);
+        return itsUserManager.findByActivationCode(itsActivationCode);
     }
 
-    private void extractActivationKeyFromPageParameters(PageParameters parameters) {
-        StringValue activationCode = parameters.get(0);
+    private void extractActivationKeyFromPageParameters(PageParameters aParams) {
+        StringValue activationCode = aParams.get(0);
         if (!activationCode.isEmpty()) {
-            this.activationCode = activationCode.toString();
+            this.itsActivationCode = activationCode.toString();
         }
     }
 
-    private void activateUser(User userToActivate) {
-        userToActivate.setActivationKey(null);
-        userToActivate.setUserStatus(UserStatus.ACTIVATED);
+    private void activateUser(User aUserToActivate) {
+        aUserToActivate.setActivationKey(null);
+        aUserToActivate.setUserStatus(UserStatus.ACTIVATED);
         try {
-            userManager.save(userToActivate);
-            throw new RestartResponseException(LoginPage.class);
+            itsUserManager.save(aUserToActivate);
+            setResponsePage(LoginPage.class);
         } catch (UserException e) {
-            LOG.error("Error while activating user " + userToActivate.getUsername() + "!");
+            LOG.error("Error while activating user " + aUserToActivate.getUsername() + "!", e);
         }
     }
 }

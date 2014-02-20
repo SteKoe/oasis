@@ -71,7 +71,7 @@ public class DatabaseSetup {
             try {
                 systemRoleService.save(role);
             } catch (Exception e) {
-                LOG.error(e);
+                LOG.error("Error while saving SystemRole!", e);
             }
         }
     }
@@ -97,7 +97,7 @@ public class DatabaseSetup {
             try {
                 userService.save(user);
             } catch (Exception e) {
-                LOG.error(e);
+                LOG.error("Error while saving User!", e);
             }
         }
     }

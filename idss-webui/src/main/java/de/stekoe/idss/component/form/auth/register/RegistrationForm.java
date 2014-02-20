@@ -36,19 +36,19 @@ import java.util.Map;
 public class RegistrationForm extends Panel {
     private static final Logger LOG = Logger.getLogger(RegistrationForm.class);
 
-    @SpringBean private MailService mailService;
-    @SpringBean private UserService userService;
-    @SpringBean private SystemRoleService systemRoleService;
-    @SpringBean private AuthService authService;
+    @SpringBean private MailService itsMailService;
+    @SpringBean private UserService itsUserService;
+    @SpringBean private SystemRoleService itsSystemRoleService;
+    @SpringBean private AuthService itsAuthService;
 
-    private final User user = new User();
+    private final User itsUser = new User();
 
-    private Alert successMessage;
-    private Alert errorMessage;
-    private Form<User> form;
+    private Alert itsSuccessMessage;
+    private Alert itsErrorMessage;
+    private Form<User> itsForm;
 
-    public RegistrationForm(java.lang.String id) {
-        super(id);
+    public RegistrationForm(String aId) {
+        super(aId);
 
         createRegistrationForm();
         createSuccessMessage();
@@ -56,28 +56,28 @@ public class RegistrationForm extends Panel {
     }
 
     private void createSuccessMessage() {
-        successMessage = new Alert("success", new StringResourceModel("message.registration.success", this, null));
-        successMessage.type(Type.Success);
-        successMessage.setCloseButtonVisible(true);
-        successMessage.setVisible(false);
-        add(successMessage);
+        itsSuccessMessage = new Alert("success", new StringResourceModel("message.registration.success", this, null));
+        itsSuccessMessage.type(Type.Success);
+        itsSuccessMessage.setCloseButtonVisible(true);
+        itsSuccessMessage.setVisible(false);
+        add(itsSuccessMessage);
     }
 
     private void createErrorMessage() {
-        errorMessage = new Alert("error", new StringResourceModel("message.registration.error", this, null));
-        errorMessage.type(Type.Danger);
-        errorMessage.setCloseButtonVisible(true);
-        errorMessage.setVisible(false);
-        add(errorMessage);
+        itsErrorMessage = new Alert("error", new StringResourceModel("message.registration.error", this, null));
+        itsErrorMessage.type(Type.Danger);
+        itsErrorMessage.setCloseButtonVisible(true);
+        itsErrorMessage.setVisible(false);
+        add(itsErrorMessage);
     }
 
     private void createRegistrationForm() {
-        form = new Form<User>("registrationForm") {
+        itsForm = new Form<User>("registrationForm") {
 
             @Override
             protected void onValidate() {
-                errorMessage.setVisible(false);
-                successMessage.setVisible(false);
+                itsErrorMessage.setVisible(false);
+                itsSuccessMessage.setVisible(false);
                 super.onValidate();
             }
 
@@ -85,26 +85,26 @@ public class RegistrationForm extends Panel {
             protected void onSubmit() {
                 try {
                     User user = createUser();
-                    userService.save(user);
+                    itsUserService.save(user);
                     sendActivationMail(user);
-                    successMessage.setVisible(true);
+                    itsSuccessMessage.setVisible(true);
                     setVisible(false);
                 } catch(UsernameAlreadyInUseException e) {
-                    errorMessage.setVisible(true);
+                    itsErrorMessage.setVisible(true);
                     LOG.error("A user tried to register with existing username!");
                 } catch (EmailAddressAlreadyInUseException e) {
-                    errorMessage.setVisible(true);
+                    itsErrorMessage.setVisible(true);
                     LOG.error("A user tried to register with existing email address!");
                 }
             }
 
             private User createUser() {
                 User user = getModelObject();
-                java.lang.String hashedPassword = authService.hashPassword(user.getPassword());
+                String hashedPassword = itsAuthService.hashPassword(user.getPassword());
                 user.setPassword(hashedPassword);
 
                 // Set standard roles
-                SystemRole userRole = systemRoleService.getUserRole();
+                SystemRole userRole = itsSystemRoleService.getUserRole();
                 user.getRoles().add(userRole);
 
                 // Create a user profile
@@ -114,53 +114,53 @@ public class RegistrationForm extends Panel {
                 return user;
             }
 
-            private void sendActivationMail(User user) {
-                java.lang.String address = user.getEmail();
-                java.lang.String subject = "Successfully registered!";
+            private void sendActivationMail(User aUser) {
+                String address = aUser.getEmail();
+                String subject = "Successfully registered!";
 
-                Map<java.lang.String, java.lang.String> variables = new HashMap<java.lang.String, java.lang.String>();
-                variables.put("username", user.getUsername());
-                variables.put("activationlink", createActivationLink(user));
+                Map<String, String> variables = new HashMap<String, String>();
+                variables.put("username", aUser.getUsername());
+                variables.put("activationlink", createActivationLink(aUser));
 
-                java.lang.String message = new RegistrationMailTemplate().setVariables(variables);
+                String message = new RegistrationMailTemplate().setVariables(variables);
 
-                mailService.sendMail(address, subject, message);
+                itsMailService.sendMail(address, subject, message);
             }
         };
-        add(form);
+        add(itsForm);
 
-        RequiredTextField usernameField = new RequiredTextField<java.lang.String>("username");
-        usernameField.add(new UniqueValueValidator(userService.getAllUsernames()));
-        form.add(usernameField);
+        RequiredTextField usernameField = new RequiredTextField<String>("username");
+        usernameField.add(new UniqueValueValidator(itsUserService.getAllUsernames()));
+        itsForm.add(usernameField);
 
         EmailTextField email = new EmailTextField("email");
         email.setRequired(true);
-        email.add(new UniqueValueValidator(userService.getAllEmailAddresses()));
-        form.add(email);
+        email.add(new UniqueValueValidator(itsUserService.getAllEmailAddresses()));
+        itsForm.add(email);
 
         PasswordTextField password = new PasswordTextField("password");
         password.setLabel(Model.of(getString("label.password")));
-        form.add(password);
+        itsForm.add(password);
 
         PasswordTextField passwordConfirm = new PasswordTextField("passwordConfirm", Model.of(""));
-        form.add(passwordConfirm);
+        itsForm.add(passwordConfirm);
 
         Button submitButton = new Button("submit");
         submitButton.setModel(Model.of(getString("label.submit")));
-        form.add(submitButton);
+        itsForm.add(submitButton);
 
-        form.setModel(new CompoundPropertyModel<User>(user));
-        form.add(getPasswordsEqualBehavior());
+        itsForm.setModel(new CompoundPropertyModel<User>(itsUser));
+        itsForm.add(getPasswordsEqualBehavior());
     }
 
-    private String createActivationLink(User user) {
+    private String createActivationLink(User aUser) {
         PageParameters pp = new PageParameters();
-        pp.set(0, user.getActivationKey());
+        pp.set(0, aUser.getActivationKey());
 
         return RequestCycle.get().getUrlRenderer().renderFullUrl(Url.parse(urlFor(ActivateUserPage.class, pp)));
     }
 
     private EqualPasswordInputValidator getPasswordsEqualBehavior() {
-        return new EqualPasswordInputValidator((FormComponent)form.get("password"), (FormComponent)form.get("passwordConfirm"));
+        return new EqualPasswordInputValidator((FormComponent) itsForm.get("password"), (FormComponent) itsForm.get("passwordConfirm"));
     }
 }

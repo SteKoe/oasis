@@ -10,18 +10,15 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 @SuppressWarnings("serial")
 @AdminOnly
 public class AuthAdminPage extends LayoutPage {
-    protected AuthAdminPage()
-    {
+    protected AuthAdminPage() {
         super();
     }
 
-    protected AuthAdminPage(final IModel<?> model)
-    {
+    protected AuthAdminPage(final IModel<?> model) {
         super(model);
     }
 
-    protected AuthAdminPage(final PageParameters parameters)
-    {
+    protected AuthAdminPage(final PageParameters parameters) {
         super(parameters);
     }
 }

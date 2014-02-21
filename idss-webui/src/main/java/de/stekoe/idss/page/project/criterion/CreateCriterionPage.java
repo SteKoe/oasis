@@ -4,6 +4,7 @@ import de.stekoe.idss.model.enums.CriterionType;
 import de.stekoe.idss.model.scale.value.MeasurementValue;
 import de.stekoe.idss.model.scale.value.OrdinalValue;
 import de.stekoe.idss.page.project.ProjectPage;
+import org.apache.log4j.Logger;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
@@ -18,6 +19,8 @@ import java.util.List;
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
 public class CreateCriterionPage extends ProjectPage {
+    private static final Logger LOG = Logger.getLogger(CreateCriterionPage.class);
+
     public CreateCriterionPage(PageParameters pageParameters) {
         super(pageParameters);
 
@@ -27,6 +30,7 @@ public class CreateCriterionPage extends ProjectPage {
         try {
             criterionType = CriterionType.valueOf(criterionTypeCandidate);
         } catch(IllegalArgumentException e) {
+            LOG.error(getClass().toString()+" has been initialized with invalid criterion type: "+criterionTypeCandidate, e);
             getSession().error("Desired type does not exist.");
             setResponsePage(SelectCriterionPage.class, getPageParameters());
             return;

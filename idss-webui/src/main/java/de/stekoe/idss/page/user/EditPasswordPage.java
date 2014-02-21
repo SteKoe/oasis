@@ -67,7 +67,7 @@ public class EditPasswordPage extends AuthUserPage {
                     try {
                         userService.save(user);
                     } catch (UserException e) {
-                        LOG.error(String.format("User %s tried to change email address to %s. But this address is already registered.", user.getUsername(), user.getEmail()));
+                        LOG.error(String.format("User %s tried to change email address to %s. But this address is already registered.", user.getUsername(), user.getEmail()), e);
                     }
                 }
             }

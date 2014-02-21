@@ -28,8 +28,6 @@ import java.util.List;
 @Transactional
 public class DefaultAuthService implements AuthService {
 
-    private static final Logger LOG = Logger.getLogger(DefaultAuthService.class);
-
     @Autowired
     private IUserDAO userDAO;
 
@@ -86,13 +84,15 @@ public class DefaultAuthService implements AuthService {
     public boolean isAuthorized(String userId, final Identifyable identifyable, final PermissionType permissionType) {
         User user = userDAO.findById(userId);
 
-        if(user == null)
+        if(user == null) {
             return false;
+        }
 
         final List<Permission> permissions = new ArrayList<Permission>(user.getPermissions());
 
-        if(permissions == null)
+        if(permissions == null) {
             return false;
+        }
 
         // Filter for given object type
         CollectionUtils.filter(permissions, new Predicate() {

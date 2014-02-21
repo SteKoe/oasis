@@ -140,8 +140,9 @@ public class User implements Serializable {
     @Transient
     public boolean isAdmin() {
         for (SystemRole role : getRoles()) {
-            if(role.getName().equals(SystemRole.ADMIN))
+            if(role.getName().equals(SystemRole.ADMIN)) {
                 return true;
+            }
         }
 
         return false;
@@ -150,8 +151,9 @@ public class User implements Serializable {
     public boolean hasAnyRole(List<SystemRole> rolesToCheck) {
         for (SystemRole roleToCheck : rolesToCheck) {
             for (SystemRole currentRole : getRoles()) {
-                if(currentRole.getName().equals(roleToCheck))
+                if(currentRole.getName().equals(roleToCheck)) {
                     return true;
+                }
             }
         }
 

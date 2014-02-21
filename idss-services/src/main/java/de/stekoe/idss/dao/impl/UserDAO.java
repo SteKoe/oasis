@@ -14,8 +14,6 @@ import java.util.List;
  */
 @Repository
 public class UserDAO extends GenericDAO<User> implements IUserDAO {
-    private static final Logger LOG = Logger.getLogger(UserDAO.class);
-
     @Override
     public User findByUsername(String username) {
         Criteria criteria = getSession().createCriteria(User.class);

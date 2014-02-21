@@ -1,6 +1,7 @@
 package de.stekoe.idss.service;
 
 import de.stekoe.idss.exception.EmailAddressAlreadyInUseException;
+import de.stekoe.idss.exception.UserException;
 import de.stekoe.idss.exception.UsernameAlreadyInUseException;
 import de.stekoe.idss.model.SystemRole;
 import de.stekoe.idss.model.User;
@@ -31,7 +32,7 @@ public interface UserService {
 
     SystemRole getRole(String rolename);
 
-    boolean save(User user) throws EmailAddressAlreadyInUseException, UsernameAlreadyInUseException;
+    boolean save(User user) throws UserException;
 
     void delete(String userId);
 }

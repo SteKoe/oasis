@@ -24,7 +24,7 @@ public class RestRoutes extends GsonRestResource {
     @Inject UserService userService;
 
     @MethodMapping(value = "/user/find/name", httpMethod = HttpMethod.GET)
-    public List<UserPojo> findByUsername(@RequestParam("username") java.lang.String username) throws JSONException {
+    public List<UserPojo> findByUsername(@RequestParam("username") String username) throws JSONException {
         final List<User> users = userService.findAllByUsername(username);
 
         List<UserPojo> userPojoList = new ArrayList<UserPojo>();
@@ -37,11 +37,11 @@ public class RestRoutes extends GsonRestResource {
     }
 
     private class UserPojo {
-        private java.lang.String id;
-        private java.lang.String username;
+        private String id;
+        private String username;
         private UserStatus userStatus;
-        private java.lang.String label;
-        private java.lang.String value;
+        private String label;
+        private String value;
 
         public UserPojo() {
             // NOP

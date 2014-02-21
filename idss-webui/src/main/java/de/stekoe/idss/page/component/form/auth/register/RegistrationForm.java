@@ -3,6 +3,7 @@ package de.stekoe.idss.page.component.form.auth.register;
 import de.agilecoders.wicket.core.markup.html.bootstrap.dialog.Alert;
 import de.agilecoders.wicket.core.markup.html.bootstrap.dialog.Alert.Type;
 import de.stekoe.idss.exception.EmailAddressAlreadyInUseException;
+import de.stekoe.idss.exception.UserException;
 import de.stekoe.idss.exception.UsernameAlreadyInUseException;
 import de.stekoe.idss.mail.template.RegistrationMailTemplate;
 import de.stekoe.idss.model.SystemRole;
@@ -89,12 +90,14 @@ public class RegistrationForm extends Panel {
                     sendActivationMail(user);
                     itsSuccessMessage.setVisible(true);
                     setVisible(false);
-                } catch(UsernameAlreadyInUseException e) {
-                    itsErrorMessage.setVisible(true);
-                    LOG.error("A user tried to register with existing username!");
-                } catch (EmailAddressAlreadyInUseException e) {
-                    itsErrorMessage.setVisible(true);
-                    LOG.error("A user tried to register with existing email address!");
+                } catch(UserException e) {
+                    if(e instanceof UsernameAlreadyInUseException) {
+                        itsErrorMessage.setVisible(true);
+                        LOG.error("A user tried to register with existing username!");
+                    } else if(e instanceof EmailAddressAlreadyInUseException) {
+                        itsErrorMessage.setVisible(true);
+                        LOG.error("A user tried to register with existing email address!");
+                    }
                 }
             }
 

@@ -67,8 +67,9 @@ public class DefaultProjectService implements ProjectService {
 
         final User user = userDAO.findById(userId);
 
-        if(user == null)
+        if(user == null) {
             return false;
+        }
 
         final List<ProjectMember> projectTeam = new ArrayList<ProjectMember>(project.getProjectTeam());
         final ProjectMember pm = (ProjectMember)CollectionUtils.find(projectTeam, new Predicate() {
@@ -78,8 +79,9 @@ public class DefaultProjectService implements ProjectService {
             }
         });
 
-        if(pm == null)
+        if(pm == null) {
             return false;
+        }
 
         final Set<Permission> permissions = pm.getProjectRole().getPermissions();
 

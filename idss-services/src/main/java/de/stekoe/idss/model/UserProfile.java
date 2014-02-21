@@ -74,8 +74,8 @@ public class UserProfile implements Serializable {
 
     @Transient
     public int getAge() {
-        DateMidnight birthdate = new DateMidnight(getBirthdate());
-        return Years.yearsBetween(birthdate, getCurrentDate()).getYears();
+        DateMidnight birthdateMidnight = new DateMidnight(getBirthdate());
+        return Years.yearsBetween(birthdateMidnight, getCurrentDate()).getYears();
     }
 
     @Transient

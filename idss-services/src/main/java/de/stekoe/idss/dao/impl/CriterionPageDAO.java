@@ -31,8 +31,9 @@ public class CriterionPageDAO extends GenericDAO<CriterionPage> implements ICrit
         criteria.setProjection(Projections.max("ordering"));
 
         final Object o = criteria.uniqueResult();
-        if(o == null)
+        if(o == null) {
             return 1;
+        }
 
         return (int)o + 1;
     }

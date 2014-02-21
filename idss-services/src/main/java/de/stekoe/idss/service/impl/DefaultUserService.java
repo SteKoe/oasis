@@ -3,6 +3,7 @@ package de.stekoe.idss.service.impl;
 import de.stekoe.idss.dao.ISystemRoleDAO;
 import de.stekoe.idss.dao.IUserDAO;
 import de.stekoe.idss.exception.EmailAddressAlreadyInUseException;
+import de.stekoe.idss.exception.UserException;
 import de.stekoe.idss.exception.UsernameAlreadyInUseException;
 import de.stekoe.idss.model.SystemRole;
 import de.stekoe.idss.model.User;
@@ -21,8 +22,6 @@ import java.util.List;
 @Service
 @Transactional
 public class DefaultUserService implements UserService {
-
-    private static final Logger LOG = Logger.getLogger(DefaultUserService.class);
 
     @Inject
     private IUserDAO userDAO;
@@ -61,7 +60,7 @@ public class DefaultUserService implements UserService {
     }
 
     @Override
-    public boolean save(User user) throws EmailAddressAlreadyInUseException, UsernameAlreadyInUseException {
+    public boolean save(User user) throws UserException {
         if (emailInUse(user)) {
             throw new EmailAddressAlreadyInUseException();
         }

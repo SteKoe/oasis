@@ -1,6 +1,6 @@
 package de.stekoe.idss.page.user;
 
-import de.stekoe.idss.component.form.user.CreateUserForm;
+import de.stekoe.idss.page.component.form.user.CreateUserForm;
 import de.stekoe.idss.page.AuthAdminPage;
 
 /**

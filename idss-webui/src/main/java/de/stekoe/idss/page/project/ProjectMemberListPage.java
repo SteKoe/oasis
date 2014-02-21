@@ -1,6 +1,6 @@
 package de.stekoe.idss.page.project;
 
-import de.stekoe.idss.component.form.project.EditProjectMembersForm;
+import de.stekoe.idss.page.component.form.project.EditProjectMembersForm;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 /**

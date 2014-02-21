@@ -5,46 +5,48 @@
         <small wicket:id="project.status"></small>
     </h1>
     <hr>
-    <div class="row">
-        <div class="col-md-3">
-            <h4>Mitarbeiter <small wicket:id="projectMemberCount"></small></h4>
-            <div class="list-group">
-                <wicket:container wicket:id="projectMemberItem">
-                <a href="" class="list-group-item" wicket:id="projectMemberItemLink">
-                    <span wicket:id="projectMemberItemLabel"></span>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3 sidebar">
+                <h4>Mitarbeiter <small wicket:id="projectMemberCount"></small></h4>
+                <div class="list-group">
+                    <wicket:container wicket:id="projectMemberItem">
+                        <a href="" class="list-group-item" wicket:id="projectMemberItemLink">
+                            <span wicket:id="projectMemberItemLabel"></span>
+                        </a>
+                    </wicket:container>
+                </div>
+
+                <h4><wicket:message key="label.project.manage" /></h4>
+                <div class="list-group">
+                    <a href="#" class="list-group-item" wicket:id="link.project.overview">
+                        <wicket:message key="label.project.overview" />
+                    </a>
+                    <a href="#" class="list-group-item" wicket:id="editProject">
+                        <wicket:message key="label.project.edit" />
+                    </a>
+                    <a href="#" class="list-group-item" wicket:id="addMember">
+                        <wicket:message key="label.project.edit.member" />
+                    </a>
+                    <a href="#" class="list-group-item" wicket:id="editProjectRolesLink">
+                        <wicket:message key="label.project.edit.roles" />
+                    </a>
+                    <a href="#" class="list-group-item" wicket:id="link.upload.document">
+                        <wicket:message key="label.upload" />
+                    </a>
+                    <a href="#" class="list-group-item" wicket:id="link.setofcriteria.edit">
+                        Kriterienkatalog
+                    </a>
+                </div>
+                <a href="" wicket:id="link.project.delete" class="btn btn-block btn-danger">
+                    <wicket:message key="label.project.delete" />
                 </a>
-                </wicket:container>
+                <br>
             </div>
 
-            <h4><wicket:message key="label.project.manage" /></h4>
-            <div class="list-group">
-                <a href="#" class="list-group-item" wicket:id="editProject">
-                    <wicket:message key="label.project.edit" />
-                </a>
-                <a href="#" class="list-group-item" wicket:id="addMember">
-                    <wicket:message key="label.project.edit.member" />
-                </a>
-                <a href="#" class="list-group-item" wicket:id="editProjectRolesLink">
-                    <wicket:message key="label.project.edit.roles" />
-                </a>
-                <a href="#" class="list-group-item" wicket:id="link.upload.document">
-                    <wicket:message key="label.upload" />
-                </a>
-                <a href="#" class="list-group-item" wicket:id="link.setofcriteria.edit">
-                    Kriterienkatalog
-                </a>
+            <div class="col-md-9">
+                <wicket:child/>
             </div>
-            <hr>
-            <a href="" wicket:id="link.project.overview" class="btn btn-default btn-block">
-                <wicket:message key="label.project.overview" />
-            </a>
-            <a href="" wicket:id="link.project.delete" class="btn btn-block btn-danger">
-                <wicket:message key="label.project.delete" />
-            </a>
-        </div>
-
-        <div class="col-md-9">
-            <wicket:child/>
         </div>
     </div>
 </wicket:extend>

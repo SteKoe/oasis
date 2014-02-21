@@ -1,10 +1,10 @@
 package de.stekoe.idss.page.project.criterion;
 
-import de.stekoe.idss.component.criterion.MultiScaledCriterionPanel;
+import de.stekoe.idss.page.component.criterion.MultiScaledCriterionPanel;
 import de.stekoe.idss.model.criterion.MultiScaledCriterion;
 import de.stekoe.idss.model.criterion.SingleScaledCriterion;
 import de.stekoe.idss.model.scale.OrdinalScale;
-import de.stekoe.idss.model.scale.OrdinalValue;
+import de.stekoe.idss.model.scale.value.OrdinalValue;
 import de.stekoe.idss.page.LayoutPage;
 import org.apache.log4j.Logger;
 import org.apache.wicket.markup.html.panel.Panel;

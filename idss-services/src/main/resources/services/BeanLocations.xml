@@ -70,7 +70,6 @@
     <bean id="projectRoleDAO" class="de.stekoe.idss.dao.impl.ProjectRoleDAO" />
     <bean id="documentDAO" class="de.stekoe.idss.dao.impl.DocumentDAO" />
     <bean id="scaleDAO" class="de.stekoe.idss.dao.impl.ScaleDAO" />
-    <bean id="choiceDAO" class="de.stekoe.idss.dao.impl.ChoiceDAO" />
     <bean id="permissionDAO" class="de.stekoe.idss.dao.impl.PermissionDAO" />
     <bean id="criterionPageDAO" class="de.stekoe.idss.dao.impl.CriterionPageDAO" />
 

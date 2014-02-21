@@ -3,7 +3,26 @@
 @import "userInfoBlock.less";
 @import "criteria.less";
 
+.sidebar {
+  background-color: @tableBackgroundHover;
+}
 
+.table {
+  &.table-no-border {
+    th, td, tr {
+      border: none;
+    }
+  }
+  &.table-border-top-bottom {
+
+    border-top: 1px solid @tableBorder;
+    border-bottom: 1px solid @tableBorder;
+
+    th, td, tr {
+      border: none;
+    }
+  }
+}
 tr .id {
   width: 25px;
 }
@@ -35,27 +54,6 @@ tr .id {
 input[type="file"] {
   line-height: normal;
   height: 20px;
-}
-
-.fileUpload {
-  padding: 5px;
-  background: #eee;
-  border: 1px solid #cccccc;
-
-  .wicket-mfu-container {
-    padding: 5px;
-    padding: 5px;
-    margin-top: 3px;
-    background-color: white;
-    border: 1px solid #cccccc;
-    font-size: xx-small;
-  }
-  .wicket-mfu-caption {
-    font-weight: bold;
-  }
-  input[type="button"] {
-    &:extend(.btn);
-  }
 }
 
 .text-left {

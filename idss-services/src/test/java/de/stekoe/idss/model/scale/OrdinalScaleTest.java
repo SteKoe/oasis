@@ -1,5 +1,6 @@
 package de.stekoe.idss.model.scale;
 
+import de.stekoe.idss.model.scale.value.OrdinalValue;
 import org.hamcrest.core.IsEqual;
 import org.junit.Assert;
 import org.junit.Before;
@@ -49,18 +50,18 @@ public class OrdinalScaleTest {
 
     @Test
     public void valueIsGreater() throws Exception {
-        final OrdinalValue val1 = new OrdinalValue(1, 6, "sehr gut");
-        final OrdinalValue val2 = new OrdinalValue(2, 5, "gut");
+        final OrdinalValue val1 = new OrdinalValue(1, "sehr gut");
+        final OrdinalValue val2 = new OrdinalValue(2, "gut");
 
-        Assert.assertTrue(ordinalScale.isGreater(val1, val2));
+        Assert.assertTrue(val1.isLowerThan(val2));
     }
 
     @Test
     public void valueIsLower() throws Exception {
-        final OrdinalValue val1 = new OrdinalValue(1, 6, "sehr gut");
-        final OrdinalValue val2 = new OrdinalValue(2, 5, "gut");
+        final OrdinalValue val1 = new OrdinalValue(1, "sehr gut");
+        final OrdinalValue val2 = new OrdinalValue(2, "gut");
 
-        Assert.assertTrue(ordinalScale.isLower(val2, val1));
+        Assert.assertTrue(val2.isGreaterThan(val1));
     }
 
 }

@@ -1,15 +1,18 @@
 package de.stekoe.idss.page.project.criterion;
 
 import de.stekoe.idss.model.enums.CriterionType;
+import de.stekoe.idss.model.scale.value.MeasurementValue;
+import de.stekoe.idss.model.scale.value.OrdinalValue;
 import de.stekoe.idss.page.project.ProjectPage;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
-import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
@@ -32,15 +35,27 @@ public class CreateCriterionPage extends ProjectPage {
         final Form form = new Form("form");
         add(form);
 
-        form.add(new TextField<String>("criterionType", Model.of(getString(criterionType.getKey()))));
-        form.add(new WebMarkupContainer("table.empty"));
 
-        form.add(new ListView<String>("table.entries") {
+        List<MeasurementValue> values = new ArrayList<MeasurementValue>();
+        values.add(new OrdinalValue(1, "sehr gut"));
+        values.add(new OrdinalValue(2, "gut"));
+        values.add(new OrdinalValue(3, "befriedigend"));
+        values.add(new OrdinalValue(4, "ausreichend"));
+        values.add(new OrdinalValue(5, "mangelhaft"));
+        values.add(new OrdinalValue(6, "ungenügend"));
+
+        final ListView<MeasurementValue> measurementValueListView = new ListView<MeasurementValue>("table.entries", values) {
             @Override
-            protected void populateItem(ListItem<String> item) {
-                item.add(new Label("table.entry.key"));
-                item.add(new Label("table.entry.value"));
+            protected void populateItem(ListItem<MeasurementValue> item) {
+                final MeasurementValue measurementValue = item.getModelObject();
+
+                item.add(new Label("table.entry.value", measurementValue.getValue()));
             }
-        });
+        };
+        form.add(measurementValueListView);
+
+        final WebMarkupContainer emptyListIndicator = new WebMarkupContainer("table.empty");
+        form.add(emptyListIndicator);
+        emptyListIndicator.setVisible(measurementValueListView.getModelObject().size() == 0);
     }
 }

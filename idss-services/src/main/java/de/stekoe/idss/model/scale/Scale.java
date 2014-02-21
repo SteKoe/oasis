@@ -1,6 +1,7 @@
 package de.stekoe.idss.model.scale;
 
 import de.stekoe.idss.IDGenerator;
+import de.stekoe.idss.model.scale.value.MeasurementValue;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -49,14 +50,7 @@ public abstract class Scale<T extends MeasurementValue> implements Serializable 
 
     @OneToMany(targetEntity = MeasurementValue.class, cascade = CascadeType.ALL)
     public List<T> getValues() {
-        final List<T> values = this.values;
-        Collections.sort(values, new Comparator<MeasurementValue>() {
-            @Override
-            public int compare(MeasurementValue o1, MeasurementValue o2) {
-                return Integer.compare(o1.getOrder(), o2.getOrder());
-            }
-        });
-        return values;
+        return this.values;
     }
 
     public void setValues(List<T> values) {

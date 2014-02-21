@@ -2,10 +2,10 @@ package de.stekoe.idss.page;
 
 import de.agilecoders.wicket.core.Bootstrap;
 import de.stekoe.idss.WebApplication;
-import de.stekoe.idss.component.feedbackpanel.MyFencedFeedbackPanel;
-import de.stekoe.idss.component.navigation.language.LanguageSwitcher;
-import de.stekoe.idss.component.navigation.main.MainNavigation;
-import de.stekoe.idss.component.navigation.user.UserPanel;
+import de.stekoe.idss.page.component.feedbackpanel.MyFencedFeedbackPanel;
+import de.stekoe.idss.page.component.navigation.language.LanguageSwitcher;
+import de.stekoe.idss.page.component.navigation.main.MainNavigation;
+import de.stekoe.idss.page.component.navigation.user.UserPanel;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.session.WebSession;
 import de.stekoe.idss.theme.BootstrapTheme;

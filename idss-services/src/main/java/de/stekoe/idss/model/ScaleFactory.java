@@ -1,7 +1,7 @@
 package de.stekoe.idss.model;
 
 import de.stekoe.idss.model.scale.OrdinalScale;
-import de.stekoe.idss.model.scale.OrdinalValue;
+import de.stekoe.idss.model.scale.value.OrdinalValue;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>

@@ -93,10 +93,10 @@ public class RegistrationForm extends Panel {
                 } catch(UserException e) {
                     if(e instanceof UsernameAlreadyInUseException) {
                         itsErrorMessage.setVisible(true);
-                        LOG.error("A user tried to register with existing username!");
+                        LOG.error("A user tried to register with existing username!", e);
                     } else if(e instanceof EmailAddressAlreadyInUseException) {
                         itsErrorMessage.setVisible(true);
-                        LOG.error("A user tried to register with existing email address!");
+                        LOG.error("A user tried to register with existing email address!", e);
                     }
                 }
             }

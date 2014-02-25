@@ -4,7 +4,7 @@ import de.stekoe.idss.model.enums.PermissionType;
 import de.stekoe.idss.model.enums.ProjectStatus;
 import de.stekoe.idss.model.project.ProjectMember;
 import de.stekoe.idss.page.HomePage;
-import de.stekoe.idss.page.project.criterion.SetOfCriteriaPage;
+import de.stekoe.idss.page.project.criterion.page.CriteriaPageListPage;
 import de.stekoe.idss.service.ProjectService;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
@@ -44,7 +44,7 @@ public abstract class ProjectPage extends AuthProjectPage {
     }
 
     private void addSetOfCriteriaLink() {
-        add(new BookmarkablePageLink<SetOfCriteriaPage>("link.setofcriteria.edit", SetOfCriteriaPage.class, getPageParameters()));
+        add(new BookmarkablePageLink<CriteriaPageListPage>("link.setofcriteria.edit", CriteriaPageListPage.class, getPageParameters()));
     }
 
     private void addUploadDocumentLink() {
@@ -119,10 +119,5 @@ public abstract class ProjectPage extends AuthProjectPage {
                 item.add(userDetailsLink);
             }
         });
-    }
-
-    @Override
-    public PageParameters getPageParameters() {
-        return new PageParameters().add("projectId", getProjectId());
     }
 }

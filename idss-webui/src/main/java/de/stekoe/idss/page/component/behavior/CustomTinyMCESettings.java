@@ -21,6 +21,7 @@ public class CustomTinyMCESettings {
         settings.setToolbarButtons(TinyMCESettings.Toolbar.first, getButtonsForFirstToolbar());
         settings.setToolbarLocation(TinyMCESettings.Location.top);
         settings.setToolbarAlign(TinyMCESettings.Align.center);
+        settings.setStatusbarLocation(null);
         settings.setContentCss(BootstrapTheme.CSS_TINYMCE);
         settings.addCustomSetting("width: '100%'");
         settings.addCustomSetting("height: '200px'");

@@ -1,13 +1,11 @@
-package de.stekoe.idss.model.scale;
+package de.stekoe.idss.model.criterion.scale;
 
 import de.stekoe.idss.IDGenerator;
-import de.stekoe.idss.model.scale.value.MeasurementValue;
+import de.stekoe.idss.model.criterion.scale.value.MeasurementValue;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 /**

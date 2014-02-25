@@ -14,7 +14,6 @@ import java.util.List;
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
 @Entity
-@DynamicUpdate
 public class CriterionPage implements Serializable {
     private String id = IDGenerator.createId();
     private int ordering;

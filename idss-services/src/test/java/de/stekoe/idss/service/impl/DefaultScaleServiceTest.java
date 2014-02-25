@@ -1,10 +1,10 @@
 package de.stekoe.idss.service.impl;
 
-import de.stekoe.idss.service.ScaleService;
+import de.stekoe.idss.service.CriterionService;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
 public class DefaultScaleServiceTest {
-    private ScaleService defaultScaleService;
+    private CriterionService defaultScaleService;
 }

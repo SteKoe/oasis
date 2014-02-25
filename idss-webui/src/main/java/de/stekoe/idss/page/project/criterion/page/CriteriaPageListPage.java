@@ -1,12 +1,17 @@
-package de.stekoe.idss.page.project.criterion;
+package de.stekoe.idss.page.project.criterion.page;
 
 import de.stekoe.idss.model.criterion.CriterionPage;
+import de.stekoe.idss.model.criterion.CriterionPageElement;
+import de.stekoe.idss.model.criterion.SingleScaledCriterion;
 import de.stekoe.idss.page.project.ProjectPage;
+import de.stekoe.idss.page.project.criterion.SelectCriterionPage;
+import de.stekoe.idss.page.project.criterion.page.CriteriaPageDetailsPage;
+import de.stekoe.idss.page.project.criterion.page.element.SingleScaledCriterionElement;
 import de.stekoe.idss.service.CriterionPageService;
 import de.stekoe.idss.service.ProjectService;
 import org.apache.wicket.AttributeModifier;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
@@ -15,13 +20,12 @@ import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
-public class SetOfCriteriaPage extends ProjectPage {
+public class CriteriaPageListPage extends ProjectPage {
 
     @SpringBean
     private ProjectService projectService;
@@ -37,15 +41,15 @@ public class SetOfCriteriaPage extends ProjectPage {
     };
 
 
-    public SetOfCriteriaPage(PageParameters pageParameters) {
+    public CriteriaPageListPage(PageParameters pageParameters) {
         super(pageParameters);
 
-        add(listPageView());
-        add(addPageButton());
+        addListPageView();
+        addNewPageButton();
     }
 
-    private ListView<CriterionPage> listPageView() {
-        return new ListView<CriterionPage>("page.list", loadableDetachableModel) {
+    private void addListPageView() {
+        final ListView<CriterionPage> listView = new ListView<CriterionPage>("page.list", loadableDetachableModel) {
             @Override
             protected void populateItem(ListItem<CriterionPage> item) {
                 final CriterionPage criterionPage = item.getModelObject();
@@ -57,9 +61,14 @@ public class SetOfCriteriaPage extends ProjectPage {
 
                 item.add(new BookmarkablePageLink<CriteriaPageDetailsPage>("page.show", CriteriaPageDetailsPage.class, new PageParameters(getPageParameters()).add("pageId", criterionPage.getId())));
                 item.add(deletePageLink(criterionPage));
-                item.add(new BookmarkablePageLink<SelectCriterionPage>("page.add.criterion", SelectCriterionPage.class, new PageParameters(getPageParameters())));
+                item.add(new BookmarkablePageLink<SelectCriterionPage>("page.add.criterion", SelectCriterionPage.class, new PageParameters(getPageParameters()).add("pageId", criterionPage.getId())));
 
-                item.add(new DropDownChoice<String>("select.test", Arrays.asList("männlich","weiblich","keine Angabe")));
+                final ListView<CriterionPageElement> pageListItems = new CriterionPageElementListView("page.list.items", item.getModelObject().getPageElements());
+                item.add(pageListItems);
+
+                final WebMarkupContainer emptyTable = new WebMarkupContainer("page.empty");
+                item.add(emptyTable);
+                emptyTable.setVisible(pageListItems.getList().size() == 0);
             }
 
             private Link movePageUpLink(final CriterionPage criterionPage) {
@@ -113,10 +122,11 @@ public class SetOfCriteriaPage extends ProjectPage {
                 return link;
             }
         };
+        add(listView);
     }
 
-    private Link<Void> addPageButton() {
-        return new Link<Void>("add.page") {
+    private void addNewPageButton() {
+        final Link<Void> newPageButton = new Link<Void>("add.page") {
             @Override
             public void onClick() {
                 CriterionPage criterionPage = new CriterionPage();
@@ -126,5 +136,22 @@ public class SetOfCriteriaPage extends ProjectPage {
                 setResponsePage(getPage());
             }
         };
+        add(newPageButton);
+    }
+
+    private class CriterionPageElementListView extends ListView<CriterionPageElement> {
+
+        public CriterionPageElementListView(String id, List<? extends CriterionPageElement> list) {
+            super(id, list);
+        }
+
+        @Override
+        protected void populateItem(ListItem<CriterionPageElement> item) {
+            final CriterionPageElement criterionPageElement = item.getModelObject();
+            if(criterionPageElement instanceof SingleScaledCriterion) {
+                SingleScaledCriterion ssc = (SingleScaledCriterion)criterionPageElement;
+                item.add(new SingleScaledCriterionElement("page.list.item", ssc));
+            }
+        }
     }
 }

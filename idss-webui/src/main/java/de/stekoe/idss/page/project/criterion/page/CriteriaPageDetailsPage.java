@@ -1,4 +1,4 @@
-package de.stekoe.idss.page.project.criterion;
+package de.stekoe.idss.page.project.criterion.page;
 
 import de.stekoe.idss.model.criterion.CriterionPage;
 import de.stekoe.idss.page.project.ProjectPage;
@@ -40,13 +40,13 @@ public class CriteriaPageDetailsPage extends ProjectPage {
 
         if(criterionPageModel.getObject() == null) {
             WebSession.get().error(getString("message.error.404"));
-            setResponsePage(SetOfCriteriaPage.class, new PageParameters().add("projectId", getProjectId()));
+            setResponsePage(CriteriaPageListPage.class, new PageParameters().add("projectId", getProjectId()));
             return;
         }
 
         if(!getProjectId().equals(criterionPageModel.getObject().getProject().getId())) {
             WebSession.get().error(getString("message.error.404"));
-            setResponsePage(SetOfCriteriaPage.class, new PageParameters().add("projectId", getProjectId()));
+            setResponsePage(CriteriaPageListPage.class, new PageParameters().add("projectId", getProjectId()));
             return;
         }
 

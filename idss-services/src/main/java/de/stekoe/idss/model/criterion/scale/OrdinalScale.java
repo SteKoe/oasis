@@ -1,6 +1,6 @@
-package de.stekoe.idss.model.scale;
+package de.stekoe.idss.model.criterion.scale;
 
-import de.stekoe.idss.model.scale.value.OrdinalValue;
+import de.stekoe.idss.model.criterion.scale.value.OrdinalValue;
 
 import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;

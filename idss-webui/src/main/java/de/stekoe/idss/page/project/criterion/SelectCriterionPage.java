@@ -12,8 +12,8 @@ public class SelectCriterionPage extends ProjectPage {
     public SelectCriterionPage(PageParameters pageParameters) {
         super(pageParameters);
 
-        add(new BookmarkablePageLink<CreateCriterionPage>("link.create.criterion.nominal", CreateCriterionPage.class, getPageParameters().add("type", CriterionType.NOMINAL)));
-        add(new BookmarkablePageLink<CreateCriterionPage>("link.create.criterion.ordinal", CreateCriterionPage.class, getPageParameters().add("type", CriterionType.ORDINAL)));
-        add(new BookmarkablePageLink<CreateCriterionPage>("link.create.criterion.metric", CreateCriterionPage.class, getPageParameters().add("type", CriterionType.METRIC)));
+        add(new BookmarkablePageLink<CreateOrdinalCriterionPage>("link.create.criterion.nominal", CreateOrdinalCriterionPage.class, getPageParameters()));
+        add(new BookmarkablePageLink<CreateOrdinalCriterionPage>("link.create.criterion.ordinal", CreateOrdinalCriterionPage.class, getPageParameters()));
+        add(new BookmarkablePageLink<CreateOrdinalCriterionPage>("link.create.criterion.metric", CreateOrdinalCriterionPage.class, getPageParameters()));
     }
 }

@@ -2,8 +2,8 @@ package de.stekoe.idss.page.component.criterion;
 
 import de.stekoe.idss.model.criterion.MultiScaledCriterion;
 import de.stekoe.idss.model.criterion.SingleScaledCriterion;
-import de.stekoe.idss.model.scale.OrdinalScale;
-import de.stekoe.idss.model.scale.Scale;
+import de.stekoe.idss.model.criterion.scale.OrdinalScale;
+import de.stekoe.idss.model.criterion.scale.Scale;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.ListItem;

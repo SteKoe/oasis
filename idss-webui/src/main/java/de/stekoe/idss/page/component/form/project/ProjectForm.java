@@ -46,8 +46,9 @@ public abstract class ProjectForm extends Panel {
         final LoadableDetachableModel<Project> projectModel = new LoadableDetachableModel<Project>() {
             @Override
             protected Project load() {
-                if(projectId == null)
+                if(projectId == null) {
                     return new Project();
+                }
 
                 return projectService.findById(projectId);
             }

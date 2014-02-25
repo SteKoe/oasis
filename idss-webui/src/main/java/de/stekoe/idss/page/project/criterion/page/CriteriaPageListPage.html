@@ -32,20 +32,14 @@
                 </div>
 
                 <div class="criterion-page-body">
-                    <!--
-                    <div class="text-center empty">
+                    <div wicket:id="page.empty" class="text-center empty">
                         Leer
                     </div>
-                    -->
                     <table class="table table-bordered table-condensed">
-                        <tr>
-                            <td>
-                                Geschlecht
-                            </td>
-                            <td>
-                                <select wicket:id="select.test" class="form-control"></select>
-                            </td>
-                            <td></td>
+                        <tr wicket:id="page.list.items">
+                            <wicket:container wicket:id="page.list.item">
+
+                            </wicket:container>
                         </tr>
                     </table>
                 </div>

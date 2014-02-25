@@ -3,6 +3,7 @@ package de.stekoe.idss.dao.impl;
 import de.stekoe.idss.dao.IGenericDAO;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
+import org.hibernate.ObjectNotFoundException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,8 @@ public abstract class GenericDAO<T> implements IGenericDAO<T> {
             getSession().merge(entity);
             getSession().flush();
             getSession().clear();
+        } catch (ObjectNotFoundException e) {
+            getSession().saveOrUpdate(entity);
         } catch (HibernateException e) {
             LOG.error("Error during saving entity " + entity, e);
         }

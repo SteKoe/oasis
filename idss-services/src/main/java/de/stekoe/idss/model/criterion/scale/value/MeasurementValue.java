@@ -1,4 +1,4 @@
-package de.stekoe.idss.model.scale.value;
+package de.stekoe.idss.model.criterion.scale.value;
 
 import de.stekoe.idss.IDGenerator;
 import org.apache.commons.lang3.builder.EqualsBuilder;

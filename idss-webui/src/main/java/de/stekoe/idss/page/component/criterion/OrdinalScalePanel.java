@@ -1,8 +1,8 @@
 package de.stekoe.idss.page.component.criterion;
 
 import de.stekoe.idss.model.criterion.SingleScaledCriterion;
-import de.stekoe.idss.model.scale.OrdinalScale;
-import de.stekoe.idss.model.scale.value.OrdinalValue;
+import de.stekoe.idss.model.criterion.scale.OrdinalScale;
+import de.stekoe.idss.model.criterion.scale.value.OrdinalValue;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Radio;

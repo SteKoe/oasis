@@ -4,7 +4,7 @@ import de.stekoe.idss.IDGenerator;
 import de.stekoe.idss.model.Document;
 import de.stekoe.idss.model.Identifyable;
 import de.stekoe.idss.model.enums.ProjectStatus;
-import de.stekoe.idss.model.scale.Scale;
+import de.stekoe.idss.model.criterion.scale.Scale;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;

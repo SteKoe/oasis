@@ -32,6 +32,8 @@
     <entry key="label.move.down">Nach unten verschieben</entry>
     <entry key="label.page.counter">Seite {0} von {1}</entry>
 
+    <entry key="label.criterion.allowNoChoice">"Keine Auswahl" für dieses Kriterium erlauben</entry>
+    <entry key="label.criterion.allowNoChoice.help">Diese Option erzeugt ein zusätzliches Feld mit dem Wert "weiß ich nicht".</entry>
     <entry key="label.criterion.nominal">Nominal</entry>
     <entry key="label.criterion.ordinal">Ordinal</entry>
     <entry key="label.criterion.metric">Metrisch</entry>

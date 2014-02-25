@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:wicket="http://wicket.sourceforge.net/">
+<body>
+<wicket:panel>
+    <form wicket:id="ordinalScaledCriterionForm">
+        <div class="form-group">
+            <label for="name"><wicket:message key="label.name" /></label>
+            <input type="text" wicket:id="name" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="name"><wicket:message key="label.description" /></label>
+            <input type="text" wicket:id="description" class="form-control">
+        </div>
+        <div class="form-group">
+            <label class="checkbox-inline">
+                <input type="checkbox" wicket:id="allowNoChoice">
+                <wicket:message key="label.criterion.allowNoChoice" />
+                <p class="help-block">
+                    <wicket:message key="label.criterion.allowNoChoice.help" />
+                </p>
+            </label>
+        </div>
+
+        <fieldset class="form-horizontal">
+            <legend>Ausprägungen</legend>
+            <div class="form-group">
+                <label for="measurementValue" class="col-sm-3 control-label">Neue Ausprägung</label>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control" id="measurementValue">
+                </div>
+                <div class="col-sm-2 text-right">
+                    <button type="submit" class="btn btn-success">
+                        <wicket:message key="label.add" />
+                    </button>
+                </div>
+            </div>
+
+            <table class="table table-border-top-bottom">
+                <tbody>
+                    <tr>
+                        <td>männlich</td>
+                        <td class="text-right">
+                            <div class="btn-group btn-group-xs">
+                                <a href="" class="btn btn-default btn-xs"><i class="fa fa-caret-up"></i></a>
+                                <a href="" class="btn btn-default btn-xs"><i class="fa fa-caret-down"></i></a>
+                            </div>
+                            <div class="btn-group btn-group-xs">
+                                <a href="" class="btn btn-default btn-xs"><i class="fa fa-pencil"></i></a>
+                                <a href="" class="btn btn-default btn-xs"><i class="fa fa-times"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="empty text-center">Leer</td>
+                    </tr>
+                </tbody>
+            </table>
+        </fieldset>
+
+        <div class="form-group well">
+            <button type="submit" class="btn btn-success">
+                <wicket:message key="label.save" />
+            </button>
+        </div>
+    </form>
+</wicket:panel>
+</body>
+</html>

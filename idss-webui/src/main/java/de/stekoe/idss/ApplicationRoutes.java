@@ -12,10 +12,10 @@ import de.stekoe.idss.page.error.Error404Page;
 import de.stekoe.idss.page.error.Error410Page;
 import de.stekoe.idss.page.error.Error500Page;
 import de.stekoe.idss.page.project.*;
-import de.stekoe.idss.page.project.criterion.CriteriaPageDetailsPage;
 import de.stekoe.idss.page.project.criterion.FormTestPage;
 import de.stekoe.idss.page.project.criterion.SelectCriterionPage;
-import de.stekoe.idss.page.project.criterion.SetOfCriteriaPage;
+import de.stekoe.idss.page.project.criterion.page.CriteriaPageDetailsPage;
+import de.stekoe.idss.page.project.criterion.page.CriteriaPageListPage;
 import de.stekoe.idss.page.project.role.ProjectRoleEditPage;
 import de.stekoe.idss.page.user.ActivateUserPage;
 import de.stekoe.idss.page.user.EditUserProfilePage;
@@ -86,7 +86,7 @@ public class ApplicationRoutes {
         getWebApplication().mountPage("/project/${projectId}/roles", ProjectRoleListPage.class);
         getWebApplication().mountPage("/project/${projectId}/roles/${roleId}/edit", ProjectRoleEditPage.class);
 
-        getWebApplication().mountPage("/project/${projectId}/setofcriteria", SetOfCriteriaPage.class);
+        getWebApplication().mountPage("/project/${projectId}/setofcriteria", CriteriaPageListPage.class);
         getWebApplication().mountPage("/project/${projectId}/setofcriteria/page/${pageId}", CriteriaPageDetailsPage.class);
         getWebApplication().mountPage("/project/${projectId}/setofcriteria/page/${pageId}/add", SelectCriterionPage.class);
 

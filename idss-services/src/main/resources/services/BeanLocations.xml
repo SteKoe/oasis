@@ -69,7 +69,7 @@
     <bean id="projectDAO" class="de.stekoe.idss.dao.impl.ProjectDAO" />
     <bean id="projectRoleDAO" class="de.stekoe.idss.dao.impl.ProjectRoleDAO" />
     <bean id="documentDAO" class="de.stekoe.idss.dao.impl.DocumentDAO" />
-    <bean id="scaleDAO" class="de.stekoe.idss.dao.impl.ScaleDAO" />
+    <bean id="criterionDAO" class="de.stekoe.idss.dao.impl.CriterionDAO" />
     <bean id="permissionDAO" class="de.stekoe.idss.dao.impl.PermissionDAO" />
     <bean id="criterionPageDAO" class="de.stekoe.idss.dao.impl.CriterionPageDAO" />
 
@@ -86,4 +86,5 @@
     <bean id="mailService" class="de.stekoe.idss.service.impl.DefaultMailService" />
     <bean id="permissionService" class="de.stekoe.idss.service.impl.DefaultPermissionService" />
     <bean id="criterionPageService" class="de.stekoe.idss.service.impl.DefaultCriterionPageService" />
+    <bean id="criterionService" class="de.stekoe.idss.service.impl.DefaultCriterionService" />
 </beans>

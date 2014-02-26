@@ -33,22 +33,10 @@ public class ApplicationRoutes {
 
     @Inject
     private WebApplication webApplication;
-    @Inject
-    private RestRoutes restRoutes;
 
     public void create() {
         createPageRoutes();
         createSpecialPages();
-        createRestRoutes();
-    }
-
-    private void createRestRoutes() {
-        getWebApplication().mountResource("/rest", new ResourceReference("restReference") {
-            @Override
-            public IResource getResource() {
-                return restRoutes;
-            }
-        });
     }
 
     private void createSpecialPages() {

@@ -67,7 +67,7 @@ public class CriteriaPageListPage extends ProjectPage {
 
                 final WebMarkupContainer emptyTable = new WebMarkupContainer("page.empty");
                 item.add(emptyTable);
-                emptyTable.setVisible(pageListItems.getList().size() == 0);
+                emptyTable.setVisible(pageListItems.getList().isEmpty());
             }
 
             private Link movePageUpLink(final CriterionPage criterionPage) {

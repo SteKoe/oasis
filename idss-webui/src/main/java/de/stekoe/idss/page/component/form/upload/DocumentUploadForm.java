@@ -72,7 +72,9 @@ public abstract class DocumentUploadForm extends Panel {
 
         form.setMultiPart(true);
         form.setMaxSize(Bytes.megabytes(50));
-        form.add(fileUpload = new FileUploadField("fileUpload"));
+
+        fileUpload = new FileUploadField("fileUpload");
+        form.add(fileUpload);
 
         add(form);
     }

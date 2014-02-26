@@ -16,7 +16,7 @@ import java.util.List;
 @Entity
 public class CriterionPage implements Serializable {
     private String id = IDGenerator.createId();
-    private int ordering;
+    private int ordering = -1;
     private String name;
     private List<CriterionPageElement> pageElements = new ArrayList<CriterionPageElement>();
     private Project project;

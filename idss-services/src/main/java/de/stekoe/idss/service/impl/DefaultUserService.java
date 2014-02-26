@@ -2,7 +2,9 @@ package de.stekoe.idss.service.impl;
 
 import de.stekoe.idss.dao.ISystemRoleDAO;
 import de.stekoe.idss.dao.IUserDAO;
+import de.stekoe.idss.exception.EmailAddressAlreadyInUseException;
 import de.stekoe.idss.exception.UserException;
+import de.stekoe.idss.exception.UsernameAlreadyInUseException;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.service.UserService;
 import org.springframework.stereotype.Service;
@@ -57,6 +59,14 @@ public class DefaultUserService implements UserService {
 
     @Override
     public void save(User entity) throws UserException {
+        if (emailInUse(entity)) {
+            throw new EmailAddressAlreadyInUseException();
+        }
+        else if (usernameInUse(entity)) {
+            throw new UsernameAlreadyInUseException();
+        } else {
+            userDAO.save(entity);
+        }
     }
 
     @Override

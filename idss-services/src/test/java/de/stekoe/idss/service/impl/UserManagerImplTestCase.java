@@ -47,7 +47,7 @@ public class UserManagerImplTestCase extends BaseTest {
         for (int i = 0; i < USERNAMES.length; i++) {
             final User userToDelete = userService.findByUsername(USERNAMES[i]);
             if(userToDelete != null) {
-                userService.delete(userToDelete.getId());
+                userService.delete(userToDelete);
             }
         }
     }

@@ -23,6 +23,9 @@ public class DefaultCriterionPageService implements CriterionPageService {
 
     @Override
     public void save(CriterionPage entity) {
+        if(entity.getOrdering() == -1) {
+            entity.setOrdering(getNextPageNumForProject(entity.getProject().getId()));
+        }
         criterionPageDAO.save(entity);
     }
 

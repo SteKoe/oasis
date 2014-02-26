@@ -22,6 +22,14 @@ public class PermissionTest {
     }
 
     @Test
+    public void constructorTest() throws Exception {
+        final Permission permission = new Permission(PermissionObject.PROJECT, PermissionType.READ, "ObjectId");
+        assertThat(permission.getPermissionObject(), IsEqual.equalTo(PermissionObject.PROJECT));
+        assertThat(permission.getPermissionType(), IsEqual.equalTo(PermissionType.READ));
+        assertThat(permission.getObjectId(), IsEqual.equalTo("ObjectId"));
+    }
+
+    @Test
     public void hasIdTest() throws Exception {
         final Permission permission = new Permission(PermissionObject.PROJECT, PermissionType.CREATE, "0000");
         permission.setObjectId("whatever");
@@ -45,8 +53,8 @@ public class PermissionTest {
     @Test
     public void getObjectType() throws Exception {
         final PermissionObject expected = PermissionObject.PROJECT;
-        permission.setObjectType(expected);
-        assertThat(permission.getObjectType(), IsEqual.equalTo(expected));
+        permission.setPermissionObject(expected);
+        assertThat(permission.getPermissionObject(), IsEqual.equalTo(expected));
     }
 
     @Test

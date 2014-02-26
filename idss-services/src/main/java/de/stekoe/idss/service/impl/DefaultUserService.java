@@ -1,6 +1,5 @@
 package de.stekoe.idss.service.impl;
 
-import de.stekoe.idss.dao.ISystemRoleDAO;
 import de.stekoe.idss.dao.IUserDAO;
 import de.stekoe.idss.exception.EmailAddressAlreadyInUseException;
 import de.stekoe.idss.exception.UserException;

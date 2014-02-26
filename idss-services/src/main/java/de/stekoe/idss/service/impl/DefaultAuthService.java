@@ -110,7 +110,7 @@ public class DefaultAuthService implements AuthService {
             public boolean evaluate(Object object) {
                 if (object instanceof Permission) {
                     final Permission permission = (Permission) object;
-                    final boolean permissionObjectFits = permission.getObjectType().equals(aPermissionObject);
+                    final boolean permissionObjectFits = permission.getPermissionObject().equals(aPermissionObject);
                     final boolean permissionTypeFits = permission.getPermissionType().equals(aPermissionType);
                     return permissionObjectFits && permissionTypeFits;
                 }

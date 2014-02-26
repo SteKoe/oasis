@@ -16,7 +16,7 @@ import java.io.Serializable;
 public class Permission implements Serializable {
 
     private String id = IDGenerator.createId();
-    private PermissionObject objectType;
+    private PermissionObject permissionObject;
     private PermissionType permissionType;
     private String objectId;
 
@@ -24,8 +24,8 @@ public class Permission implements Serializable {
         // NOP
     }
 
-    public Permission(PermissionObject objectType, PermissionType permissionType, String objectId) {
-        this.objectType = objectType;
+    public Permission(PermissionObject permissionObject, PermissionType permissionType, String objectId) {
+        this.permissionObject = permissionObject;
         this.permissionType = permissionType;
         this.objectId = objectId;
     }
@@ -42,12 +42,12 @@ public class Permission implements Serializable {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    public PermissionObject getObjectType() {
-        return objectType;
+    public PermissionObject getPermissionObject() {
+        return permissionObject;
     }
 
-    public void setObjectType(PermissionObject objectType) {
-        this.objectType = objectType;
+    public void setPermissionObject(PermissionObject objectType) {
+        this.permissionObject = objectType;
     }
 
     public void setPermissionType(PermissionType permissionType) {

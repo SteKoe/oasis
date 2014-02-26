@@ -90,7 +90,7 @@ public class DefaultProjectService implements ProjectService {
         final Set<Permission> permissions = pm.getProjectRole().getPermissions();
 
         for (Permission permission : permissions) {
-            if (permission.getObjectType().equals(PermissionObject.valueOf(Project.class)) && permission.getPermissionType().equals(permissionType)) {
+            if (permission.getPermissionObject().equals(PermissionObject.valueOf(Project.class)) && permission.getPermissionType().equals(permissionType)) {
                 return true;
             }
         }

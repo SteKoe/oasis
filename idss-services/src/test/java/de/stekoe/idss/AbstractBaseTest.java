@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath:services/BeanLocations.xml","classpath:services/TestBeanLocations.xml"})
+@ContextConfiguration(locations = {"classpath:services/BeanLocations.xml", "classpath:services/TestBeanLocations.xml"})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @TransactionConfiguration(defaultRollback = true)
 @Transactional

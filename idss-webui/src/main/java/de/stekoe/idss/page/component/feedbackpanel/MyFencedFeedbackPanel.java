@@ -29,7 +29,7 @@ public class MyFencedFeedbackPanel extends MyFeedbackPanel {
     }
 
     /**
-     * @param id The id of this component
+     * @param id    The id of this component
      * @param fence The fencing component
      */
     public MyFencedFeedbackPanel(String id, Component fence) {
@@ -37,7 +37,7 @@ public class MyFencedFeedbackPanel extends MyFeedbackPanel {
     }
 
     /**
-     * @param id The id of this component
+     * @param id     The id of this component
      * @param filter A filter applied on the feedback messages
      */
     public MyFencedFeedbackPanel(String id, IFeedbackMessageFilter filter) {
@@ -45,12 +45,12 @@ public class MyFencedFeedbackPanel extends MyFeedbackPanel {
     }
 
     /**
-     * @param id The id of this component
-     * @param fence The fencing component
+     * @param id     The id of this component
+     * @param fence  The fencing component
      * @param filter A filter applied on the feedback messages
      */
     public MyFencedFeedbackPanel(String id, Component fence,
-            IFeedbackMessageFilter filter) {
+                                 IFeedbackMessageFilter filter) {
         super(id, filter);
         this.fence = fence;
         if (fence != null) {

@@ -37,7 +37,7 @@ public class MultiScaledCriterionPanel extends Panel {
                 final SingleScaledCriterion ssc = item.getModelObject();
 
                 final Scale scale = ssc.getScale();
-                if(scale instanceof OrdinalScale) {
+                if (scale instanceof OrdinalScale) {
                     item.add(getSubCriterionPanelForOrdinalScale(ssc));
                 } else {
                     item.add(new Label(SUBCRITERION_PANEL_ID));

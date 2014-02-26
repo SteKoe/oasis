@@ -14,7 +14,9 @@ public interface CriterionPageService {
     public enum Direction {
         UP,
         DOWN;
-    };
+    }
+
+    ;
 
     /**
      * Finds a {@link CriterionPage} by the given id
@@ -58,14 +60,14 @@ public interface CriterionPageService {
      * Moves a {@link CriterionPage} by given {@link Direction}
      *
      * @param criterionPage The CriterionPage to move
-     * @param up The Direction to move
+     * @param up            The Direction to move
      */
     void movePage(CriterionPage criterionPage, Direction up);
 
     /**
      * Finds a {@link CriterionPage} by it's order and Project.
      *
-     * @param ordering The position of the CriterionPage
+     * @param ordering  The position of the CriterionPage
      * @param projectId The id of Project the CriterionPage belongs to
      * @return The CriterionPage or null if none was found
      */

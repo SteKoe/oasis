@@ -1,6 +1,8 @@
 <html xmlns:wicket="http://wicket.sourceforge.net/">
 <wicket:extend>
-    <h2><wicket:message key="label.project.edit.roles" /></h2>
+    <h2>
+        <wicket:message key="label.project.edit.roles"/>
+    </h2>
 
     <div class="well">
         <a href="" class="btn btn-success"><i class="fa fa-plus"></i> Neue Rolle</a>
@@ -9,6 +11,7 @@
     <div wicket:id="project.roles.list">
 
         <a class="btn btn-xs btn-default pull-right" wicket:id="project.role.link.edit"><i class="fa fa-pencil"></i></a>
+
         <div class="userInfoBlock">
             <strong wicket:id="project.roles.role.name"></strong><br>
             <em wicket:id="project.roles.role.permissions"></em>

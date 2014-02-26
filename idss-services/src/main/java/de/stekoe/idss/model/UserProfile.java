@@ -79,7 +79,7 @@ public class UserProfile implements Serializable {
     }
 
     @Transient
-    // Package private for testing purpose
+        // Package private for testing purpose
     DateTime getCurrentDate() {
         return new DateTime();
     }

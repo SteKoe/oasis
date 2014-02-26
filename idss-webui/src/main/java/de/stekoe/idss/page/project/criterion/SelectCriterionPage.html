@@ -2,6 +2,7 @@
 <body>
 <wicket:extend>
     <h1>Skalenauswahl</h1>
+
     <p>
         Bitte wählen sie für das Kriterium eine Skala aus, mit welcher das Kritierum gemessen werden soll.
         Die gewählte Skala bestimmt die Auswertungsmöglichkeiten für das jeweilige Kriterium.
@@ -10,6 +11,7 @@
     <div class="list-group">
         <a wicketpath="addMember" class="list-group-item" href="" wicket:id="link.create.criterion.nominal">
             <h4>Nominalskala</h4>
+
             <p>
                 Skala, deren Ausprägungen keine Ordnung besitzen, aber unterscheidbar sind.
             </p>
@@ -23,12 +25,13 @@
         </a>
         <a wicketpath="editProject" class="list-group-item" href="" wicket:id="link.create.criterion.ordinal">
             <h4>Ordinalskala</h4>
+
             <p>
                 Erstellen Sie eine Skala, deren Werte geordnet und unterscheidbar sind.
             </p>
             <dl class="dl-horizontal small">
                 <dt>Zensuren</dt>
-                <dd>sehr gut &lt; gut &lt; befriedigend &lt; ausreichend &lt; mangelhaft &lt; ungenügend </dd>
+                <dd>sehr gut &lt; gut &lt; befriedigend &lt; ausreichend &lt; mangelhaft &lt; ungenügend</dd>
 
                 <dt>Zufriedenheit</dt>
                 <dd>sehr zufrieden &lt; zufrieden &lt; unzufrieden &lt; sehr unzufrieden</dd>
@@ -36,6 +39,7 @@
         </a>
         <a wicketpath="editProjectRolesLink" class="list-group-item" href="" wicket:id="link.create.criterion.metric">
             <h4>Metrische Skala / Kardinalskala</h4>
+
             <p>
                 Abstände der Werte dieser Skala sind messbar, jedoch besitzt diese Skala keinen natürlichen Nullpunkt.
             </p>

@@ -21,6 +21,7 @@ public class RegistrationMailTemplate extends PackageTextTemplate {
 
     /**
      * Convenience method which delegates to {@code PackageTextTemplate#asString()}.
+     *
      * @param variables A {@code Map} with containing the contents.
      * @return the string with replaces variables
      */

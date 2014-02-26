@@ -18,7 +18,8 @@ public abstract class GenericDAO<T> implements IGenericDAO<T> {
 
     private static final Logger LOG = Logger.getLogger(GenericDAO.class);
 
-    @Autowired private SessionFactory sessionFactory;
+    @Autowired
+    private SessionFactory sessionFactory;
 
     public Session getSession() {
         return sessionFactory.getCurrentSession();
@@ -31,6 +32,7 @@ public abstract class GenericDAO<T> implements IGenericDAO<T> {
             getSession().flush();
             getSession().clear();
         } catch (ObjectNotFoundException e) {
+            LOG.warn("Saving entity using merge() failed, trying to use saveOrUpdate() instead " + entity, e);
             getSession().saveOrUpdate(entity);
         } catch (HibernateException e) {
             LOG.error("Error during saving entity " + entity, e);

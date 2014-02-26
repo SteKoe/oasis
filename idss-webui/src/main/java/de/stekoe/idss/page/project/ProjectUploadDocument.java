@@ -1,8 +1,8 @@
 package de.stekoe.idss.page.project;
 
-import de.stekoe.idss.page.component.form.upload.DocumentUploadForm;
 import de.stekoe.idss.model.Document;
 import de.stekoe.idss.model.project.Project;
+import de.stekoe.idss.page.component.form.upload.DocumentUploadForm;
 import de.stekoe.idss.service.DocumentService;
 import de.stekoe.idss.service.ProjectService;
 import de.stekoe.idss.session.WebSession;
@@ -28,8 +28,10 @@ import java.util.*;
  */
 public class ProjectUploadDocument extends ProjectPage {
 
-    @SpringBean private ProjectService projectService;
-    @SpringBean private DocumentService documentService;
+    @SpringBean
+    private ProjectService projectService;
+    @SpringBean
+    private DocumentService documentService;
 
     public ProjectUploadDocument(PageParameters pageParameters) {
         super(pageParameters);
@@ -57,7 +59,7 @@ public class ProjectUploadDocument extends ProjectPage {
                 final Document document = item.getModelObject();
 
                 item.add(new Label("file.name", document.getName()));
-                item.add(new Label("file.size", Bytes.bytes(document.getSize()).toString(WebSession.get().getLocale())+"B"));
+                item.add(new Label("file.size", Bytes.bytes(document.getSize()).toString(WebSession.get().getLocale()) + "B"));
                 item.add(new Label("file.type", document.getContentType()));
 
                 DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM, WebSession.get().getLocale());

@@ -1,9 +1,6 @@
 package de.stekoe.idss.service;
 
-import de.stekoe.idss.exception.EmailAddressAlreadyInUseException;
 import de.stekoe.idss.exception.UserException;
-import de.stekoe.idss.exception.UsernameAlreadyInUseException;
-import de.stekoe.idss.model.SystemRole;
 import de.stekoe.idss.model.User;
 
 import java.util.List;
@@ -11,6 +8,7 @@ import java.util.List;
 public interface UserService {
     /**
      * Find a specific user by its username
+     *
      * @param username The username to look for
      * @return The user if found or null
      */
@@ -18,6 +16,7 @@ public interface UserService {
 
     /**
      * Finds a list of users which usernames match the given username.
+     *
      * @param username The username (or part of it) to lookup
      * @return A user who's username contains the given username
      */

@@ -8,7 +8,9 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-3 sidebar">
-                <h4>Mitarbeiter <small wicket:id="projectMemberCount"></small></h4>
+                <h4>Mitarbeiter
+                    <small wicket:id="projectMemberCount"></small>
+                </h4>
                 <div class="list-group">
                     <wicket:container wicket:id="projectMemberItem">
                         <a href="" class="list-group-item" wicket:id="projectMemberItemLink">
@@ -17,29 +19,31 @@
                     </wicket:container>
                 </div>
 
-                <h4><wicket:message key="label.project.manage" /></h4>
+                <h4>
+                    <wicket:message key="label.project.manage"/>
+                </h4>
                 <div class="list-group">
                     <a href="#" class="list-group-item" wicket:id="link.project.overview">
-                        <wicket:message key="label.project.overview" />
+                        <wicket:message key="label.project.overview"/>
                     </a>
                     <a href="#" class="list-group-item" wicket:id="editProject">
-                        <wicket:message key="label.project.edit" />
+                        <wicket:message key="label.project.edit"/>
                     </a>
                     <a href="#" class="list-group-item" wicket:id="addMember">
-                        <wicket:message key="label.project.edit.member" />
+                        <wicket:message key="label.project.edit.member"/>
                     </a>
                     <a href="#" class="list-group-item" wicket:id="editProjectRolesLink">
-                        <wicket:message key="label.project.edit.roles" />
+                        <wicket:message key="label.project.edit.roles"/>
                     </a>
                     <a href="#" class="list-group-item" wicket:id="link.upload.document">
-                        <wicket:message key="label.upload" />
+                        <wicket:message key="label.upload"/>
                     </a>
                     <a href="#" class="list-group-item" wicket:id="link.setofcriteria.edit">
                         Kriterienkatalog
                     </a>
                 </div>
                 <a href="" wicket:id="link.project.delete" class="btn btn-block btn-danger">
-                    <wicket:message key="label.project.delete" />
+                    <wicket:message key="label.project.delete"/>
                 </a>
                 <br>
             </div>

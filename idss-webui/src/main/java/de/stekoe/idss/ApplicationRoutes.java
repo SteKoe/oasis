@@ -31,8 +31,10 @@ import javax.inject.Inject;
  */
 public class ApplicationRoutes {
 
-    @Inject private WebApplication webApplication;
-    @Inject private RestRoutes restRoutes;
+    @Inject
+    private WebApplication webApplication;
+    @Inject
+    private RestRoutes restRoutes;
 
     public void create() {
         createPageRoutes();

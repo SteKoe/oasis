@@ -30,7 +30,7 @@ public class MainNavigation extends Panel {
     }
 
     /**
-     * @param id The id of this component
+     * @param id    The id of this component
      * @param model The model of this component
      */
     public MainNavigation(String id, IModel<?> model) {

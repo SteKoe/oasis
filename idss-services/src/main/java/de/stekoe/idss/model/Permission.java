@@ -13,7 +13,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "Permission")
-public class  Permission implements Serializable {
+public class Permission implements Serializable {
 
     private String id = IDGenerator.createId();
     private PermissionObject objectType;

@@ -9,7 +9,10 @@ import java.util.List;
  */
 public interface IUserDAO extends IGenericDAO<User> {
     User findByUsername(String username);
+
     User findByActivationCode(String code);
+
     User findByEmail(String email);
+
     List<User> findAllByUsername(String username);
 }

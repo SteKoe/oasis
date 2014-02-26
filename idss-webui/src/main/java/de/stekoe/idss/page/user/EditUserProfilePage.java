@@ -2,9 +2,7 @@ package de.stekoe.idss.page.user;
 
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.form.DateTextField;
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.form.DateTextFieldConfig;
-import de.stekoe.idss.exception.EmailAddressAlreadyInUseException;
 import de.stekoe.idss.exception.UserException;
-import de.stekoe.idss.exception.UsernameAlreadyInUseException;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.model.UserProfile;
 import de.stekoe.idss.page.AuthUserPage;
@@ -40,11 +38,11 @@ public class EditUserProfilePage extends AuthUserPage {
         Form form = new Form<User>("userprofile") {
             @Override
             protected void onSubmit() {
-                    try {
-                        userService.save(user);
-                    } catch (UserException e) {
-                        LOG.error("Error while saving user profile.", e);
-                    }
+                try {
+                    userService.save(user);
+                } catch (UserException e) {
+                    LOG.error("Error while saving user profile.", e);
+                }
             }
         };
 

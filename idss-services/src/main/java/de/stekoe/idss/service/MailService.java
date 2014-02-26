@@ -5,7 +5,7 @@ package de.stekoe.idss.service;
  */
 public interface MailService {
     /**
-     * @param to The receipient
+     * @param to      The receipient
      * @param subject The subject of the mail
      * @param message The message of the mail
      */

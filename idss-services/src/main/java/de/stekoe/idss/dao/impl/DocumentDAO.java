@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
 @Repository
-public class DocumentDAO  extends GenericDAO<Document> implements IDocumentDAO {
+public class DocumentDAO extends GenericDAO<Document> implements IDocumentDAO {
     @Override
     protected Class<Document> getPersistedClass() {
         return Document.class;

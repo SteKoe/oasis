@@ -37,9 +37,11 @@ public class WebApplication extends AuthenticatedWebApplication implements Appli
 
     private static final Logger LOG = Logger.getLogger(WebApplication.class);
 
-    /** Languages available for this application. */
+    /**
+     * Languages available for this application.
+     */
     public static final Locale[] LANGUAGES = {
-        Locale.GERMAN
+            Locale.GERMAN
     };
 
     private ApplicationContext ctx;
@@ -102,15 +104,15 @@ public class WebApplication extends AuthenticatedWebApplication implements Appli
         final DefaultThemeProvider themeProvider = (DefaultThemeProvider) Bootstrap.getSettings().getThemeProvider();
 
         final BootstrapTheme bootstrapTheme = new BootstrapTheme();
-        if(!customThemeAlreadyAdded()) {
+        if (!customThemeAlreadyAdded()) {
             themeProvider.add(bootstrapTheme);
         }
     }
 
     private boolean customThemeAlreadyAdded() {
         final DefaultThemeProvider themeProvider = (DefaultThemeProvider) Bootstrap.getSettings().getThemeProvider();
-        for(ITheme theme : themeProvider.available()) {
-            if(theme.name().equals(BootstrapTheme.NAME)) {
+        for (ITheme theme : themeProvider.available()) {
+            if (theme.name().equals(BootstrapTheme.NAME)) {
                 return true;
             }
         }

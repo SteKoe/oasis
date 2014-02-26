@@ -1,4 +1,5 @@
 package de.stekoe.idss.wicket;
+
 import org.apache.wicket.Application;
 import org.apache.wicket.markup.html.IPackageResourceGuard;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -23,18 +24,16 @@ import java.io.IOException;
  * ThemeFileResource("/path/to", "images"), and then reqested with a "name"
  * parameter of "logo.png", the file delivered to the browser will be
  * "/path/to/images/logo.gif".
- *
+ * <p/>
  * The installed PackageResourceGuard will be checked to make sure the file is
  * ok to send.
- *
+ * <p/>
  * Heavily based on the
  * {@link org.apache.wicket.request.resource.PackageResource} class, but with
  * different logic to locate the file to send.
  *
- * @see ResourceDirectoryReference
- *
  * @author bgoldowsky
- *
+ * @see ResourceDirectoryReference
  */
 public class ResourceDirectory extends AbstractResource {
     private static final Logger LOG = LoggerFactory.getLogger(ResourceDirectory.class);
@@ -58,8 +57,7 @@ public class ResourceDirectory extends AbstractResource {
     /**
      * creates a new resource response based on the request attributes
      *
-     * @param attributes
-     *            current request attributes from client
+     * @param attributes current request attributes from client
      * @return resource response for answering request
      */
     @Override
@@ -134,12 +132,9 @@ public class ResourceDirectory extends AbstractResource {
     /**
      * send resource specific error message and write log entry
      *
-     * @param resourceResponse
-     *            resource response
-     * @param errorCode
-     *            error code (=http status)
-     * @param errorMessage
-     *            error message (=http error message)
+     * @param resourceResponse resource response
+     * @param errorCode        error code (=http status)
+     * @param errorMessage     error message (=http error message)
      * @return resource response for method chaining
      */
     private ResourceResponse sendResourceError(String absolutePath,
@@ -169,10 +164,8 @@ public class ResourceDirectory extends AbstractResource {
     }
 
     /**
-     * @param scope
-     *            resource scope
-     * @param path
-     *            resource path
+     * @param scope resource scope
+     * @param path  resource path
      * @return <code>true<code> if resource access is granted
      */
     private boolean accept(Class<?> scope, String path) {

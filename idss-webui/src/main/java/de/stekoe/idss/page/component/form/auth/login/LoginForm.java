@@ -39,7 +39,7 @@ public class LoginForm extends Panel {
 
     /**
      * Private inner class which creates the SignInForm based on a StatelessForm.
-     *
+     * <p/>
      * StatelessForm is used since the user should be able to insert credentials,
      * leave the pc and sign in at any later point.
      */

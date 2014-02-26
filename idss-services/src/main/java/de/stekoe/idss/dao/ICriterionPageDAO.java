@@ -24,7 +24,7 @@ public interface ICriterionPageDAO extends IGenericDAO<CriterionPage> {
     /**
      * Find a {@link CriterionPage} by ordering and Project
      *
-     * @param ordering The position of the page
+     * @param ordering  The position of the page
      * @param projectId The id of the Project the page belongs to
      * @return The CriterionPage if found, null otherwise
      */

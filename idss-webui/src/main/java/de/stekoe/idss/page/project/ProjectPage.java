@@ -26,7 +26,8 @@ import java.util.List;
  */
 public abstract class ProjectPage extends AuthProjectPage {
 
-    @SpringBean ProjectService projectService;
+    @SpringBean
+    ProjectService projectService;
 
     public ProjectPage(PageParameters pageParameters) {
         super(pageParameters);

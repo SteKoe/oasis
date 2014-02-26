@@ -21,6 +21,7 @@ public class LanguageSwitcher extends Panel {
 
     /**
      * Construct.
+     *
      * @param id the wicket:id
      */
     public LanguageSwitcher(String id) {
@@ -35,7 +36,6 @@ public class LanguageSwitcher extends Panel {
 
     private void createLanguageSwitcher() {
         ListView<Locale> loop = new ListView<Locale>("languages", getLanguages()) {
-
 
 
             @Override

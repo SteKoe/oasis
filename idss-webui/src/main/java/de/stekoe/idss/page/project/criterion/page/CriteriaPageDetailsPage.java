@@ -38,13 +38,13 @@ public class CriteriaPageDetailsPage extends ProjectPage {
             }
         };
 
-        if(criterionPageModel.getObject() == null) {
+        if (criterionPageModel.getObject() == null) {
             WebSession.get().error(getString("message.error.404"));
             setResponsePage(CriteriaPageListPage.class, new PageParameters().add("projectId", getProjectId()));
             return;
         }
 
-        if(!getProjectId().equals(criterionPageModel.getObject().getProject().getId())) {
+        if (!getProjectId().equals(criterionPageModel.getObject().getProject().getId())) {
             WebSession.get().error(getString("message.error.404"));
             setResponsePage(CriteriaPageListPage.class, new PageParameters().add("projectId", getProjectId()));
             return;
@@ -63,8 +63,8 @@ public class CriteriaPageDetailsPage extends ProjectPage {
                 final BookmarkablePageLink<CriteriaPageDetailsPage> pageLink = new BookmarkablePageLink<CriteriaPageDetailsPage>("page.link", CriteriaPageDetailsPage.class, parameters);
                 item.add(pageLink);
                 pageLink.setBody(Model.of(criterionPage.getOrdering()));
-                if(criterionPageModel.getObject().getId().equals(criterionPage.getId())) {
-                    item.add(AttributeModifier.append("class","active"));
+                if (criterionPageModel.getObject().getId().equals(criterionPage.getId())) {
+                    item.add(AttributeModifier.append("class", "active"));
                 }
             }
         });
@@ -80,8 +80,8 @@ public class CriteriaPageDetailsPage extends ProjectPage {
         add(component);
 
         final PageParameters parameters = new PageParameters(getPageParameters());
-        if(hasPrevPage) {
-            parameters.set("pageId", criterionPages.get(criterionPageModel.getObject().getOrdering() - 1 - 1 ).getId());
+        if (hasPrevPage) {
+            parameters.set("pageId", criterionPages.get(criterionPageModel.getObject().getOrdering() - 1 - 1).getId());
         } else {
             component.add(AttributeModifier.append("class", "disabled"));
         }
@@ -97,7 +97,7 @@ public class CriteriaPageDetailsPage extends ProjectPage {
         add(component);
 
         final PageParameters parameters = new PageParameters(getPageParameters());
-        if(hasNextPage) {
+        if (hasNextPage) {
             parameters.set("pageId", criterionPages.get(criterionPageModel.getObject().getOrdering() - 1 + 1).getId());
         } else {
             component.add(AttributeModifier.append("class", "disabled"));

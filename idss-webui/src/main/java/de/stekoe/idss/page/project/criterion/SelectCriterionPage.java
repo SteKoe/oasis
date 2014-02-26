@@ -1,6 +1,5 @@
 package de.stekoe.idss.page.project.criterion;
 
-import de.stekoe.idss.model.enums.CriterionType;
 import de.stekoe.idss.page.project.ProjectPage;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.request.mapper.parameter.PageParameters;

@@ -81,7 +81,7 @@ public class MyFeedbackPanel extends Panel implements IFeedback {
     }
 
     /**
-     * @param id The id of this component.
+     * @param id     The id of this component.
      * @param filter Initial {@code IFeedbackMessageFilter}.
      */
     public MyFeedbackPanel(final String id, IFeedbackMessageFilter filter) {
@@ -223,20 +223,20 @@ public class MyFeedbackPanel extends Panel implements IFeedback {
         int level = message.getLevel();
 
         switch (level) {
-        case FeedbackMessage.ERROR:
-        case FeedbackMessage.FATAL:
-            alert.type(Alert.Type.Danger);
-            break;
-        case FeedbackMessage.SUCCESS:
-            alert.type(Alert.Type.Success);
-            break;
-        case FeedbackMessage.WARNING:
-            alert.type(Alert.Type.Warning);
-            break;
-        case FeedbackMessage.INFO:
-        default:
-            alert.type(Alert.Type.Info);
-            break;
+            case FeedbackMessage.ERROR:
+            case FeedbackMessage.FATAL:
+                alert.type(Alert.Type.Danger);
+                break;
+            case FeedbackMessage.SUCCESS:
+                alert.type(Alert.Type.Success);
+                break;
+            case FeedbackMessage.WARNING:
+                alert.type(Alert.Type.Warning);
+                break;
+            case FeedbackMessage.INFO:
+            default:
+                alert.type(Alert.Type.Info);
+                break;
         }
         return alert;
     }

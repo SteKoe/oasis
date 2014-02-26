@@ -10,7 +10,7 @@ public class JavascriptEventConfirmation extends AttributeModifier {
 
     /**
      * @param event Name of JS event like "onClick".
-     * @param msg Message to be shown by JS confirm.
+     * @param msg   Message to be shown by JS confirm.
      */
     public JavascriptEventConfirmation(String event, String msg) {
         super(event, new Model<String>(msg));

@@ -26,13 +26,16 @@ import static org.junit.Assert.assertTrue;
  */
 public class DefaultAuthServiceTest extends AbstractBaseTest {
 
-    @Autowired AuthService authService;
-    @Autowired ProjectService projectService;
-    @Autowired UserService userService;
+    @Autowired
+    AuthService authService;
+    @Autowired
+    ProjectService projectService;
+    @Autowired
+    UserService userService;
 
     @Test(expected = NullPointerException.class)
     public void testNullArguments() {
-        authService.authenticate(null,null);
+        authService.authenticate(null, null);
     }
 
     @Test

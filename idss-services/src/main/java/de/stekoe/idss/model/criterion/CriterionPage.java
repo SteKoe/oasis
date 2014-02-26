@@ -2,7 +2,6 @@ package de.stekoe.idss.model.criterion;
 
 import de.stekoe.idss.IDGenerator;
 import de.stekoe.idss.model.project.Project;
-import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -61,7 +60,7 @@ public class CriterionPage implements Serializable {
     }
 
     public String getName() {
-        if(name == null) {
+        if (name == null) {
             return String.valueOf(getOrdering());
         }
 

@@ -5,5 +5,6 @@ package de.stekoe.idss.model;
  */
 public interface Identifyable {
     void setId(String id);
+
     String getId();
 }

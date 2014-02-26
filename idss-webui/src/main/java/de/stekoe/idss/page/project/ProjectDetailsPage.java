@@ -30,20 +30,20 @@ public class ProjectDetailsPage extends ProjectPage {
         add(projectEndDateLabel);
 
         double progress = 0;
-        if(projectEndDate == null) {
+        if (projectEndDate == null) {
             projectEndDateLabel.setVisible(false);
         } else {
             final Days totalProjectDays = Days.daysBetween(new DateTime(projectStartDate.getTime()), new DateTime(projectEndDate.getTime()));
             final Days passedDays = Days.daysBetween(new DateTime(projectStartDate.getTime()), new DateTime());
 
-            if(passedDays.getDays() > 0) {
-                progress = (double)passedDays.getDays()/(double)totalProjectDays.getDays();
+            if (passedDays.getDays() > 0) {
+                progress = (double) passedDays.getDays() / (double) totalProjectDays.getDays();
                 progress *= 100;
             }
         }
 
         final WebMarkupContainer progressBar = new WebMarkupContainer("progressBar");
-        progressBar.add(new AttributeModifier("style", "width: "+Math.round(progress)+"%"));
+        progressBar.add(new AttributeModifier("style", "width: " + Math.round(progress) + "%"));
         add(progressBar);
 
         progressBar.add(new Label("progress", Math.round(progress)));
@@ -51,7 +51,7 @@ public class ProjectDetailsPage extends ProjectPage {
 
     private void addDescription() {
         String description = getProject().getDescription();
-        if(StringUtils.isEmpty(description)) {
+        if (StringUtils.isEmpty(description)) {
             description = getString("label.description.na");
         }
         final Label descriptionText = new Label("descriptionText", Model.of(description));

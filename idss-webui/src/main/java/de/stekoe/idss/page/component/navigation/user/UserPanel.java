@@ -21,14 +21,15 @@ public class UserPanel extends Panel {
 
     /**
      * Construct.
+     *
      * @param id wicket:id
      */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"rawtypes", "unchecked"})
     public UserPanel(java.lang.String id) {
         super(id);
 
         final User currentUser = WebSession.get().getUser();
-        if(currentUser != null) {
+        if (currentUser != null) {
             username = currentUser.getUsername();
         }
 
@@ -37,7 +38,7 @@ public class UserPanel extends Panel {
         createAdminPanel();
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"rawtypes", "unchecked"})
     private void createLoggedInPanel() {
         final BookmarkablePageLink<EditUserProfilePage> userProfileLink = new BookmarkablePageLink<EditUserProfilePage>("userProfile", EditUserProfilePage.class);
         userProfileLink.add(new Label("username", username));
@@ -61,7 +62,7 @@ public class UserPanel extends Panel {
         add(register);
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"rawtypes", "unchecked"})
     private void createAdminPanel() {
         add(new BookmarkablePageLink("editUsers", CreateUserPage.class) {
             @Override

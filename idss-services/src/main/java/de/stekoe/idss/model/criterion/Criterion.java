@@ -1,8 +1,9 @@
 package de.stekoe.idss.model.criterion;
 
-import de.stekoe.idss.IDGenerator;
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import java.io.Serializable;
 
 /**

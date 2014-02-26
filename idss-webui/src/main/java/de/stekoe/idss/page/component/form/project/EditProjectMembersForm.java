@@ -1,12 +1,12 @@
 package de.stekoe.idss.page.component.form.project;
 
-import de.stekoe.idss.page.component.modal.AddProjectMemberModal;
-import de.stekoe.idss.page.component.user.UserInfoBlock;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.model.enums.PermissionType;
 import de.stekoe.idss.model.project.Project;
 import de.stekoe.idss.model.project.ProjectMember;
 import de.stekoe.idss.page.HomePage;
+import de.stekoe.idss.page.component.modal.AddProjectMemberModal;
+import de.stekoe.idss.page.component.user.UserInfoBlock;
 import de.stekoe.idss.service.ProjectService;
 import de.stekoe.idss.session.WebSession;
 import org.apache.log4j.Logger;
@@ -28,7 +28,8 @@ public class EditProjectMembersForm extends Panel {
 
     private static final Logger LOG = Logger.getLogger(EditProjectMembersForm.class);
 
-    @SpringBean private ProjectService projectService;
+    @SpringBean
+    private ProjectService projectService;
     private final LoadableDetachableModel<Project> model;
 
     private final String projectId;
@@ -36,7 +37,7 @@ public class EditProjectMembersForm extends Panel {
     public EditProjectMembersForm(String id, final String projectId) {
         super(id);
         this.projectId = projectId;
-        this.model = new LoadableDetachableModel<Project>(){
+        this.model = new LoadableDetachableModel<Project>() {
             @Override
             protected Project load() {
                 return projectService.findById(projectId);
@@ -50,7 +51,7 @@ public class EditProjectMembersForm extends Panel {
             @Override
             public void onSave(ProjectMember projectMember) {
                 LOG.error(projectMember);
-                if(projectMember.getUser() != null) {
+                if (projectMember.getUser() != null) {
                     Project project = model.getObject();
                     project.getProjectTeam().add(projectMember);
                     projectService.save(project);

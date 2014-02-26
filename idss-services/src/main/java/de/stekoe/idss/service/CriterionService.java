@@ -7,6 +7,8 @@ import de.stekoe.idss.model.criterion.Criterion;
  */
 public interface CriterionService {
     void save(Criterion entity);
+
     Criterion findById(String id);
+
     void delete(Criterion entity);
 }

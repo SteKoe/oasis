@@ -16,6 +16,7 @@ public class UniqueValueValidator implements IValidator<String> {
 
     /**
      * Construct.
+     *
      * @param checkers List of Strings which are not allowed to be value of the textfield.
      */
     public UniqueValueValidator(List<String> checkers) {

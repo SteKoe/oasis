@@ -21,8 +21,8 @@ public enum PermissionObject implements L10NEnum {
     }
 
     public static PermissionObject valueOf(Class<?> value) {
-        for(PermissionObject v : values()) {
-            if(v.getValue().equals(value)) {
+        for (PermissionObject v : values()) {
+            if (v.getValue().equals(value)) {
                 return v;
             }
         }

@@ -28,8 +28,10 @@ import java.util.ArrayList;
  */
 public abstract class AddProjectMemberModal extends Modal {
 
-    @SpringBean private UserService userService;
-    @SpringBean private ProjectService projectService;
+    @SpringBean
+    private UserService userService;
+    @SpringBean
+    private ProjectService projectService;
 
     private ProjectMember projectMember = new ProjectMember();
 

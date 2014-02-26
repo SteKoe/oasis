@@ -25,9 +25,12 @@ import static org.junit.Assert.assertTrue;
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
 public class DefaultProjectServiceTest extends AbstractBaseTest {
-    @Autowired ProjectService projectService;
-    @Autowired ProjectRoleService projectRoleService;
-    @Autowired UserService userService;
+    @Autowired
+    ProjectService projectService;
+    @Autowired
+    ProjectRoleService projectRoleService;
+    @Autowired
+    UserService userService;
 
     @Test
     public void projectRoleBasedAuthWorks() throws Exception {

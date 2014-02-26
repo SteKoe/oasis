@@ -2,7 +2,6 @@
 // Buttons
 // --------------------------------------------------
 
-
 // Base styles
 // --------------------------------------------------
 
@@ -57,8 +56,6 @@
 
 }
 
-
-
 // Button Sizes
 // --------------------------------------------------
 
@@ -67,6 +64,7 @@
   padding: @paddingLarge;
   font-size: @fontSizeLarge;
 }
+
 .btn-large [class^="icon-"],
 .btn-large [class*=" icon-"] {
   margin-top: 4px;
@@ -77,10 +75,12 @@
   padding: @paddingSmall;
   font-size: @fontSizeSmall;
 }
+
 .btn-small [class^="icon-"],
 .btn-small [class*=" icon-"] {
   margin-top: 0;
 }
+
 .btn-mini [class^="icon-"],
 .btn-mini [class*=" icon-"] {
   margin-top: -1px;
@@ -91,7 +91,6 @@
   padding: @paddingMini;
   font-size: @fontSizeMini;
 }
-
 
 // Block button
 // -------------------------
@@ -118,8 +117,6 @@ input[type="button"] {
   }
 }
 
-
-
 // Alternate buttons
 // --------------------------------------------------
 
@@ -130,7 +127,7 @@ input[type="button"] {
 .btn-success.active,
 .btn-info.active,
 .btn-inverse.active {
-  color: rgba(255,255,255,.75);
+  color: rgba(255, 255, 255, .75);
 }
 
 // Set the backgrounds
@@ -138,27 +135,31 @@ input[type="button"] {
 .btn-primary {
   .buttonBackground(@btnPrimaryBackground, @btnPrimaryBackgroundHighlight);
 }
+
 // Warning appears are orange
 .btn-warning {
   .buttonBackground(@btnWarningBackground, @btnWarningBackgroundHighlight);
 }
+
 // Danger and error appear as red
 .btn-danger {
   .buttonBackground(@btnDangerBackground, @btnDangerBackgroundHighlight);
 }
+
 // Success appears as green
 .btn-success {
   .buttonBackground(@btnSuccessBackground, @btnSuccessBackgroundHighlight);
 }
+
 // Info appears as a neutral blue
 .btn-info {
   .buttonBackground(@btnInfoBackground, @btnInfoBackgroundHighlight);
 }
+
 // Inverse appears as dark gray
 .btn-inverse {
   .buttonBackground(@btnInverseBackground, @btnInverseBackgroundHighlight);
 }
-
 
 // Cross-browser Jank
 // --------------------------------------------------
@@ -190,7 +191,6 @@ input[type="submit"].btn {
   }
 }
 
-
 // Link buttons
 // --------------------------------------------------
 
@@ -201,17 +201,20 @@ input[type="submit"].btn {
   background-color: transparent;
   background-image: none;
 }
+
 .btn-link {
   border-color: transparent;
   cursor: pointer;
   color: @linkColor;
 }
+
 .btn-link:hover,
 .btn-link:focus {
   color: @linkColorHover;
   text-decoration: underline;
   background-color: transparent;
 }
+
 .btn-link[disabled]:hover,
 .btn-link[disabled]:focus {
   color: @grayDark;

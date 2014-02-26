@@ -7,5 +7,6 @@ import de.stekoe.idss.model.Permission;
  */
 public interface PermissionService {
     void save(Permission permission);
+
     void delete(Permission permission);
 }

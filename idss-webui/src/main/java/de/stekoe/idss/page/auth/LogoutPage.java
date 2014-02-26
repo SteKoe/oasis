@@ -16,7 +16,7 @@ public class LogoutPage extends LayoutPage {
      * Construct.
      */
     public LogoutPage() {
-        if(getSession().getUser() != null) {
+        if (getSession().getUser() != null) {
             LOG.info("User " + getSession().getUser().getUsername() + " is about to log out!");
         }
 

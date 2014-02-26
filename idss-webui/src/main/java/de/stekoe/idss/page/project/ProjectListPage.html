@@ -1,33 +1,41 @@
 <html xmlns:wicket="http://wicket.sourceforge.net/">
 <wicket:extend>
     <h1>Projekte verwalten</h1>
+
     <div class="well">
-        <a href="" wicket:id="createProject" class="btn btn-success"><i class="icon-white icon-plus"></i> Projekt erstellen</a>
+        <a href="" wicket:id="createProject" class="btn btn-success"><i class="icon-white icon-plus"></i> Projekt
+            erstellen</a>
     </div>
 
     <h4>Vorhandene Projekte</h4>
     <table class="table">
         <thead>
         <tr>
-            <th><wicket:message key="table.header.name" /></th>
-            <th class="text-right"><wicket:message key="table.header.actions" /></th>
+            <th>
+                <wicket:message key="table.header.name"/>
+            </th>
+            <th class="text-right">
+                <wicket:message key="table.header.actions"/>
+            </th>
         </tr>
         </thead>
         <tbody>
-            <wicket:container wicket:id="projectItem">
+        <wicket:container wicket:id="projectItem">
             <tr>
-                <td><span wicket:id="project.title">[Project Title]</span> <small wicket:id="project.status" style="color:#aaa"></small></td>
+                <td><span wicket:id="project.title">[Project Title]</span>
+                    <small wicket:id="project.status" style="color:#aaa"></small>
+                </td>
                 <td class="text-right">
                     <a href="" class="btn btn-xs btn-default" wicket:id="button.project.details"></a>
                     <a href="" class="btn btn-xs btn-danger" wicket:id="button.project.delete"></a>
                 </td>
             </tr>
-            </wicket:container>
-            <tr wicket:enclosure="noItemLabel">
-                <td colspan="2" class="text-center">
-                    <span wicket:id="noItemLabel"></span>
-                </td>
-            </tr>
+        </wicket:container>
+        <tr wicket:enclosure="noItemLabel">
+            <td colspan="2" class="text-center">
+                <span wicket:id="noItemLabel"></span>
+            </td>
+        </tr>
         </tbody>
     </table>
 

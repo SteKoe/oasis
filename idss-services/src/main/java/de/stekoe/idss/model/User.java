@@ -20,7 +20,7 @@ import java.util.UUID;
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
 @Entity
-@Table(name = "User", uniqueConstraints = @UniqueConstraint(columnNames = {"username","email"}))
+@Table(name = "User", uniqueConstraints = @UniqueConstraint(columnNames = {"username", "email"}))
 public class User implements Serializable {
 
     private static final int MIN_PASSWORD_LENGTH = 5;
@@ -46,7 +46,7 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    @OneToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY, targetEntity = UserProfile.class)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = UserProfile.class)
     @PrimaryKeyJoinColumn
     public UserProfile getProfile() {
         return this.userProfile;
@@ -98,7 +98,7 @@ public class User implements Serializable {
         this.activationKey = activationKey;
     }
 
-    @ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, targetEntity = SystemRole.class)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = SystemRole.class)
     public Set<SystemRole> getRoles() {
         return this.roles;
     }
@@ -113,7 +113,7 @@ public class User implements Serializable {
     }
 
     public void setUserStatus(UserStatus userStatus) {
-        if(UserStatus.ACTIVATED.equals(userStatus)) {
+        if (UserStatus.ACTIVATED.equals(userStatus)) {
             setActivationKey(null);
         }
         this.userStatus = userStatus;
@@ -128,7 +128,7 @@ public class User implements Serializable {
         this.projectMemberships = projectMemberships;
     }
 
-    @OneToMany(targetEntity=Permission.class, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = Permission.class, cascade = CascadeType.ALL)
     public Set<Permission> getPermissions() {
         return permissions;
     }
@@ -140,7 +140,7 @@ public class User implements Serializable {
     @Transient
     public boolean isAdmin() {
         for (SystemRole role : getRoles()) {
-            if(role.getName().equals(SystemRole.ADMIN)) {
+            if (role.getName().equals(SystemRole.ADMIN)) {
                 return true;
             }
         }
@@ -151,7 +151,7 @@ public class User implements Serializable {
     public boolean hasAnyRole(List<SystemRole> rolesToCheck) {
         for (SystemRole roleToCheck : rolesToCheck) {
             for (SystemRole currentRole : getRoles()) {
-                if(currentRole.getName().equals(roleToCheck)) {
+                if (currentRole.getName().equals(roleToCheck)) {
                     return true;
                 }
             }

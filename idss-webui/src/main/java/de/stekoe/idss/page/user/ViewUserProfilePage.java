@@ -15,7 +15,8 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
  */
 public class ViewUserProfilePage extends AuthUserPage {
 
-    @SpringBean UserService userService;
+    @SpringBean
+    UserService userService;
 
     private User user;
 
@@ -23,9 +24,9 @@ public class ViewUserProfilePage extends AuthUserPage {
         super(params);
 
         final String userId = params.get("id").toString();
-        if(userId != null) {
+        if (userId != null) {
             user = userService.findById(userId);
-            if(user == null) {
+            if (user == null) {
             }
         } else {
             user = WebSession.get().getUser();
@@ -38,7 +39,7 @@ public class ViewUserProfilePage extends AuthUserPage {
     }
 
     private java.lang.String getGravatar() {
-        if(user.getEmail() == null) {
+        if (user.getEmail() == null) {
             return "";
         } else {
             Gravatar g = new Gravatar();

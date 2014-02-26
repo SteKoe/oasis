@@ -29,11 +29,11 @@ public class DefaultDocumentServiceTest extends AbstractBaseTest {
 
     @Test
     public void testGetAbsolutePath() throws Exception {
-        for(int i = 0; i <= 1000; i++) {
+        for (int i = 0; i <= 1000; i++) {
             final String s = UUID.randomUUID().toString();
             final String path = documentService.getAbsolutePath(s);
-            if(!paths.add(path)) {
-                    throw new IllegalArgumentException();
+            if (!paths.add(path)) {
+                throw new IllegalArgumentException();
             }
         }
     }

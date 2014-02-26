@@ -23,8 +23,10 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 public class EditPasswordPage extends AuthUserPage {
     private static final Logger LOG = null;
 
-    @SpringBean private UserService userService;
-    @SpringBean private AuthService authService;
+    @SpringBean
+    private UserService userService;
+    @SpringBean
+    private AuthService authService;
 
     private String currentPassword;
     private String newPassword;
@@ -47,7 +49,7 @@ public class EditPasswordPage extends AuthUserPage {
 
             @Override
             protected void onSubmit() {
-                User user = (User)((WebSession) getSession()).getUser();
+                User user = (User) ((WebSession) getSession()).getUser();
                 if (!authService.checkPassword(currentPassword, user.getPassword())) {
                     getSession().error(getString("currentPasswort.wrong"));
                     return;

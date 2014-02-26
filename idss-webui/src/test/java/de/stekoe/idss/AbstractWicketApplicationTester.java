@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath:web-ui/TestBeanLocations.xml","classpath:services/BeanLocations.xml"})
+@ContextConfiguration(locations = {"classpath:web-ui/TestBeanLocations.xml", "classpath:services/BeanLocations.xml"})
 @TransactionConfiguration
 @Transactional
 public abstract class AbstractWicketApplicationTester {

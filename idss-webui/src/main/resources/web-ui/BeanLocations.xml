@@ -7,9 +7,9 @@
 
     <context:annotation-config/>
 
-    <bean id="restRoutes" class="de.stekoe.idss.RestRoutes" />
-    <bean id="applicationRoutes" class="de.stekoe.idss.ApplicationRoutes" />
-    <bean id="wicketApplication" class="de.stekoe.idss.WebApplication" />
+    <bean id="restRoutes" class="de.stekoe.idss.RestRoutes"/>
+    <bean id="applicationRoutes" class="de.stekoe.idss.ApplicationRoutes"/>
+    <bean id="wicketApplication" class="de.stekoe.idss.WebApplication"/>
 
-    <bean id="projectDataProvider" class="de.stekoe.idss.model.provider.ProjectDataProvider" />
+    <bean id="projectDataProvider" class="de.stekoe.idss.model.provider.ProjectDataProvider"/>
 </beans>

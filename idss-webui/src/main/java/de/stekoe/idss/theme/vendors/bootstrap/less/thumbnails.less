@@ -2,7 +2,6 @@
 // Thumbnails
 // --------------------------------------------------
 
-
 // Note: `.thumbnails` and `.thumbnails > li` are overriden in responsive files
 
 // Make wrapper ul behave like the grid
@@ -11,6 +10,7 @@
   list-style: none;
   .clearfix();
 }
+
 // Fluid rows have no left margin
 .row-fluid .thumbnails {
   margin-left: 0;
@@ -31,6 +31,7 @@
   border: 1px solid #ddd;
   .transition(all .2s ease-in-out);
 }
+
 // Add a hover/focus state for linked versions only
 a.thumbnail:hover,
 a.thumbnail:focus {
@@ -44,6 +45,7 @@ a.thumbnail:focus {
   margin-left: auto;
   margin-right: auto;
 }
+
 .thumbnail .caption {
   padding: 9px;
   color: @gray;

@@ -36,11 +36,11 @@ public class BootstrapPagingNavigator extends Panel {
     }
 
     private void addSinglePagesLinks() {
-        add(new Loop("page.list", (int)pageable.getPageCount()) {
+        add(new Loop("page.list", (int) pageable.getPageCount()) {
             @Override
             protected void populateItem(LoopItem item) {
                 final int currentIndex = item.getIndex();
-                if(isActivePage(currentIndex)) {
+                if (isActivePage(currentIndex)) {
                     item.add(AttributeModifier.append("class", "active"));
                 }
                 final PagingNavigationLink link = new PagingNavigationLink("page.list.link", pageable, currentIndex);
@@ -62,8 +62,8 @@ public class BootstrapPagingNavigator extends Panel {
         pageFirst.add(pageFirstLink);
         pageFirstLink.setAutoEnable(false);
 
-        if(pageable.getCurrentPage() == 0) {
-            pageFirst.add(AttributeModifier.append("class","disabled"));
+        if (pageable.getCurrentPage() == 0) {
+            pageFirst.add(AttributeModifier.append("class", "disabled"));
         }
     }
 
@@ -75,7 +75,7 @@ public class BootstrapPagingNavigator extends Panel {
         pagePrev.add(pagePrevLink);
         pagePrevLink.setAutoEnable(false);
 
-        if(pageable.getCurrentPage() == 0) {
+        if (pageable.getCurrentPage() == 0) {
             pagePrev.add(AttributeModifier.append("class", "disabled"));
         }
     }
@@ -88,7 +88,7 @@ public class BootstrapPagingNavigator extends Panel {
         pageNext.add(pageNextLink);
         pageNextLink.setAutoEnable(false);
 
-        if(pageable.getCurrentPage() == pageable.getPageCount()-1) {
+        if (pageable.getCurrentPage() == pageable.getPageCount() - 1) {
             pageNext.add(AttributeModifier.append("class", "disabled"));
         }
     }
@@ -102,8 +102,8 @@ public class BootstrapPagingNavigator extends Panel {
         pageLast.add(pageLastLink);
         pageLastLink.setAutoEnable(false);
 
-        if(pageable.getCurrentPage() == pageable.getPageCount()-1) {
-            pageLast.add(AttributeModifier.append("class","disabled"));
+        if (pageable.getCurrentPage() == pageable.getPageCount() - 1) {
+            pageLast.add(AttributeModifier.append("class", "disabled"));
         }
     }
 

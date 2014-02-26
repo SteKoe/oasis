@@ -31,11 +31,11 @@ public class CriterionPageDAO extends GenericDAO<CriterionPage> implements ICrit
         criteria.setProjection(Projections.max("ordering"));
 
         final Object o = criteria.uniqueResult();
-        if(o == null) {
+        if (o == null) {
             return 1;
         }
 
-        return (int)o + 1;
+        return (int) o + 1;
     }
 
     @Override
@@ -43,7 +43,7 @@ public class CriterionPageDAO extends GenericDAO<CriterionPage> implements ICrit
         final Criteria criteria = getSession().createCriteria(getPersistedClass());
         criteria.add(Restrictions.eq("project.id", projectId));
         criteria.add(Restrictions.eq("ordering", ordering));
-        return (CriterionPage)criteria.uniqueResult();
+        return (CriterionPage) criteria.uniqueResult();
     }
 
     @Override

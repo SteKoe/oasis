@@ -1,7 +1,6 @@
 package de.stekoe.idss.page.project.criterion;
 
 import de.stekoe.idss.model.criterion.SingleScaledCriterion;
-import de.stekoe.idss.page.component.form.criterion.CreateOrdinalScaledCriterionForm;
 import de.stekoe.idss.page.component.form.criterion.EditOrdinalCriterionForm;
 import de.stekoe.idss.page.project.ProjectPage;
 import org.apache.log4j.Logger;

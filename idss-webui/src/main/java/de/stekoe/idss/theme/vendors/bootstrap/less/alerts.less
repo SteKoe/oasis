@@ -2,7 +2,6 @@
 // Alerts
 // --------------------------------------------------
 
-
 // Base styles
 // -------------------------
 
@@ -12,11 +11,13 @@
   background-color: @warningBackground;
   border: 1px solid @warningBorder;
 }
+
 .alert,
 .alert h4 {
   // Specified for the h4 to prevent conflicts of changing @headingsColor
   color: @warningText;
 }
+
 .alert h4 {
   margin: 0;
 }
@@ -29,7 +30,6 @@
   line-height: @baseLineHeight;
 }
 
-
 // Alternate styles
 // -------------------------
 
@@ -38,28 +38,32 @@
   border-color: @successBorder;
   color: @successText;
 }
+
 .alert-success h4 {
   color: @successText;
 }
+
 .alert-danger,
 .alert-error {
   background-color: @errorBackground;
   border-color: @errorBorder;
   color: @errorText;
 }
+
 .alert-danger h4,
 .alert-error h4 {
   color: @errorText;
 }
+
 .alert-info {
   background-color: @infoBackground;
   border-color: @infoBorder;
   color: @infoText;
 }
+
 .alert-info h4 {
   color: @infoText;
 }
-
 
 // Block alerts
 // -------------------------
@@ -68,10 +72,12 @@
   padding-top: 14px;
   padding-bottom: 14px;
 }
+
 .alert-block > p,
 .alert-block > ul {
   margin-bottom: 0;
 }
+
 .alert-block p + p {
   margin-top: 5px;
 }

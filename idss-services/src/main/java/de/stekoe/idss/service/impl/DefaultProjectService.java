@@ -27,9 +27,12 @@ import java.util.Set;
 @Transactional
 public class DefaultProjectService implements ProjectService {
 
-    @Autowired private IProjectDAO projectDAO;
-    @Autowired private IUserDAO userDAO;
-    @Autowired private AuthService authService;
+    @Autowired
+    private IProjectDAO projectDAO;
+    @Autowired
+    private IUserDAO userDAO;
+    @Autowired
+    private AuthService authService;
 
     @Override
     public void delete(java.lang.String id) {
@@ -61,32 +64,33 @@ public class DefaultProjectService implements ProjectService {
 
         final Project project = projectDAO.findById(projectId);
 
-        if(authService.isAuthorized(userId, project, permissionType)) {
+        if (authService.isAuthorized(userId, project, permissionType)) {
             return true;
         }
 
         final User user = userDAO.findById(userId);
 
-        if(user == null) {
+        if (user == null) {
             return false;
         }
 
         final List<ProjectMember> projectTeam = new ArrayList<ProjectMember>(project.getProjectTeam());
-        final ProjectMember pm = (ProjectMember)CollectionUtils.find(projectTeam, new Predicate() {
+        final ProjectMember pm = (ProjectMember) CollectionUtils.find(projectTeam, new Predicate() {
             @Override
             public boolean evaluate(Object object) {
-                return ((ProjectMember) object).getUser().equals(user);
+                final ProjectMember projectMember = (ProjectMember) object;
+                return projectMember.getUser().equals(user);
             }
         });
 
-        if(pm == null) {
+        if (pm == null) {
             return false;
         }
 
         final Set<Permission> permissions = pm.getProjectRole().getPermissions();
 
-        for(Permission permission : permissions) {
-            if(permission.getObjectType().equals(PermissionObject.valueOf(Project.class)) && permission.getPermissionType().equals(permissionType)) {
+        for (Permission permission : permissions) {
+            if (permission.getObjectType().equals(PermissionObject.valueOf(Project.class)) && permission.getPermissionType().equals(permissionType)) {
                 return true;
             }
         }

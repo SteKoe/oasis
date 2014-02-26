@@ -7,11 +7,14 @@ import java.util.List;
  */
 public interface Paginator<T> {
     void setResultList(List<T> list);
+
     List<T> getResultList();
 
     void setTotalEntries(int totalEntries);
+
     int getTotalEntries();
 
     void setCurrentPage(int currentPage);
+
     int getCurrentPage();
 }

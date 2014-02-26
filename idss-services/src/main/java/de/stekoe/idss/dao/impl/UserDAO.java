@@ -2,7 +2,6 @@ package de.stekoe.idss.dao.impl;
 
 import de.stekoe.idss.dao.IUserDAO;
 import de.stekoe.idss.model.User;
-import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -38,7 +37,7 @@ public class UserDAO extends GenericDAO<User> implements IUserDAO {
     @Override
     public List<User> findAllByUsername(String username) {
         final Criteria criteria = getSession().createCriteria(User.class);
-        criteria.add(Restrictions.ilike("username", "%"+username+"%"));
+        criteria.add(Restrictions.ilike("username", "%" + username + "%"));
         return criteria.list();
     }
 

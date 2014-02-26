@@ -37,10 +37,14 @@ import java.util.Map;
 public class RegistrationForm extends Panel {
     private static final Logger LOG = Logger.getLogger(RegistrationForm.class);
 
-    @SpringBean private MailService itsMailService;
-    @SpringBean private UserService itsUserService;
-    @SpringBean private SystemRoleService itsSystemRoleService;
-    @SpringBean private AuthService itsAuthService;
+    @SpringBean
+    private MailService itsMailService;
+    @SpringBean
+    private UserService itsUserService;
+    @SpringBean
+    private SystemRoleService itsSystemRoleService;
+    @SpringBean
+    private AuthService itsAuthService;
 
     private final User itsUser = new User();
 
@@ -90,11 +94,11 @@ public class RegistrationForm extends Panel {
                     sendActivationMail(user);
                     itsSuccessMessage.setVisible(true);
                     setVisible(false);
-                } catch(UserException e) {
-                    if(e instanceof UsernameAlreadyInUseException) {
+                } catch (UserException e) {
+                    if (e instanceof UsernameAlreadyInUseException) {
                         itsErrorMessage.setVisible(true);
                         LOG.error("A user tried to register with existing username!", e);
-                    } else if(e instanceof EmailAddressAlreadyInUseException) {
+                    } else if (e instanceof EmailAddressAlreadyInUseException) {
                         itsErrorMessage.setVisible(true);
                         LOG.error("A user tried to register with existing email address!", e);
                     }

@@ -12,8 +12,10 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
  */
 public class EditProjectForm extends ProjectForm {
 
-    @SpringBean private ProjectService projectService;
-    @SpringBean private ProjectRoleService projectRoleService;
+    @SpringBean
+    private ProjectService projectService;
+    @SpringBean
+    private ProjectRoleService projectRoleService;
 
     public EditProjectForm(String id, String projectId) {
         super(id, projectId);

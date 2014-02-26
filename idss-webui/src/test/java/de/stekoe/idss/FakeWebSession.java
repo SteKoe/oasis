@@ -15,7 +15,8 @@ import java.util.Map;
  */
 public class FakeWebSession extends WebSession {
 
-    @Inject AuthService authService;
+    @Inject
+    AuthService authService;
 
     private Map<String, User> users = new HashMap<String, User>();
 
@@ -31,13 +32,13 @@ public class FakeWebSession extends WebSession {
 
     @Override
     protected AuthStatus authenticateByService(java.lang.String username, java.lang.String password) {
-        if(!users.containsKey(username)) {
+        if (!users.containsKey(username)) {
             return AuthStatus.USER_NOT_FOUND;
         }
 
         User user = users.get(username);
 
-        if(!authService.checkPassword(password, user.getPassword())) {
+        if (!authService.checkPassword(password, user.getPassword())) {
             return AuthStatus.WRONG_PASSWORD;
         }
 

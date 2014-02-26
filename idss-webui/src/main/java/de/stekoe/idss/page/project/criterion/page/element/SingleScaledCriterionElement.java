@@ -1,6 +1,5 @@
 package de.stekoe.idss.page.project.criterion.page.element;
 
-import de.stekoe.idss.model.criterion.CriterionPage;
 import de.stekoe.idss.model.criterion.SingleScaledCriterion;
 import de.stekoe.idss.page.project.criterion.EditOrdinalCriterionPage;
 import org.apache.wicket.markup.html.basic.Label;
@@ -8,8 +7,6 @@ import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
-
-import java.util.List;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>

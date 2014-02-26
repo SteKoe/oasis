@@ -48,11 +48,11 @@ public class DefaultCriterionPageServiceTest extends AbstractBaseTest {
 
         String pageToDelete = "";
 
-        for(int i = 1; i < 10; i++) {
+        for (int i = 1; i < 10; i++) {
             final CriterionPage page = new CriterionPage();
             page.setProject(project);
 
-            if(i == 3) {
+            if (i == 3) {
                 pageToDelete = page.getId();
             }
 
@@ -63,7 +63,7 @@ public class DefaultCriterionPageServiceTest extends AbstractBaseTest {
         criterionPageService.delete(pageObjectToDelete);
 
         List<CriterionPage> criterionPagesForProject = criterionPageService.getCriterionPagesForProject(project.getId());
-        for(int i = 0; i < criterionPagesForProject.size(); i++) {
+        for (int i = 0; i < criterionPagesForProject.size(); i++) {
             final CriterionPage criterionPage = criterionPagesForProject.get(i);
             assertThat(criterionPage.getOrdering(), IsEqual.equalTo(i + 1));
         }
@@ -74,14 +74,14 @@ public class DefaultCriterionPageServiceTest extends AbstractBaseTest {
         final Project project = TestFactory.createProject();
         projectService.save(project);
 
-        for(int i = 1; i < 10; i++) {
+        for (int i = 1; i < 10; i++) {
             final CriterionPage page = new CriterionPage();
             page.setProject(project);
             criterionPageService.save(page);
         }
 
         List<CriterionPage> criterionPagesForProject = criterionPageService.getCriterionPagesForProject(project.getId());
-        for(int i = 0; i < criterionPagesForProject.size(); i++) {
+        for (int i = 0; i < criterionPagesForProject.size(); i++) {
             final CriterionPage criterionPage = criterionPagesForProject.get(i);
             assertThat(criterionPage.getOrdering(), IsEqual.equalTo(i + 1));
         }

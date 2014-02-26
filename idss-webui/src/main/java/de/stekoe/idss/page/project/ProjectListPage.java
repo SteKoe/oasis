@@ -1,11 +1,11 @@
 package de.stekoe.idss.page.project;
 
-import de.stekoe.idss.page.component.BootstrapPagingNavigator;
 import de.stekoe.idss.model.enums.PermissionType;
 import de.stekoe.idss.model.enums.ProjectStatus;
 import de.stekoe.idss.model.project.Project;
 import de.stekoe.idss.model.provider.ProjectDataProvider;
 import de.stekoe.idss.page.AuthUserPage;
+import de.stekoe.idss.page.component.BootstrapPagingNavigator;
 import de.stekoe.idss.service.ProjectRoleService;
 import de.stekoe.idss.service.ProjectService;
 import de.stekoe.idss.session.WebSession;
@@ -25,11 +25,14 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
  */
 public class ProjectListPage extends AuthUserPage {
 
-    @SpringBean private ProjectService projectService;
+    @SpringBean
+    private ProjectService projectService;
 
-    @SpringBean private ProjectRoleService projectRoleService;
+    @SpringBean
+    private ProjectRoleService projectRoleService;
 
-    @SpringBean private ProjectDataProvider projectDataProvider;
+    @SpringBean
+    private ProjectDataProvider projectDataProvider;
 
     private static final int ENTRIES_PER_PAGE = 1;
 

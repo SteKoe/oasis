@@ -13,16 +13,16 @@
                 <prop key="hibernate.hbm2ddl.auto">create-drop</prop>
             </props>
         </property>
-        <property name="dataSource" ref="dataSource" />
+        <property name="dataSource" ref="dataSource"/>
 
-        <property name="packagesToScan" value="de.stekoe.idss.model" />
+        <property name="packagesToScan" value="de.stekoe.idss.model"/>
     </bean>
 
     <!-- Database Source -->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
-        <property name="driverClass" value="${jdbc.test.driverClassName}" />
-        <property name="url" value="${jdbc.test.url}" />
-        <property name="username" value="${jdbc.test.username}" />
-        <property name="password" value="${jdbc.test.password}" />
+        <property name="driverClass" value="${jdbc.test.driverClassName}"/>
+        <property name="url" value="${jdbc.test.url}"/>
+        <property name="username" value="${jdbc.test.username}"/>
+        <property name="password" value="${jdbc.test.password}"/>
     </bean>
 </beans>

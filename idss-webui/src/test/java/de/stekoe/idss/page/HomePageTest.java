@@ -19,7 +19,7 @@ public class HomePageTest extends AbstractWicketApplicationTester {
     @Test
     @DirtiesContext
     public void userNameIsShownInUserMenuPanel() {
-        ((FakeWebSession)wicketTester.getSession()).signIn(TestFactory.USER_USERNAME, TestFactory.USER_PASSWORD);
+        ((FakeWebSession) wicketTester.getSession()).signIn(TestFactory.USER_USERNAME, TestFactory.USER_PASSWORD);
         wicketTester.startPage(HomePage.class);
         wicketTester.assertLabel("nav.user:userProfile:username", TestFactory.USER_USERNAME);
     }

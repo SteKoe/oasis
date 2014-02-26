@@ -10,7 +10,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath:services/BeanLocations.xml","classpath:services/TestBeanLocations.xml"})
+@ContextConfiguration(locations = {"classpath:services/BeanLocations.xml", "classpath:services/TestBeanLocations.xml"})
 @TransactionConfiguration
 @Transactional
 public abstract class BaseTest {

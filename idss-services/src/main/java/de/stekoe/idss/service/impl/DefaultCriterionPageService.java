@@ -23,7 +23,7 @@ public class DefaultCriterionPageService implements CriterionPageService {
 
     @Override
     public void save(CriterionPage entity) {
-        if(entity.getOrdering() == -1) {
+        if (entity.getOrdering() == -1) {
             entity.setOrdering(getNextPageNumForProject(entity.getProject().getId()));
         }
         criterionPageDAO.save(entity);
@@ -38,9 +38,9 @@ public class DefaultCriterionPageService implements CriterionPageService {
 
     private void reorderPages(Project aProject) {
         final List<CriterionPage> criterionPagesForProject = getCriterionPagesForProject(aProject.getId());
-        for(int i = 0; i < criterionPagesForProject.size(); i++) {
+        for (int i = 0; i < criterionPagesForProject.size(); i++) {
             final CriterionPage criterionPage = criterionPagesForProject.get(i);
-            criterionPage.setOrdering(i+1);
+            criterionPage.setOrdering(i + 1);
             criterionPageDAO.save(criterionPage);
         }
     }
@@ -61,13 +61,13 @@ public class DefaultCriterionPageService implements CriterionPageService {
         final Project project = criterionPage.getProject();
 
         int newOrdering = 0;
-        if(Direction.UP.equals(direction)) {
+        if (Direction.UP.equals(direction)) {
             newOrdering = ordering - 1;
-        } else if(Direction.DOWN.equals(direction)) {
+        } else if (Direction.DOWN.equals(direction)) {
             newOrdering = ordering + 1;
         }
 
-        if(newOrdering == 0) {
+        if (newOrdering == 0) {
             return;
         }
 

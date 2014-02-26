@@ -34,7 +34,7 @@ public class AuthProjectPage extends AuthUserPage {
                 return projectService.findById(projectId.toString());
             }
         };
-        if(projectModel.getObject() == null) {
+        if (projectModel.getObject() == null) {
             setResponsePage(ProjectListPage.class);
         }
 

@@ -22,7 +22,7 @@ import static org.junit.Assert.*;
 public class UserManagerImplTestCase extends BaseTest {
 
     private static final Logger LOG = Logger.getLogger(UserManagerImplTestCase.class);
-    private static final java.lang.String[] USERNAMES = { "Stephan", "Benedikt", "Robert", "Jonas" };
+    private static final java.lang.String[] USERNAMES = {"Stephan", "Benedikt", "Robert", "Jonas"};
     private static final java.lang.String PASSWORD = "geheimesPassword";
 
     @Autowired
@@ -46,7 +46,7 @@ public class UserManagerImplTestCase extends BaseTest {
     public void tearDown() {
         for (int i = 0; i < USERNAMES.length; i++) {
             final User userToDelete = userService.findByUsername(USERNAMES[i]);
-            if(userToDelete != null) {
+            if (userToDelete != null) {
                 userService.delete(userToDelete);
             }
         }
@@ -57,7 +57,7 @@ public class UserManagerImplTestCase extends BaseTest {
         assertThat(userService.getAllUsers().size(), Is.is(IsNot.not(0)));
     }
 
-    @Test(expected=UsernameAlreadyInUseException.class)
+    @Test(expected = UsernameAlreadyInUseException.class)
     public void duplicatedUsername() throws Exception {
         User duplicatedUser = TestFactory.createUser(USERNAMES[0]);
         duplicatedUser.setEmail("iamunique@example.com");

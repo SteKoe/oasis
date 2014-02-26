@@ -7,7 +7,6 @@ import de.stekoe.idss.page.LayoutPage;
 import de.stekoe.idss.page.auth.LoginPage;
 import de.stekoe.idss.service.UserService;
 import org.apache.log4j.Logger;
-import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.string.StringValue;
@@ -19,7 +18,8 @@ import org.apache.wicket.util.string.StringValue;
 public class ActivateUserPage extends LayoutPage {
     private static final Logger LOG = Logger.getLogger(ActivateUserPage.class);
 
-    @SpringBean private UserService itsUserManager;
+    @SpringBean
+    private UserService itsUserManager;
 
     private String itsActivationCode = null;
 

@@ -21,7 +21,7 @@ public class SystemInformationPage extends AuthAdminPage {
         List<String> paramters = new ArrayList<String>();
         final ServletContext servletContext = WebApplication.get().getServletContext();
         final Enumeration initParameterNames = servletContext.getInitParameterNames();
-        while(initParameterNames.hasMoreElements()) {
+        while (initParameterNames.hasMoreElements()) {
             final String key = initParameterNames.nextElement().toString();
             paramters.add(key);
         }

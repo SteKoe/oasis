@@ -42,7 +42,7 @@ public class ProjectRoleEditPage extends ProjectPage {
     public ProjectRoleEditPage(PageParameters pageParameters) {
         super(pageParameters);
         final String projectRoleId = getProjectRoleIdFromProject(pageParameters);
-        if(projectRoleId == null) {
+        if (projectRoleId == null) {
 
         }
         createModel(projectRoleId);
@@ -50,10 +50,9 @@ public class ProjectRoleEditPage extends ProjectPage {
         add(new Label("projectRoleName", getProjectRole().getName()));
         add(new Label("introduction", MessageFormat.format(getString("label.project.role.edit.introduction"), getProjectRole().getName(), getProject().getName())));
 
-        for(Permission permission : getProjectRole().getPermissions()) {
+        for (Permission permission : getProjectRole().getPermissions()) {
             select.add(permission.getPermissionType());
         }
-
 
 
         final IChoiceRenderer<PermissionType> iChoiceRenderer = new IChoiceRenderer<PermissionType>() {
@@ -81,13 +80,13 @@ public class ProjectRoleEditPage extends ProjectPage {
                 final ProjectRole projectRole = getProjectRole();
                 projectRole.getPermissions().clear();
 
-                for(Permission permission : projectRole.getPermissions()) {
+                for (Permission permission : projectRole.getPermissions()) {
                     permissionService.delete(permission);
                 }
 
                 // Reassign them
                 final Collection<PermissionType> selectedPermissionTypes = permissions.getModelObject();
-                for(PermissionType selectedPermissionType : selectedPermissionTypes) {
+                for (PermissionType selectedPermissionType : selectedPermissionTypes) {
                     final Permission permission = new Permission(PermissionObject.PROJECT, selectedPermissionType, getProjectId());
                     projectRole.getPermissions().add(permission);
                 }
@@ -113,8 +112,8 @@ public class ProjectRoleEditPage extends ProjectPage {
 
     private String getProjectRoleIdFromProject(PageParameters pageParameters) {
         final Set<ProjectRole> projectRoles = getProject().getProjectRoles();
-        for(ProjectRole projectRole : projectRoles) {
-            if(projectRole.getId().equals(pageParameters.get("roleId").toString())) {
+        for (ProjectRole projectRole : projectRoles) {
+            if (projectRole.getId().equals(pageParameters.get("roleId").toString())) {
                 return projectRole.getId();
             }
         }

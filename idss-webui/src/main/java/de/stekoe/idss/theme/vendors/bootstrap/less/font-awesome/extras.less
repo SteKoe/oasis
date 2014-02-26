@@ -2,7 +2,9 @@
  * -------------------------- */
 
 /* Stacked and layered icon */
-.icon-stack();
+  .icon-stack()
+
+;
 
 /* Animated rotating icon */
 .icon-spin {
@@ -14,28 +16,52 @@
 }
 
 @-moz-keyframes spin {
-  0% { -moz-transform: rotate(0deg); }
-  100% { -moz-transform: rotate(359deg); }
+  0% {
+    -moz-transform: rotate(0deg);
+  }
+  100% {
+    -moz-transform: rotate(359deg);
+  }
 }
+
 @-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(359deg); }
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+  }
 }
+
 @-o-keyframes spin {
-  0% { -o-transform: rotate(0deg); }
-  100% { -o-transform: rotate(359deg); }
+  0% {
+    -o-transform: rotate(0deg);
+  }
+  100% {
+    -o-transform: rotate(359deg);
+  }
 }
+
 @-ms-keyframes spin {
-  0% { -ms-transform: rotate(0deg); }
-  100% { -ms-transform: rotate(359deg); }
+  0% {
+    -ms-transform: rotate(0deg);
+  }
+  100% {
+    -ms-transform: rotate(359deg);
+  }
 }
+
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(359deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(359deg);
+  }
 }
 
 /* Icon rotations and mirroring */
-.icon-rotate-90:before{
+.icon-rotate-90:before {
   -webkit-transform: rotate(90deg);
   -moz-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
@@ -44,7 +70,7 @@
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
 }
 
-.icon-rotate-180:before{
+.icon-rotate-180:before {
   -webkit-transform: rotate(180deg);
   -moz-transform: rotate(180deg);
   -ms-transform: rotate(180deg);
@@ -53,7 +79,7 @@
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
 }
 
-.icon-rotate-270:before{
+.icon-rotate-270:before {
   -webkit-transform: rotate(270deg);
   -moz-transform: rotate(270deg);
   -ms-transform: rotate(270deg);

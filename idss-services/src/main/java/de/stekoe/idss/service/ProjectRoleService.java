@@ -1,6 +1,5 @@
 package de.stekoe.idss.service;
 
-import de.stekoe.idss.model.project.Project;
 import de.stekoe.idss.model.project.ProjectRole;
 
 /**

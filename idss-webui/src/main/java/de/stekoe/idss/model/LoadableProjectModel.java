@@ -10,7 +10,8 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
  */
 public class LoadableProjectModel extends LoadableDetachableModel<Project> {
 
-    @SpringBean ProjectService projectService;
+    @SpringBean
+    ProjectService projectService;
 
     private final String id;
 

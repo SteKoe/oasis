@@ -2,7 +2,6 @@
 // Navs
 // --------------------------------------------------
 
-
 // BASE CLASS
 // ----------
 
@@ -16,6 +15,7 @@
 .nav > li > a {
   display: block;
 }
+
 .nav > li > a:hover,
 .nav > li > a:focus {
   text-decoration: none;
@@ -43,12 +43,11 @@
   color: @grayLight;
   text-transform: uppercase;
 }
+
 // Space them out when they follow another list item (link)
 .nav li + .nav-header {
   margin-top: 9px;
 }
-
-
 
 // NAV LIST
 // --------
@@ -58,30 +57,33 @@
   padding-right: 15px;
   margin-bottom: 0;
 }
+
 .nav-list > li > a,
 .nav-list .nav-header {
-  margin-left:  -15px;
+  margin-left: -15px;
   margin-right: -15px;
 }
+
 .nav-list > li > a {
   padding: 3px 15px;
 }
+
 .nav-list > .active > a,
 .nav-list > .active > a:hover,
 .nav-list > .active > a:focus {
   color: @white;
   background-color: @linkColor;
 }
+
 .nav-list [class^="icon-"],
 .nav-list [class*=" icon-"] {
   margin-right: 2px;
 }
+
 // Dividers (basically an hr) within the dropdown
 .nav-list .divider {
   .nav-divider();
 }
-
-
 
 // TABS AND PILLS
 // -------------
@@ -91,10 +93,12 @@
 .nav-pills {
   .clearfix();
 }
+
 .nav-tabs > li,
 .nav-pills > li {
   float: left;
 }
+
 .nav-tabs > li > a,
 .nav-pills > li > a {
   padding-right: 12px;
@@ -110,10 +114,12 @@
 .nav-tabs {
   border-bottom: 1px solid #ddd;
 }
+
 // Make the list-items overlay the bottom border
 .nav-tabs > li {
   margin-bottom: -1px;
 }
+
 // Actual tabs (as links)
 .nav-tabs > li > a {
   padding-top: 8px;
@@ -125,6 +131,7 @@
     border-color: @grayLighter @grayLighter #ddd;
   }
 }
+
 // Active state, and it's :hover/:focus to override normal :hover/:focus
 .nav-tabs > .active > a,
 .nav-tabs > .active > a:hover,
@@ -135,7 +142,6 @@
   border-bottom-color: transparent;
   cursor: default;
 }
-
 
 // PILLS
 // -----
@@ -156,8 +162,6 @@
   background-color: @linkColor;
 }
 
-
-
 // STACKED NAV
 // -----------
 
@@ -165,6 +169,7 @@
 .nav-stacked > li {
   float: none;
 }
+
 .nav-stacked > li > a {
   margin-right: 0; // no need for the gap between nav items
 }
@@ -173,9 +178,11 @@
 .nav-tabs.nav-stacked {
   border-bottom: 0;
 }
+
 .nav-tabs.nav-stacked > li > a {
   border: 1px solid #ddd;
 }
+
 .nav-tabs.nav-stacked > li > a:hover,
 .nav-tabs.nav-stacked > li > a:focus {
   border-color: #ddd;
@@ -186,11 +193,10 @@
 .nav-pills.nav-stacked > li > a {
   margin-bottom: 3px;
 }
+
 .nav-pills.nav-stacked > li:last-child > a {
   margin-bottom: 1px; // decrease margin to match sizing of stacked tabs
 }
-
-
 
 // DROPDOWNS
 // ---------
@@ -203,11 +209,13 @@
   border-bottom-color: @linkColor;
   margin-top: 6px;
 }
+
 .nav .dropdown-toggle:hover .caret,
 .nav .dropdown-toggle:focus .caret {
   border-top-color: @linkColorHover;
   border-bottom-color: @linkColorHover;
 }
+
 /* move down carets for tabs */
 .nav-tabs .dropdown-toggle .caret {
   margin-top: 8px;
@@ -219,6 +227,7 @@
   border-top-color: #fff;
   border-bottom-color: #fff;
 }
+
 .nav-tabs .active .dropdown-toggle .caret {
   border-top-color: @gray;
   border-bottom-color: @gray;
@@ -241,6 +250,7 @@
   background-color: @grayLight;
   border-color: @grayLight;
 }
+
 .nav li.dropdown.open .caret,
 .nav li.dropdown.open.active .caret,
 .nav li.dropdown.open a:hover .caret,
@@ -256,11 +266,8 @@
   border-color: @grayLight;
 }
 
-
-
 // TABBABLE
 // --------
-
 
 // COMMON STYLES
 // -------------
@@ -269,6 +276,7 @@
 .tabbable {
   .clearfix();
 }
+
 .tab-content {
   overflow: auto; // prevent content from running below tabs
 }
@@ -285,11 +293,11 @@
 .pill-content > .pill-pane {
   display: none;
 }
+
 .tab-content > .active,
 .pill-content > .active {
   display: block;
 }
-
 
 // BOTTOM
 // ------
@@ -297,10 +305,12 @@
 .tabs-below > .nav-tabs {
   border-top: 1px solid #ddd;
 }
+
 .tabs-below > .nav-tabs > li {
   margin-top: -1px;
   margin-bottom: 0;
 }
+
 .tabs-below > .nav-tabs > li > a {
   &:hover,
   &:focus {
@@ -308,10 +318,12 @@
     border-top-color: #ddd;
   }
 }
+
 .tabs-below > .nav-tabs > .active > a,
 .tabs-below > .nav-tabs > .active > a:hover,
 .tabs-below > .nav-tabs > .active > a:focus {
-  border-color: transparent #ddd #ddd #ddd;
+  border-color: transparent #ddd #ddd #ddd
+;
 }
 
 // LEFT & RIGHT
@@ -322,6 +334,7 @@
 .tabs-right > .nav-tabs > li {
   float: none;
 }
+
 .tabs-left > .nav-tabs > li > a,
 .tabs-right > .nav-tabs > li > a {
   min-width: 74px;
@@ -335,13 +348,16 @@
   margin-right: 19px;
   border-right: 1px solid #ddd;
 }
+
 .tabs-left > .nav-tabs > li > a {
   margin-right: -1px;
 }
+
 .tabs-left > .nav-tabs > li > a:hover,
 .tabs-left > .nav-tabs > li > a:focus {
   border-color: @grayLighter #ddd @grayLighter @grayLighter;
 }
+
 .tabs-left > .nav-tabs .active > a,
 .tabs-left > .nav-tabs .active > a:hover,
 .tabs-left > .nav-tabs .active > a:focus {
@@ -355,21 +371,22 @@
   margin-left: 19px;
   border-left: 1px solid #ddd;
 }
+
 .tabs-right > .nav-tabs > li > a {
   margin-left: -1px;
 }
+
 .tabs-right > .nav-tabs > li > a:hover,
 .tabs-right > .nav-tabs > li > a:focus {
   border-color: @grayLighter @grayLighter @grayLighter #ddd;
 }
+
 .tabs-right > .nav-tabs .active > a,
 .tabs-right > .nav-tabs .active > a:hover,
 .tabs-right > .nav-tabs .active > a:focus {
   border-color: #ddd #ddd #ddd transparent;
   *border-left-color: @white;
 }
-
-
 
 // DISABLED STATES
 // ---------------
@@ -378,6 +395,7 @@
 .nav > .disabled > a {
   color: @grayLight;
 }
+
 // Nuke hover/focus effects
 .nav > .disabled > a:hover,
 .nav > .disabled > a:focus {

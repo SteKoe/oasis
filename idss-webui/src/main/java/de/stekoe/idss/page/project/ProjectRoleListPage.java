@@ -44,7 +44,7 @@ public class ProjectRoleListPage extends ProjectPage {
                 item.add(new Label("project.roles.role.name", projectRole.getName()));
 
                 List<String> permissions = new ArrayList<String>();
-                for(Permission p : projectRole.getPermissions()) {
+                for (Permission p : projectRole.getPermissions()) {
                     final String permissionKey = MessageFormat.format(getString(p.getPermissionType().getKey()), getString("label.project"));
                     permissions.add(permissionKey);
                 }

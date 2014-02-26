@@ -22,7 +22,7 @@ public class OrdinalScalePanel extends Panel {
     private boolean horizontal = false;
 
     public OrdinalScalePanel(String id, SingleScaledCriterion ssc) {
-        this(id, ssc.getScale().getName(), (OrdinalScale)ssc.getScale());
+        this(id, ssc.getScale().getName(), (OrdinalScale) ssc.getScale());
     }
 
     public OrdinalScalePanel(String id, String criterion, OrdinalScale scale) {
@@ -36,7 +36,7 @@ public class OrdinalScalePanel extends Panel {
             protected void onComponentTag(ComponentTag tag) {
                 super.onComponentTag(tag);
 
-                if(isHorizontal()) {
+                if (isHorizontal()) {
                     final String css = tag.getAttribute("class");
                     tag.put("class", css + " col-md-5");
                 }
@@ -49,7 +49,7 @@ public class OrdinalScalePanel extends Panel {
             protected void onComponentTag(ComponentTag tag) {
                 super.onComponentTag(tag);
 
-                if(isHorizontal()) {
+                if (isHorizontal()) {
                     final String css = tag.getAttribute("class");
                     tag.put("class", css + " col-md-7");
                 }

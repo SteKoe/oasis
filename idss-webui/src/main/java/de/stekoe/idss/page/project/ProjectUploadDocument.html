@@ -1,23 +1,34 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:wicket="http://wicket.sourceforge.net/" xml:lang="en" lang="en">
 <body>
 <wicket:extend>
-    <h2><wicket:message key="label.upload" /></h2>
+    <h2>
+        <wicket:message key="label.upload"/>
+    </h2>
     <div wicket:id="form.document.upload"></div>
 
     <table class="table">
         <thead>
-            <tr>
-                <th><wicket:message key="label.file.name" /></th>
-                <th class="text-center"><wicket:message key="label.file.date" /></th>
-                <th class="text-right"><wicket:message key="label.file.size" /></th>
-                <th><wicket:message key="label.file.type" /></th>
-                <th></th>
-            </tr>
+        <tr>
+            <th>
+                <wicket:message key="label.file.name"/>
+            </th>
+            <th class="text-center">
+                <wicket:message key="label.file.date"/>
+            </th>
+            <th class="text-right">
+                <wicket:message key="label.file.size"/>
+            </th>
+            <th>
+                <wicket:message key="label.file.type"/>
+            </th>
+            <th></th>
+        </tr>
         </thead>
         <tbody>
-            <wicket:container wicket:id="files.list">
+        <wicket:container wicket:id="files.list">
             <tr>
                 <td><span wicket:id="file.name"></span></td>
                 <td class="text-center"><span wicket:id="file.date"></span></td>
@@ -25,20 +36,22 @@
                 <td><span wicket:id="file.type"></span></td>
                 <td class="text-right">
                     <a href="" class="btn btn-mini" wicket:id="file.download">
-                        <wicket:message key="label.download" />
+                        <wicket:message key="label.download"/>
                     </a>
                     <a href="" class="btn btn-mini btn-danger" wicket:id="file.delete">
-                        <wicket:message key="label.delete" />
+                        <wicket:message key="label.delete"/>
                     </a>
                 </td>
             </tr>
-            </wicket:container>
+        </wicket:container>
 
-            <wicket:container wicket:id="files.list.empty">
+        <wicket:container wicket:id="files.list.empty">
             <tr>
-                <td colspan="5" class="text-center"><wicket:message key="label.file.none" /></td>
+                <td colspan="5" class="text-center">
+                    <wicket:message key="label.file.none"/>
+                </td>
             </tr>
-            </wicket:container>
+        </wicket:container>
         </tbody>
     </table>
 </wicket:extend>

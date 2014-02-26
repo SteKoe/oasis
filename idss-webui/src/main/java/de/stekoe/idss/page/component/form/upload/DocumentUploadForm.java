@@ -65,7 +65,7 @@ public abstract class DocumentUploadForm extends Panel {
             }
 
             private void createFolders(File newFile) {
-                if(!newFile.getParentFile().exists())
+                if (!newFile.getParentFile().exists())
                     newFile.getParentFile().mkdirs();
             }
         };

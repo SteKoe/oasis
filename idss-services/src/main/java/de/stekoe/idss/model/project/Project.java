@@ -3,8 +3,8 @@ package de.stekoe.idss.model.project;
 import de.stekoe.idss.IDGenerator;
 import de.stekoe.idss.model.Document;
 import de.stekoe.idss.model.Identifyable;
-import de.stekoe.idss.model.enums.ProjectStatus;
 import de.stekoe.idss.model.criterion.scale.Scale;
+import de.stekoe.idss.model.enums.ProjectStatus;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -41,7 +41,7 @@ public class Project implements Serializable, Identifyable {
     }
 
     @NotNull
-    @Column(nullable=false)
+    @Column(nullable = false)
     public String getName() {
         return this.name;
     }

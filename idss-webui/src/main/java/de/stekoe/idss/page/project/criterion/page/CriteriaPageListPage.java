@@ -5,7 +5,6 @@ import de.stekoe.idss.model.criterion.CriterionPageElement;
 import de.stekoe.idss.model.criterion.SingleScaledCriterion;
 import de.stekoe.idss.page.project.ProjectPage;
 import de.stekoe.idss.page.project.criterion.SelectCriterionPage;
-import de.stekoe.idss.page.project.criterion.page.CriteriaPageDetailsPage;
 import de.stekoe.idss.page.project.criterion.page.element.SingleScaledCriterionElement;
 import de.stekoe.idss.service.CriterionPageService;
 import de.stekoe.idss.service.ProjectService;
@@ -149,8 +148,8 @@ public class CriteriaPageListPage extends ProjectPage {
         @Override
         protected void populateItem(ListItem<CriterionPageElement> item) {
             final CriterionPageElement criterionPageElement = item.getModelObject();
-            if(criterionPageElement instanceof SingleScaledCriterion) {
-                SingleScaledCriterion ssc = (SingleScaledCriterion)criterionPageElement;
+            if (criterionPageElement instanceof SingleScaledCriterion) {
+                SingleScaledCriterion ssc = (SingleScaledCriterion) criterionPageElement;
                 item.add(new SingleScaledCriterionElement("page.list.item", ssc));
             }
         }

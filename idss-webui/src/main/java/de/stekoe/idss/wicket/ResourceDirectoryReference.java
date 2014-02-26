@@ -9,10 +9,10 @@ import org.apache.wicket.util.file.File;
  * For example, to make all the files in an "images" directory available under the URL path "img",
  * you can mount this as follows:
  * <blockquote><code>
- *    mountResource("img/${name}", new ResourceDirectoryReference(themeDirectory, "images"));
+ * mountResource("img/${name}", new ResourceDirectoryReference(themeDirectory, "images"));
  * </code></blockquote>
- * @author borisgoldowsky
  *
+ * @author borisgoldowsky
  */
 public class ResourceDirectoryReference extends ResourceReference {
 
@@ -22,6 +22,7 @@ public class ResourceDirectoryReference extends ResourceReference {
 
     /**
      * Construct for a given directory.
+     *
      * @param directory
      */
     public ResourceDirectoryReference(File directory) {
@@ -32,10 +33,11 @@ public class ResourceDirectoryReference extends ResourceReference {
     /**
      * Convenience constructor where a base directory and subdirectory within it are specified.
      * Useful if you are building several ResourceDirectoryReferences that are siblings to each other.
-     * @param themeDir base directory within which the resources directory is found
+     *
+     * @param themeDir     base directory within which the resources directory is found
      * @param subdirectory name of the subdirectory
      */
-    public ResourceDirectoryReference (File themeDir, String subdirectory) {
+    public ResourceDirectoryReference(File themeDir, String subdirectory) {
         this(new File(themeDir, subdirectory));
     }
 

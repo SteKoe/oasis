@@ -28,7 +28,9 @@
 a {
   [class^="icon-"],
   [class*=" icon-"] {
-    &, &:before { display: inline; }
+    &, &:before {
+      display: inline;
+    }
   }
 }
 
@@ -67,9 +69,17 @@ ul.icons-ul {
   }
 }
 
-.icon-muted { color: @iconMuted; }
-.icon-light { color: @iconLight; }
-.icon-dark { color: @iconDark; }
+.icon-muted {
+  color: @iconMuted;
+}
+
+.icon-light {
+  color: @iconLight;
+}
+
+.icon-dark {
+  color: @iconDark;
+}
 
 // Icon Borders
 // -------------------------
@@ -90,6 +100,7 @@ ul.icons-ul {
     .border-radius(4px);
   }
 }
+
 .icon-3x {
   font-size: 3em;
   &.icon-border {
@@ -97,6 +108,7 @@ ul.icons-ul {
     .border-radius(5px);
   }
 }
+
 .icon-4x {
   font-size: 4em;
   &.icon-border {
@@ -113,13 +125,17 @@ ul.icons-ul {
   }
 }
 
-
 // Floats & Margins
 // -------------------------
 
 // Quick floats
-.pull-right { float: right; }
-.pull-left { float: left; }
+.pull-right {
+  float: right;
+}
+
+.pull-left {
+  float: left;
+}
 
 [class^="icon-"],
 [class*=" icon-"] {

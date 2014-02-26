@@ -64,7 +64,7 @@ public class DatabaseSetup {
     );
 
     private void createSystemRoles() {
-        for(java.lang.String systemRole : SYSTEMROLES) {
+        for (java.lang.String systemRole : SYSTEMROLES) {
             SystemRole role = new SystemRole();
             role.setName(systemRole);
 
@@ -77,7 +77,7 @@ public class DatabaseSetup {
     }
 
     private void createUsers() {
-        for(java.lang.String name : USERNAMES) {
+        for (java.lang.String name : USERNAMES) {
             User user = new User();
             user.setEmail(name.toLowerCase() + "@example.com");
             user.setUsername(name.toLowerCase());
@@ -85,7 +85,7 @@ public class DatabaseSetup {
             user.setActivationKey(null);
             user.setUserStatus(UserStatus.ACTIVATED);
 
-            if(user.getUsername().contains("admin")) {
+            if (user.getUsername().contains("admin")) {
                 user.setPassword("admin");
                 final List<SystemRole> systemRoles = Arrays.asList(systemRoleService.getAdminRole());
                 user.setRoles(new HashSet<SystemRole>(systemRoles));

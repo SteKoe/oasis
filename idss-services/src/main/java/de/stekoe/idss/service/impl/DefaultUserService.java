@@ -23,7 +23,6 @@ public class DefaultUserService implements UserService {
 
     @Inject
     private IUserDAO userDAO;
-
     @Inject
     private ISystemRoleDAO systemRoleDAO;
 
@@ -45,7 +44,7 @@ public class DefaultUserService implements UserService {
     @Override
     public User findByUsernameOrEmail(String value) {
         User user = findByUsername(value);
-        if(user == null) {
+        if (user == null) {
             user = findByEmail(value);
         }
 
@@ -61,8 +60,7 @@ public class DefaultUserService implements UserService {
     public void save(User entity) throws UserException {
         if (emailInUse(entity)) {
             throw new EmailAddressAlreadyInUseException();
-        }
-        else if (usernameInUse(entity)) {
+        } else if (usernameInUse(entity)) {
             throw new UsernameAlreadyInUseException();
         } else {
             userDAO.save(entity);
@@ -76,10 +74,10 @@ public class DefaultUserService implements UserService {
 
     private boolean usernameInUse(User user) {
         final User userFromDB = userDAO.findByUsername(user.getUsername());
-        if(userFromDB == null) {
+        if (userFromDB == null) {
             return false;
         }
-        if(userFromDB != null && userFromDB.getId() == user.getId()) {
+        if (userFromDB != null && userFromDB.getId() == user.getId()) {
             return false;
         }
 
@@ -88,10 +86,10 @@ public class DefaultUserService implements UserService {
 
     private boolean emailInUse(User user) {
         final User userFromDB = userDAO.findByEmail(user.getEmail());
-        if(userFromDB == null) {
+        if (userFromDB == null) {
             return false;
         }
-        if(userFromDB != null && userFromDB.getId() == user.getId()) {
+        if (userFromDB != null && userFromDB.getId() == user.getId()) {
             return false;
         }
 

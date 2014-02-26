@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Test to check wether email server configuration works.
- *
+ * <p/>
  * <p>By default it should be turned off since it always
  * tries to send an email when run
  *

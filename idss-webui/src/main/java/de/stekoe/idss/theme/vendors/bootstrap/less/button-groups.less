@@ -2,7 +2,6 @@
 // Button groups
 // --------------------------------------------------
 
-
 // Make the div behave like a button
 .btn-group {
   position: relative;
@@ -35,9 +34,11 @@
 .btn-group > .btn {
   position: relative;
 }
+
 .btn-group > .btn + .btn {
   margin-left: -1px;
 }
+
 .btn-group > .btn,
 .btn-group > .dropdown-menu,
 .btn-group > .popover {
@@ -48,9 +49,11 @@
 .btn-group > .btn-mini {
   font-size: @fontSizeMini;
 }
+
 .btn-group > .btn-small {
   font-size: @fontSizeSmall;
 }
+
 .btn-group > .btn-large {
   font-size: @fontSizeLarge;
 }
@@ -59,6 +62,7 @@
 .btn-group > .btn:first-child {
   margin-left: 0;
 }
+
 // Reset corners for large buttons
 .btn-group > .btn.large:first-child {
   margin-left: 0;
@@ -78,8 +82,6 @@
   outline: 0;
 }
 
-
-
 // Split button dropdowns
 // ----------------------
 
@@ -90,16 +92,19 @@
   *padding-top: 5px;
   *padding-bottom: 5px;
 }
+
 .btn-group > .btn-mini + .dropdown-toggle {
   padding-left: 5px;
   padding-right: 5px;
   *padding-top: 2px;
   *padding-bottom: 2px;
 }
+
 .btn-group > .btn-small + .dropdown-toggle {
   *padding-top: 5px;
   *padding-bottom: 4px;
 }
+
 .btn-group > .btn-large + .dropdown-toggle {
   padding-left: 12px;
   padding-right: 12px;
@@ -139,31 +144,32 @@
   }
 }
 
-
 // Reposition the caret
 .btn .caret {
   margin-top: 8px;
   margin-left: 0;
 }
+
 // Carets in other button sizes
 .btn-large .caret {
   margin-top: 6px;
 }
+
 .btn-large .caret {
-  border-left-width:  5px;
+  border-left-width: 5px;
   border-right-width: 5px;
-  border-top-width:   5px;
+  border-top-width: 5px;
 }
+
 .btn-mini .caret,
 .btn-small .caret {
   margin-top: 8px;
 }
+
 // Upside down carets for .dropup
 .dropup .btn-large .caret {
   border-bottom-width: 5px;
 }
-
-
 
 // Account for other colors
 .btn-primary,
@@ -178,8 +184,6 @@
   }
 }
 
-
-
 // Vertical button groups
 // ----------------------
 
@@ -187,11 +191,13 @@
   display: inline-block; // makes buttons only take up the width they need
   .ie7-inline-block();
 }
+
 .btn-group-vertical > .btn {
   display: block;
   float: none;
   max-width: 100%;
 }
+
 .btn-group-vertical > .btn + .btn {
   margin-left: 0;
   margin-top: -1px;

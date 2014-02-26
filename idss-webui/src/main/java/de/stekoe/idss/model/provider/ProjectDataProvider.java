@@ -20,7 +20,7 @@ public class ProjectDataProvider implements IDataProvider<Project> {
 
     @Override
     public Iterator<? extends Project> iterator(long first, long count) {
-        return projectService.findAllForUserPaginated(WebSession.get().getUser().getId(), (int)count, (int)first).iterator();
+        return projectService.findAllForUserPaginated(WebSession.get().getUser().getId(), (int) count, (int) first).iterator();
     }
 
     @Override

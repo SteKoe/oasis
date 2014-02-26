@@ -1,11 +1,8 @@
 package de.stekoe.idss.page.component.form.criterion;
 
-import de.stekoe.idss.model.criterion.CriterionPage;
 import de.stekoe.idss.model.criterion.SingleScaledCriterion;
 import de.stekoe.idss.model.criterion.scale.OrdinalScale;
 import de.stekoe.idss.page.component.behavior.CustomTinyMCESettings;
-import de.stekoe.idss.page.project.criterion.CreateOrdinalCriterionPage;
-import de.stekoe.idss.service.CriterionPageService;
 import de.stekoe.idss.service.CriterionService;
 import org.apache.wicket.markup.html.form.CheckBox;
 import org.apache.wicket.markup.html.form.Form;
@@ -14,7 +11,6 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
-import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import wicket.contrib.tinymce.TinyMceBehavior;
 

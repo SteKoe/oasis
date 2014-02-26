@@ -22,7 +22,7 @@ public class Placeholder extends Behavior {
 
     /**
      * @param placeholder The string which is set as value of the placeholder attribute in HTML.
-     * @param component Component which is used to load the properties file from.
+     * @param component   Component which is used to load the properties file from.
      */
     public Placeholder(String placeholder, Component component) {
         if (component == null) {

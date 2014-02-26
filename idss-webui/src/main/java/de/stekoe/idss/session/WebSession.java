@@ -17,8 +17,10 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 @SuppressWarnings("serial")
 public class WebSession extends AuthenticatedWebSession {
 
-    @SpringBean UserService userService;
-    @SpringBean AuthService authService;
+    @SpringBean
+    UserService userService;
+    @SpringBean
+    AuthService authService;
 
     private User user;
     private static final Logger LOG = Logger.getLogger(WebSession.class);
@@ -55,7 +57,7 @@ public class WebSession extends AuthenticatedWebSession {
     @Override
     public Roles getRoles() {
         LOG.info("Checking roles on user " + getUser());
-        if(getUser() != null) {
+        if (getUser() != null) {
             return new Roles(getUser().getRoles().toArray(new java.lang.String[getUser().getRoles().size()]));
         }
 
@@ -65,15 +67,15 @@ public class WebSession extends AuthenticatedWebSession {
     /**
      * This method is called by {@link #signIn(java.lang.String, java.lang.String)}
      *
-     * @param username  The username to authenticate
-     * @param password  The password of the user to authenticate
+     * @param username The username to authenticate
+     * @param password The password of the user to authenticate
      * @return true if username and password match, false otherwise
      */
     @Override
     public boolean authenticate(java.lang.String username, java.lang.String password) {
         final AuthStatus authStatus = authenticateByService(username, password);
 
-        if(authStatus.equals(AuthStatus.SUCCESS)) {
+        if (authStatus.equals(AuthStatus.SUCCESS)) {
             final User user = getUserFromService(username);
             setUser(user);
             return true;

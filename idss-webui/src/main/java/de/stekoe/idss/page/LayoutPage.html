@@ -1,47 +1,47 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
 <head>
-<wicket:head>
-    <meta charset="utf-8">
+    <wicket:head>
+        <meta charset="utf-8">
 
-    <title wicket:id="pageTitle"></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+        <title wicket:id="pageTitle"></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-    <!--[if lt IE 9]>
-    <script src="js/html5shiv.js"></script>
-    <![endif]-->
-</wicket:head>
+        <!--[if lt IE 9]>
+        <script src="js/html5shiv.js"></script>
+        <![endif]-->
+    </wicket:head>
 </head>
 
 <body>
-    <div wicket:id="dev"></div>
-    <div class="container">
-        <div class="masthead">
-            <div class="navbar-secondary">
-                <div class="pull-right" wicket:id="nav.user"></div>
-            </div>
-            <a href="" wicket:id="logo.link">
-                <img id="logo" wicket:id="logo">
-            </a>
-
-            <div wicket:id="nav.main"></div>
+<div wicket:id="dev"></div>
+<div class="container">
+    <div class="masthead">
+        <div class="navbar-secondary">
+            <div class="pull-right" wicket:id="nav.user"></div>
         </div>
+        <a href="" wicket:id="logo.link">
+            <img id="logo" wicket:id="logo">
+        </a>
 
-        <div wicket:id="systemmessages"></div>
-
-        <!-- le content -->
-        <wicket:child/>
-
-        <div class="footer">
-            <hr>
-            <p class="text-center small">
-                <small wicket:id="application.footer">
-                </small>
-            </p>
-            <p class="text-center small" wicket:id="nav.lang">
-
-            </p>
-        </div>
+        <div wicket:id="nav.main"></div>
     </div>
+
+    <div wicket:id="systemmessages"></div>
+
+    <!-- le content -->
+    <wicket:child/>
+
+    <div class="footer">
+        <hr>
+        <p class="text-center small">
+            <small wicket:id="application.footer">
+            </small>
+        </p>
+        <p class="text-center small" wicket:id="nav.lang">
+
+        </p>
+    </div>
+</div>
 </body>
 </html>

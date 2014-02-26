@@ -1,9 +1,9 @@
 package de.stekoe.idss.page.component.form.project;
 
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.form.DateTextField;
-import de.stekoe.idss.page.component.behavior.CustomTinyMCESettings;
 import de.stekoe.idss.model.enums.ProjectStatus;
 import de.stekoe.idss.model.project.Project;
+import de.stekoe.idss.page.component.behavior.CustomTinyMCESettings;
 import de.stekoe.idss.page.project.ProjectListPage;
 import de.stekoe.idss.service.ProjectService;
 import de.stekoe.idss.wicket.EnumChoiceRenderer;
@@ -27,7 +27,8 @@ import java.util.Locale;
  */
 public abstract class ProjectForm extends Panel {
 
-    @SpringBean private ProjectService projectService;
+    @SpringBean
+    private ProjectService projectService;
 
     private final String projectId;
 
@@ -46,7 +47,7 @@ public abstract class ProjectForm extends Panel {
         final LoadableDetachableModel<Project> projectModel = new LoadableDetachableModel<Project>() {
             @Override
             protected Project load() {
-                if(projectId == null) {
+                if (projectId == null) {
                     return new Project();
                 }
 

@@ -8,31 +8,57 @@ import de.stekoe.idss.model.User;
 
 import java.util.List;
 
-/**
- * @author Stephan Koeninger <mail@stekoe.de>
- */
 public interface UserService {
+    /**
+     * Find a specific user by its username
+     * @param username The username to look for
+     * @return The user if found or null
+     */
     User findByUsername(String username);
 
+    /**
+     * Finds a list of users which usernames match the given username.
+     * @param username The username (or part of it) to lookup
+     * @return A user who's username contains the given username
+     */
     List<User> findAllByUsername(String username);
 
+    /**
+     * @param email The email to lookup
+     * @return The user with the given email
+     */
     User findByEmail(String email);
 
-    User findByUsernameOrEmail(String value);
+    /**
+     * @param usernameOrEmail The username or email address to lookup
+     * @return The user with the given username or email
+     */
+    User findByUsernameOrEmail(String usernameOrEmail);
+
+    /**
+     * @return A list of all users
+     */
+    List<User> getAllUsers();
+
+    /**
+     * @param code The activation code to lookup
+     * @return The user with the given activation code
+     */
+    User findByActivationCode(String code);
+
+    /**
+     * @return A list of all usernames
+     */
+    List<String> getAllUsernames();
+
+    /**
+     * @return A list of all email addresses
+     */
+    List<String> getAllEmailAddresses();
+
+    void save(User entity) throws UserException;
 
     User findById(String id);
 
-    List<User> getAllUsers();
-
-    User findByActivationCode(String code);
-
-    List<String> getAllUsernames();
-
-    List<String> getAllEmailAddresses();
-
-    SystemRole getRole(String rolename);
-
-    boolean save(User user) throws UserException;
-
-    void delete(String userId);
+    void delete(User entity);
 }

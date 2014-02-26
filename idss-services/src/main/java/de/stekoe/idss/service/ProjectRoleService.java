@@ -1,5 +1,6 @@
 package de.stekoe.idss.service;
 
+import de.stekoe.idss.model.project.Project;
 import de.stekoe.idss.model.project.ProjectRole;
 
 /**
@@ -7,5 +8,8 @@ import de.stekoe.idss.model.project.ProjectRole;
  */
 public interface ProjectRoleService {
     ProjectRole findById(String id);
+
     void save(ProjectRole role);
+
+    void delete(ProjectRole entity);
 }

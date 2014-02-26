@@ -22,8 +22,6 @@ public class SingleScaledCriterionElement extends Panel {
         super(aId);
         itsModel = new CompoundPropertyModel<SingleScaledCriterion>(aSingleScaledCriterion);
         setDefaultModel(new CompoundPropertyModel<SingleScaledCriterion>(aSingleScaledCriterion));
-
-
     }
 
     @Override

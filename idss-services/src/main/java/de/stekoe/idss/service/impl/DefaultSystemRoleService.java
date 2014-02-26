@@ -36,12 +36,17 @@ public class DefaultSystemRoleService implements SystemRoleService {
     }
 
     @Override
-    public Map<Integer, String> getAsSelectionList() {
-        return null;
+    public SystemRole findById(String id) {
+        return systemRoleDAO.findById(id);
     }
 
     @Override
     public void save(SystemRole systemRole) {
         systemRoleDAO.save(systemRole);
+    }
+
+    @Override
+    public void delete(SystemRole entity) {
+        systemRoleDAO.delete(entity);
     }
 }

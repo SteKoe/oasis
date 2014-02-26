@@ -2,13 +2,9 @@ package de.stekoe.idss.service.impl;
 
 import de.stekoe.idss.dao.ISystemRoleDAO;
 import de.stekoe.idss.dao.IUserDAO;
-import de.stekoe.idss.exception.EmailAddressAlreadyInUseException;
 import de.stekoe.idss.exception.UserException;
-import de.stekoe.idss.exception.UsernameAlreadyInUseException;
-import de.stekoe.idss.model.SystemRole;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.service.UserService;
-import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,17 +31,17 @@ public class DefaultUserService implements UserService {
     }
 
     @Override
-    public List<User> findAllByUsername(java.lang.String username) {
+    public List<User> findAllByUsername(String username) {
         return userDAO.findAllByUsername(username);
     }
 
     @Override
-    public User findByEmail(java.lang.String email) {
+    public User findByEmail(String email) {
         return userDAO.findByEmail(email);
     }
 
     @Override
-    public User findByUsernameOrEmail(java.lang.String value) {
+    public User findByUsernameOrEmail(String value) {
         User user = findByUsername(value);
         if(user == null) {
             user = findByEmail(value);
@@ -55,26 +51,17 @@ public class DefaultUserService implements UserService {
     }
 
     @Override
-    public User findById(java.lang.String id) {
+    public User findById(String id) {
         return userDAO.findById(id);
     }
 
     @Override
-    public boolean save(User user) throws UserException {
-        if (emailInUse(user)) {
-            throw new EmailAddressAlreadyInUseException();
-        }
-        if (usernameInUse(user)) {
-            throw new UsernameAlreadyInUseException();
-        }
-
-        userDAO.save(user);
-        return true;
+    public void save(User entity) throws UserException {
     }
 
     @Override
-    public void delete(String user) {
-        userDAO.delete(user);
+    public void delete(User entity) {
+        userDAO.delete(entity);
     }
 
     private boolean usernameInUse(User user) {
@@ -121,18 +108,13 @@ public class DefaultUserService implements UserService {
     }
 
     @Override
-    public List<java.lang.String> getAllEmailAddresses() {
-        List<java.lang.String> mail = new ArrayList<java.lang.String>();
+    public List<String> getAllEmailAddresses() {
+        List<String> mail = new ArrayList<String>();
 
         for (User u : getAllUsers()) {
             mail.add(u.getEmail());
         }
 
         return mail;
-    }
-
-    @Override
-    public SystemRole getRole(java.lang.String rolename) {
-        return systemRoleDAO.getRoleByName(rolename);
     }
 }

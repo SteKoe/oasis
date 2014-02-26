@@ -23,9 +23,7 @@ public class DefaultCriterionPageService implements CriterionPageService {
 
     @Override
     public void save(CriterionPage entity) {
-        entity.setOrdering(getNextPageNumForProject(entity.getProject().getId()));
         criterionPageDAO.save(entity);
-        reorderPages(entity.getProject());
     }
 
     @Override
@@ -36,7 +34,6 @@ public class DefaultCriterionPageService implements CriterionPageService {
     }
 
     private void reorderPages(Project aProject) {
-        // Reorder
         final List<CriterionPage> criterionPagesForProject = getCriterionPagesForProject(aProject.getId());
         for(int i = 0; i < criterionPagesForProject.size(); i++) {
             final CriterionPage criterionPage = criterionPagesForProject.get(i);

@@ -28,10 +28,9 @@ public interface SystemRoleService {
      */
     SystemRole getUserRole();
 
-    /**
-     * @return
-     */
-    Map<Integer, String> getAsSelectionList();
+    void delete(SystemRole entity);
 
     void save(SystemRole systemRole);
+
+    SystemRole findById(String id);
 }

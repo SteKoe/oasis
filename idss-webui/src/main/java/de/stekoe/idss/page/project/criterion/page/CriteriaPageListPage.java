@@ -131,6 +131,7 @@ public class CriteriaPageListPage extends ProjectPage {
             public void onClick() {
                 CriterionPage criterionPage = new CriterionPage();
                 criterionPage.setProject(getProject());
+                criterionPage.setOrdering(criterionPageService.getNextPageNumForProject(getProjectId()));
                 criterionPageService.save(criterionPage);
 
                 setResponsePage(getPage());

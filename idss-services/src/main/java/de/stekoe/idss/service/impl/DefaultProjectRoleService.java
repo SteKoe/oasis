@@ -26,4 +26,9 @@ public class DefaultProjectRoleService implements ProjectRoleService {
     public void save(ProjectRole role) {
         projectRoleDAO.save(role);
     }
+
+    @Override
+    public void delete(ProjectRole entity) {
+        projectRoleDAO.delete(entity);
+    }
 }

@@ -23,8 +23,6 @@ public class DefaultUserService implements UserService {
 
     @Inject
     private IUserDAO userDAO;
-    @Inject
-    private ISystemRoleDAO systemRoleDAO;
 
     @Override
     public User findByUsername(String username) {

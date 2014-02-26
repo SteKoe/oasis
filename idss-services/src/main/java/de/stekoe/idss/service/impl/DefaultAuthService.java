@@ -88,10 +88,6 @@ public class DefaultAuthService implements AuthService {
         final PermissionObject permissionObject = PermissionObject.valueOf(identifyable.getClass());
         permissionsFilter(permissions, permissionType, permissionObject);
 
-        if (permissions.isEmpty()) {
-            return false;
-        }
-
         for (Permission permission : permissions) {
             if (permission.hasObjectId() && identifyable.getId().equals(permission.getObjectId())) {
                 return true;
@@ -101,6 +97,13 @@ public class DefaultAuthService implements AuthService {
         return false;
     }
 
+    /**
+     * Filters out all permissions of aPermissionList which are not type of aPermissionType or do not have aPermissionObject
+     *
+     * @param aPermissionList List of Permissions to filter
+     * @param aPermissionType PermissionType which has to be part of Permission
+     * @param aPermissionObject PermissionObject which has to be part of Permission
+     */
     private void permissionsFilter(List<Permission> aPermissionList, final PermissionType aPermissionType, final PermissionObject aPermissionObject) {
         CollectionUtils.filter(aPermissionList, new Predicate() {
             @Override
@@ -109,7 +112,7 @@ public class DefaultAuthService implements AuthService {
                     final Permission permission = (Permission) object;
                     final boolean permissionObjectFits = permission.getObjectType().equals(aPermissionObject);
                     final boolean permissionTypeFits = permission.getPermissionType().equals(aPermissionType);
-                    return (permissionObjectFits && permissionTypeFits);
+                    return permissionObjectFits && permissionTypeFits;
                 }
                 return false;
             }

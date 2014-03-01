@@ -1,8 +1,6 @@
 #!/bin/bash
 #
-# tomcat7     This shell script takes care of starting and stopping Tomcat
-#
-# chkconfig: - 80 20
+# tomcat     This shell script takes care of starting and stopping Tomcat
 #
 ### BEGIN INIT INFO
 # Provides: tomcat7
@@ -16,6 +14,7 @@
  
 ## Source function library.
 #. /etc/rc.d/init.d/functions
+
 TOMCAT_HOME="/home/tomcat/tomcat"
 TOMCAT_USER="tomcat"
 

@@ -11,7 +11,6 @@ import org.apache.wicket.markup.html.form.upload.FileUploadField;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.lang.Bytes;
-import org.apache.wicket.util.upload.FileUploadException;
 
 import java.io.File;
 import java.io.IOException;
@@ -44,34 +43,41 @@ public abstract class DocumentUploadForm extends Panel {
                     document.setSize(uploadedFile.getSize());
                     document.setUser(WebSession.get().getUser());
 
-                    try {
-                        final String absolutePath = documentService.getAbsolutePath(document.getId());
+                    final String absolutePath = documentService.getAbsolutePath(document.getId());
 
-                        File newFile = new File(absolutePath);
-                        createFolders(newFile);
-                        createFile(newFile);
-                        uploadedFile.writeTo(newFile);
-
+                    File newFile = new File(absolutePath);
+                    if(createFolders(newFile) && createFile(uploadedFile, newFile)) {
                         documentService.save(document);
-
                         onAfterSubmit(document);
-                    } catch (Exception e) {
-                        LOG.error("Error uploading file", e);
+                    } else {
+                        WebSession.get().error(getString("message.error.upload"));
                     }
                 }
             }
 
-            private boolean createFile(File newFile) throws IOException {
-                return newFile.createNewFile();
+            private boolean createFile(FileUpload aUploadedFile, File aNewFile) {
+                try {
+                    aNewFile.createNewFile();
+                    aUploadedFile.writeTo(aNewFile);
+                } catch (IOException e) {
+                    LOG.error("Error uploading file!", e);
+                    return false;
+                }
+                return true;
             }
 
-            private void createFolders(File newFile) {
-                final File parentFile = newFile.getParentFile();
-                if (!parentFile.exists()) {
-                    if(parentFile.mkdirs()) {
-                        LOG.error("Could not create required folders for uploading documents: " + newFile.getAbsolutePath());
+            private boolean createFolders(File newFile) {
+                if(newFile != null) {
+                    final File parentFile = newFile.getParentFile();
+                    if (parentFile != null && parentFile.exists()) {
+                        if(parentFile.mkdirs()) {
+                            return true;
+                        }
                     }
                 }
+
+                LOG.error("Could not create required folders for uploading documents: " + newFile.getAbsolutePath());
+                return false;
             }
         };
 

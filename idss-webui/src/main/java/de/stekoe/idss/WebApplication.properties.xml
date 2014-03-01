@@ -139,6 +139,7 @@
     </entry>
     <entry key="message.project.create.success">Das Projekt wurde erfolgreich angelegt!</entry>
     <entry key="message.error.404">Die angeforderte Seite konnte nicht gefunden werden!</entry>
+    <entry key="message.error.upload">Beim Hochladen des Dokumentes ist ein Fehler aufgetreten!</entry>
 
 
     <!-- Project stati -->

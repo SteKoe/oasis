@@ -35,11 +35,6 @@ import java.util.Locale;
 @Component
 public class WebApplication extends AuthenticatedWebApplication implements ApplicationContextAware {
 
-    private static final Logger LOG = Logger.getLogger(WebApplication.class);
-
-    /**
-     * Languages available for this application.
-     */
     public static final Locale[] LANGUAGES = {
             Locale.GERMAN
     };

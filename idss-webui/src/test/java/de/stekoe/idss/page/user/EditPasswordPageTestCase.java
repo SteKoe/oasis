@@ -37,7 +37,7 @@ public class EditPasswordPageTestCase extends AbstractWicketApplicationTester {
         formTester.submit();
 
         wicketTester.assertRenderedPage(EditPasswordPage.class);
-        wicketTester.assertErrorMessages("Bitte tragen Sie einen Wert im Feld 'Aktuelles Passwort' ein.");
+        wicketTester.assertErrorMessages("Dieses Feld ist obligatorisch!");
     }
 
     @Test

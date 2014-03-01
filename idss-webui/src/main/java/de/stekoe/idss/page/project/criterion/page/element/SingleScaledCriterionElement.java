@@ -3,7 +3,6 @@ package de.stekoe.idss.page.project.criterion.page.element;
 import de.stekoe.idss.model.criterion.SingleScaledCriterion;
 import de.stekoe.idss.page.project.criterion.EditOrdinalCriterionPage;
 import de.stekoe.idss.service.CriterionService;
-import de.stekoe.idss.service.impl.DefaultCriterionService;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.Link;

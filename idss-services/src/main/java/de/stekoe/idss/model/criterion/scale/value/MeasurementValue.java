@@ -4,6 +4,7 @@ import de.stekoe.idss.IDGenerator;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -15,6 +16,10 @@ public abstract class MeasurementValue implements Serializable {
 
     private String id = IDGenerator.createId();
     private String value;
+
+    protected MeasurementValue() {
+        // NOP
+    }
 
     protected MeasurementValue(String value) {
         this.value = value;
@@ -30,6 +35,8 @@ public abstract class MeasurementValue implements Serializable {
         this.id = id;
     }
 
+    @NotNull
+    @Column(nullable = false)
     public String getValue() {
         return value;
     }
@@ -40,7 +47,11 @@ public abstract class MeasurementValue implements Serializable {
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        if(value == null) {
+            return 0;
+        } else {
+            return value.hashCode();
+        }
     }
 
     @Override

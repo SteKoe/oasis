@@ -2,6 +2,7 @@ package de.stekoe.idss.page.component.form.auth.register;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.dialog.Alert;
 import de.agilecoders.wicket.core.markup.html.bootstrap.dialog.Alert.Type;
+import de.agilecoders.wicket.core.markup.html.bootstrap.form.FormGroup;
 import de.stekoe.idss.exception.EmailAddressAlreadyInUseException;
 import de.stekoe.idss.exception.UserException;
 import de.stekoe.idss.exception.UsernameAlreadyInUseException;
@@ -15,6 +16,7 @@ import de.stekoe.idss.service.MailService;
 import de.stekoe.idss.service.SystemRoleService;
 import de.stekoe.idss.service.UserService;
 import de.stekoe.idss.validator.UniqueValueValidator;
+import de.stekoe.idss.wicket.MarkRequiredFieldsBehavior;
 import org.apache.log4j.Logger;
 import org.apache.wicket.markup.html.form.*;
 import org.apache.wicket.markup.html.form.validation.EqualPasswordInputValidator;
@@ -135,29 +137,31 @@ public class RegistrationForm extends Panel {
             }
         };
         add(itsForm);
+        itsForm.setModel(new CompoundPropertyModel<User>(itsUser));
 
         RequiredTextField usernameField = new RequiredTextField<String>("username");
+        itsForm.add(new FormGroup("group.username").add(usernameField));
+        usernameField.setLabel(Model.of(getString("label.username")));
         usernameField.add(new UniqueValueValidator(itsUserService.getAllUsernames()));
-        itsForm.add(usernameField);
 
         EmailTextField email = new EmailTextField("email");
-        email.setRequired(true);
+        itsForm.add(new FormGroup("group.email").add(email));
+        email.setLabel(Model.of(getString("label.email")));
         email.add(new UniqueValueValidator(itsUserService.getAllEmailAddresses()));
-        itsForm.add(email);
 
         PasswordTextField password = new PasswordTextField("password");
+        itsForm.add(new FormGroup("group.password").add(password));
         password.setLabel(Model.of(getString("label.password")));
-        itsForm.add(password);
 
         PasswordTextField passwordConfirm = new PasswordTextField("passwordConfirm", Model.of(""));
-        itsForm.add(passwordConfirm);
+        itsForm.add(new FormGroup("group.passwordConfirm").add(passwordConfirm));
+        passwordConfirm.setLabel(Model.of(getString("label.password.confirm")));
 
         Button submitButton = new Button("submit");
-        submitButton.setModel(Model.of(getString("label.submit")));
         itsForm.add(submitButton);
 
-        itsForm.setModel(new CompoundPropertyModel<User>(itsUser));
         itsForm.add(getPasswordsEqualBehavior());
+        itsForm.add(new MarkRequiredFieldsBehavior());
     }
 
     private String createActivationLink(User aUser) {
@@ -168,6 +172,8 @@ public class RegistrationForm extends Panel {
     }
 
     private EqualPasswordInputValidator getPasswordsEqualBehavior() {
-        return new EqualPasswordInputValidator((FormComponent) itsForm.get("password"), (FormComponent) itsForm.get("passwordConfirm"));
+        final FormComponent formComponent1 = (FormComponent) itsForm.get("group.password:group.password_body:password");
+        final FormComponent formComponent2 = (FormComponent) itsForm.get("group.passwordConfirm:group.passwordConfirm_body:passwordConfirm");
+        return new EqualPasswordInputValidator(formComponent1, formComponent2);
     }
 }

@@ -15,6 +15,8 @@ import java.io.Serializable;
 @Table(name = "Permission")
 public class Permission implements Serializable {
 
+    private static final long serialVersionUID = 101403011956L;
+
     private String id = IDGenerator.createId();
     private PermissionObject permissionObject;
     private PermissionType permissionType;

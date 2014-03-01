@@ -23,6 +23,8 @@ import java.util.UUID;
 @Table(name = "User", uniqueConstraints = @UniqueConstraint(columnNames = {"username", "email"}))
 public class User implements Serializable {
 
+    private static final long serialVersionUID = 101403011956L;
+
     private static final int MIN_PASSWORD_LENGTH = 5;
 
     private String id = IDGenerator.createId();

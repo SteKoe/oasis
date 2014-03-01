@@ -73,8 +73,7 @@ public class DefaultUserService implements UserService {
         final User userFromDB = userDAO.findByUsername(user.getUsername());
         if (userFromDB == null) {
             return false;
-        }
-        if (userFromDB != null && userFromDB.getId() == user.getId()) {
+        } else if (userFromDB.getId().equals(user.getId())) {
             return false;
         }
 
@@ -85,8 +84,7 @@ public class DefaultUserService implements UserService {
         final User userFromDB = userDAO.findByEmail(user.getEmail());
         if (userFromDB == null) {
             return false;
-        }
-        if (userFromDB != null && userFromDB.getId() == user.getId()) {
+        } else if (userFromDB.getId().equals(user.getId())) {
             return false;
         }
 

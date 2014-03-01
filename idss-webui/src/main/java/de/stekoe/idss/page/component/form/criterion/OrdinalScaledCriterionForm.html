@@ -3,18 +3,17 @@
 <body>
 <wicket:panel>
     <form wicket:id="ordinalScaledCriterionForm">
-        <div class="form-group">
-            <label for="name">
-                <wicket:message key="label.name"/>
-            </label>
+        <div class="form-group" wicket:id="name.group">
             <input type="text" wicket:id="name" class="form-control">
         </div>
-        <div class="form-group">
+
+        <div class="form-group" wicket:id="description.group">
             <label for="name">
                 <wicket:message key="label.description"/>
             </label>
             <input type="text" wicket:id="description" class="form-control">
         </div>
+
         <div class="form-group">
             <label class="checkbox-inline">
                 <input type="checkbox" wicket:id="allowNoChoice">
@@ -24,14 +23,16 @@
                 </p>
             </label>
         </div>
+    </form>
 
+    <form wicket:id="valueForm">
         <fieldset class="form-horizontal">
             <legend>Ausprägungen</legend>
-            <div class="form-group">
+            <div class="form-group" wicket:id="value.group">
                 <label for="measurementValue" class="col-sm-3 control-label">Neue Ausprägung</label>
 
                 <div class="col-sm-7">
-                    <input type="text" class="form-control" id="measurementValue">
+                    <input type="text" class="form-control" wicket:id="value">
                 </div>
                 <div class="col-sm-2 text-right">
                     <button type="submit" class="btn btn-success">
@@ -42,32 +43,32 @@
 
             <table class="table table-border-top-bottom">
                 <tbody>
-                <tr>
-                    <td>männlich</td>
-                    <td class="text-right">
-                        <div class="btn-group btn-group-xs">
-                            <a href="" class="btn btn-default btn-xs"><i class="fa fa-caret-up"></i></a>
-                            <a href="" class="btn btn-default btn-xs"><i class="fa fa-caret-down"></i></a>
-                        </div>
-                        <div class="btn-group btn-group-xs">
-                            <a href="" class="btn btn-default btn-xs"><i class="fa fa-pencil"></i></a>
-                            <a href="" class="btn btn-default btn-xs"><i class="fa fa-times"></i></a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2" class="empty text-center">Leer</td>
-                </tr>
+                    <tr wicket:id="value.list">
+                        <td wicket:id="value.list.label">männlich</td>
+                        <td class="text-right">
+                            <div class="btn-group btn-group-xs">
+                                <a href="" class="btn btn-default btn-xs"><i class="fa fa-caret-up"></i></a>
+                                <a href="" class="btn btn-default btn-xs"><i class="fa fa-caret-down"></i></a>
+                            </div>
+                            <div class="btn-group btn-group-xs">
+                                <a href="" class="btn btn-default btn-xs"><i class="fa fa-pencil"></i></a>
+                                <a href="" class="btn btn-default btn-xs"><i class="fa fa-times"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr wicket:id="value.list.empty">
+                        <td colspan="2" class="empty text-center">Leer</td>
+                    </tr>
                 </tbody>
             </table>
         </fieldset>
-
-        <div class="form-group well">
-            <button type="submit" class="btn btn-success">
-                <wicket:message key="label.save"/>
-            </button>
-        </div>
     </form>
+
+    <div class="form-group well">
+        <button type="submit" class="btn btn-success" wicket:id="submit.ordinalScaledCriterionForm">
+            <wicket:message key="label.save"/>
+        </button>
+    </div>
 </wicket:panel>
 </body>
 </html>

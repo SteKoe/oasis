@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -87,7 +88,7 @@ public class DefaultProjectService implements ProjectService {
             return false;
         }
 
-        final Set<Permission> permissions = pm.getProjectRole().getPermissions();
+        final Set<Permission> permissions = new HashSet<Permission>(pm.getProjectRole().getPermissions());
 
         for (Permission permission : permissions) {
             if (permission.getPermissionObject().equals(PermissionObject.valueOf(Project.class)) && permission.getPermissionType().equals(permissionType)) {

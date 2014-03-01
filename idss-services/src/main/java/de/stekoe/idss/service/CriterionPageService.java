@@ -1,6 +1,7 @@
 package de.stekoe.idss.service;
 
 import de.stekoe.idss.model.criterion.CriterionPage;
+import de.stekoe.idss.model.criterion.CriterionPageElement;
 
 import java.util.List;
 
@@ -15,8 +16,6 @@ public interface CriterionPageService {
         UP,
         DOWN;
     }
-
-    ;
 
     /**
      * Finds a {@link CriterionPage} by the given id
@@ -72,4 +71,11 @@ public interface CriterionPageService {
      * @return The CriterionPage or null if none was found
      */
     CriterionPage findByOrdering(int ordering, String projectId);
+
+    /**
+     * @param aCriterionPage
+     */
+    void reorderPageElements(CriterionPage aCriterionPage);
+
+    void deletePageElement(CriterionPageElement aCriterionPageElement);
 }

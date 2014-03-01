@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -16,6 +17,8 @@ public abstract class Criterion extends CriterionPageElement implements Serializ
     private String description;
     private boolean allowNoChoice = false;
 
+    @NotNull
+    @Column(nullable = false)
     public String getName() {
         return name;
     }

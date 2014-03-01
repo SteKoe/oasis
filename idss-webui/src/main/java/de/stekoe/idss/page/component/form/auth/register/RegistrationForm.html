@@ -21,37 +21,24 @@
                             <wicket:message key="form.register.title"></wicket:message>
                         </legend>
 
-                        <div class="form-group">
-                            <label for="username">
-                                <wicket:message key="label.username"/>
-                            </label>
+                        <div class="form-group" wicket:id="group.username">
                             <input id="username" wicket:id="username" type="text" class="form-control">
                         </div>
 
-                        <div class="form-group">
-                            <label for="email">
-                                <wicket:message key="label.email"/>
-                            </label>
+                        <div class="form-group" wicket:id="group.email">
                             <input id="email" wicket:id="email" type="email" class="form-control">
                         </div>
 
-                        <div class="form-group">
-                            <label for="password">
-                                <wicket:message key="label.password"/>
-                            </label>
+                        <div class="form-group" wicket:id="group.password">
                             <input id="password" wicket:id="password" type="password" class="form-control">
                         </div>
 
-                        <div class="form-group">
-                            <label for="passwordConfirm">
-                                <wicket:message key="label.password.confirm"/>
-                            </label>
-                            <input id="passwordConfirm" wicket:id="passwordConfirm" type="password"
-                                   class="form-control">
+                        <div class="form-group" wicket:id="group.passwordConfirm">
+                            <input id="passwordConfirm" wicket:id="passwordConfirm" type="password" class="form-control">
                         </div>
 
-                        <div class="form-group">
-                            <button wicket:id="submit" type="submit" class="btn btn-default">
+                        <div class="form-group well">
+                            <button wicket:id="submit" type="submit" class="btn btn-success">
                                 <wicket:message key="label.submit"/>
                             </button>
                         </div>

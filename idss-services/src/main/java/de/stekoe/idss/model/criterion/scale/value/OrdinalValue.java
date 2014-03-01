@@ -11,6 +11,10 @@ import javax.persistence.PrimaryKeyJoinColumn;
 public class OrdinalValue extends MeasurementValue {
     private int rank;
 
+    public OrdinalValue() {
+        // NOP
+    }
+
     public OrdinalValue(int rank, String value) {
         super(value);
         this.rank = rank;

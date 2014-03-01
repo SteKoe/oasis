@@ -1,7 +1,9 @@
 package de.stekoe.idss.service.impl;
 
 import de.stekoe.idss.dao.impl.CriterionDAO;
+import de.stekoe.idss.dao.impl.CriterionPageDAO;
 import de.stekoe.idss.model.criterion.Criterion;
+import de.stekoe.idss.model.criterion.SingleScaledCriterion;
 import de.stekoe.idss.service.CriterionService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +20,9 @@ public class DefaultCriterionService implements CriterionService {
     @Inject
     private CriterionDAO itsCriterionDAO;
 
+    @Inject
+    private CriterionPageDAO itsCriterionPageDAO;
+
     @Override
     public Criterion findById(String id) {
         return itsCriterionDAO.findById(id);
@@ -29,7 +34,7 @@ public class DefaultCriterionService implements CriterionService {
     }
 
     @Override
-    public void delete(Criterion entity) {
-        itsCriterionDAO.delete(entity);
+    public void findPageOfCriterionElement(SingleScaledCriterion aCriterion) {
+        itsCriterionPageDAO.findPageOfCriterionElement(aCriterion);
     }
 }

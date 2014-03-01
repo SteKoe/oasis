@@ -1,5 +1,6 @@
 package de.stekoe.idss.page.component.form.auth.login;
 
+import de.agilecoders.wicket.core.markup.html.bootstrap.form.FormGroup;
 import de.stekoe.idss.page.component.feedbackpanel.MyFencedFeedbackPanel;
 import de.stekoe.idss.page.project.ProjectListPage;
 import de.stekoe.idss.service.AuthService;
@@ -33,7 +34,6 @@ public class LoginForm extends Panel {
      */
     public LoginForm(String id) {
         super(id);
-        add(new MyFencedFeedbackPanel("hiddenFeedback", this));
         add(new SignInForm("loginForm"));
     }
 
@@ -54,10 +54,14 @@ public class LoginForm extends Panel {
             setModel(new CompoundPropertyModel(this));
 
             TextField usernameTextField = new TextField("username");
-            add(usernameTextField);
+            usernameTextField.setLabel(Model.of(getString("label.username")));
+            usernameTextField.setRequired(true);
+            add(new FormGroup("group.username").add(usernameTextField));
 
             PasswordTextField passwordTextField = new PasswordTextField("password");
-            add(passwordTextField);
+            passwordTextField.setLabel(Model.of(getString("label.password")));
+            passwordTextField.setRequired(true);
+            add(new FormGroup("group.password").add(passwordTextField));
 
             Button submitButton = new Button("submit");
             submitButton.setModel(Model.of(getString("label.submit")));
@@ -87,12 +91,6 @@ public class LoginForm extends Panel {
                         case USER_NOT_ACTIVATED:
                             message = getString("message.login.error.not_activated");
                             error = false;
-                            break;
-                        case USER_NOT_FOUND:
-                            message = getString("message.login.error.user_not_found");
-                            break;
-                        case WRONG_PASSWORD:
-                            message = getString("message.login.error.wrong_password");
                             break;
                         default:
                             message = getString("message.login.error");

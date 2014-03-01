@@ -2,6 +2,7 @@ package de.stekoe.idss.dao.impl;
 
 import de.stekoe.idss.dao.ICriterionPageDAO;
 import de.stekoe.idss.model.criterion.CriterionPage;
+import de.stekoe.idss.model.criterion.SingleScaledCriterion;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
@@ -43,6 +44,13 @@ public class CriterionPageDAO extends GenericDAO<CriterionPage> implements ICrit
         final Criteria criteria = getSession().createCriteria(getPersistedClass());
         criteria.add(Restrictions.eq("project.id", projectId));
         criteria.add(Restrictions.eq("ordering", ordering));
+        return (CriterionPage) criteria.uniqueResult();
+    }
+
+    @Override
+    public CriterionPage findPageOfCriterionElement(SingleScaledCriterion aCriterion) {
+        final Criteria criteria = getSession().createCriteria(getPersistedClass());
+        criteria.add(Restrictions.eq("pageElements.id", aCriterion.getId()));
         return (CriterionPage) criteria.uniqueResult();
     }
 

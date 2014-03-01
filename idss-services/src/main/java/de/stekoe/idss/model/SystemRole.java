@@ -17,6 +17,8 @@ import java.util.Set;
 @Table(name = "SystemRole")
 public class SystemRole implements Serializable {
 
+    private static final long serialVersionUID = 101403011955L;
+
     public static final transient String USER = "USER";
     public static final transient String ADMIN = "ADMIN";
 

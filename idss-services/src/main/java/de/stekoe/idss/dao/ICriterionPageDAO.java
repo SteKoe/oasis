@@ -1,6 +1,7 @@
 package de.stekoe.idss.dao;
 
 import de.stekoe.idss.model.criterion.CriterionPage;
+import de.stekoe.idss.model.criterion.SingleScaledCriterion;
 
 import java.util.List;
 
@@ -29,4 +30,6 @@ public interface ICriterionPageDAO extends IGenericDAO<CriterionPage> {
      * @return The CriterionPage if found, null otherwise
      */
     CriterionPage findByOrdering(int ordering, String projectId);
+
+    CriterionPage findPageOfCriterionElement(SingleScaledCriterion aCriterion);
 }

@@ -2,6 +2,7 @@ package de.stekoe.idss.service.impl;
 
 import de.stekoe.idss.dao.ICriterionPageDAO;
 import de.stekoe.idss.model.criterion.CriterionPage;
+import de.stekoe.idss.model.criterion.CriterionPageElement;
 import de.stekoe.idss.model.project.Project;
 import de.stekoe.idss.service.CriterionPageService;
 
@@ -23,7 +24,7 @@ public class DefaultCriterionPageService implements CriterionPageService {
 
     @Override
     public void save(CriterionPage entity) {
-        if (entity.getOrdering() == -1) {
+        if (entity.getOrdering() < 0) {
             entity.setOrdering(getNextPageNumForProject(entity.getProject().getId()));
         }
         criterionPageDAO.save(entity);
@@ -83,5 +84,19 @@ public class DefaultCriterionPageService implements CriterionPageService {
     @Override
     public CriterionPage findByOrdering(int ordering, String projectId) {
         return criterionPageDAO.findByOrdering(ordering, projectId);
+    }
+
+    @Override
+    public void reorderPageElements(CriterionPage aCriterionPage) {
+        final List<CriterionPageElement> pageElements = aCriterionPage.getPageElements();
+        for(int i = 0; i < pageElements.size(); i++) {
+            pageElements.get(0).setOrdering(i + 1);
+        }
+        criterionPageDAO.save(aCriterionPage);
+    }
+
+    @Override
+    public void deletePageElement(CriterionPageElement aCriterionPageElement) {
+        //To change body of implemented methods use File | Settings | File Templates.
     }
 }

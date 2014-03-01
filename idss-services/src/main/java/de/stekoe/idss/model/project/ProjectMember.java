@@ -17,7 +17,7 @@ import java.util.Set;
 @Table(name = "ProjectMember")
 public class ProjectMember implements Serializable {
 
-    private java.lang.String id = IDGenerator.createId();
+    private String id = IDGenerator.createId();
     private User user;
     private ProjectRole projectRole;
     private Set<ProjectMemberGroup> projectGroups = new HashSet<ProjectMemberGroup>();

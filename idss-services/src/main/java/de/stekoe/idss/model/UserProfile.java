@@ -18,37 +18,39 @@ import java.util.Date;
 @Table(name = "UserProfile")
 public class UserProfile implements Serializable {
 
-    private java.lang.String id = IDGenerator.createId();
-    private java.lang.String firstname;
-    private java.lang.String surname;
+    private static final long serialVersionUID = 101403011956L;
+
+    private String id = IDGenerator.createId();
+    private String firstname;
+    private String surname;
     private Date birthdate;
     private User user;
 
     @Id
     @Column(name = "user_profile_id")
-    public java.lang.String getId() {
+    public String getId() {
         return this.id;
     }
 
-    public void setId(java.lang.String id) {
+    public void setId(String id) {
         this.id = id;
     }
 
     @Column
-    public java.lang.String getFirstname() {
+    public String getFirstname() {
         return this.firstname;
     }
 
-    public void setFirstname(java.lang.String firstname) {
+    public void setFirstname(String firstname) {
         this.firstname = firstname;
     }
 
     @Column
-    public java.lang.String getSurname() {
+    public String getSurname() {
         return this.surname;
     }
 
-    public void setSurname(java.lang.String surname) {
+    public void setSurname(String surname) {
         this.surname = surname;
     }
 

@@ -14,6 +14,8 @@ import java.util.Date;
 @Table(name = "Document")
 public class Document implements Serializable {
 
+    private static final long serialVersionUID = 101403011956L;
+
     private String id = IDGenerator.createId();
     private long size;
     private String name;

@@ -56,7 +56,8 @@ public abstract class AddProjectMemberModal extends Modal {
         };
         add(form);
 
-        final ListChoice<User> userSelection = new ListChoice<User>("user", new PropertyModel<User>(projectMember, "user"), userService.getAllUsers(), new ChoiceRenderer<User>("username", "id"));
+        final PropertyModel<User> userModel = new PropertyModel<User>(projectMember, "user");
+        final ListChoice<User> userSelection = new ListChoice<User>("user", userModel, userService.getAllUsers(), new ChoiceRenderer<User>("username", "id"));
         form.add(userSelection);
         userSelection.add(new AttributeModifier("size", 1));
 
@@ -72,7 +73,7 @@ public abstract class AddProjectMemberModal extends Modal {
         submitButton.add(new ButtonBehavior(Buttons.Type.Success));
     }
 
-    public ProjectMember getProjectMember() {
+    public final ProjectMember getProjectMember() {
         return projectMember;
     }
 

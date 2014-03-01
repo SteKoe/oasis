@@ -11,6 +11,7 @@ import org.apache.wicket.markup.html.form.upload.FileUploadField;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.lang.Bytes;
+import org.apache.wicket.util.upload.FileUploadException;
 
 import java.io.File;
 import java.io.IOException;
@@ -65,8 +66,12 @@ public abstract class DocumentUploadForm extends Panel {
             }
 
             private void createFolders(File newFile) {
-                if (!newFile.getParentFile().exists())
-                    newFile.getParentFile().mkdirs();
+                final File parentFile = newFile.getParentFile();
+                if (!parentFile.exists()) {
+                    if(parentFile.mkdirs()) {
+                        LOG.error("Could not create required folders for uploading documents: " + newFile.getAbsolutePath());
+                    }
+                }
             }
         };
 

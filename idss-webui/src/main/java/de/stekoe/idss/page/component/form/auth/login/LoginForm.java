@@ -1,7 +1,6 @@
 package de.stekoe.idss.page.component.form.auth.login;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.FormGroup;
-import de.stekoe.idss.page.component.feedbackpanel.MyFencedFeedbackPanel;
 import de.stekoe.idss.page.project.ProjectListPage;
 import de.stekoe.idss.service.AuthService;
 import de.stekoe.idss.service.AuthStatus;

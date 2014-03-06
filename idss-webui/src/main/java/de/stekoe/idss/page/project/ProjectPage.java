@@ -4,11 +4,11 @@ import de.stekoe.idss.model.enums.PermissionType;
 import de.stekoe.idss.model.enums.ProjectStatus;
 import de.stekoe.idss.model.project.ProjectMember;
 import de.stekoe.idss.page.HomePage;
+import de.stekoe.idss.page.project.criterion.ResultPage;
 import de.stekoe.idss.page.project.criterion.page.CriteriaPageListPage;
 import de.stekoe.idss.service.ProjectService;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
-import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.Link;
@@ -43,6 +43,8 @@ public abstract class ProjectPage extends AuthProjectPage {
         addEditProjectRolesLink();
         addSetOfCriteriaLink();
         addListOfProjectMember();
+
+        add(new BookmarkablePageLink<ResultPage>("link.result", ResultPage.class, new PageParameters().add("projectId", getProjectId())));
     }
 
     private void addSetOfCriteriaLink() {

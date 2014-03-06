@@ -9,6 +9,12 @@
 
     <bean id="applicationRoutes" class="de.stekoe.idss.ApplicationRoutes"/>
     <bean id="wicketApplication" class="de.stekoe.idss.WebApplication"/>
-
     <bean id="projectDataProvider" class="de.stekoe.idss.model.provider.ProjectDataProvider"/>
+    <bean id="paginationConfigurator" class="de.stekoe.idss.page.PaginationConfigurator">
+        <property name="values">
+            <map>
+                <entry key="de.stekoe.idss.page.project.ProjectListPage" value="50" />
+            </map>
+        </property>
+    </bean>
 </beans>

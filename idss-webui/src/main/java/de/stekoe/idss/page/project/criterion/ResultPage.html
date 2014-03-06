@@ -1,0 +1,67 @@
+<html xmlns:wicket="http://wicket.sourceforge.net/">
+<body>
+<wicket:head>
+    <script type="text/javascript">
+        var chart = AmCharts.makeChart("chartdiv", {
+            "type": "radar",
+            "pathToImages": "http://www.amcharts.com/lib/3/images/",
+            //"theme": "chalk",
+            "dataProvider": [{
+                "category": "A",
+                "value": 88,
+                "value2": 44
+            }, {
+                "category": "B",
+                "value": 50,
+                "value2": 12
+            }, {
+                "category": "C",
+                "value": 19,
+                "value2": 35
+            }, {
+                "category": "D",
+                "value": 65,
+                "value2": 10
+            }, {
+                "category": "E",
+                "value": 92,
+                "value2": 100
+            }],
+            "valueAxes": [{
+                "gridType": "polygons",
+                "autoGridCount": true,
+                "axisAlpha": 0.25,
+                "fillAlpha": 0.05,
+                "fillColor": "#FFFFFF",
+                "gridAlpha": 0.08
+            }],
+            "categoryField":"category",
+            "graphs": [{
+                "title":"Gruppe: Ärzte",
+                "valueField": "value",
+                "balloonText": "value: <b>[[value]]</b>",
+                "bullet": "circle",
+                "bulletSize" : 6,
+                "lineAlpha": 1,
+                "fillAlphas": 0.2,
+            }, {
+                "title":"Gruppe: Management",
+                "valueField": "value2",
+                "balloonText": "value: <b>[[value]]</b>",
+                "bullet": "diamond",
+                "bulletSize" : 6,
+                "lineAlpha": 1,
+                "fillAlphas": 0.2,
+            }],
+            "legend": {
+                "markerType": "square",
+                "align":"center"
+            }
+        });
+    </script>
+</wicket:head>
+<wicket:extend>
+    <div id="chartdiv" style="width:600px; height:400px;"></div>
+</wicket:extend>
+</body>
+</html>

@@ -20,8 +20,6 @@ import de.stekoe.idss.page.project.role.ProjectRoleEditPage;
 import de.stekoe.idss.page.user.ActivateUserPage;
 import de.stekoe.idss.page.user.EditUserProfilePage;
 import de.stekoe.idss.page.user.ViewUserProfilePage;
-import org.apache.wicket.request.resource.IResource;
-import org.apache.wicket.request.resource.ResourceReference;
 import org.apache.wicket.settings.IApplicationSettings;
 
 import javax.inject.Inject;

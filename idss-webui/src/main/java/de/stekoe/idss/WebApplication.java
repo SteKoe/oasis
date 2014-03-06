@@ -9,7 +9,6 @@ import de.stekoe.idss.page.auth.AuthorizationStrategy;
 import de.stekoe.idss.page.auth.LoginPage;
 import de.stekoe.idss.session.WebSession;
 import de.stekoe.idss.theme.BootstrapTheme;
-import org.apache.log4j.Logger;
 import org.apache.wicket.Application;
 import org.apache.wicket.authroles.authentication.AbstractAuthenticatedWebSession;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;

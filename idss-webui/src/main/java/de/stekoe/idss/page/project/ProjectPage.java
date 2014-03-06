@@ -9,6 +9,7 @@ import de.stekoe.idss.page.project.criterion.page.CriteriaPageListPage;
 import de.stekoe.idss.service.ProjectService;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
+import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.Link;
@@ -33,28 +34,41 @@ public abstract class ProjectPage extends AuthProjectPage {
     public ProjectPage(PageParameters pageParameters) {
         super(pageParameters);
 
-        add(new Label("projectTitle", Model.of(getProject().getName())));
-        addProjectStatus();
-        addLinkProjectOverview();
-        addLinkProjectDelete();
-        addUploadDocumentLink();
-        addEditProjectLink();
-        addEditProjectMemberLink();
-        addEditProjectRolesLink();
-        addSetOfCriteriaLink();
+        addLabelProjectTitle();
+        addLabelProjectStatus();
         addListOfProjectMember();
 
-        add(new BookmarkablePageLink<ResultPage>("link.result", ResultPage.class, new PageParameters().add("projectId", getProjectId())));
+        // Links
+        addLinkProjectDelete();
+        addLinkUploadDocument();
+        addLinkEditProject();
+        addLinkEditProjectMember();
+        addLinkEditProjectRoles();
+        addLinkProjectDetails();
+        addLinkSetOfCriteria();
+        addLinkResult();
     }
 
-    private void addSetOfCriteriaLink() {
-        add(new BookmarkablePageLink<CriteriaPageListPage>("link.setofcriteria.edit", CriteriaPageListPage.class, new PageParameters().add("projectId", getProjectId())));
+    private MarkupContainer addLabelProjectTitle() {
+        return add(new Label("projectTitle", Model.of(getProject().getName())));
     }
 
-    private void addUploadDocumentLink() {
+    private MarkupContainer addLinkResult() {
+        return add(new BookmarkablePageLink<ResultPage>("link.result", ResultPage.class, new PageParameters().add("projectId", getProjectId())));
+    }
+
+    private MarkupContainer addLinkSetOfCriteria() {
+        return add(new BookmarkablePageLink<CriteriaPageListPage>("link.setofcriteria.edit", CriteriaPageListPage.class, new PageParameters().add("projectId", getProjectId())));
+    }
+
+    private MarkupContainer addLinkProjectDetails() {
+        return add(new BookmarkablePageLink<ProjectDetailsPage>("link.project.overview", ProjectDetailsPage.class, new PageParameters().add("projectId", getProjectId())));
+    }
+
+    private void addLinkUploadDocument() {
         final BookmarkablePageLink<ProjectUploadDocument> linkUploadPage = new BookmarkablePageLink<ProjectUploadDocument>("link.upload.document", ProjectUploadDocument.class, new PageParameters().add("projectId", getProjectId()));
         add(linkUploadPage);
-        linkUploadPage.setVisibilityAllowed(projectService.isAuthorized(getUser().getId(), getProject().getId(), PermissionType.PROJECT_UPLOAD_FILE));
+        linkUploadPage.setVisible(projectService.isAuthorized(getUser().getId(), getProject().getId(), PermissionType.PROJECT_UPLOAD_FILE));
     }
 
     private void addLinkProjectDelete() {
@@ -67,37 +81,30 @@ public abstract class ProjectPage extends AuthProjectPage {
         linkProjectDelete.setVisible(projectService.isAuthorized(getUser().getId(), getProject().getId(), PermissionType.DELETE));
     }
 
-    private void addLinkProjectOverview() {
-        final BookmarkablePageLink<ProjectDetailsPage> linkProjectOverview = new BookmarkablePageLink<ProjectDetailsPage>("link.project.overview", ProjectDetailsPage.class, new PageParameters().add("projectId", getProjectId()));
-        add(linkProjectOverview);
-    }
-
-    private void addProjectStatus() {
+    private void addLabelProjectStatus() {
         final Label projectStatusLabel = new Label("project.status", Model.of(getString(getProject().getProjectStatus().getKey())));
         add(projectStatusLabel);
         projectStatusLabel.setVisible(!ProjectStatus.UNDEFINED.equals(getProject().getProjectStatus()));
     }
 
-    private void addEditProjectRolesLink() {
+    private void addLinkEditProjectRoles() {
         final BookmarkablePageLink<ProjectRoleListPage> editProjectRolesLink = new BookmarkablePageLink<ProjectRoleListPage>("editProjectRolesLink", ProjectRoleListPage.class, new PageParameters().add("projectId", getProjectId()));
         add(editProjectRolesLink);
-        editProjectRolesLink.setVisibilityAllowed(projectService.isAuthorized(getUser().getId(), getProject().getId(), PermissionType.PROJECT_ADD_ROLES));
+        editProjectRolesLink.setVisible(projectService.isAuthorized(getUser().getId(), getProject().getId(), PermissionType.PROJECT_ADD_ROLES));
     }
 
-    private void addEditProjectMemberLink() {
+    private void addLinkEditProjectMember() {
         final BookmarkablePageLink<ProjectMemberListPage> addMemberLink = new BookmarkablePageLink<ProjectMemberListPage>("addMember", ProjectMemberListPage.class, new PageParameters().add("projectId", getProjectId()));
         add(addMemberLink);
-        addMemberLink.setVisibilityAllowed(projectService.isAuthorized(getUser().getId(), getProject().getId(), PermissionType.PROJECT_ADD_MEMBER));
+        addMemberLink.setVisible(projectService.isAuthorized(getUser().getId(), getProject().getId(), PermissionType.PROJECT_ADD_MEMBER));
     }
 
-    private void addEditProjectLink() {
+    private void addLinkEditProject() {
         final BookmarkablePageLink<ProjectEditPage> editProjectLink = new BookmarkablePageLink<ProjectEditPage>("editProject", ProjectEditPage.class, new PageParameters().add("projectId", getProjectId()));
         add(editProjectLink);
-        editProjectLink.setVisibilityAllowed(projectService.isAuthorized(getUser().getId(), getProject().getId(), PermissionType.UPDATE));
+        editProjectLink.setVisible(projectService.isAuthorized(getUser().getId(), getProject().getId(), PermissionType.UPDATE));
     }
 
-    /* Creates necessary ui elements for Project Member section
-     */
     private void addListOfProjectMember() {
         final Collection<ProjectMember> projectTeam = getProject().getProjectTeam();
         final List<ProjectMember> projectMember = (List<ProjectMember>) CollectionUtils.select(projectTeam, new Predicate() {

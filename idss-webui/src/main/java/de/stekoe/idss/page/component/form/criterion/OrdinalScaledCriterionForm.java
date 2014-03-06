@@ -1,3 +1,19 @@
+/*
+ * Copyright 2014 Stephan Köninger
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * 	http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package de.stekoe.idss.page.component.form.criterion;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.FormGroup;
@@ -6,8 +22,10 @@ import de.stekoe.idss.model.criterion.scale.OrdinalScale;
 import de.stekoe.idss.model.criterion.scale.value.OrdinalValue;
 import de.stekoe.idss.page.component.behavior.CustomTinyMCESettings;
 import de.stekoe.idss.page.project.criterion.EditOrdinalCriterionPage;
+import de.stekoe.idss.service.CriterionPageService;
 import de.stekoe.idss.service.CriterionService;
 import de.stekoe.idss.wicket.MarkRequiredFieldsBehavior;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.bean.validation.PropertyValidator;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
@@ -29,7 +47,13 @@ public abstract class OrdinalScaledCriterionForm extends Panel {
 
     @SpringBean
     private CriterionService itsCriterionService;
+
+    @SpringBean
+    private CriterionPageService itsCriterionPageService;
+
     private LoadableDetachableModel<SingleScaledCriterion> itsCriterionModel;
+    private Form<SingleScaledCriterion> scaleForm;
+    private Form<OrdinalValue> valueForm;
 
     public OrdinalScaledCriterionForm(final String aId, final String aCriterionId) {
         super(aId);
@@ -51,12 +75,10 @@ public abstract class OrdinalScaledCriterionForm extends Panel {
     }
 
     private void scaleForm() {
-
-
-        final Form<SingleScaledCriterion> scaleForm = new Form<SingleScaledCriterion>("ordinalScaledCriterionForm", new CompoundPropertyModel<SingleScaledCriterion>(itsCriterionModel)) {
+        scaleForm = new Form<SingleScaledCriterion>("ordinalScaledCriterionForm", new CompoundPropertyModel<SingleScaledCriterion>(itsCriterionModel)) {
             @Override
             protected void onSubmit() {
-                onSave(getModel());
+                onSaveCriterion(getModel());
             }
         };
         add(scaleForm);
@@ -68,7 +90,7 @@ public abstract class OrdinalScaledCriterionForm extends Panel {
         scaleForm.add(new FormGroup("name.group").add(nameTextField));
 
         final TextField<String> descriptionTextField = new TextField<String>("description");
-        nameTextField.setLabel(Model.of(getString("label.description")));
+        descriptionTextField.setLabel(Model.of(getString("label.description")));
         descriptionTextField.add(new TinyMceBehavior(CustomTinyMCESettings.getStandard()));
         descriptionTextField.add(new PropertyValidator<String>());
         scaleForm.add(new FormGroup("description.group").add(descriptionTextField));
@@ -83,14 +105,10 @@ public abstract class OrdinalScaledCriterionForm extends Panel {
     }
 
     private void valueForm() {
-        final OrdinalValue ordinalValue = new OrdinalValue();
-        final Form<OrdinalValue> valueForm = new Form<OrdinalValue>("valueForm", new CompoundPropertyModel<OrdinalValue>(ordinalValue)) {
+        valueForm = new Form<OrdinalValue>("valueForm", new CompoundPropertyModel<OrdinalValue>(new OrdinalValue())) {
             @Override
             protected void onSubmit() {
-                final SingleScaledCriterion criterion = itsCriterionModel.getObject();
-                criterion.getScale().getValues().add(getModelObject());
-                itsCriterionService.save(criterion);
-                setResponsePage(EditOrdinalCriterionPage.class, getPage().getPageParameters());
+                onSaveValue(itsCriterionModel, getModel());
             }
         };
         add(valueForm);
@@ -111,5 +129,7 @@ public abstract class OrdinalScaledCriterionForm extends Panel {
         emptyListIndicator.setVisible(valueList.getList().isEmpty());
     }
 
-    public abstract void onSave(IModel<SingleScaledCriterion> aModel);
+
+    public abstract void onSaveCriterion(IModel<SingleScaledCriterion> aModel);
+    protected abstract void onSaveValue(LoadableDetachableModel<SingleScaledCriterion> itsCriterionModel, IModel<OrdinalValue> model);
 }

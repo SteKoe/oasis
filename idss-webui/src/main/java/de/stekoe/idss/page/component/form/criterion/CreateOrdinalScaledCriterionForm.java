@@ -1,11 +1,30 @@
+/*
+ * Copyright 2014 Stephan Köninger
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * 	http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package de.stekoe.idss.page.component.form.criterion;
 
 import de.stekoe.idss.model.criterion.CriterionPage;
 import de.stekoe.idss.model.criterion.SingleScaledCriterion;
+import de.stekoe.idss.model.criterion.scale.value.OrdinalValue;
 import de.stekoe.idss.page.project.criterion.EditOrdinalCriterionPage;
 import de.stekoe.idss.service.CriterionPageService;
 import de.stekoe.idss.service.CriterionService;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
@@ -28,11 +47,12 @@ public class CreateOrdinalScaledCriterionForm extends OrdinalScaledCriterionForm
     }
 
     @Override
-    public void onSave(IModel<SingleScaledCriterion> aModel) {
+    public void onSaveCriterion(IModel<SingleScaledCriterion> aModel) {
         final CriterionPage page = itsCriterionPageService.findById(itsPageId);
 
         final SingleScaledCriterion criterion = aModel.getObject();
         criterion.setOrdering(page.getPageElements().size() + 1);
+
         itsCriterionService.save(criterion);
 
         page.getPageElements().add(criterion);
@@ -42,5 +62,15 @@ public class CreateOrdinalScaledCriterionForm extends OrdinalScaledCriterionForm
 
         final PageParameters pageParams = new PageParameters().add("criterionId", criterion.getId());
         setResponsePage(EditOrdinalCriterionPage.class, getPage().getPageParameters().mergeWith(pageParams));
+    }
+
+    @Override
+    protected void onSaveValue(LoadableDetachableModel<SingleScaledCriterion> itsCriterionModel, IModel<OrdinalValue> model) {
+        final SingleScaledCriterion criterion = itsCriterionModel.getObject();
+
+        criterion.setName(StringUtils.isBlank(criterion.getName()) ? getString("label.criterion.ordinal") : criterion.getName());
+        criterion.getScale().getValues().add(model.getObject());
+
+        onSaveCriterion(itsCriterionModel);
     }
 }

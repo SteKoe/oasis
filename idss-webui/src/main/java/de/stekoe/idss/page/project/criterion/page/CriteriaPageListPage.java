@@ -90,7 +90,7 @@ public class CriteriaPageListPage extends ProjectPage {
                 final Link link = new Link("move.page.up") {
                     @Override
                     public void onClick() {
-                        criterionPageService.movePage(criterionPage, CriterionPageService.Direction.UP);
+                        criterionPageService.move(criterionPage, CriterionPageService.Direction.UP);
                         loadableDetachableModel.detach();
                         setResponsePage(getPage());
                     }
@@ -109,7 +109,7 @@ public class CriteriaPageListPage extends ProjectPage {
                 final Link link = new Link("move.page.down") {
                     @Override
                     public void onClick() {
-                        criterionPageService.movePage(criterionPage, CriterionPageService.Direction.DOWN);
+                        criterionPageService.move(criterionPage, CriterionPageService.Direction.DOWN);
                         loadableDetachableModel.detach();
                         setResponsePage(getPage());
                     }

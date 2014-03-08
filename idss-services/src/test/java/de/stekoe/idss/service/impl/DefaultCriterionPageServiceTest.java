@@ -115,7 +115,7 @@ public class DefaultCriterionPageServiceTest extends AbstractBaseTest {
         assertThat(page1.getOrdering(), IsEqual.equalTo(1));
         assertThat(page2.getOrdering(), IsEqual.equalTo(2));
 
-        criterionPageService.movePage(page2, CriterionPageService.Direction.UP);
+        criterionPageService.move(page2, CriterionPageService.Direction.UP);
 
         page1 = criterionPageService.findById(page1.getId());
         page2 = criterionPageService.findById(page2.getId());
@@ -139,7 +139,7 @@ public class DefaultCriterionPageServiceTest extends AbstractBaseTest {
         assertThat(page1.getOrdering(), IsEqual.equalTo(1));
         assertThat(page2.getOrdering(), IsEqual.equalTo(2));
 
-        criterionPageService.movePage(page1, CriterionPageService.Direction.DOWN);
+        criterionPageService.move(page1, CriterionPageService.Direction.DOWN);
 
         page1 = criterionPageService.findById(page1.getId());
         page2 = criterionPageService.findById(page2.getId());

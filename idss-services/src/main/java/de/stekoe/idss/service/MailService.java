@@ -1,7 +1,7 @@
 package de.stekoe.idss.service;
 
 /**
- * Allows to send mails.
+ * @author Stephan Köninger <mail@stekoe.de>
  */
 public interface MailService {
     /**

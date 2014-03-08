@@ -44,9 +44,4 @@ public class EditOrdinalCriterionForm extends OrdinalScaledCriterionForm {
         final PageParameters pageParams = new PageParameters().add("criterionId", criterion.getId());
         setResponsePage(EditOrdinalCriterionPage.class, getPage().getPageParameters().mergeWith(pageParams));
     }
-
-    @Override
-    protected void onSaveValue(LoadableDetachableModel<SingleScaledCriterion> itsCriterionModel, IModel<OrdinalValue> model) {
-
-    }
 }

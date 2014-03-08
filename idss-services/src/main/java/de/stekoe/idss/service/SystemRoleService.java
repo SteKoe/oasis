@@ -10,29 +10,33 @@ import java.util.List;
 public interface SystemRoleService {
 
     /**
-     * Get all system roles available in the system.
-     *
-     * @return a list of system roles
+     * @return List of all SystemRoles
      */
     List<SystemRole> findAllRoles();
 
     /**
-     * Returns the Admin Role
-     *
-     * @return the Admin SystemRole
+     * @return The SystemRole for administrators
      */
     SystemRole getAdminRole();
 
     /**
-     * Returns the User Role
-     *
-     * @return the User SystemRole
+     * @return The SystemRole for registered Users
      */
     SystemRole getUserRole();
 
+    /**
+     * @param entity SystemRole to delete
+     */
     void delete(SystemRole entity);
 
+    /**
+     * @param systemRole SystemRole to save
+     */
     void save(SystemRole systemRole);
 
+    /**
+     * @param id Id of the SystemRole to retrieve
+     * @return The SystemRole if found or null
+     */
     SystemRole findById(String id);
 }

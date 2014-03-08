@@ -2,12 +2,12 @@ package de.stekoe.idss.service;
 
 import de.stekoe.idss.model.criterion.Criterion;
 import de.stekoe.idss.model.criterion.SingleScaledCriterion;
+import de.stekoe.idss.model.criterion.scale.value.MeasurementValue;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
 public interface CriterionService {
-
     /**
      * @param entity
      */

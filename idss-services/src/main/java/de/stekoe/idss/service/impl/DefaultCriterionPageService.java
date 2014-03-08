@@ -57,7 +57,7 @@ public class DefaultCriterionPageService implements CriterionPageService {
     }
 
     @Override
-    public void movePage(CriterionPage criterionPage, Direction direction) {
+    public void move(CriterionPage criterionPage, Direction direction) {
         final int ordering = criterionPage.getOrdering();
         final Project project = criterionPage.getProject();
 

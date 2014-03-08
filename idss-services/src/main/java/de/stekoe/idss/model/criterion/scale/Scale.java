@@ -46,6 +46,7 @@ public abstract class Scale<T extends MeasurementValue> implements Serializable 
         this.description = description;
     }
 
+    @OrderBy("rank")
     @OneToMany(targetEntity = MeasurementValue.class, cascade = CascadeType.ALL)
     public List<T> getValues() {
         return this.values;

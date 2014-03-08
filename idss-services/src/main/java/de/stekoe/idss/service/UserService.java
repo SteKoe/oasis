@@ -7,16 +7,12 @@ import java.util.List;
 
 public interface UserService {
     /**
-     * Find a specific user by its username
-     *
      * @param username The username to look for
      * @return The user if found or null
      */
     User findByUsername(String username);
 
     /**
-     * Finds a list of users which usernames match the given username.
-     *
      * @param username The username (or part of it) to lookup
      * @return A user who's username contains the given username
      */
@@ -57,7 +53,14 @@ public interface UserService {
 
     void save(User entity) throws UserException;
 
+    /**
+     * @param id The id of the user to retrieve
+     * @return The user if found or null
+     */
     User findById(String id);
 
-    void delete(User entity);
+    /**
+     * @param user The user to delete
+     */
+    void delete(User user);
 }

@@ -21,7 +21,6 @@ import de.stekoe.idss.model.criterion.SingleScaledCriterion;
 import de.stekoe.idss.model.criterion.scale.OrdinalScale;
 import de.stekoe.idss.model.criterion.scale.value.OrdinalValue;
 import de.stekoe.idss.page.component.behavior.CustomTinyMCESettings;
-import de.stekoe.idss.page.project.criterion.EditOrdinalCriterionPage;
 import de.stekoe.idss.service.CriterionPageService;
 import de.stekoe.idss.service.CriterionService;
 import de.stekoe.idss.wicket.MarkRequiredFieldsBehavior;
@@ -30,6 +29,7 @@ import org.apache.wicket.bean.validation.PropertyValidator;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.*;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -108,7 +108,15 @@ public abstract class OrdinalScaledCriterionForm extends Panel {
         valueForm = new Form<OrdinalValue>("valueForm", new CompoundPropertyModel<OrdinalValue>(new OrdinalValue())) {
             @Override
             protected void onSubmit() {
-                onSaveValue(itsCriterionModel, getModel());
+                final SingleScaledCriterion criterion = itsCriterionModel.getObject();
+                criterion.setName(StringUtils.isBlank(criterion.getName()) ? getString("label.criterion.type.ordinal") : criterion.getName());
+
+                final OrdinalValue value = getModel().getObject();
+                value.setRank(criterion.getScale().getValues().size() + 1);
+                criterion.getScale().getValues().add(value);
+
+                itsCriterionModel.setObject(criterion);
+                onSaveCriterion(itsCriterionModel);
             }
         };
         add(valueForm);
@@ -119,7 +127,15 @@ public abstract class OrdinalScaledCriterionForm extends Panel {
         final ListView<OrdinalValue> valueList = new ListView<OrdinalValue>("value.list", itsCriterionModel.getObject().getScale().getValues()) {
             @Override
             protected void populateItem(ListItem<OrdinalValue> item) {
-                item.add(new Label("value.list.label", item.getModelObject().getValue()));
+                final OrdinalValue value = item.getModelObject();
+                item.add(new Label("value.list.label", value.getValue() + " (" + value.getRank() + ")"));
+
+                item.add(new Link("value.move.up") {
+                    @Override
+                    public void onClick() {
+                    }
+                });
+                item.add(new Label("value.move.down", ""));
             }
         };
         valueForm.add(valueList);
@@ -129,7 +145,5 @@ public abstract class OrdinalScaledCriterionForm extends Panel {
         emptyListIndicator.setVisible(valueList.getList().isEmpty());
     }
 
-
     public abstract void onSaveCriterion(IModel<SingleScaledCriterion> aModel);
-    protected abstract void onSaveValue(LoadableDetachableModel<SingleScaledCriterion> itsCriterionModel, IModel<OrdinalValue> model);
 }

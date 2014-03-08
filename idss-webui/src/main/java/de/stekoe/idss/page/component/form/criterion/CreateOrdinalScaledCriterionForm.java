@@ -63,14 +63,4 @@ public class CreateOrdinalScaledCriterionForm extends OrdinalScaledCriterionForm
         final PageParameters pageParams = new PageParameters().add("criterionId", criterion.getId());
         setResponsePage(EditOrdinalCriterionPage.class, getPage().getPageParameters().mergeWith(pageParams));
     }
-
-    @Override
-    protected void onSaveValue(LoadableDetachableModel<SingleScaledCriterion> itsCriterionModel, IModel<OrdinalValue> model) {
-        final SingleScaledCriterion criterion = itsCriterionModel.getObject();
-
-        criterion.setName(StringUtils.isBlank(criterion.getName()) ? getString("label.criterion.ordinal") : criterion.getName());
-        criterion.getScale().getValues().add(model.getObject());
-
-        onSaveCriterion(itsCriterionModel);
-    }
 }

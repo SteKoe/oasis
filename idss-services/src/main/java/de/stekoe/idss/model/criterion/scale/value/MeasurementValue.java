@@ -1,6 +1,7 @@
 package de.stekoe.idss.model.criterion.scale.value;
 
 import de.stekoe.idss.IDGenerator;
+import de.stekoe.idss.model.criterion.scale.Scale;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 
 import javax.persistence.*;
@@ -16,12 +17,15 @@ public abstract class MeasurementValue implements Serializable {
 
     private String id = IDGenerator.createId();
     private String value;
+    private Scale scale;
+    private int ordering;
 
     protected MeasurementValue() {
         // NOP
     }
 
-    protected MeasurementValue(String value) {
+    protected MeasurementValue(int ordering, String value) {
+        this.ordering = ordering;
         this.value = value;
     }
 
@@ -43,6 +47,23 @@ public abstract class MeasurementValue implements Serializable {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public void setScale(Scale scale) {
+        this.scale = scale;
+    }
+
+    @ManyToOne(targetEntity = Scale.class)
+    public Scale getScale() {
+        return scale;
+    }
+
+    public int getOrdering() {
+        return ordering;
+    }
+
+    public void setOrdering(int ordering) {
+        this.ordering = ordering;
     }
 
     @Override
@@ -71,4 +92,5 @@ public abstract class MeasurementValue implements Serializable {
                 .append(getValue(), rhs.value)
                 .isEquals();
     }
+
 }

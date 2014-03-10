@@ -3,6 +3,7 @@ package de.stekoe.idss.service;
 import de.stekoe.idss.model.criterion.Criterion;
 import de.stekoe.idss.model.criterion.SingleScaledCriterion;
 import de.stekoe.idss.model.criterion.scale.value.MeasurementValue;
+import de.stekoe.idss.model.criterion.scale.value.OrdinalValue;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
@@ -11,7 +12,7 @@ public interface CriterionService {
     /**
      * @param entity
      */
-    void save(Criterion entity);
+    void saveCriterion(Criterion entity);
 
     /**
      * @param id
@@ -20,7 +21,12 @@ public interface CriterionService {
     Criterion findById(String id);
 
     /**
-     * @param aCriterion
+     * @param criterionId
      */
-    void findPageOfCriterionElement(SingleScaledCriterion aCriterion);
+    void deleteCriterion(String criterionId);
+
+    /**
+     * @param value The value to delete from Criterion
+     */
+    void deleteValue(MeasurementValue value);
 }

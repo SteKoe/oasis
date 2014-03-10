@@ -9,30 +9,28 @@ import javax.persistence.PrimaryKeyJoinColumn;
 @Entity
 @PrimaryKeyJoinColumn(name = "ordinal_value_id", referencedColumnName = "measurement_value_id")
 public class OrdinalValue extends MeasurementValue {
-    private int rank;
 
     public OrdinalValue() {
         // NOP
     }
 
     public OrdinalValue(int rank, String value) {
-        super(value);
-        this.rank = rank;
+        super(rank, value);
     }
 
     public int getRank() {
-        return rank;
+        return getOrdering();
     }
 
     public void setRank(int rank) {
-        this.rank = rank;
+        setOrdering(rank);
     }
 
     public boolean isGreaterThan(OrdinalValue aVal) {
-        return this.rank > aVal.rank;
+        return getRank() > aVal.getRank();
     }
 
     public boolean isLowerThan(OrdinalValue aVal) {
-        return this.rank < aVal.rank;
+        return this.getRank() < aVal.getRank();
     }
 }

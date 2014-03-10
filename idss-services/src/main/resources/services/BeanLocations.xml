@@ -72,6 +72,7 @@
     <bean id="criterionDAO" class="de.stekoe.idss.dao.impl.CriterionDAO"/>
     <bean id="permissionDAO" class="de.stekoe.idss.dao.impl.PermissionDAO"/>
     <bean id="criterionPageDAO" class="de.stekoe.idss.dao.impl.CriterionPageDAO"/>
+    <bean id="measurementValueDAO" class="de.stekoe.idss.dao.impl.MeasurementValueDAO"/>
 
 
     <!-- Services -->
@@ -87,4 +88,5 @@
     <bean id="permissionService" class="de.stekoe.idss.service.impl.DefaultPermissionService"/>
     <bean id="criterionPageService" class="de.stekoe.idss.service.impl.DefaultCriterionPageService"/>
     <bean id="criterionService" class="de.stekoe.idss.service.impl.DefaultCriterionService"/>
+    <bean id="scaleService" class="de.stekoe.idss.service.impl.DefaultScaleService"/>
 </beans>

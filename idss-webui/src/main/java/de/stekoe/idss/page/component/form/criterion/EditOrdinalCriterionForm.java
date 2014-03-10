@@ -17,11 +17,9 @@
 package de.stekoe.idss.page.component.form.criterion;
 
 import de.stekoe.idss.model.criterion.SingleScaledCriterion;
-import de.stekoe.idss.model.criterion.scale.value.OrdinalValue;
 import de.stekoe.idss.page.project.criterion.EditOrdinalCriterionPage;
 import de.stekoe.idss.service.CriterionService;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
@@ -40,7 +38,7 @@ public class EditOrdinalCriterionForm extends OrdinalScaledCriterionForm {
     @Override
     public void onSaveCriterion(IModel<SingleScaledCriterion> aModel) {
         final SingleScaledCriterion criterion = aModel.getObject();
-        itsCriterionService.save(criterion);
+        itsCriterionService.saveCriterion(criterion);
         final PageParameters pageParams = new PageParameters().add("criterionId", criterion.getId());
         setResponsePage(EditOrdinalCriterionPage.class, getPage().getPageParameters().mergeWith(pageParams));
     }

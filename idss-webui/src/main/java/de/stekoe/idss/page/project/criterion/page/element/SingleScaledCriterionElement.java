@@ -16,8 +16,10 @@
 
 package de.stekoe.idss.page.project.criterion.page.element;
 
+import de.stekoe.idss.model.criterion.CriterionPage;
 import de.stekoe.idss.model.criterion.SingleScaledCriterion;
 import de.stekoe.idss.page.project.criterion.EditOrdinalCriterionPage;
+import de.stekoe.idss.service.CriterionPageService;
 import de.stekoe.idss.service.CriterionService;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
@@ -33,13 +35,16 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 public class SingleScaledCriterionElement extends Panel {
 
     @SpringBean
-    private CriterionService itsCriterionService;
+    private CriterionService criterionService;
 
-    private final CompoundPropertyModel<SingleScaledCriterion> itsModel;
+    @SpringBean
+    private CriterionPageService criterionPageService;
+
+    private final CompoundPropertyModel<SingleScaledCriterion> sscModel;
 
     public SingleScaledCriterionElement(String aId, SingleScaledCriterion aSingleScaledCriterion) {
         super(aId);
-        itsModel = new CompoundPropertyModel<SingleScaledCriterion>(aSingleScaledCriterion);
+        sscModel = new CompoundPropertyModel<SingleScaledCriterion>(aSingleScaledCriterion);
         setDefaultModel(new CompoundPropertyModel<SingleScaledCriterion>(aSingleScaledCriterion));
     }
 
@@ -55,7 +60,11 @@ public class SingleScaledCriterionElement extends Panel {
         add(new Link("delete") {
             @Override
             public void onClick() {
-                itsCriterionService.findPageOfCriterionElement(itsModel.getObject());
+                final SingleScaledCriterion ssc = sscModel.getObject();
+                final CriterionPage criterionPage = ssc.getCriterionPage();
+                criterionPage.getPageElements().remove(ssc);
+                criterionPageService.save(criterionPage);
+                criterionService.deleteCriterion(ssc.getId());
             }
         });
     }

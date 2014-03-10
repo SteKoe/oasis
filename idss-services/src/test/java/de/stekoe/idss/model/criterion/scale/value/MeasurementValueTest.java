@@ -13,10 +13,10 @@ public class MeasurementValueTest {
 
     @Before
     public void setUp() {
-        itsA = new TestMeasurementValue("A");
-        itsA1 = new TestMeasurementValue("A");
+        itsA = new TestMeasurementValue(1, "A");
+        itsA1 = new TestMeasurementValue(2, "A");
 
-        itsB = new TestMeasurementValue("B");
+        itsB = new TestMeasurementValue(3, "B");
     }
 
     @Test
@@ -33,8 +33,8 @@ public class MeasurementValueTest {
 
     // Test Implementation of the class
     private class TestMeasurementValue extends MeasurementValue {
-        protected TestMeasurementValue(String value) {
-            super(value);
+        protected TestMeasurementValue(int rank, String value) {
+            super(rank, value);
         }
     }
 }

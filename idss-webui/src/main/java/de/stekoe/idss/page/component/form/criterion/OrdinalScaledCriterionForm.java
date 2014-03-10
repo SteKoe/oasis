@@ -19,10 +19,13 @@ package de.stekoe.idss.page.component.form.criterion;
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.FormGroup;
 import de.stekoe.idss.model.criterion.SingleScaledCriterion;
 import de.stekoe.idss.model.criterion.scale.OrdinalScale;
+import de.stekoe.idss.model.criterion.scale.Scale;
 import de.stekoe.idss.model.criterion.scale.value.OrdinalValue;
 import de.stekoe.idss.page.component.behavior.CustomTinyMCESettings;
 import de.stekoe.idss.service.CriterionPageService;
 import de.stekoe.idss.service.CriterionService;
+import de.stekoe.idss.service.Orderable;
+import de.stekoe.idss.service.ScaleService;
 import de.stekoe.idss.wicket.MarkRequiredFieldsBehavior;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.bean.validation.PropertyValidator;
@@ -40,35 +43,44 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import wicket.contrib.tinymce.TinyMceBehavior;
 
+import java.util.List;
+
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
 public abstract class OrdinalScaledCriterionForm extends Panel {
 
     @SpringBean
-    private CriterionService itsCriterionService;
+    private CriterionService criterionService;
 
     @SpringBean
-    private CriterionPageService itsCriterionPageService;
+    private CriterionPageService criterionPageService;
 
-    private LoadableDetachableModel<SingleScaledCriterion> itsCriterionModel;
+    @SpringBean
+    private ScaleService scaleService;
+
     private Form<SingleScaledCriterion> scaleForm;
     private Form<OrdinalValue> valueForm;
+    private String criterionId;
+
+    private LoadableDetachableModel<SingleScaledCriterion> itsCriterionModel = new LoadableDetachableModel<SingleScaledCriterion>() {
+        @Override
+        protected SingleScaledCriterion load() {
+            if (criterionId == null) {
+                SingleScaledCriterion criterion = new SingleScaledCriterion();
+                final OrdinalScale scale = new OrdinalScale();
+                criterion.setScale(scale);
+                scale.setCriterion(criterion);
+                return criterion;
+            } else {
+                return (SingleScaledCriterion) criterionService.findById(criterionId);
+            }
+        }
+    };
 
     public OrdinalScaledCriterionForm(final String aId, final String aCriterionId) {
         super(aId);
-        itsCriterionModel = new LoadableDetachableModel<SingleScaledCriterion>() {
-            @Override
-            protected SingleScaledCriterion load() {
-                if (aCriterionId == null) {
-                    SingleScaledCriterion criterion = new SingleScaledCriterion();
-                    criterion.setScale(new OrdinalScale());
-                    return criterion;
-                } else {
-                    return (SingleScaledCriterion) itsCriterionService.findById(aCriterionId);
-                }
-            }
-        };
+        criterionId = aCriterionId;
 
         scaleForm();
         valueForm();
@@ -113,6 +125,7 @@ public abstract class OrdinalScaledCriterionForm extends Panel {
 
                 final OrdinalValue value = getModel().getObject();
                 value.setRank(criterion.getScale().getValues().size() + 1);
+                value.setScale(criterion.getScale());
                 criterion.getScale().getValues().add(value);
 
                 itsCriterionModel.setObject(criterion);
@@ -124,18 +137,57 @@ public abstract class OrdinalScaledCriterionForm extends Panel {
         final RequiredTextField<String> valueTextField = new RequiredTextField<String>("value");
         valueForm.add(new FormGroup("value.group").add(valueTextField));
 
-        final ListView<OrdinalValue> valueList = new ListView<OrdinalValue>("value.list", itsCriterionModel.getObject().getScale().getValues()) {
+        final LoadableDetachableModel<List<OrdinalValue>> valueListModel = new LoadableDetachableModel<List<OrdinalValue>>() {
             @Override
-            protected void populateItem(ListItem<OrdinalValue> item) {
+            protected List<OrdinalValue> load() {
+                final Scale scale = itsCriterionModel.getObject().getScale();
+                return scale.getValues();
+            }
+        };
+
+        final ListView<OrdinalValue> valueList = new ListView<OrdinalValue>("value.list", valueListModel) {
+            @Override
+            protected void populateItem(final ListItem<OrdinalValue> item) {
                 final OrdinalValue value = item.getModelObject();
-                item.add(new Label("value.list.label", value.getValue() + " (" + value.getRank() + ")"));
+                item.add(new Label("value.list.label", value.getValue() + " (" + value.getOrdering() + ")"));
+
+                item.add(new Link("value.delete") {
+                    @Override
+                    public void onClick() {
+                        criterionService.deleteValue(value);
+                        setResponsePage(getPage());
+                    }
+                });
 
                 item.add(new Link("value.move.up") {
                     @Override
                     public void onClick() {
+                        scaleService.move(value, Orderable.Direction.UP);
+                        itsCriterionModel.detach();
+                        valueListModel.detach();
+                        setResponsePage(getPage());
+                    }
+
+                    @Override
+                    public boolean isVisible() {
+                        return item.getIndex() > 0 && getList().size() > 1;
                     }
                 });
-                item.add(new Label("value.move.down", ""));
+                item.add(new Link("value.move.down") {
+                    @Override
+                    public void onClick() {
+                        scaleService.move(value, Orderable.Direction.DOWN);
+                        itsCriterionModel.detach();
+                        valueListModel.detach();
+                        setResponsePage(getPage());
+                    }
+
+                    @Override
+                    public boolean isVisible() {
+                        final int rank = value.getRank();
+                        return item.getIndex() < (getList().size()-1) && getList().size() > 1;
+                    }
+                });
             }
         };
         valueForm.add(valueList);

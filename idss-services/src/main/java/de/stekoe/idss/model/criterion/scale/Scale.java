@@ -1,6 +1,7 @@
 package de.stekoe.idss.model.criterion.scale;
 
 import de.stekoe.idss.IDGenerator;
+import de.stekoe.idss.model.criterion.SingleScaledCriterion;
 import de.stekoe.idss.model.criterion.scale.value.MeasurementValue;
 
 import javax.persistence.*;
@@ -19,6 +20,7 @@ public abstract class Scale<T extends MeasurementValue> implements Serializable 
     private String name;
     private String description;
     private List<T> values = new ArrayList<T>();
+    private SingleScaledCriterion criterion;
 
     @Id
     @Column(name = "scale_id")
@@ -46,7 +48,7 @@ public abstract class Scale<T extends MeasurementValue> implements Serializable 
         this.description = description;
     }
 
-    @OrderBy("rank")
+    @OrderBy(value = "ordering")
     @OneToMany(targetEntity = MeasurementValue.class, cascade = CascadeType.ALL)
     public List<T> getValues() {
         return this.values;
@@ -58,5 +60,14 @@ public abstract class Scale<T extends MeasurementValue> implements Serializable 
 
     public boolean isValid(MeasurementValue value) {
         return values.contains(value);
+    }
+
+    @OneToOne(targetEntity = SingleScaledCriterion.class)
+    public SingleScaledCriterion getCriterion() {
+        return criterion;
+    }
+
+    public void setCriterion(SingleScaledCriterion criterion) {
+        this.criterion = criterion;
     }
 }

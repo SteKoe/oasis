@@ -18,6 +18,7 @@ package de.stekoe.idss.page.user;
 
 import de.bripkens.gravatar.Gravatar;
 import de.stekoe.idss.model.User;
+import de.stekoe.idss.model.UserId;
 import de.stekoe.idss.page.AuthUserPage;
 import de.stekoe.idss.page.HomePage;
 import de.stekoe.idss.service.UserService;
@@ -42,7 +43,7 @@ public class ViewUserProfilePage extends AuthUserPage {
 
         final String userId = params.get("id").toString();
         if (userId != null) {
-            user = userService.findById(userId);
+            user = userService.findById(new UserId(userId));
         } else {
             user = WebSession.get().getUser();
         }

@@ -18,6 +18,7 @@ package de.stekoe.idss.page.project;
 
 import de.stekoe.idss.model.enums.PermissionType;
 import de.stekoe.idss.model.project.Project;
+import de.stekoe.idss.model.project.ProjectId;
 import de.stekoe.idss.page.AuthUserPage;
 import de.stekoe.idss.service.ProjectService;
 import de.stekoe.idss.session.WebSession;
@@ -43,18 +44,18 @@ public class AuthProjectPage extends AuthUserPage {
     public AuthProjectPage(PageParameters pageParameters) {
         super(pageParameters);
 
-        final StringValue projectId = pageParameters.get("projectId");
+        final StringValue projectIdParam = pageParameters.get("projectId");
         projectModel = new LoadableDetachableModel<Project>() {
             @Override
             protected Project load() {
-                return projectService.findById(projectId.toString());
+                return projectService.findById(new ProjectId(projectIdParam.toString()));
             }
         };
         if (projectModel.getObject() == null) {
             setResponsePage(ProjectListPage.class);
         }
 
-        if (!projectService.isAuthorized(getUser().getId(), projectId.toString(), PermissionType.READ)) {
+        if (!projectService.isAuthorized(getUser().getId(), new ProjectId(projectIdParam.toString()), PermissionType.READ)) {
             WebSession.get().error("You are not allowed to access this project!");
             setResponsePage(ProjectListPage.class);
         }
@@ -63,7 +64,7 @@ public class AuthProjectPage extends AuthUserPage {
     /**
      * @return The project id
      */
-    public String getProjectId() {
+    public ProjectId getProjectId() {
         return getProject().getId();
     }
 

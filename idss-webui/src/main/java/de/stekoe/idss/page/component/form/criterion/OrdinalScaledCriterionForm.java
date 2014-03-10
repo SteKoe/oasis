@@ -17,6 +17,7 @@
 package de.stekoe.idss.page.component.form.criterion;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.FormGroup;
+import de.stekoe.idss.model.criterion.CriterionPageElementId;
 import de.stekoe.idss.model.criterion.SingleScaledCriterion;
 import de.stekoe.idss.model.criterion.scale.OrdinalScale;
 import de.stekoe.idss.model.criterion.scale.Scale;
@@ -61,7 +62,7 @@ public abstract class OrdinalScaledCriterionForm extends Panel {
 
     private Form<SingleScaledCriterion> scaleForm;
     private Form<OrdinalValue> valueForm;
-    private String criterionId;
+    private CriterionPageElementId criterionId;
 
     private LoadableDetachableModel<SingleScaledCriterion> itsCriterionModel = new LoadableDetachableModel<SingleScaledCriterion>() {
         @Override
@@ -80,7 +81,7 @@ public abstract class OrdinalScaledCriterionForm extends Panel {
 
     public OrdinalScaledCriterionForm(final String aId, final String aCriterionId) {
         super(aId);
-        criterionId = aCriterionId;
+        criterionId = new CriterionPageElementId(aCriterionId);
 
         scaleForm();
         valueForm();

@@ -1,6 +1,7 @@
 package de.stekoe.idss.service.impl;
 
 import de.stekoe.idss.AbstractBaseTest;
+import de.stekoe.idss.model.DocumentId;
 import de.stekoe.idss.service.DocumentService;
 import org.apache.log4j.Logger;
 import org.junit.Before;
@@ -30,8 +31,7 @@ public class DefaultDocumentServiceTest extends AbstractBaseTest {
     @Test
     public void testGetAbsolutePath() throws Exception {
         for (int i = 0; i <= 1000; i++) {
-            final String s = UUID.randomUUID().toString();
-            final String path = documentService.getAbsolutePath(s);
+            final String path = documentService.getAbsolutePath(new DocumentId());
             if (!paths.add(path)) {
                 throw new IllegalArgumentException();
             }

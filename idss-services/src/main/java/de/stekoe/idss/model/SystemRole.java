@@ -1,3 +1,19 @@
+/*
+ * Copyright 2014 Stephan Köninger
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * 	http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package de.stekoe.idss.model;
 
 import de.stekoe.idss.IDGenerator;
@@ -22,17 +38,16 @@ public class SystemRole implements Serializable {
     public static final transient String USER = "USER";
     public static final transient String ADMIN = "ADMIN";
 
-    private String id = IDGenerator.createId();
+    private SystemRoleId id = new SystemRoleId();
     private String name;
     private Set<User> users = new HashSet<User>(0);
 
-    @Id
-    @Column(name = "system_role_id")
-    public String getId() {
+    @EmbeddedId
+    public SystemRoleId getId() {
         return this.id;
     }
 
-    public void setId(String id) {
+    public void setId(SystemRoleId id) {
         this.id = id;
     }
 
@@ -46,7 +61,7 @@ public class SystemRole implements Serializable {
         this.name = roleName;
     }
 
-    @ManyToMany(mappedBy = "roles", targetEntity = User.class)
+    @ManyToMany(targetEntity = User.class)
     public Set<User> getUsers() {
         return this.users;
     }

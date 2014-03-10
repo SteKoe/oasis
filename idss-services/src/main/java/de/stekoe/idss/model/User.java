@@ -1,3 +1,19 @@
+/*
+ * Copyright 2014 Stephan Köninger
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * 	http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package de.stekoe.idss.model;
 
 import de.stekoe.idss.IDGenerator;
@@ -27,7 +43,7 @@ public class User implements Serializable {
 
     private static final int MIN_PASSWORD_LENGTH = 5;
 
-    private String id = IDGenerator.createId();
+    private UserId id = new UserId();
     private Set<SystemRole> roles = new HashSet<SystemRole>(0);
     private UserProfile userProfile;
     private String username;
@@ -38,18 +54,16 @@ public class User implements Serializable {
     private Set<ProjectMember> projectMemberships = new HashSet<ProjectMember>(0);
     private Set<Permission> permissions = new HashSet<Permission>();
 
-    @Id
-    @Column(name = "user_id")
-    public String getId() {
+    @EmbeddedId
+    public UserId getId() {
         return this.id;
     }
 
-    public void setId(String id) {
+    public void setId(UserId id) {
         this.id = id;
     }
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = UserProfile.class)
-    @PrimaryKeyJoinColumn
+    @OneToOne(cascade = CascadeType.ALL, targetEntity = UserProfile.class)
     public UserProfile getProfile() {
         return this.userProfile;
     }
@@ -121,7 +135,7 @@ public class User implements Serializable {
         this.userStatus = userStatus;
     }
 
-    @OneToMany(mappedBy = "user", targetEntity = ProjectMember.class)
+    @OneToMany(targetEntity = ProjectMember.class)
     public Set<ProjectMember> getProjectMemberships() {
         return this.projectMemberships;
     }

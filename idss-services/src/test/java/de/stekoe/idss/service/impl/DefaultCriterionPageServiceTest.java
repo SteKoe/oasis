@@ -3,6 +3,7 @@ package de.stekoe.idss.service.impl;
 import de.stekoe.idss.AbstractBaseTest;
 import de.stekoe.idss.TestFactory;
 import de.stekoe.idss.model.criterion.CriterionPage;
+import de.stekoe.idss.model.criterion.CriterionPageId;
 import de.stekoe.idss.model.project.Project;
 import de.stekoe.idss.service.CriterionPageService;
 import de.stekoe.idss.service.ProjectService;
@@ -34,7 +35,7 @@ public class DefaultCriterionPageServiceTest extends AbstractBaseTest {
         final CriterionPage entity = new CriterionPage();
         entity.setProject(project);
 
-        final String id = entity.getId();
+        final CriterionPageId id = entity.getId();
         criterionPageService.save(entity);
 
         final CriterionPage byId = criterionPageService.findById(id);
@@ -46,7 +47,7 @@ public class DefaultCriterionPageServiceTest extends AbstractBaseTest {
         final Project project = TestFactory.createProject();
         projectService.save(project);
 
-        String pageToDelete = "";
+        CriterionPageId pageToDelete = null;
 
         for (int i = 1; i < 10; i++) {
             final CriterionPage page = new CriterionPage();

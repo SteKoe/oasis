@@ -19,6 +19,7 @@ package de.stekoe.idss.page.component.form.project;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.model.enums.PermissionType;
 import de.stekoe.idss.model.project.Project;
+import de.stekoe.idss.model.project.ProjectId;
 import de.stekoe.idss.model.project.ProjectMember;
 import de.stekoe.idss.page.HomePage;
 import de.stekoe.idss.page.component.modal.AddProjectMemberModal;
@@ -48,9 +49,9 @@ public class EditProjectMembersForm extends Panel {
     private ProjectService projectService;
     private final LoadableDetachableModel<Project> model;
 
-    private final String projectId;
+    private final ProjectId projectId;
 
-    public EditProjectMembersForm(String id, final String projectId) {
+    public EditProjectMembersForm(String id, final ProjectId projectId) {
         super(id);
         this.projectId = projectId;
         this.model = new LoadableDetachableModel<Project>() {

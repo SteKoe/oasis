@@ -17,6 +17,7 @@
 package de.stekoe.idss.page.project.criterion.page;
 
 import de.stekoe.idss.model.criterion.CriterionPage;
+import de.stekoe.idss.model.criterion.CriterionPageId;
 import de.stekoe.idss.page.project.ProjectPage;
 import de.stekoe.idss.service.CriterionPageService;
 import de.stekoe.idss.session.WebSession;
@@ -46,11 +47,11 @@ public class CriteriaPageDetailsPage extends ProjectPage {
     public CriteriaPageDetailsPage(PageParameters pageParameters) {
         super(pageParameters);
 
-        final StringValue pageId = pageParameters.get("pageId");
+        final StringValue pageIdParam = pageParameters.get("pageId");
         criterionPageModel = new LoadableDetachableModel<CriterionPage>() {
             @Override
             protected CriterionPage load() {
-                return criterionPageService.findById(pageId.toString());
+                return criterionPageService.findById(new CriterionPageId(pageIdParam.toString()));
             }
         };
 

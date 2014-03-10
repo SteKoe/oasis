@@ -17,18 +17,11 @@
 package de.stekoe.idss.dao.impl;
 
 import de.stekoe.idss.dao.IMeasurementValueDAO;
-import de.stekoe.idss.model.criterion.CriterionPage;
+import de.stekoe.idss.model.criterion.scale.ScaleId;
 import de.stekoe.idss.model.criterion.scale.value.MeasurementValue;
-import de.stekoe.idss.model.project.Project;
-import de.stekoe.idss.service.Orderable;
 import org.hibernate.Criteria;
-import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.criterion.Subqueries;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 /**
  * @author Stephan Köninger <mail@stekoe.de>
@@ -41,7 +34,7 @@ public class MeasurementValueDAO extends GenericDAO<MeasurementValue> implements
     }
 
     @Override
-    public MeasurementValue findByOrdering(int ordering, String scaleId) {
+    public MeasurementValue findByOrdering(int ordering, ScaleId scaleId) {
         final Criteria criteria = getSession().createCriteria(getPersistedClass());
         criteria.add(Restrictions.eq("scale.id", scaleId));
         criteria.add(Restrictions.eq("ordering", ordering));

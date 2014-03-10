@@ -1,9 +1,27 @@
+/*
+ * Copyright 2014 Stephan Köninger
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * 	http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package de.stekoe.idss.service.impl;
 
 import de.stekoe.idss.dao.ICriterionPageDAO;
 import de.stekoe.idss.model.criterion.CriterionPage;
 import de.stekoe.idss.model.criterion.CriterionPageElement;
+import de.stekoe.idss.model.criterion.CriterionPageId;
 import de.stekoe.idss.model.project.Project;
+import de.stekoe.idss.model.project.ProjectId;
 import de.stekoe.idss.service.CriterionPageService;
 
 import javax.inject.Inject;
@@ -18,7 +36,7 @@ public class DefaultCriterionPageService implements CriterionPageService {
     private ICriterionPageDAO criterionPageDAO;
 
     @Override
-    public CriterionPage findById(String id) {
+    public CriterionPage findById(CriterionPageId id) {
         return criterionPageDAO.findById(id);
     }
 
@@ -47,12 +65,12 @@ public class DefaultCriterionPageService implements CriterionPageService {
     }
 
     @Override
-    public List<CriterionPage> getCriterionPagesForProject(String projectId) {
+    public List<CriterionPage> getCriterionPagesForProject(ProjectId projectId) {
         return criterionPageDAO.findAllForProject(projectId);
     }
 
     @Override
-    public int getNextPageNumForProject(String projectId) {
+    public int getNextPageNumForProject(ProjectId projectId) {
         return criterionPageDAO.getNextPageNumForProject(projectId);
     }
 
@@ -82,7 +100,7 @@ public class DefaultCriterionPageService implements CriterionPageService {
     }
 
     @Override
-    public CriterionPage findByOrdering(int ordering, String projectId) {
+    public CriterionPage findByOrdering(int ordering, ProjectId projectId) {
         return criterionPageDAO.findByOrdering(ordering, projectId);
     }
 
@@ -97,6 +115,5 @@ public class DefaultCriterionPageService implements CriterionPageService {
 
     @Override
     public void deletePageElement(CriterionPageElement aCriterionPageElement) {
-        //To change body of implemented methods use File | Settings | File Templates.
     }
 }

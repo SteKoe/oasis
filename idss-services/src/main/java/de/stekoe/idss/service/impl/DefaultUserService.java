@@ -1,3 +1,19 @@
+/*
+ * Copyright 2014 Stephan Köninger
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * 	http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package de.stekoe.idss.service.impl;
 
 import de.stekoe.idss.dao.IUserDAO;
@@ -5,6 +21,7 @@ import de.stekoe.idss.exception.EmailAddressAlreadyInUseException;
 import de.stekoe.idss.exception.UserException;
 import de.stekoe.idss.exception.UsernameAlreadyInUseException;
 import de.stekoe.idss.model.User;
+import de.stekoe.idss.model.UserId;
 import de.stekoe.idss.service.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,7 +66,7 @@ public class DefaultUserService implements UserService {
     }
 
     @Override
-    public User findById(String id) {
+    public User findById(UserId id) {
         return userDAO.findById(id);
     }
 

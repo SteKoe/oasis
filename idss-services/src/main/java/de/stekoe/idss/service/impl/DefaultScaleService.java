@@ -19,6 +19,7 @@ package de.stekoe.idss.service.impl;
 import de.stekoe.idss.dao.impl.MeasurementValueDAO;
 import de.stekoe.idss.model.criterion.CriterionPage;
 import de.stekoe.idss.model.criterion.scale.Scale;
+import de.stekoe.idss.model.criterion.scale.ScaleId;
 import de.stekoe.idss.model.criterion.scale.value.MeasurementValue;
 import de.stekoe.idss.model.project.Project;
 import de.stekoe.idss.service.Orderable;
@@ -56,7 +57,7 @@ public class DefaultScaleService implements ScaleService {
         measurementValueDAO.save(other);
     }
 
-    private MeasurementValue findByOrdering(int newOrdering, String scaleId) {
+    private MeasurementValue findByOrdering(int newOrdering, ScaleId scaleId) {
         return measurementValueDAO.findByOrdering(newOrdering, scaleId);
     }
 }

@@ -26,13 +26,11 @@ public class TestFactory {
 
     public static ProjectMember createProjectMember() {
         final ProjectMember projectMember = new ProjectMember();
-        projectMember.setId(createUUID());
         return projectMember;
     }
 
     public static Project createProject() {
         final Project project = new Project();
-        project.setId(createUUID());
         project.setName("Random Project Name");
         project.setDescription("Random Project Description");
         return project;

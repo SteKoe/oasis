@@ -17,6 +17,7 @@
 package de.stekoe.idss.page.component.form.criterion;
 
 import de.stekoe.idss.model.criterion.CriterionPage;
+import de.stekoe.idss.model.criterion.CriterionPageId;
 import de.stekoe.idss.model.criterion.SingleScaledCriterion;
 import de.stekoe.idss.page.project.criterion.EditOrdinalCriterionPage;
 import de.stekoe.idss.service.CriterionPageService;
@@ -45,7 +46,7 @@ public class CreateOrdinalScaledCriterionForm extends OrdinalScaledCriterionForm
 
     @Override
     public void onSaveCriterion(IModel<SingleScaledCriterion> aModel) {
-        final CriterionPage page = itsCriterionPageService.findById(itsPageId);
+        final CriterionPage page = itsCriterionPageService.findById(new CriterionPageId(itsPageId));
 
         final SingleScaledCriterion criterion = aModel.getObject();
         criterion.setCriterionPage(page);

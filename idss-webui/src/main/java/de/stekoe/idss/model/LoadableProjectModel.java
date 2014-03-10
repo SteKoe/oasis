@@ -17,6 +17,7 @@
 package de.stekoe.idss.model;
 
 import de.stekoe.idss.model.project.Project;
+import de.stekoe.idss.model.project.ProjectId;
 import de.stekoe.idss.service.ProjectService;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -29,9 +30,9 @@ public class LoadableProjectModel extends LoadableDetachableModel<Project> {
     @SpringBean
     ProjectService projectService;
 
-    private final String id;
+    private final ProjectId id;
 
-    public LoadableProjectModel(String id) {
+    public LoadableProjectModel(ProjectId id) {
         this.id = id;
     }
 

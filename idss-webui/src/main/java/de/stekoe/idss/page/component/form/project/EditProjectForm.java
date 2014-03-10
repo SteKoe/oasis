@@ -17,6 +17,7 @@
 package de.stekoe.idss.page.component.form.project;
 
 import de.stekoe.idss.model.project.Project;
+import de.stekoe.idss.model.project.ProjectId;
 import de.stekoe.idss.service.ProjectRoleService;
 import de.stekoe.idss.service.ProjectService;
 import de.stekoe.idss.session.WebSession;
@@ -33,7 +34,7 @@ public class EditProjectForm extends ProjectForm {
     @SpringBean
     private ProjectRoleService projectRoleService;
 
-    public EditProjectForm(String id, String projectId) {
+    public EditProjectForm(String id, ProjectId projectId) {
         super(id, projectId);
     }
 

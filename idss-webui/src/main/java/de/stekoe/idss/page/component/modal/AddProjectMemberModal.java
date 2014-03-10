@@ -22,6 +22,7 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.dialog.Modal;
 import de.agilecoders.wicket.core.markup.html.bootstrap.dialog.ModalCloseButton;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.model.project.Project;
+import de.stekoe.idss.model.project.ProjectId;
 import de.stekoe.idss.model.project.ProjectMember;
 import de.stekoe.idss.model.project.ProjectRole;
 import de.stekoe.idss.service.ProjectService;
@@ -51,7 +52,7 @@ public abstract class AddProjectMemberModal extends Modal {
 
     private ProjectMember projectMember = new ProjectMember();
 
-    public AddProjectMemberModal(String id, final String projectId) {
+    public AddProjectMemberModal(String id, final ProjectId projectId) {
         super(id);
 
         final LoadableDetachableModel<Project> projectModel = new LoadableDetachableModel<Project>() {

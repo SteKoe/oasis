@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import javax.inject.Inject;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
@@ -28,21 +29,23 @@ public class ProjectRoleTest extends AbstractBaseTest {
     public void editPermissionsOfProjectRole() throws Exception {
         ProjectRole projectRole = new ProjectRole();
         projectRole.setName("ProjectRole");
-        projectRole.getPermissions().add(new Permission(PermissionObject.PROJECT, PermissionType.UPDATE, "123"));
+        final ProjectId projectId = new ProjectId();
+        projectRole.getPermissions().add(new Permission(PermissionObject.PROJECT, PermissionType.UPDATE, projectId));
         projectRoleService.save(projectRole);
 
         projectRole = projectRoleService.findById(projectRole.getId());
         assertTrue(projectRole.getPermissions().size() == 1);
         Permission permission = projectRole.getPermissions().toArray(new Permission[1])[0];
-        assertThat(permission.getObjectId(), IsEqual.equalTo("123"));
+        assertEquals(projectId, permission.getObjectId());
 
         projectRole.getPermissions().clear();
-        projectRole.getPermissions().add(new Permission(PermissionObject.PROJECT, PermissionType.UPDATE, "456"));
+        final ProjectId projectId2 = new ProjectId();
+        projectRole.getPermissions().add(new Permission(PermissionObject.PROJECT, PermissionType.UPDATE, projectId2));
         projectRoleService.save(projectRole);
 
         projectRole = projectRoleService.findById(projectRole.getId());
         assertTrue(projectRole.getPermissions().size() == 1);
         permission = projectRole.getPermissions().toArray(new Permission[1])[0];
-        assertThat(permission.getObjectId(), IsEqual.equalTo("456"));
+        assertEquals(projectId2, permission.getObjectId());
     }
 }

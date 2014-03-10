@@ -16,6 +16,7 @@
 
 package de.stekoe.idss.dao;
 
+import de.stekoe.idss.model.criterion.scale.ScaleId;
 import de.stekoe.idss.model.criterion.scale.value.MeasurementValue;
 import de.stekoe.idss.model.project.Project;
 import de.stekoe.idss.service.Orderable;
@@ -26,5 +27,5 @@ import java.util.List;
  * @author Stephan Köninger <mail@stekoe.de>
  */
 public interface IMeasurementValueDAO extends IGenericDAO<MeasurementValue> {
-    MeasurementValue findByOrdering(int ordering, String scaleId);
+    MeasurementValue findByOrdering(int ordering, ScaleId scaleId);
 }

@@ -1,12 +1,30 @@
+/*
+ * Copyright 2014 Stephan Köninger
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * 	http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package de.stekoe.idss.service.impl;
 
 import de.stekoe.idss.dao.IProjectDAO;
 import de.stekoe.idss.dao.IUserDAO;
 import de.stekoe.idss.model.Permission;
 import de.stekoe.idss.model.User;
+import de.stekoe.idss.model.UserId;
 import de.stekoe.idss.model.enums.PermissionObject;
 import de.stekoe.idss.model.enums.PermissionType;
 import de.stekoe.idss.model.project.Project;
+import de.stekoe.idss.model.project.ProjectId;
 import de.stekoe.idss.model.project.ProjectMember;
 import de.stekoe.idss.service.AuthService;
 import de.stekoe.idss.service.ProjectService;
@@ -36,7 +54,7 @@ public class DefaultProjectService implements ProjectService {
     private AuthService authService;
 
     @Override
-    public void delete(java.lang.String id) {
+    public void delete(ProjectId id) {
         projectDAO.delete(id);
     }
 
@@ -46,22 +64,22 @@ public class DefaultProjectService implements ProjectService {
     }
 
     @Override
-    public Project findById(java.lang.String id) {
+    public Project findById(ProjectId id) {
         return projectDAO.findById(id);
     }
 
     @Override
-    public List<Project> findAllForUser(String user) {
+    public List<Project> findAllForUser(UserId user) {
         return projectDAO.findAllForUser(user);
     }
 
     @Override
-    public List<Project> findAllForUserPaginated(String userId, int perPage, int curPage) {
+    public List<Project> findAllForUserPaginated(UserId userId, int perPage, int curPage) {
         return projectDAO.findAllForUserPaginated(userId, perPage, curPage);
     }
 
     @Override
-    public boolean isAuthorized(final String userId, final String projectId, final PermissionType permissionType) {
+    public boolean isAuthorized(final UserId userId, final ProjectId projectId, final PermissionType permissionType) {
 
         final Project project = projectDAO.findById(projectId);
 

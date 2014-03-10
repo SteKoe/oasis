@@ -1,8 +1,25 @@
+/*
+ * Copyright 2014 Stephan Köninger
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * 	http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package de.stekoe.idss.service.impl;
 
 import de.stekoe.idss.dao.impl.CriterionDAO;
 import de.stekoe.idss.dao.impl.CriterionPageDAO;
 import de.stekoe.idss.model.criterion.Criterion;
+import de.stekoe.idss.model.criterion.CriterionPageElementId;
 import de.stekoe.idss.model.criterion.SingleScaledCriterion;
 import de.stekoe.idss.model.criterion.scale.Scale;
 import de.stekoe.idss.model.criterion.scale.value.MeasurementValue;
@@ -28,7 +45,7 @@ public class DefaultCriterionService implements CriterionService {
     private CriterionPageDAO itsCriterionPageDAO;
 
     @Override
-    public Criterion findById(String id) {
+    public Criterion findById(CriterionPageElementId id) {
         return itsCriterionDAO.findById(id);
     }
 
@@ -38,7 +55,7 @@ public class DefaultCriterionService implements CriterionService {
     }
 
     @Override
-    public void deleteCriterion(String criterionId) {
+    public void deleteCriterion(CriterionPageElementId criterionId) {
         itsCriterionDAO.delete(criterionId);
     }
 

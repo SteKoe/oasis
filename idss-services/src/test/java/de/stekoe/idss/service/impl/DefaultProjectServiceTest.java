@@ -7,6 +7,7 @@ import de.stekoe.idss.model.User;
 import de.stekoe.idss.model.enums.PermissionObject;
 import de.stekoe.idss.model.enums.PermissionType;
 import de.stekoe.idss.model.project.Project;
+import de.stekoe.idss.model.project.ProjectId;
 import de.stekoe.idss.model.project.ProjectMember;
 import de.stekoe.idss.model.project.ProjectRole;
 import de.stekoe.idss.service.ProjectRoleService;
@@ -34,7 +35,7 @@ public class DefaultProjectServiceTest extends AbstractBaseTest {
 
     @Test
     public void projectRoleBasedAuthWorks() throws Exception {
-        java.lang.String projectId = "P2345";
+        ProjectId projectId = new ProjectId();
 
         Set<Permission> permissions = new HashSet<Permission>();
         permissions.add(new Permission(PermissionObject.PROJECT, PermissionType.DELETE, projectId));

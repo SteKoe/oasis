@@ -20,6 +20,7 @@ import de.stekoe.idss.model.Permission;
 import de.stekoe.idss.model.enums.PermissionObject;
 import de.stekoe.idss.model.enums.PermissionType;
 import de.stekoe.idss.model.project.ProjectRole;
+import de.stekoe.idss.model.project.ProjectRoleId;
 import de.stekoe.idss.page.project.ProjectPage;
 import de.stekoe.idss.page.project.ProjectRoleListPage;
 import de.stekoe.idss.service.PermissionService;
@@ -57,7 +58,7 @@ public class ProjectRoleEditPage extends ProjectPage {
 
     public ProjectRoleEditPage(PageParameters pageParameters) {
         super(pageParameters);
-        final String projectRoleId = getProjectRoleIdFromProject(pageParameters);
+        final ProjectRoleId projectRoleId = getProjectRoleIdFromProject(pageParameters);
         if (projectRoleId == null) {
 
         }
@@ -117,7 +118,7 @@ public class ProjectRoleEditPage extends ProjectPage {
         form.add(new TextField<String>("name"));
     }
 
-    private void createModel(final String projectRoleId) {
+    private void createModel(final ProjectRoleId projectRoleId) {
         projectRoleModel = new LoadableDetachableModel<ProjectRole>() {
             @Override
             protected ProjectRole load() {
@@ -126,7 +127,7 @@ public class ProjectRoleEditPage extends ProjectPage {
         };
     }
 
-    private String getProjectRoleIdFromProject(PageParameters pageParameters) {
+    private ProjectRoleId getProjectRoleIdFromProject(PageParameters pageParameters) {
         final Set<ProjectRole> projectRoles = getProject().getProjectRoles();
         for (ProjectRole projectRole : projectRoles) {
             if (projectRole.getId().equals(pageParameters.get("roleId").toString())) {

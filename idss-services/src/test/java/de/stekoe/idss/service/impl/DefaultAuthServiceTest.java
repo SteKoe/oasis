@@ -7,6 +7,7 @@ import de.stekoe.idss.model.User;
 import de.stekoe.idss.model.enums.PermissionObject;
 import de.stekoe.idss.model.enums.PermissionType;
 import de.stekoe.idss.model.project.Project;
+import de.stekoe.idss.model.project.ProjectId;
 import de.stekoe.idss.model.project.ProjectMember;
 import de.stekoe.idss.service.AuthService;
 import de.stekoe.idss.service.ProjectService;
@@ -40,7 +41,7 @@ public class DefaultAuthServiceTest extends AbstractBaseTest {
 
     @Test
     public void userSpecificAuth() throws Exception {
-        final String projectId = "P1234";
+        final ProjectId projectId = new ProjectId();
 
         Set<Permission> permissionList = new HashSet<Permission>();
         permissionList.add(new Permission(PermissionObject.PROJECT, PermissionType.DELETE, projectId));
@@ -68,13 +69,13 @@ public class DefaultAuthServiceTest extends AbstractBaseTest {
     @Test
     public void userSpecificAuthFails() throws Exception {
         Set<Permission> permissionList = new HashSet<Permission>();
-        permissionList.add(new Permission(PermissionObject.PROJECT, PermissionType.DELETE, "P1234"));
+        permissionList.add(new Permission(PermissionObject.PROJECT, PermissionType.DELETE, new ProjectId()));
 
         User user = new User();
         user.setPermissions(permissionList);
 
         Project project = new Project();
-        project.setId("P1235");
+        project.setId(new ProjectId());
 
         ProjectMember pm = new ProjectMember();
         pm.setUser(user);

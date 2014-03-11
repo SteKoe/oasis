@@ -49,6 +49,7 @@ public class Permission implements Serializable {
     }
 
     @EmbeddedId
+    @AttributeOverride(name = "id", column = @Column(name = "permission_id"))
     public PermissionId getId() {
         return id;
     }
@@ -81,6 +82,10 @@ public class Permission implements Serializable {
         return getObjectId() != null;
     }
 
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "id", column = @Column(name = "permissionObjectId"))
+    })
     public GenericId getObjectId() {
         return objectId;
     }

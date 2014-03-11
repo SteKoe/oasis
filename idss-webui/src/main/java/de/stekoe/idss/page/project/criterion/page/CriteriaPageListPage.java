@@ -128,7 +128,7 @@ public class CriteriaPageListPage extends ProjectPage {
                 final Link link = new Link("page.delete") {
                     @Override
                     public void onClick() {
-                        criterionPageService.delete(criterionPage);
+                        criterionPageService.delete(criterionPage.getId());
                         setResponsePage(getPage());
                     }
                 };

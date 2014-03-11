@@ -38,9 +38,6 @@ import java.util.UUID;
 @Entity
 @Table(name = "User", uniqueConstraints = @UniqueConstraint(columnNames = {"username", "email"}))
 public class User implements Serializable {
-
-    private static final long serialVersionUID = 101403011956L;
-
     private static final int MIN_PASSWORD_LENGTH = 5;
 
     private UserId id = new UserId();
@@ -55,6 +52,7 @@ public class User implements Serializable {
     private Set<Permission> permissions = new HashSet<Permission>();
 
     @EmbeddedId
+    @AttributeOverride(name = "id", column = @Column(name = "user_id"))
     public UserId getId() {
         return this.id;
     }
@@ -115,6 +113,7 @@ public class User implements Serializable {
     }
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = SystemRole.class)
+    @JoinTable(name = "User_SystemRole", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = { @JoinColumn(name = "system_role_id") })
     public Set<SystemRole> getRoles() {
         return this.roles;
     }

@@ -70,19 +70,23 @@ public abstract class ProjectPage extends AuthProjectPage {
     }
 
     private MarkupContainer addLinkResult() {
-        return add(new BookmarkablePageLink<ResultPage>("link.result", ResultPage.class, new PageParameters().add("projectId", getProjectId())));
+        return add(new BookmarkablePageLink<ResultPage>("link.result", ResultPage.class, getProjectIdPageParam()));
     }
 
     private MarkupContainer addLinkSetOfCriteria() {
-        return add(new BookmarkablePageLink<CriteriaPageListPage>("link.setofcriteria.edit", CriteriaPageListPage.class, new PageParameters().add("projectId", getProjectId())));
+        return add(new BookmarkablePageLink<CriteriaPageListPage>("link.setofcriteria.edit", CriteriaPageListPage.class, getProjectIdPageParam()));
+    }
+
+    private PageParameters getProjectIdPageParam() {
+        return new PageParameters().add("projectId", getProjectId().toString());
     }
 
     private MarkupContainer addLinkProjectDetails() {
-        return add(new BookmarkablePageLink<ProjectDetailsPage>("link.project.overview", ProjectDetailsPage.class, new PageParameters().add("projectId", getProjectId())));
+        return add(new BookmarkablePageLink<ProjectDetailsPage>("link.project.overview", ProjectDetailsPage.class, getProjectIdPageParam()));
     }
 
     private void addLinkUploadDocument() {
-        final BookmarkablePageLink<ProjectUploadDocument> linkUploadPage = new BookmarkablePageLink<ProjectUploadDocument>("link.upload.document", ProjectUploadDocument.class, new PageParameters().add("projectId", getProjectId()));
+        final BookmarkablePageLink<ProjectUploadDocument> linkUploadPage = new BookmarkablePageLink<ProjectUploadDocument>("link.upload.document", ProjectUploadDocument.class, getProjectIdPageParam());
         add(linkUploadPage);
         linkUploadPage.setVisible(projectService.isAuthorized(getUser().getId(), getProject().getId(), PermissionType.PROJECT_UPLOAD_FILE));
     }
@@ -104,19 +108,19 @@ public abstract class ProjectPage extends AuthProjectPage {
     }
 
     private void addLinkEditProjectRoles() {
-        final BookmarkablePageLink<ProjectRoleListPage> editProjectRolesLink = new BookmarkablePageLink<ProjectRoleListPage>("editProjectRolesLink", ProjectRoleListPage.class, new PageParameters().add("projectId", getProjectId()));
+        final BookmarkablePageLink<ProjectRoleListPage> editProjectRolesLink = new BookmarkablePageLink<ProjectRoleListPage>("editProjectRolesLink", ProjectRoleListPage.class, getProjectIdPageParam());
         add(editProjectRolesLink);
         editProjectRolesLink.setVisible(projectService.isAuthorized(getUser().getId(), getProject().getId(), PermissionType.PROJECT_ADD_ROLES));
     }
 
     private void addLinkEditProjectMember() {
-        final BookmarkablePageLink<ProjectMemberListPage> addMemberLink = new BookmarkablePageLink<ProjectMemberListPage>("addMember", ProjectMemberListPage.class, new PageParameters().add("projectId", getProjectId()));
+        final BookmarkablePageLink<ProjectMemberListPage> addMemberLink = new BookmarkablePageLink<ProjectMemberListPage>("addMember", ProjectMemberListPage.class, getProjectIdPageParam());
         add(addMemberLink);
         addMemberLink.setVisible(projectService.isAuthorized(getUser().getId(), getProject().getId(), PermissionType.PROJECT_ADD_MEMBER));
     }
 
     private void addLinkEditProject() {
-        final BookmarkablePageLink<ProjectEditPage> editProjectLink = new BookmarkablePageLink<ProjectEditPage>("editProject", ProjectEditPage.class, new PageParameters().add("projectId", getProjectId()));
+        final BookmarkablePageLink<ProjectEditPage> editProjectLink = new BookmarkablePageLink<ProjectEditPage>("editProject", ProjectEditPage.class, getProjectIdPageParam());
         add(editProjectLink);
         editProjectLink.setVisible(projectService.isAuthorized(getUser().getId(), getProject().getId(), PermissionType.UPDATE));
     }

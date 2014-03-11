@@ -29,6 +29,9 @@ import java.io.Serializable;
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Criterion extends CriterionPageElement implements Serializable {
+
+    private static final long serialVersionUID = 20141103925L;
+
     private String name;
     private String description;
     private boolean allowNoChoice = false;

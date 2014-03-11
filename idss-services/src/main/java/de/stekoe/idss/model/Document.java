@@ -30,7 +30,7 @@ import java.util.Date;
 @Table(name = "Document")
 public class Document implements Serializable {
 
-    private static final long serialVersionUID = 101403011956L;
+    private static final long serialVersionUID = 201403011956L;
 
     private DocumentId id = new DocumentId();
     private long size;
@@ -40,6 +40,7 @@ public class Document implements Serializable {
     private String contentType;
 
     @EmbeddedId
+    @AttributeOverride(name = "id", column = @Column(name = "document_id"))
     public DocumentId getId() {
         return this.id;
     }

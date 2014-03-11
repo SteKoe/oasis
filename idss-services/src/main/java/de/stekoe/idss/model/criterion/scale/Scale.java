@@ -32,6 +32,8 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Scale<T extends MeasurementValue> implements Serializable {
 
+    private static final long serialVersionUID = 20141103926L;
+
     private ScaleId id = new ScaleId();
     private String name;
     private String description;

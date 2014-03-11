@@ -67,7 +67,7 @@ public abstract class OrdinalScaledCriterionForm extends Panel {
     private LoadableDetachableModel<SingleScaledCriterion> itsCriterionModel = new LoadableDetachableModel<SingleScaledCriterion>() {
         @Override
         protected SingleScaledCriterion load() {
-            if (criterionId == null) {
+            if (criterionId.getId() == null) {
                 SingleScaledCriterion criterion = new SingleScaledCriterion();
                 final OrdinalScale scale = new OrdinalScale();
                 criterion.setScale(scale);
@@ -195,7 +195,7 @@ public abstract class OrdinalScaledCriterionForm extends Panel {
 
         final WebMarkupContainer emptyListIndicator = new WebMarkupContainer("value.list.empty");
         valueForm.add(emptyListIndicator);
-        emptyListIndicator.setVisible(valueList.getList().isEmpty());
+        //emptyListIndicator.setVisible(valueList.getList().isEmpty());
     }
 
     public abstract void onSaveCriterion(IModel<SingleScaledCriterion> aModel);

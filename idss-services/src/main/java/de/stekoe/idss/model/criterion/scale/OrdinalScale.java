@@ -28,5 +28,6 @@ import java.io.Serializable;
 @Entity
 @PrimaryKeyJoinColumn(name = "ordinal_scale_id", referencedColumnName = "scale_id")
 public class OrdinalScale extends Scale<OrdinalValue> implements Serializable {
+    private static final long serialVersionUID = 20141103926L;
 
 }

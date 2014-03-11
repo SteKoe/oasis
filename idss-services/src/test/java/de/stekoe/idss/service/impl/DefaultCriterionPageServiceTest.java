@@ -60,8 +60,7 @@ public class DefaultCriterionPageServiceTest extends AbstractBaseTest {
             criterionPageService.save(page);
         }
 
-        final CriterionPage pageObjectToDelete = criterionPageService.findById(pageToDelete);
-        criterionPageService.delete(pageObjectToDelete);
+        criterionPageService.delete(pageToDelete);
 
         List<CriterionPage> criterionPagesForProject = criterionPageService.getCriterionPagesForProject(project.getId());
         for (int i = 0; i < criterionPagesForProject.size(); i++) {

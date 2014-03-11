@@ -33,12 +33,15 @@ import java.util.Set;
 @Table(name = "ProjectMember")
 public class ProjectMember implements Serializable {
 
+    private static final long serialVersionUID = 20141103926L;
+
     private ProjectMemberId id = new ProjectMemberId();
     private User user;
     private ProjectRole projectRole;
     private Set<ProjectMemberGroup> projectGroups = new HashSet<ProjectMemberGroup>();
 
     @EmbeddedId
+    @AttributeOverride(name = "id", column = @Column(name = "project_member_id"))
     public ProjectMemberId getId() {
         return this.id;
     }

@@ -26,6 +26,7 @@ import de.stekoe.idss.model.enums.PermissionType;
 import de.stekoe.idss.model.project.Project;
 import de.stekoe.idss.model.project.ProjectId;
 import de.stekoe.idss.model.project.ProjectMember;
+import de.stekoe.idss.model.project.ProjectRole;
 import de.stekoe.idss.service.AuthService;
 import de.stekoe.idss.service.ProjectService;
 import org.apache.commons.collections.CollectionUtils;
@@ -106,7 +107,8 @@ public class DefaultProjectService implements ProjectService {
             return false;
         }
 
-        final Set<Permission> permissions = new HashSet<Permission>(pm.getProjectRole().getPermissions());
+        final ProjectRole projectRole = pm.getProjectRole();
+        final Set<Permission> permissions = projectRole.getPermissions();
 
         for (Permission permission : permissions) {
             if (permission.getPermissionObject().equals(PermissionObject.valueOf(Project.class)) && permission.getPermissionType().equals(permissionType)) {

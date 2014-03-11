@@ -36,7 +36,7 @@ public class ProjectRoleTest extends AbstractBaseTest {
         projectRole = projectRoleService.findById(projectRole.getId());
         assertTrue(projectRole.getPermissions().size() == 1);
         Permission permission = projectRole.getPermissions().toArray(new Permission[1])[0];
-        assertEquals(projectId, permission.getObjectId());
+        assertEquals(projectId.getId(), permission.getObjectId().getId());
 
         projectRole.getPermissions().clear();
         final ProjectId projectId2 = new ProjectId();
@@ -46,6 +46,6 @@ public class ProjectRoleTest extends AbstractBaseTest {
         projectRole = projectRoleService.findById(projectRole.getId());
         assertTrue(projectRole.getPermissions().size() == 1);
         permission = projectRole.getPermissions().toArray(new Permission[1])[0];
-        assertEquals(projectId2, permission.getObjectId());
+        assertEquals(projectId2.getId(), permission.getObjectId().getId());
     }
 }

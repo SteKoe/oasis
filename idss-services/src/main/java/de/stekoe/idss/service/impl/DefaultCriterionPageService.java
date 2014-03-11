@@ -49,9 +49,9 @@ public class DefaultCriterionPageService implements CriterionPageService {
     }
 
     @Override
-    public void delete(CriterionPage entity) {
-        final Project project = entity.getProject();
-        criterionPageDAO.delete(entity);
+    public void delete(CriterionPageId criterionPageId) {
+        final Project project = findById(criterionPageId).getProject();
+        criterionPageDAO.delete(criterionPageId);
         reorderPages(project);
     }
 

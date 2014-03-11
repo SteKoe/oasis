@@ -29,10 +29,7 @@ import java.util.List;
  * @author Stephan Köninger <mail@stekoe.de>
  */
 public class MyFencedFeedbackPanel extends MyFeedbackPanel {
-    private static final long serialVersionUID = 1L;
-
     private static final MetaDataKey<Integer> FENCE_KEY = new MetaDataKey<Integer>() {
-        private static final long serialVersionUID = 1L;
     };
 
     private final Component fence;
@@ -91,8 +88,6 @@ public class MyFencedFeedbackPanel extends MyFeedbackPanel {
     @Override
     protected FeedbackMessagesModel newFeedbackMessagesModel() {
         return new FeedbackMessagesModel(this) {
-            private static final long serialVersionUID = 1L;
-
             @Override
             protected List<FeedbackMessage> collectMessages(Component panel, IFeedbackMessageFilter filter) {
                 if (fence == null) {

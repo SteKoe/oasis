@@ -30,6 +30,9 @@ import java.util.List;
  */
 @Entity
 public class CriterionPage implements Serializable {
+
+    private static final long serialVersionUID = 20141103925L;
+
     private CriterionPageId id = new CriterionPageId();
     private int ordering = -1;
     private String name;
@@ -37,6 +40,7 @@ public class CriterionPage implements Serializable {
     private Project project;
 
     @EmbeddedId
+    @AttributeOverride(name = "id", column = @Column(name = "criterion_page_id"))
     public CriterionPageId getId() {
         return id;
     }
@@ -56,7 +60,7 @@ public class CriterionPage implements Serializable {
     }
 
     @OrderBy(value = "ordering")
-    @OneToMany(targetEntity = CriterionPageElement.class)
+    @OneToMany(targetEntity = CriterionPageElement.class, cascade = CascadeType.ALL)
     public List<CriterionPageElement> getPageElements() {
         return pageElements;
     }

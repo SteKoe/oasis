@@ -15,8 +15,8 @@
   -->
 
 <html xmlns:wicket="http://wicket.sourceforge.net/">
-<body>
-<wicket:head>
+
+<wicket:extend>
     <script type="text/javascript">
         var chart = AmCharts.makeChart("chartdiv", {
             "type": "radar",
@@ -75,9 +75,6 @@
             }
         });
     </script>
-</wicket:head>
-<wicket:extend>
     <div id="chartdiv" style="width:600px; height:400px;"></div>
 </wicket:extend>
-</body>
 </html>

@@ -42,6 +42,7 @@ public class UserProfile implements Serializable {
     private Date birthdate;
 
     @EmbeddedId
+    @AttributeOverride(name = "id", column = @Column(name = "user_profile_id"))
     public UserProfileId getId() {
         return this.id;
     }

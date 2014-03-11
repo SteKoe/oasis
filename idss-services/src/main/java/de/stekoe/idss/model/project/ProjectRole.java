@@ -32,11 +32,14 @@ import java.util.Set;
 @Table(name = "ProjectRole")
 public class ProjectRole implements Serializable {
 
+    private static final long serialVersionUID = 20141103926L;
+
     private ProjectRoleId id = new ProjectRoleId();
     private String name;
     private Set<Permission> permissions = new HashSet<Permission>();
 
     @EmbeddedId
+    @AttributeOverride(name = "id", column = @Column(name = "project_role_id"))
     public ProjectRoleId getId() {
         return this.id;
     }

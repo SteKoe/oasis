@@ -39,9 +39,9 @@ public interface CriterionPageService extends Orderable<CriterionPage> {
     void save(CriterionPage entity);
 
     /**
-     * @param entity The entity to delete
+     * @param criterionPageId The id of CriterionPage to delete
      */
-    void delete(CriterionPage entity);
+    void delete(CriterionPageId criterionPageId);
 
     /**
      * @param projectId Id of projct to load CriterionPages for

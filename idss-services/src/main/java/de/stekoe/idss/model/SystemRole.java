@@ -43,6 +43,7 @@ public class SystemRole implements Serializable {
     private Set<User> users = new HashSet<User>(0);
 
     @EmbeddedId
+    @AttributeOverride(name = "id", column = @Column(name = "system_role_id"))
     public SystemRoleId getId() {
         return this.id;
     }
@@ -62,6 +63,7 @@ public class SystemRole implements Serializable {
     }
 
     @ManyToMany(targetEntity = User.class)
+    @JoinTable(name = "User_SystemRole", joinColumns = { @JoinColumn(name = "system_role_id") }, inverseJoinColumns = { @JoinColumn(name = "user_id") })
     public Set<User> getUsers() {
         return this.users;
     }

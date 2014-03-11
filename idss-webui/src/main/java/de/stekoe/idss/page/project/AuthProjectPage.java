@@ -55,7 +55,7 @@ public class AuthProjectPage extends AuthUserPage {
             setResponsePage(ProjectListPage.class);
         }
 
-        if (!projectService.isAuthorized(getUser().getId(), new ProjectId(projectIdParam.toString()), PermissionType.READ)) {
+        if (!projectService.isAuthorized(getUser().getId(), getProjectId(), PermissionType.READ)) {
             WebSession.get().error("You are not allowed to access this project!");
             setResponsePage(ProjectListPage.class);
         }

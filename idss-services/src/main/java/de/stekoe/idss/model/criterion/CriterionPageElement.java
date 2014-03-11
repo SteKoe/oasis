@@ -27,6 +27,9 @@ import java.io.Serializable;
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class CriterionPageElement implements Serializable {
+
+    private static final long serialVersionUID = 20141103926L;
+
     private CriterionPageElementId id = new CriterionPageElementId();
     private CriterionPage criterionPage;
     private int ordering;

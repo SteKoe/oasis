@@ -18,12 +18,17 @@ package de.stekoe.idss.model;
 
 import de.stekoe.idss.IDGenerator;
 
+import javax.persistence.Embeddable;
 import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 
+@Embeddable
 @MappedSuperclass
-public abstract class GenericId implements Serializable {
-    String id = IDGenerator.createId();
+public class GenericId implements Serializable {
+
+    private static final long serialVersionUID = 201411031505L;
+
+    private String id = IDGenerator.createId();
 
     public GenericId() {
         // NOP
@@ -38,6 +43,11 @@ public abstract class GenericId implements Serializable {
     }
 
     public String getId() {
+        return id;
+    }
+
+    @Override
+    public String toString() {
         return id;
     }
 

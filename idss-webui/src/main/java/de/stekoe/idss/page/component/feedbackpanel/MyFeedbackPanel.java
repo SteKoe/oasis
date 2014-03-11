@@ -46,8 +46,6 @@ public class MyFeedbackPanel extends Panel implements IFeedback {
     private static final Logger LOG = Logger.getLogger(MyFeedbackPanel.class);
 
     private final class MessageListView extends ListView<FeedbackMessage> {
-        private static final long serialVersionUID = 1L;
-
         public MessageListView(final String id) {
             super(id);
             setDefaultModel(newFeedbackMessagesModel());
@@ -58,8 +56,6 @@ public class MyFeedbackPanel extends Panel implements IFeedback {
                 final IModel<? extends List<FeedbackMessage>> listViewModel,
                 final int index) {
             return new AbstractReadOnlyModel<FeedbackMessage>() {
-                private static final long serialVersionUID = 1L;
-
                 @Override
                 public FeedbackMessage getObject() {
                     if (index >= listViewModel.getObject().size()) {
@@ -85,8 +81,6 @@ public class MyFeedbackPanel extends Panel implements IFeedback {
         }
     }
 
-    private static final long serialVersionUID = 1L;
-
     private final MessageListView messageListView;
 
     /**
@@ -104,8 +98,6 @@ public class MyFeedbackPanel extends Panel implements IFeedback {
         super(id);
         WebMarkupContainer messagesContainer = new WebMarkupContainer(
                 "feedbackul") {
-            private static final long serialVersionUID = 1L;
-
             @Override
             protected void onConfigure() {
                 super.onConfigure();

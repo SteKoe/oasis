@@ -27,11 +27,15 @@ import java.io.Serializable;
  */
 @Entity
 public class ProjectMemberGroup implements Serializable {
+
+    private static final long serialVersionUID = 20141103926L;
+
     private ProjectMemberGroupId id = new ProjectMemberGroupId();
     private String name;
     private Project project;
 
     @EmbeddedId
+    @AttributeOverride(name = "id", column = @Column(name = "project_member_group_id"))
     public ProjectMemberGroupId getId() {
         return this.id;
     }

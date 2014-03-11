@@ -35,6 +35,8 @@ import java.util.*;
 @Entity
 public class Project implements Serializable, Identifyable<ProjectId> {
 
+    private static final long serialVersionUID = 20141103923L;
+
     private ProjectId id = new ProjectId();
     private String name;
     private String description;
@@ -47,6 +49,7 @@ public class Project implements Serializable, Identifyable<ProjectId> {
     private Date projectEndDate;
 
     @EmbeddedId
+    @AttributeOverride(name = "id", column = @Column(name = "project_id"))
     public ProjectId getId() {
         return this.id;
     }

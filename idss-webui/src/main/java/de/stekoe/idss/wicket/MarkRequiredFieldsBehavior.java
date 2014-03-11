@@ -57,8 +57,13 @@ public class MarkRequiredFieldsBehavior extends Behavior {
     }
 
     private boolean checkModelAnnotations(FormComponent aNext) {
+        final Object modelObject = aNext.getForm().getModelObject();
+        if(modelObject == null) {
+            return false;
+        }
+
         final String fieldName = aNext.getId();
-        final Class classObject = aNext.getForm().getModelObject().getClass();
+        final Class classObject = modelObject.getClass();
 
         try {
             final Method getter = new PropertyDescriptor(fieldName, classObject).getReadMethod();

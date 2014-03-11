@@ -25,8 +25,6 @@ import org.apache.wicket.util.string.Strings;
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
 public class EnumChoiceRenderer<T extends Enum<T> & L10NEnum> implements IChoiceRenderer<T> {
-    private static final long serialVersionUID = 201402281129L;
-
     @Override
     public final Object getDisplayValue(T object) {
         final String key = resourceKey(object);

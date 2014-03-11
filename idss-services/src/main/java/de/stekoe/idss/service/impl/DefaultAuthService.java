@@ -106,7 +106,7 @@ public class DefaultAuthService implements AuthService {
         permissionsFilter(permissions, permissionType, permissionObject);
 
         for (Permission permission : permissions) {
-            if (permission.hasObjectId() && identifyable.getId().equals(permission.getObjectId())) {
+            if (permission.hasObjectId() && identifyable.getId().getId().equals(permission.getObjectId().getId())) {
                 return true;
             }
         }

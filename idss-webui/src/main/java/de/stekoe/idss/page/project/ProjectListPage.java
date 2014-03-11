@@ -16,9 +16,11 @@
 
 package de.stekoe.idss.page.project;
 
+import de.stekoe.idss.model.UserId;
 import de.stekoe.idss.model.enums.PermissionType;
 import de.stekoe.idss.model.enums.ProjectStatus;
 import de.stekoe.idss.model.project.Project;
+import de.stekoe.idss.model.project.ProjectId;
 import de.stekoe.idss.model.provider.ProjectDataProvider;
 import de.stekoe.idss.page.AuthUserPage;
 import de.stekoe.idss.page.PaginationConfigurator;
@@ -92,7 +94,7 @@ public class ProjectListPage extends AuthUserPage {
         protected void populateItem(Item<Project> item) {
             final Project project = item.getModelObject();
             PageParameters pageDetailsParameters = new PageParameters();
-            pageDetailsParameters.add("projectId", project.getId());
+            pageDetailsParameters.add("projectId", project.getId().getId());
 
             final Label projectTitleLabel = new Label("project.title", Model.of(project.getName()));
             item.add(projectTitleLabel);
@@ -120,7 +122,10 @@ public class ProjectListPage extends AuthUserPage {
             };
             item.add(deleteProjectLink);
             deleteProjectLink.add(new JavascriptEventConfirmation("onClick", String.format(getString("project.delete.confirm"), project.getName())));
-            deleteProjectLink.setVisible(projectService.isAuthorized(WebSession.get().getUser().getId(), project.getId(), PermissionType.DELETE));
+            final UserId userId = WebSession.get().getUser().getId();
+            final ProjectId projectId = project.getId();
+            final boolean isAuthorized = projectService.isAuthorized(userId, projectId, PermissionType.DELETE);
+            deleteProjectLink.setVisible(isAuthorized);
         }
     }
 }

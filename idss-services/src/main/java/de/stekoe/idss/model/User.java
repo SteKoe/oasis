@@ -164,10 +164,12 @@ public class User implements Serializable {
     }
 
     public boolean hasAnyRole(List<SystemRole> rolesToCheck) {
-        for (SystemRole roleToCheck : rolesToCheck) {
-            for (SystemRole currentRole : getRoles()) {
-                if (currentRole.getName().equals(roleToCheck)) {
-                    return true;
+        if(rolesToCheck != null) {
+            for (SystemRole roleToCheck : rolesToCheck) {
+                for (SystemRole currentRole : getRoles()) {
+                    if (currentRole.getName().equals(roleToCheck)) {
+                        return true;
+                    }
                 }
             }
         }

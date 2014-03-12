@@ -48,7 +48,7 @@ public class User implements Serializable {
     private String email;
     private String activationKey = DigestUtils.md5Hex(UUID.randomUUID().toString());
     private UserStatus userStatus = UserStatus.ACTIVATION_PENDING;
-    private Set<ProjectMember> projectMemberships = new HashSet<ProjectMember>(0);
+    private Set<ProjectMember> projectMemberships = new HashSet<ProjectMember>();
     private Set<Permission> permissions = new HashSet<Permission>();
 
     @EmbeddedId

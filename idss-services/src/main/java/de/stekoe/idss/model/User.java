@@ -152,10 +152,13 @@ public class User implements Serializable {
         this.permissions = permissions;
     }
 
+    /**
+     * @return true if the user has admin role, false otherwise
+     */
     @Transient
     public boolean isAdmin() {
         for (SystemRole role : getRoles()) {
-            if (role.getName().equals(SystemRole.ADMIN)) {
+            if (SystemRole.ADMIN.equals(role.getName())) {
                 return true;
             }
         }
@@ -163,6 +166,11 @@ public class User implements Serializable {
         return false;
     }
 
+    /**
+     * @param rolesToCheck List of roles which are checked the user has
+     * @return true if the user has all given roles, false otherwise
+     */
+    @Transient
     public boolean hasAnyRole(List<SystemRole> rolesToCheck) {
         if(rolesToCheck != null) {
             for (SystemRole roleToCheck : rolesToCheck) {

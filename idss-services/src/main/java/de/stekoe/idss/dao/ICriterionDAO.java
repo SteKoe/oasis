@@ -17,9 +17,12 @@
 package de.stekoe.idss.dao;
 
 import de.stekoe.idss.model.criterion.Criterion;
+import de.stekoe.idss.model.criterion.CriterionPageElementId;
+import de.stekoe.idss.model.criterion.SingleScaledCriterion;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
 public interface ICriterionDAO extends IGenericDAO<Criterion> {
+    SingleScaledCriterion findSingleScaledCriterionById(CriterionPageElementId id);
 }

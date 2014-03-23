@@ -16,13 +16,20 @@
 
 package de.stekoe.idss.model.criterion.scale.value;
 
-import de.stekoe.idss.IDGenerator;
-import de.stekoe.idss.model.criterion.scale.Scale;
+import java.io.Serializable;
+
+import javax.persistence.AttributeOverride;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.io.Serializable;
+import de.stekoe.idss.model.criterion.scale.Scale;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
@@ -33,11 +40,16 @@ public abstract class MeasurementValue implements Serializable {
 
     private MeasurementValueId id = new MeasurementValueId();
     private String value;
-    private Scale scale;
+    private Scale<? extends MeasurementValue> scale;
     private int ordering;
 
     protected MeasurementValue() {
         // NOP
+    }
+
+    protected MeasurementValue(String value) {
+        this.ordering = 0;
+        this.value = value;
     }
 
     protected MeasurementValue(int ordering, String value) {
@@ -65,12 +77,12 @@ public abstract class MeasurementValue implements Serializable {
         this.value = value;
     }
 
-    public void setScale(Scale scale) {
+    public void setScale(Scale<? extends MeasurementValue> scale) {
         this.scale = scale;
     }
 
     @ManyToOne(targetEntity = Scale.class)
-    public Scale getScale() {
+    public Scale<? extends MeasurementValue> getScale() {
         return scale;
     }
 

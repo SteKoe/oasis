@@ -16,20 +16,23 @@
 
 package de.stekoe.idss.service.impl;
 
+import java.util.Iterator;
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import de.stekoe.idss.dao.impl.CriterionDAO;
-import de.stekoe.idss.dao.impl.CriterionPageDAO;
 import de.stekoe.idss.model.criterion.Criterion;
 import de.stekoe.idss.model.criterion.CriterionPageElementId;
 import de.stekoe.idss.model.criterion.SingleScaledCriterion;
 import de.stekoe.idss.model.criterion.scale.Scale;
 import de.stekoe.idss.model.criterion.scale.value.MeasurementValue;
+import de.stekoe.idss.model.criterion.scale.value.OrdinalValue;
 import de.stekoe.idss.service.CriterionService;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.inject.Inject;
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
@@ -41,12 +44,9 @@ public class DefaultCriterionService implements CriterionService {
     @Inject
     private CriterionDAO itsCriterionDAO;
 
-    @Inject
-    private CriterionPageDAO itsCriterionPageDAO;
-
     @Override
-    public Criterion findById(CriterionPageElementId id) {
-        return itsCriterionDAO.findById(id);
+    public SingleScaledCriterion findSingleScaledCriterionById(CriterionPageElementId id) {
+        return itsCriterionDAO.findSingleScaledCriterionById(id);
     }
 
     @Override
@@ -76,5 +76,17 @@ public class DefaultCriterionService implements CriterionService {
         while(iterator.hasNext()) {
             iterator.next().setOrdering(index++);
         }
+    }
+
+    @Override
+    public void addValue(SingleScaledCriterion criterion, OrdinalValue value) {
+        Scale scale = criterion.getScale();
+        value.setRank(scale.getValues().size() + 1);
+        value.setScale(scale);
+        scale.getValues().add(value);
+
+        criterion.setName(StringUtils.isBlank(criterion.getName()) ? "" : criterion.getName());
+
+        saveCriterion(criterion);
     }
 }

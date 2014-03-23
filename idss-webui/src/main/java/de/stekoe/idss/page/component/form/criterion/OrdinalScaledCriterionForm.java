@@ -16,6 +16,26 @@
 
 package de.stekoe.idss.page.component.form.criterion;
 
+import java.util.List;
+
+import org.apache.wicket.bean.validation.PropertyValidator;
+import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.CheckBox;
+import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.RequiredTextField;
+import org.apache.wicket.markup.html.form.SubmitLink;
+import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.link.Link;
+import org.apache.wicket.markup.html.list.ListItem;
+import org.apache.wicket.markup.html.list.ListView;
+import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.LoadableDetachableModel;
+import org.apache.wicket.spring.injection.annot.SpringBean;
+
+import wicket.contrib.tinymce.TinyMceBehavior;
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.FormGroup;
 import de.stekoe.idss.model.criterion.CriterionPageElementId;
 import de.stekoe.idss.model.criterion.SingleScaledCriterion;
@@ -28,23 +48,6 @@ import de.stekoe.idss.service.CriterionService;
 import de.stekoe.idss.service.Orderable;
 import de.stekoe.idss.service.ScaleService;
 import de.stekoe.idss.wicket.MarkRequiredFieldsBehavior;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.wicket.bean.validation.PropertyValidator;
-import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.*;
-import org.apache.wicket.markup.html.link.Link;
-import org.apache.wicket.markup.html.list.ListItem;
-import org.apache.wicket.markup.html.list.ListView;
-import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.CompoundPropertyModel;
-import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.LoadableDetachableModel;
-import org.apache.wicket.model.Model;
-import org.apache.wicket.spring.injection.annot.SpringBean;
-import wicket.contrib.tinymce.TinyMceBehavior;
-
-import java.util.List;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
@@ -62,9 +65,9 @@ public abstract class OrdinalScaledCriterionForm extends Panel {
 
     private Form<SingleScaledCriterion> scaleForm;
     private Form<OrdinalValue> valueForm;
-    private CriterionPageElementId criterionId;
+    private final CriterionPageElementId criterionId;
 
-    private LoadableDetachableModel<SingleScaledCriterion> itsCriterionModel = new LoadableDetachableModel<SingleScaledCriterion>() {
+    private final LoadableDetachableModel<SingleScaledCriterion> itsCriterionModel = new LoadableDetachableModel<SingleScaledCriterion>() {
         @Override
         protected SingleScaledCriterion load() {
             if (criterionId.getId() == null) {
@@ -74,7 +77,7 @@ public abstract class OrdinalScaledCriterionForm extends Panel {
                 scale.setCriterion(criterion);
                 return criterion;
             } else {
-                return (SingleScaledCriterion) criterionService.findById(criterionId);
+                return criterionService.findSingleScaledCriterionById(criterionId);
             }
         }
     };
@@ -87,6 +90,9 @@ public abstract class OrdinalScaledCriterionForm extends Panel {
         valueForm();
     }
 
+    /**
+     * Overall form for the scale
+     */
     private void scaleForm() {
         scaleForm = new Form<SingleScaledCriterion>("ordinalScaledCriterionForm", new CompoundPropertyModel<SingleScaledCriterion>(itsCriterionModel)) {
             @Override
@@ -98,12 +104,10 @@ public abstract class OrdinalScaledCriterionForm extends Panel {
 
 
         final TextField<String> nameTextField = new TextField<String>("name");
-        nameTextField.setLabel(Model.of(getString("label.name")));
         nameTextField.add(new PropertyValidator<String>());
         scaleForm.add(new FormGroup("name.group").add(nameTextField));
 
         final TextField<String> descriptionTextField = new TextField<String>("description");
-        descriptionTextField.setLabel(Model.of(getString("label.description")));
         descriptionTextField.add(new TinyMceBehavior(CustomTinyMCESettings.getStandard()));
         descriptionTextField.add(new PropertyValidator<String>());
         scaleForm.add(new FormGroup("description.group").add(descriptionTextField));
@@ -117,26 +121,28 @@ public abstract class OrdinalScaledCriterionForm extends Panel {
         add(new SubmitLink("submit.ordinalScaledCriterionForm", scaleForm));
     }
 
+    /**
+     * Subform for just the values of the scale
+     */
     private void valueForm() {
         valueForm = new Form<OrdinalValue>("valueForm", new CompoundPropertyModel<OrdinalValue>(new OrdinalValue())) {
             @Override
             protected void onSubmit() {
                 final SingleScaledCriterion criterion = itsCriterionModel.getObject();
-                criterion.setName(StringUtils.isBlank(criterion.getName()) ? getString("label.criterion.type.ordinal") : criterion.getName());
-
                 final OrdinalValue value = getModel().getObject();
-                value.setRank(criterion.getScale().getValues().size() + 1);
-                value.setScale(criterion.getScale());
-                criterion.getScale().getValues().add(value);
 
-                itsCriterionModel.setObject(criterion);
+                criterionService.addValue(criterion, value);
                 onSaveCriterion(itsCriterionModel);
             }
         };
         add(valueForm);
 
         final RequiredTextField<String> valueTextField = new RequiredTextField<String>("value");
-        valueForm.add(new FormGroup("value.group").add(valueTextField));
+        FormGroup valueGroup = new FormGroup("value.group");
+        valueForm.add(valueGroup.add(valueTextField));
+
+        final RequiredTextField<Double> rankTextField = new RequiredTextField<Double>("rank");
+        valueForm.add(valueGroup.add(rankTextField));
 
         final LoadableDetachableModel<List<OrdinalValue>> valueListModel = new LoadableDetachableModel<List<OrdinalValue>>() {
             @Override
@@ -150,7 +156,7 @@ public abstract class OrdinalScaledCriterionForm extends Panel {
             @Override
             protected void populateItem(final ListItem<OrdinalValue> item) {
                 final OrdinalValue value = item.getModelObject();
-                item.add(new Label("value.list.label", value.getValue() + " (" + value.getOrdering() + ")"));
+                item.add(new Label("value.list.label", value.getValue() + " (" + value.getRank() + ")"));
 
                 item.add(new Link("value.delete") {
                     @Override
@@ -174,6 +180,7 @@ public abstract class OrdinalScaledCriterionForm extends Panel {
                         return item.getIndex() > 0 && getList().size() > 1;
                     }
                 });
+
                 item.add(new Link("value.move.down") {
                     @Override
                     public void onClick() {
@@ -185,7 +192,6 @@ public abstract class OrdinalScaledCriterionForm extends Panel {
 
                     @Override
                     public boolean isVisible() {
-                        final int rank = value.getRank();
                         return item.getIndex() < (getList().size()-1) && getList().size() > 1;
                     }
                 });
@@ -195,7 +201,7 @@ public abstract class OrdinalScaledCriterionForm extends Panel {
 
         final WebMarkupContainer emptyListIndicator = new WebMarkupContainer("value.list.empty");
         valueForm.add(emptyListIndicator);
-        //emptyListIndicator.setVisible(valueList.getList().isEmpty());
+        emptyListIndicator.setVisible(valueList.getList().isEmpty());
     }
 
     public abstract void onSaveCriterion(IModel<SingleScaledCriterion> aModel);

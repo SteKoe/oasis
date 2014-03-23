@@ -16,9 +16,12 @@
 
 package de.stekoe.idss.dao.impl;
 
+import org.springframework.stereotype.Repository;
+
 import de.stekoe.idss.dao.ICriterionDAO;
 import de.stekoe.idss.model.criterion.Criterion;
-import org.springframework.stereotype.Repository;
+import de.stekoe.idss.model.criterion.CriterionPageElementId;
+import de.stekoe.idss.model.criterion.SingleScaledCriterion;
 
 /**
  * @author Stephan Köninger <mail@stekoe.de>
@@ -29,4 +32,11 @@ public class CriterionDAO extends GenericDAO<Criterion> implements ICriterionDAO
     protected Class<Criterion> getPersistedClass() {
         return Criterion.class;
     }
+
+    @Override
+    public SingleScaledCriterion findSingleScaledCriterionById(CriterionPageElementId id) {
+        return (SingleScaledCriterion) getSession().get(SingleScaledCriterion.class, id);
+    }
+
+
 }

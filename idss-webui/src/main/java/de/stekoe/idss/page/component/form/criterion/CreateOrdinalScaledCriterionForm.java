@@ -16,15 +16,17 @@
 
 package de.stekoe.idss.page.component.form.criterion;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.wicket.model.IModel;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.apache.wicket.spring.injection.annot.SpringBean;
+
 import de.stekoe.idss.model.criterion.CriterionPage;
 import de.stekoe.idss.model.criterion.CriterionPageId;
 import de.stekoe.idss.model.criterion.SingleScaledCriterion;
 import de.stekoe.idss.page.project.criterion.EditOrdinalCriterionPage;
 import de.stekoe.idss.service.CriterionPageService;
 import de.stekoe.idss.service.CriterionService;
-import org.apache.wicket.model.IModel;
-import org.apache.wicket.request.mapper.parameter.PageParameters;
-import org.apache.wicket.spring.injection.annot.SpringBean;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
@@ -49,6 +51,9 @@ public class CreateOrdinalScaledCriterionForm extends OrdinalScaledCriterionForm
         final CriterionPage page = itsCriterionPageService.findById(new CriterionPageId(itsPageId));
 
         final SingleScaledCriterion criterion = aModel.getObject();
+        if(StringUtils.isEmpty(criterion.getName())) {
+            criterion.setName(getString("label.criterion.type.ordinal"));
+        }
         criterion.setCriterionPage(page);
         criterion.setOrdering(page.getPageElements().size() + 1);
 

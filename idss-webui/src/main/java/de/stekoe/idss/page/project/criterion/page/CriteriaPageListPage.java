@@ -16,14 +16,8 @@
 
 package de.stekoe.idss.page.project.criterion.page;
 
-import de.stekoe.idss.model.criterion.CriterionPage;
-import de.stekoe.idss.model.criterion.CriterionPageElement;
-import de.stekoe.idss.model.criterion.SingleScaledCriterion;
-import de.stekoe.idss.page.project.ProjectPage;
-import de.stekoe.idss.page.project.criterion.SelectCriterionPage;
-import de.stekoe.idss.page.project.criterion.page.element.SingleScaledCriterionElement;
-import de.stekoe.idss.service.CriterionPageService;
-import de.stekoe.idss.service.ProjectService;
+import java.util.List;
+
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
@@ -35,7 +29,14 @@ import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-import java.util.List;
+import de.stekoe.idss.model.criterion.CriterionPage;
+import de.stekoe.idss.model.criterion.CriterionPageElement;
+import de.stekoe.idss.model.criterion.SingleScaledCriterion;
+import de.stekoe.idss.page.project.ProjectPage;
+import de.stekoe.idss.page.project.criterion.SelectCriterionPage;
+import de.stekoe.idss.page.project.criterion.page.element.SingleScaledCriterionElement;
+import de.stekoe.idss.service.CriterionPageService;
+import de.stekoe.idss.service.ProjectService;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>

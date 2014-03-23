@@ -2,6 +2,7 @@
 .project
 .settings
 .idea
+.metadata
 uploads/
 target/
 logs/

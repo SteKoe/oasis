@@ -17,7 +17,6 @@
 package de.stekoe.idss.model.criterion.scale.value;
 
 import javax.persistence.Entity;
-import javax.persistence.PrimaryKeyJoinColumn;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
@@ -25,20 +24,27 @@ import javax.persistence.PrimaryKeyJoinColumn;
 @Entity
 public class OrdinalValue extends MeasurementValue {
 
+    private int rank;
+
     public OrdinalValue() {
         // NOP
     }
 
+    /**
+     * @param rank  Rank of the current value
+     * @param value The value itself
+     */
     public OrdinalValue(int rank, String value) {
-        super(rank, value);
+        super(value);
+        this.rank = rank;
     }
 
     public int getRank() {
-        return getOrdering();
+        return rank;
     }
 
     public void setRank(int rank) {
-        setOrdering(rank);
+        this.rank = rank;
     }
 
     public boolean isGreaterThan(OrdinalValue aVal) {

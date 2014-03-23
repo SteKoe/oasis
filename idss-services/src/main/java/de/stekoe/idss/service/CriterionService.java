@@ -35,7 +35,7 @@ public interface CriterionService {
      * @param id
      * @return
      */
-    Criterion findById(CriterionPageElementId id);
+    SingleScaledCriterion findSingleScaledCriterionById(CriterionPageElementId id);
 
     /**
      * @param criterionId
@@ -46,4 +46,10 @@ public interface CriterionService {
      * @param value The value to delete from Criterion
      */
     void deleteValue(MeasurementValue value);
+
+    /**
+     * @param criterion The criterion which will receive the new value
+     * @param value The value to add to the given criterion
+     */
+    void addValue(SingleScaledCriterion criterion, OrdinalValue value);
 }

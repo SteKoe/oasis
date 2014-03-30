@@ -16,13 +16,20 @@
 
 package de.stekoe.idss.model;
 
-import de.stekoe.idss.IDGenerator;
+import java.io.Serializable;
+
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Table;
+
 import de.stekoe.idss.model.enums.PermissionObject;
 import de.stekoe.idss.model.enums.PermissionType;
-import org.apache.commons.lang3.StringUtils;
-
-import javax.persistence.*;
-import java.io.Serializable;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>

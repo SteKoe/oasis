@@ -16,59 +16,109 @@
 
 package de.stekoe.idss.service;
 
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import de.stekoe.idss.model.criterion.CriterionPage;
 import de.stekoe.idss.model.criterion.CriterionPageElement;
 import de.stekoe.idss.model.criterion.CriterionPageId;
+import de.stekoe.idss.model.project.Project;
 import de.stekoe.idss.model.project.ProjectId;
+import de.stekoe.idss.repository.CriterionPageRepository;
 
-import java.util.List;
+@Service
+@Transactional(readOnly = true)
+public class CriterionPageService {
 
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
-public interface CriterionPageService extends Orderable<CriterionPage> {
-    /**
-     * @param id Id of CriterionPage
-     * @return CriterionPage or null if no CriterionPage was found
-     */
-    CriterionPage findById(CriterionPageId id);
+    @Inject
+    private CriterionPageRepository criterionPageRepository;
 
-    /**
-     * @param entity Entity to save
-     */
-    void save(CriterionPage entity);
+    public CriterionPage findOne(CriterionPageId id) {
+        return criterionPageRepository.findOne(id);
+    }
 
-    /**
-     * @param criterionPageId The id of CriterionPage to delete
-     */
-    void delete(CriterionPageId criterionPageId);
+    @Transactional
+    public void save(CriterionPage entity) {
+        if (entity.getOrdering() < 0) {
+            ProjectId id = entity.getProject().getId();
+            int nextPageNumForProject = getNextPageNumForProject(id);
+            entity.setOrdering(nextPageNumForProject);
+        }
+        criterionPageRepository.save(entity);
+    }
 
-    /**
-     * @param projectId Id of projct to load CriterionPages for
-     * @return A list of CriterionPages
-     */
-    List<CriterionPage> getCriterionPagesForProject(ProjectId projectId);
+    @Transactional
+    public void delete(CriterionPageId criterionPageId) {
+        final Project project = findOne(criterionPageId).getProject();
+        criterionPageRepository.delete(criterionPageId);
+        reorderPages(project);
+    }
 
-    /**
-     * @param projectId Id of project
-     * @return The next page number
-     */
-    int getNextPageNumForProject(ProjectId projectId);
+    @Transactional
+    private void reorderPages(Project aProject) {
+        final List<CriterionPage> criterionPagesForProject = getCriterionPagesForProject(aProject.getId());
+        for (int i = 0; i < criterionPagesForProject.size(); i++) {
+            final CriterionPage criterionPage = criterionPagesForProject.get(i);
+            criterionPage.setOrdering(i + 1);
+            criterionPageRepository.save(criterionPage);
+        }
+    }
 
-    /**
-     * @param ordering  The position of the CriterionPage
-     * @param projectId The id of Project the CriterionPage belongs to
-     * @return The CriterionPage or null if none was found
-     */
-    CriterionPage findByOrdering(int ordering, ProjectId projectId);
+    public List<CriterionPage> getCriterionPagesForProject(ProjectId projectId) {
+        return criterionPageRepository.findAllForProject(projectId);
+    }
 
-    /**
-     * @param aCriterionPage Reorder all elements on the given CriterionPage
-     */
-    void reorderPageElements(CriterionPage aCriterionPage);
+    public int getNextPageNumForProject(ProjectId projectId) {
+        return (int) criterionPageRepository.getNextPageNumForProject(projectId);
+    }
 
-    /**
-     * @param aCriterionPageElement Deletes the given CriterionPageElement
-     */
-    void deletePageElement(CriterionPageElement aCriterionPageElement);
+    @Transactional
+    public void move(CriterionPage criterionPage, Orderable.Direction direction) {
+        final int ordering = criterionPage.getOrdering();
+        final Project project = criterionPage.getProject();
+
+        int newOrdering = 0;
+        if (Orderable.Direction.UP.equals(direction)) {
+            newOrdering = ordering - 1;
+        } else if (Orderable.Direction.DOWN.equals(direction)) {
+            newOrdering = ordering + 1;
+        }
+
+        if (newOrdering < 0) {
+            return;
+        }
+
+        final CriterionPage otherPage = findByOrdering(newOrdering, project.getId());
+
+        criterionPage.setOrdering(newOrdering);
+        criterionPageRepository.save(criterionPage);
+
+        otherPage.setOrdering(ordering);
+        criterionPageRepository.save(otherPage);
+    }
+
+    public CriterionPage findByOrdering(int ordering, ProjectId projectId) {
+        return criterionPageRepository.findByOrdering(ordering, projectId);
+    }
+
+    @Transactional
+    public void reorderPageElements(CriterionPage aCriterionPage) {
+        final List<CriterionPageElement> pageElements = aCriterionPage.getPageElements();
+        for(int i = 0; i < pageElements.size(); i++) {
+            pageElements.get(0).setOrdering(i + 1);
+        }
+        criterionPageRepository.save(aCriterionPage);
+    }
+
+    public List<CriterionPage> findAllForProject(ProjectId id) {
+        return criterionPageRepository.findAllForProject(id);
+    }
+
+    public List<CriterionPage> findAll() {
+        return (List<CriterionPage>) criterionPageRepository.findAll();
+    }
 }

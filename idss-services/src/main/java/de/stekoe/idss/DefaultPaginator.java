@@ -22,7 +22,8 @@ import java.util.List;
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
-public class DefaultPaginator<T> implements Paginator<T> {
+public class
+        DefaultPaginator<T> implements Paginator<T> {
     private List<T> list = new ArrayList<T>();
     private int totalEntries;
     private int currentPage;

@@ -1,54 +1,139 @@
 /*
- * Copyright 2014 Stephan Köninger
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * 	http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Copyright 2014 Stephan Köninger Licensed under the Apache License, Version
+ * 2.0 (the "License"); you may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law
+ * or agreed to in writing, software distributed under the License is
+ * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
  */
 
 package de.stekoe.idss.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
+import org.apache.commons.lang3.Validate;
+import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import de.stekoe.idss.model.Identifyable;
+import de.stekoe.idss.model.Permission;
+import de.stekoe.idss.model.User;
 import de.stekoe.idss.model.UserId;
+import de.stekoe.idss.model.enums.PermissionObject;
 import de.stekoe.idss.model.enums.PermissionType;
+import de.stekoe.idss.model.enums.UserStatus;
+import de.stekoe.idss.repository.UserRepository;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
-public interface AuthService {
-    /**
-     * @param username The username (may not be null)
-     * @param password The password (may not be null)
-     * @return The status of authenticate indicated by {@code LoginStatus}
-     */
-    AuthStatus authenticate(String username, String password);
+@Service
+@Transactional
+public class AuthService {
+
+    @Autowired
+    private UserRepository userRepository;
+
+    public AuthStatus authenticate(String username, String password) {
+        Validate.notBlank(username);
+        Validate.notBlank(password);
+
+        User user = userRepository.findByUsername(username);
+
+        // User not found by username, try email instead
+        if (user == null) {
+            user = userRepository.findByEmail(username);
+        }
+
+        // User definitely not found.
+        if (user == null) {
+            return AuthStatus.ERROR;
+        }
+
+        // Check password
+        if (!checkPassword(password, user.getPassword())) {
+            return AuthStatus.ERROR;
+        }
+
+        // User is not activated
+        if (UserStatus.ACTIVATION_PENDING.equals(user.getUserStatus())) {
+            return AuthStatus.USER_NOT_ACTIVATED;
+        }
+
+        return AuthStatus.SUCCESS;
+    }
+
+    public boolean checkPassword(String plaintext, String hash) {
+        Validate.notNull(plaintext);
+        Validate.notNull(hash);
+
+        return BCrypt.checkpw(plaintext, hash);
+    }
+
+    public String hashPassword(String plaintext) {
+        return BCrypt.hashpw(plaintext, BCrypt.gensalt());
+    }
+
+    public boolean isAuthorized(UserId userId, final Identifyable identifyable,
+            final PermissionType permissionType) {
+        User user = userRepository.findOne(userId);
+
+        if (user == null) {
+            return false;
+        }
+        if (user.getPermissions() == null) {
+            return false;
+        }
+
+        final List<Permission> permissions = new ArrayList<Permission>(
+                user.getPermissions());
+        final PermissionObject permissionObject = PermissionObject
+                .valueOf(identifyable.getClass());
+        permissionsFilter(permissions, permissionType, permissionObject);
+
+        for (Permission permission : permissions) {
+            if (permission.hasObjectId()
+                    && identifyable.getId().getId()
+                            .equals(permission.getObjectId().getId())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     /**
-     * @param plaintext Plaintext password to check
-     * @param hash Hash of the saved password
-     * @return true of the plaintext password matches the hash value
+     * Filters out all permissions of aPermissionList which are not type of
+     * aPermissionType or do not have aPermissionObject
+     *
+     * @param aPermissionList List of Permissions to filter
+     * @param aPermissionType PermissionType which has to be part of Permission
+     * @param aPermissionObject PermissionObject which has to be part of
+     *            Permission
      */
-    boolean checkPassword(String plaintext, String hash);
-
-    /**
-     * @param plaintext Plaintext password to hash
-     * @return A hashed value of the given plaintext password
-     */
-    String hashPassword(String plaintext);
-
-    /**
-     * @param userId Id of user to check
-     * @param identifyable Object which has an id
-     * @param permissionType The permission type to check
-     * @return true if user is allowed to perform action or false if not
-     */
-    boolean isAuthorized(UserId userId, Identifyable identifyable, PermissionType permissionType);
+    private void permissionsFilter(List<Permission> aPermissionList,
+            final PermissionType aPermissionType,
+            final PermissionObject aPermissionObject) {
+        CollectionUtils.filter(aPermissionList, new Predicate() {
+            @Override
+            public boolean evaluate(Object object) {
+                if (object instanceof Permission) {
+                    final Permission permission = (Permission) object;
+                    final boolean permissionObjectFits = permission
+                            .getPermissionObject().equals(aPermissionObject);
+                    final boolean permissionTypeFits = permission
+                            .getPermissionType().equals(aPermissionType);
+                    return permissionObjectFits && permissionTypeFits;
+                }
+                return false;
+            }
+        });
+    }
 }

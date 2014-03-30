@@ -16,6 +16,15 @@
 
 package de.stekoe.idss.setup;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.inject.Inject;
+
+import org.apache.log4j.Logger;
+
 import de.stekoe.idss.model.Permission;
 import de.stekoe.idss.model.SystemRole;
 import de.stekoe.idss.model.User;
@@ -29,13 +38,6 @@ import de.stekoe.idss.service.AuthService;
 import de.stekoe.idss.service.ProjectService;
 import de.stekoe.idss.service.SystemRoleService;
 import de.stekoe.idss.service.UserService;
-import org.apache.log4j.Logger;
-
-import javax.inject.Inject;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>

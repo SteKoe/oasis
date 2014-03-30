@@ -18,12 +18,13 @@ package de.stekoe.idss.page.user;
 
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.form.DateTextField;
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.form.DateTextFieldConfig;
-import de.stekoe.idss.exception.UserException;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.model.UserProfile;
 import de.stekoe.idss.page.AuthUserPage;
+import de.stekoe.idss.service.UserException;
 import de.stekoe.idss.service.UserService;
 import de.stekoe.idss.session.WebSession;
+
 import org.apache.log4j.Logger;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;

@@ -64,7 +64,7 @@ public class CreateUserForm extends Panel {
 
         final FormGroup systemRoleFormGroup = new FormGroup("systemRoleFormGroup");
         form.add(systemRoleFormGroup);
-        final ListMultipleChoice listMultipleChoice = new ListMultipleChoice("systemRole", new PropertyModel(userModel, "roles"), systemRoleService.findAllRoles());
+        final ListMultipleChoice listMultipleChoice = new ListMultipleChoice("systemRole", new PropertyModel(userModel, "roles"), systemRoleService.findAll());
         systemRoleFormGroup.add(listMultipleChoice);
 
         final FormGroup buttonFormGroup = new FormGroup("buttonFormGroup");

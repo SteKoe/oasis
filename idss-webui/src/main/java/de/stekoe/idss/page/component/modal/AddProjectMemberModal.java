@@ -58,7 +58,7 @@ public abstract class AddProjectMemberModal extends Modal {
         final LoadableDetachableModel<Project> projectModel = new LoadableDetachableModel<Project>() {
             @Override
             protected Project load() {
-                return projectService.findById(projectId);
+                return projectService.findOne(projectId);
             }
         };
 

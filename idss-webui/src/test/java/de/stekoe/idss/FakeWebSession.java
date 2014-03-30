@@ -1,14 +1,16 @@
 package de.stekoe.idss;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.inject.Inject;
+
+import org.apache.wicket.request.Request;
+
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.service.AuthService;
 import de.stekoe.idss.service.AuthStatus;
 import de.stekoe.idss.session.WebSession;
-import org.apache.wicket.request.Request;
-
-import javax.inject.Inject;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
@@ -18,7 +20,7 @@ public class FakeWebSession extends WebSession {
     @Inject
     AuthService authService;
 
-    private Map<String, User> users = new HashMap<String, User>();
+    private final Map<String, User> users = new HashMap<String, User>();
 
     public FakeWebSession(Request request) {
         super(request);
@@ -33,13 +35,13 @@ public class FakeWebSession extends WebSession {
     @Override
     protected AuthStatus authenticateByService(java.lang.String username, java.lang.String password) {
         if (!users.containsKey(username)) {
-            return AuthStatus.USER_NOT_FOUND;
+            return AuthStatus.ERROR;
         }
 
         User user = users.get(username);
 
         if (!authService.checkPassword(password, user.getPassword())) {
-            return AuthStatus.WRONG_PASSWORD;
+            return AuthStatus.ERROR;
         }
 
         return AuthStatus.SUCCESS;

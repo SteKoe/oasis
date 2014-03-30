@@ -17,27 +17,7 @@
 
 <html lang="en" xmlns:wicket="http://wicket.sourceforge.net/">
 <body>
-<wicket:panel>
-    <form wicket:id="ordinalScaledCriterionForm">
-        <div class="form-group" wicket:id="name.group">
-            <input type="text" wicket:id="name" class="form-control">
-        </div>
-
-        <div class="form-group" wicket:id="description.group">
-            <input type="text" wicket:id="description" class="form-control">
-        </div>
-
-        <div class="form-group">
-            <label class="checkbox-inline">
-                <input type="checkbox" wicket:id="allowNoChoice">
-                <wicket:message key="label.criterion.allowNoChoice"/>
-                <p class="help-block">
-                    <wicket:message key="label.criterion.allowNoChoice.help"/>
-                </p>
-            </label>
-        </div>
-    </form>
-
+<wicket:extend>
     <form wicket:id="valueForm">
         <fieldset class="form-horizontal">
             <legend>Ausprägungen</legend>
@@ -81,12 +61,6 @@
             </table>
         </fieldset>
     </form>
-
-    <div class="form-group well">
-        <button type="submit" class="btn btn-success" wicket:id="submit.ordinalScaledCriterionForm">
-            <wicket:message key="label.save"/>
-        </button>
-    </div>
-</wicket:panel>
+</wicket:extend>
 </body>
 </html>

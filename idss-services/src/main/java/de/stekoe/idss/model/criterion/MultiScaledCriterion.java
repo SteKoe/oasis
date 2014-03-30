@@ -16,10 +16,11 @@
 
 package de.stekoe.idss.model.criterion;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>

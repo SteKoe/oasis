@@ -16,31 +16,41 @@
 
 package de.stekoe.idss.service;
 
+import java.io.File;
+
+import javax.inject.Inject;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import de.stekoe.idss.model.Document;
 import de.stekoe.idss.model.DocumentId;
+import de.stekoe.idss.repository.DocumentRepository;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
-public interface DocumentService {
-    /**
-     * @param document Saves the given Document
-     */
-    void save(Document document);
+@Service
+@Transactional
+public class DocumentService {
+    @Inject
+    private DocumentRepository documentDAO;
+    private String path;
 
-    /**
-     * @param id
-     * @return
-     */
-    String getAbsolutePath(DocumentId id);
+    public void save(Document document) {
+        documentDAO.save(document);
+    }
 
-    /**
-     * @param path
-     */
-    void setDocumentPath(String path);
+    public String getAbsolutePath(DocumentId id) {
+        final String[] idParts = id.getId().split("-");
+        return getDocumentPath() + File.separator + idParts[1] + File.separator + idParts[0] + ".data";
+    }
 
-    /**
-     * @return
-     */
-    String getDocumentPath();
+    public void setDocumentPath(String path) {
+        this.path = path;
+    }
+
+    public String getDocumentPath() {
+        return path;
+    }
 }

@@ -20,10 +20,13 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 public class PermissionId extends GenericId {
-    public PermissionId(String id) {
-        super(id);
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
     }
 
-    public PermissionId() {
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }

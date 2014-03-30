@@ -21,9 +21,20 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class UserId extends GenericId {
     public UserId() {
+        super();
     }
 
     public UserId(String id) {
         super(id);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }

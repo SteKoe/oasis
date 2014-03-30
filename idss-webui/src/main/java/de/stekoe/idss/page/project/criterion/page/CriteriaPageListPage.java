@@ -36,6 +36,7 @@ import de.stekoe.idss.page.project.ProjectPage;
 import de.stekoe.idss.page.project.criterion.SelectCriterionPage;
 import de.stekoe.idss.page.project.criterion.page.element.SingleScaledCriterionElement;
 import de.stekoe.idss.service.CriterionPageService;
+import de.stekoe.idss.service.Orderable.Direction;
 import de.stekoe.idss.service.ProjectService;
 
 /**
@@ -91,7 +92,7 @@ public class CriteriaPageListPage extends ProjectPage {
                 final Link link = new Link("move.page.up") {
                     @Override
                     public void onClick() {
-                        criterionPageService.move(criterionPage, CriterionPageService.Direction.UP);
+                        criterionPageService.move(criterionPage, Direction.UP);
                         loadableDetachableModel.detach();
                         setResponsePage(getPage());
                     }
@@ -110,7 +111,7 @@ public class CriteriaPageListPage extends ProjectPage {
                 final Link link = new Link("move.page.down") {
                     @Override
                     public void onClick() {
-                        criterionPageService.move(criterionPage, CriterionPageService.Direction.DOWN);
+                        criterionPageService.move(criterionPage, Direction.DOWN);
                         loadableDetachableModel.detach();
                         setResponsePage(getPage());
                     }

@@ -1,9 +1,10 @@
 package de.stekoe.idss.service.impl;
 
-import de.stekoe.idss.dao.BaseTest;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import de.stekoe.idss.dao.BaseTest;
 
 /**
  * Test to check wether email server configuration works.

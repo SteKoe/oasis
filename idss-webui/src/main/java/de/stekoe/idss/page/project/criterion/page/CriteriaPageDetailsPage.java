@@ -51,7 +51,7 @@ public class CriteriaPageDetailsPage extends ProjectPage {
         criterionPageModel = new LoadableDetachableModel<CriterionPage>() {
             @Override
             protected CriterionPage load() {
-                return criterionPageService.findById(new CriterionPageId(pageIdParam.toString()));
+                return criterionPageService.findOne(new CriterionPageId(pageIdParam.toString()));
             }
         };
 

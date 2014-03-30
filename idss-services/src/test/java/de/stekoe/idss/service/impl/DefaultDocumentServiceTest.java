@@ -1,16 +1,17 @@
 package de.stekoe.idss.service.impl;
 
-import de.stekoe.idss.AbstractBaseTest;
-import de.stekoe.idss.model.DocumentId;
-import de.stekoe.idss.service.DocumentService;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.inject.Inject;
+
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.inject.Inject;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import de.stekoe.idss.AbstractBaseTest;
+import de.stekoe.idss.model.DocumentId;
+import de.stekoe.idss.service.DocumentService;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>

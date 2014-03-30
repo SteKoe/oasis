@@ -122,7 +122,7 @@ public class ProjectRoleEditPage extends ProjectPage {
         projectRoleModel = new LoadableDetachableModel<ProjectRole>() {
             @Override
             protected ProjectRole load() {
-                return projectRoleService.findById(projectRoleId);
+                return projectRoleService.findOne(projectRoleId);
             }
         };
     }

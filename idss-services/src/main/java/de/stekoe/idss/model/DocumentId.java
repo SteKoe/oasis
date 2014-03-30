@@ -20,4 +20,13 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 public class DocumentId extends GenericId {
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }

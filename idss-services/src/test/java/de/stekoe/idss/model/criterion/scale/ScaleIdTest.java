@@ -17,6 +17,7 @@
 package de.stekoe.idss.model.criterion.scale;
 
 import junit.framework.Assert;
+
 import org.junit.Test;
 
 public class ScaleIdTest {

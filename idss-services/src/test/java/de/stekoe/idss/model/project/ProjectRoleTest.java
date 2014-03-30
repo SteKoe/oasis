@@ -1,29 +1,27 @@
 package de.stekoe.idss.model.project;
 
-import de.stekoe.idss.AbstractBaseTest;
-import de.stekoe.idss.dao.IProjectRoleDAO;
-import de.stekoe.idss.model.Permission;
-import de.stekoe.idss.model.enums.PermissionObject;
-import de.stekoe.idss.model.enums.PermissionType;
-import de.stekoe.idss.service.ProjectRoleService;
-import org.hamcrest.core.IsEqual;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import javax.inject.Inject;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import org.junit.Test;
+
+import de.stekoe.idss.AbstractBaseTest;
+import de.stekoe.idss.model.Permission;
+import de.stekoe.idss.model.enums.PermissionObject;
+import de.stekoe.idss.model.enums.PermissionType;
+import de.stekoe.idss.repository.ProjectRoleRepository;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
 public class ProjectRoleTest extends AbstractBaseTest {
     @Inject
-    IProjectRoleDAO projectRoleDAO;
+    ProjectRoleRepository projectRoleDAO;
 
     @Inject
-    ProjectRoleService projectRoleService;
+    ProjectRoleRepository projectRoleRepository;
 
     @Test
     public void editPermissionsOfProjectRole() throws Exception {
@@ -31,9 +29,9 @@ public class ProjectRoleTest extends AbstractBaseTest {
         projectRole.setName("ProjectRole");
         final ProjectId projectId = new ProjectId();
         projectRole.getPermissions().add(new Permission(PermissionObject.PROJECT, PermissionType.UPDATE, projectId));
-        projectRoleService.save(projectRole);
+        projectRoleRepository.save(projectRole);
 
-        projectRole = projectRoleService.findById(projectRole.getId());
+        projectRole = projectRoleRepository.findOne(projectRole.getId());
         assertTrue(projectRole.getPermissions().size() == 1);
         Permission permission = projectRole.getPermissions().toArray(new Permission[1])[0];
         assertEquals(projectId.getId(), permission.getObjectId().getId());
@@ -41,9 +39,9 @@ public class ProjectRoleTest extends AbstractBaseTest {
         projectRole.getPermissions().clear();
         final ProjectId projectId2 = new ProjectId();
         projectRole.getPermissions().add(new Permission(PermissionObject.PROJECT, PermissionType.UPDATE, projectId2));
-        projectRoleService.save(projectRole);
+        projectRoleRepository.save(projectRole);
 
-        projectRole = projectRoleService.findById(projectRole.getId());
+        projectRole = projectRoleRepository.findOne(projectRole.getId());
         assertTrue(projectRole.getPermissions().size() == 1);
         permission = projectRole.getPermissions().toArray(new Permission[1])[0];
         assertEquals(projectId2.getId(), permission.getObjectId().getId());

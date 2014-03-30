@@ -48,7 +48,7 @@ public class CreateOrdinalScaledCriterionForm extends OrdinalScaledCriterionForm
 
     @Override
     public void onSaveCriterion(IModel<SingleScaledCriterion> aModel) {
-        final CriterionPage page = itsCriterionPageService.findById(new CriterionPageId(itsPageId));
+        final CriterionPage page = itsCriterionPageService.findOne(new CriterionPageId(itsPageId));
 
         final SingleScaledCriterion criterion = aModel.getObject();
         if(StringUtils.isEmpty(criterion.getName())) {

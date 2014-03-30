@@ -16,18 +16,16 @@
 
 package de.stekoe.idss.model.criterion;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Criterion extends CriterionPageElement implements Serializable {
 
     private static final long serialVersionUID = 20141103925L;

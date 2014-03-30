@@ -20,10 +20,13 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 public class UserProfileId extends GenericId {
-    public UserProfileId() {
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
     }
 
-    public UserProfileId(String id) {
-        super(id);
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }

@@ -16,53 +16,109 @@
 
 package de.stekoe.idss.service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+import javax.inject.Inject;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import de.stekoe.idss.model.Permission;
+import de.stekoe.idss.model.User;
 import de.stekoe.idss.model.UserId;
+import de.stekoe.idss.model.enums.PermissionObject;
 import de.stekoe.idss.model.enums.PermissionType;
 import de.stekoe.idss.model.project.Project;
 import de.stekoe.idss.model.project.ProjectId;
+import de.stekoe.idss.model.project.ProjectMember;
+import de.stekoe.idss.model.project.ProjectRole;
+import de.stekoe.idss.repository.ProjectRepository;
+import de.stekoe.idss.repository.UserRepository;
 
-import java.util.List;
+@Service
+public class ProjectService {
 
-/**
- * @author Stephan Köninger <mail@stekoe.de>
- */
-public interface ProjectService {
+    @Inject
+    private ProjectRepository projectRepository;
 
-    /**
-     * @param id The id of a Project to delete
-     */
-    void delete(ProjectId id);
+    @Inject
+    private UserRepository userRepository;
 
-    /**
-     * @param project A project to save
-     */
-    void save(Project project);
+    @Inject
+    private AuthService authService;
 
-    /**
-     * @param id The id of a project to find
-     * @return The project with the given id or null
-     */
-    Project findById(ProjectId id);
+    @Transactional(readOnly = true)
+    public boolean isAuthorized(final UserId userId, final ProjectId projectId, final PermissionType permissionType) {
 
-    /**
-     * @param userId Id of a User to retrieve all projects he/she is involved
-     * @return A list of Project
-     */
-    List<Project> findAllForUser(UserId userId);
+        final Project project = projectRepository.findOne(projectId);
 
-    /**
-     * @param userId Id of a User to retrieve all projects he/she is involved
-     * @param perPage The number of entries per page
-     * @param curPage The current page number
-     * @return A list of Projects
-     */
-    List<Project> findAllForUserPaginated(UserId userId, int perPage, int curPage);
+        if (authService.isAuthorized(userId, project, permissionType)) {
+            return true;
+        }
 
-    /**
-     * @param userId The id of a User to check permissions for
-     * @param projectId The id of a Project to check permissions on
-     * @param permissionType The PermissionType to be checked
-     * @return true if a User is authorized to perform a given action, false otherwise
-     */
-    boolean isAuthorized(UserId userId, ProjectId projectId, PermissionType permissionType);
+        final User user = userRepository.findOne(userId);
+
+        if (user == null) {
+            return false;
+        }
+
+        final List<ProjectMember> projectTeam = new ArrayList<ProjectMember>(project.getProjectTeam());
+        final ProjectMember pm = (ProjectMember) CollectionUtils.find(projectTeam, new Predicate() {
+            @Override
+            public boolean evaluate(Object object) {
+                final ProjectMember projectMember = (ProjectMember) object;
+                return projectMember.getUser().equals(user);
+            }
+        });
+
+        if (pm == null) {
+            return false;
+        }
+
+        final ProjectRole projectRole = pm.getProjectRole();
+        final Set<Permission> permissions = projectRole.getPermissions();
+
+        for (Permission permission : permissions) {
+            if (permission.getPermissionObject().equals(PermissionObject.valueOf(Project.class)) && permission.getPermissionType().equals(permissionType)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    @Transactional
+    public Project save(Project project) {
+        return projectRepository.save(project);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Project> findByUser(UserId id) {
+        return projectRepository.findByUser(id);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Project> findAll() {
+        return (List<Project>)projectRepository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public Project findOne(ProjectId id) {
+        return projectRepository.findOne(id);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Project> findAll(Sort pageable) {
+        return (List<Project>) projectRepository.findAll(pageable);
+    }
+
+    @Transactional
+    public void delete(ProjectId id) {
+        projectRepository.delete(id);
+    }
 }

@@ -1,40 +1,45 @@
 package de.stekoe.idss.dao;
 
-import de.stekoe.idss.model.SystemRole;
-import de.stekoe.idss.model.User;
-import de.stekoe.idss.model.UserProfile;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
 import org.hamcrest.core.Is;
 import org.hamcrest.core.IsEqual;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 
-import javax.validation.ConstraintViolationException;
-import java.util.Calendar;
-import java.util.Date;
-
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import de.stekoe.idss.model.SystemRole;
+import de.stekoe.idss.model.User;
+import de.stekoe.idss.model.UserProfile;
+import de.stekoe.idss.repository.UserRepository;
+import de.stekoe.idss.service.SystemRoleService;
 
 public class UserDAOIT extends BaseTest {
 
     @Autowired
-    private IUserDAO userDAO;
+    private UserRepository userRepository;
 
     @Autowired
-    private ISystemRoleDAO systemRoleDAO;
+    private SystemRoleService systemRoleService;
 
     @Before
     public void setUp() {
         SystemRole user = new SystemRole();
         user.setName(SystemRole.USER);
-        systemRoleDAO.save(user);
+        systemRoleService.save(user);
 
         SystemRole admin = new SystemRole();
         admin.setName(SystemRole.ADMIN);
-        systemRoleDAO.save(admin);
+        systemRoleService.save(admin);
 
-        assertThat(systemRoleDAO.findAll().size(), Is.is(2));
+        List<SystemRole> systemRoles = systemRoleService.findAll();
+        assertThat(systemRoles.size(), Is.is(2));
     }
 
     private User getUser() {
@@ -49,29 +54,29 @@ public class UserDAOIT extends BaseTest {
     public void insertNewUser() throws Exception {
         User user = getUser();
         user.setUsername("miau");
-        userDAO.save(user);
+        userRepository.save(user);
 
-        User retrievedUser = userDAO.findByUsername("miau");
+        User retrievedUser = userRepository.findByUsername("miau");
         assertThat(retrievedUser.getUsername(), IsEqual.equalTo(user.getUsername()));
     }
 
-    @Test(expected = ConstraintViolationException.class)
+    @Test(expected = DataIntegrityViolationException.class)
     public void needUsername() throws Exception {
         User user = new User();
         user.setUsername(null);
         user.setPassword("abc");
         user.setEmail("asd");
-        userDAO.save(user);
+        userRepository.save(user);
     }
 
     @Test
     public void insertUserWithRoles() throws Exception {
         User userWithRoles = getUser();
-        userWithRoles.getRoles().add(systemRoleDAO.getRoleByName(SystemRole.USER));
-        userWithRoles.getRoles().add(systemRoleDAO.getRoleByName(SystemRole.ADMIN));
-        userDAO.save(userWithRoles);
+        userWithRoles.getRoles().add(systemRoleService.getRoleByName(SystemRole.USER));
+        userWithRoles.getRoles().add(systemRoleService.getRoleByName(SystemRole.ADMIN));
+        userRepository.save(userWithRoles);
 
-        User retrievedUser = userDAO.findByUsername("hans");
+        User retrievedUser = userRepository.findByUsername("hans");
         assertTrue(retrievedUser.getRoles().size() == 2);
     }
 
@@ -88,7 +93,7 @@ public class UserDAOIT extends BaseTest {
         User user = getUser();
         user.setProfile(profile);
 
-        userDAO.save(user);
+        userRepository.save(user);
     }
 
 }

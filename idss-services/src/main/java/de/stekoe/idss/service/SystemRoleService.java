@@ -16,43 +16,51 @@
 
 package de.stekoe.idss.service;
 
-import de.stekoe.idss.model.SystemRole;
-
 import java.util.List;
 
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
-public interface SystemRoleService {
+import javax.inject.Inject;
 
-    /**
-     * @return List of all SystemRoles
-     */
-    List<SystemRole> findAllRoles();
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-    /**
-     * @return The SystemRole for administrators
-     */
-    SystemRole getAdminRole();
+import de.stekoe.idss.model.SystemRole;
+import de.stekoe.idss.model.SystemRoleId;
+import de.stekoe.idss.repository.SystemRoleRepository;
 
-    /**
-     * @return The SystemRole for registered Users
-     */
-    SystemRole getUserRole();
+@Service
+@Transactional(readOnly = true)
+public class SystemRoleService {
 
-    /**
-     * @param entity SystemRole to delete
-     */
-    void delete(SystemRole entity);
+    @Inject
+    SystemRoleRepository systemRoleRepository;
 
-    /**
-     * @param systemRole SystemRole to save
-     */
-    void save(SystemRole systemRole);
+    public List<SystemRole> findAll() {
+        return (List<SystemRole>) systemRoleRepository.findAll();
+    }
 
-    /**
-     * @param id Id of the SystemRole to retrieve
-     * @return The SystemRole if found or null
-     */
-    SystemRole findById(String id);
+    public SystemRole getAdminRole() {
+        return systemRoleRepository.getRoleByName(SystemRole.ADMIN);
+    }
+
+    public SystemRole getUserRole() {
+        return systemRoleRepository.getRoleByName(SystemRole.USER);
+    }
+
+    public SystemRole findById(SystemRoleId id) {
+        return systemRoleRepository.findOne(id);
+    }
+
+    @Transactional
+    public void save(SystemRole systemRole) {
+        systemRoleRepository.save(systemRole);
+    }
+
+    @Transactional
+    public void delete(SystemRole entity) {
+        systemRoleRepository.delete(entity);
+    }
+
+    public SystemRole getRoleByName(String rolename) {
+        return systemRoleRepository.getRoleByName(rolename);
+    }
 }

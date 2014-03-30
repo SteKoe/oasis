@@ -68,7 +68,7 @@ public abstract class ProjectForm extends Panel {
                     return new Project();
                 }
 
-                return projectService.findById(projectId);
+                return projectService.findOne(projectId);
             }
         };
 

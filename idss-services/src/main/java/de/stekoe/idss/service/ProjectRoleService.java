@@ -16,26 +16,33 @@
 
 package de.stekoe.idss.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import de.stekoe.idss.model.project.ProjectRole;
 import de.stekoe.idss.model.project.ProjectRoleId;
+import de.stekoe.idss.repository.ProjectRoleRepository;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
-public interface ProjectRoleService {
-    /**
-     * @param id The id of ProjectRole to lookup
-     * @return The ProjectRole or null
-     */
-    ProjectRole findById(ProjectRoleId id);
+@Service
+@Transactional
+public class ProjectRoleService  {
 
-    /**
-     * @param role Saves the ProjectRole
-     */
-    void save(ProjectRole role);
+    @Autowired
+    ProjectRoleRepository projectRoleRepository;
 
-    /**
-     * @param entity Deletes the given ProjectRole
-     */
-    void delete(ProjectRole entity);
+    public ProjectRole findOne(ProjectRoleId id) {
+        return projectRoleRepository.findOne(id);
+    }
+
+    public void save(ProjectRole role) {
+        projectRoleRepository.save(role);
+    }
+
+    public void delete(ProjectRole entity) {
+        projectRoleRepository.delete(entity);
+    }
 }

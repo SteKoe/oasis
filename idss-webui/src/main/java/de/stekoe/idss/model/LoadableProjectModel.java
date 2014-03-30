@@ -38,6 +38,6 @@ public class LoadableProjectModel extends LoadableDetachableModel<Project> {
 
     @Override
     protected Project load() {
-        return projectService.findById(this.id);
+        return projectService.findOne(this.id);
     }
 }

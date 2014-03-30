@@ -16,9 +16,9 @@
 
 package de.stekoe.idss.model.project;
 
-import de.stekoe.idss.model.GenericId;
-
 import javax.persistence.Embeddable;
+
+import de.stekoe.idss.model.GenericId;
 
 @Embeddable
 public class ProjectMemberGroupId extends GenericId {
@@ -27,5 +27,15 @@ public class ProjectMemberGroupId extends GenericId {
     }
 
     public ProjectMemberGroupId() {
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }

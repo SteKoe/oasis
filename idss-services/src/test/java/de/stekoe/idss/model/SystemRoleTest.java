@@ -16,11 +16,11 @@
 
 package de.stekoe.idss.model;
 
+import static org.junit.Assert.assertThat;
+
 import org.hamcrest.core.IsEqual;
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.assertThat;
 
 public class SystemRoleTest {
     private SystemRole systemRole;

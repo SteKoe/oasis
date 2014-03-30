@@ -43,7 +43,7 @@ public class ViewUserProfilePage extends AuthUserPage {
 
         final String userId = params.get("id").toString();
         if (userId != null) {
-            user = userService.findById(new UserId(userId));
+            user = userService.findOne(new UserId(userId));
         } else {
             user = WebSession.get().getUser();
         }

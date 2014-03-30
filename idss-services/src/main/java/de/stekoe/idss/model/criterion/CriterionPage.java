@@ -16,18 +16,22 @@
 
 package de.stekoe.idss.model.criterion;
 
-import de.stekoe.idss.IDGenerator;
-import de.stekoe.idss.model.project.Project;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
+import javax.persistence.AttributeOverride;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
+import javax.validation.constraints.NotNull;
+
+import de.stekoe.idss.model.project.Project;
+
 @Entity
 public class CriterionPage implements Serializable {
 

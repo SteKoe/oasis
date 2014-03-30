@@ -16,11 +16,12 @@
 
 package de.stekoe.idss.model.criterion.scale;
 
-import de.stekoe.idss.model.criterion.scale.value.OrdinalValue;
+import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
-import java.io.Serializable;
+
+import de.stekoe.idss.model.criterion.scale.value.OrdinalValue;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>

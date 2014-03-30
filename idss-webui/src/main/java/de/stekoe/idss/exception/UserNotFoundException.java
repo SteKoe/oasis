@@ -16,6 +16,8 @@
 
 package de.stekoe.idss.exception;
 
+import de.stekoe.idss.service.UserException;
+
 /**
  * @author Stephan Köninger <mail@stekoe.de>
  */

@@ -16,18 +16,24 @@
 
 package de.stekoe.idss.model.criterion.scale;
 
-import de.stekoe.idss.IDGenerator;
-import de.stekoe.idss.model.criterion.SingleScaledCriterion;
-import de.stekoe.idss.model.criterion.scale.value.MeasurementValue;
-
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
+import javax.persistence.AttributeOverride;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
+
+import de.stekoe.idss.model.criterion.SingleScaledCriterion;
+import de.stekoe.idss.model.criterion.scale.value.MeasurementValue;
+
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Scale<T extends MeasurementValue> implements Serializable {

@@ -16,14 +16,25 @@
 
 package de.stekoe.idss.service;
 
-/**
- * @author Stephan Köninger <mail@stekoe.de>
- */
-public interface MailService {
-    /**
-     * @param to      The receipient
-     * @param subject The subject of the mail
-     * @param message The message of the mail
-     */
-    void sendMail(String to, String subject, String message);
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@Transactional
+public class MailService {
+
+    @Autowired
+    private MailSender mailSender;
+
+    public void sendMail(String to, String subject, String body) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(to);
+        message.setSubject(subject);
+        message.setText(body);
+
+        mailSender.send(message);
+    }
 }

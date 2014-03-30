@@ -16,19 +16,27 @@
 
 package de.stekoe.idss.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import de.stekoe.idss.model.Permission;
+import de.stekoe.idss.repository.PermissionRepository;
 
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
-public interface PermissionService {
-    /**
-     * @param permission Saves the given Permission
-     */
-    void save(Permission permission);
+@Service
+@Transactional(readOnly = true)
+public class PermissionService {
 
-    /**
-     * @param permission Deletes the given Permission
-     */
-    void delete(Permission permission);
+    @Autowired
+    PermissionRepository permissionRepository;
+
+    @Transactional
+    public void save(Permission permission) {
+        permissionRepository.save(permission);
+    }
+
+    @Transactional
+    public void delete(Permission permission) {
+        permissionRepository.delete(permission);
+    }
 }

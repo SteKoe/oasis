@@ -57,7 +57,7 @@ public class EditProjectMembersForm extends Panel {
         this.model = new LoadableDetachableModel<Project>() {
             @Override
             protected Project load() {
-                return projectService.findById(projectId);
+                return projectService.findOne(projectId);
             }
         };
 

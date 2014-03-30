@@ -16,22 +16,34 @@
 
 package de.stekoe.idss.model.project;
 
-import de.stekoe.idss.IDGenerator;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.AttributeOverride;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import de.stekoe.idss.model.Document;
-import de.stekoe.idss.model.GenericId;
 import de.stekoe.idss.model.Identifyable;
 import de.stekoe.idss.model.criterion.scale.Scale;
 import de.stekoe.idss.model.enums.ProjectStatus;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.io.Serializable;
-import java.util.*;
-
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
 @Entity
 public class Project implements Serializable, Identifyable<ProjectId> {
 
@@ -48,6 +60,7 @@ public class Project implements Serializable, Identifyable<ProjectId> {
     private Date projectStartDate = new Date();
     private Date projectEndDate;
 
+    @Override
     @EmbeddedId
     @AttributeOverride(name = "id", column = @Column(name = "project_id"))
     public ProjectId getId() {

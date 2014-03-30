@@ -16,68 +16,95 @@
 
 package de.stekoe.idss.service;
 
-import de.stekoe.idss.exception.UserException;
-import de.stekoe.idss.model.User;
-import de.stekoe.idss.model.UserId;
-
 import java.util.List;
 
-public interface UserService {
-    /**
-     * @param username The username to look for
-     * @return The user if found or null
-     */
-    User findByUsername(String username);
+import javax.inject.Inject;
 
-    /**
-     * @param username The username (or part of it) to lookup
-     * @return A user who's username contains the given username
-     */
-    List<User> findAllByUsername(String username);
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-    /**
-     * @param email The email to lookup
-     * @return The user with the given email
-     */
-    User findByEmail(String email);
+import de.stekoe.idss.model.User;
+import de.stekoe.idss.model.UserId;
+import de.stekoe.idss.repository.UserRepository;
 
-    /**
-     * @param usernameOrEmail The username or email address to lookup
-     * @return The user with the given username or email
-     */
-    User findByUsernameOrEmail(String usernameOrEmail);
+@Service
+@Transactional(readOnly = true)
+public class UserService {
 
-    /**
-     * @return A list of all users
-     */
-    List<User> getAllUsers();
+    @Inject
+    private UserRepository userRepository;
 
-    /**
-     * @param code The activation code to lookup
-     * @return The user with the given activation code
-     */
-    User findByActivationCode(String code);
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
 
-    /**
-     * @return A list of all usernames
-     */
-    List<String> getAllUsernames();
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
 
-    /**
-     * @return A list of all email addresses
-     */
-    List<String> getAllEmailAddresses();
+    public User findByUsernameOrEmail(String value) {
+        return userRepository.findByUsernameOrEmail(value);
+    }
 
-    void save(User entity) throws UserException;
+    public User findOne(UserId id) {
+        return userRepository.findOne(id);
+    }
 
-    /**
-     * @param id The id of the user to retrieve
-     * @return The user if found or null
-     */
-    User findById(UserId id);
+    @Transactional
+    public void save(User entity) throws UserException {
+        if (emailInUse(entity)) {
+            throw new EmailAddressAlreadyInUseException();
+        } else if (usernameInUse(entity)) {
+            throw new UsernameAlreadyInUseException();
+        } else {
+            userRepository.save(entity);
+        }
+    }
 
-    /**
-     * @param user The user to delete
-     */
-    void delete(User user);
+    @Transactional
+    public void delete(User entity) {
+        userRepository.delete(entity);
+    }
+
+    private boolean usernameInUse(User user) {
+        final User userFromDB = userRepository.findByUsername(user.getUsername());
+        if (userFromDB == null) {
+            return false;
+        } else if (userFromDB.getId().equals(user.getId())) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean emailInUse(User user) {
+        final User userFromDB = userRepository.findByEmail(user.getEmail());
+        if (userFromDB == null) {
+            return false;
+        } else if (userFromDB.getId().equals(user.getId())) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public List<User> getAllUsers() {
+        return (List<User>) userRepository.findAll();
+    }
+
+    public User findByActivationCode(String code) {
+        return userRepository.findByActivationCode(code);
+    }
+
+    public List<String> findAllUsernames() {
+        return userRepository.findAllUsernames();
+    }
+
+    public List<String> findAllEmailAddresses() {
+        return userRepository.findAllEmailAddresses();
+    }
+
+    public List<User> findAll() {
+        return (List<User>) userRepository.findAll();
+    }
 }

@@ -16,16 +16,23 @@
 
 package de.stekoe.idss.model;
 
-import de.stekoe.idss.IDGenerator;
+import java.io.Serializable;
+import java.util.Date;
+
+import javax.persistence.AttributeOverride;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+import javax.validation.constraints.Past;
+
 import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
 import org.joda.time.Years;
 import org.springframework.format.annotation.DateTimeFormat;
-
-import javax.persistence.*;
-import javax.validation.constraints.Past;
-import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>

@@ -16,25 +16,16 @@
 
 package de.stekoe.idss.page.component.form.auth.register;
 
-import de.agilecoders.wicket.core.markup.html.bootstrap.dialog.Alert;
-import de.agilecoders.wicket.core.markup.html.bootstrap.dialog.Alert.Type;
-import de.agilecoders.wicket.core.markup.html.bootstrap.form.FormGroup;
-import de.stekoe.idss.exception.EmailAddressAlreadyInUseException;
-import de.stekoe.idss.exception.UserException;
-import de.stekoe.idss.exception.UsernameAlreadyInUseException;
-import de.stekoe.idss.mail.template.RegistrationMailTemplate;
-import de.stekoe.idss.model.SystemRole;
-import de.stekoe.idss.model.User;
-import de.stekoe.idss.model.UserProfile;
-import de.stekoe.idss.page.user.ActivateUserPage;
-import de.stekoe.idss.service.AuthService;
-import de.stekoe.idss.service.MailService;
-import de.stekoe.idss.service.SystemRoleService;
-import de.stekoe.idss.service.UserService;
-import de.stekoe.idss.validator.UniqueValueValidator;
-import de.stekoe.idss.wicket.MarkRequiredFieldsBehavior;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.log4j.Logger;
-import org.apache.wicket.markup.html.form.*;
+import org.apache.wicket.markup.html.form.Button;
+import org.apache.wicket.markup.html.form.EmailTextField;
+import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.FormComponent;
+import org.apache.wicket.markup.html.form.PasswordTextField;
+import org.apache.wicket.markup.html.form.RequiredTextField;
 import org.apache.wicket.markup.html.form.validation.EqualPasswordInputValidator;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
@@ -45,8 +36,23 @@ import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-import java.util.HashMap;
-import java.util.Map;
+import de.agilecoders.wicket.core.markup.html.bootstrap.dialog.Alert;
+import de.agilecoders.wicket.core.markup.html.bootstrap.dialog.Alert.Type;
+import de.agilecoders.wicket.core.markup.html.bootstrap.form.FormGroup;
+import de.stekoe.idss.mail.template.RegistrationMailTemplate;
+import de.stekoe.idss.model.SystemRole;
+import de.stekoe.idss.model.User;
+import de.stekoe.idss.model.UserProfile;
+import de.stekoe.idss.page.user.ActivateUserPage;
+import de.stekoe.idss.service.AuthService;
+import de.stekoe.idss.service.EmailAddressAlreadyInUseException;
+import de.stekoe.idss.service.MailService;
+import de.stekoe.idss.service.SystemRoleService;
+import de.stekoe.idss.service.UserException;
+import de.stekoe.idss.service.UserService;
+import de.stekoe.idss.service.UsernameAlreadyInUseException;
+import de.stekoe.idss.validator.UniqueValueValidator;
+import de.stekoe.idss.wicket.MarkRequiredFieldsBehavior;
 
 /**
  * @author Stephan Köninger <mail@stekoe.de>
@@ -158,12 +164,12 @@ public class RegistrationForm extends Panel {
         RequiredTextField usernameField = new RequiredTextField<String>("username");
         itsForm.add(new FormGroup("group.username").add(usernameField));
         usernameField.setLabel(Model.of(getString("label.username")));
-        usernameField.add(new UniqueValueValidator(itsUserService.getAllUsernames()));
+        usernameField.add(new UniqueValueValidator(itsUserService.findAllUsernames()));
 
         EmailTextField email = new EmailTextField("email");
         itsForm.add(new FormGroup("group.email").add(email));
         email.setLabel(Model.of(getString("label.email")));
-        email.add(new UniqueValueValidator(itsUserService.getAllEmailAddresses()));
+        email.add(new UniqueValueValidator(itsUserService.findAllEmailAddresses()));
 
         PasswordTextField password = new PasswordTextField("password");
         itsForm.add(new FormGroup("group.password").add(password));

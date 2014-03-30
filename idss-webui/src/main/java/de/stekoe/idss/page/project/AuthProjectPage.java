@@ -48,7 +48,7 @@ public class AuthProjectPage extends AuthUserPage {
         projectModel = new LoadableDetachableModel<Project>() {
             @Override
             protected Project load() {
-                return projectService.findById(new ProjectId(projectIdParam.toString()));
+                return projectService.findOne(new ProjectId(projectIdParam.toString()));
             }
         };
         if (projectModel.getObject() == null) {

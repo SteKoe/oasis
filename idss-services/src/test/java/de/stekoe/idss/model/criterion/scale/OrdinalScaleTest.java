@@ -1,12 +1,13 @@
 package de.stekoe.idss.model.criterion.scale;
 
-import de.stekoe.idss.model.criterion.scale.value.OrdinalValue;
+import java.util.List;
+
 import org.hamcrest.core.IsEqual;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.List;
+import de.stekoe.idss.model.criterion.scale.value.OrdinalValue;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>

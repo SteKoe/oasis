@@ -16,16 +16,21 @@
 
 package de.stekoe.idss.model.criterion;
 
-import de.stekoe.idss.IDGenerator;
-
-import javax.persistence.*;
 import java.io.Serializable;
+
+import javax.persistence.AttributeOverride;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class CriterionPageElement implements Serializable {
 
     private static final long serialVersionUID = 20141103926L;

@@ -1,33 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:tx="http://www.springframework.org/schema/tx"
-       xsi:schemaLocation="
-    http://www.springframework.org/schema/beans
-    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-    http://www.springframework.org/schema/context
-    http://www.springframework.org/schema/context/spring-context-3.0.xsd
-    http://www.springframework.org/schema/tx
-    http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
-    ">
-    <context:annotation-config/>
-
-    <tx:annotation-driven transaction-manager="transactionManager"/>
-
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+    xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+                            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+                            http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+    <context:annotation-config />
+    <jpa:repositories base-package="de.stekoe.idss.repository" />
+    <tx:annotation-driven transaction-manager="transactionManager" />
     <!-- Database Source -->
     <bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource">
-        <property name="driverClass" value="${jdbc.driverClassName}"/>
-        <property name="jdbcUrl" value="${jdbc.url}"/>
-        <property name="username" value="${jdbc.username}"/>
-        <property name="password" value="${jdbc.password}"/>
-
-        <property name="maxConnectionsPerPartition" value="16"/>
-        <property name="minConnectionsPerPartition" value="1"/>
-        <property name="partitionCount" value="2"/>
+        <property name="driverClass" value="${jdbc.driverClassName}" />
+        <property name="jdbcUrl" value="${jdbc.url}" />
+        <property name="username" value="${jdbc.username}" />
+        <property name="password" value="${jdbc.password}" />
+        <property name="maxConnectionsPerPartition" value="16" />
+        <property name="minConnectionsPerPartition" value="1" />
+        <property name="partitionCount" value="2" />
     </bean>
-
-    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+    <bean id="sessionFactory"
+        class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.dialect">${hibernate.dialect}</prop>
@@ -36,19 +29,32 @@
                 <prop key="hibernate.hbm2ddl.auto">update</prop>
             </props>
         </property>
-        <property name="dataSource" ref="dataSource"/>
-
-        <property name="packagesToScan" value="de.stekoe.idss.model"/>
+        <property name="dataSource" ref="dataSource" />
+        <property name="packagesToScan" value="de.stekoe.idss.model" />
     </bean>
-
-    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-        <property name="sessionFactory" ref="sessionFactory"/>
+    <bean class="org.springframework.orm.jpa.JpaTransactionManager"
+        id="transactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+        <property name="jpaDialect">
+            <bean
+                class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
+        </property>
     </bean>
-
+    <bean id="entityManagerFactory"
+        class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="jpaVendorAdapter">
+            <bean
+                class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <property name="generateDdl" value="true" />
+                <property name="database" value="MYSQL" />
+            </bean>
+        </property>
+    </bean>
     <!-- SMTP Connector -->
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-        <property name="username" value="${smtp.user}"/>
-        <property name="password" value="${smtp.password}"/>
+        <property name="username" value="${smtp.user}" />
+        <property name="password" value="${smtp.password}" />
         <property name="javaMailProperties">
             <props>
                 <prop key="mail.smtp.from">${smtp.from}</prop>
@@ -60,33 +66,19 @@
             </props>
         </property>
     </bean>
-
-    <bean id="setupBean" class="de.stekoe.idss.setup.DatabaseSetup"/>
-
-    <!-- DAOs -->
-    <bean id="userDAO" class="de.stekoe.idss.dao.impl.UserDAO"/>
-    <bean id="systemRoleDAO" class="de.stekoe.idss.dao.impl.SystemRoleDAO"/>
-    <bean id="projectDAO" class="de.stekoe.idss.dao.impl.ProjectDAO"/>
-    <bean id="projectRoleDAO" class="de.stekoe.idss.dao.impl.ProjectRoleDAO"/>
-    <bean id="documentDAO" class="de.stekoe.idss.dao.impl.DocumentDAO"/>
-    <bean id="criterionDAO" class="de.stekoe.idss.dao.impl.CriterionDAO"/>
-    <bean id="permissionDAO" class="de.stekoe.idss.dao.impl.PermissionDAO"/>
-    <bean id="criterionPageDAO" class="de.stekoe.idss.dao.impl.CriterionPageDAO"/>
-    <bean id="measurementValueDAO" class="de.stekoe.idss.dao.impl.MeasurementValueDAO"/>
-
-
     <!-- Services -->
-    <bean id="authService" class="de.stekoe.idss.service.impl.DefaultAuthService"/>
-    <bean id="userService" class="de.stekoe.idss.service.impl.DefaultUserService"/>
-    <bean id="projectService" class="de.stekoe.idss.service.impl.DefaultProjectService"/>
-    <bean id="systemRoleService" class="de.stekoe.idss.service.impl.DefaultSystemRoleService"/>
-    <bean id="projectRoleService" class="de.stekoe.idss.service.impl.DefaultProjectRoleService"/>
-    <bean id="documentService" class="de.stekoe.idss.service.impl.DefaultDocumentService">
-        <property name="documentPath" value="${document.upload.path}"/>
+    <bean id="authService" class="de.stekoe.idss.service.AuthService" />
+    <bean id="projectService" class="de.stekoe.idss.service.ProjectService" />
+    <bean id="setupBean" class="de.stekoe.idss.setup.DatabaseSetup" />
+    <bean id="userService" class="de.stekoe.idss.service.UserService" />
+    <bean id="systemRoleService" class="de.stekoe.idss.service.SystemRoleService" />
+    <bean id="projectRoleService" class="de.stekoe.idss.service.ProjectRoleService" />
+    <bean id="documentService" class="de.stekoe.idss.service.DocumentService">
+        <property name="documentPath" value="${document.upload.path}" />
     </bean>
-    <bean id="mailService" class="de.stekoe.idss.service.impl.DefaultMailService"/>
-    <bean id="permissionService" class="de.stekoe.idss.service.impl.DefaultPermissionService"/>
-    <bean id="criterionPageService" class="de.stekoe.idss.service.impl.DefaultCriterionPageService"/>
-    <bean id="criterionService" class="de.stekoe.idss.service.impl.DefaultCriterionService"/>
-    <bean id="scaleService" class="de.stekoe.idss.service.impl.DefaultScaleService"/>
+    <bean id="mailService" class="de.stekoe.idss.service.MailService" />
+    <bean id="permissionService" class="de.stekoe.idss.service.PermissionService" />
+    <bean id="criterionPageService" class="de.stekoe.idss.service.CriterionPageService" />
+    <bean id="criterionService" class="de.stekoe.idss.service.CriterionService" />
+    <bean id="scaleService" class="de.stekoe.idss.service.ScaleService" />
 </beans>

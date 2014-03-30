@@ -118,7 +118,7 @@ public class ProjectUploadDocument extends ProjectPage {
         final DocumentUploadForm documentUploadForm = new DocumentUploadForm("form.document.upload") {
             @Override
             public void onAfterSubmit(Document document) {
-                final Project project = projectService.findById(getProjectId());
+                final Project project = projectService.findOne(getProjectId());
                 project.getDocuments().add(document);
                 projectService.save(project);
                 setResponsePage(getPage().getClass(), getPage().getPageParameters());

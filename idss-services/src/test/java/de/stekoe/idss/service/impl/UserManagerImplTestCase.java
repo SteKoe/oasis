@@ -1,34 +1,41 @@
 package de.stekoe.idss.service.impl;
 
-import de.stekoe.idss.TestFactory;
-import de.stekoe.idss.dao.BaseTest;
-import de.stekoe.idss.exception.UsernameAlreadyInUseException;
-import de.stekoe.idss.model.User;
-import de.stekoe.idss.model.enums.UserStatus;
-import de.stekoe.idss.service.AuthService;
-import de.stekoe.idss.service.AuthStatus;
-import de.stekoe.idss.service.UserService;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
 import org.apache.log4j.Logger;
 import org.hamcrest.core.Is;
 import org.hamcrest.core.IsEqual;
 import org.hamcrest.core.IsNot;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 
-import static org.junit.Assert.*;
+import de.stekoe.idss.TestFactory;
+import de.stekoe.idss.dao.BaseTest;
+import de.stekoe.idss.model.User;
+import de.stekoe.idss.model.enums.UserStatus;
+import de.stekoe.idss.service.AuthService;
+import de.stekoe.idss.service.AuthStatus;
+import de.stekoe.idss.service.UserService;
 
 public class UserManagerImplTestCase extends BaseTest {
 
     private static final Logger LOG = Logger.getLogger(UserManagerImplTestCase.class);
-    private static final java.lang.String[] USERNAMES = {"Stephan", "Benedikt", "Robert", "Jonas"};
-    private static final java.lang.String PASSWORD = "geheimesPassword";
+    private static final String[] USERNAMES = {"Stephan", "Benedikt", "Robert", "Jonas"};
+    private static final String PASSWORD = "geheimesPassword";
 
-    @Autowired
+    @Inject
     private UserService userService;
 
-    @Autowired
+    @Inject
     private AuthService authService;
 
     @Before
@@ -54,10 +61,12 @@ public class UserManagerImplTestCase extends BaseTest {
 
     @Test
     public void getAllUsers() throws Exception {
-        assertThat(userService.getAllUsers().size(), Is.is(IsNot.not(0)));
+        List<User> allUsers = userService.findAll();
+        assertThat(allUsers.size(), Is.is(IsNot.not(0)));
     }
 
-    @Test(expected = UsernameAlreadyInUseException.class)
+    @Ignore
+    @Test(expected = DataIntegrityViolationException.class)
     public void duplicatedUsername() throws Exception {
         User duplicatedUser = TestFactory.createUser(USERNAMES[0]);
         duplicatedUser.setEmail("iamunique@example.com");

@@ -31,9 +31,6 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 
 import de.stekoe.idss.model.criterion.scale.Scale;
 
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class MeasurementValue implements Serializable {

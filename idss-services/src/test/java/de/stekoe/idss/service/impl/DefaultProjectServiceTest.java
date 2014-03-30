@@ -1,5 +1,15 @@
 package de.stekoe.idss.service.impl;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.inject.Inject;
+
+import org.junit.Test;
+
 import de.stekoe.idss.AbstractBaseTest;
 import de.stekoe.idss.TestFactory;
 import de.stekoe.idss.model.Permission;
@@ -13,24 +23,15 @@ import de.stekoe.idss.model.project.ProjectRole;
 import de.stekoe.idss.service.ProjectRoleService;
 import de.stekoe.idss.service.ProjectService;
 import de.stekoe.idss.service.UserService;
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
 public class DefaultProjectServiceTest extends AbstractBaseTest {
-    @Autowired
+    @Inject
     ProjectService projectService;
-    @Autowired
+
+    @Inject
     ProjectRoleService projectRoleService;
-    @Autowired
+
+    @Inject
     UserService userService;
 
     @Test
@@ -90,7 +91,7 @@ public class DefaultProjectServiceTest extends AbstractBaseTest {
         project.getProjectRoles().add(projectRoleMember);
 
         ProjectMember projectCreator = new ProjectMember();
-        projectCreator.setUser(userService.findById(user.getId()));
+        projectCreator.setUser(userService.findOne(user.getId()));
         projectCreator.setProjectRole(projectRoleCreator);
 
         project.getProjectTeam().add(projectCreator);

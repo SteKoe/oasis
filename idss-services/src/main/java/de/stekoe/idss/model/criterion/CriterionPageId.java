@@ -16,16 +16,27 @@
 
 package de.stekoe.idss.model.criterion;
 
-import de.stekoe.idss.model.GenericId;
-
 import javax.persistence.Embeddable;
+
+import de.stekoe.idss.model.GenericId;
 
 @Embeddable
 public class CriterionPageId extends GenericId {
+    public CriterionPageId() {
+        super();
+    }
+
     public CriterionPageId(String id) {
         super(id);
     }
 
-    public CriterionPageId() {
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }

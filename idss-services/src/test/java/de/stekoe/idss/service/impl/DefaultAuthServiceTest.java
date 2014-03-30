@@ -1,5 +1,16 @@
 package de.stekoe.idss.service.impl;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
+
+import javax.inject.Inject;
+
+import org.junit.Test;
+
 import de.stekoe.idss.AbstractBaseTest;
 import de.stekoe.idss.TestFactory;
 import de.stekoe.idss.model.Permission;
@@ -9,30 +20,23 @@ import de.stekoe.idss.model.enums.PermissionType;
 import de.stekoe.idss.model.project.Project;
 import de.stekoe.idss.model.project.ProjectId;
 import de.stekoe.idss.model.project.ProjectMember;
+import de.stekoe.idss.repository.ProjectRepository;
+import de.stekoe.idss.repository.UserRepository;
 import de.stekoe.idss.service.AuthService;
-import de.stekoe.idss.service.ProjectService;
-import de.stekoe.idss.service.UserService;
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
 public class DefaultAuthServiceTest extends AbstractBaseTest {
 
-    @Autowired
+    @Inject
+    ProjectRepository projectRepository;
+
+    @Inject
     AuthService authService;
-    @Autowired
-    ProjectService projectService;
-    @Autowired
-    UserService userService;
+
+    @Inject
+    UserRepository userService;
 
     @Test(expected = NullPointerException.class)
     public void testNullArguments() {
@@ -58,7 +62,7 @@ public class DefaultAuthServiceTest extends AbstractBaseTest {
         ProjectMember pm = new ProjectMember();
         pm.setUser(user);
 
-        projectService.save(project);
+        projectRepository.save(project);
 
         assertFalse(authService.isAuthorized(user.getId(), project, PermissionType.CREATE));
         assertFalse(authService.isAuthorized(user.getId(), project, PermissionType.READ));

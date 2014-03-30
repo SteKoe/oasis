@@ -1,13 +1,13 @@
 package de.stekoe.idss.model;
 
-import org.hamcrest.core.Is;
-import org.joda.time.DateTime;
-import org.junit.Test;
+import static org.junit.Assert.assertThat;
 
 import java.sql.Date;
 import java.util.Calendar;
 
-import static org.junit.Assert.assertThat;
+import org.hamcrest.core.Is;
+import org.joda.time.DateTime;
+import org.junit.Test;
 
 public class UserProfileTest {
 

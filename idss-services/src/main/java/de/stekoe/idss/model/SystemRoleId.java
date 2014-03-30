@@ -20,10 +20,13 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 public class SystemRoleId extends GenericId {
-    public SystemRoleId() {
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
     }
 
-    public SystemRoleId(String id) {
-        super(id);
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }

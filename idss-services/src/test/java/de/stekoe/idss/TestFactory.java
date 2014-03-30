@@ -1,10 +1,10 @@
 package de.stekoe.idss;
 
+import java.util.UUID;
+
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.model.project.Project;
 import de.stekoe.idss.model.project.ProjectMember;
-
-import java.util.UUID;
 
 public class TestFactory {
 

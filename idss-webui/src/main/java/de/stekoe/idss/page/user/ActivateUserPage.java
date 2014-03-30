@@ -16,12 +16,13 @@
 
 package de.stekoe.idss.page.user;
 
-import de.stekoe.idss.exception.UserException;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.model.enums.UserStatus;
 import de.stekoe.idss.page.LayoutPage;
 import de.stekoe.idss.page.auth.LoginPage;
+import de.stekoe.idss.service.UserException;
 import de.stekoe.idss.service.UserService;
+
 import org.apache.log4j.Logger;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;

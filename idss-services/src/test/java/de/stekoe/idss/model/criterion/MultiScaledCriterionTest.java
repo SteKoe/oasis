@@ -1,8 +1,8 @@
 package de.stekoe.idss.model.criterion;
 
-import org.junit.Test;
-
 import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>

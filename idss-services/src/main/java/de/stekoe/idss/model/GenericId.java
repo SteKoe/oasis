@@ -16,11 +16,12 @@
 
 package de.stekoe.idss.model;
 
-import de.stekoe.idss.IDGenerator;
+import java.io.Serializable;
 
 import javax.persistence.Embeddable;
 import javax.persistence.MappedSuperclass;
-import java.io.Serializable;
+
+import de.stekoe.idss.IDGenerator;
 
 @Embeddable
 @MappedSuperclass

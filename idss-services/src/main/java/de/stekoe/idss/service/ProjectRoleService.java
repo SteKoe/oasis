@@ -24,11 +24,8 @@ import de.stekoe.idss.model.project.ProjectRole;
 import de.stekoe.idss.model.project.ProjectRoleId;
 import de.stekoe.idss.repository.ProjectRoleRepository;
 
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
 @Service
-@Transactional
+@Transactional(readOnly = true)
 public class ProjectRoleService  {
 
     @Autowired
@@ -38,10 +35,12 @@ public class ProjectRoleService  {
         return projectRoleRepository.findOne(id);
     }
 
+    @Transactional
     public void save(ProjectRole role) {
         projectRoleRepository.save(role);
     }
 
+    @Transactional
     public void delete(ProjectRole entity) {
         projectRoleRepository.delete(entity);
     }

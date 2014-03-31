@@ -27,9 +27,6 @@ import de.stekoe.idss.model.Document;
 import de.stekoe.idss.model.DocumentId;
 import de.stekoe.idss.repository.DocumentRepository;
 
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
 @Service
 @Transactional
 public class DocumentService {

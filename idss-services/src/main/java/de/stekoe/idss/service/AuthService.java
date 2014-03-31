@@ -31,11 +31,8 @@ import de.stekoe.idss.model.enums.PermissionType;
 import de.stekoe.idss.model.enums.UserStatus;
 import de.stekoe.idss.repository.UserRepository;
 
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
 @Service
-@Transactional
+@Transactional(readOnly = true)
 public class AuthService {
 
     @Autowired

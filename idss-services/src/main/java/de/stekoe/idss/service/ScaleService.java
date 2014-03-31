@@ -18,6 +18,7 @@ package de.stekoe.idss.service;
 
 import javax.inject.Inject;
 
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.stekoe.idss.model.criterion.scale.Scale;
@@ -25,6 +26,7 @@ import de.stekoe.idss.model.criterion.scale.ScaleId;
 import de.stekoe.idss.model.criterion.scale.value.MeasurementValue;
 import de.stekoe.idss.repository.MeasurementValueRepository;
 
+@Service
 @Transactional(readOnly = true)
 public class ScaleService implements Orderable<MeasurementValue> {
 

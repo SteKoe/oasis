@@ -16,10 +16,6 @@
 
 package de.stekoe.idss.service;
 
-
-/**
- * @author Stephan Köninger <mail@stekoe.de>
- */
 @SuppressWarnings("serial")
 public class EmailAddressAlreadyInUseException extends UserException {
 }

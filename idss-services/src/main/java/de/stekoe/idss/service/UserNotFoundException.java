@@ -17,9 +17,6 @@
 package de.stekoe.idss.service;
 
 
-/**
- * @author Stephan Köninger <mail@stekoe.de>
- */
 public class UserNotFoundException extends UserException {
 
 }

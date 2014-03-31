@@ -41,6 +41,7 @@ import de.stekoe.idss.repository.ProjectRepository;
 import de.stekoe.idss.repository.UserRepository;
 
 @Service
+@Transactional(readOnly = true)
 public class ProjectService {
 
     @Inject
@@ -52,7 +53,6 @@ public class ProjectService {
     @Inject
     private AuthService authService;
 
-    @Transactional(readOnly = true)
     public boolean isAuthorized(final UserId userId, final ProjectId projectId, final PermissionType permissionType) {
 
         final Project project = projectRepository.findOne(projectId);
@@ -97,22 +97,18 @@ public class ProjectService {
         return projectRepository.save(project);
     }
 
-    @Transactional(readOnly = true)
     public List<Project> findByUser(UserId id) {
         return projectRepository.findByUser(id);
     }
 
-    @Transactional(readOnly = true)
     public List<Project> findAll() {
         return (List<Project>)projectRepository.findAll();
     }
 
-    @Transactional(readOnly = true)
     public Project findOne(ProjectId id) {
         return projectRepository.findOne(id);
     }
 
-    @Transactional(readOnly = true)
     public List<Project> findAll(Sort pageable) {
         return (List<Project>) projectRepository.findAll(pageable);
     }

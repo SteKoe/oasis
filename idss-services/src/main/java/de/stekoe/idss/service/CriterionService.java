@@ -29,7 +29,7 @@ import de.stekoe.idss.model.criterion.scale.value.OrdinalValue;
 import de.stekoe.idss.repository.CriterionRepository;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 public class CriterionService {
 
     @Inject
@@ -40,10 +40,12 @@ public class CriterionService {
         return criterionRepository.findSingleScaledCriterionById(id);
     }
 
+    @Transactional
     public void saveCriterion(Criterion entity) {
         criterionRepository.save(entity);
     }
 
+    @Transactional
     public void deleteCriterion(CriterionPageElementId criterionId) {
         criterionRepository.delete(criterionId);
     }

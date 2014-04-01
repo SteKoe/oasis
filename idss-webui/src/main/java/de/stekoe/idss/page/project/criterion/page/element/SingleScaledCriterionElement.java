@@ -62,7 +62,7 @@ public class SingleScaledCriterionElement extends Panel {
         add(new Label("ordering"));
 
         if(ssc instanceof OrdinalScaledCriterion) {
-            add(new BookmarkablePageLink<EditOrdinalCriterionPage>("edit", EditOrdinalCriterionPage.class, new PageParameters(getPage().getPageParameters()).add("criterionId", ssc.getId())));
+             add(new BookmarkablePageLink<EditOrdinalCriterionPage>("edit", EditOrdinalCriterionPage.class, new PageParameters(getPage().getPageParameters()).add("criterionId", ssc.getId())));
         } else if(ssc instanceof NominalScaledCriterion) {
             add(new BookmarkablePageLink<EditNominalCriterionPage>("edit", EditNominalCriterionPage.class, new PageParameters(getPage().getPageParameters()).add("criterionId", ssc.getId())));
         } else {

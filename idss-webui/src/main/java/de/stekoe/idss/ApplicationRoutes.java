@@ -16,6 +16,10 @@
 
 package de.stekoe.idss;
 
+import javax.inject.Inject;
+
+import org.apache.wicket.settings.IApplicationSettings;
+
 import de.stekoe.idss.page.ContactPage;
 import de.stekoe.idss.page.HomePage;
 import de.stekoe.idss.page.SetupPage;
@@ -27,8 +31,13 @@ import de.stekoe.idss.page.error.Error403Page;
 import de.stekoe.idss.page.error.Error404Page;
 import de.stekoe.idss.page.error.Error410Page;
 import de.stekoe.idss.page.error.Error500Page;
-import de.stekoe.idss.page.project.*;
-import de.stekoe.idss.page.project.criterion.FormTestPage;
+import de.stekoe.idss.page.project.ProjectCreatePage;
+import de.stekoe.idss.page.project.ProjectDetailsPage;
+import de.stekoe.idss.page.project.ProjectEditPage;
+import de.stekoe.idss.page.project.ProjectListPage;
+import de.stekoe.idss.page.project.ProjectMemberListPage;
+import de.stekoe.idss.page.project.ProjectRoleListPage;
+import de.stekoe.idss.page.project.ProjectUploadDocument;
 import de.stekoe.idss.page.project.criterion.SelectCriterionPage;
 import de.stekoe.idss.page.project.criterion.page.CriteriaPageDetailsPage;
 import de.stekoe.idss.page.project.criterion.page.CriteriaPageListPage;
@@ -36,9 +45,6 @@ import de.stekoe.idss.page.project.role.ProjectRoleEditPage;
 import de.stekoe.idss.page.user.ActivateUserPage;
 import de.stekoe.idss.page.user.EditUserProfilePage;
 import de.stekoe.idss.page.user.ViewUserProfilePage;
-import org.apache.wicket.settings.IApplicationSettings;
-
-import javax.inject.Inject;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
@@ -95,10 +101,6 @@ public class ApplicationRoutes {
         getWebApplication().mountPage("/project/${projectId}/setofcriteria/page/${pageId}/add", SelectCriterionPage.class);
 
         getWebApplication().mountPage("/setup", SetupPage.class);
-
-
-        // TEST
-        getWebApplication().mountPage("/test", FormTestPage.class);
     }
 
     public WebApplication getWebApplication() {

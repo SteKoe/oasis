@@ -24,15 +24,12 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import de.stekoe.idss.model.criterion.CriterionPage;
 import de.stekoe.idss.model.criterion.CriterionPageId;
 import de.stekoe.idss.model.criterion.SingleScaledCriterion;
-import de.stekoe.idss.model.criterion.scale.value.OrdinalValue;
-import de.stekoe.idss.page.project.criterion.EditOrdinalCriterionPage;
+import de.stekoe.idss.model.criterion.scale.value.NominalValue;
+import de.stekoe.idss.page.project.criterion.EditNominalCriterionPage;
 import de.stekoe.idss.service.CriterionPageService;
 import de.stekoe.idss.service.CriterionService;
 
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
-public class CreateOrdinalScaledCriterionForm extends OrdinalScaledCriterionForm {
+public class CreateNominalScaledCriterionForm extends NominalScaledCriterionForm {
 
     @SpringBean
     private CriterionService itsCriterionService;
@@ -42,18 +39,18 @@ public class CreateOrdinalScaledCriterionForm extends OrdinalScaledCriterionForm
 
     private final String itsPageId;
 
-    public CreateOrdinalScaledCriterionForm(String aId, String aPageId) {
+    public CreateNominalScaledCriterionForm(String aId, String aPageId) {
         super(aId, null);
         this.itsPageId = aPageId;
     }
 
     @Override
-    public void onSaveCriterion(IModel<SingleScaledCriterion<OrdinalValue>> aModel) {
+    public void onSaveCriterion(IModel<SingleScaledCriterion<NominalValue>> aModel) {
         final CriterionPage page = itsCriterionPageService.findOne(new CriterionPageId(itsPageId));
 
-        final SingleScaledCriterion<OrdinalValue> criterion = aModel.getObject();
+        final SingleScaledCriterion<NominalValue> criterion = aModel.getObject();
         if(StringUtils.isEmpty(criterion.getName())) {
-            criterion.setName(getString("label.criterion.type.ordinal"));
+            criterion.setName(getString("label.criterion.type.nominal"));
         }
         criterion.setCriterionPage(page);
         criterion.setOrdering(page.getPageElements().size() + 1);
@@ -66,6 +63,6 @@ public class CreateOrdinalScaledCriterionForm extends OrdinalScaledCriterionForm
         getWebSession().success("Success");
 
         final PageParameters pageParams = new PageParameters().add("criterionId", criterion.getId());
-        setResponsePage(EditOrdinalCriterionPage.class, getPage().getPageParameters().mergeWith(pageParams));
+        setResponsePage(EditNominalCriterionPage.class, getPage().getPageParameters().mergeWith(pageParams));
     }
 }

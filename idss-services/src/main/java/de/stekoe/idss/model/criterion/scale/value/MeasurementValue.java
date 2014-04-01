@@ -29,7 +29,7 @@ import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 
-import de.stekoe.idss.model.criterion.scale.Scale;
+import de.stekoe.idss.model.criterion.SingleScaledCriterion;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -37,7 +37,7 @@ public abstract class MeasurementValue implements Serializable {
 
     private MeasurementValueId id = new MeasurementValueId();
     private String value;
-    private Scale<? extends MeasurementValue> scale;
+    private SingleScaledCriterion criterion;
     private int ordering;
 
     protected MeasurementValue() {
@@ -74,13 +74,13 @@ public abstract class MeasurementValue implements Serializable {
         this.value = value;
     }
 
-    public void setScale(Scale<? extends MeasurementValue> scale) {
-        this.scale = scale;
+    public void setScale(SingleScaledCriterion criterion) {
+        this.criterion = criterion;
     }
 
-    @ManyToOne(targetEntity = Scale.class)
-    public Scale<? extends MeasurementValue> getScale() {
-        return scale;
+    @ManyToOne(targetEntity = SingleScaledCriterion.class)
+    public SingleScaledCriterion getScale() {
+        return criterion;
     }
 
     public int getOrdering() {

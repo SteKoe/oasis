@@ -19,18 +19,18 @@ package de.stekoe.idss.page.project.criterion;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.util.string.StringValue;
 
-import de.stekoe.idss.page.component.form.criterion.EditOrdinalCriterionForm;
+import de.stekoe.idss.page.component.form.criterion.CreateNominalScaledCriterionForm;
 import de.stekoe.idss.page.project.ProjectPage;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
-public class EditOrdinalCriterionPage extends ProjectPage {
-    public EditOrdinalCriterionPage(PageParameters aPageParams) {
+public class CreateNominalCriterionPage extends ProjectPage {
+    public CreateNominalCriterionPage(PageParameters aPageParams) {
         super(aPageParams);
 
-        final StringValue criterionId = aPageParams.get("criterionId");
+        final StringValue pageId = aPageParams.get("pageId");
 
-        add(new EditOrdinalCriterionForm("form", criterionId.toString()));
+        add(new CreateNominalScaledCriterionForm("form", pageId.toString()));
     }
 }

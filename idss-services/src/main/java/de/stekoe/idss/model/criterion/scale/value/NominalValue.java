@@ -14,14 +14,17 @@
  * limitations under the License.
  */
 
-package de.stekoe.idss.repository;
+package de.stekoe.idss.model.criterion.scale.value;
 
-import org.springframework.data.repository.CrudRepository;
+import javax.persistence.Entity;
 
-import de.stekoe.idss.model.criterion.CriterionPageElementId;
-import de.stekoe.idss.model.criterion.scale.value.MeasurementValue;
-import de.stekoe.idss.model.criterion.scale.value.MeasurementValueId;
+@Entity
+public class NominalValue extends MeasurementValue {
+    public NominalValue() {
+        super();
+    }
 
-public interface MeasurementValueRepository extends CrudRepository<MeasurementValue, MeasurementValueId> {
-    MeasurementValue findByOrdering(int ordering, CriterionPageElementId scaleId);
+    public NominalValue(String value) {
+        super(value);
+    }
 }

@@ -21,27 +21,26 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import de.stekoe.idss.model.criterion.scale.Scale;
-import de.stekoe.idss.model.criterion.scale.ScaleId;
+import de.stekoe.idss.model.criterion.CriterionPageElementId;
+import de.stekoe.idss.model.criterion.SingleScaledCriterion;
 import de.stekoe.idss.model.criterion.scale.value.MeasurementValue;
 import de.stekoe.idss.repository.MeasurementValueRepository;
 
 @Service
 @Transactional(readOnly = true)
-public class ScaleService implements Orderable<MeasurementValue> {
+public class ScaleService {
 
     @Inject
     private MeasurementValueRepository measurementValueRepository;
 
-    @Override
-    public void move(MeasurementValue value, Orderable.Direction direction) {
+    public void move(MeasurementValue value, Direction direction) {
         final int ordering = value.getOrdering();
-        final Scale scale = value.getScale();
+        final SingleScaledCriterion scale = value.getScale();
 
         int newOrdering = 0;
-        if (Orderable.Direction.UP.equals(direction)) {
+        if (Direction.UP.equals(direction)) {
             newOrdering = ordering - 1;
-        } else if (Orderable.Direction.DOWN.equals(direction)) {
+        } else if (Direction.DOWN.equals(direction)) {
             newOrdering = ordering + 1;
         }
 
@@ -58,7 +57,7 @@ public class ScaleService implements Orderable<MeasurementValue> {
         measurementValueRepository.save(other);
     }
 
-    private MeasurementValue findByOrdering(int newOrdering, ScaleId scaleId) {
+    private MeasurementValue findByOrdering(int newOrdering, CriterionPageElementId scaleId) {
         return measurementValueRepository.findByOrdering(newOrdering, scaleId);
     }
 }

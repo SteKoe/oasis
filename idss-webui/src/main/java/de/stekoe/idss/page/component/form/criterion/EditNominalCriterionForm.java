@@ -21,27 +21,24 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import de.stekoe.idss.model.criterion.SingleScaledCriterion;
-import de.stekoe.idss.model.criterion.scale.value.OrdinalValue;
-import de.stekoe.idss.page.project.criterion.EditOrdinalCriterionPage;
+import de.stekoe.idss.model.criterion.scale.value.NominalValue;
+import de.stekoe.idss.page.project.criterion.EditNominalCriterionPage;
 import de.stekoe.idss.service.CriterionService;
 
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
-public class EditOrdinalCriterionForm extends OrdinalScaledCriterionForm {
+public class EditNominalCriterionForm extends NominalScaledCriterionForm {
 
     @SpringBean
     private CriterionService itsCriterionService;
 
-    public EditOrdinalCriterionForm(String aId, String aCriterionId) {
+    public EditNominalCriterionForm(String aId, String aCriterionId) {
         super(aId, aCriterionId);
     }
 
     @Override
-    public void onSaveCriterion(IModel<SingleScaledCriterion<OrdinalValue>> aModel) {
-        final SingleScaledCriterion<OrdinalValue> criterion = aModel.getObject();
+    public void onSaveCriterion(IModel<SingleScaledCriterion<NominalValue>> aModel) {
+        final SingleScaledCriterion<NominalValue> criterion = aModel.getObject();
         itsCriterionService.saveCriterion(criterion);
         final PageParameters pageParams = new PageParameters().add("criterionId", criterion.getId());
-        setResponsePage(EditOrdinalCriterionPage.class, getPage().getPageParameters().mergeWith(pageParams));
+        setResponsePage(EditNominalCriterionPage.class, getPage().getPageParameters().mergeWith(pageParams));
     }
 }

@@ -16,11 +16,6 @@
 
 package de.stekoe.idss.page.project.criterion.page.element;
 
-import de.stekoe.idss.model.criterion.CriterionPage;
-import de.stekoe.idss.model.criterion.SingleScaledCriterion;
-import de.stekoe.idss.page.project.criterion.EditOrdinalCriterionPage;
-import de.stekoe.idss.service.CriterionPageService;
-import de.stekoe.idss.service.CriterionService;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.Link;
@@ -28,6 +23,15 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+
+import de.stekoe.idss.model.criterion.CriterionPage;
+import de.stekoe.idss.model.criterion.NominalScaledCriterion;
+import de.stekoe.idss.model.criterion.OrdinalScaledCriterion;
+import de.stekoe.idss.model.criterion.SingleScaledCriterion;
+import de.stekoe.idss.page.project.criterion.EditNominalCriterionPage;
+import de.stekoe.idss.page.project.criterion.EditOrdinalCriterionPage;
+import de.stekoe.idss.service.CriterionPageService;
+import de.stekoe.idss.service.CriterionService;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
@@ -52,11 +56,23 @@ public class SingleScaledCriterionElement extends Panel {
     protected void onInitialize() {
         super.onInitialize();
 
-        SingleScaledCriterion aSingleScaledCriterion = (SingleScaledCriterion) getDefaultModelObject();
+        SingleScaledCriterion ssc = (SingleScaledCriterion) getDefaultModelObject();
 
         add(new Label("name"));
         add(new Label("ordering"));
-        add(new BookmarkablePageLink<EditOrdinalCriterionPage>("edit", EditOrdinalCriterionPage.class, new PageParameters(getPage().getPageParameters()).add("criterionId", aSingleScaledCriterion.getId())));
+
+        if(ssc instanceof OrdinalScaledCriterion) {
+            add(new BookmarkablePageLink<EditOrdinalCriterionPage>("edit", EditOrdinalCriterionPage.class, new PageParameters(getPage().getPageParameters()).add("criterionId", ssc.getId())));
+        } else if(ssc instanceof NominalScaledCriterion) {
+            add(new BookmarkablePageLink<EditNominalCriterionPage>("edit", EditNominalCriterionPage.class, new PageParameters(getPage().getPageParameters()).add("criterionId", ssc.getId())));
+        } else {
+            add(new Link("edit"){
+                @Override
+                public void onClick() {
+                    // TODO Auto-generated method stub
+
+                }});
+        }
         add(new Link("delete") {
             @Override
             public void onClick() {

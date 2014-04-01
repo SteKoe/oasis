@@ -41,7 +41,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import de.stekoe.idss.model.Document;
 import de.stekoe.idss.model.Identifyable;
-import de.stekoe.idss.model.criterion.scale.Scale;
+import de.stekoe.idss.model.criterion.Criterion;
 import de.stekoe.idss.model.enums.ProjectStatus;
 
 @Entity
@@ -55,7 +55,7 @@ public class Project implements Serializable, Identifyable<ProjectId> {
     private Set<ProjectMember> projectTeam = new HashSet<ProjectMember>();
     private Set<Document> documents = new HashSet<Document>();
     private Set<ProjectRole> projectRoles = new HashSet<ProjectRole>();
-    private List<Scale> scaleList = new ArrayList<Scale>();
+    private List<Criterion> criterionList = new ArrayList<Criterion>();
     private ProjectStatus projectStatus = ProjectStatus.EDITING;
     private Date projectStartDate = new Date();
     private Date projectEndDate;
@@ -119,13 +119,13 @@ public class Project implements Serializable, Identifyable<ProjectId> {
         this.projectRoles = projectRoles;
     }
 
-    @OneToMany(targetEntity = Scale.class)
-    public List<Scale> getScaleList() {
-        return scaleList;
+    @OneToMany(targetEntity = Criterion.class)
+    public List<Criterion> getScaleList() {
+        return criterionList;
     }
 
-    public void setScaleList(List<Scale> scaleList) {
-        this.scaleList = scaleList;
+    public void setScaleList(List<Criterion> criterionList) {
+        this.criterionList = criterionList;
     }
 
     @Enumerated(value = EnumType.STRING)

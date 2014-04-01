@@ -16,17 +16,18 @@
 
 package de.stekoe.idss.page.project.criterion;
 
-import de.stekoe.idss.model.criterion.MultiScaledCriterion;
-import de.stekoe.idss.model.criterion.SingleScaledCriterion;
-import de.stekoe.idss.model.criterion.scale.OrdinalScale;
-import de.stekoe.idss.model.criterion.scale.value.OrdinalValue;
-import de.stekoe.idss.page.LayoutPage;
-import de.stekoe.idss.page.component.criterion.MultiScaledCriterionPanel;
+import java.util.Arrays;
+
 import org.apache.log4j.Logger;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
-import java.util.Arrays;
+import de.stekoe.idss.model.criterion.MultiScaledCriterion;
+import de.stekoe.idss.model.criterion.OrdinalScaledCriterion;
+import de.stekoe.idss.model.criterion.SingleScaledCriterion;
+import de.stekoe.idss.model.criterion.scale.value.OrdinalValue;
+import de.stekoe.idss.page.LayoutPage;
+import de.stekoe.idss.page.component.criterion.MultiScaledCriterionPanel;
 
 
 /**
@@ -39,8 +40,8 @@ public class FormTestPage extends LayoutPage {
     public FormTestPage(PageParameters pageParameters) {
         super(pageParameters);
 
-        final SingleScaledCriterion ssc1 = getFirstCriterion();
-        final SingleScaledCriterion ssc2 = getSecondCriterion();
+        final SingleScaledCriterion<OrdinalValue> ssc1 = getFirstCriterion();
+        final SingleScaledCriterion<OrdinalValue> ssc2 = getSecondCriterion();
 
         final MultiScaledCriterion multiScaledCriterion = new MultiScaledCriterion();
         multiScaledCriterion.setName("Patientenverfügung");
@@ -53,7 +54,7 @@ public class FormTestPage extends LayoutPage {
     }
 
     private SingleScaledCriterion getFirstCriterion() {
-        final OrdinalScale ssc1scale = new OrdinalScale();
+        final OrdinalScaledCriterion ssc1scale = new OrdinalScaledCriterion();
         ssc1scale.setName("A) Der Patient sollte mit einer PEG-Magensonde versorgt werden.");
         ssc1scale.setValues(Arrays.asList(
                 new OrdinalValue(1, "stimme voll zu"),
@@ -62,13 +63,11 @@ public class FormTestPage extends LayoutPage {
                 new OrdinalValue(4, "stimme nicht zu"),
                 new OrdinalValue(5, "stimme gar nicht zu")
         ));
-        final SingleScaledCriterion ssc1 = new SingleScaledCriterion();
-        ssc1.setScale(ssc1scale);
-        return ssc1;
+        return ssc1scale;
     }
 
     private SingleScaledCriterion getSecondCriterion() {
-        final OrdinalScale scale = new OrdinalScale();
+        final OrdinalScaledCriterion scale = new OrdinalScaledCriterion();
         scale.setName("B) In diesem Fall sollte die Beatmung des Patienten abgebrochen werden.");
         scale.setValues(Arrays.asList(
                 new OrdinalValue(1, "stimme voll zu"),
@@ -77,9 +76,7 @@ public class FormTestPage extends LayoutPage {
                 new OrdinalValue(4, "stimme nicht zu"),
                 new OrdinalValue(5, "stimme gar nicht zu")
         ));
-        final SingleScaledCriterion ssc1 = new SingleScaledCriterion();
-        ssc1.setScale(scale);
-        return ssc1;
+        return scale;
 
     }
 }

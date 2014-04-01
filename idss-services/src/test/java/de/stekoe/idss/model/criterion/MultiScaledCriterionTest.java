@@ -10,13 +10,13 @@ import org.junit.Test;
 public class MultiScaledCriterionTest {
     @Test
     public void asd() throws Exception {
-        final SingleScaledCriterion ssCriterion1 = new SingleScaledCriterion();
+        final SingleScaledCriterion ssCriterion1 = new OrdinalScaledCriterion();
         ssCriterion1.setName("SSC1");
 
-        final SingleScaledCriterion ssCriterion2 = new SingleScaledCriterion();
+        final SingleScaledCriterion ssCriterion2 = new OrdinalScaledCriterion();
         ssCriterion2.setName("SSC2");
 
-        final SingleScaledCriterion ssCriterion3 = new SingleScaledCriterion();
+        final SingleScaledCriterion ssCriterion3 = new OrdinalScaledCriterion();
         ssCriterion3.setName("SSC3");
 
         final MultiScaledCriterion multiScaledCriterion = new MultiScaledCriterion();

@@ -16,13 +16,6 @@
 
 package de.stekoe.idss.page.component.form.criterion;
 
-import de.agilecoders.wicket.core.markup.html.bootstrap.form.FormGroup;
-import de.stekoe.idss.model.criterion.CriterionPageElementId;
-import de.stekoe.idss.model.criterion.SingleScaledCriterion;
-import de.stekoe.idss.model.criterion.scale.OrdinalScale;
-import de.stekoe.idss.page.component.behavior.CustomTinyMCESettings;
-import de.stekoe.idss.service.CriterionService;
-import de.stekoe.idss.wicket.MarkRequiredFieldsBehavior;
 import org.apache.wicket.bean.validation.PropertyValidator;
 import org.apache.wicket.markup.html.form.CheckBox;
 import org.apache.wicket.markup.html.form.Form;
@@ -33,30 +26,23 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+
 import wicket.contrib.tinymce.TinyMceBehavior;
+import de.agilecoders.wicket.core.markup.html.bootstrap.form.FormGroup;
+import de.stekoe.idss.model.criterion.CriterionPageElementId;
+import de.stekoe.idss.model.criterion.SingleScaledCriterion;
+import de.stekoe.idss.model.criterion.scale.value.MeasurementValue;
+import de.stekoe.idss.page.component.behavior.CustomTinyMCESettings;
+import de.stekoe.idss.service.CriterionService;
+import de.stekoe.idss.wicket.MarkRequiredFieldsBehavior;
 
-public abstract class CriterionForm extends Panel {
+public abstract class CriterionForm<T extends MeasurementValue> extends Panel {
 
-    private Form<SingleScaledCriterion> scaleForm;
+    private Form<SingleScaledCriterion<T>> scaleForm;
     private final CriterionPageElementId criterionId;
 
     @SpringBean
     private CriterionService criterionService;
-
-    private final LoadableDetachableModel<SingleScaledCriterion> itsCriterionModel = new LoadableDetachableModel<SingleScaledCriterion>() {
-        @Override
-        protected SingleScaledCriterion load() {
-            if (criterionId.getId() == null) {
-                SingleScaledCriterion criterion = new SingleScaledCriterion();
-                final OrdinalScale scale = new OrdinalScale();
-                criterion.setScale(scale);
-                scale.setCriterion(criterion);
-                return criterion;
-            } else {
-                return criterionService.findSingleScaledCriterionById(criterionId);
-            }
-        }
-    };
 
     public CriterionForm(String id, String aCriterionId) {
         super(id);
@@ -65,8 +51,12 @@ public abstract class CriterionForm extends Panel {
         scaleForm();
     }
 
+    public CriterionPageElementId getCriterionId() {
+        return criterionId;
+    }
+
     private void scaleForm() {
-        scaleForm = new Form<SingleScaledCriterion>("ordinalScaledCriterionForm", new CompoundPropertyModel<SingleScaledCriterion>(itsCriterionModel)) {
+        scaleForm = new Form<SingleScaledCriterion<T>>("ordinalScaledCriterionForm", new CompoundPropertyModel<SingleScaledCriterion<T>>(getCriterionModel())) {
             @Override
             protected void onSubmit() {
                 onSaveCriterion(getModel());
@@ -93,9 +83,20 @@ public abstract class CriterionForm extends Panel {
         add(new SubmitLink("submit.ordinalScaledCriterionForm", scaleForm));
     }
 
-    protected LoadableDetachableModel<SingleScaledCriterion> getCriterionModel() {
-        return itsCriterionModel;
+    void moveValueUp(final T value) {
+        SingleScaledCriterion<T> criterion = getCriterionModel().getObject();
+        criterion.moveUp(value);
+        criterionService.saveCriterion(criterion);
+        setResponsePage(getPage());
     }
 
-    public abstract void onSaveCriterion(IModel<SingleScaledCriterion> aModel);
+    void moveValueDown(final T value) {
+        SingleScaledCriterion<T> criterion = getCriterionModel().getObject();
+        criterion.moveDown(value);
+        criterionService.saveCriterion(criterion);
+        setResponsePage(getPage());
+    }
+
+    public abstract LoadableDetachableModel<SingleScaledCriterion<T>> getCriterionModel();
+    public abstract void onSaveCriterion(IModel<SingleScaledCriterion<T>> aModel);
 }

@@ -18,41 +18,30 @@ package de.stekoe.idss.page.component.form.criterion;
 
 import java.util.List;
 
-import org.apache.wicket.bean.validation.PropertyValidator;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.CheckBox;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.RequiredTextField;
-import org.apache.wicket.markup.html.form.SubmitLink;
-import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
-import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
-import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-import wicket.contrib.tinymce.TinyMceBehavior;
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.FormGroup;
-import de.stekoe.idss.model.criterion.CriterionPageElementId;
+import de.stekoe.idss.model.criterion.OrdinalScaledCriterion;
 import de.stekoe.idss.model.criterion.SingleScaledCriterion;
-import de.stekoe.idss.model.criterion.scale.OrdinalScale;
-import de.stekoe.idss.model.criterion.scale.Scale;
 import de.stekoe.idss.model.criterion.scale.value.OrdinalValue;
-import de.stekoe.idss.page.component.behavior.CustomTinyMCESettings;
+import de.stekoe.idss.page.component.behavior.Placeholder;
 import de.stekoe.idss.service.CriterionPageService;
 import de.stekoe.idss.service.CriterionService;
-import de.stekoe.idss.service.Orderable;
 import de.stekoe.idss.service.ScaleService;
-import de.stekoe.idss.wicket.MarkRequiredFieldsBehavior;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
-public abstract class OrdinalScaledCriterionForm extends CriterionForm {
+public abstract class OrdinalScaledCriterionForm extends CriterionForm<OrdinalValue> {
 
     @SpringBean
     private CriterionPageService criterionPageService;
@@ -78,27 +67,31 @@ public abstract class OrdinalScaledCriterionForm extends CriterionForm {
         valueForm = new Form<OrdinalValue>("valueForm", new CompoundPropertyModel<OrdinalValue>(new OrdinalValue())) {
             @Override
             protected void onSubmit() {
-                final SingleScaledCriterion criterion = getCriterionModel().getObject();
-                final OrdinalValue value = getModel().getObject();
+                final SingleScaledCriterion<OrdinalValue> criterion = getCriterionModel().getObject();
 
-                criterionService.addValue(criterion, value);
+                final OrdinalValue value = getModel().getObject();
+                criterion.addValue(value);
+
+                getCriterionModel().setObject(criterion);
+
                 onSaveCriterion(getCriterionModel());
             }
         };
         add(valueForm);
 
         final RequiredTextField<String> valueTextField = new RequiredTextField<String>("value");
+        valueTextField.add(new Placeholder("Ausprägung..."));
         FormGroup valueGroup = new FormGroup("value.group");
         valueForm.add(valueGroup.add(valueTextField));
 
         final RequiredTextField<Double> rankTextField = new RequiredTextField<Double>("rank");
+        rankTextField.add(new Placeholder("Wert..."));
         valueForm.add(valueGroup.add(rankTextField));
 
         final LoadableDetachableModel<List<OrdinalValue>> valueListModel = new LoadableDetachableModel<List<OrdinalValue>>() {
             @Override
             protected List<OrdinalValue> load() {
-                final Scale scale = getCriterionModel().getObject().getScale();
-                return scale.getValues();
+                return getCriterionModel().getObject().getValues();
             }
         };
 
@@ -111,7 +104,8 @@ public abstract class OrdinalScaledCriterionForm extends CriterionForm {
                 item.add(new Link("value.delete") {
                     @Override
                     public void onClick() {
-                        criterionService.deleteValue(value);
+                        getCriterionModel().getObject().getValues().remove(value);
+                        criterionService.saveCriterion(getCriterionModel().getObject());
                         setResponsePage(getPage());
                     }
                 });
@@ -119,10 +113,7 @@ public abstract class OrdinalScaledCriterionForm extends CriterionForm {
                 item.add(new Link("value.move.up") {
                     @Override
                     public void onClick() {
-                        scaleService.move(value, Orderable.Direction.UP);
-                        getCriterionModel().detach();
-                        valueListModel.detach();
-                        setResponsePage(getPage());
+                        moveValueUp(value);
                     }
 
                     @Override
@@ -134,10 +125,7 @@ public abstract class OrdinalScaledCriterionForm extends CriterionForm {
                 item.add(new Link("value.move.down") {
                     @Override
                     public void onClick() {
-                        scaleService.move(value, Orderable.Direction.DOWN);
-                        getCriterionModel().detach();
-                        valueListModel.detach();
-                        setResponsePage(getPage());
+                        moveValueDown(value);
                     }
 
                     @Override
@@ -154,5 +142,18 @@ public abstract class OrdinalScaledCriterionForm extends CriterionForm {
         emptyListIndicator.setVisible(valueList.getList().isEmpty());
     }
 
-
+    @Override
+    public LoadableDetachableModel<SingleScaledCriterion<OrdinalValue>> getCriterionModel() {
+        return new LoadableDetachableModel<SingleScaledCriterion<OrdinalValue>>() {
+            @Override
+            protected SingleScaledCriterion<OrdinalValue> load() {
+                if (getCriterionId().getId() == null) {
+                    OrdinalScaledCriterion criterion = new OrdinalScaledCriterion();
+                    return criterion;
+                } else {
+                    return criterionService.findSingleScaledCriterionById(getCriterionId());
+                }
+            }
+        };
+    }
 }

@@ -14,14 +14,16 @@
  * limitations under the License.
  */
 
-package de.stekoe.idss.repository;
+package de.stekoe.idss.model.criterion.scale;
 
-import org.springframework.data.repository.CrudRepository;
+import junit.framework.Assert;
 
-import de.stekoe.idss.model.criterion.CriterionPageElementId;
-import de.stekoe.idss.model.criterion.scale.value.MeasurementValue;
-import de.stekoe.idss.model.criterion.scale.value.MeasurementValueId;
+import org.junit.Test;
 
-public interface MeasurementValueRepository extends CrudRepository<MeasurementValue, MeasurementValueId> {
-    MeasurementValue findByOrdering(int ordering, CriterionPageElementId scaleId);
+public class SingleScaledCriterionIdTest {
+    @Test
+    public void test() throws Exception {
+        final SingleScaledCriterionId scaleId = new SingleScaledCriterionId();
+        Assert.assertTrue(scaleId.getId().length() > 0);
+    }
 }

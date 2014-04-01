@@ -16,15 +16,12 @@
 
 package de.stekoe.idss;
 
-import de.agilecoders.wicket.core.Bootstrap;
-import de.agilecoders.wicket.core.settings.BootstrapSettings;
-import de.agilecoders.wicket.core.settings.DefaultThemeProvider;
-import de.agilecoders.wicket.core.settings.ITheme;
-import de.stekoe.idss.page.HomePage;
-import de.stekoe.idss.page.auth.AuthorizationStrategy;
-import de.stekoe.idss.page.auth.LoginPage;
-import de.stekoe.idss.session.WebSession;
-import de.stekoe.idss.theme.BootstrapTheme;
+import java.nio.charset.StandardCharsets;
+import java.util.Locale;
+
+import javax.inject.Inject;
+
+import org.apache.log4j.Logger;
 import org.apache.wicket.Application;
 import org.apache.wicket.authroles.authentication.AbstractAuthenticatedWebSession;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
@@ -43,12 +40,20 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
-import javax.inject.Inject;
-import java.nio.charset.StandardCharsets;
-import java.util.Locale;
+import de.agilecoders.wicket.core.Bootstrap;
+import de.agilecoders.wicket.core.settings.BootstrapSettings;
+import de.agilecoders.wicket.core.settings.DefaultThemeProvider;
+import de.agilecoders.wicket.core.settings.ITheme;
+import de.stekoe.idss.page.HomePage;
+import de.stekoe.idss.page.auth.AuthorizationStrategy;
+import de.stekoe.idss.page.auth.LoginPage;
+import de.stekoe.idss.session.WebSession;
+import de.stekoe.idss.theme.BootstrapTheme;
 
 @Component
 public class WebApplication extends AuthenticatedWebApplication implements ApplicationContextAware {
+
+    private static final Logger LOG = Logger.getLogger(WebApplication.class);
 
     public static final Locale[] LANGUAGES = {
             Locale.GERMAN
@@ -78,6 +83,12 @@ public class WebApplication extends AuthenticatedWebApplication implements Appli
         setUpSpring();
 
         getMarkupSettings().setDefaultMarkupEncoding(StandardCharsets.UTF_8.displayName());
+
+
+        for(String name : ctx.getBeanDefinitionNames()) {
+            Object bean = ctx.getBean(name);
+            LOG.info("Bean loaded: " + name + " ["+bean.getClass().getCanonicalName()+"]");
+        }
 
         applicationRoutes.create();
     }

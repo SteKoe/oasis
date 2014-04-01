@@ -16,8 +16,138 @@
 
 package de.stekoe.idss.page.component.form.criterion;
 
-public abstract class NominalScaledCriterionForm extends CriterionForm {
-    public NominalScaledCriterionForm(String id, String aCriterionId) {
-        super(id, aCriterionId);
+import java.util.List;
+
+import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.RequiredTextField;
+import org.apache.wicket.markup.html.link.Link;
+import org.apache.wicket.markup.html.list.ListItem;
+import org.apache.wicket.markup.html.list.ListView;
+import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.LoadableDetachableModel;
+import org.apache.wicket.spring.injection.annot.SpringBean;
+
+import de.agilecoders.wicket.core.markup.html.bootstrap.form.FormGroup;
+import de.stekoe.idss.model.criterion.NominalScaledCriterion;
+import de.stekoe.idss.model.criterion.SingleScaledCriterion;
+import de.stekoe.idss.model.criterion.scale.value.NominalValue;
+import de.stekoe.idss.page.component.behavior.Placeholder;
+import de.stekoe.idss.service.CriterionPageService;
+import de.stekoe.idss.service.CriterionService;
+import de.stekoe.idss.service.ScaleService;
+
+public abstract class NominalScaledCriterionForm extends CriterionForm<NominalValue> {
+
+    @SpringBean
+    private CriterionPageService criterionPageService;
+
+    @SpringBean
+    private CriterionService criterionService;
+
+    @SpringBean
+    private ScaleService scaleService;
+
+    private Form<NominalValue> valueForm;
+
+    public NominalScaledCriterionForm(final String aId, final String aCriterionId) {
+        super(aId, aCriterionId);
+
+        valueForm();
+    }
+
+    /**
+     * Subform for just the values of the scale
+     */
+    private void valueForm() {
+        valueForm = new Form<NominalValue>("valueForm", new CompoundPropertyModel<NominalValue>(new NominalValue())) {
+            @Override
+            protected void onSubmit() {
+                final SingleScaledCriterion<NominalValue> criterion = getCriterionModel().getObject();
+
+                final NominalValue value = getModel().getObject();
+                criterion.addValue(value);
+
+                getCriterionModel().setObject(criterion);
+
+                onSaveCriterion(getCriterionModel());
+            }
+        };
+        add(valueForm);
+
+        final RequiredTextField<String> valueTextField = new RequiredTextField<String>("value");
+        valueTextField.add(new Placeholder("Ausprägung..."));
+        FormGroup valueGroup = new FormGroup("value.group");
+        valueForm.add(valueGroup.add(valueTextField));
+
+        final LoadableDetachableModel<List<NominalValue>> valueListModel = new LoadableDetachableModel<List<NominalValue>>() {
+            @Override
+            protected List<NominalValue> load() {
+                return getCriterionModel().getObject().getValues();
+            }
+        };
+
+        final ListView<NominalValue> valueList = new ListView<NominalValue>("value.list", valueListModel) {
+            @Override
+            protected void populateItem(final ListItem<NominalValue> item) {
+                final NominalValue value = item.getModelObject();
+                item.add(new Label("value.list.label", value.getValue() + " (" + value.getOrdering() + ")"));
+
+                item.add(new Link("value.delete") {
+                    @Override
+                    public void onClick() {
+                        getCriterionModel().getObject().getValues().remove(value);
+                        criterionService.saveCriterion(getCriterionModel().getObject());
+                        setResponsePage(getPage());
+                    }
+                });
+
+                item.add(new Link("value.move.up") {
+                    @Override
+                    public void onClick() {
+                        moveValueUp(value);
+                    }
+
+
+                    @Override
+                    public boolean isVisible() {
+                        return item.getIndex() > 0 && getList().size() > 1;
+                    }
+                });
+
+                item.add(new Link("value.move.down") {
+                    @Override
+                    public void onClick() {
+                        moveValueDown(value);
+                    }
+
+                    @Override
+                    public boolean isVisible() {
+                        return item.getIndex() < (getList().size()-1) && getList().size() > 1;
+                    }
+                });
+            }
+        };
+        valueForm.add(valueList);
+
+        final WebMarkupContainer emptyListIndicator = new WebMarkupContainer("value.list.empty");
+        valueForm.add(emptyListIndicator);
+        emptyListIndicator.setVisible(valueList.getList().isEmpty());
+    }
+
+    @Override
+    public LoadableDetachableModel<SingleScaledCriterion<NominalValue>> getCriterionModel() {
+        return new LoadableDetachableModel<SingleScaledCriterion<NominalValue>>() {
+            @Override
+            protected SingleScaledCriterion<NominalValue> load() {
+                if (getCriterionId().getId() == null) {
+                    NominalScaledCriterion criterion = new NominalScaledCriterion();
+                    return criterion;
+                } else {
+                    return criterionService.findSingleScaledCriterionById(getCriterionId());
+                }
+            }
+        };
     }
 }

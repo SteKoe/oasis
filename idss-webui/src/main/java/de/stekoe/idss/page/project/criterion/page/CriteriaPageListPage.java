@@ -36,12 +36,9 @@ import de.stekoe.idss.page.project.ProjectPage;
 import de.stekoe.idss.page.project.criterion.SelectCriterionPage;
 import de.stekoe.idss.page.project.criterion.page.element.SingleScaledCriterionElement;
 import de.stekoe.idss.service.CriterionPageService;
-import de.stekoe.idss.service.Orderable.Direction;
+import de.stekoe.idss.service.Direction;
 import de.stekoe.idss.service.ProjectService;
 
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
 public class CriteriaPageListPage extends ProjectPage {
 
     @SpringBean

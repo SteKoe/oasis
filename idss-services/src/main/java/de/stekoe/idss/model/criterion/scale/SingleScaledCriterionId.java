@@ -14,14 +14,21 @@
  * limitations under the License.
  */
 
-package de.stekoe.idss.repository;
+package de.stekoe.idss.model.criterion.scale;
 
-import org.springframework.data.repository.CrudRepository;
+import javax.persistence.Embeddable;
 
-import de.stekoe.idss.model.criterion.CriterionPageElementId;
-import de.stekoe.idss.model.criterion.scale.value.MeasurementValue;
-import de.stekoe.idss.model.criterion.scale.value.MeasurementValueId;
+import de.stekoe.idss.model.GenericId;
 
-public interface MeasurementValueRepository extends CrudRepository<MeasurementValue, MeasurementValueId> {
-    MeasurementValue findByOrdering(int ordering, CriterionPageElementId scaleId);
+@Embeddable
+public class SingleScaledCriterionId extends GenericId {
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }

@@ -77,14 +77,14 @@ public class CriterionPageService {
     }
 
     @Transactional
-    public void move(CriterionPage criterionPage, Orderable.Direction direction) {
+    public void move(CriterionPage criterionPage, Direction direction) {
         final int ordering = criterionPage.getOrdering();
         final Project project = criterionPage.getProject();
 
         int newOrdering = 0;
-        if (Orderable.Direction.UP.equals(direction)) {
+        if (Direction.UP.equals(direction)) {
             newOrdering = ordering - 1;
-        } else if (Orderable.Direction.DOWN.equals(direction)) {
+        } else if (Direction.DOWN.equals(direction)) {
             newOrdering = ordering + 1;
         }
 

@@ -16,16 +16,13 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.stekoe.idss.model.criterion.Criterion;
 import de.stekoe.idss.model.criterion.CriterionPageElementId;
 import de.stekoe.idss.model.criterion.SingleScaledCriterion;
-import de.stekoe.idss.model.criterion.scale.Scale;
 import de.stekoe.idss.model.criterion.scale.value.MeasurementValue;
-import de.stekoe.idss.model.criterion.scale.value.OrdinalValue;
 import de.stekoe.idss.repository.CriterionRepository;
 
 @Service
@@ -35,8 +32,7 @@ public class CriterionService {
     @Inject
     private CriterionRepository criterionRepository;
 
-    public SingleScaledCriterion findSingleScaledCriterionById(
-            CriterionPageElementId id) {
+    public SingleScaledCriterion findSingleScaledCriterionById(CriterionPageElementId id) {
         return criterionRepository.findSingleScaledCriterionById(id);
     }
 
@@ -50,33 +46,11 @@ public class CriterionService {
         criterionRepository.delete(criterionId);
     }
 
-    public void deleteValue(MeasurementValue value) {
-        final Scale scale = value.getScale();
-        scale.getValues().remove(value);
-
-        reorderValues(scale.getValues());
-
-        final SingleScaledCriterion criterion = scale.getCriterion();
-        saveCriterion(criterion);
-    }
-
     private void reorderValues(List<MeasurementValue> values) {
-        int index = 1;
+        int index = 0;
         final Iterator<MeasurementValue> iterator = values.iterator();
         while (iterator.hasNext()) {
             iterator.next().setOrdering(index++);
         }
-    }
-
-    public void addValue(SingleScaledCriterion criterion, OrdinalValue value) {
-        Scale scale = criterion.getScale();
-        value.setRank(scale.getValues().size() + 1);
-        value.setScale(scale);
-        scale.getValues().add(value);
-
-        criterion.setName(StringUtils.isBlank(criterion.getName()) ? ""
-                : criterion.getName());
-
-        saveCriterion(criterion);
     }
 }

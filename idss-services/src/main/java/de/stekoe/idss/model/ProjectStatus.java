@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package de.stekoe.idss.model.enums;
+package de.stekoe.idss.model;
+
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>

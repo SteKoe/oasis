@@ -4,7 +4,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import de.stekoe.idss.dao.BaseTest;
+import de.stekoe.idss.AbstractBaseTest;
 
 /**
  * Test to check wether email server configuration works.
@@ -15,7 +15,7 @@ import de.stekoe.idss.dao.BaseTest;
  * @author Stephan Köninger <mail@stekoe.de>
  */
 @Ignore
-public class MailServiceIT extends BaseTest {
+public class MailServiceIT extends AbstractBaseTest {
 
     @Autowired
     private de.stekoe.idss.service.MailService mailer;

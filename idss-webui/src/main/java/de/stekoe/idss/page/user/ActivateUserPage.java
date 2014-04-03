@@ -17,7 +17,7 @@
 package de.stekoe.idss.page.user;
 
 import de.stekoe.idss.model.User;
-import de.stekoe.idss.model.enums.UserStatus;
+import de.stekoe.idss.model.UserStatus;
 import de.stekoe.idss.page.LayoutPage;
 import de.stekoe.idss.page.auth.LoginPage;
 import de.stekoe.idss.service.UserException;

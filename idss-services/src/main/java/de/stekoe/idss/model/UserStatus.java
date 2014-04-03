@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package de.stekoe.idss.model.enums;
+package de.stekoe.idss.model;
 
 /**
  * In order to add more semantic to a users status, this enumeration may be used to

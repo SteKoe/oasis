@@ -1,7 +1,8 @@
 package de.stekoe.idss.wicket;
 
 import de.stekoe.idss.AbstractWicketApplicationTester;
-import de.stekoe.idss.model.enums.PermissionType;
+import de.stekoe.idss.model.PermissionType;
+
 import org.apache.wicket.Application;
 import org.junit.Assert;
 import org.junit.Test;

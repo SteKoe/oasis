@@ -16,13 +16,14 @@
 
 package de.stekoe.idss.page.project;
 
-import de.stekoe.idss.model.enums.PermissionType;
-import de.stekoe.idss.model.enums.ProjectStatus;
+import de.stekoe.idss.model.PermissionType;
+import de.stekoe.idss.model.ProjectStatus;
 import de.stekoe.idss.model.project.ProjectMember;
 import de.stekoe.idss.page.HomePage;
 import de.stekoe.idss.page.project.criterion.ResultPage;
 import de.stekoe.idss.page.project.criterion.page.CriteriaPageListPage;
 import de.stekoe.idss.service.ProjectService;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.wicket.MarkupContainer;

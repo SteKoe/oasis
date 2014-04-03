@@ -46,7 +46,6 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import de.stekoe.idss.model.enums.UserStatus;
 import de.stekoe.idss.model.project.ProjectMember;
 
 /**

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package de.stekoe.idss.model.enums;
+package de.stekoe.idss.model;
 
 import de.stekoe.idss.model.project.Project;
 

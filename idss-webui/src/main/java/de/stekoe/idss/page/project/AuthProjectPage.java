@@ -16,12 +16,13 @@
 
 package de.stekoe.idss.page.project;
 
-import de.stekoe.idss.model.enums.PermissionType;
+import de.stekoe.idss.model.PermissionType;
 import de.stekoe.idss.model.project.Project;
 import de.stekoe.idss.model.project.ProjectId;
 import de.stekoe.idss.page.AuthUserPage;
 import de.stekoe.idss.service.ProjectService;
 import de.stekoe.idss.session.WebSession;
+
 import org.apache.log4j.Logger;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.request.component.IRequestablePage;

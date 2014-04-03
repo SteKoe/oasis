@@ -14,11 +14,23 @@
  * limitations under the License.
  */
 
-package de.stekoe.idss.model.enums;
+package de.stekoe.idss.model;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
-public interface L10NEnum {
-    String getKey();
+public enum CriterionType implements L10NEnum {
+    ORDINAL("label.criterion.type.ordinal"),
+    NOMINAL("label.criterion.type.nominal"),
+    METRIC("label.criterion.type.metric");
+
+    private String statusKey;
+
+    CriterionType(String statusKey) {
+        this.statusKey = statusKey;
+    }
+
+    public String getKey() {
+        return this.statusKey;
+    }
 }

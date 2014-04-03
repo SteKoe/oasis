@@ -1,6 +1,7 @@
 package de.stekoe.idss.service;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
@@ -9,25 +10,28 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
+import org.hamcrest.core.IsEqual;
 import org.junit.Test;
 
 import de.stekoe.idss.AbstractBaseTest;
 import de.stekoe.idss.TestFactory;
 import de.stekoe.idss.model.Permission;
+import de.stekoe.idss.model.PermissionObject;
+import de.stekoe.idss.model.PermissionType;
 import de.stekoe.idss.model.User;
-import de.stekoe.idss.model.enums.PermissionObject;
-import de.stekoe.idss.model.enums.PermissionType;
+import de.stekoe.idss.model.UserStatus;
 import de.stekoe.idss.model.project.Project;
 import de.stekoe.idss.model.project.ProjectId;
 import de.stekoe.idss.model.project.ProjectMember;
 import de.stekoe.idss.repository.ProjectRepository;
 import de.stekoe.idss.repository.UserRepository;
-import de.stekoe.idss.service.AuthService;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
 public class AuthServiceTest extends AbstractBaseTest {
+
+    private static final String PASSWORD = "password";
 
     @Inject
     ProjectRepository projectRepository;
@@ -85,5 +89,39 @@ public class AuthServiceTest extends AbstractBaseTest {
         pm.setUser(user);
 
         assertFalse(authService.isAuthorized(user.getId(), project, PermissionType.DELETE));
+    }
+
+    @Test
+    public void loginWorks() throws Exception {
+        User user = TestFactory.createUser(UUID.randomUUID().toString());
+        user.setPassword(authService.hashPassword(PASSWORD));
+        userService.save(user);
+
+        user = userService.findByUsername(user.getUsername());
+        user.setActivationKey(null);
+        user.setUserStatus(UserStatus.ACTIVATED);
+        userService.save(user);
+
+        assertTrue(authService.checkPassword(PASSWORD, user.getPassword()));
+
+        AuthStatus authStatus = authService.authenticate(user.getUsername(), PASSWORD);
+        assertThat(authStatus, IsEqual.equalTo(AuthStatus.SUCCESS));
+    }
+
+    @Test
+    public void loginIfNotActivated() throws Exception {
+        User user = TestFactory.createUser(UUID.randomUUID().toString());
+        user.setPassword(authService.hashPassword(PASSWORD));
+        userService.save(user);
+
+        AuthStatus authStatus = authService.authenticate(user.getUsername(), PASSWORD);
+        assertThat(authStatus, IsEqual.equalTo(AuthStatus.USER_NOT_ACTIVATED));
+
+        user = userService.findByUsername(user.getUsername());
+        user.setUserStatus(UserStatus.ACTIVATED);
+        userService.save(user);
+
+        authStatus = authService.authenticate(user.getUsername(), PASSWORD);
+        assertThat(authStatus, IsEqual.equalTo(AuthStatus.SUCCESS));
     }
 }

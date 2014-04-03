@@ -17,14 +17,15 @@
 package de.stekoe.idss.page.project.role;
 
 import de.stekoe.idss.model.Permission;
-import de.stekoe.idss.model.enums.PermissionObject;
-import de.stekoe.idss.model.enums.PermissionType;
+import de.stekoe.idss.model.PermissionObject;
+import de.stekoe.idss.model.PermissionType;
 import de.stekoe.idss.model.project.ProjectRole;
 import de.stekoe.idss.model.project.ProjectRoleId;
 import de.stekoe.idss.page.project.ProjectPage;
 import de.stekoe.idss.page.project.ProjectRoleListPage;
 import de.stekoe.idss.service.PermissionService;
 import de.stekoe.idss.service.ProjectRoleService;
+
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.CheckBoxMultipleChoice;
 import org.apache.wicket.markup.html.form.Form;

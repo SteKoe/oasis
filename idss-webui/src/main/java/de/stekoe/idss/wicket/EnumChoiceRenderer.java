@@ -16,7 +16,8 @@
 
 package de.stekoe.idss.wicket;
 
-import de.stekoe.idss.model.enums.L10NEnum;
+import de.stekoe.idss.model.L10NEnum;
+
 import org.apache.wicket.Application;
 import org.apache.wicket.markup.html.form.IChoiceRenderer;
 import org.apache.wicket.util.string.Strings;

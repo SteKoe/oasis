@@ -28,9 +28,6 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
-import de.stekoe.idss.model.enums.PermissionObject;
-import de.stekoe.idss.model.enums.PermissionType;
-
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */

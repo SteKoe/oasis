@@ -26,11 +26,11 @@ import javax.inject.Inject;
 import org.apache.log4j.Logger;
 
 import de.stekoe.idss.model.Permission;
+import de.stekoe.idss.model.PermissionObject;
+import de.stekoe.idss.model.PermissionType;
 import de.stekoe.idss.model.SystemRole;
 import de.stekoe.idss.model.User;
-import de.stekoe.idss.model.enums.PermissionObject;
-import de.stekoe.idss.model.enums.PermissionType;
-import de.stekoe.idss.model.enums.UserStatus;
+import de.stekoe.idss.model.UserStatus;
 import de.stekoe.idss.model.project.Project;
 import de.stekoe.idss.model.project.ProjectMember;
 import de.stekoe.idss.model.project.ProjectRole;

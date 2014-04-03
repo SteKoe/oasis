@@ -26,7 +26,7 @@ import javax.validation.constraints.NotNull;
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
 @Entity
-public abstract class Criterion extends CriterionPageElement implements Serializable {
+public abstract class Criterion extends PageElement implements Serializable {
 
     private static final long serialVersionUID = 20141103925L;
 

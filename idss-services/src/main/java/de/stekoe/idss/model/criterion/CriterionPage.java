@@ -40,7 +40,7 @@ public class CriterionPage implements Serializable {
     private CriterionPageId id = new CriterionPageId();
     private int ordering = -1;
     private String name;
-    private List<CriterionPageElement> pageElements = new ArrayList<CriterionPageElement>();
+    private List<PageElement> pageElements = new ArrayList<PageElement>();
     private Project project;
 
     @EmbeddedId
@@ -64,12 +64,12 @@ public class CriterionPage implements Serializable {
     }
 
     @OrderBy(value = "ordering")
-    @OneToMany(targetEntity = CriterionPageElement.class, cascade = CascadeType.ALL)
-    public List<CriterionPageElement> getPageElements() {
+    @OneToMany(targetEntity = PageElement.class, cascade = CascadeType.ALL)
+    public List<PageElement> getPageElements() {
         return pageElements;
     }
 
-    public void setPageElements(List<CriterionPageElement> pageElements) {
+    public void setPageElements(List<PageElement> pageElements) {
         this.pageElements = pageElements;
     }
 

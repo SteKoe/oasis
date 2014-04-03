@@ -24,7 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.stekoe.idss.model.criterion.CriterionPage;
-import de.stekoe.idss.model.criterion.CriterionPageElement;
+import de.stekoe.idss.model.criterion.PageElement;
 import de.stekoe.idss.model.criterion.CriterionPageId;
 import de.stekoe.idss.model.project.Project;
 import de.stekoe.idss.model.project.ProjectId;
@@ -107,7 +107,7 @@ public class CriterionPageService {
 
     @Transactional
     public void reorderPageElements(CriterionPage aCriterionPage) {
-        final List<CriterionPageElement> pageElements = aCriterionPage.getPageElements();
+        final List<PageElement> pageElements = aCriterionPage.getPageElements();
         for(int i = 0; i < pageElements.size(); i++) {
             pageElements.get(0).setOrdering(i + 1);
         }

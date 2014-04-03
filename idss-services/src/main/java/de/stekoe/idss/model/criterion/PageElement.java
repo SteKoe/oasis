@@ -31,7 +31,7 @@ import javax.persistence.ManyToOne;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class CriterionPageElement implements Serializable {
+public abstract class PageElement implements Serializable {
 
     private static final long serialVersionUID = 20141103926L;
 

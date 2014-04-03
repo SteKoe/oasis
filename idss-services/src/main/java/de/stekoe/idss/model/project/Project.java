@@ -41,8 +41,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import de.stekoe.idss.model.Document;
 import de.stekoe.idss.model.Identifyable;
+import de.stekoe.idss.model.ProjectStatus;
 import de.stekoe.idss.model.criterion.Criterion;
-import de.stekoe.idss.model.enums.ProjectStatus;
 
 @Entity
 public class Project implements Serializable, Identifyable<ProjectId> {

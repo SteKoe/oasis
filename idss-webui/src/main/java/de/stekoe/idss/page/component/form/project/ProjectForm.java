@@ -17,13 +17,14 @@
 package de.stekoe.idss.page.component.form.project;
 
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.form.DateTextField;
-import de.stekoe.idss.model.enums.ProjectStatus;
+import de.stekoe.idss.model.ProjectStatus;
 import de.stekoe.idss.model.project.Project;
 import de.stekoe.idss.model.project.ProjectId;
 import de.stekoe.idss.page.component.behavior.CustomTinyMCESettings;
 import de.stekoe.idss.page.project.ProjectListPage;
 import de.stekoe.idss.service.ProjectService;
 import de.stekoe.idss.wicket.EnumChoiceRenderer;
+
 import org.apache.wicket.Component;
 import org.apache.wicket.bean.validation.PropertyValidator;
 import org.apache.wicket.markup.html.form.*;
@@ -33,6 +34,7 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+
 import wicket.contrib.tinymce.TinyMceBehavior;
 
 import java.util.ArrayList;

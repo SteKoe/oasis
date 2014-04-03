@@ -56,6 +56,6 @@ public class UserTest {
 
     @Test
     public void testHasAnyRoleWithEmtpyList() throws Exception {
-        user.hasAnyRole(new ArrayList());
+        user.hasAnyRole(new ArrayList<SystemRole>());
     }
 }

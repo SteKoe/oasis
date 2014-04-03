@@ -16,9 +16,9 @@
 
 package de.stekoe.idss.page.project;
 
+import de.stekoe.idss.model.PermissionType;
+import de.stekoe.idss.model.ProjectStatus;
 import de.stekoe.idss.model.UserId;
-import de.stekoe.idss.model.enums.PermissionType;
-import de.stekoe.idss.model.enums.ProjectStatus;
 import de.stekoe.idss.model.project.Project;
 import de.stekoe.idss.model.project.ProjectId;
 import de.stekoe.idss.model.provider.ProjectDataProvider;
@@ -29,6 +29,7 @@ import de.stekoe.idss.service.ProjectRoleService;
 import de.stekoe.idss.service.ProjectService;
 import de.stekoe.idss.session.WebSession;
 import de.stekoe.idss.wicket.JavascriptEventConfirmation;
+
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.Link;

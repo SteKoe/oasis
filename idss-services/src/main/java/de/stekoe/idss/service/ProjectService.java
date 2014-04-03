@@ -29,10 +29,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.stekoe.idss.model.Permission;
+import de.stekoe.idss.model.PermissionObject;
+import de.stekoe.idss.model.PermissionType;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.model.UserId;
-import de.stekoe.idss.model.enums.PermissionObject;
-import de.stekoe.idss.model.enums.PermissionType;
 import de.stekoe.idss.model.project.Project;
 import de.stekoe.idss.model.project.ProjectId;
 import de.stekoe.idss.model.project.ProjectMember;

@@ -19,10 +19,9 @@ package de.stekoe.idss.model;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -40,21 +39,19 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Table(name = "UserProfile")
 public class UserProfile implements Serializable {
+    private static final long serialVersionUID = 201404031316L;
 
-    private static final long serialVersionUID = 101403011956L;
-
-    private UserProfileId id = new UserProfileId();
+    private String id = IDGenerator.createId();
     private String firstname;
     private String surname;
     private Date birthdate;
 
-    @EmbeddedId
-    @AttributeOverride(name = "id", column = @Column(name = "user_profile_id"))
-    public UserProfileId getId() {
-        return this.id;
+    @Id
+    public String getId() {
+        return id;
     }
 
-    public void setId(UserProfileId id) {
+    public void setId(String id) {
         this.id = id;
     }
 

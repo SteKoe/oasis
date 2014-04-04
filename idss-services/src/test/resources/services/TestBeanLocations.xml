@@ -21,7 +21,7 @@
     <!-- Database Source -->
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="org.h2.Driver" />
-        <property name="url" value="jdbc:h2:target/h2/idss_test;AUTO_SERVER=TRUE" />
+        <property name="url" value="jdbc:h2:target/h2/idss_test" />
         <property name="username" value="sa" />
         <property name="password" value="" />
     </bean>

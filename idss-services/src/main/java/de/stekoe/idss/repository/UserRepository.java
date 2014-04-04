@@ -24,10 +24,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import de.stekoe.idss.model.User;
-import de.stekoe.idss.model.UserId;
 
 @Transactional
-public interface UserRepository extends CrudRepository<User, UserId> {
+public interface UserRepository extends CrudRepository<User, String> {
     @Query("SELECT u FROM User u WHERE u.username = ?1")
     User findByUsername(String username);
 

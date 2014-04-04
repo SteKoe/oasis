@@ -45,10 +45,11 @@
             </props>
         </property>
     </bean>
+    <!-- SETUP BEAN -->
+    <bean id="setupService" class="de.stekoe.idss.setup.DatabaseSetup" />
     <!-- Services -->
     <bean id="authService" class="de.stekoe.idss.service.AuthService" />
     <bean id="projectService" class="de.stekoe.idss.service.ProjectService" />
-    <bean id="setupBean" class="de.stekoe.idss.setup.DatabaseSetup" />
     <bean id="userService" class="de.stekoe.idss.service.UserService" />
     <bean id="systemRoleService" class="de.stekoe.idss.service.SystemRoleService" />
     <bean id="projectRoleService" class="de.stekoe.idss.service.ProjectRoleService" />
@@ -59,5 +60,4 @@
     <bean id="permissionService" class="de.stekoe.idss.service.PermissionService" />
     <bean id="criterionPageService" class="de.stekoe.idss.service.CriterionPageService" />
     <bean id="criterionService" class="de.stekoe.idss.service.CriterionService" />
-    <bean id="scaleService" class="de.stekoe.idss.service.ScaleService" />
 </beans>

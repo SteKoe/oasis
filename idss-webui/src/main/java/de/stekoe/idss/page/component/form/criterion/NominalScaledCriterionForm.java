@@ -30,13 +30,12 @@ import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.FormGroup;
-import de.stekoe.idss.model.criterion.NominalScaledCriterion;
-import de.stekoe.idss.model.criterion.SingleScaledCriterion;
-import de.stekoe.idss.model.criterion.scale.value.NominalValue;
+import de.stekoe.idss.model.NominalScaledCriterion;
+import de.stekoe.idss.model.NominalValue;
+import de.stekoe.idss.model.SingleScaledCriterion;
 import de.stekoe.idss.page.component.behavior.Placeholder;
 import de.stekoe.idss.service.CriterionPageService;
 import de.stekoe.idss.service.CriterionService;
-import de.stekoe.idss.service.ScaleService;
 
 public abstract class NominalScaledCriterionForm extends CriterionForm<NominalValue> {
 
@@ -46,9 +45,6 @@ public abstract class NominalScaledCriterionForm extends CriterionForm<NominalVa
     @SpringBean
     private CriterionService criterionService;
 
-    @SpringBean
-    private ScaleService scaleService;
-
     private Form<NominalValue> valueForm;
 
     public NominalScaledCriterionForm(final String aId, final String aCriterionId) {
@@ -57,9 +53,6 @@ public abstract class NominalScaledCriterionForm extends CriterionForm<NominalVa
         valueForm();
     }
 
-    /**
-     * Subform for just the values of the scale
-     */
     private void valueForm() {
         valueForm = new Form<NominalValue>("valueForm", new CompoundPropertyModel<NominalValue>(new NominalValue())) {
             @Override
@@ -92,7 +85,7 @@ public abstract class NominalScaledCriterionForm extends CriterionForm<NominalVa
             @Override
             protected void populateItem(final ListItem<NominalValue> item) {
                 final NominalValue value = item.getModelObject();
-                item.add(new Label("value.list.label", value.getValue() + " (" + value.getOrdering() + ")"));
+                item.add(new Label("value.list.label", value.getValue()));
 
                 item.add(new Link("value.delete") {
                     @Override
@@ -141,7 +134,7 @@ public abstract class NominalScaledCriterionForm extends CriterionForm<NominalVa
         return new LoadableDetachableModel<SingleScaledCriterion<NominalValue>>() {
             @Override
             protected SingleScaledCriterion<NominalValue> load() {
-                if (getCriterionId().getId() == null) {
+                if (getCriterionId() == null) {
                     NominalScaledCriterion criterion = new NominalScaledCriterion();
                     return criterion;
                 } else {

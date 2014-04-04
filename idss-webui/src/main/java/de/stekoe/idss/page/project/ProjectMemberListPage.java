@@ -16,13 +16,10 @@
 
 package de.stekoe.idss.page.project;
 
-import de.stekoe.idss.model.project.ProjectId;
-import de.stekoe.idss.page.component.form.project.EditProjectMembersForm;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
+import de.stekoe.idss.page.component.form.project.EditProjectMembersForm;
+
 public class ProjectMemberListPage extends ProjectPage {
 
     public ProjectMemberListPage(PageParameters pageParameters) {

@@ -16,20 +16,6 @@
 
 package de.stekoe.idss.page.project;
 
-import de.stekoe.idss.model.PermissionType;
-import de.stekoe.idss.model.ProjectStatus;
-import de.stekoe.idss.model.UserId;
-import de.stekoe.idss.model.project.Project;
-import de.stekoe.idss.model.project.ProjectId;
-import de.stekoe.idss.model.provider.ProjectDataProvider;
-import de.stekoe.idss.page.AuthUserPage;
-import de.stekoe.idss.page.PaginationConfigurator;
-import de.stekoe.idss.page.component.BootstrapPagingNavigator;
-import de.stekoe.idss.service.ProjectRoleService;
-import de.stekoe.idss.service.ProjectService;
-import de.stekoe.idss.session.WebSession;
-import de.stekoe.idss.wicket.JavascriptEventConfirmation;
-
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.Link;
@@ -41,9 +27,18 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
+import de.stekoe.idss.model.PermissionType;
+import de.stekoe.idss.model.Project;
+import de.stekoe.idss.model.ProjectStatus;
+import de.stekoe.idss.model.provider.ProjectDataProvider;
+import de.stekoe.idss.page.AuthUserPage;
+import de.stekoe.idss.page.PaginationConfigurator;
+import de.stekoe.idss.page.component.BootstrapPagingNavigator;
+import de.stekoe.idss.service.ProjectRoleService;
+import de.stekoe.idss.service.ProjectService;
+import de.stekoe.idss.session.WebSession;
+import de.stekoe.idss.wicket.JavascriptEventConfirmation;
+
 public class ProjectListPage extends AuthUserPage {
 
     @SpringBean
@@ -95,7 +90,7 @@ public class ProjectListPage extends AuthUserPage {
         protected void populateItem(Item<Project> item) {
             final Project project = item.getModelObject();
             PageParameters pageDetailsParameters = new PageParameters();
-            pageDetailsParameters.add("projectId", project.getId().getId());
+            pageDetailsParameters.add("projectId", project.getId());
 
             final Label projectTitleLabel = new Label("project.title", Model.of(project.getName()));
             item.add(projectTitleLabel);
@@ -123,8 +118,8 @@ public class ProjectListPage extends AuthUserPage {
             };
             item.add(deleteProjectLink);
             deleteProjectLink.add(new JavascriptEventConfirmation("onClick", String.format(getString("project.delete.confirm"), project.getName())));
-            final UserId userId = WebSession.get().getUser().getId();
-            final ProjectId projectId = project.getId();
+            final String userId = WebSession.get().getUser().getId();
+            final String projectId = project.getId();
             final boolean isAuthorized = projectService.isAuthorized(userId, projectId, PermissionType.DELETE);
             deleteProjectLink.setVisible(isAuthorized);
         }

@@ -21,14 +21,12 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-import de.stekoe.idss.model.UserId;
-import de.stekoe.idss.model.project.Project;
-import de.stekoe.idss.model.project.ProjectId;
+import de.stekoe.idss.model.Project;
 
 /**
  * Provides access to Project in database
  */
-public interface ProjectRepository extends PagingAndSortingRepository<Project, ProjectId> {
+public interface ProjectRepository extends PagingAndSortingRepository<Project, String> {
     /**
      * Finds projects by its name.
      *
@@ -46,5 +44,5 @@ public interface ProjectRepository extends PagingAndSortingRepository<Project, P
      * @return A list of projects which the users is involved
      */
     @Query("SELECT p FROM Project p LEFT JOIN p.projectTeam pt LEFT JOIN pt.user u WITH u.id = ?1)")
-    List<Project> findByUser(UserId userId);
+    List<Project> findByUser(String userId);
 }

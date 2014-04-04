@@ -24,7 +24,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.stekoe.idss.model.SystemRole;
-import de.stekoe.idss.model.SystemRoleId;
 import de.stekoe.idss.repository.SystemRoleRepository;
 
 @Service
@@ -46,7 +45,7 @@ public class SystemRoleService {
         return systemRoleRepository.getRoleByName(SystemRole.USER);
     }
 
-    public SystemRole findById(SystemRoleId id) {
+    public SystemRole findById(String id) {
         return systemRoleRepository.findOne(id);
     }
 

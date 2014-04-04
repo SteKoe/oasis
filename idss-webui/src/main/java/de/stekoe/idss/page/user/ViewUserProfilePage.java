@@ -16,21 +16,18 @@
 
 package de.stekoe.idss.page.user;
 
+import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.apache.wicket.spring.injection.annot.SpringBean;
+
 import de.bripkens.gravatar.Gravatar;
 import de.stekoe.idss.model.User;
-import de.stekoe.idss.model.UserId;
 import de.stekoe.idss.page.AuthUserPage;
 import de.stekoe.idss.page.HomePage;
 import de.stekoe.idss.service.UserService;
 import de.stekoe.idss.session.WebSession;
 import de.stekoe.idss.wicket.ExternalImage;
-import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.request.mapper.parameter.PageParameters;
-import org.apache.wicket.spring.injection.annot.SpringBean;
 
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
 public class ViewUserProfilePage extends AuthUserPage {
 
     @SpringBean
@@ -43,7 +40,7 @@ public class ViewUserProfilePage extends AuthUserPage {
 
         final String userId = params.get("id").toString();
         if (userId != null) {
-            user = userService.findOne(new UserId(userId));
+            user = userService.findOne(userId);
         } else {
             user = WebSession.get().getUser();
         }

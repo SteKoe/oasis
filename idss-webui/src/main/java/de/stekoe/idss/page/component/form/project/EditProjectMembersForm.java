@@ -16,16 +16,8 @@
 
 package de.stekoe.idss.page.component.form.project;
 
-import de.stekoe.idss.model.PermissionType;
-import de.stekoe.idss.model.User;
-import de.stekoe.idss.model.project.Project;
-import de.stekoe.idss.model.project.ProjectId;
-import de.stekoe.idss.model.project.ProjectMember;
-import de.stekoe.idss.page.HomePage;
-import de.stekoe.idss.page.component.modal.AddProjectMemberModal;
-import de.stekoe.idss.page.component.user.UserInfoBlock;
-import de.stekoe.idss.service.ProjectService;
-import de.stekoe.idss.session.WebSession;
+import java.util.ArrayList;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.apache.wicket.markup.html.form.Button;
@@ -36,8 +28,15 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-import java.util.ArrayList;
-import java.util.Set;
+import de.stekoe.idss.model.PermissionType;
+import de.stekoe.idss.model.Project;
+import de.stekoe.idss.model.ProjectMember;
+import de.stekoe.idss.model.User;
+import de.stekoe.idss.page.HomePage;
+import de.stekoe.idss.page.component.modal.AddProjectMemberModal;
+import de.stekoe.idss.page.component.user.UserInfoBlock;
+import de.stekoe.idss.service.ProjectService;
+import de.stekoe.idss.session.WebSession;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
@@ -50,9 +49,9 @@ public class EditProjectMembersForm extends Panel {
     private ProjectService projectService;
     private final LoadableDetachableModel<Project> model;
 
-    private final ProjectId projectId;
+    private final String projectId;
 
-    public EditProjectMembersForm(String id, final ProjectId projectId) {
+    public EditProjectMembersForm(String id, final String projectId) {
         super(id);
         this.projectId = projectId;
         this.model = new LoadableDetachableModel<Project>() {

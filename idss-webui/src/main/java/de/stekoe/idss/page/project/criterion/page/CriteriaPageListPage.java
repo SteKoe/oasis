@@ -29,9 +29,9 @@ import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-import de.stekoe.idss.model.criterion.CriterionPage;
-import de.stekoe.idss.model.criterion.PageElement;
-import de.stekoe.idss.model.criterion.SingleScaledCriterion;
+import de.stekoe.idss.model.CriterionPage;
+import de.stekoe.idss.model.PageElement;
+import de.stekoe.idss.model.SingleScaledCriterion;
 import de.stekoe.idss.page.project.ProjectPage;
 import de.stekoe.idss.page.project.criterion.SelectCriterionPage;
 import de.stekoe.idss.page.project.criterion.page.element.SingleScaledCriterionElement;
@@ -47,7 +47,7 @@ public class CriteriaPageListPage extends ProjectPage {
     @SpringBean
     private CriterionPageService criterionPageService;
 
-    private final LoadableDetachableModel<List<CriterionPage>> loadableDetachableModel = new LoadableDetachableModel<List<CriterionPage>>() {
+    private final LoadableDetachableModel<List<CriterionPage>> criterionPagesModel = new LoadableDetachableModel<List<CriterionPage>>() {
         @Override
         protected List<CriterionPage> load() {
             return criterionPageService.getCriterionPagesForProject(getProjectId());
@@ -63,7 +63,7 @@ public class CriteriaPageListPage extends ProjectPage {
     }
 
     private void addListPageView() {
-        final ListView<CriterionPage> listView = new ListView<CriterionPage>("page.list", loadableDetachableModel) {
+        final ListView<CriterionPage> listView = new ListView<CriterionPage>("page.list", criterionPagesModel) {
             @Override
             protected void populateItem(ListItem<CriterionPage> item) {
                 final CriterionPage criterionPage = item.getModelObject();
@@ -90,13 +90,13 @@ public class CriteriaPageListPage extends ProjectPage {
                     @Override
                     public void onClick() {
                         criterionPageService.move(criterionPage, Direction.UP);
-                        loadableDetachableModel.detach();
+                        criterionPagesModel.detach();
                         setResponsePage(getPage());
                     }
 
                     @Override
                     public boolean isVisible() {
-                        return (criterionPage.getOrdering() > 1);
+                        return (criterionPage.getOrdering() > 0);
                     }
                 };
                 link.add(AttributeModifier.append("title", getString("label.move.up")));
@@ -109,13 +109,13 @@ public class CriteriaPageListPage extends ProjectPage {
                     @Override
                     public void onClick() {
                         criterionPageService.move(criterionPage, Direction.DOWN);
-                        loadableDetachableModel.detach();
+                        criterionPagesModel.detach();
                         setResponsePage(getPage());
                     }
 
                     @Override
                     public boolean isVisible() {
-                        return (criterionPage.getOrdering() < loadableDetachableModel.getObject().size());
+                        return (criterionPage.getOrdering() < criterionPagesModel.getObject().size() - 1);
                     }
                 };
                 link.add(AttributeModifier.append("title", getString("label.move.down")));
@@ -145,7 +145,8 @@ public class CriteriaPageListPage extends ProjectPage {
             public void onClick() {
                 CriterionPage criterionPage = new CriterionPage();
                 criterionPage.setProject(getProject());
-                criterionPage.setOrdering(criterionPageService.getNextPageNumForProject(getProjectId()));
+                int nextPageNumForProject = criterionPageService.getNextPageNumForProject(getProjectId());
+                criterionPage.setOrdering(nextPageNumForProject);
                 criterionPageService.save(criterionPage);
 
                 setResponsePage(getPage());

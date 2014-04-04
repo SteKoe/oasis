@@ -22,15 +22,14 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-import javax.persistence.AttributeOverride;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -46,17 +45,14 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import de.stekoe.idss.model.project.ProjectMember;
-
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
 @Entity
 @Table(name = "User", uniqueConstraints = @UniqueConstraint(columnNames = {"username", "email"}))
 public class User implements Serializable {
+    private static final long serialVersionUID = 201404031316L;
+
     private static final int MIN_PASSWORD_LENGTH = 5;
 
-    private UserId id = new UserId();
+    private String id = IDGenerator.createId();
     private Set<SystemRole> roles = new HashSet<SystemRole>(0);
     private UserProfile userProfile;
     private String username;
@@ -67,13 +63,12 @@ public class User implements Serializable {
     private Set<ProjectMember> projectMemberships = new HashSet<ProjectMember>();
     private Set<Permission> permissions = new HashSet<Permission>();
 
-    @EmbeddedId
-    @AttributeOverride(name = "id", column = @Column(name = "user_id"))
-    public UserId getId() {
-        return this.id;
+    @Id
+    public String getId() {
+        return id;
     }
 
-    public void setId(UserId id) {
+    public void setId(String id) {
         this.id = id;
     }
 

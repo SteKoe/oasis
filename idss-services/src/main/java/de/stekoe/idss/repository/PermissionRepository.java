@@ -19,10 +19,6 @@ package de.stekoe.idss.repository;
 import org.springframework.data.repository.CrudRepository;
 
 import de.stekoe.idss.model.Permission;
-import de.stekoe.idss.model.PermissionId;
 
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
-public interface PermissionRepository extends CrudRepository<Permission, PermissionId> {
+public interface PermissionRepository extends CrudRepository<Permission, String> {
 }

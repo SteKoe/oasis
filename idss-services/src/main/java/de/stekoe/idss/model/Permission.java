@@ -18,15 +18,14 @@ package de.stekoe.idss.model;
 
 import java.io.Serializable;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
@@ -37,28 +36,27 @@ public class Permission implements Serializable {
 
     private static final long serialVersionUID = 101403011956L;
 
-    private PermissionId id = new PermissionId();
+    private String id = IDGenerator.createId();
     private PermissionObject permissionObject;
     private PermissionType permissionType;
-    private GenericId objectId;
+    private String objectId;
 
     public Permission() {
         // NOP
     }
 
-    public Permission(PermissionObject permissionObject, PermissionType permissionType, GenericId objectId) {
+    public Permission(PermissionObject permissionObject, PermissionType permissionType, String objectId) {
         this.permissionObject = permissionObject;
         this.permissionType = permissionType;
         this.objectId = objectId;
     }
 
-    @EmbeddedId
-    @AttributeOverride(name = "id", column = @Column(name = "permission_id"))
-    public PermissionId getId() {
+    @Id
+    public String getId() {
         return id;
     }
 
-    public void setId(PermissionId id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -83,18 +81,14 @@ public class Permission implements Serializable {
     }
 
     public boolean hasObjectId() {
-        return getObjectId() != null;
+        return !StringUtils.isBlank(getObjectId());
     }
 
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "id", column = @Column(name = "permissionObjectId"))
-    })
-    public GenericId getObjectId() {
+    public String getObjectId() {
         return objectId;
     }
 
-    public void setObjectId(GenericId objectId) {
+    public void setObjectId(String objectId) {
         this.objectId = objectId;
     }
 

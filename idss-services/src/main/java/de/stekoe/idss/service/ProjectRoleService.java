@@ -20,8 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import de.stekoe.idss.model.project.ProjectRole;
-import de.stekoe.idss.model.project.ProjectRoleId;
+import de.stekoe.idss.model.ProjectRole;
 import de.stekoe.idss.repository.ProjectRoleRepository;
 
 @Service
@@ -31,7 +30,7 @@ public class ProjectRoleService  {
     @Autowired
     ProjectRoleRepository projectRoleRepository;
 
-    public ProjectRole findOne(ProjectRoleId id) {
+    public ProjectRole findOne(String id) {
         return projectRoleRepository.findOne(id);
     }
 

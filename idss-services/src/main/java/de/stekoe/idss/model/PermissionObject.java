@@ -16,7 +16,6 @@
 
 package de.stekoe.idss.model;
 
-import de.stekoe.idss.model.project.Project;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>

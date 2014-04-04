@@ -5,17 +5,12 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import de.stekoe.idss.model.project.ProjectId;
-
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
 public class PermissionTest {
 
     @Test
     public void hasIdTest() throws Exception {
-        final Permission permission = new Permission(PermissionObject.PROJECT, PermissionType.CREATE, new ProjectId());
-        permission.setObjectId(new ProjectId());
+        final Permission permission = new Permission(PermissionObject.PROJECT, PermissionType.CREATE, "abc");
+        permission.setObjectId("abc");
         assertTrue(permission.hasObjectId());
     }
 

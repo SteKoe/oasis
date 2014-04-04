@@ -48,6 +48,7 @@ import de.stekoe.idss.page.HomePage;
 import de.stekoe.idss.page.auth.AuthorizationStrategy;
 import de.stekoe.idss.page.auth.LoginPage;
 import de.stekoe.idss.session.WebSession;
+import de.stekoe.idss.setup.DatabaseSetup;
 import de.stekoe.idss.theme.BootstrapTheme;
 
 @Component
@@ -60,6 +61,9 @@ public class WebApplication extends AuthenticatedWebApplication implements Appli
     };
 
     private ApplicationContext ctx;
+
+    @Inject
+    private DatabaseSetup databaseSetup;
 
     @Inject
     private ApplicationRoutes applicationRoutes;
@@ -90,6 +94,7 @@ public class WebApplication extends AuthenticatedWebApplication implements Appli
             LOG.info("Bean loaded: " + name + " ["+bean.getClass().getCanonicalName()+"]");
         }
 
+        databaseSetup.run();
         applicationRoutes.create();
     }
 

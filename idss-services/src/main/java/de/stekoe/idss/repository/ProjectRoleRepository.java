@@ -19,13 +19,9 @@ package de.stekoe.idss.repository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import de.stekoe.idss.model.project.ProjectRole;
-import de.stekoe.idss.model.project.ProjectRoleId;
+import de.stekoe.idss.model.ProjectRole;
 
-/**
- * @author Stephan Köninger <mail@stekoe.de>
- */
-public interface ProjectRoleRepository extends CrudRepository<ProjectRole, ProjectRoleId> {
+public interface ProjectRoleRepository extends CrudRepository<ProjectRole, String> {
     @Query("FROM ProjectRole pr WHERE pr.name = ?1")
     ProjectRole findByName(String rolename);
 }

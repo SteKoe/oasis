@@ -31,12 +31,10 @@ import org.springframework.transaction.annotation.Transactional;
 import de.stekoe.idss.model.Permission;
 import de.stekoe.idss.model.PermissionObject;
 import de.stekoe.idss.model.PermissionType;
+import de.stekoe.idss.model.Project;
+import de.stekoe.idss.model.ProjectMember;
+import de.stekoe.idss.model.ProjectRole;
 import de.stekoe.idss.model.User;
-import de.stekoe.idss.model.UserId;
-import de.stekoe.idss.model.project.Project;
-import de.stekoe.idss.model.project.ProjectId;
-import de.stekoe.idss.model.project.ProjectMember;
-import de.stekoe.idss.model.project.ProjectRole;
 import de.stekoe.idss.repository.ProjectRepository;
 import de.stekoe.idss.repository.UserRepository;
 
@@ -53,7 +51,7 @@ public class ProjectService {
     @Inject
     private AuthService authService;
 
-    public boolean isAuthorized(final UserId userId, final ProjectId projectId, final PermissionType permissionType) {
+    public boolean isAuthorized(final String userId, final String projectId, final PermissionType permissionType) {
 
         final Project project = projectRepository.findOne(projectId);
 
@@ -62,7 +60,6 @@ public class ProjectService {
         }
 
         final User user = userRepository.findOne(userId);
-
         if (user == null) {
             return false;
         }
@@ -72,7 +69,11 @@ public class ProjectService {
             @Override
             public boolean evaluate(Object object) {
                 final ProjectMember projectMember = (ProjectMember) object;
-                return projectMember.getUser().equals(user);
+                if(projectMember.getUser() == null) {
+                    return false;
+                } else {
+                    return projectMember.getUser().equals(user);
+                }
             }
         });
 
@@ -97,7 +98,7 @@ public class ProjectService {
         return projectRepository.save(project);
     }
 
-    public List<Project> findByUser(UserId id) {
+    public List<Project> findByUser(String id) {
         return projectRepository.findByUser(id);
     }
 
@@ -105,7 +106,7 @@ public class ProjectService {
         return (List<Project>)projectRepository.findAll();
     }
 
-    public Project findOne(ProjectId id) {
+    public Project findOne(String id) {
         return projectRepository.findOne(id);
     }
 
@@ -114,7 +115,7 @@ public class ProjectService {
     }
 
     @Transactional
-    public void delete(ProjectId id) {
+    public void delete(String id) {
         projectRepository.delete(id);
     }
 }

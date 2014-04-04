@@ -17,8 +17,8 @@
 package de.stekoe.idss.page.project;
 
 import de.stekoe.idss.model.PermissionType;
+import de.stekoe.idss.model.ProjectMember;
 import de.stekoe.idss.model.ProjectStatus;
-import de.stekoe.idss.model.project.ProjectMember;
 import de.stekoe.idss.page.HomePage;
 import de.stekoe.idss.page.project.criterion.ResultPage;
 import de.stekoe.idss.page.project.criterion.page.CriteriaPageListPage;

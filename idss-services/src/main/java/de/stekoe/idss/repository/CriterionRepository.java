@@ -18,10 +18,9 @@ package de.stekoe.idss.repository;
 
 import org.springframework.data.repository.CrudRepository;
 
-import de.stekoe.idss.model.criterion.Criterion;
-import de.stekoe.idss.model.criterion.CriterionPageElementId;
-import de.stekoe.idss.model.criterion.SingleScaledCriterion;
+import de.stekoe.idss.model.Criterion;
+import de.stekoe.idss.model.SingleScaledCriterion;
 
-public interface CriterionRepository extends CrudRepository<Criterion, CriterionPageElementId> {
-    SingleScaledCriterion findSingleScaledCriterionById(CriterionPageElementId id);
+public interface CriterionRepository extends CrudRepository<Criterion, String> {
+    SingleScaledCriterion findSingleScaledCriterionById(String id);
 }

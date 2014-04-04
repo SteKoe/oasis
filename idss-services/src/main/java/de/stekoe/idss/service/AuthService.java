@@ -27,7 +27,6 @@ import de.stekoe.idss.model.Permission;
 import de.stekoe.idss.model.PermissionObject;
 import de.stekoe.idss.model.PermissionType;
 import de.stekoe.idss.model.User;
-import de.stekoe.idss.model.UserId;
 import de.stekoe.idss.model.UserStatus;
 import de.stekoe.idss.repository.UserRepository;
 
@@ -78,8 +77,7 @@ public class AuthService {
         return BCrypt.hashpw(plaintext, BCrypt.gensalt());
     }
 
-    public boolean isAuthorized(UserId userId, final Identifyable identifyable,
-            final PermissionType permissionType) {
+    public boolean isAuthorized(String userId, final Identifyable identifyable, final PermissionType permissionType) {
         User user = userRepository.findOne(userId);
 
         if (user == null) {
@@ -96,9 +94,7 @@ public class AuthService {
         permissionsFilter(permissions, permissionType, permissionObject);
 
         for (Permission permission : permissions) {
-            if (permission.hasObjectId()
-                    && identifyable.getId().getId()
-                            .equals(permission.getObjectId().getId())) {
+            if (permission.hasObjectId() && identifyable.getId().equals(permission.getObjectId())) {
                 return true;
             }
         }

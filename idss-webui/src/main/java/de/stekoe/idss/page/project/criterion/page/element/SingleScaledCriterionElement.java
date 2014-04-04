@@ -24,10 +24,10 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-import de.stekoe.idss.model.criterion.CriterionPage;
-import de.stekoe.idss.model.criterion.NominalScaledCriterion;
-import de.stekoe.idss.model.criterion.OrdinalScaledCriterion;
-import de.stekoe.idss.model.criterion.SingleScaledCriterion;
+import de.stekoe.idss.model.CriterionPage;
+import de.stekoe.idss.model.NominalScaledCriterion;
+import de.stekoe.idss.model.OrdinalScaledCriterion;
+import de.stekoe.idss.model.SingleScaledCriterion;
 import de.stekoe.idss.page.project.criterion.EditNominalCriterionPage;
 import de.stekoe.idss.page.project.criterion.EditOrdinalCriterionPage;
 import de.stekoe.idss.service.CriterionPageService;
@@ -59,7 +59,7 @@ public class SingleScaledCriterionElement extends Panel {
         SingleScaledCriterion ssc = (SingleScaledCriterion) getDefaultModelObject();
 
         add(new Label("name"));
-        add(new Label("ordering"));
+        add(new Label("type", getType()));
 
         if(ssc instanceof OrdinalScaledCriterion) {
              add(new BookmarkablePageLink<EditOrdinalCriterionPage>("edit", EditOrdinalCriterionPage.class, new PageParameters(getPage().getPageParameters()).add("criterionId", ssc.getId())));
@@ -69,7 +69,6 @@ public class SingleScaledCriterionElement extends Panel {
             add(new Link("edit"){
                 @Override
                 public void onClick() {
-                    // TODO Auto-generated method stub
 
                 }});
         }
@@ -83,5 +82,16 @@ public class SingleScaledCriterionElement extends Panel {
                 criterionService.deleteCriterion(ssc.getId());
             }
         });
+    }
+
+    private String getType() {
+        SingleScaledCriterion criterion = sscModel.getObject();
+        if(criterion instanceof NominalScaledCriterion) {
+            return getString("label.criterion.type.nominal");
+        } else if(criterion instanceof OrdinalScaledCriterion) {
+            return getString("label.criterion.type.ordinal");
+        }
+
+        return "";
     }
 }

@@ -22,7 +22,6 @@ import org.apache.wicket.settings.IApplicationSettings;
 
 import de.stekoe.idss.page.ContactPage;
 import de.stekoe.idss.page.HomePage;
-import de.stekoe.idss.page.SetupPage;
 import de.stekoe.idss.page.admin.SystemInformationPage;
 import de.stekoe.idss.page.auth.LoginPage;
 import de.stekoe.idss.page.auth.LogoutPage;
@@ -99,8 +98,6 @@ public class ApplicationRoutes {
         getWebApplication().mountPage("/project/${projectId}/setofcriteria", CriteriaPageListPage.class);
         getWebApplication().mountPage("/project/${projectId}/setofcriteria/page/${pageId}", CriteriaPageDetailsPage.class);
         getWebApplication().mountPage("/project/${projectId}/setofcriteria/page/${pageId}/add", SelectCriterionPage.class);
-
-        getWebApplication().mountPage("/setup", SetupPage.class);
     }
 
     public WebApplication getWebApplication() {

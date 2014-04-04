@@ -19,7 +19,6 @@ package de.stekoe.idss.repository;
 import org.springframework.data.repository.CrudRepository;
 
 import de.stekoe.idss.model.Document;
-import de.stekoe.idss.model.DocumentId;
 
-public interface DocumentRepository extends CrudRepository<Document, DocumentId> {
+public interface DocumentRepository extends CrudRepository<Document, String> {
 }

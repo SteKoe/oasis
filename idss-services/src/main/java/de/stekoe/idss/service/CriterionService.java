@@ -19,10 +19,9 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import de.stekoe.idss.model.criterion.Criterion;
-import de.stekoe.idss.model.criterion.CriterionPageElementId;
-import de.stekoe.idss.model.criterion.SingleScaledCriterion;
-import de.stekoe.idss.model.criterion.scale.value.MeasurementValue;
+import de.stekoe.idss.model.Criterion;
+import de.stekoe.idss.model.MeasurementValue;
+import de.stekoe.idss.model.SingleScaledCriterion;
 import de.stekoe.idss.repository.CriterionRepository;
 
 @Service
@@ -32,7 +31,7 @@ public class CriterionService {
     @Inject
     private CriterionRepository criterionRepository;
 
-    public SingleScaledCriterion findSingleScaledCriterionById(CriterionPageElementId id) {
+    public SingleScaledCriterion findSingleScaledCriterionById(String id) {
         return criterionRepository.findSingleScaledCriterionById(id);
     }
 
@@ -42,7 +41,7 @@ public class CriterionService {
     }
 
     @Transactional
-    public void deleteCriterion(CriterionPageElementId criterionId) {
+    public void deleteCriterion(String criterionId) {
         criterionRepository.delete(criterionId);
     }
 

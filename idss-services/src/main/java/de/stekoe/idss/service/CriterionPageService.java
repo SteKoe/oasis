@@ -23,11 +23,9 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import de.stekoe.idss.model.criterion.CriterionPage;
-import de.stekoe.idss.model.criterion.PageElement;
-import de.stekoe.idss.model.criterion.CriterionPageId;
-import de.stekoe.idss.model.project.Project;
-import de.stekoe.idss.model.project.ProjectId;
+import de.stekoe.idss.model.CriterionPage;
+import de.stekoe.idss.model.PageElement;
+import de.stekoe.idss.model.Project;
 import de.stekoe.idss.repository.CriterionPageRepository;
 
 @Service
@@ -37,14 +35,14 @@ public class CriterionPageService {
     @Inject
     private CriterionPageRepository criterionPageRepository;
 
-    public CriterionPage findOne(CriterionPageId id) {
+    public CriterionPage findOne(String id) {
         return criterionPageRepository.findOne(id);
     }
 
     @Transactional
     public void save(CriterionPage entity) {
         if (entity.getOrdering() < 0) {
-            ProjectId id = entity.getProject().getId();
+            String id = entity.getProject().getId();
             int nextPageNumForProject = getNextPageNumForProject(id);
             entity.setOrdering(nextPageNumForProject);
         }
@@ -52,7 +50,7 @@ public class CriterionPageService {
     }
 
     @Transactional
-    public void delete(CriterionPageId criterionPageId) {
+    public void delete(String criterionPageId) {
         final Project project = findOne(criterionPageId).getProject();
         criterionPageRepository.delete(criterionPageId);
         reorderPages(project);
@@ -63,17 +61,17 @@ public class CriterionPageService {
         final List<CriterionPage> criterionPagesForProject = getCriterionPagesForProject(aProject.getId());
         for (int i = 0; i < criterionPagesForProject.size(); i++) {
             final CriterionPage criterionPage = criterionPagesForProject.get(i);
-            criterionPage.setOrdering(i + 1);
+            criterionPage.setOrdering(i);
             criterionPageRepository.save(criterionPage);
         }
     }
 
-    public List<CriterionPage> getCriterionPagesForProject(ProjectId projectId) {
+    public List<CriterionPage> getCriterionPagesForProject(String projectId) {
         return criterionPageRepository.findAllForProject(projectId);
     }
 
-    public int getNextPageNumForProject(ProjectId projectId) {
-        return (int) criterionPageRepository.getNextPageNumForProject(projectId);
+    public int getNextPageNumForProject(String projectId) {
+        return criterionPageRepository.getNextPageNumForProject(projectId);
     }
 
     @Transactional
@@ -101,7 +99,7 @@ public class CriterionPageService {
         criterionPageRepository.save(otherPage);
     }
 
-    public CriterionPage findByOrdering(int ordering, ProjectId projectId) {
+    public CriterionPage findByOrdering(int ordering, String projectId) {
         return criterionPageRepository.findByOrdering(ordering, projectId);
     }
 
@@ -114,7 +112,7 @@ public class CriterionPageService {
         criterionPageRepository.save(aCriterionPage);
     }
 
-    public List<CriterionPage> findAllForProject(ProjectId id) {
+    public List<CriterionPage> findAllForProject(String id) {
         return criterionPageRepository.findAllForProject(id);
     }
 

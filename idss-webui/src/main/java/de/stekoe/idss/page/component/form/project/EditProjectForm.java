@@ -16,17 +16,14 @@
 
 package de.stekoe.idss.page.component.form.project;
 
-import de.stekoe.idss.model.project.Project;
-import de.stekoe.idss.model.project.ProjectId;
-import de.stekoe.idss.service.ProjectRoleService;
-import de.stekoe.idss.service.ProjectService;
-import de.stekoe.idss.session.WebSession;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
+import de.stekoe.idss.model.Project;
+import de.stekoe.idss.service.ProjectRoleService;
+import de.stekoe.idss.service.ProjectService;
+import de.stekoe.idss.session.WebSession;
+
 public class EditProjectForm extends ProjectForm {
 
     @SpringBean
@@ -34,7 +31,7 @@ public class EditProjectForm extends ProjectForm {
     @SpringBean
     private ProjectRoleService projectRoleService;
 
-    public EditProjectForm(String id, ProjectId projectId) {
+    public EditProjectForm(String id, String projectId) {
         super(id, projectId);
     }
 

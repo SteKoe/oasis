@@ -19,11 +19,10 @@ package de.stekoe.idss.model;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.AttributeOverride;
 import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -39,20 +38,19 @@ public class Document implements Serializable {
 
     private static final long serialVersionUID = 201403011956L;
 
-    private DocumentId id = new DocumentId();
+    private String id = IDGenerator.createId();
     private long size;
     private String name;
     private User user;
     private Date created = new Date();
     private String contentType;
 
-    @EmbeddedId
-    @AttributeOverride(name = "id", column = @Column(name = "document_id"))
-    public DocumentId getId() {
-        return this.id;
+    @Id
+    public String getId() {
+        return id;
     }
 
-    public void setId(DocumentId id) {
+    public void setId(String id) {
         this.id = id;
     }
 

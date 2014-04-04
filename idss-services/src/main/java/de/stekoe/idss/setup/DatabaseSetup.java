@@ -28,20 +28,17 @@ import org.apache.log4j.Logger;
 import de.stekoe.idss.model.Permission;
 import de.stekoe.idss.model.PermissionObject;
 import de.stekoe.idss.model.PermissionType;
+import de.stekoe.idss.model.Project;
+import de.stekoe.idss.model.ProjectMember;
+import de.stekoe.idss.model.ProjectRole;
 import de.stekoe.idss.model.SystemRole;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.model.UserStatus;
-import de.stekoe.idss.model.project.Project;
-import de.stekoe.idss.model.project.ProjectMember;
-import de.stekoe.idss.model.project.ProjectRole;
 import de.stekoe.idss.service.AuthService;
 import de.stekoe.idss.service.ProjectService;
 import de.stekoe.idss.service.SystemRoleService;
 import de.stekoe.idss.service.UserService;
 
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
 public class DatabaseSetup {
 
     private static final Logger LOG = Logger.getLogger(DatabaseSetup.class);
@@ -58,12 +55,12 @@ public class DatabaseSetup {
     @Inject
     AuthService authService;
 
-    private static final List<java.lang.String> SYSTEMROLES = Arrays.asList(
+    private static final List<String> SYSTEMROLES = Arrays.asList(
             SystemRole.USER,
             SystemRole.ADMIN
     );
 
-    private static final List<java.lang.String> USERNAMES = Arrays.asList(
+    private static final List<String> USERNAMES = Arrays.asList(
             "administrator",
             "rainer.zufall",
             "klara.fall",
@@ -82,7 +79,7 @@ public class DatabaseSetup {
     );
 
     private void createSystemRoles() {
-        for (java.lang.String systemRole : SYSTEMROLES) {
+        for (String systemRole : SYSTEMROLES) {
             SystemRole role = new SystemRole();
             role.setName(systemRole);
 
@@ -95,7 +92,7 @@ public class DatabaseSetup {
     }
 
     private void createUsers() {
-        for (java.lang.String name : USERNAMES) {
+        for (String name : USERNAMES) {
             User user = new User();
             user.setEmail(name.toLowerCase() + "@example.com");
             user.setUsername(name.toLowerCase());
@@ -163,12 +160,19 @@ public class DatabaseSetup {
         return projectRoleMember;
     }
 
-    public void installSampleUser() {
+    private void installSampleUser() {
         createSystemRoles();
         createUsers();
     }
 
-    public void installSampleProject() {
+    private void installSampleProject() {
         createSampleProject();
+    }
+
+    public void run() {
+        if(userService.findAll().size() == 0) {
+            installSampleUser();
+            installSampleProject();
+        }
     }
 }

@@ -16,15 +16,10 @@
 
 package de.stekoe.idss.page.project.role;
 
-import de.stekoe.idss.model.Permission;
-import de.stekoe.idss.model.PermissionObject;
-import de.stekoe.idss.model.PermissionType;
-import de.stekoe.idss.model.project.ProjectRole;
-import de.stekoe.idss.model.project.ProjectRoleId;
-import de.stekoe.idss.page.project.ProjectPage;
-import de.stekoe.idss.page.project.ProjectRoleListPage;
-import de.stekoe.idss.service.PermissionService;
-import de.stekoe.idss.service.ProjectRoleService;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Set;
 
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.CheckBoxMultipleChoice;
@@ -37,10 +32,14 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Set;
+import de.stekoe.idss.model.Permission;
+import de.stekoe.idss.model.PermissionObject;
+import de.stekoe.idss.model.PermissionType;
+import de.stekoe.idss.model.ProjectRole;
+import de.stekoe.idss.page.project.ProjectPage;
+import de.stekoe.idss.page.project.ProjectRoleListPage;
+import de.stekoe.idss.service.PermissionService;
+import de.stekoe.idss.service.ProjectRoleService;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
@@ -55,11 +54,11 @@ public class ProjectRoleEditPage extends ProjectPage {
     private String name;
 
     private LoadableDetachableModel<ProjectRole> projectRoleModel;
-    private ArrayList<PermissionType> select = new ArrayList<PermissionType>();
+    private final ArrayList<PermissionType> select = new ArrayList<PermissionType>();
 
     public ProjectRoleEditPage(PageParameters pageParameters) {
         super(pageParameters);
-        final ProjectRoleId projectRoleId = getProjectRoleIdFromProject(pageParameters);
+        final String projectRoleId = getProjectRoleIdFromProject(pageParameters);
         if (projectRoleId == null) {
 
         }
@@ -119,7 +118,7 @@ public class ProjectRoleEditPage extends ProjectPage {
         form.add(new TextField<String>("name"));
     }
 
-    private void createModel(final ProjectRoleId projectRoleId) {
+    private void createModel(final String projectRoleId) {
         projectRoleModel = new LoadableDetachableModel<ProjectRole>() {
             @Override
             protected ProjectRole load() {
@@ -128,7 +127,7 @@ public class ProjectRoleEditPage extends ProjectPage {
         };
     }
 
-    private ProjectRoleId getProjectRoleIdFromProject(PageParameters pageParameters) {
+    private String getProjectRoleIdFromProject(PageParameters pageParameters) {
         final Set<ProjectRole> projectRoles = getProject().getProjectRoles();
         for (ProjectRole projectRole : projectRoles) {
             if (projectRole.getId().equals(pageParameters.get("roleId").toString())) {

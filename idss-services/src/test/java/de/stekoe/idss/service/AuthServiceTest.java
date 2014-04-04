@@ -18,17 +18,13 @@ import de.stekoe.idss.TestFactory;
 import de.stekoe.idss.model.Permission;
 import de.stekoe.idss.model.PermissionObject;
 import de.stekoe.idss.model.PermissionType;
+import de.stekoe.idss.model.Project;
+import de.stekoe.idss.model.ProjectMember;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.model.UserStatus;
-import de.stekoe.idss.model.project.Project;
-import de.stekoe.idss.model.project.ProjectId;
-import de.stekoe.idss.model.project.ProjectMember;
 import de.stekoe.idss.repository.ProjectRepository;
 import de.stekoe.idss.repository.UserRepository;
 
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
 public class AuthServiceTest extends AbstractBaseTest {
 
     private static final String PASSWORD = "password";
@@ -49,19 +45,17 @@ public class AuthServiceTest extends AbstractBaseTest {
 
     @Test
     public void userSpecificAuth() throws Exception {
-        final ProjectId projectId = new ProjectId();
+        Project project = TestFactory.createProject();
 
         Set<Permission> permissionList = new HashSet<Permission>();
-        permissionList.add(new Permission(PermissionObject.PROJECT, PermissionType.DELETE, projectId));
-        permissionList.add(new Permission(PermissionObject.PROJECT, PermissionType.UPDATE, projectId));
+        permissionList.add(new Permission(PermissionObject.PROJECT, PermissionType.DELETE, project.getId()));
+        permissionList.add(new Permission(PermissionObject.PROJECT, PermissionType.UPDATE, project.getId()));
 
         User user = TestFactory.createUser(UUID.randomUUID().toString());
         user.setPermissions(permissionList);
 
         userService.save(user);
 
-        Project project = TestFactory.createProject();
-        project.setId(projectId);
 
         ProjectMember pm = new ProjectMember();
         pm.setUser(user);
@@ -76,14 +70,14 @@ public class AuthServiceTest extends AbstractBaseTest {
 
     @Test
     public void userSpecificAuthFails() throws Exception {
+        Project project = new Project();
+
         Set<Permission> permissionList = new HashSet<Permission>();
-        permissionList.add(new Permission(PermissionObject.PROJECT, PermissionType.DELETE, new ProjectId()));
+        permissionList.add(new Permission(PermissionObject.PROJECT, PermissionType.DELETE, project.getId()));
 
         User user = new User();
         user.setPermissions(permissionList);
 
-        Project project = new Project();
-        project.setId(new ProjectId());
 
         ProjectMember pm = new ProjectMember();
         pm.setUser(user);

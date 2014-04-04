@@ -20,8 +20,8 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-import de.stekoe.idss.model.criterion.SingleScaledCriterion;
-import de.stekoe.idss.model.criterion.scale.value.NominalValue;
+import de.stekoe.idss.model.NominalValue;
+import de.stekoe.idss.model.SingleScaledCriterion;
 import de.stekoe.idss.page.project.criterion.EditNominalCriterionPage;
 import de.stekoe.idss.service.CriterionService;
 

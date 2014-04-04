@@ -16,11 +16,10 @@ import de.stekoe.idss.TestFactory;
 import de.stekoe.idss.model.Permission;
 import de.stekoe.idss.model.PermissionObject;
 import de.stekoe.idss.model.PermissionType;
+import de.stekoe.idss.model.Project;
+import de.stekoe.idss.model.ProjectMember;
+import de.stekoe.idss.model.ProjectRole;
 import de.stekoe.idss.model.User;
-import de.stekoe.idss.model.project.Project;
-import de.stekoe.idss.model.project.ProjectId;
-import de.stekoe.idss.model.project.ProjectMember;
-import de.stekoe.idss.model.project.ProjectRole;
 
 public class ProjectServiceTest extends AbstractBaseTest {
     @Inject
@@ -34,11 +33,11 @@ public class ProjectServiceTest extends AbstractBaseTest {
 
     @Test
     public void projectRoleBasedAuthWorks() throws Exception {
-        ProjectId projectId = new ProjectId();
+        final Project project = TestFactory.createProject();
 
         Set<Permission> permissions = new HashSet<Permission>();
-        permissions.add(new Permission(PermissionObject.PROJECT, PermissionType.DELETE, projectId));
-        permissions.add(new Permission(PermissionObject.PROJECT, PermissionType.UPDATE, projectId));
+        permissions.add(new Permission(PermissionObject.PROJECT, PermissionType.DELETE, project.getId()));
+        permissions.add(new Permission(PermissionObject.PROJECT, PermissionType.UPDATE, project.getId()));
 
         ProjectRole projectRole = new ProjectRole();
         projectRole.setName("LEADER");
@@ -52,10 +51,7 @@ public class ProjectServiceTest extends AbstractBaseTest {
         pm.setUser(user);
         pm.setProjectRole(projectRole);
 
-        final Project project = TestFactory.createProject();
-        project.setId(projectId);
         project.getProjectTeam().add(pm);
-
         projectService.save(project);
 
         assertTrue(projectService.isAuthorized(user.getId(), project.getId(), PermissionType.DELETE));

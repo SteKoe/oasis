@@ -16,13 +16,14 @@
 
 package de.stekoe.idss.page.project;
 
-import de.stekoe.idss.model.Document;
-import de.stekoe.idss.model.project.Project;
-import de.stekoe.idss.model.project.ProjectId;
-import de.stekoe.idss.page.component.form.upload.DocumentUploadForm;
-import de.stekoe.idss.service.DocumentService;
-import de.stekoe.idss.service.ProjectService;
-import de.stekoe.idss.session.WebSession;
+import java.io.File;
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Set;
+
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.DownloadLink;
@@ -35,14 +36,13 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.lang.Bytes;
 
-import java.io.File;
-import java.text.DateFormat;
-import java.util.*;
+import de.stekoe.idss.model.Document;
+import de.stekoe.idss.model.Project;
+import de.stekoe.idss.page.component.form.upload.DocumentUploadForm;
+import de.stekoe.idss.service.DocumentService;
+import de.stekoe.idss.service.ProjectService;
+import de.stekoe.idss.session.WebSession;
 
-
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
 public class ProjectUploadDocument extends ProjectPage {
 
     @SpringBean

@@ -30,13 +30,12 @@ import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.FormGroup;
-import de.stekoe.idss.model.criterion.OrdinalScaledCriterion;
-import de.stekoe.idss.model.criterion.SingleScaledCriterion;
-import de.stekoe.idss.model.criterion.scale.value.OrdinalValue;
+import de.stekoe.idss.model.OrdinalScaledCriterion;
+import de.stekoe.idss.model.OrdinalValue;
+import de.stekoe.idss.model.SingleScaledCriterion;
 import de.stekoe.idss.page.component.behavior.Placeholder;
 import de.stekoe.idss.service.CriterionPageService;
 import de.stekoe.idss.service.CriterionService;
-import de.stekoe.idss.service.ScaleService;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
@@ -48,9 +47,6 @@ public abstract class OrdinalScaledCriterionForm extends CriterionForm<OrdinalVa
 
     @SpringBean
     private CriterionService criterionService;
-
-    @SpringBean
-    private ScaleService scaleService;
 
     private Form<OrdinalValue> valueForm;
 
@@ -99,7 +95,8 @@ public abstract class OrdinalScaledCriterionForm extends CriterionForm<OrdinalVa
             @Override
             protected void populateItem(final ListItem<OrdinalValue> item) {
                 final OrdinalValue value = item.getModelObject();
-                item.add(new Label("value.list.label", value.getValue() + " (" + value.getRank() + ")"));
+                item.add(new Label("value.list.value", value.getValue()));
+                item.add(new Label("value.list.rank", value.getRank()));
 
                 item.add(new Link("value.delete") {
                     @Override
@@ -147,7 +144,7 @@ public abstract class OrdinalScaledCriterionForm extends CriterionForm<OrdinalVa
         return new LoadableDetachableModel<SingleScaledCriterion<OrdinalValue>>() {
             @Override
             protected SingleScaledCriterion<OrdinalValue> load() {
-                if (getCriterionId().getId() == null) {
+                if (getCriterionId() == null) {
                     OrdinalScaledCriterion criterion = new OrdinalScaledCriterion();
                     return criterion;
                 } else {

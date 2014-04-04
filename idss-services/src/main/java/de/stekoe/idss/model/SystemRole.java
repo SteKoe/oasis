@@ -20,10 +20,9 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -33,29 +32,24 @@ import javax.validation.constraints.NotNull;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
 @Entity
 @Table(name = "SystemRole")
 public class SystemRole implements Serializable {
-
-    private static final long serialVersionUID = 101403011955L;
+    private static final long serialVersionUID = 201404031317L;
 
     public static final transient String USER = "USER";
     public static final transient String ADMIN = "ADMIN";
 
-    private SystemRoleId id = new SystemRoleId();
+    private String id = IDGenerator.createId();
     private String name;
     private Set<User> users = new HashSet<User>(0);
 
-    @EmbeddedId
-    @AttributeOverride(name = "id", column = @Column(name = "system_role_id"))
-    public SystemRoleId getId() {
-        return this.id;
+    @Id
+    public String getId() {
+        return id;
     }
 
-    public void setId(SystemRoleId id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -99,7 +93,6 @@ public class SystemRole implements Serializable {
         return new EqualsBuilder()
                 .appendSuper(super.equals(o))
                 .append(getName(), that.getName())
-                .append(getUsers(), that.getUsers())
                 .isEquals();
     }
 
@@ -107,7 +100,6 @@ public class SystemRole implements Serializable {
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
                 .append(getName())
-                .append(getUsers())
                 .hashCode();
     }
 }

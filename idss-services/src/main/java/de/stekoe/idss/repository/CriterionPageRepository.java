@@ -21,36 +21,34 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import de.stekoe.idss.model.criterion.CriterionPage;
-import de.stekoe.idss.model.criterion.CriterionPageId;
-import de.stekoe.idss.model.project.ProjectId;
+import de.stekoe.idss.model.CriterionPage;
 
-public interface CriterionPageRepository extends CrudRepository<CriterionPage, CriterionPageId> {
+public interface CriterionPageRepository extends CrudRepository<CriterionPage, String> {
     /**
      * Find all {@link CriterionPage}s for a Project
      *
-     * @param projectId Project id
+     * @param String Project id
      * @return A list of CirterionPages for the given Project id
      */
     @Query("FROM CriterionPage cp WHERE cp.project.id = ?1 ORDER BY cp.ordering ASC")
-    List<CriterionPage> findAllForProject(ProjectId projectId);
+    List<CriterionPage> findAllForProject(String String);
 
     /**
      * Get the next page num for {@link CriterionPage}
      *
-     * @param projectId Project id
+     * @param String Project id
      * @return Integer which represents the next (free) page number
      */
     @Query("SELECT COALESCE(max(cp.ordering) + 1, 0) FROM CriterionPage cp LEFT JOIN cp.project p WHERE p.id = ?1")
-    long getNextPageNumForProject(ProjectId projectId);
+    int getNextPageNumForProject(String String);
 
     /**
      * Find a {@link CriterionPage} by ordering and Project
      *
      * @param ordering  The position of the page
-     * @param projectId The id of the Project the page belongs to
+     * @param String The id of the Project the page belongs to
      * @return The CriterionPage if found, null otherwise
      */
     @Query("FROM CriterionPage cp LEFT JOIN cp.project p WHERE ordering = ?1 AND p.id = ?2")
-    CriterionPage findByOrdering(int ordering, ProjectId projectId);
+    CriterionPage findByOrdering(int ordering, String String);
 }

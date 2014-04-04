@@ -16,17 +16,8 @@
 
 package de.stekoe.idss.page.component.modal;
 
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.ButtonBehavior;
-import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
-import de.agilecoders.wicket.core.markup.html.bootstrap.dialog.Modal;
-import de.agilecoders.wicket.core.markup.html.bootstrap.dialog.ModalCloseButton;
-import de.stekoe.idss.model.User;
-import de.stekoe.idss.model.project.Project;
-import de.stekoe.idss.model.project.ProjectId;
-import de.stekoe.idss.model.project.ProjectMember;
-import de.stekoe.idss.model.project.ProjectRole;
-import de.stekoe.idss.service.ProjectService;
-import de.stekoe.idss.service.UserService;
+import java.util.ArrayList;
+
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.html.form.ChoiceRenderer;
 import org.apache.wicket.markup.html.form.Form;
@@ -38,7 +29,16 @@ import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-import java.util.ArrayList;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.ButtonBehavior;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
+import de.agilecoders.wicket.core.markup.html.bootstrap.dialog.Modal;
+import de.agilecoders.wicket.core.markup.html.bootstrap.dialog.ModalCloseButton;
+import de.stekoe.idss.model.Project;
+import de.stekoe.idss.model.ProjectMember;
+import de.stekoe.idss.model.ProjectRole;
+import de.stekoe.idss.model.User;
+import de.stekoe.idss.service.ProjectService;
+import de.stekoe.idss.service.UserService;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
@@ -50,9 +50,9 @@ public abstract class AddProjectMemberModal extends Modal {
     @SpringBean
     private ProjectService projectService;
 
-    private ProjectMember projectMember = new ProjectMember();
+    private final ProjectMember projectMember = new ProjectMember();
 
-    public AddProjectMemberModal(String id, final ProjectId projectId) {
+    public AddProjectMemberModal(String id, final String projectId) {
         super(id);
 
         final LoadableDetachableModel<Project> projectModel = new LoadableDetachableModel<Project>() {

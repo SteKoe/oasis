@@ -16,11 +16,8 @@
 
 package de.stekoe.idss.page.project.criterion.page;
 
-import de.stekoe.idss.model.criterion.CriterionPage;
-import de.stekoe.idss.model.criterion.CriterionPageId;
-import de.stekoe.idss.page.project.ProjectPage;
-import de.stekoe.idss.service.CriterionPageService;
-import de.stekoe.idss.session.WebSession;
+import java.util.List;
+
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
@@ -32,11 +29,11 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.string.StringValue;
 
-import java.util.List;
+import de.stekoe.idss.model.CriterionPage;
+import de.stekoe.idss.page.project.ProjectPage;
+import de.stekoe.idss.service.CriterionPageService;
+import de.stekoe.idss.session.WebSession;
 
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
 public class CriteriaPageDetailsPage extends ProjectPage {
     @SpringBean
     private CriterionPageService criterionPageService;
@@ -51,7 +48,7 @@ public class CriteriaPageDetailsPage extends ProjectPage {
         criterionPageModel = new LoadableDetachableModel<CriterionPage>() {
             @Override
             protected CriterionPage load() {
-                return criterionPageService.findOne(new CriterionPageId(pageIdParam.toString()));
+                return criterionPageService.findOne(pageIdParam.toString());
             }
         };
 

@@ -29,9 +29,8 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import wicket.contrib.tinymce.TinyMceBehavior;
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.FormGroup;
-import de.stekoe.idss.model.criterion.CriterionPageElementId;
-import de.stekoe.idss.model.criterion.SingleScaledCriterion;
-import de.stekoe.idss.model.criterion.scale.value.MeasurementValue;
+import de.stekoe.idss.model.MeasurementValue;
+import de.stekoe.idss.model.SingleScaledCriterion;
 import de.stekoe.idss.page.component.behavior.CustomTinyMCESettings;
 import de.stekoe.idss.service.CriterionService;
 import de.stekoe.idss.wicket.MarkRequiredFieldsBehavior;
@@ -39,19 +38,19 @@ import de.stekoe.idss.wicket.MarkRequiredFieldsBehavior;
 public abstract class CriterionForm<T extends MeasurementValue> extends Panel {
 
     private Form<SingleScaledCriterion<T>> scaleForm;
-    private final CriterionPageElementId criterionId;
+    private final String criterionId;
 
     @SpringBean
     private CriterionService criterionService;
 
     public CriterionForm(String id, String aCriterionId) {
         super(id);
-        criterionId = new CriterionPageElementId(aCriterionId);
+        criterionId = aCriterionId;
 
         scaleForm();
     }
 
-    public CriterionPageElementId getCriterionId() {
+    public String getCriterionId() {
         return criterionId;
     }
 
@@ -87,6 +86,7 @@ public abstract class CriterionForm<T extends MeasurementValue> extends Panel {
         SingleScaledCriterion<T> criterion = getCriterionModel().getObject();
         criterion.moveUp(value);
         criterionService.saveCriterion(criterion);
+        getCriterionModel().detach();
         setResponsePage(getPage());
     }
 
@@ -94,6 +94,7 @@ public abstract class CriterionForm<T extends MeasurementValue> extends Panel {
         SingleScaledCriterion<T> criterion = getCriterionModel().getObject();
         criterion.moveDown(value);
         criterionService.saveCriterion(criterion);
+        getCriterionModel().detach();
         setResponsePage(getPage());
     }
 

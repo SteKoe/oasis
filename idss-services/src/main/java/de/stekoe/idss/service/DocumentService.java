@@ -24,22 +24,22 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.stekoe.idss.model.Document;
-import de.stekoe.idss.model.DocumentId;
 import de.stekoe.idss.repository.DocumentRepository;
 
 @Service
 @Transactional
 public class DocumentService {
     @Inject
-    private DocumentRepository documentDAO;
+    private DocumentRepository documentRepository;
+
     private String path;
 
     public void save(Document document) {
-        documentDAO.save(document);
+        documentRepository.save(document);
     }
 
-    public String getAbsolutePath(DocumentId id) {
-        final String[] idParts = id.getId().split("-");
+    public String getAbsolutePath(String id) {
+        final String[] idParts = id.split("-");
         return getDocumentPath() + File.separator + idParts[1] + File.separator + idParts[0] + ".data";
     }
 

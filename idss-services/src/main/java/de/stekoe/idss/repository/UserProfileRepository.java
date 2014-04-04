@@ -19,7 +19,6 @@ package de.stekoe.idss.repository;
 import org.springframework.data.repository.CrudRepository;
 
 import de.stekoe.idss.model.UserProfile;
-import de.stekoe.idss.model.UserProfileId;
 
-public interface UserProfileRepository extends CrudRepository<UserProfile, UserProfileId> {
+public interface UserProfileRepository extends CrudRepository<UserProfile, String> {
 }

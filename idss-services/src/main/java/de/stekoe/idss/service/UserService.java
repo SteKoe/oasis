@@ -24,7 +24,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.stekoe.idss.model.User;
-import de.stekoe.idss.model.UserId;
 import de.stekoe.idss.repository.UserRepository;
 
 @Service
@@ -46,7 +45,7 @@ public class UserService {
         return userRepository.findByUsernameOrEmail(value);
     }
 
-    public User findOne(UserId id) {
+    public User findOne(String id) {
         return userRepository.findOne(id);
     }
 

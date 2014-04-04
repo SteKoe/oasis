@@ -6,10 +6,6 @@ import org.hamcrest.core.IsEqual;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.stekoe.idss.model.NominalScaledCriterion;
-import de.stekoe.idss.model.NominalValue;
-import de.stekoe.idss.model.SingleScaledCriterion;
-
 public class SingleScaledCriterionTest {
 
     private SingleScaledCriterion<NominalValue> ssc;

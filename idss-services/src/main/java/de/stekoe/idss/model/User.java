@@ -30,7 +30,6 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
@@ -124,7 +123,7 @@ public class User implements Serializable {
     }
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = SystemRole.class)
-    @JoinTable(name = "User_SystemRole", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = { @JoinColumn(name = "system_role_id") })
+    @JoinTable(name = "User_SystemRole")
     public Set<SystemRole> getRoles() {
         return this.roles;
     }

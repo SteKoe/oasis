@@ -23,7 +23,6 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
@@ -64,7 +63,7 @@ public class SystemRole implements Serializable {
     }
 
     @ManyToMany(targetEntity = User.class)
-    @JoinTable(name = "User_SystemRole", joinColumns = { @JoinColumn(name = "system_role_id") }, inverseJoinColumns = { @JoinColumn(name = "user_id") })
+    @JoinTable(name = "User_SystemRole")
     public Set<User> getUsers() {
         return this.users;
     }

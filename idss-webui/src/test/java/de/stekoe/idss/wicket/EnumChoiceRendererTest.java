@@ -1,16 +1,13 @@
 package de.stekoe.idss.wicket;
 
-import de.stekoe.idss.AbstractWicketApplicationTester;
-import de.stekoe.idss.model.PermissionType;
-
 import org.apache.wicket.Application;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.test.annotation.DirtiesContext;
 
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
+import de.stekoe.idss.AbstractWicketApplicationTester;
+import de.stekoe.idss.model.PermissionType;
+
 public class EnumChoiceRendererTest extends AbstractWicketApplicationTester {
 
     private final EnumChoiceRenderer<PermissionType> dayEnumChoiceRenderer = new EnumChoiceRenderer<PermissionType>();

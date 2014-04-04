@@ -61,7 +61,7 @@ public class CriterionPageServiceTest extends AbstractBaseTest {
         List<CriterionPage> criterionPagesForProject = criterionPageService.findAllForProject(project.getId());
         for (int i = 0; i < criterionPagesForProject.size(); i++) {
             final CriterionPage criterionPage = criterionPagesForProject.get(i);
-            assertThat(criterionPage.getOrdering(), IsEqual.equalTo(i + 1));
+            assertThat(criterionPage.getOrdering(), IsEqual.equalTo(i));
         }
     }
 

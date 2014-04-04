@@ -35,7 +35,6 @@ import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import wicket.contrib.tinymce.TinyMceBehavior;
-import de.agilecoders.wicket.extensions.markup.html.bootstrap.form.DateTextField;
 import de.stekoe.idss.model.Project;
 import de.stekoe.idss.model.ProjectStatus;
 import de.stekoe.idss.page.component.behavior.CustomTinyMCESettings;
@@ -92,7 +91,7 @@ public abstract class ProjectForm extends Panel {
 
     private void addProjectStartDateField(Form<Project> projectForm) {
         Locale.setDefault(getWebSession().getLocale());
-        final DateTextField projectStartDate = new DateTextField("projectStartDate");
+        final TextField projectStartDate = new TextField("projectStartDate");
         projectForm.add(projectStartDate);
     }
 

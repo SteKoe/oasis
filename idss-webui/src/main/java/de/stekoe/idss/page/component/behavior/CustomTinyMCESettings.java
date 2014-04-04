@@ -16,12 +16,11 @@
 
 package de.stekoe.idss.page.component.behavior;
 
-import de.stekoe.idss.theme.BootstrapTheme;
-import wicket.contrib.tinymce.settings.Button;
-import wicket.contrib.tinymce.settings.TinyMCESettings;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import wicket.contrib.tinymce.settings.Button;
+import wicket.contrib.tinymce.settings.TinyMCESettings;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
@@ -38,7 +37,6 @@ public class CustomTinyMCESettings {
         settings.setToolbarLocation(TinyMCESettings.Location.top);
         settings.setToolbarAlign(TinyMCESettings.Align.center);
         settings.setStatusbarLocation(null);
-        settings.setContentCss(BootstrapTheme.CSS_TINYMCE);
         settings.addCustomSetting("width: '100%'");
         settings.addCustomSetting("height: '200px'");
 

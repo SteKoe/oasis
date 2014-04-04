@@ -16,30 +16,13 @@
 
 package de.stekoe.idss.page.project.criterion;
 
-import de.stekoe.idss.page.project.ProjectPage;
-import de.stekoe.idss.theme.BootstrapTheme;
-import org.apache.wicket.markup.head.IHeaderResponse;
-import org.apache.wicket.markup.head.JavaScriptReferenceHeaderItem;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
-import org.apache.wicket.request.resource.CssResourceReference;
-import org.apache.wicket.request.resource.JavaScriptResourceReference;
+
+import de.stekoe.idss.page.project.ProjectPage;
 
 public class ResultPage extends ProjectPage {
 
-    public static final CssResourceReference CSS_BOOTSTRAP = new CssResourceReference(BootstrapTheme.class, "vendors/amcharts/amcharts/css/bootstrap.min.css");
-    public static final JavaScriptResourceReference AMCHARTS = new JavaScriptResourceReference(BootstrapTheme.class, "vendors/amcharts/amcharts/amcharts.js");
-    public static final JavaScriptResourceReference RADAR = new JavaScriptResourceReference(BootstrapTheme.class, "vendors/amcharts/amcharts/radar.js");
-    public static final JavaScriptResourceReference CHALK = new JavaScriptResourceReference(BootstrapTheme.class, "vendors/amcharts/amcharts/themes/chalk.js");
-
     public ResultPage(PageParameters pageParameters) {
         super(pageParameters);
-    }
-
-    @Override
-    public void renderHead(IHeaderResponse response) {
-        super.renderHead(response);
-        response.render(JavaScriptReferenceHeaderItem.forReference(AMCHARTS));
-        response.render(JavaScriptReferenceHeaderItem.forReference(RADAR));
-        response.render(JavaScriptReferenceHeaderItem.forReference(CHALK));
     }
 }

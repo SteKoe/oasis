@@ -42,13 +42,10 @@ import org.springframework.stereotype.Component;
 
 import de.agilecoders.wicket.core.Bootstrap;
 import de.agilecoders.wicket.core.settings.BootstrapSettings;
-import de.agilecoders.wicket.core.settings.DefaultThemeProvider;
-import de.agilecoders.wicket.core.settings.ITheme;
 import de.stekoe.idss.page.HomePage;
 import de.stekoe.idss.page.auth.AuthorizationStrategy;
 import de.stekoe.idss.page.auth.LoginPage;
 import de.stekoe.idss.session.WebSession;
-import de.stekoe.idss.theme.BootstrapTheme;
 
 @Component
 public class WebApplication extends AuthenticatedWebApplication implements ApplicationContextAware {
@@ -79,11 +76,11 @@ public class WebApplication extends AuthenticatedWebApplication implements Appli
 
         setSecuritySettings();
 
-        configureBootstrapFramework();
         setUpSpring();
 
         getMarkupSettings().setDefaultMarkupEncoding(StandardCharsets.UTF_8.displayName());
 
+        Bootstrap.install(this, new BootstrapSettings());
 
         for(String name : ctx.getBeanDefinitionNames()) {
             Object bean = ctx.getBean(name);
@@ -117,27 +114,6 @@ public class WebApplication extends AuthenticatedWebApplication implements Appli
     @Override
     public org.apache.wicket.Session newSession(Request request, Response response) {
         return new WebSession(request);
-    }
-
-    private void configureBootstrapFramework() {
-        Bootstrap.install(this, new BootstrapSettings());
-
-        final DefaultThemeProvider themeProvider = (DefaultThemeProvider) Bootstrap.getSettings().getThemeProvider();
-
-        final BootstrapTheme bootstrapTheme = new BootstrapTheme();
-        if (!customThemeAlreadyAdded()) {
-            themeProvider.add(bootstrapTheme);
-        }
-    }
-
-    private boolean customThemeAlreadyAdded() {
-        final DefaultThemeProvider themeProvider = (DefaultThemeProvider) Bootstrap.getSettings().getThemeProvider();
-        for (ITheme theme : themeProvider.available()) {
-            if (theme.name().equals(BootstrapTheme.NAME)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     public void setUpSpring() {

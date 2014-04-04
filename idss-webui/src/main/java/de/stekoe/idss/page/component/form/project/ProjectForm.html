@@ -17,18 +17,14 @@
 
 <html lang="en" xmlns:wicket="http://wicket.sourceforge.net/">
 <body>
-<wicket:head>
+<wicket:panel>
     <script>
-        jQuery(document).ready(function () {
+        $(document).ready(function () {
             $('.input-group.date').datepicker({
-                calendarWeeks: true,
-                todayHighlight: true,
-                format: '<wicket:message key="date.format"></wicket:message>'
+                showWeek: true
             });
         });
     </script>
-</wicket:head>
-<wicket:panel>
     <form wicket:id="form.project">
         <div class="form-group">
             <label for="name">
@@ -58,7 +54,13 @@
                         <label for="projectStartDate">
                             <wicket:message key="label.project.start.date"/>
                         </label>
-                        <input id="projectStartDate" wicket:id="projectStartDate" type="text" class="form-control">
+                        
+                        <div class="input-group date col-md-5">
+                            <input id="projectStartDate" wicket:id="projectStartDate" type="text" class="form-control">
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -68,11 +70,10 @@
                         </label>
 
                         <div class="input-group date col-md-5">
-                            <input id="projectEndDate" wicket:id="projectEndDate" type="text" class="form-control"
-                                   readonly="readonly">
-                        <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-calendar"></span>
-                        </span>
+                            <input id="projectEndDate" wicket:id="projectEndDate" type="text" class="form-control">
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
                         </div>
                     </div>
                 </div>

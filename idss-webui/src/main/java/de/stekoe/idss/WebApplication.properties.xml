@@ -85,7 +85,7 @@
     <entry key="label.project.edit.roles">Projektrollen bearbeiten</entry>
     <entry key="label.project.start.date">Startdatum</entry>
     <entry key="label.project.end.date">Enddatum</entry>
-    <entry key="label.project.progress.time">Status</entry>
+    <entry key="label.project.progress.time">Fortschritt</entry>
     <entry key="label.project.role.edit.introduction">Sie sind dabei die Projektrolle "{0}" des Projekts "{1}" zu
         bearbeiten.
     </entry>

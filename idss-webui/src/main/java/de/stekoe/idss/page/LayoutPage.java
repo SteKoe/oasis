@@ -16,15 +16,6 @@
 
 package de.stekoe.idss.page;
 
-import de.agilecoders.wicket.core.Bootstrap;
-import de.stekoe.idss.WebApplication;
-import de.stekoe.idss.model.User;
-import de.stekoe.idss.page.component.feedbackpanel.MyFencedFeedbackPanel;
-import de.stekoe.idss.page.component.navigation.language.LanguageSwitcher;
-import de.stekoe.idss.page.component.navigation.main.MainNavigation;
-import de.stekoe.idss.page.component.navigation.user.UserPanel;
-import de.stekoe.idss.session.WebSession;
-import de.stekoe.idss.theme.BootstrapTheme;
 import org.apache.wicket.devutils.debugbar.DebugBar;
 import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.feedback.IFeedbackMessageFilter;
@@ -40,9 +31,14 @@ import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.request.resource.ContextRelativeResource;
 
-/**
- * @author Stephan Köninger <mail@stekoe.de>
- */
+import de.stekoe.idss.WebApplication;
+import de.stekoe.idss.model.User;
+import de.stekoe.idss.page.component.feedbackpanel.MyFencedFeedbackPanel;
+import de.stekoe.idss.page.component.navigation.language.LanguageSwitcher;
+import de.stekoe.idss.page.component.navigation.main.MainNavigation;
+import de.stekoe.idss.page.component.navigation.user.UserPanel;
+import de.stekoe.idss.session.WebSession;
+
 public abstract class LayoutPage extends WebPage {
 
     public LayoutPage() {
@@ -94,8 +90,6 @@ public abstract class LayoutPage extends WebPage {
     private void init() {
         configureSession();
 
-        Bootstrap.getSettings().getActiveThemeProvider().setActiveTheme(new BootstrapTheme());
-
         addPageLogo();
         addPageTitle(getContextParameter("application.title"));
         addContentElements();
@@ -142,4 +136,5 @@ public abstract class LayoutPage extends WebPage {
         add(new LanguageSwitcher("nav.lang"));
         add(new UserPanel("nav.user"));
     }
+
 }

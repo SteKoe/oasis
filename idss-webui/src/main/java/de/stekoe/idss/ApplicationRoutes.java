@@ -65,7 +65,7 @@ public class ApplicationRoutes {
     }
 
     private void createPageRoutes() {
-        getWebApplication().mountPage("/", HomePage.class);
+        getWebApplication().mountPage("/home", HomePage.class);
         getWebApplication().mountPage("/contact", ContactPage.class);
 
         // Login, Logout, Register, ...

@@ -12,7 +12,7 @@ public class SetupPage extends LayoutPage {
     DatabaseSetup databaseSetup;
 
     public SetupPage() {
-        add(new Link("setup.run") {
+        add(new Link("run.setup") {
             @Override
             public void onClick() {
                 databaseSetup.run();

@@ -1,0 +1,21 @@
+List der Änderungen
+===================
+
+4.4.2013:
+    - Umstellen der Persistenzschicht von Hibernate auf JPA
+    - Umstellen der Testdatenbank von MySQL auf H2
+    - Anpassung einiger Tests an die neue H2 Datenbank
+    - Testumgebung der web-ui auf neue Persistenzschicht umgestellt
+    - Nominal-/Ordinalskala implementiert
+    - Service- und Repositoryimplementierung gegen Spring-Data-JPA ersetzt
+    - JavaDoc für diverse Services geschrieben
+    - Id-Types auf String zurückgedreht
+    - Sortierung von "sortable"-Elements initial auf 0 gesetzt
+    - Diverse Refactorings
+    - Einige Services aufgelöst und Methoden in Domänenmodell überführt
+    - Packagestruktur abgeändert und Services-Modul vereinfacht
+    - CSS, JS und Images werden nun über HTML eingebunden und nicht über Java
+    - Application Routes angepasst, sodass Ressourcen korrekt angezogen werden (s.o.)
+    - Sonarqubefehler ignoriert (SQ ist nicht relevant, da statische Codeanalyse)
+    - Tests korrigiert, da diese auf Jenkins nicht ausführbar waren
+    - Code und Software unter Apache 2.0 Open Source Lizenz gestellt

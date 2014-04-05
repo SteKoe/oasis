@@ -22,9 +22,6 @@ import java.util.List;
 import wicket.contrib.tinymce.settings.Button;
 import wicket.contrib.tinymce.settings.TinyMCESettings;
 
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
 public class CustomTinyMCESettings {
 
     private CustomTinyMCESettings() {

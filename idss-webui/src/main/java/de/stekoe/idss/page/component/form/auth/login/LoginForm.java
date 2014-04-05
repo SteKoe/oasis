@@ -16,11 +16,6 @@
 
 package de.stekoe.idss.page.component.form.auth.login;
 
-import de.agilecoders.wicket.core.markup.html.bootstrap.form.FormGroup;
-import de.stekoe.idss.page.project.ProjectListPage;
-import de.stekoe.idss.service.AuthService;
-import de.stekoe.idss.service.AuthStatus;
-import de.stekoe.idss.session.WebSession;
 import org.apache.log4j.Logger;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
@@ -32,9 +27,12 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-/**
- * @author Stephan Köninger <mail@stekoe.de>
- */
+import de.agilecoders.wicket.core.markup.html.bootstrap.form.FormGroup;
+import de.stekoe.idss.page.project.ProjectListPage;
+import de.stekoe.idss.service.AuthService;
+import de.stekoe.idss.service.AuthStatus;
+import de.stekoe.idss.session.WebSession;
+
 @SuppressWarnings("serial")
 public class LoginForm extends Panel {
     private static final Logger LOG = Logger.getLogger(LoginForm.class);

@@ -1,7 +1,7 @@
 List der Änderungen
 ===================
 
-4.4.2013:
+4.4.2014:
     - Umstellen der Persistenzschicht von Hibernate auf JPA
     - Umstellen der Testdatenbank von MySQL auf H2
     - Anpassung einiger Tests an die neue H2 Datenbank

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Stephan Köninger
+ * Copyright 2014 Stephan Koeninger
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.model.StringResourceModel;
 
 /**
- * @author Stephan Köninger <mail@stekoe.de>
+ * @author Stephan Koeninger <mail@stekoe.de>
  */
 @SuppressWarnings("serial")
 public class Placeholder extends Behavior {

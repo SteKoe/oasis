@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Stephan Köninger
+ * Copyright 2014 Stephan Koeninger
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,29 +16,17 @@
 
 package de.stekoe.idss.page.project;
 
-import de.stekoe.idss.model.PermissionType;
-import de.stekoe.idss.model.ProjectMember;
-import de.stekoe.idss.model.ProjectStatus;
-import de.stekoe.idss.page.HomePage;
-import de.stekoe.idss.page.project.criterion.ResultPage;
-import de.stekoe.idss.page.project.criterion.page.CriteriaPageListPage;
-import de.stekoe.idss.service.ProjectService;
-
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Predicate;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
-import org.apache.wicket.markup.html.link.Link;
-import org.apache.wicket.markup.html.list.ListItem;
-import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-import java.text.MessageFormat;
-import java.util.Collection;
-import java.util.List;
+import de.stekoe.idss.model.PermissionType;
+import de.stekoe.idss.page.project.criterion.ResultPage;
+import de.stekoe.idss.page.project.criterion.page.CriteriaPageListPage;
+import de.stekoe.idss.service.ProjectService;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
@@ -53,10 +41,8 @@ public abstract class ProjectPage extends AuthProjectPage {
 
         addLabelProjectTitle();
         addLabelProjectStatus();
-        addListOfProjectMember();
 
         // Links
-        addLinkProjectDelete();
         addLinkUploadDocument();
         addLinkEditProject();
         addLinkEditProjectMember();
@@ -92,20 +78,9 @@ public abstract class ProjectPage extends AuthProjectPage {
         linkUploadPage.setVisible(projectService.isAuthorized(getUser().getId(), getProject().getId(), PermissionType.PROJECT_UPLOAD_FILE));
     }
 
-    private void addLinkProjectDelete() {
-        final Link<Void> linkProjectDelete = new Link<Void>("link.project.delete") {
-            @Override
-            public void onClick() {
-            }
-        };
-        add(linkProjectDelete);
-        linkProjectDelete.setVisible(projectService.isAuthorized(getUser().getId(), getProject().getId(), PermissionType.DELETE));
-    }
-
     private void addLabelProjectStatus() {
         final Label projectStatusLabel = new Label("project.status", Model.of(getString(getProject().getProjectStatus().getKey())));
         add(projectStatusLabel);
-        projectStatusLabel.setVisible(!ProjectStatus.UNDEFINED.equals(getProject().getProjectStatus()));
     }
 
     private void addLinkEditProjectRoles() {
@@ -124,31 +99,5 @@ public abstract class ProjectPage extends AuthProjectPage {
         final BookmarkablePageLink<ProjectEditPage> editProjectLink = new BookmarkablePageLink<ProjectEditPage>("editProject", ProjectEditPage.class, getProjectIdPageParam());
         add(editProjectLink);
         editProjectLink.setVisible(projectService.isAuthorized(getUser().getId(), getProject().getId(), PermissionType.UPDATE));
-    }
-
-    private void addListOfProjectMember() {
-        final Collection<ProjectMember> projectTeam = getProject().getProjectTeam();
-        final List<ProjectMember> projectMember = (List<ProjectMember>) CollectionUtils.select(projectTeam, new Predicate() {
-            @Override
-            public boolean evaluate(Object object) {
-                return true;
-            }
-        });
-
-        add(new Label("projectMemberCount", MessageFormat.format(getString("label.project.numOfPersons"), projectMember.size())));
-
-        add(new ListView<ProjectMember>("projectMemberItem", projectMember) {
-            @Override
-            protected void populateItem(ListItem<ProjectMember> item) {
-                ProjectMember pm = item.getModelObject();
-
-                final BookmarkablePageLink<HomePage> userDetailsLink = new BookmarkablePageLink<HomePage>("projectMemberItemLink", HomePage.class);
-
-                Label userName = new Label("projectMemberItemLabel", Model.of(pm.getUser().getUsername()));
-                userDetailsLink.add(userName);
-
-                item.add(userDetailsLink);
-            }
-        });
     }
 }

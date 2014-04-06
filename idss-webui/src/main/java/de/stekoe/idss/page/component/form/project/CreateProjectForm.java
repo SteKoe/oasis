@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Stephan Köninger
+ * Copyright 2014 Stephan Koeninger
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,12 @@
 
 package de.stekoe.idss.page.component.form.project;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import org.apache.wicket.model.IModel;
+import org.apache.wicket.spring.injection.annot.SpringBean;
+
 import de.stekoe.idss.model.Permission;
 import de.stekoe.idss.model.PermissionObject;
 import de.stekoe.idss.model.PermissionType;
@@ -27,15 +33,6 @@ import de.stekoe.idss.service.ProjectRoleService;
 import de.stekoe.idss.service.ProjectService;
 import de.stekoe.idss.session.WebSession;
 
-import org.apache.wicket.model.IModel;
-import org.apache.wicket.spring.injection.annot.SpringBean;
-
-import java.util.HashSet;
-import java.util.Set;
-
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
 public class CreateProjectForm extends ProjectForm {
 
     @SpringBean

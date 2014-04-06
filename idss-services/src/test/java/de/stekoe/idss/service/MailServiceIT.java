@@ -12,7 +12,7 @@ import de.stekoe.idss.AbstractBaseTest;
  * <p>By default it should be turned off since it always
  * tries to send an email when run
  *
- * @author Stephan Köninger <mail@stekoe.de>
+ * @author Stephan Koeninger <mail@stekoe.de>
  */
 @Ignore
 public class MailServiceIT extends AbstractBaseTest {

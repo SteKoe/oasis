@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Stephan Köninger
+ * Copyright 2014 Stephan Koeninger
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -94,6 +94,11 @@ public class UserProfile implements Serializable {
     @Transient
     DateTime getCurrentDate() {
         return new DateTime();
+    }
+
+    @Transient
+    public String getFullName() {
+        return getFirstname() + " " + getSurname();
     }
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Stephan Köninger
+ * Copyright 2014 Stephan Koeninger
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,6 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import de.stekoe.idss.model.PermissionType;
 import de.stekoe.idss.model.Project;
-import de.stekoe.idss.model.ProjectStatus;
 import de.stekoe.idss.model.provider.ProjectDataProvider;
 import de.stekoe.idss.page.AuthUserPage;
 import de.stekoe.idss.page.PaginationConfigurator;
@@ -97,7 +96,6 @@ public class ProjectListPage extends AuthUserPage {
 
             final Label projectStatusLabel = new Label("project.status", Model.of(getString(project.getProjectStatus().getKey())));
             item.add(projectStatusLabel);
-            projectStatusLabel.setVisible(!project.getProjectStatus().equals(ProjectStatus.UNDEFINED));
 
             // Details link
             BookmarkablePageLink<ProjectDetailsPage> detailsPage = new BookmarkablePageLink<ProjectDetailsPage>("button.project.details", ProjectDetailsPage.class, pageDetailsParameters);

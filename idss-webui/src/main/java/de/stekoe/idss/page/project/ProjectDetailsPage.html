@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright 2014 Stephan Köninger
+  ~ Copyright 2014 Stephan K��ninger
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -16,40 +16,55 @@
 
 <html xmlns:wicket="http://wicket.sourceforge.net/">
 <body>
-<wicket:extend>
-    <h4>
-        <wicket:message key="label.description"/>
-    </h4>
-    <div wicket:id="descriptionText"></div>
+    <wicket:extend>
+        <h4>
+            <wicket:message key="label.description" />
+        </h4>
+        <div wicket:id="descriptionText"></div>
 
-    <h4>
-        <wicket:message key="label.project.details"/>
-    </h4>
-    <dl class="dl-horizontal">
-        <dt>
-            <wicket:message key="label.project.start.date"/>
-        </dt>
-        <dd wicket:id="projectStartDate"></dd>
-
-        <wicket:enclosure child="projectEndDate">
+        <h4>
+            <wicket:message key="label.project.details" />
+        </h4>
+        <dl class="dl-horizontal">
             <dt>
-                <wicket:message key="label.project.end.date"/>
+                <wicket:message key="label.project.start.date" />
             </dt>
-            <dd wicket:id="projectEndDate"></dd>
+            <dd wicket:id="projectStartDate"></dd>
 
-            <dt>
-                <wicket:message key="label.project.progress.time"/>
-            </dt>
-            <dd>
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0"
-                         aria-valuemax="100" wicket:id="progressBar">
-                        <span class="sr-only"><span wicket:id="progress"></span>% Complete</span>
+            <wicket:enclosure child="projectEndDate">
+                <dt>
+                    <wicket:message key="label.project.end.date" />
+                </dt>
+                <dd wicket:id="projectEndDate"></dd>
+
+                <dt>
+                    <wicket:message key="label.project.progress.time" />
+                </dt>
+                <dd>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar"
+                            aria-valuenow="60" aria-valuemin="0"
+                            aria-valuemax="100" wicket:id="progressBar">
+                            <span class="sr-only"><span
+                                wicket:id="progress"></span>% Complete</span>
+                        </div>
                     </div>
-                </div>
-            </dd>
-        </wicket:enclosure>
-    </dl>
-</wicket:extend>
+                </dd>
+            </wicket:enclosure>
+        </dl>
+
+        <h4>
+            <wicket:message key="label.project.member" />
+            <small wicket:id="projectMemberCount"></small>
+        </h4>
+        <div class="list-group">
+            <wicket:container wicket:id="projectMemberItem">
+                <a href="" class="list-group-item" wicket:id="projectMemberItemLink">
+                    <strong wicket:id="projectMemberName"></strong> 
+                    <small><em wicket:id="projectMemberRole"></em></small>
+                </a>
+            </wicket:container>
+        </div>
+    </wicket:extend>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright 2014 Stephan Köninger
+  ~ Copyright 2014 Stephan Koeninger
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -19,6 +19,15 @@
 <wicket:extend>
     <h1>Details</h1>
 
+    <div wicket:id="page.elements">
+        <div wicket:id="page.element.type">
+        </div>
+    </div>
+
+    <div class="text-center empty">
+        Leer
+    </div>
+
     <div class="text-center">
         <ul class="pagination pagination-sm">
             <li class="previous" wicket:id="page.prev">
@@ -36,11 +45,6 @@
             </li>
         </ul>
     </div>
-
-    <div class="text-center empty">
-        Leer
-    </div>
-
 
 </wicket:extend>
 </body>

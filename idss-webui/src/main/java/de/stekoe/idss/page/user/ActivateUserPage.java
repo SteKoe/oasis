@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Stephan Köninger
+ * Copyright 2014 Stephan Koeninger
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.string.StringValue;
 
 /**
- * @author Stephan Köninger <mail@stekoe.de>
+ * @author Stephan Koeninger <mail@stekoe.de>
  */
 @SuppressWarnings("serial")
 public class ActivateUserPage extends LayoutPage {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Stephan Köninger
+ * Copyright 2014 Stephan Koeninger
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ import org.apache.wicket.feedback.IFeedbackMessageFilter;
 import java.util.List;
 
 /**
- * @author Stephan Köninger <mail@stekoe.de>
+ * @author Stephan Koeninger <mail@stekoe.de>
  */
 public class MyFencedFeedbackPanel extends MyFeedbackPanel {
     private static final MetaDataKey<Integer> FENCE_KEY = new MetaDataKey<Integer>() {

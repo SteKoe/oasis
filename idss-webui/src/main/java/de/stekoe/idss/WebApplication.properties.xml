@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright 2014 Stephan Köninger
+  ~ Copyright 2014 Stephan Koeninger
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
 
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-    <entry key="page.meta.author">Stephan Köninger</entry>
+    <entry key="page.meta.author">Stephan Koeninger</entry>
     <entry key="page.meta.author">Test</entry>
 
     <entry key="date.format">dd.mm.yyyy</entry>
@@ -71,7 +71,7 @@
     <entry key="label.project">Projekt</entry>
     <entry key="label.project.overview">Projektübersicht</entry>
     <entry key="label.project.manage">Projektverwaltung</entry>
-    <entry key="label.project.member">Mitglied</entry>
+    <entry key="label.project.member">Mitglied(er)</entry>
     <entry key="label.project.details">Projektdetails</entry>
     <entry key="label.project.status">Projektstatus</entry>
     <entry key="label.project.edit">Projekt bearbeiten</entry>
@@ -164,10 +164,9 @@
 
     <!-- Project stati -->
     <entry key="status.project.editing">In Bearbeitung</entry>
-    <entry key="status.project.inprogress">Läuft</entry>
+    <entry key="status.project.inprogress">Wird durchgeführt</entry>
     <entry key="status.project.canceled">Abgebrochen</entry>
-    <entry key="status.project.undefined">Nicht definiert</entry>
-    <entry key="status.project.unknown">Unbekannt</entry>
+    <entry key="status.project.finished">Beendet</entry>
 
     <!-- Permission Types -->
     <entry key="permissiontype.create">{0} erstellen</entry>

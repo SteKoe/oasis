@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Stephan Köninger
+ * Copyright 2014 Stephan Koeninger
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,6 +34,7 @@ import de.stekoe.idss.model.PermissionType;
 import de.stekoe.idss.model.Project;
 import de.stekoe.idss.model.ProjectMember;
 import de.stekoe.idss.model.ProjectRole;
+import de.stekoe.idss.model.ProjectStatus;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.repository.ProjectRepository;
 import de.stekoe.idss.repository.UserRepository;
@@ -117,5 +118,20 @@ public class ProjectService {
     @Transactional
     public void delete(String id) {
         projectRepository.delete(id);
+    }
+
+    public List<ProjectStatus> getNextProjectStatus(Project project) {
+        List<ProjectStatus> nextProjectStatus = new ArrayList<ProjectStatus>();
+
+        ProjectStatus projectStatus = project.getProjectStatus();
+        if(ProjectStatus.EDITING.equals(projectStatus)) {
+            nextProjectStatus.add(ProjectStatus.INPROGRESS);
+        } else if(ProjectStatus.INPROGRESS.equals(projectStatus)) {
+            nextProjectStatus.add(ProjectStatus.FINISHED);
+        }
+
+        nextProjectStatus.add(ProjectStatus.CANCELED);
+        return nextProjectStatus;
+
     }
 }

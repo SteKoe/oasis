@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Stephan Köninger
+ * Copyright 2014 Stephan Koeninger
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 package de.stekoe.idss.page.project;
 
 import org.apache.log4j.Logger;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
@@ -37,5 +38,17 @@ public class ProjectEditPage extends ProjectPage {
         projectService.isAuthorized(getUser().getId(), getProjectId(), PermissionType.UPDATE);
 
         add(new EditProjectForm("form.project.edit", getProjectId()));
+
+        addLinkProjectDelete();
+    }
+
+    private void addLinkProjectDelete() {
+        final Link<Void> linkProjectDelete = new Link<Void>("link.project.delete") {
+            @Override
+            public void onClick() {
+            }
+        };
+        add(linkProjectDelete);
+        linkProjectDelete.setVisible(projectService.isAuthorized(getUser().getId(), getProject().getId(), PermissionType.DELETE));
     }
 }

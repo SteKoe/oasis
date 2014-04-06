@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Stephan Köninger
+ * Copyright 2014 Stephan Koeninger
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
@@ -30,6 +31,9 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.string.StringValue;
 
 import de.stekoe.idss.model.CriterionPage;
+import de.stekoe.idss.model.NominalScaledCriterion;
+import de.stekoe.idss.model.OrdinalScaledCriterion;
+import de.stekoe.idss.model.PageElement;
 import de.stekoe.idss.page.project.ProjectPage;
 import de.stekoe.idss.service.CriterionPageService;
 import de.stekoe.idss.session.WebSession;
@@ -66,6 +70,32 @@ public class CriteriaPageDetailsPage extends ProjectPage {
 
         criterionPages = criterionPageService.getCriterionPagesForProject(criterionPageModel.getObject().getProject().getId());
 
+        addPageElements();
+
+        addPrevPageLink();
+        addCurrentPageLink();
+        addNextPageLink();
+    }
+
+    private void addPageElements() {
+        add(new ListView<PageElement>("page.elements", criterionPageModel.getObject().getPageElements()) {
+            @Override
+            protected void populateItem(ListItem<PageElement> item) {
+                PageElement pageElement = (PageElement) item.getDefaultModelObject();
+
+                String wicketId = "page.element.type";
+                if (pageElement instanceof OrdinalScaledCriterion) {
+                    item.add(new OrdinalScaledCriterionFormElement(wicketId, (OrdinalScaledCriterion) pageElement));
+                } else if (pageElement instanceof NominalScaledCriterion) {
+                    item.add(new NominalScaledCriterionFormElement(wicketId, (NominalScaledCriterion) pageElement));
+                } else {
+                    item.add(new Label(wicketId, item.getDefaultModelObject().getClass().getName()));
+                }
+            }
+        });
+    }
+
+    private void addCurrentPageLink() {
         add(new ListView<CriterionPage>("page.list", criterionPages) {
             @Override
             protected void populateItem(ListItem<CriterionPage> item) {
@@ -76,15 +106,12 @@ public class CriteriaPageDetailsPage extends ProjectPage {
 
                 final BookmarkablePageLink<CriteriaPageDetailsPage> pageLink = new BookmarkablePageLink<CriteriaPageDetailsPage>("page.link", CriteriaPageDetailsPage.class, parameters);
                 item.add(pageLink);
-                pageLink.setBody(Model.of(criterionPage.getOrdering()));
+                pageLink.setBody(Model.of(criterionPage.getOrdering() + 1));
                 if (criterionPageModel.getObject().getId().equals(criterionPage.getId())) {
                     item.add(AttributeModifier.append("class", "active"));
                 }
             }
         });
-
-        addPrevPageLink();
-        addNextPageLink();
     }
 
     private void addPrevPageLink() {
@@ -95,7 +122,7 @@ public class CriteriaPageDetailsPage extends ProjectPage {
 
         final PageParameters parameters = new PageParameters(getPageParameters());
         if (hasPrevPage) {
-            parameters.set("pageId", criterionPages.get(criterionPageModel.getObject().getOrdering() - 1 - 1).getId());
+            parameters.set("pageId", criterionPages.get(criterionPageModel.getObject().getOrdering() - 1).getId());
         } else {
             component.add(AttributeModifier.append("class", "disabled"));
         }
@@ -105,14 +132,14 @@ public class CriteriaPageDetailsPage extends ProjectPage {
     }
 
     private void addNextPageLink() {
-        final boolean hasNextPage = criterionPageModel.getObject().getOrdering() < criterionPages.size();
+        final boolean hasNextPage = criterionPageModel.getObject().getOrdering() < criterionPages.size() - 1;
 
         final WebMarkupContainer component = new WebMarkupContainer("page.next");
         add(component);
 
         final PageParameters parameters = new PageParameters(getPageParameters());
         if (hasNextPage) {
-            parameters.set("pageId", criterionPages.get(criterionPageModel.getObject().getOrdering() - 1 + 1).getId());
+            parameters.set("pageId", criterionPages.get(criterionPageModel.getObject().getOrdering() + 1).getId());
         } else {
             component.add(AttributeModifier.append("class", "disabled"));
         }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Stephan Köninger
+ * Copyright 2014 Stephan Koeninger
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,6 @@
 package de.stekoe.idss.page.component.form.project;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Locale;
 
 import org.apache.wicket.Component;
@@ -109,7 +108,7 @@ public abstract class ProjectForm extends Panel {
     }
 
     private void addProjectStatusField(Form<Project> projectForm) {
-        final DropDownChoice<ProjectStatus> projectStatus = new DropDownChoice<ProjectStatus>("projectStatus", new ArrayList<ProjectStatus>(Arrays.asList(ProjectStatus.values())), new EnumChoiceRenderer<ProjectStatus>());
+        final DropDownChoice<ProjectStatus> projectStatus = new DropDownChoice<ProjectStatus>("projectStatus", new ArrayList<ProjectStatus>(projectService.getNextProjectStatus(projectForm.getModel().getObject())), new EnumChoiceRenderer<ProjectStatus>());
         projectForm.add(projectStatus);
     }
 

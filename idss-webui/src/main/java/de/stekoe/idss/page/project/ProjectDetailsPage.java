@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Stephan Köninger
+ * Copyright 2014 Stephan Koeninger
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,16 +16,29 @@
 
 package de.stekoe.idss.page.project;
 
+import java.text.MessageFormat;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
+import org.apache.wicket.markup.html.list.ListItem;
+import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 
-import java.util.Date;
+import de.stekoe.idss.model.ProjectMember;
+import de.stekoe.idss.model.User;
+import de.stekoe.idss.model.UserProfile;
+import de.stekoe.idss.page.HomePage;
 
 public class ProjectDetailsPage extends ProjectPage {
     public ProjectDetailsPage(PageParameters pageParameters) {
@@ -33,6 +46,7 @@ public class ProjectDetailsPage extends ProjectPage {
 
         addDescription();
         addDateInformation();
+        addListOfProjectMember();
     }
 
     private void addDateInformation() {
@@ -73,6 +87,47 @@ public class ProjectDetailsPage extends ProjectPage {
         final Label descriptionText = new Label("descriptionText", Model.of(description));
         add(descriptionText);
         descriptionText.setEscapeModelStrings(false);
+    }
+
+    private void addListOfProjectMember() {
+        final Collection<ProjectMember> projectTeam = getProject().getProjectTeam();
+        final List<ProjectMember> projectMember = (List<ProjectMember>) CollectionUtils.select(projectTeam, new Predicate() {
+            @Override
+            public boolean evaluate(Object object) {
+                return true;
+            }
+        });
+
+        add(new Label("projectMemberCount", MessageFormat.format(getString("label.project.numOfPersons"), projectMember.size())));
+
+        add(new ListView<ProjectMember>("projectMemberItem", projectMember) {
+            @Override
+            protected void populateItem(ListItem<ProjectMember> item) {
+                ProjectMember pm = item.getModelObject();
+
+                final BookmarkablePageLink<HomePage> userDetailsLink = new BookmarkablePageLink<HomePage>("projectMemberItemLink", HomePage.class);
+
+                String usersName = null;
+
+                User user = pm.getUser();
+                UserProfile profile = user.getProfile();
+                if(profile != null) {
+                    usersName = profile.getFullName();
+                }
+
+                if(StringUtils.isBlank(usersName)) {
+                    usersName = user.getUsername();
+                }
+
+                Label userName = new Label("projectMemberName", Model.of(usersName));
+                userDetailsLink.add(userName);
+
+                Label usersRole = new Label("projectMemberRole", Model.of(pm.getProjectRole()));
+                userDetailsLink.add(usersRole);
+
+                item.add(userDetailsLink);
+            }
+        });
     }
 
 }

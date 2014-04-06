@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Stephan Köninger
+ * Copyright 2014 Stephan Koeninger
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,10 +21,9 @@ package de.stekoe.idss.model;
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
 public enum ProjectStatus implements L10NEnum {
-    UNDEFINED("status.project.undefined"),
-    UNKNOWN("status.project.unknown"),
     EDITING("status.project.editing"),
-    INPPROGRESS("status.project.inprogress"),
+    INPROGRESS("status.project.inprogress"),
+    FINISHED("status.project.finished"),
     CANCELED("status.project.canceled");
 
     private String statusKey;
@@ -33,6 +32,7 @@ public enum ProjectStatus implements L10NEnum {
         this.statusKey = statusKey;
     }
 
+    @Override
     public String getKey() {
         return this.statusKey;
     }

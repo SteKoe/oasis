@@ -17,14 +17,10 @@
 package de.stekoe.idss.model;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -41,9 +37,9 @@ public class SystemRole implements Serializable {
 
     private String id = IDGenerator.createId();
     private String name;
-    private Set<User> users = new HashSet<User>(0);
 
     @Id
+    @Column(name = "system_role_id")
     public String getId() {
         return id;
     }
@@ -60,16 +56,6 @@ public class SystemRole implements Serializable {
 
     public void setName(String roleName) {
         this.name = roleName;
-    }
-
-    @ManyToMany(targetEntity = User.class)
-    @JoinTable(name = "User_SystemRole")
-    public Set<User> getUsers() {
-        return this.users;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
     }
 
     @Override

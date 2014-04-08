@@ -16,14 +16,6 @@
 
 package de.stekoe.idss.page.user;
 
-import de.agilecoders.wicket.core.markup.html.bootstrap.form.FormGroup;
-import de.stekoe.idss.model.User;
-import de.stekoe.idss.page.AuthUserPage;
-import de.stekoe.idss.service.AuthService;
-import de.stekoe.idss.service.UserException;
-import de.stekoe.idss.service.UserService;
-import de.stekoe.idss.session.WebSession;
-
 import org.apache.log4j.Logger;
 import org.apache.wicket.markup.html.form.EmailTextField;
 import org.apache.wicket.markup.html.form.Form;
@@ -33,12 +25,21 @@ import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
+import de.agilecoders.wicket.core.markup.html.bootstrap.form.FormGroup;
+import de.stekoe.idss.model.User;
+import de.stekoe.idss.page.AuthUserPage;
+import de.stekoe.idss.service.AuthService;
+import de.stekoe.idss.service.UserException;
+import de.stekoe.idss.service.UserService;
+import de.stekoe.idss.session.WebSession;
+
 /**
  * Page for changing password and/or email address.
  */
 @SuppressWarnings("serial")
 public class EditPasswordPage extends AuthUserPage {
-    private static final Logger LOG = null;
+
+    private static final Logger LOG = Logger.getLogger(EditPasswordPage.class);
 
     @SpringBean
     private UserService userService;
@@ -66,7 +67,7 @@ public class EditPasswordPage extends AuthUserPage {
 
             @Override
             protected void onSubmit() {
-                User user = (User) ((WebSession) getSession()).getUser();
+                User user = ((WebSession) getSession()).getUser();
                 if (!authService.checkPassword(currentPassword, user.getPassword())) {
                     getSession().error(getString("currentPasswort.wrong"));
                     return;
@@ -82,12 +83,13 @@ public class EditPasswordPage extends AuthUserPage {
                     getSession().info(getString("emailChanged.success"));
                 }
 
-                if (userService != null) {
-                    try {
-                        userService.save(user);
-                    } catch (UserException e) {
-                        LOG.error(String.format("User %s tried to change email address to %s. But this address is already registered.", user.getUsername(), user.getEmail()), e);
-                    }
+                try {
+                    userService.save(user);
+                } catch (UserException e) {
+                    String username = user.getUsername();
+                    String email = user.getEmail();
+                    String errorMsg = String.format("User %s tried to change email address to %s. But this address is already registered.", username, email);
+                    LOG.error(errorMsg, e);
                 }
             }
         };

@@ -1,13 +1,13 @@
 package de.stekoe.idss;
 
 
-import de.stekoe.idss.model.SystemRole;
-import de.stekoe.idss.model.User;
-import org.apache.wicket.authroles.authorization.strategies.role.Roles;
-import org.mindrot.jbcrypt.BCrypt;
-
 import java.util.HashSet;
 import java.util.Set;
+
+import org.mindrot.jbcrypt.BCrypt;
+
+import de.stekoe.idss.model.SystemRole;
+import de.stekoe.idss.model.User;
 
 public class TestFactory {
 
@@ -39,7 +39,7 @@ public class TestFactory {
         Set<SystemRole> systemroles = new HashSet<SystemRole>();
 
         SystemRole userRole = new SystemRole();
-        userRole.setName(Roles.USER);
+        userRole.setName(SystemRole.USER);
         systemroles.add(userRole);
 
         user.setRoles(systemroles);
@@ -50,17 +50,14 @@ public class TestFactory {
     public static User createAuthAdminUser() {
         User user = new User();
 
+        user.setEmail("admin@example.com");
         user.setUsername(ADMIN_USERNAME);
         user.setPassword(BCrypt.hashpw(ADMIN_PASSWORD, BCrypt.gensalt()));
 
         Set<SystemRole> systemroles = new HashSet<SystemRole>();
 
-        SystemRole userRole = new SystemRole();
-        userRole.setName(Roles.USER);
-        systemroles.add(userRole);
-
         SystemRole adminRole = new SystemRole();
-        adminRole.setName(Roles.ADMIN);
+        adminRole.setName(SystemRole.ADMIN);
         systemroles.add(adminRole);
 
         user.setRoles(systemroles);

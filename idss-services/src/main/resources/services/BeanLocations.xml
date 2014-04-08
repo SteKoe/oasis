@@ -9,13 +9,32 @@
     <context:annotation-config />
     <jpa:repositories base-package="de.stekoe.idss.repository" />
     <tx:annotation-driven transaction-manager="transactionManager" />
-    <!-- Database Source -->
+    
+    <!--
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="${jdbc.driverClassName}" />
         <property name="url" value="${jdbc.url}" />
         <property name="username" value="${jdbc.username}" />
         <property name="password" value="${jdbc.password}" />
     </bean>
+    <bean id="vendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+        <property name="generateDdl" value="true" />
+        <property name="database" value="MYSQL" />
+    </bean>
+    -->
+    
+    <!-- Database Source -->
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="org.h2.Driver" />
+        <property name="url" value="jdbc:h2:~/idss.h2.db" />
+        <property name="username" value="sa" />
+        <property name="password" value="" />
+    </bean>
+    <bean id="vendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+        <property name="generateDdl" value="true" />
+        <property name="database" value="H2" />
+    </bean>
+    
     <bean class="org.springframework.orm.jpa.JpaTransactionManager" id="transactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory" />
         <property name="jpaDialect">
@@ -25,10 +44,12 @@
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <property name="jpaVendorAdapter" ref="vendorAdapter" />
-    </bean>
-    <bean id="vendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-        <property name="generateDdl" value="true" />
-        <property name="database" value="MYSQL" />
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.hbm2ddl.auto">create</prop>
+                <prop key="hbm2ddl.auto">create</prop>
+            </props>
+        </property>
     </bean>
     <!-- SMTP Connector -->
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">

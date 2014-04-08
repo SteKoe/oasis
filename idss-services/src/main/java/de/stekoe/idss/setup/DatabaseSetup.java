@@ -16,6 +16,7 @@
 
 package de.stekoe.idss.setup;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -79,14 +80,11 @@ public class DatabaseSetup {
     );
 
     private void createSystemRoles() {
-        for (String systemRole : SYSTEMROLES) {
-            SystemRole role = new SystemRole();
-            role.setName(systemRole);
-
-            try {
+        if(systemRoleService.findAll().isEmpty()) {
+            for (String systemRole : SYSTEMROLES) {
+                SystemRole role = new SystemRole();
+                role.setName(systemRole);
                 systemRoleService.save(role);
-            } catch (Exception e) {
-                LOG.error("Error while saving SystemRole!", e);
             }
         }
     }
@@ -101,11 +99,13 @@ public class DatabaseSetup {
             user.setUserStatus(UserStatus.ACTIVATED);
 
             if (user.getUsername().contains("admin")) {
-                user.setPassword("admin");
-                final List<SystemRole> systemRoles = Arrays.asList(systemRoleService.getAdminRole());
+
+                final List<SystemRole> systemRoles = new ArrayList<SystemRole>();
+                systemRoles.add(systemRoleService.getAdminRole());
                 user.setRoles(new HashSet<SystemRole>(systemRoles));
             } else {
-                final List<SystemRole> systemRoles = Arrays.asList(systemRoleService.getUserRole());
+                final List<SystemRole> systemRoles = new ArrayList<SystemRole>();
+                systemRoles.add(systemRoleService.getUserRole());
                 user.setRoles(new HashSet<SystemRole>(systemRoles));
             }
 

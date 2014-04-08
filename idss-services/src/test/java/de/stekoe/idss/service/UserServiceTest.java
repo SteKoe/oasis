@@ -3,7 +3,9 @@ package de.stekoe.idss.service;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -18,7 +20,9 @@ import org.springframework.dao.DataIntegrityViolationException;
 
 import de.stekoe.idss.AbstractBaseTest;
 import de.stekoe.idss.TestFactory;
+import de.stekoe.idss.model.SystemRole;
 import de.stekoe.idss.model.User;
+import de.stekoe.idss.model.UserStatus;
 
 public class UserServiceTest extends AbstractBaseTest {
 
@@ -28,6 +32,9 @@ public class UserServiceTest extends AbstractBaseTest {
 
     @Inject
     private UserService userService;
+
+    @Inject
+    SystemRoleService systemRoleService;
 
     @Before
     public void setUp() throws Exception {
@@ -68,5 +75,25 @@ public class UserServiceTest extends AbstractBaseTest {
     public void lookupNotExistingUser() throws Exception {
         User user = userService.findByUsername("i do not exist");
         assertNull(user);
+    }
+
+    @Test
+    public void testName() throws Exception {
+        SystemRole systemRole = new SystemRole();
+        systemRole.setName(SystemRole.USER);
+        systemRoleService.save(systemRole);
+
+        User user = new User();
+        user.setEmail("klara.fall@example.com");
+        user.setUsername("klara.fall");
+        user.setPassword("password");
+        user.setActivationKey(null);
+        user.setUserStatus(UserStatus.ACTIVATED);
+
+        final Set<SystemRole> systemRoles = new HashSet<SystemRole>();
+        systemRoles.add(systemRoleService.getUserRole());
+        user.setRoles(systemRoles);
+
+        userService.save(user);
     }
 }

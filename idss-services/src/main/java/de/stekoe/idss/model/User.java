@@ -30,6 +30,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
@@ -63,6 +64,7 @@ public class User implements Serializable {
     private Set<Permission> permissions = new HashSet<Permission>();
 
     @Id
+    @Column(name = "user_id")
     public String getId() {
         return id;
     }
@@ -122,8 +124,8 @@ public class User implements Serializable {
         this.activationKey = activationKey;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = SystemRole.class)
-    @JoinTable(name = "User_SystemRole")
+    @ManyToMany(fetch = FetchType.EAGER, targetEntity = SystemRole.class)
+    @JoinTable(joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = { @JoinColumn(name = "system_role_id") })
     public Set<SystemRole> getRoles() {
         return this.roles;
     }

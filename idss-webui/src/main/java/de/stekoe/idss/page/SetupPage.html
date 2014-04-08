@@ -21,6 +21,19 @@
 <wicket:extend>
     <h1>Herzlich Willkommen....</h1>
 
+    <dl>
+        <dt># User in DB</dt>
+        <dd wicket:id="user.count"></dd>
+        
+        <dt># Roles in DB</dt>
+        <dd wicket:id="role.count">
+        </dd>
+    </dl>
+    <ul wicket:id="role.list">
+        <li wicket:id="role.id"></li>
+        <li wicket:id="role.name"></li>
+    </ul>
+
     <a href="" wicket:id="run.setup" class="btn btn-success">
         Install sample data
     </a>

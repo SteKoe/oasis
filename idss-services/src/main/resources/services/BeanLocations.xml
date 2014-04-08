@@ -10,7 +10,6 @@
     <jpa:repositories base-package="de.stekoe.idss.repository" />
     <tx:annotation-driven transaction-manager="transactionManager" />
     
-    <!--
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="${jdbc.driverClassName}" />
         <property name="url" value="${jdbc.url}" />
@@ -21,9 +20,8 @@
         <property name="generateDdl" value="true" />
         <property name="database" value="MYSQL" />
     </bean>
-    -->
-    
-    <!-- Database Source -->
+
+    <!-- H2 Database Source
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="org.h2.Driver" />
         <property name="url" value="jdbc:h2:~/idss.h2.db" />
@@ -34,6 +32,7 @@
         <property name="generateDdl" value="true" />
         <property name="database" value="H2" />
     </bean>
+    -->
     
     <bean class="org.springframework.orm.jpa.JpaTransactionManager" id="transactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory" />

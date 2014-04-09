@@ -6,6 +6,16 @@
                             http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
                             http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
                             http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+                            
+    <bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="systemPropertiesModeName">
+            <value>SYSTEM_PROPERTIES_MODE_FALLBACK</value>
+        </property>
+    </bean>
+    
+    
+    <context:property-placeholder location="classpath:application.properties"/>
+                            
     <context:annotation-config />
     <jpa:repositories base-package="de.stekoe.idss.repository" />
     <tx:annotation-driven transaction-manager="transactionManager" />
@@ -45,8 +55,8 @@
         <property name="jpaVendorAdapter" ref="vendorAdapter" />
         <property name="jpaProperties">
             <props>
-                <prop key="hibernate.hbm2ddl.auto">create</prop>
-                <prop key="hbm2ddl.auto">create</prop>
+                <prop key="hibernate.hbm2ddl.auto">verify</prop>
+                <prop key="hbm2ddl.auto">verify</prop>
             </props>
         </property>
     </bean>
@@ -69,6 +79,7 @@
     <bean id="setupService" class="de.stekoe.idss.setup.DatabaseSetup" />
     <!-- Services -->
     <bean id="authService" class="de.stekoe.idss.service.AuthService" />
+    <bean id="configurationService" class="de.stekoe.idss.service.ConfigurationService" />
     <bean id="projectService" class="de.stekoe.idss.service.ProjectService" />
     <bean id="userService" class="de.stekoe.idss.service.UserService" />
     <bean id="systemRoleService" class="de.stekoe.idss.service.SystemRoleService" />

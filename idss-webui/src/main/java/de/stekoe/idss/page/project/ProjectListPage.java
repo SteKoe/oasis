@@ -58,7 +58,7 @@ public class ProjectListPage extends AuthUserPage {
     }
 
     private void addProjectList() {
-        final DataView<Project> listView = new ProjectDataView("projectItem", projectDataProvider, paginationConfigurator.getValueFor(ProjectListPage.class));
+        final DataView<Project> listView = new ProjectDataView("projectItem", projectDataProvider, paginationConfigurator.getValueFor(getClass()));
         add(listView);
 
         add(new Label("noItemLabel", getString("table.empty")) {

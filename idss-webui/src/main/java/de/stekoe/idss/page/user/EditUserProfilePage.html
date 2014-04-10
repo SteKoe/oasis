@@ -22,37 +22,34 @@
 <wicket:extend>
     <form wicket:id="userprofile">
         <fieldset>
-            <legend>Erforderliche Angaben</legend>
             <div class="form-group">
                 <div class="controls">
-                    <a href="#" class="btn btn-default" wicket:id="changePasswordOrEmailLink">E-Mail oder Passwort ändern</a>
-                        <span class="help-block">
-                          Bitte klicken Sie auf obigen Link, um die E-Mail-Adresse und/oder das Kennwort zu ändern.
-                          Alle Änderungen, die auf dieser Seite vorgenommen wurden, werden nicht gespeichert.
-                        </span>
+                    <a href="#" class="btn btn-default" wicket:id="changePasswordOrEmailLink">
+                        <wicket:message key="label.changemailorpassword" />
+                    </a>
                 </div>
             </div>
 
-            <legend>Sonstige Profilangaben</legend>
-            <div class="form-group">
-                <select id="nameSuffix" wicket:id="nameSuffix">
-                </select>
-            </div>
-            <div class="form-group">
-                <input class="form-control" type="text" id="firstname" wicket:id="firstname"/>
-            </div>
-            <div class="form-group">
-                <input class="form-control" type="text" id="surename" wicket:id="surname"/>
-            </div>
-            
+            <label><wicket:message key="label.name" /></label>
             <div class="row">
                 <div class="form-group col-xs-2">
-                    <strong>Phone number:</strong>
+                    <select id="nameSuffix" wicket:id="nameSuffix" class="form-control">
+                    </select>
                 </div>
-                <div class="form-group col-xs-2">
+                <div class="form-group col-xs-5">
+                    <input class="form-control" type="text" id="firstname" wicket:id="firstname"/>
+                </div>
+                <div class="form-group col-xs-5">
+                    <input class="form-control" type="text" id="surename" wicket:id="surname"/>
+                </div>
+            </div>
+            
+            <label><wicket:message key="label.phone" /></label>
+            <div class="row">
+                <div class="form-group col-xs-3">
                     <input class="form-control" type="text" id="phone.countryCode" wicket:id="phone.countryCode"/>
                 </div>
-                <div class="form-group col-xs-3">
+                <div class="form-group col-xs-4">
                     <input class="form-control" type="text" id="phone.countryCode" wicket:id="phone.areaCode"/>
                 </div>
                 <div class="form-group col-xs-5">
@@ -60,14 +57,12 @@
                 </div>
             </div>
             
+            <label><wicket:message key="label.fax" /></label>
             <div class="row">
-                <div class="form-group col-xs-2">
-                    <strong>Fax number:</strong>
-                </div>
-                <div class="form-group col-xs-2">
+                <div class="form-group col-xs-3">
                     <input class="form-control" type="text" id="fax.countryCode" wicket:id="fax.countryCode"/>
                 </div>
-                <div class="form-group col-xs-3">
+                <div class="form-group col-xs-4">
                     <input class="form-control" type="text" id="fax.countryCode" wicket:id="fax.areaCode"/>
                 </div>
                 <div class="form-group col-xs-5">
@@ -76,32 +71,34 @@
             </div>
             
             <div class="form-group">
+                <label for="website"><wicket:message key="label.website" /></label>
                 <input class="form-control" type="text" id="website" wicket:id="website"/>
             </div>
             
-            <div class="row">
-                <div class="form-group col-xs-9">
-                    <input class="form-control" type="text" id="street" wicket:id="street"/>
+            <fieldset>
+                <legend><wicket:message key="label.address" /></legend>
+                <div class="row">
+                    <div class="form-group col-xs-9">
+                        <input class="form-control" type="text" id="street" wicket:id="street"/>
+                    </div>
+                    <div class="form-group col-xs-3">
+                        <input class="form-control" type="text" id="number" wicket:id="number"/>
+                    </div>
                 </div>
-                <div class="form-group col-xs-3">
-                    <input class="form-control" type="text" id="number" wicket:id="number"/>
+                <div class="row">
+                    <div class="form-group col-xs-3">
+                        <input class="form-control" type="text" id="zip" wicket:id="zip"/>
+                    </div>
+                    <div class="form-group col-xs-9">
+                        <input class="form-control" type="text" id="country" wicket:id="country"/>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="form-group col-xs-3">
-                    <input class="form-control" type="text" id="zip" wicket:id="zip"/>
-                </div>
-                <div class="form-group col-xs-9">
-                    <input class="form-control" type="text" id="country" wicket:id="country"/>
-                </div>
-            </div>
+            </fieldset>
             
             <!-- Submit -->
-            <div class="form-group">
-                <div class="controls">
-                    <button type="submit" class="btn btn-success">Speichern</button>
-                    <button type="reset" class="btn">Zurücksetzen</button>
-                </div>
+            <div class="well">
+                <button type="submit" class="btn btn-success">Speichern</button>
+                <button type="reset" class="btn">Zurücksetzen</button>
             </div>
         </fieldset>
     </form>

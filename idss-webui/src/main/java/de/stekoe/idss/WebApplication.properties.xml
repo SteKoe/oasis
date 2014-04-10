@@ -39,6 +39,9 @@
     <entry key="label.firstname">Vorname</entry>
     <entry key="label.surname">Nachname</entry>
     <entry key="label.website">Webseite</entry>
+    <entry key="label.address">Adresse</entry>
+    <entry key="label.fax">Faxnummer</entry>
+    <entry key="label.phone">Telefonnummer</entry>
     <entry key="label.phone.countrycode">Landesvorwahl</entry>
     <entry key="label.phone.areacode">Vorwahl</entry>
     <entry key="label.phone.subscribercode">Rufnummer</entry>
@@ -52,6 +55,7 @@
     <entry key="label.thisisyou">Das sind sie!</entry>
     <entry key="label.systeminfo">Systeminformationenz</entry>
     <entry key="label.permissions">Zugriffsrechte</entry>
+    <entry key="label.changemailorpassword">E-Mail-Adresse oder Passwort ändern</entry>
     <entry key="label.move.up">Nach oben verschieben</entry>
     <entry key="label.move.down">Nach unten verschieben</entry>
     <entry key="label.page.counter">Seite {0} von {1}</entry>

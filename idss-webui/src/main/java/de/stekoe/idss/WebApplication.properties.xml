@@ -81,6 +81,7 @@
     </entry>
     <entry key="label.project.add.member">Projektmitglied hinzufügen</entry>
     <entry key="label.project.edit.member">Mitglieder bearbeiten</entry>
+    <entry key="label.project.add.role">Projektrolle hinzufügen</entry>
     <entry key="label.project.edit.role">Projektrolle bearbeiten</entry>
     <entry key="label.project.edit.roles">Projektrollen bearbeiten</entry>
     <entry key="label.project.start.date">Startdatum</entry>

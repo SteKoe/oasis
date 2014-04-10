@@ -23,11 +23,11 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import de.stekoe.idss.model.ProjectRole;
 import de.stekoe.idss.page.project.ProjectPage;
 
-public class ProjectRoleEditPage extends ProjectPage {
+public class ProjectRoleCreatePage extends ProjectPage {
 
-    public ProjectRoleEditPage(PageParameters pageParameters) {
+    public ProjectRoleCreatePage(PageParameters pageParameters) {
         super(pageParameters);
-        add(new ProjectRoleForm("projectRoleEditForm", getProjectId(), getProjectRoleIdFromProject(pageParameters)));
+        add(new ProjectRoleForm("projectRoleCreateForm", getProjectId()));
     }
 
     private String getProjectRoleIdFromProject(PageParameters pageParameters) {

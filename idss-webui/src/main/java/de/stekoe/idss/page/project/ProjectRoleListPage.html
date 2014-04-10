@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright 2014 Stephan Köninger
+  ~ Copyright 2014 Stephan Koeninger
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -21,11 +21,14 @@
     </h2>
 
     <div class="well">
-        <a href="" class="btn btn-success"><i class="fa fa-plus"></i> Neue Rolle</a>
+        <a href="" class="btn btn-success" wicket:id="project.role.add">
+            <i class="fa fa-plus"></i> <wicket:message key="label.project.add.role" />
+        </a>
     </div>
 
     <div wicket:id="project.roles.list">
 
+        <a class="btn btn-xs btn-danger pull-right" wicket:id="project.role.link.delete"><i class="fa fa-times"></i></a>
         <a class="btn btn-xs btn-default pull-right" wicket:id="project.role.link.edit"><i class="fa fa-pencil"></i></a>
 
         <div class="userInfoBlock">

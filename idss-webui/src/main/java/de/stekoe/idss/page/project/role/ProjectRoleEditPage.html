@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright 2014 Stephan Köninger
+  ~ Copyright 2014 Stephan Koeninger
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -17,35 +17,7 @@
 <html xmlns:wicket="http://wicket.sourceforge.net/">
 <body>
 <wicket:extend>
-    <h4>
-        <wicket:message key="label.project.edit.role"/>
-        <small wicket:id="projectRoleName"></small>
-    </h4>
-    <p wicket:id="introduction"></p>
-
-    <form wicket:id="permissionEditForm">
-        <div class="form-group">
-            <label for="name">
-                <wicket:message key="label.name"/>
-            </label>
-            <input id="name" type="text" wicket:id="name" class="form-control">
-        </div>
-
-        <label>
-            <wicket:message key="label.permissions"/>
-        </label>
-        <wicket:container wicket:id="permissionTypes">
-        </wicket:container>
-
-        <div class="form-group well">
-            <button type="submit" class="btn btn-success">
-                <wicket:message key="label.save"/>
-            </button>
-            <a href="" class="btn btn-default">
-                <wicket:message key="label.cancel"/>
-            </a>
-        </div>
-    </form>
+    <wicket:container wicket:id="projectRoleEditForm"></wicket:container>
 </wicket:extend>
 </body>
 </html>

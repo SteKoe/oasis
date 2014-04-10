@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <!--
   ~ Copyright 2014 Stephan Koeninger
   ~
@@ -15,19 +14,10 @@
   ~ limitations under the License.
   -->
 
-<html lang="en" xmlns:wicket="http://wicket.sourceforge.net/">
+<html xmlns:wicket="http://wicket.sourceforge.net/">
 <body>
-<wicket:panel>
-
-    <div class="criterion-block">
-        <div class="criterion" wicket:id="criterion.name"></div>
-        <div class="criterion-description" wicket:id="criterion.description"></div>
-
-        <wicket:container wicket:id="subcriteria">
-            <div wicket:id="subcriterion.panel"></div>
-        </wicket:container>
-    </div>
-
-</wicket:panel>
+<wicket:extend>
+    <wicket:container wicket:id="projectRoleCreateForm"></wicket:container>
+</wicket:extend>
 </body>
 </html>

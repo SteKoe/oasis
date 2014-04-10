@@ -16,8 +16,10 @@
 
 package de.stekoe.idss.page.project;
 
+import java.io.Serializable;
+
 import org.apache.log4j.Logger;
-import org.apache.wicket.model.LoadableDetachableModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.request.component.IRequestablePage;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -29,9 +31,6 @@ import de.stekoe.idss.page.AuthUserPage;
 import de.stekoe.idss.service.ProjectService;
 import de.stekoe.idss.session.WebSession;
 
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
 public class AuthProjectPage extends AuthUserPage {
     private static final Logger LOG = Logger.getLogger(AuthProjectPage.class);
 
@@ -39,18 +38,14 @@ public class AuthProjectPage extends AuthUserPage {
     private ProjectService projectService;
 
     private final Class<? extends IRequestablePage> responsePage = ProjectListPage.class;
-    private LoadableDetachableModel<Project> projectModel;
+    private final ProjectModel projectModel;
 
     public AuthProjectPage(PageParameters pageParameters) {
         super(pageParameters);
 
         final StringValue projectIdParam = pageParameters.get("projectId");
-        projectModel = new LoadableDetachableModel<Project>() {
-            @Override
-            protected Project load() {
-                return projectService.findOne(projectIdParam.toString());
-            }
-        };
+        projectModel = new ProjectModel(projectIdParam.toString());
+
         if (projectModel.getObject() == null) {
             setResponsePage(ProjectListPage.class);
         }
@@ -68,12 +63,59 @@ public class AuthProjectPage extends AuthUserPage {
         return getProject().getId();
     }
 
+    public ProjectModel getProjectModel() {
+        return projectModel;
+    }
+
     /**
      * Get the project identified by the id value in ProjectPage
      *
      * @return The current project
      */
     public Project getProject() {
-        return projectModel.getObject();
+        return (Project) getProjectModel().getObject();
+    }
+
+    public class ProjectModel extends Model {
+
+        private String projectId;
+        private Project project;
+
+        public ProjectModel() {
+
+        }
+
+        public ProjectModel(String projectId) {
+            this.projectId = projectId;
+        }
+
+        public ProjectModel(Project project) {
+            setObject(project);
+        }
+
+        @Override
+        public Serializable getObject() {
+            if(project != null) {
+                return project;
+            }
+
+            if(projectId == null) {
+                return new Project();
+            } else {
+                project = projectService.findOne(projectId);
+                return project;
+            }
+        }
+
+        @Override
+        public void setObject(Serializable object) {
+            project = (Project) object;
+            projectId = (project != null) ? project.getId() : null;
+        }
+
+        @Override
+        public void detach() {
+            project = null;
+        }
     }
 }

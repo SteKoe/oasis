@@ -16,24 +16,27 @@
 
 package de.stekoe.idss.page.project;
 
-import de.stekoe.idss.model.Permission;
-import de.stekoe.idss.model.ProjectRole;
-import de.stekoe.idss.page.project.role.ProjectRoleEditPage;
-import de.stekoe.idss.service.ProjectService;
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.link.BookmarkablePageLink;
-import org.apache.wicket.markup.html.list.ListItem;
-import org.apache.wicket.markup.html.list.ListView;
-import org.apache.wicket.request.mapper.parameter.PageParameters;
-import org.apache.wicket.spring.injection.annot.SpringBean;
-
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
+import org.apache.wicket.markup.html.link.Link;
+import org.apache.wicket.markup.html.list.ListItem;
+import org.apache.wicket.markup.html.list.ListView;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.apache.wicket.spring.injection.annot.SpringBean;
+
+import de.stekoe.idss.model.Permission;
+import de.stekoe.idss.model.Project;
+import de.stekoe.idss.model.ProjectRole;
+import de.stekoe.idss.page.project.role.ProjectRoleCreatePage;
+import de.stekoe.idss.page.project.role.ProjectRoleEditPage;
+import de.stekoe.idss.service.ProjectService;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
@@ -47,6 +50,8 @@ public class ProjectRoleListPage extends ProjectPage {
         super(pageParameters);
 
         addProjectRolesList();
+
+        add(new BookmarkablePageLink<>("project.role.add", ProjectRoleCreatePage.class, new PageParameters(getPageParameters())));
     }
 
     private void addProjectRolesList() {
@@ -68,6 +73,16 @@ public class ProjectRoleListPage extends ProjectPage {
                 item.add(new Label("project.roles.role.permissions", StringUtils.join(permissions, ", ")));
 
                 item.add(new BookmarkablePageLink<ProjectRoleEditPage>("project.role.link.edit", ProjectRoleEditPage.class, new PageParameters(getPageParameters()).add("roleId", projectRole.getId())));
+                item.add(new Link("project.role.link.delete") {
+                    @Override
+                    public void onClick() {
+                        Project project = getProject();
+                        project.getProjectRoles().remove(projectRole);
+                        projectService.save(project);
+                        getProjectModel().detach();
+                        setResponsePage(getPage().getPageClass(), getPage().getPageParameters());
+                    }
+                });
             }
         };
         add(projectRolesList);

@@ -16,16 +16,19 @@
 
 package de.stekoe.idss.page.component.navigation.user;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
+import org.apache.wicket.markup.html.panel.Panel;
+
 import de.stekoe.idss.model.User;
+import de.stekoe.idss.model.UserProfile;
 import de.stekoe.idss.page.auth.LoginPage;
 import de.stekoe.idss.page.auth.LogoutPage;
 import de.stekoe.idss.page.auth.RegistrationPage;
 import de.stekoe.idss.page.user.CreateUserPage;
 import de.stekoe.idss.page.user.EditUserProfilePage;
 import de.stekoe.idss.session.WebSession;
-import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.link.BookmarkablePageLink;
-import org.apache.wicket.markup.html.panel.Panel;
 
 /**
  * Panel shown when user is logged in.
@@ -47,6 +50,11 @@ public class UserPanel extends Panel {
         final User currentUser = WebSession.get().getUser();
         if (currentUser != null) {
             username = currentUser.getUsername();
+
+            UserProfile profile = currentUser.getProfile();
+            if(profile != null && !StringUtils.isBlank(profile.getFullName())) {
+                username = profile.getFullName();
+            }
         }
 
         createLoggedInPanel();

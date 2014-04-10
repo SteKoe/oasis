@@ -55,8 +55,7 @@
         <property name="jpaVendorAdapter" ref="vendorAdapter" />
         <property name="jpaProperties">
             <props>
-                <prop key="hibernate.hbm2ddl.auto">verify</prop>
-                <prop key="hbm2ddl.auto">verify</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
             </props>
         </property>
     </bean>

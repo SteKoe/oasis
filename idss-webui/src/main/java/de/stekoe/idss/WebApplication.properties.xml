@@ -36,6 +36,12 @@
     <entry key="label.setOfCriteria">Kriterienkatalog</entry>
     <entry key="label.evaluation">Bewertung des Projekts</entry>
     <entry key="label.username">Benutzername</entry>
+    <entry key="label.firstname">Vorname</entry>
+    <entry key="label.surname">Nachname</entry>
+    <entry key="label.website">Webseite</entry>
+    <entry key="label.phone.countrycode">Landesvorwahl</entry>
+    <entry key="label.phone.areacode">Vorwahl</entry>
+    <entry key="label.phone.subscribercode">Rufnummer</entry>
     <entry key="label.email">E-Mail</entry>
     <entry key="label.password">Passwort</entry>
     <entry key="label.password.confirm">Password (erneut)</entry>
@@ -162,6 +168,12 @@
     <entry key="message.error.404">Die angeforderte Seite konnte nicht gefunden werden!</entry>
     <entry key="message.error.upload">Beim Hochladen des Dokumentes ist ein Fehler aufgetreten!</entry>
 
+    <!-- Name Suffixes -->
+    <entry key="name.suffix.dr">Dr.</entry>
+    <entry key="name.suffix.prof">Prof.</entry>
+    <entry key="name.suffix.profdr">Prof. Dr.</entry>
+    <entry key="name.suffix.privdoz">PD</entry>
+    <entry key="name.suffix.privdozdr">PD Dr.</entry>
 
     <!-- Project stati -->
     <entry key="status.project.editing">In Bearbeitung</entry>

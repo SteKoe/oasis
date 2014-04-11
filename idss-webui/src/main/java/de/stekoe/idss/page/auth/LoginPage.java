@@ -20,15 +20,8 @@ import de.stekoe.idss.page.LayoutPage;
 import de.stekoe.idss.page.component.form.auth.login.LoginForm;
 
 
-/**
- * @author Stephan Koeninger <mail@stekoe.de>
- */
 @SuppressWarnings("serial")
 public class LoginPage extends LayoutPage {
-
-    /**
-     * Construct.
-     */
     public LoginPage() {
         add(new LoginForm("loginForm"));
     }

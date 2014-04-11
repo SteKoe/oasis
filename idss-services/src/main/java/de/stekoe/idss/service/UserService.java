@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.stekoe.idss.model.User;
+import de.stekoe.idss.model.UserStatus;
 import de.stekoe.idss.repository.UserRepository;
 
 @Service
@@ -105,5 +106,9 @@ public class UserService {
 
     public List<User> findAll() {
         return (List<User>) userRepository.findAll();
+    }
+
+    public User findByPasswordResetToken(String passwordResetToken) {
+        return userRepository.findByPasswordResetToken(passwordResetToken, UserStatus.RESET_PASSWORD);
     }
 }

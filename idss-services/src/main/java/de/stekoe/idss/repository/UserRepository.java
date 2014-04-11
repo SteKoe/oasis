@@ -24,6 +24,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import de.stekoe.idss.model.User;
+import de.stekoe.idss.model.UserStatus;
 
 @Transactional
 public interface UserRepository extends CrudRepository<User, String> {
@@ -44,4 +45,7 @@ public interface UserRepository extends CrudRepository<User, String> {
 
     @Query("SELECT u.email FROM User u")
     List<String> findAllEmailAddresses();
+
+    @Query("SELECT u FROM User u WHERE u.activationKey = ?1 AND u.userStatus = ?2")
+    User findByPasswordResetToken(String passwordResetToken, UserStatus userStatus);
 }

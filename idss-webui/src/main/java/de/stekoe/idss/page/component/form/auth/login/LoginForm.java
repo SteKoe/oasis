@@ -22,6 +22,7 @@ import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.StatelessForm;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.Model;
@@ -74,7 +75,7 @@ public class LoginForm extends Panel {
             PasswordTextField passwordTextField = new PasswordTextField("password");
             passwordTextField.setLabel(Model.of(getString("label.password")));
             passwordTextField.setRequired(true);
-            add(new FormGroup("group.password").add(passwordTextField));
+            add(new FormGroup("group.password").add(passwordTextField).add(new BookmarkablePageLink<RequestNewPasswordPage>("link.password.lost", RequestNewPasswordPage.class)));
 
             Button submitButton = new Button("submit");
             submitButton.setModel(Model.of(getString("label.submit")));

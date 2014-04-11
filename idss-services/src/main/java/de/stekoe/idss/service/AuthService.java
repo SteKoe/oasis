@@ -63,6 +63,12 @@ public class AuthService {
             return AuthStatus.USER_NOT_ACTIVATED;
         }
 
+        if(UserStatus.ACTIVATED.equals(user.getUserStatus()) == false) {
+            if(UserStatus.RESET_PASSWORD.equals(user.getUserStatus()) == false) {
+                return AuthStatus.ERROR;
+            }
+        }
+
         return AuthStatus.SUCCESS;
     }
 

@@ -44,5 +44,9 @@ public enum UserStatus {
      * If a user wants the admin not just to disable the account, this status marks the user as
      * deleted.
      */
-    DELETED
+    DELETED,
+    /**
+     * User has requested a new password.
+     */
+    RESET_PASSWORD;
 }

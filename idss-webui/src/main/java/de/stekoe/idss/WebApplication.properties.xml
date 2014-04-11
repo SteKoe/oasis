@@ -49,6 +49,9 @@
     <entry key="label.password">Passwort</entry>
     <entry key="label.password.confirm">Password (erneut)</entry>
     <entry key="label.password.current">Aktuelles Passwort</entry>
+    <entry key="label.password.lost">Passwort vergessen?</entry>
+    <entry key="label.password.reset">Passwort zurücksetzen</entry>
+    <entry key="label.password.set.new">Neues Passwort setzen</entry>
     <entry key="label.description">Beschreibung</entry>
     <entry key="label.description.na">Keine Beschreibung gesetzt</entry>
     <entry key="label.remove.from">Von %s entfernen!</entry>
@@ -62,9 +65,7 @@
 
     <entry key="label.page.counter">Seite {0} von {1}</entry>
     <entry key="label.criterion.allowNoChoice">"Keine Auswahl" für dieses Kriterium erlauben</entry>
-    <entry key="label.criterion.allowNoChoice.help">Diese Option erzeugt ein zusätzliches Feld mit dem Wert "weiß ich
-        nicht".
-    </entry>
+    <entry key="label.criterion.allowNoChoice.help">Diese Option erzeugt ein zusätzliches Feld mit dem Wert "weiß ich nicht".</entry>
     <entry key="label.criterion.nominal">Nominal</entry>
     <entry key="label.criterion.ordinal">Ordinal</entry>
     <entry key="label.criterion.metric">Metrisch</entry>
@@ -87,8 +88,7 @@
     <entry key="label.project.edit">Projekt bearbeiten</entry>
     <entry key="label.project.delete">Projekt löschen</entry>
     <entry key="label.project.numOfPersons">{0,choice,0#Keine|1#Eine Person|1&lt;{0} Personen}</entry>
-    <entry key="label.project.numOfPermissions">{0,choice,0#Kein Zugriff|1#Ein Zugriffsrecht|1&lt;{0} Zugriffsrechte}
-    </entry>
+    <entry key="label.project.numOfPermissions">{0,choice,0#Kein Zugriff|1#Ein Zugriffsrecht|1&lt;{0} Zugriffsrechte}</entry>
     <entry key="label.project.add.member">Projektmitglied hinzufügen</entry>
     <entry key="label.project.edit.member">Mitglieder bearbeiten</entry>
     <entry key="label.project.add.role">Projektrolle hinzufügen</entry>
@@ -97,9 +97,7 @@
     <entry key="label.project.start.date">Startdatum</entry>
     <entry key="label.project.end.date">Enddatum</entry>
     <entry key="label.project.progress.time">Fortschritt</entry>
-    <entry key="label.project.role.edit.introduction">Sie sind dabei die Projektrolle "{0}" des Projekts "{1}" zu
-        bearbeiten.
-    </entry>
+    <entry key="label.project.role.edit.introduction">Sie sind dabei die Projektrolle "{0}" des Projekts "{1}" zu bearbeiten.</entry>
 
     <entry key="label.select.user">Benutzer auswählen</entry>
     <entry key="label.select.project.role">Projektrolle auswählen</entry>
@@ -144,6 +142,8 @@
 
     <entry key="passwordChanged.success">Sie haben ihr Passwort erfolgreich geändert!</entry>
     <entry key="emailChanged.success">Sie haben ihre E-Mail-Adresse erfolgreich geändert!</entry>
+    
+    <entry key="email.subject.resetpassword">Password zurücksetzen</entry>
 
     <entry key="project.delete.confirm">Möchten Sie das Projekt "%s" wirklich löschen?</entry>
 
@@ -155,22 +155,17 @@
     <!-- MESSAGES -->
     <entry key="message.login.success">Sie haben sich erfolgreich angemeldet!</entry>
     <entry key="message.login.error">Es ist ein Fehler beim Anmelden aufgetreten.</entry>
-    <entry key="message.login.error.not_activated">Um sich anmelden zu können, müssen Sie zunächst das Benutzerkonto
-        aktivieren.
-    </entry>
+    <entry key="message.login.error.not_activated">Um sich anmelden zu können, müssen Sie zunächst das Benutzerkonto aktivieren.</entry>
     <entry key="message.login.error.user_not_found">Es wurde kein Benutzer mit den eingegebenen Daten gefunden.</entry>
     <entry key="message.login.error.wrong_password">Das eingegebene Password ist falsch.</entry>
     <entry key="message.logout.success">Sie haben sich erfolgreich abgemeldet!</entry>
-    <entry key="message.registration.success">Ihr Benutzerkonto wurde erstellt. Sie müssen es jedoch erst freischalten.
-        Dazu wurde ein Aktivierungs-Schlüssel an die von Ihnen angegebene Adresse geschickt. Bitte überprüfen Sie Ihre
-        E-Mails für weitere Informationen.
-    </entry>
-    <entry key="message.registration.error">Fehler beim Registrieren. Bitte versuchen Sie es erneut, oder wenden Sie
-        sich an einen Administrator!
-    </entry>
+    <entry key="message.registration.success">Ihr Benutzerkonto wurde erstellt. Sie müssen es jedoch erst freischalten. Dazu wurde ein Aktivierungs-Schlüssel an die von Ihnen angegebene Adresse geschickt. Bitte überprüfen Sie Ihre E-Mails für weitere Informationen.</entry>
+    <entry key="message.registration.error">Fehler beim Registrieren. Bitte versuchen Sie es erneut, oder wenden Sie sich an einen Administrator!</entry>
     <entry key="message.project.create.success">Das Projekt wurde erfolgreich angelegt!</entry>
     <entry key="message.error.404">Die angeforderte Seite konnte nicht gefunden werden!</entry>
     <entry key="message.error.upload">Beim Hochladen des Dokumentes ist ein Fehler aufgetreten!</entry>
+    <entry key="message.password.reset.error">Beim ändern ihres Passwortes ist ein Fehler aufgetreten, versuchen sie es erneut!</entry>
+    <entry key="message.password.reset.success">Ihr Passwort wurde erfolgreich geändert!</entry>
 
     <!-- Name Suffixes -->
     <entry key="name.suffix.dr">Dr.</entry>

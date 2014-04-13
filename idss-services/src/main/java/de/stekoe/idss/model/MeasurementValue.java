@@ -31,6 +31,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class MeasurementValue implements Serializable {
+    private static final long serialVersionUID = 201404132234L;
 
     private String id = IDGenerator.createId();
     private String value;

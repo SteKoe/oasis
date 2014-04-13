@@ -7,6 +7,8 @@ import javax.persistence.Id;
 
 @Entity
 public class Address implements Serializable {
+    private static final long serialVersionUID = 201404132212L;
+
     private String id = IDGenerator.createId();
     private String street;
     private String number;
@@ -17,7 +19,6 @@ public class Address implements Serializable {
     public String getId() {
         return id;
     }
-
     public void setId(String id) {
         this.id = id;
     }
@@ -25,7 +26,6 @@ public class Address implements Serializable {
     public String getStreet() {
         return street;
     }
-
     public void setStreet(String street) {
         this.street = street;
     }
@@ -33,7 +33,6 @@ public class Address implements Serializable {
     public String getNumber() {
         return number;
     }
-
     public void setNumber(String number) {
         this.number = number;
     }
@@ -41,7 +40,6 @@ public class Address implements Serializable {
     public String getCountry() {
         return country;
     }
-
     public void setCountry(String country) {
         this.country = country;
     }
@@ -49,7 +47,6 @@ public class Address implements Serializable {
     public String getZip() {
         return zip;
     }
-
     public void setZip(String zip) {
         this.zip = zip;
     }

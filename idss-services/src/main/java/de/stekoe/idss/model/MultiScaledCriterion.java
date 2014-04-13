@@ -27,6 +27,8 @@ import javax.persistence.OneToMany;
  */
 @Entity
 public class MultiScaledCriterion extends Criterion {
+    private static final long serialVersionUID = 201404132234L;
+
     private List<SingleScaledCriterion> subCriterions = new ArrayList<SingleScaledCriterion>();
 
     @OneToMany(targetEntity = SingleScaledCriterion.class)

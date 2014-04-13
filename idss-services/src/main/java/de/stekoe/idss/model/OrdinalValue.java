@@ -23,6 +23,7 @@ import javax.persistence.Entity;
  */
 @Entity
 public class OrdinalValue extends MeasurementValue {
+    private static final long serialVersionUID = 201404132235L;
 
     private int rank;
 

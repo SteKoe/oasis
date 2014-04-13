@@ -10,6 +10,8 @@ import org.apache.commons.lang3.StringUtils;
 
 @Entity
 public class PhoneNumber implements Serializable {
+    private static final long serialVersionUID = 201404132235L;
+
     private String id = IDGenerator.createId();
     private String countryCode;
     private String areaCode;

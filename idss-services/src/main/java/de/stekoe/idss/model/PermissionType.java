@@ -23,6 +23,7 @@ import java.util.Set;
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
 public enum PermissionType implements L10NEnum {
+    ALL("permissiontype.all"),
     CREATE("permissiontype.create"),
     READ("permissiontype.read"),
     UPDATE("permissiontype.update"),

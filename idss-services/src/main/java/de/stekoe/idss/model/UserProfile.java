@@ -24,7 +24,7 @@ import javax.persistence.Transient;
 
 @Entity
 public class UserProfile implements Serializable {
-    private static long serialVersionUID = 201404031316L;
+    private static final long serialVersionUID = 201404031316L;
 
     private String id = IDGenerator.createId();
     private NameSuffix nameSuffix;
@@ -39,7 +39,6 @@ public class UserProfile implements Serializable {
     public String getId() {
         return id;
     }
-
     public void setId(String id) {
         this.id = id;
     }
@@ -48,7 +47,6 @@ public class UserProfile implements Serializable {
     public String getFirstname() {
         return this.firstname;
     }
-
     public void setFirstname(String firstname) {
         this.firstname = firstname;
     }
@@ -57,22 +55,14 @@ public class UserProfile implements Serializable {
     public String getSurname() {
         return this.surname;
     }
-
     public void setSurname(String surname) {
         this.surname = surname;
-    }
-
-    @Transient
-    public String getFullName() {
-        String name = getFirstname() + " " + getSurname();
-        return name;
     }
 
     @OneToOne(targetEntity = PhoneNumber.class, cascade = CascadeType.ALL)
     public PhoneNumber getTelefon() {
         return telefon;
     }
-
     public void setTelefon(PhoneNumber telefon) {
         this.telefon = telefon;
     }
@@ -81,24 +71,14 @@ public class UserProfile implements Serializable {
     public PhoneNumber getTelefax() {
         return telefax;
     }
-
     public void setTelefax(PhoneNumber telefax) {
         this.telefax = telefax;
-    }
-
-    public static long getSerialversionuid() {
-        return serialVersionUID;
-    }
-
-    public static void setSerialversionuid(long serialversionuid) {
-        serialVersionUID = serialversionuid;
     }
 
     @Enumerated(value = EnumType.STRING)
     public NameSuffix getNameSuffix() {
         return nameSuffix;
     }
-
     public void setNameSuffix(NameSuffix nameSuffix) {
         this.nameSuffix = nameSuffix;
     }
@@ -107,7 +87,6 @@ public class UserProfile implements Serializable {
     public Address getAddress() {
         return address;
     }
-
     public void setAddress(Address address) {
         this.address = address;
     }
@@ -115,9 +94,13 @@ public class UserProfile implements Serializable {
     public String getWebsite() {
         return website;
     }
-
     public void setWebsite(String website) {
         this.website = website;
     }
 
+    @Transient
+    public String getFullName() {
+        String name = getFirstname() + " " + getSurname();
+        return name;
+    }
 }

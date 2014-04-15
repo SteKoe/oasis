@@ -90,4 +90,5 @@
     <bean id="permissionService" class="de.stekoe.idss.service.PermissionService" />
     <bean id="criterionPageService" class="de.stekoe.idss.service.CriterionPageService" />
     <bean id="criterionService" class="de.stekoe.idss.service.CriterionService" />
+    <bean id="companyService" class="de.stekoe.idss.service.CompanyService" />
 </beans>

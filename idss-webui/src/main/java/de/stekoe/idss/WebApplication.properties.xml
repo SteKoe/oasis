@@ -1,28 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  ~ Copyright 2014 Stephan Koeninger
-  ~
-  ~ Licensed under the Apache License, Version 2.0 (the "License");
-  ~ you may not use this file except in compliance with the License.
-  ~ You may obtain a copy of the License at
-  ~
-  ~ 	http://www.apache.org/licenses/LICENSE-2.0
-  ~
-  ~ Unless required by applicable law or agreed to in writing, software
-  ~ distributed under the License is distributed on an "AS IS" BASIS,
-  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  ~ See the License for the specific language governing permissions and
-  ~ limitations under the License.
-  -->
-
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-    <entry key="page.meta.author">Stephan Koeninger</entry>
-    <entry key="page.meta.author">Test</entry>
-
     <entry key="date.format">dd.mm.yyyy</entry>
-
-    <!-- General Labels -->
     <entry key="label.download">Herunterladen</entry>
     <entry key="label.save">Speichern</entry>
     <entry key="label.edit">Bearbeiten</entry>
@@ -56,29 +35,25 @@
     <entry key="label.description.na">Keine Beschreibung gesetzt</entry>
     <entry key="label.remove.from">Von %s entfernen!</entry>
     <entry key="label.thisisyou">Das sind sie!</entry>
-    <entry key="label.systeminfo">Systeminformationenz</entry>
+    <entry key="label.systeminfo">Systeminformationen</entry>
     <entry key="label.permissions">Zugriffsrechte</entry>
     <entry key="label.changemailorpassword">E-Mail-Adresse oder Passwort ändern</entry>
     <entry key="label.move.up">Nach oben verschieben</entry>
     <entry key="label.move.down">Nach unten verschieben</entry>
     <entry key="label.page.counter">Seite {0} von {1}</entry>
-
     <entry key="label.page.counter">Seite {0} von {1}</entry>
-    <entry key="label.criterion.allowNoChoice">"Keine Auswahl" für dieses Kriterium erlauben</entry>
+    <entry key="label.criterion.allowNoChoice">Keine Auswahl für dieses Kriterium erlauben</entry>
     <entry key="label.criterion.allowNoChoice.help">Diese Option erzeugt ein zusätzliches Feld mit dem Wert "weiß ich nicht".</entry>
     <entry key="label.criterion.nominal">Nominal</entry>
     <entry key="label.criterion.ordinal">Ordinal</entry>
     <entry key="label.criterion.metric">Metrisch</entry>
-
     <entry key="label.criterion.type.ordinal">Ordinalskala</entry>
     <entry key="label.criterion.type.nominal">Nominalskala</entry>
     <entry key="label.criterion.type.metric">Metrische Skala</entry>
-
     <entry key="label.page.first">Erste</entry>
     <entry key="label.page.prev"><![CDATA[&laquo;]]></entry>
     <entry key="label.page.next"><![CDATA[&raquo;]]></entry>
     <entry key="label.page.last">Letzte</entry>
-
     <entry key="label.project">Projekt</entry>
     <entry key="label.project.overview">Projektübersicht</entry>
     <entry key="label.project.manage">Projektverwaltung</entry>
@@ -98,61 +73,41 @@
     <entry key="label.project.end.date">Enddatum</entry>
     <entry key="label.project.progress.time">Fortschritt</entry>
     <entry key="label.project.role.edit.introduction">Sie sind dabei die Projektrolle "{0}" des Projekts "{1}" zu bearbeiten.</entry>
-
     <entry key="label.select.user">Benutzer auswählen</entry>
     <entry key="label.select.project.role">Projektrolle auswählen</entry>
-
-
     <entry key="label.file.name">Name</entry>
     <entry key="label.file.date">Hochgeladen am</entry>
     <entry key="label.file.size">Dokumentgröße</entry>
     <entry key="label.file.type">Dokumententyp</entry>
     <entry key="label.file.none">Keine Dokumente gefunden</entry>
-
-    <!-- Registration Form -->
     <entry key="form.login.title">Anmelden</entry>
     <entry key="form.register.title">Registrieren</entry>
-
-    <!-- Project Forms -->
     <entry key="form.project.create.title">Projekt erstellen</entry>
     <entry key="form.project.delete.title">Projekt löschen</entry>
     <entry key="form.project.edit.title">Projekt bearbeiten</entry>
-
     <entry key="form.project.title.generalInformation">Allgemeine Informationen</entry>
     <entry key="form.project.title.member">Mitglieder verwalten</entry>
-
     <entry key="form.project.name.label">Projektname</entry>
     <entry key="form.project.description.label">Beschreibung</entry>
     <entry key="form.project.file.label">Datei(en) hochladen</entry>
-
     <entry key="form.project.select.available.member.title">Verfügbare Benutzer</entry>
     <entry key="form.project.select.chosen.member.title">Projektmitglieder</entry>
-
     <entry key="project.link.edit">Projekt bearbeiten</entry>
-
     <entry key="currentPasswort.wrong">Das aktuelle Passwort ist falsch!</entry>
-
     <entry key="newPassword.label">Neues Passwort</entry>
     <entry key="newPasswordConfirm.label">Neues Passwort bestätigen</entry>
     <entry key="newPasswordConfirm.EqualInputValidator">Die Passwörter stimmen nicht überein!</entry>
-
     <entry key="newEmail.label">Neue E-Mail-Adresse</entry>
     <entry key="newEmailConfirm.label">Neue E-Mail-Adresse bestätigen</entry>
     <entry key="newEmailConfirm.EqualInputValidator">Die E-Mail-Adressen stimmen nicht überein!</entry>
-
     <entry key="passwordChanged.success">Sie haben ihr Passwort erfolgreich geändert!</entry>
     <entry key="emailChanged.success">Sie haben ihre E-Mail-Adresse erfolgreich geändert!</entry>
-    
     <entry key="email.subject.resetpassword">Password zurücksetzen</entry>
-
     <entry key="project.delete.confirm">Möchten Sie das Projekt "%s" wirklich löschen?</entry>
-
     <entry key="table.header.name">Name</entry>
     <entry key="table.header.id">ID</entry>
     <entry key="table.header.actions">Aktionen</entry>
     <entry key="table.empty">Keine Einträge vorhanden</entry>
-
-    <!-- MESSAGES -->
     <entry key="message.login.success">Sie haben sich erfolgreich angemeldet!</entry>
     <entry key="message.login.error">Es ist ein Fehler beim Anmelden aufgetreten.</entry>
     <entry key="message.login.error.not_activated">Um sich anmelden zu können, müssen Sie zunächst das Benutzerkonto aktivieren.</entry>
@@ -166,21 +121,15 @@
     <entry key="message.error.upload">Beim Hochladen des Dokumentes ist ein Fehler aufgetreten!</entry>
     <entry key="message.password.reset.error">Beim ändern ihres Passwortes ist ein Fehler aufgetreten, versuchen sie es erneut!</entry>
     <entry key="message.password.reset.success">Ihr Passwort wurde erfolgreich geändert!</entry>
-
-    <!-- Name Suffixes -->
     <entry key="name.suffix.dr">Dr.</entry>
     <entry key="name.suffix.prof">Prof.</entry>
     <entry key="name.suffix.profdr">Prof. Dr.</entry>
     <entry key="name.suffix.privdoz">PD</entry>
     <entry key="name.suffix.privdozdr">PD Dr.</entry>
-
-    <!-- Project stati -->
     <entry key="status.project.editing">In Bearbeitung</entry>
     <entry key="status.project.inprogress">Wird durchgeführt</entry>
     <entry key="status.project.canceled">Abgebrochen</entry>
     <entry key="status.project.finished">Beendet</entry>
-
-    <!-- Permission Types -->
     <entry key="permissiontype.create">{0} erstellen</entry>
     <entry key="permissiontype.read">{0} lesen</entry>
     <entry key="permissiontype.update">{0} bearbeiten</entry>
@@ -188,11 +137,7 @@
     <entry key="permissiontype.update.project.member">Mitglieder bearbeiten</entry>
     <entry key="permissiontype.update.project.roles">Projektrollen bearbeiten</entry>
     <entry key="permissiontype.project.upload.file">Dokumente hochladen</entry>
-
-    <!-- Wicket override properties -->
     <entry key="Required">Dieses Feld ist obligatorisch!</entry>
     <entry key="LengthValidator">Der eingegebene Wert muss zwischen ${min} und ${max} Zeichen lang sein!</entry>
-
-    <!-- Permission Object Types -->
     <entry key="PROJECT">Projekt</entry>
 </properties>

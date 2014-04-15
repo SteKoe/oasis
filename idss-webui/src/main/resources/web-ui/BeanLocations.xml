@@ -17,4 +17,7 @@
             </map>
         </property>
     </bean>
+    
+    <!-- Wicket Models -->
+    <bean id="companyModel" class="de.stekoe.idss.wicket.model.CompanyModel"/>
 </beans>

@@ -6,6 +6,7 @@
 uploads/
 target/
 logs/
+bin/
 *.iml
 *.log
 *.aux

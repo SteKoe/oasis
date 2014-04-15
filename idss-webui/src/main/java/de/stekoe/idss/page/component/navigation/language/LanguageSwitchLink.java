@@ -16,11 +16,14 @@
 
 package de.stekoe.idss.page.component.navigation.language;
 
-import de.stekoe.idss.session.WebSession;
-import org.apache.wicket.markup.html.link.Link;
-import org.apache.wicket.model.Model;
-
 import java.util.Locale;
+
+import org.apache.wicket.behavior.AttributeAppender;
+import org.apache.wicket.markup.html.image.Image;
+import org.apache.wicket.markup.html.link.Link;
+import org.apache.wicket.request.resource.ContextRelativeResource;
+
+import de.stekoe.idss.session.WebSession;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
@@ -33,7 +36,9 @@ public class LanguageSwitchLink extends Link {
         super(id);
         this.lang = lang;
 
-        setBody(Model.of(getLang().getDisplayName(WebSession.get().getLocale())));
+        Image image = new Image("language.flag", new ContextRelativeResource("/vendors/famfamfam/flags/"+lang.toString()+".png"));
+        image.add(new AttributeAppender("alt", lang.toString()));
+        add(image);
     }
 
     @Override

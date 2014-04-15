@@ -53,7 +53,8 @@ public class WebApplication extends AuthenticatedWebApplication implements Appli
     private static final Logger LOG = Logger.getLogger(WebApplication.class);
 
     public static final Locale[] LANGUAGES = {
-            Locale.GERMAN
+            Locale.GERMAN,
+            Locale.ENGLISH
     };
 
     private ApplicationContext ctx;

@@ -16,15 +16,16 @@
 
 package de.stekoe.idss.page.component.navigation.language;
 
-import de.stekoe.idss.WebApplication;
-import de.stekoe.idss.session.WebSession;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
+import de.stekoe.idss.WebApplication;
+import de.stekoe.idss.session.WebSession;
 
 
 /**
@@ -52,18 +53,19 @@ public class LanguageSwitcher extends Panel {
 
     private void createLanguageSwitcher() {
         ListView<Locale> loop = new ListView<Locale>("languages", getLanguages()) {
-
-
             @Override
             protected void populateItem(final ListItem<Locale> item) {
                 final Locale languageKey = item.getModelObject();
-                Locale currentLocale = WebSession.get().getLocale();
-
-                boolean languageEqual = languageKey.getLanguage().equals(currentLocale.getLanguage());
+                boolean languageEqual = isCurrentLanguage(languageKey);
                 final LanguageSwitchLink languageLink = new LanguageSwitchLink("languageLink", languageKey);
                 languageLink.setEnabled(!languageEqual);
-
                 item.add(languageLink);
+            }
+
+            private boolean isCurrentLanguage(final Locale languageKey) {
+                Locale currentLocale = WebSession.get().getLocale();
+                boolean languageEqual = languageKey.getLanguage().equals(currentLocale.getLanguage());
+                return languageEqual;
             }
         };
         add(loop);

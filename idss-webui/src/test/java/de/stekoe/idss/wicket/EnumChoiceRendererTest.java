@@ -12,7 +12,6 @@ public class EnumChoiceRendererTest extends AbstractWicketApplicationTester {
 
     private final EnumChoiceRenderer<PermissionType> dayEnumChoiceRenderer = new EnumChoiceRenderer<PermissionType>();
 
-
     @Test
     @DirtiesContext
     public void displayValueIsTranslated() throws Exception {

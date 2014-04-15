@@ -27,6 +27,7 @@ public abstract class AbstractWicketApplicationTester {
 
     @After
     public void tearDown() {
+        wicketTester.destroy();
         wicketTester = null;
     }
 

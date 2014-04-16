@@ -140,4 +140,10 @@
     <entry key="Required">Dieses Feld ist obligatorisch!</entry>
     <entry key="LengthValidator">Der eingegebene Wert muss zwischen ${min} und ${max} Zeichen lang sein!</entry>
     <entry key="PROJECT">Projekt</entry>
+    <entry key="label.street">Straße</entry>
+    <entry key="label.zip">PLZ</entry>
+    <entry key="label.city">Stadt</entry>
+    <entry key="label.country">Land</entry>
+    <entry key="label.logout">Abmelden</entry>
+    <entry key="label.login">${form.login.title}</entry>
 </properties>

@@ -45,4 +45,11 @@
     <entry key="label.page.next"><![CDATA[&raquo;]]></entry>
     <entry key="label.page.last">Last</entry>
     <entry key="label.project">Project</entry>
+    <entry key="form.login.title">Login</entry>
+    <entry key="label.street">Street</entry>
+    <entry key="label.zip">Zip code</entry>
+    <entry key="label.city">City</entry>
+    <entry key="label.country">Country</entry>
+    <entry key="label.logout">Logout</entry>
+    <entry key="label.login">${form.login.title}</entry>
 </properties>

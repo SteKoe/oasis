@@ -16,19 +16,20 @@
 
 package de.stekoe.idss.page.component.navigation.language;
 
+import java.net.MalformedURLException;
 import java.util.Locale;
 
+import org.apache.log4j.Logger;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.request.resource.ContextRelativeResource;
 
+import de.stekoe.idss.WebApplication;
 import de.stekoe.idss.session.WebSession;
 
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
 public class LanguageSwitchLink extends Link {
+    private static final Logger LOG = Logger.getLogger(LanguageSwitchLink.class);
 
     private final Locale lang;
 
@@ -36,9 +37,26 @@ public class LanguageSwitchLink extends Link {
         super(id);
         this.lang = lang;
 
-        Image image = new Image("language.flag", new ContextRelativeResource("/vendors/famfamfam/flags/"+lang.toString()+".png"));
-        image.add(new AttributeAppender("alt", lang.toString()));
+        Image image = null;
+        String flagImagePath = "/vendors/famfamfam/flags/" + getLanguageKey() + ".png";
+        try {
+            if(WebApplication.get().getServletContext().getResource(flagImagePath) == null) {
+                flagImagePath = "/vendors/famfamfam/flags/unknown.png";
+            }
+        } catch (MalformedURLException e) {
+            LOG.info("Flag for language key "+ this.lang + " not found. using fallback image.");
+            flagImagePath = "/vendors/famfamfam/flags/unknown.png";
+        }
+
+        ContextRelativeResource languageFlagImage = new ContextRelativeResource(flagImagePath);
+        image = new Image("language.flag", languageFlagImage);
+        image.add(new AttributeAppender("alt", getLanguageKey()));
+        image.add(new AttributeAppender("title", getLanguageKey()));
         add(image);
+    }
+
+    String getLanguageKey() {
+        return this.lang.getLanguage();
     }
 
     @Override

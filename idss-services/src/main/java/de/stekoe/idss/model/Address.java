@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 @Entity
 public class Address implements Serializable {
     private static final long serialVersionUID = 201404132212L;
@@ -14,6 +16,7 @@ public class Address implements Serializable {
     private String number;
     private String country;
     private String zip;
+    private String city;
 
     @Id
     public String getId() {
@@ -49,5 +52,23 @@ public class Address implements Serializable {
     }
     public void setZip(String zip) {
         this.zip = zip;
+    }
+
+    public String getCity() {
+        return city;
+    }
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+            .append("street", street)
+            .append("number", number)
+            .append("country", country)
+            .append("zip", zip)
+            .append("city", city)
+            .toString();
     }
 }

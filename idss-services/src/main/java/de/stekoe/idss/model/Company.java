@@ -5,9 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 @Entity
 public class Company implements Serializable {
@@ -35,7 +38,7 @@ public class Company implements Serializable {
         this.name = name;
     }
 
-    @OneToMany(targetEntity = CompanyRole.class)
+    @OneToMany(targetEntity = CompanyRole.class, cascade = CascadeType.ALL)
     public List<CompanyRole> getRoles() {
         return roles;
     }
@@ -43,7 +46,7 @@ public class Company implements Serializable {
         this.roles = roles;
     }
 
-    @OneToMany(targetEntity = Address.class)
+    @OneToMany(targetEntity = Address.class, cascade = CascadeType.ALL)
     public List<Address> getAddresses() {
         return addresses;
     }
@@ -51,11 +54,16 @@ public class Company implements Serializable {
         this.addresses = addresses;
     }
 
-    @OneToMany(targetEntity = Employee.class)
+    @OneToMany(targetEntity = Employee.class, cascade = CascadeType.ALL)
     public List<Employee> getEmployees() {
         return employees;
     }
     public void setEmployees(List<Employee> employees) {
         this.employees = employees;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this).append("name", name).append("addresses", addresses).toString();
     }
 }

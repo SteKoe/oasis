@@ -1,6 +1,13 @@
 <wicket:panel>
     <form wicket:id="form.company">
-        <input wicket:id="name">
-        <span wicket:id="address"></span>
+        <div class="form-group" wicket:id="group.name">
+            <input id="username" wicket:id="name" type="text" class="form-control">
+        </div>
+        
+        <div class="well">
+            <button class="btn btn-success">
+                <wicket:message key="label.save" />
+            </button>
+        </div>
     </form>
 </wicket:panel>

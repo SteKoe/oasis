@@ -93,10 +93,14 @@ public class AuthService {
             return false;
         }
 
-        final List<Permission> permissions = new ArrayList<Permission>(
-                user.getPermissions());
-        final PermissionObject permissionObject = PermissionObject
-                .valueOf(identifyable.getClass());
+        final List<Permission> permissions = new ArrayList<Permission>(user.getPermissions());
+
+        // The user has permission to anything!
+        if(permissions.contains(PermissionType.ALL)) {
+            return true;
+        }
+
+        final PermissionObject permissionObject = PermissionObject.valueOf(identifyable.getClass());
         permissionsFilter(permissions, permissionType, permissionObject);
 
         for (Permission permission : permissions) {

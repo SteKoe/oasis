@@ -8,13 +8,14 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.FormGroup;
-import de.stekoe.idss.WebApplication;
 import de.stekoe.idss.model.Address;
 import de.stekoe.idss.model.Company;
 import de.stekoe.idss.page.component.behavior.Placeholder;
 import de.stekoe.idss.service.CompanyService;
+import de.stekoe.idss.wicket.form.AddressField;
 
 public class CompanyForm extends Panel {
 
@@ -40,8 +41,9 @@ public class CompanyForm extends Panel {
             @Override
             protected void onSubmit() {
                 companyService.save(getModelObject());
+                onSave(getModelObject());
                 success("Save done.");
-                setResponsePage(WebApplication.get().getHomePage());
+                setResponsePage(EditCompanyPage.class, new PageParameters().add("companyId", getModelObject().getId()));
             }
         };
         add(form);
@@ -51,6 +53,15 @@ public class CompanyForm extends Panel {
         nameField.add(new Placeholder(getString("label.name")));
         nameGroup.add(nameField);
         form.add(nameGroup);
+
+        AddressField addressField = new AddressField("addresses.0", new PropertyModel<Address>(companyModel, "addresses.0"));
+        form.add(addressField);
+    }
+
+    /**
+     * @param modelObject
+     */
+    protected void onSave(Company modelObject) {
     }
 
     public class CompanyModel extends Model<Company> {
@@ -72,10 +83,15 @@ public class CompanyForm extends Panel {
             }
 
             if(this.id != null) {
-                return companyService.findOne(this.id);
+                Company company = companyService.findOne(this.id);
+                if(company.getAddresses().isEmpty()) {
+                    company.getAddresses().add(new Address());
+                }
+                return company;
             } else {
                 Company company = new Company();
                 company.getAddresses().add(new Address());
+
                 this.company = company;
                 return company;
             }

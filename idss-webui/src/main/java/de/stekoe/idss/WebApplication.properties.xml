@@ -146,4 +146,7 @@
     <entry key="label.country">Land</entry>
     <entry key="label.logout">Abmelden</entry>
     <entry key="label.login">${form.login.title}</entry>
+    <entry key="label.number">Hausnummer</entry>
+    <entry key="form.company.create.title">Unternehmen erstellen</entry>
+    <entry key="form.company.edit.title">Unternehmen bearbeiten</entry>
 </properties>

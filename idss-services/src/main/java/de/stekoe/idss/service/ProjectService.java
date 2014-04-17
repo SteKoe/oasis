@@ -56,10 +56,12 @@ public class ProjectService {
 
         final Project project = projectRepository.findOne(projectId);
 
+        // Has the user any permissions like administrative permissions?
         if (authService.isAuthorized(userId, project, permissionType)) {
             return true;
         }
 
+        // The user to check is not available! No access here!
         final User user = userRepository.findOne(userId);
         if (user == null) {
             return false;
@@ -78,6 +80,7 @@ public class ProjectService {
             }
         });
 
+        // The user isn't even member of the project! No access here!
         if (pm == null) {
             return false;
         }
@@ -85,6 +88,12 @@ public class ProjectService {
         final ProjectRole projectRole = pm.getProjectRole();
         final Set<Permission> permissions = projectRole.getPermissions();
 
+        // User is allowed to to anything
+        if(permissions.contains(PermissionType.ALL)) {
+            return true;
+        }
+
+        // User has specific roles. So check if he has the one which is necessary to perform action.
         for (Permission permission : permissions) {
             if (permission.getPermissionObject().equals(PermissionObject.valueOf(Project.class)) && permission.getPermissionType().equals(permissionType)) {
                 return true;

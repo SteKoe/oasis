@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 @Entity
-public class Company implements Serializable {
+public class Company implements Serializable, Identifyable<String> {
     private static final long serialVersionUID = 201404131428L;
 
     private String id = IDGenerator.createId();
@@ -22,10 +22,12 @@ public class Company implements Serializable {
     private List<Address> addresses = new ArrayList<Address>();
     private List<Employee> employees = new ArrayList<Employee>();
 
+    @Override
     @Id
     public String getId() {
         return id;
     }
+    @Override
     public void setId(String id) {
         this.id = id;
     }

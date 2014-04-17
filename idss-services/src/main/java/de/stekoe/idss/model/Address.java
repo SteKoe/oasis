@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 @Entity
@@ -70,5 +71,30 @@ public class Address implements Serializable {
             .append("zip", zip)
             .append("city", city)
             .toString();
+    }
+
+    /**
+     * Indicates wether the address has any values set.
+     *
+     * @return true if any value has been set, false otherwise
+     */
+    public boolean hasValues() {
+        if(!StringUtils.isBlank(street)) {
+            return true;
+        }
+        if(!StringUtils.isBlank(number)) {
+            return true;
+        }
+        if(!StringUtils.isBlank(country)) {
+            return true;
+        }
+        if(!StringUtils.isBlank(zip)) {
+            return true;
+        }
+        if(!StringUtils.isBlank(city)) {
+            return true;
+        }
+
+        return false;
     }
 }

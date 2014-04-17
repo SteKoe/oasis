@@ -36,15 +36,13 @@ import de.stekoe.idss.session.WebSession;
 @SuppressWarnings("serial")
 public class UserPanel extends Panel {
 
-    private java.lang.String username = "N/A";
+    private String username = "N/A";
 
     /**
-     * Construct.
-     *
      * @param id wicket:id
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public UserPanel(java.lang.String id) {
+    public UserPanel(String id) {
         super(id);
 
         final User currentUser = WebSession.get().getUser();

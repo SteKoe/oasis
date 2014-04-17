@@ -17,7 +17,6 @@
 package de.stekoe.idss.page.component.form.auth.login;
 
 import org.apache.log4j.Logger;
-import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.StatelessForm;
@@ -41,8 +40,6 @@ public class LoginForm extends Panel {
     @SpringBean
     private AuthService authService;
 
-    private Label successMessage;
-
     /**
      * @param id The id of this component
      */
@@ -53,7 +50,7 @@ public class LoginForm extends Panel {
 
     /**
      * Private inner class which creates the SignInForm based on a StatelessForm.
-     * <p/>
+     *
      * StatelessForm is used since the user should be able to insert credentials,
      * leave the pc and sign in at any later point.
      */

@@ -30,10 +30,20 @@
 
         <wicket:enclosure child="signout">
             <div class="loginPanel">
-                <a class="btn btn-default" href="" wicket:id="userProfile">
-                    <i class="fa fa-user"></i>
-                    <strong wicket:id="username"></strong>
-                </a>
+                <div class="btn-group">
+                    <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="" wicket:id="userProfile">
+                        <i class="fa fa-user"></i>
+                        <strong wicket:id="username"></strong>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" >
+                        <li wicket:id="user.menu.item">
+                            <a href="#" wicket:id="user.menu.item.link">
+                                <wicket:container wicket:id="user.menu.item.link.label"/>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
 
                 <a href="" wicket:id="signout" class="btn btn-default">
                     <wicket:message key="label.logout"/>

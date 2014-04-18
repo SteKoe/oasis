@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 @Entity
-public class Company implements Serializable, Identifyable<String> {
+public class Company implements Serializable, Identifyable<String>, NamedElement {
     private static final long serialVersionUID = 201404131428L;
 
     private String id = IDGenerator.createId();
@@ -32,10 +32,12 @@ public class Company implements Serializable, Identifyable<String> {
         this.id = id;
     }
 
+    @Override
     @Basic
     public String getName() {
         return name;
     }
+    @Override
     public void setName(String name) {
         this.name = name;
     }

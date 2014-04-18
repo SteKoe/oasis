@@ -21,18 +21,19 @@ package de.stekoe.idss.model;
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
 public enum PermissionObject implements L10NEnum {
-    PROJECT(Project.class, "label.project");
+    PROJECT(Project.class, "label.project"),
+    COMPANY(Project.class, "label.company");
 
     private final String key;
-    private final Class<?> projectClass;
+    private final Class<?> permissionClazz;
 
-    PermissionObject(Class<Project> projectClass, String key) {
-        this.projectClass = projectClass;
+    PermissionObject(Class<Project> permissionClazz, String key) {
+        this.permissionClazz = permissionClazz;
         this.key = key;
     }
 
     private Class<?> getValue() {
-        return this.projectClass;
+        return this.permissionClazz;
     }
 
     public static PermissionObject valueOf(Class<?> value) {

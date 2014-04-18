@@ -39,8 +39,7 @@ import javax.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-public class Project implements Serializable, Identifyable<String> {
-
+public class Project implements Serializable, Identifyable<String>, NamedElement {
     private static final long serialVersionUID = 20141103923L;
 
     private String id = IDGenerator.createId();
@@ -65,12 +64,14 @@ public class Project implements Serializable, Identifyable<String> {
         this.id = id;
     }
 
+    @Override
     @NotNull
     @Column(nullable = false)
     public String getName() {
         return this.name;
     }
 
+    @Override
     public void setName(String name) {
         this.name = name;
     }

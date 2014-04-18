@@ -16,9 +16,16 @@
 
 package de.stekoe.idss.page.component.navigation.user;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
+import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
+import org.apache.wicket.markup.html.list.ListItem;
+import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
 
 import de.stekoe.idss.model.User;
@@ -26,6 +33,8 @@ import de.stekoe.idss.model.UserProfile;
 import de.stekoe.idss.page.auth.LoginPage;
 import de.stekoe.idss.page.auth.LogoutPage;
 import de.stekoe.idss.page.auth.RegistrationPage;
+import de.stekoe.idss.page.company.CompanyListPage;
+import de.stekoe.idss.page.project.ProjectListPage;
 import de.stekoe.idss.page.user.CreateUserPage;
 import de.stekoe.idss.page.user.EditUserProfilePage;
 import de.stekoe.idss.session.WebSession;
@@ -72,6 +81,28 @@ public class UserPanel extends Panel {
                 return WebSession.get().isSignedIn();
             }
         });
+
+        add(new ListView<MenuLink>("user.menu.item", getUserMenuLinks()) {
+            @Override
+            protected void populateItem(ListItem<MenuLink> item) {
+                MenuLink menuLink = item.getModelObject();
+
+                BookmarkablePageLink<? extends WebPage> link = menuLink.getPage();
+                item.add(link);
+                link.removeAll();
+
+                link.add(new Label("user.menu.item.link.label", getString(menuLink.getLabel())));
+            }
+        });
+    }
+
+    private List<MenuLink> getUserMenuLinks() {
+        List<MenuLink> linkList = new ArrayList<MenuLink>();
+
+        linkList.add(new MenuLink("label.project.overview", new BookmarkablePageLink<ProjectListPage>("user.menu.item.link", ProjectListPage.class)));
+        linkList.add(new MenuLink("label.company.overview", new BookmarkablePageLink<CompanyListPage>("user.menu.item.link", CompanyListPage.class)));
+
+        return linkList;
     }
 
     private void createLoggedOutPanel() {
@@ -96,5 +127,23 @@ public class UserPanel extends Panel {
                 return user.isAdmin();
             }
         });
+    }
+
+    private class MenuLink implements Serializable {
+        private final String label;
+        private final BookmarkablePageLink<? extends WebPage> page;
+
+        public MenuLink(String label, BookmarkablePageLink<? extends WebPage> page) {
+            this.label = label;
+            this.page = page;
+        }
+
+        public BookmarkablePageLink<? extends WebPage> getPage() {
+            return page;
+        }
+
+        public String getLabel() {
+            return label;
+        }
     }
 }

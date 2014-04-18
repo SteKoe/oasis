@@ -18,9 +18,6 @@ package de.stekoe.idss.model;
 
 import java.io.Serializable;
 
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
 public interface Identifyable<T extends Serializable> {
     void setId(T id);
 

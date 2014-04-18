@@ -95,8 +95,10 @@ public class ProjectService {
 
         // User has specific roles. So check if he has the one which is necessary to perform action.
         for (Permission permission : permissions) {
-            if (permission.getPermissionObject().equals(PermissionObject.valueOf(Project.class)) && permission.getPermissionType().equals(permissionType)) {
-                return true;
+            if (permission.getPermissionObject().equals(PermissionObject.valueOf(Project.class))) {
+                if(permission.getPermissionType().equals(PermissionType.ALL) || permission.getPermissionType().equals(permissionType)) {
+                    return true;
+                }
             }
         }
 

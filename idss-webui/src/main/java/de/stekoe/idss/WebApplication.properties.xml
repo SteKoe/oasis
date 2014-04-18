@@ -149,4 +149,6 @@
     <entry key="label.number">Hausnummer</entry>
     <entry key="form.company.create.title">Unternehmen erstellen</entry>
     <entry key="form.company.edit.title">Unternehmen bearbeiten</entry>
+    <entry key="label.company.manage">Unternehmen verwalten</entry>
+    <entry key="label.company.overview">Unternehmensübersicht</entry>
 </properties>

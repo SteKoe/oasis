@@ -16,6 +16,12 @@
 
 package de.stekoe.idss.page.component.navigation.main;
 
+import java.util.List;
+
+import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
+
 import de.agilecoders.wicket.core.markup.html.bootstrap.image.GlyphIconType;
 import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.INavbarComponent;
 import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.Navbar;
@@ -26,11 +32,6 @@ import de.stekoe.idss.page.HomePage;
 import de.stekoe.idss.page.auth.RegistrationPage;
 import de.stekoe.idss.page.project.ProjectListPage;
 import de.stekoe.idss.session.WebSession;
-import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.Model;
-
-import java.util.List;
 
 /**
  * @author Stephan Koeninger <mail@stekoe.de>
@@ -61,8 +62,7 @@ public class MainNavigation extends Panel {
         List<INavbarComponent> navbarComponent = NavbarComponents.transform(
                 Navbar.ComponentPosition.LEFT,
                 createHomePageLink(),
-                createContactPageLink(),
-                createProjectOverviewPageLink());
+                createContactPageLink());
         navbar.addComponents(navbarComponent);
 
 

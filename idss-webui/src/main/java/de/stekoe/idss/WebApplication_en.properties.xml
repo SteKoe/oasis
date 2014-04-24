@@ -41,7 +41,6 @@
     <entry key="label.move.up">Move up</entry>
     <entry key="label.move.down">Move down</entry>
     <entry key="label.page.counter">Page {0} of {1}</entry>
-    <entry key="label.page.counter">Page {0} of {1}</entry>
     <entry key="label.criterion.allowNoChoice">Selection of this criteria is not allowed</entry>
     <entry key="label.criterion.allowNoChoice.help">This option generates an additional field with the value "I dont't know".</entry>
     <entry key="label.criterion.nominal">Nominal</entry>
@@ -51,8 +50,6 @@
     <entry key="label.criterion.type.nominal">Nomial scala</entry>
     <entry key="label.criterion.type.metric">Metric scala</entry>
     <entry key="label.page.first">First</entry>
-    <entry key="label.page.prev"><![CDATA[&laquo;]]></entry>
-    <entry key="label.page.next"><![CDATA[&raquo;]]></entry>
     <entry key="label.page.last">Last</entry>
     <entry key="label.project">Project</entry>
     <entry key="label.project.overview">Project overview</entry>
@@ -121,11 +118,6 @@
     <entry key="message.error.upload">There was an error during the document upload!</entry>
     <entry key="message.password.reset.error">An error occured during password change. Please try again!</entry>
     <entry key="message.password.reset.success">Your password was changed successfully!</entry>
-    <entry key="name.suffix.dr">Dr.</entry>
-    <entry key="name.suffix.prof">Prof.</entry>
-    <entry key="name.suffix.profdr">Prof. Dr.</entry>
-    <entry key="name.suffix.privdoz">PD</entry>
-    <entry key="name.suffix.privdozdr">PD Dr.</entry>
     <entry key="status.project.editing">In progress</entry>
     <entry key="status.project.inprogress">In progress</entry>
     <entry key="status.project.canceled">Aborted</entry>
@@ -140,5 +132,8 @@
     <entry key="Required">This field is mandatory!</entry>
     <entry key="LengthValidator">The entered value must have a length between ${min} and ${max} characters!</entry>
     <entry key="PROJECT">Project</entry>
+    <entry key="label.company.overview">Company overview</entry>
     <entry key="label.logout">Logout</entry>
+    <entry key="label.name.title">Title</entry>
+    <entry key="label.user.profile">Profile</entry>
 </properties>

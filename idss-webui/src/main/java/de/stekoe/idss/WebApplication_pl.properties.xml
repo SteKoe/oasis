@@ -117,9 +117,6 @@
     <entry key="message.error.upload">Wystąpił błąd podczas ładowania dokumentu!</entry>
     <entry key="message.password.reset.error">Wystąpił błąd podczas zmiany hasła. Proszę spróbować ponownie!</entry>
     <entry key="message.password.reset.success">Hasło zostało pomyślnie zmienione!</entry>
-    <entry key="name.suffix.dr">Dr</entry>
-    <entry key="name.suffix.prof">Prof.</entry>
-    <entry key="name.suffix.profdr">Prof.</entry>
     <entry key="status.project.editing">W trakcie </entry>
     <entry key="status.project.inprogress">W trakcie</entry>
     <entry key="status.project.canceled">Przerwany</entry>

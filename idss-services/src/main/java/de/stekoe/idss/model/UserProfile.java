@@ -16,8 +16,6 @@ import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
@@ -27,7 +25,7 @@ public class UserProfile implements Serializable {
     private static final long serialVersionUID = 201404031316L;
 
     private String id = IDGenerator.createId();
-    private NameSuffix nameSuffix;
+    private String nameSuffix;
     private String firstname;
     private String surname;
     private PhoneNumber telefon = new PhoneNumber();
@@ -75,11 +73,10 @@ public class UserProfile implements Serializable {
         this.telefax = telefax;
     }
 
-    @Enumerated(value = EnumType.STRING)
-    public NameSuffix getNameSuffix() {
+    public String getNameSuffix() {
         return nameSuffix;
     }
-    public void setNameSuffix(NameSuffix nameSuffix) {
+    public void setNameSuffix(String nameSuffix) {
         this.nameSuffix = nameSuffix;
     }
 

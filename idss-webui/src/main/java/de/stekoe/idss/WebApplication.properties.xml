@@ -41,7 +41,6 @@
     <entry key="label.move.up">Nach oben verschieben</entry>
     <entry key="label.move.down">Nach unten verschieben</entry>
     <entry key="label.page.counter">Seite {0} von {1}</entry>
-    <entry key="label.page.counter">Seite {0} von {1}</entry>
     <entry key="label.criterion.allowNoChoice">Keine Auswahl für dieses Kriterium erlauben</entry>
     <entry key="label.criterion.allowNoChoice.help">Diese Option erzeugt ein zusätzliches Feld mit dem Wert "weiß ich nicht".</entry>
     <entry key="label.criterion.nominal">Nominal</entry>
@@ -121,11 +120,6 @@
     <entry key="message.error.upload">Beim Hochladen des Dokumentes ist ein Fehler aufgetreten!</entry>
     <entry key="message.password.reset.error">Beim ändern ihres Passwortes ist ein Fehler aufgetreten, versuchen sie es erneut!</entry>
     <entry key="message.password.reset.success">Ihr Passwort wurde erfolgreich geändert!</entry>
-    <entry key="name.suffix.dr">Dr.</entry>
-    <entry key="name.suffix.prof">Prof.</entry>
-    <entry key="name.suffix.profdr">Prof. Dr.</entry>
-    <entry key="name.suffix.privdoz">PD</entry>
-    <entry key="name.suffix.privdozdr">PD Dr.</entry>
     <entry key="status.project.editing">In Bearbeitung</entry>
     <entry key="status.project.inprogress">Wird durchgeführt</entry>
     <entry key="status.project.canceled">Abgebrochen</entry>
@@ -142,4 +136,6 @@
     <entry key="PROJECT">Projekt</entry>
     <entry key="label.company.overview">Übersicht Unternehmen</entry>
     <entry key="label.logout">Abmelden</entry>
+    <entry key="label.name.title">Titel</entry>
+    <entry key="label.user.profile">Profil</entry>
 </properties>

@@ -99,6 +99,7 @@ public class UserPanel extends Panel {
     private List<MenuLink> getUserMenuLinks() {
         List<MenuLink> linkList = new ArrayList<MenuLink>();
 
+        linkList.add(new MenuLink("label.user.profile", new BookmarkablePageLink<EditUserProfilePage>("user.menu.item.link", EditUserProfilePage.class)));
         linkList.add(new MenuLink("label.project.overview", new BookmarkablePageLink<ProjectListPage>("user.menu.item.link", ProjectListPage.class)));
         linkList.add(new MenuLink("label.company.overview", new BookmarkablePageLink<CompanyListPage>("user.menu.item.link", CompanyListPage.class)));
 

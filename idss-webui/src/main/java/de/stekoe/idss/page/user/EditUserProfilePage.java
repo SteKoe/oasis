@@ -16,10 +16,7 @@
 
 package de.stekoe.idss.page.user;
 
-import java.util.Arrays;
-
 import org.apache.log4j.Logger;
-import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
@@ -28,7 +25,6 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import de.stekoe.idss.model.Address;
-import de.stekoe.idss.model.NameSuffix;
 import de.stekoe.idss.model.PhoneNumber;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.model.UserProfile;
@@ -37,7 +33,6 @@ import de.stekoe.idss.page.component.behavior.Placeholder;
 import de.stekoe.idss.service.UserException;
 import de.stekoe.idss.service.UserService;
 import de.stekoe.idss.session.WebSession;
-import de.stekoe.idss.wicket.EnumChoiceRenderer;
 
 @SuppressWarnings("serial")
 public class EditUserProfilePage extends AuthUserPage {
@@ -86,7 +81,8 @@ public class EditUserProfilePage extends AuthUserPage {
         }
 
         // Name Suffix
-        DropDownChoice<NameSuffix> nameSuffix = new DropDownChoice<NameSuffix>("nameSuffix", new PropertyModel<NameSuffix>(profile, "nameSuffix"), Arrays.asList(NameSuffix.values()), new EnumChoiceRenderer<NameSuffix>());
+        TextField nameSuffix = new TextField("nameSuffix", new PropertyModel(profile, "nameSuffix"));
+        nameSuffix.add(new Placeholder(getString("label.name.title")));
         form.add(nameSuffix);
 
         // Firstname

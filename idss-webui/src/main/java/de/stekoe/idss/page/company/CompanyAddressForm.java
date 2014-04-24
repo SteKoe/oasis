@@ -14,6 +14,7 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.form.FormGroup;
 import de.stekoe.idss.model.Address;
 import de.stekoe.idss.model.Company;
 import de.stekoe.idss.page.component.behavior.Placeholder;
+import de.stekoe.idss.service.AddressService;
 import de.stekoe.idss.wicket.form.AddressField;
 
 public class CompanyAddressForm extends Panel {
@@ -39,8 +40,7 @@ public class CompanyAddressForm extends Panel {
         Form<Address> form = new Form<Address>("form.company", companyModel) {
             @Override
             protected void onSubmit() {
-//                addressService.save(getModelObject());
-//                onSave(getModelObject());
+                addressService.save(getModelObject());
                 success("Save done.");
                 setResponsePage(EditCompanyPage.class, new PageParameters().add("companyId", getModelObject().getId()));
             }
@@ -82,17 +82,11 @@ public class CompanyAddressForm extends Panel {
             }
 
             if(this.id != null) {
-                Company company = addressService.findOne(this.id);
-                if(company.getAddresses().isEmpty()) {
-                    company.getAddresses().add(new Address());
-                }
-                return company;
+                Address address = addressService.findOne(this.id);
+                return address;
             } else {
-                Company company = new Company();
-                company.getAddresses().add(new Address());
-
-                this.address = company;
-                return company;
+                this.address = new Address();
+                return this.address;
             }
         }
 

@@ -54,7 +54,8 @@ public class WebApplication extends AuthenticatedWebApplication implements Appli
 
     public static final Locale[] LANGUAGES = {
             Locale.GERMAN,
-            Locale.ENGLISH
+            Locale.ENGLISH,
+            new Locale("pl", "pl")
     };
 
     private ApplicationContext ctx;

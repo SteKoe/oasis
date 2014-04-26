@@ -16,14 +16,10 @@
 
 <html xmlns:wicket="http://wicket.sourceforge.net/">
 <wicket:extend>
-    <h1><wicket:message key="label.company.manage" /></h1>
+    <h1><wicket:message key="label.company.employees.manage" /></h1>
     
-    <div class="well">
-        <a href="" class="btn btn-success" wicket:id="link.new">
-            <wicket:message key="label.new" />
-        </a>
-    </div>
-    <wicket:container wicket:id="company.list">
+    <wicket:container wicket:id="employees">
+        <div wicket:id="employee"></div>
     </wicket:container>
 </wicket:extend>
 </html>

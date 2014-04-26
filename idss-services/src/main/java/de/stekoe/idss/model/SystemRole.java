@@ -38,6 +38,14 @@ public class SystemRole implements Serializable {
     private String id = IDGenerator.createId();
     private String name;
 
+    public SystemRole() {
+
+    }
+
+    public SystemRole(String roleName) {
+        setName(roleName);
+    }
+
     @Id
     @Column(name = "system_role_id")
     public String getId() {
@@ -76,7 +84,6 @@ public class SystemRole implements Serializable {
         }
         SystemRole that = (SystemRole) o;
         return new EqualsBuilder()
-                .appendSuper(super.equals(o))
                 .append(getName(), that.getName())
                 .isEquals();
     }

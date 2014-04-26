@@ -21,9 +21,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -36,6 +38,7 @@ import de.stekoe.idss.page.auth.RegistrationPage;
 import de.stekoe.idss.page.company.CompanyListPage;
 import de.stekoe.idss.page.project.ProjectListPage;
 import de.stekoe.idss.page.user.CreateUserPage;
+import de.stekoe.idss.page.user.EditPasswordPage;
 import de.stekoe.idss.page.user.EditUserProfilePage;
 import de.stekoe.idss.session.WebSession;
 
@@ -82,24 +85,39 @@ public class UserPanel extends Panel {
             }
         });
 
-        add(new ListView<MenuLink>("user.menu.item", getUserMenuLinks()) {
+        add(new ListView<MenuItem>("user.menu.item", getUserMenuLinks()) {
             @Override
-            protected void populateItem(ListItem<MenuLink> item) {
-                MenuLink menuLink = item.getModelObject();
+            protected void populateItem(ListItem<MenuItem> item) {
+                MenuItem menuItem = item.getModelObject();
 
-                BookmarkablePageLink<? extends WebPage> link = menuLink.getPage();
-                item.add(link);
-                link.removeAll();
+                if(menuItem instanceof MenuLink) {
+                    MenuLink menuLink = (MenuLink) menuItem;
+                    BookmarkablePageLink<? extends WebPage> link = menuLink.getPage();
+                    item.add(link);
 
-                link.add(new Label("user.menu.item.link.label", getString(menuLink.getLabel())));
+                    link.removeAll();
+                    link.add(new Label("user.menu.item.link.label", getString(menuLink.getLabel())));
+                } else if(menuItem instanceof MenuSeparator) {
+                    item.add(new AttributeModifier("class", "divider"));
+
+                    Link link = new Link("user.menu.item.link") {
+                        @Override
+                        public void onClick() {}
+                    };
+                    item.add(link);
+                    link.add(new Label("user.menu.item.link.label", ""));
+                    link.setVisible(false);
+                }
             }
         });
     }
 
-    private List<MenuLink> getUserMenuLinks() {
-        List<MenuLink> linkList = new ArrayList<MenuLink>();
+    private List<MenuItem> getUserMenuLinks() {
+        List<MenuItem> linkList = new ArrayList<MenuItem>();
 
         linkList.add(new MenuLink("label.user.profile", new BookmarkablePageLink<EditUserProfilePage>("user.menu.item.link", EditUserProfilePage.class)));
+        linkList.add(new MenuLink("label.change.account.settings", new BookmarkablePageLink<EditPasswordPage>("user.menu.item.link", EditPasswordPage.class)));
+        linkList.add(new MenuSeparator());
         linkList.add(new MenuLink("label.project.overview", new BookmarkablePageLink<ProjectListPage>("user.menu.item.link", ProjectListPage.class)));
         linkList.add(new MenuLink("label.company.overview", new BookmarkablePageLink<CompanyListPage>("user.menu.item.link", CompanyListPage.class)));
 
@@ -130,7 +148,11 @@ public class UserPanel extends Panel {
         });
     }
 
-    private class MenuLink implements Serializable {
+    private abstract class MenuItem implements Serializable {
+
+    }
+
+    private class MenuLink extends MenuItem implements Serializable {
         private final String label;
         private final BookmarkablePageLink<? extends WebPage> page;
 
@@ -146,5 +168,9 @@ public class UserPanel extends Panel {
         public String getLabel() {
             return label;
         }
+    }
+
+    private class MenuSeparator extends MenuItem implements Serializable {
+
     }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-    <entry key="date.format">dd.mm.rrrr</entry>
+    <entry key="date.format">dd-mm-yyyy</entry>
     <entry key="label.download">Ściągnij</entry>
     <entry key="label.save">Zapisz</entry>
     <entry key="label.edit">Edytuj</entry>
@@ -22,8 +22,8 @@
     <entry key="label.fax">Fax</entry>
     <entry key="label.phone">Numer telefonu</entry>
     <entry key="label.phone.countrycode">Kod kraju</entry>
-    <entry key="label.phone.areacode">Kod pocztowy/obszaru</entry>
-    <entry key="label.phone.subscribercode">Numer kontaktowy</entry>
+    <entry key="label.phone.areacode">Numer kierunkowy</entry>
+    <entry key="label.phone.subscribercode">Numer abonenta</entry>
     <entry key="label.email">E-mail</entry>
     <entry key="label.password">Hasło</entry>
     <entry key="label.password.confirm">Hasło (ponownie)</entry>
@@ -76,7 +76,7 @@
     <entry key="label.file.size">Rozmiar dokumentu</entry>
     <entry key="label.file.type">Typ dokumentu</entry>
     <entry key="label.file.none">Nie znaleziono żadnych dokumentów</entry>
-    <entry key="form.login.title">Login</entry>
+    <entry key="form.login.title">Zaloguj się</entry>
     <entry key="form.register.title">Zarejestruj się</entry>
     <entry key="form.project.create.title">Utwórz projekt </entry>
     <entry key="form.project.delete.title">Usuń projekt</entry>
@@ -90,11 +90,11 @@
     <entry key="form.project.select.chosen.member.title">Członkowie projektu</entry>
     <entry key="project.link.edit">Zmień projekt</entry>
     <entry key="currentPasswort.wrong">Bieżące hasło jest nieprawidłowe.</entry>
-    <entry key="newPassword.label">Nowe hasło.</entry>
+    <entry key="label.password.new">Nowe hasło.</entry>
     <entry key="newPasswordConfirm.label">Wprowadź ponownie nowe hasło.</entry>
     <entry key="newPasswordConfirm.EqualInputValidator">Podane hasła nie są zgodne. </entry>
-    <entry key="newEmail.label">Nowy adres e-mail.</entry>
-    <entry key="newEmailConfirm.label">Wprowadź ponownie nowy adres e-mail.</entry>
+    <entry key="label.email.new">Nowy adres e-mail.</entry>
+    <entry key="label.email.confirm">Wprowadź ponownie nowy adres e-mail.</entry>
     <entry key="newEmailConfirm.EqualInputValidator">Podane adresy e-mail nie są zgodne. </entry>
     <entry key="passwordChanged.success">Zmiana hasła zakończona sukcesem. </entry>
     <entry key="emailChanged.success">Zmiana adresu e-mail zakończona sukcesem. </entry>
@@ -131,4 +131,14 @@
     <entry key="Required">To pole jest obowiązkowe!</entry>
     <entry key="LengthValidator">Wprowadzona wartość musi mieć od ${min} do ${max} znaków</entry>
     <entry key="PROJECT">Projekt</entry>
+    <entry key="label.logout">Wyloguj się</entry>
+    <entry key="label.user.profile">Profil</entry>
+    <entry key="label.street">Ulica</entry>
+    <entry key="label.number">Numer domu</entry>
+    <entry key="label.zip">Kod pocztowy</entry>
+    <entry key="label.country">Region</entry>
+    <entry key="label.city">Miejscowość</entry>
+    <entry key="label.change.account.settings">Ustawienia konta</entry>
+    <entry key="label.change.password">Zmień swoje hasło</entry>
+    <entry key="label.change.email">Zmień swój adres e-mail</entry>
 </properties>

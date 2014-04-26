@@ -28,9 +28,6 @@ import de.stekoe.idss.page.project.criterion.ResultPage;
 import de.stekoe.idss.page.project.criterion.page.CriteriaPageListPage;
 import de.stekoe.idss.service.ProjectService;
 
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
 public abstract class ProjectPage extends AuthProjectPage {
 
     @SpringBean

@@ -31,7 +31,7 @@ import de.stekoe.idss.page.AuthUserPage;
 import de.stekoe.idss.service.ProjectService;
 import de.stekoe.idss.session.WebSession;
 
-public class AuthProjectPage extends AuthUserPage {
+public abstract class AuthProjectPage extends AuthUserPage {
     private static final Logger LOG = Logger.getLogger(AuthProjectPage.class);
 
     @SpringBean

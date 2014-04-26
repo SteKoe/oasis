@@ -123,7 +123,7 @@ public class ProjectListPage extends AuthUserPage {
             item.add(detailsPage);
             detailsPage.setBody(Model.of(getString("label.details")));
 
-            // Edit link
+            // Delete link
             final Link<Void> deleteProjectLink = new Link<Void>("button.project.delete") {
                 @Override
                 public IModel<?> getBody() {
@@ -133,6 +133,7 @@ public class ProjectListPage extends AuthUserPage {
                 @Override
                 public void onClick() {
                     projectService.delete(project.getId());
+                    success(getString("message.delete.success"));
                 }
             };
             item.add(deleteProjectLink);

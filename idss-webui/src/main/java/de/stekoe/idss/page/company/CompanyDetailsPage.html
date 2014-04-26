@@ -1,0 +1,10 @@
+<wicket:extend>
+    <h1 wicket:id="company.name"></h1>
+    
+    <wicket:enclosure child="company.addresses">
+        <h5><wicket:message key="label.addresses" /></h5>
+        <wicket:container wicket:id="company.addresses">
+            <span wicket:id="address"></span>
+        </wicket:container>
+    </wicket:enclosure>
+</wicket:extend>

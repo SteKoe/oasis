@@ -17,6 +17,7 @@ import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang3.Validate;
+import org.apache.log4j.Logger;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,7 @@ import de.stekoe.idss.model.Identifyable;
 import de.stekoe.idss.model.Permission;
 import de.stekoe.idss.model.PermissionObject;
 import de.stekoe.idss.model.PermissionType;
+import de.stekoe.idss.model.SystemRole;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.model.UserStatus;
 import de.stekoe.idss.repository.UserRepository;
@@ -33,6 +35,8 @@ import de.stekoe.idss.repository.UserRepository;
 @Service
 @Transactional(readOnly = true)
 public class AuthService {
+
+    private static final Logger LOG = Logger.getLogger(AuthService.class);
 
     @Autowired
     private UserRepository userRepository;
@@ -89,6 +93,11 @@ public class AuthService {
         if (user == null) {
             return false;
         }
+
+        if(user.getRoles().contains(new SystemRole(SystemRole.ADMIN))) {
+            return true;
+        }
+
         if (user.getPermissions() == null) {
             return false;
         }

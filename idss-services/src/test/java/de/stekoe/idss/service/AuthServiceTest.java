@@ -1,5 +1,6 @@
 package de.stekoe.idss.service;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
@@ -20,6 +21,7 @@ import de.stekoe.idss.model.PermissionObject;
 import de.stekoe.idss.model.PermissionType;
 import de.stekoe.idss.model.Project;
 import de.stekoe.idss.model.ProjectMember;
+import de.stekoe.idss.model.SystemRole;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.model.UserStatus;
 import de.stekoe.idss.repository.ProjectRepository;
@@ -38,9 +40,35 @@ public class AuthServiceTest extends AbstractBaseTest {
     @Inject
     UserRepository userService;
 
+    @Inject
+    SystemRoleService systemRoleService;
+
     @Test(expected = NullPointerException.class)
     public void testNullArguments() {
         authService.authenticate(null, null);
+    }
+
+    @Test
+    public void userIsAdministrator() throws Exception {
+        Project project = TestFactory.createProject();
+
+        SystemRole systemRole = new SystemRole();
+        systemRole.setName(SystemRole.ADMIN);
+        systemRoleService.save(systemRole);
+
+        User user = TestFactory.createUser(UUID.randomUUID().toString());
+        user.getRoles().add(systemRoleService.getAdminRole());
+        userService.save(user);
+
+        ProjectMember pm = new ProjectMember();
+        pm.setUser(user);
+
+        projectRepository.save(project);
+
+        assertThat(authService.isAuthorized(user.getId(), project, PermissionType.CREATE), equalTo(true));
+        assertThat(authService.isAuthorized(user.getId(), project, PermissionType.READ), equalTo(true));
+        assertThat(authService.isAuthorized(user.getId(), project, PermissionType.UPDATE), equalTo(true));
+        assertThat(authService.isAuthorized(user.getId(), project, PermissionType.DELETE), equalTo(true));
     }
 
     @Test

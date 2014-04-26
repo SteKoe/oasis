@@ -14,16 +14,14 @@
   ~ limitations under the License.
   -->
 
-<html xmlns:wicket="http://wicket.sourceforge.net/">
-<wicket:extend>
-    <h1><wicket:message key="label.company.manage" /></h1>
-    
-    <div class="well">
-        <a href="" class="btn btn-success" wicket:id="link.new">
-            <wicket:message key="label.new" />
-        </a>
-    </div>
-    <wicket:container wicket:id="company.list">
-    </wicket:container>
-</wicket:extend>
+<html xmlns:wicket>
+<body>
+    <wicket:panel>
+        <address>
+            <span wicket:id="street">795 Folsom Ave, Suite 600</span><br>
+            <span wicket:id="city">San Francisco, CA 94107</span><br> 
+            <span wicket:id="country">United States</span>
+        </address>
+    </wicket:panel>
+</body>
 </html>

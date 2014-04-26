@@ -16,18 +16,14 @@
 
 package de.stekoe.idss.model;
 
-
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
 public enum PermissionObject implements L10NEnum {
     PROJECT(Project.class, "label.project"),
-    COMPANY(Project.class, "label.company");
+    COMPANY(Company.class, "label.company");
 
     private final String key;
     private final Class<?> permissionClazz;
 
-    PermissionObject(Class<Project> permissionClazz, String key) {
+    PermissionObject(Class<?> permissionClazz, String key) {
         this.permissionClazz = permissionClazz;
         this.key = key;
     }

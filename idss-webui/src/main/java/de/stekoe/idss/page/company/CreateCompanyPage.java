@@ -7,10 +7,14 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import de.stekoe.idss.model.Company;
 import de.stekoe.idss.model.CompanyRole;
 import de.stekoe.idss.model.Employee;
+import de.stekoe.idss.model.Permission;
+import de.stekoe.idss.model.PermissionObject;
+import de.stekoe.idss.model.PermissionType;
+import de.stekoe.idss.page.AuthUserPage;
 import de.stekoe.idss.service.CompanyRoleService;
 import de.stekoe.idss.session.WebSession;
 
-public class CreateCompanyPage extends CompanyPage {
+public class CreateCompanyPage extends AuthUserPage {
 
     @Inject
     private CompanyRoleService companyRoleService;
@@ -25,6 +29,7 @@ public class CreateCompanyPage extends CompanyPage {
 
                 CompanyRole companyRole = new CompanyRole();
                 companyRole.setName("Administrator");
+                companyRole.getPermissions().add(new Permission(PermissionObject.COMPANY, PermissionType.ALL, company.getId()));
                 company.getRoles().add(companyRole);
 
                 Employee employee = new Employee();

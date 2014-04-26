@@ -19,7 +19,6 @@ package de.stekoe.idss.page.user;
 import org.apache.log4j.Logger;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -33,6 +32,7 @@ import de.stekoe.idss.page.component.behavior.Placeholder;
 import de.stekoe.idss.service.UserException;
 import de.stekoe.idss.service.UserService;
 import de.stekoe.idss.session.WebSession;
+import de.stekoe.idss.wicket.form.AddressField;
 
 @SuppressWarnings("serial")
 public class EditUserProfilePage extends AuthUserPage {
@@ -67,8 +67,6 @@ public class EditUserProfilePage extends AuthUserPage {
                 }
             }
         };
-
-        form.add(new BookmarkablePageLink("changePasswordOrEmailLink", EditPasswordPage.class));
 
         UserProfile profile = user.getProfile();
         if(profile == null) {
@@ -111,14 +109,7 @@ public class EditUserProfilePage extends AuthUserPage {
         form.add(website);
 
         // Address
-        TextField street = new TextField("street", new PropertyModel(address, "street"));
-        form.add(street);
-        TextField number = new TextField("number", new PropertyModel(address, "number"));
-        form.add(number);
-        TextField postalCode = new TextField("zip", new PropertyModel(address, "zip"));
-        form.add(postalCode);
-        TextField country = new TextField("country", new PropertyModel(address, "country"));
-        form.add(country);
+        form.add(new AddressField("address", new PropertyModel(profile, "address")));
 
         add(form);
     }

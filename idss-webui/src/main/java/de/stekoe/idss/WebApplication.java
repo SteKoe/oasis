@@ -51,6 +51,7 @@ import de.stekoe.idss.session.WebSession;
 public class WebApplication extends AuthenticatedWebApplication implements ApplicationContextAware {
 
     private static final Logger LOG = Logger.getLogger(WebApplication.class);
+    public static final Class<? extends WebPage> HOMEPAGE = HomePage.class;
 
     public static final Locale[] LANGUAGES = {
             Locale.GERMAN,
@@ -124,7 +125,7 @@ public class WebApplication extends AuthenticatedWebApplication implements Appli
 
     @Override
     public Class<? extends WebPage> getHomePage() {
-        return HomePage.class;
+        return HOMEPAGE;
     }
 
     @Override

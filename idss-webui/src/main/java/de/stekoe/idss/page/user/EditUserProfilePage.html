@@ -22,14 +22,6 @@
 <wicket:extend>
     <form wicket:id="userprofile">
         <fieldset>
-            <div class="form-group">
-                <div class="controls">
-                    <a href="#" class="btn btn-default" wicket:id="changePasswordOrEmailLink">
-                        <wicket:message key="label.changemailorpassword" />
-                    </a>
-                </div>
-            </div>
-
             <label><wicket:message key="label.name" /></label>
             <div class="row">
                 <div class="form-group col-xs-2">
@@ -76,28 +68,13 @@
             
             <fieldset>
                 <legend><wicket:message key="label.address" /></legend>
-                <div class="row">
-                    <div class="form-group col-xs-9">
-                        <input class="form-control" type="text" id="street" wicket:id="street"/>
-                    </div>
-                    <div class="form-group col-xs-3">
-                        <input class="form-control" type="text" id="number" wicket:id="number"/>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-xs-3">
-                        <input class="form-control" type="text" id="zip" wicket:id="zip"/>
-                    </div>
-                    <div class="form-group col-xs-9">
-                        <input class="form-control" type="text" id="country" wicket:id="country"/>
-                    </div>
-                </div>
+                <wicket:container wicket:id="address"></wicket:container>
             </fieldset>
             
             <!-- Submit -->
             <div class="well">
-                <button type="submit" class="btn btn-success">Speichern</button>
-                <button type="reset" class="btn">Zurücksetzen</button>
+                <button type="submit" class="btn btn-success"><wicket:message key="label.save" /></button>
+                <button type="reset" class="btn"><wicket:message key="label.cancel" /></button>
             </div>
         </fieldset>
     </form>

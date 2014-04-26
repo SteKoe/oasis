@@ -56,8 +56,9 @@ public class CompanyService {
         return companyRepository.findByUser(userId);
     }
 
+    @Transactional(readOnly = false)
     public void delete(String id) {
-        // TODO Auto-generated method stub
+        companyRepository.delete(id);
     }
 
     public boolean isAuthorized(final String userId, final String companyId, final PermissionType permissionType) {
@@ -98,5 +99,9 @@ public class CompanyService {
         }
 
         return false;
+    }
+
+    public List<Company> findAll() {
+        return (List<Company>) companyRepository.findAll();
     }
 }

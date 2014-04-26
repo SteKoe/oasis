@@ -22,7 +22,6 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.validation.EqualInputValidator;
 import org.apache.wicket.model.PropertyModel;
-import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.FormGroup;
@@ -112,7 +111,6 @@ public class EditPasswordPage extends AuthUserPage {
     private FormGroup createCurrentPasswordGroup() {
         currentPasswordField = new PasswordTextField("currentPassword", new PropertyModel(this, "currentPassword"));
         currentPasswordField.setRequired(true);
-        currentPasswordField.setLabel(new StringResourceModel("label.password.current", this, null));
 
         FormGroup group = new FormGroup("currentPasswordFormGroup");
         group.add(currentPasswordField);
@@ -122,7 +120,6 @@ public class EditPasswordPage extends AuthUserPage {
     private FormGroup createNewPasswordGroup() {
         newPasswordField = new PasswordTextField("newPassword", new PropertyModel(this, "newPassword"));
         newPasswordField.setRequired(false);
-        newPasswordField.setLabel(new StringResourceModel("newPassword.label", this, null));
 
         FormGroup group = new FormGroup("newPasswordFormGroup");
         group.add(newPasswordField);
@@ -132,7 +129,6 @@ public class EditPasswordPage extends AuthUserPage {
     private FormGroup createNewPasswordConfirmGroup() {
         newPasswordConfirmField = new PasswordTextField("newPasswordConfirm", new PropertyModel(this, "newPasswordConfirm"));
         newPasswordConfirmField.setRequired(false);
-        newPasswordConfirmField.setLabel(new StringResourceModel("newPasswordConfirm.label", this, null));
 
         FormGroup group = new FormGroup("newPasswordConfirmFormGroup");
         group.add(newPasswordConfirmField);
@@ -142,7 +138,6 @@ public class EditPasswordPage extends AuthUserPage {
     private FormGroup createNewEmailGroup() {
         newEmailField = new EmailTextField("newEmail", new PropertyModel(this, "newEmail"));
         newEmailField.setRequired(false);
-        newEmailField.setLabel(new StringResourceModel("newEmail.label", this, null));
 
         FormGroup group = new FormGroup("newEmailFormGroup");
         group.add(newEmailField);
@@ -152,7 +147,6 @@ public class EditPasswordPage extends AuthUserPage {
     private FormGroup createNewEmailConfirmGroup() {
         newEmailConfirmField = new EmailTextField("newEmailConfirm", new PropertyModel(this, "newEmailConfirm"));
         newEmailConfirmField.setRequired(false);
-        newEmailConfirmField.setLabel(new StringResourceModel("newEmailConfirm.label", this, null));
 
         FormGroup group = new FormGroup("newEmailConfirmFormGroup");
         group.add(newEmailConfirmField);

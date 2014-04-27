@@ -30,6 +30,6 @@ public interface CompanyRepository extends CrudRepository<Company, String> {
      * @param userId The userid to check
      * @return a list of Companys a user is employed.
      */
-    @Query("SELECT c FROM Company c LEFT JOIN c.employees emp LEFT JOIN emp.user u WITH u.id = ?1)")
+    @Query("SELECT c FROM Company c JOIN c.employees emp JOIN emp.user u WITH u.id = ?1)")
     List<Company> findByUser(String userId);
 }

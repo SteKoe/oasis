@@ -14,18 +14,17 @@
   ~ limitations under the License.
   -->
 
-<html xmlns:wicket="http://wicket.sourceforge.net/">
+<html xmlns:wicket>
+<body>
 <wicket:extend>
-    <h1><wicket:message key="label.company.roles.manage" /></h1>
-
-    <wicket:container wicket:id="roles">
-        <a class="btn btn-xs btn-danger pull-right" wicket:id="link.role.delete"><i class="fa fa-times"></i></a>
-        <a class="btn btn-xs btn-default pull-right"><i class="fa fa-pencil"></i></a>
-
-        <div class="userInfoBlock">
-            <strong wicket:id="role.name">[Rolename]</strong><br>
-            <em>[Permissions]</em>
+    <form wicket:id="form.add.member">
+        <div class="form-group">
+            <label>
+                <wicket:message key="label.usernameOrEmail"/>
+            </label>
+            <input type="text" wicket:id="user" class="form-control">
         </div>
-    </wicket:container>
+    </form>
 </wicket:extend>
+</body>
 </html>

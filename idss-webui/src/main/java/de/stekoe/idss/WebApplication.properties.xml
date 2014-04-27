@@ -157,4 +157,5 @@
     <entry key="label.company.employees.manage">Mitarbeiter verwalten</entry>
     <entry key="label.company.roles.manage">Rollen verwalten</entry>
     <entry key="label.company.addresses.manage">Adressen verwalten</entry>
+    <entry key="label.usernameOrEmail">Benutzername oder E-Mail-Adresse</entry>
 </properties>

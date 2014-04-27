@@ -82,8 +82,14 @@ public class CompanyService {
             }
         });
 
+        // User is no employee of the current company
         if(emp == null) {
             return false;
+        } else {
+            // When "READ" permission is required and user is employee, grant access
+            if(PermissionType.READ.equals(permissionType)) {
+                return true;
+            }
         }
 
         CompanyRole role = emp.getRole();
@@ -97,6 +103,7 @@ public class CompanyService {
                 }
             }
         }
+
 
         return false;
     }

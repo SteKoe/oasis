@@ -43,6 +43,8 @@ public abstract class CompanyPage extends AuthUserPage {
 
     private String companyId;
 
+    private CompanyModel companyModel;
+
     public CompanyPage(PageParameters pageParameters) {
         super(pageParameters);
 
@@ -58,6 +60,8 @@ public abstract class CompanyPage extends AuthUserPage {
             setResponsePage(WebApplication.HOMEPAGE);
             return;
         }
+
+        companyModel = new CompanyModel(companyId);
 
         add(new ListView<Link>("links", getLinks()) {
             @Override
@@ -91,7 +95,14 @@ public abstract class CompanyPage extends AuthUserPage {
     }
 
     Company getCompany() {
-        return (Company) new CompanyModel(companyId).getObject();
+        if(companyModel == null) {
+            companyModel = new CompanyModel(companyId);
+        }
+        return (Company) companyModel.getObject();
+    }
+
+    CompanyModel getCompanyModel() {
+        return companyModel;
     }
 
     private class CompanyModel extends Model {

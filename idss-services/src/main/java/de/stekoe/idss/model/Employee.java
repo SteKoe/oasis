@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 @Entity
 public class Employee implements Serializable {
@@ -36,5 +37,14 @@ public class Employee implements Serializable {
     }
     public void setRole(CompanyRole role) {
         this.role = role;
+    }
+
+    @Transient
+    public boolean hasRole(CompanyRole role) {
+        if(role == null) {
+            return false;
+        }
+
+        return getRole().getName().equals(role.getName());
     }
 }

@@ -9,6 +9,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
@@ -69,5 +70,16 @@ public class Company implements Serializable, Identifyable<String>, NamedElement
     @Override
     public String toString() {
         return new ToStringBuilder(this).append("name", name).append("addresses", addresses).toString();
+    }
+
+    @Transient
+    public Employee getEmployee(User user) {
+        for(Employee e : getEmployees()) {
+            if(e.getUser().equals(user)) {
+                return e;
+            }
+        }
+
+        return null;
     }
 }

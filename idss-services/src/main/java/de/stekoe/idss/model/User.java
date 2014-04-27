@@ -44,6 +44,7 @@ import javax.validation.constraints.Size;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 @Entity
 @Table(name = "User", uniqueConstraints = @UniqueConstraint(columnNames = {"username", "email"}))
@@ -198,6 +199,11 @@ public class User implements Serializable {
     }
 
     @Override
+    public String toString() {
+        return new ToStringBuilder(this).append(id).append(username).append(email).toString();
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (obj == null) {
             return false;
@@ -210,7 +216,6 @@ public class User implements Serializable {
         }
         User rhs = (User) obj;
         return new EqualsBuilder()
-                .appendSuper(super.equals(obj))
                 .append(getId(), rhs.getId())
                 .isEquals();
     }

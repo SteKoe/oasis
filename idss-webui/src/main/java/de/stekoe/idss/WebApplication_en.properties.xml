@@ -155,4 +155,5 @@
     <entry key="label.company.employees.manage">Manage employees</entry>
     <entry key="label.company.roles.manage">Manage company roles</entry>
     <entry key="label.company.addresses.manage">Manage addresses</entry>
+    <entry key="label.usernameOrEmail">Username or email address</entry>
 </properties>

@@ -6,5 +6,5 @@
 
     <import resource="classpath:web-ui/BeanLocations.xml"/>
 
-    <bean id="wicketApplication" class="de.stekoe.idss.FakeWebApplication"/>
+    <bean id="wicketApplication" class="de.stekoe.idss.FakeWebApplication" scope="prototype"/>
 </beans>

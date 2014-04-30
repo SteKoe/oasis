@@ -28,9 +28,11 @@ public enum PermissionType implements L10NEnum {
     READ("permissiontype.read"),
     UPDATE("permissiontype.update"),
     DELETE("permissiontype.delete"),
-    PROJECT_ADD_MEMBER("permissiontype.update.project.member"),
-    PROJECT_ADD_ROLES("permissiontype.update.project.roles"),
-    PROJECT_UPLOAD_FILE("permissiontype.project.upload.file");
+    MANAGE_MEMBER("permissiontype.manage.member"),
+    MANAGE_ROLES("permissiontype.manage.roles"),
+    UPLOAD_FILE("permissiontype.project.upload.file"),
+    MANAGE_ADDRESSES("permissiontype.manage.addresses"),
+    ;
 
     private final String key;
 
@@ -51,6 +53,7 @@ public enum PermissionType implements L10NEnum {
 
     public static final Set<PermissionType> forCrud() {
         final Set<PermissionType> permissionTypes = new HashSet<PermissionType>();
+        permissionTypes.add(CREATE);
         permissionTypes.add(READ);
         permissionTypes.add(UPDATE);
         permissionTypes.add(DELETE);
@@ -59,10 +62,22 @@ public enum PermissionType implements L10NEnum {
 
     public static final Set<PermissionType> forProject() {
         final Set<PermissionType> permissionTypes = new HashSet<PermissionType>();
-        permissionTypes.addAll(forCrud());
-        permissionTypes.add(PROJECT_ADD_MEMBER);
-        permissionTypes.add(PROJECT_ADD_ROLES);
-        permissionTypes.add(PROJECT_UPLOAD_FILE);
+        permissionTypes.add(READ);
+        permissionTypes.add(UPDATE);
+        permissionTypes.add(DELETE);
+        permissionTypes.add(MANAGE_MEMBER);
+        permissionTypes.add(MANAGE_ROLES);
+        permissionTypes.add(UPLOAD_FILE);
+        return permissionTypes;
+    }
+
+    public static final Set<PermissionType> forCompany() {
+        final Set<PermissionType> permissionTypes = new HashSet<PermissionType>();
+        permissionTypes.add(READ);
+        permissionTypes.add(UPDATE);
+        permissionTypes.add(DELETE);
+        permissionTypes.add(MANAGE_MEMBER);
+        permissionTypes.add(MANAGE_ROLES);
         return permissionTypes;
     }
 

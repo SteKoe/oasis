@@ -126,8 +126,8 @@
     <entry key="permissiontype.read">{0} read</entry>
     <entry key="permissiontype.update">{0} change</entry>
     <entry key="permissiontype.delete">{0} delete</entry>
-    <entry key="permissiontype.update.project.member">Change members</entry>
-    <entry key="permissiontype.update.project.roles">Change project roles</entry>
+    <entry key="permissiontype.manage.member">Manage members</entry>
+    <entry key="permissiontype.manage.roles">Mange roles</entry>
     <entry key="permissiontype.project.upload.file">Upload documents</entry>
     <entry key="Required">This field is mandatory!</entry>
     <entry key="LengthValidator">The entered value must have a length between ${min} and ${max} characters!</entry>
@@ -147,6 +147,7 @@
     <entry key="message.delete.success">The item has been deleted!</entry>
     <entry key="message.delete.error">Error while deleting item.</entry>
     <entry key="label.overview">Overview</entry>
+    <entry key="label.company">Company</entry>
     <entry key="label.company.manage">Manage company</entry>
     <entry key="label.company.create">Create company</entry>
     <entry key="label.new">New</entry>
@@ -156,4 +157,7 @@
     <entry key="label.company.roles.manage">Manage company roles</entry>
     <entry key="label.company.addresses.manage">Manage addresses</entry>
     <entry key="label.usernameOrEmail">Username or email address</entry>
+    <entry key="permissiontype.manage.addresses">Manage addresses</entry>
+    <entry key="permissiontype.all">All permissions</entry>
+    <entry key="label.role.name">Name of the role</entry>
 </properties>

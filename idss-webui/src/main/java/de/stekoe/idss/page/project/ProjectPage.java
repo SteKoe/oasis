@@ -72,7 +72,7 @@ public abstract class ProjectPage extends AuthProjectPage {
     private void addLinkUploadDocument() {
         final BookmarkablePageLink<ProjectUploadDocument> linkUploadPage = new BookmarkablePageLink<ProjectUploadDocument>("link.upload.document", ProjectUploadDocument.class, getProjectIdPageParam());
         add(linkUploadPage);
-        linkUploadPage.setVisible(projectService.isAuthorized(getUser().getId(), getProject().getId(), PermissionType.PROJECT_UPLOAD_FILE));
+        linkUploadPage.setVisible(projectService.isAuthorized(getUser().getId(), getProject().getId(), PermissionType.UPLOAD_FILE));
     }
 
     private void addLabelProjectStatus() {
@@ -83,13 +83,13 @@ public abstract class ProjectPage extends AuthProjectPage {
     private void addLinkEditProjectRoles() {
         final BookmarkablePageLink<ProjectRoleListPage> editProjectRolesLink = new BookmarkablePageLink<ProjectRoleListPage>("editProjectRolesLink", ProjectRoleListPage.class, getProjectIdPageParam());
         add(editProjectRolesLink);
-        editProjectRolesLink.setVisible(projectService.isAuthorized(getUser().getId(), getProject().getId(), PermissionType.PROJECT_ADD_ROLES));
+        editProjectRolesLink.setVisible(projectService.isAuthorized(getUser().getId(), getProject().getId(), PermissionType.MANAGE_ROLES));
     }
 
     private void addLinkEditProjectMember() {
         final BookmarkablePageLink<ProjectMemberListPage> addMemberLink = new BookmarkablePageLink<ProjectMemberListPage>("addMember", ProjectMemberListPage.class, getProjectIdPageParam());
         add(addMemberLink);
-        addMemberLink.setVisible(projectService.isAuthorized(getUser().getId(), getProject().getId(), PermissionType.PROJECT_ADD_MEMBER));
+        addMemberLink.setVisible(projectService.isAuthorized(getUser().getId(), getProject().getId(), PermissionType.MANAGE_MEMBER));
     }
 
     private void addLinkEditProject() {

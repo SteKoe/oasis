@@ -125,8 +125,8 @@
     <entry key="permissiontype.read">{0} przeczytaj</entry>
     <entry key="permissiontype.update">{0} zmień</entry>
     <entry key="permissiontype.delete">{0} usuń</entry>
-    <entry key="permissiontype.update.project.member">Zmień członków</entry>
-    <entry key="permissiontype.update.project.roles">Zmień role projektowe</entry>
+    <entry key="permissiontype.manage.member">Zmień członków</entry>
+    <entry key="permissiontype.manage.roles">Zmień role</entry>
     <entry key="permissiontype.project.upload.file">Załaduj dokumenty</entry>
     <entry key="Required">To pole jest obowiązkowe!</entry>
     <entry key="LengthValidator">Wprowadzona wartość musi mieć od ${min} do ${max} znaków</entry>

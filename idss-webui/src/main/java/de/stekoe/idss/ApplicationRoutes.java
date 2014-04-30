@@ -53,7 +53,7 @@ public class ApplicationRoutes {
 
     public void create() {
         createPageRoutes();
-        createSpecialPages();
+        //createSpecialPages();
     }
 
     private void createSpecialPages() {

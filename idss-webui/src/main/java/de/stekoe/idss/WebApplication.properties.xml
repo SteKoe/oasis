@@ -128,8 +128,8 @@
     <entry key="permissiontype.read">{0} lesen</entry>
     <entry key="permissiontype.update">{0} bearbeiten</entry>
     <entry key="permissiontype.delete">{0} löschen</entry>
-    <entry key="permissiontype.update.project.member">Mitglieder bearbeiten</entry>
-    <entry key="permissiontype.update.project.roles">Projektrollen bearbeiten</entry>
+    <entry key="permissiontype.manage.member">Mitglieder verwalten</entry>
+    <entry key="permissiontype.manage.roles">Rollen verwalten</entry>
     <entry key="permissiontype.project.upload.file">Dokumente hochladen</entry>
     <entry key="Required">Dieses Feld ist obligatorisch!</entry>
     <entry key="LengthValidator">Der eingegebene Wert muss zwischen ${min} und ${max} Zeichen lang sein!</entry>
@@ -149,6 +149,7 @@
     <entry key="message.delete.success">Der Datensatz wurde erfolgreich gelöscht!</entry>
     <entry key="message.delete.error">Beim Löschen des Datensatzes ist ein Fehler aufgetreten!</entry>
     <entry key="label.overview">Übersicht</entry>
+    <entry key="label.company">Unternehmen</entry>
     <entry key="label.company.manage">Unternehmen verwalten</entry>
     <entry key="label.company.create">Unternehmen erstellen</entry>
     <entry key="label.new">Neu</entry>
@@ -158,4 +159,7 @@
     <entry key="label.company.roles.manage">Rollen verwalten</entry>
     <entry key="label.company.addresses.manage">Adressen verwalten</entry>
     <entry key="label.usernameOrEmail">Benutzername oder E-Mail-Adresse</entry>
+    <entry key="permissiontype.manage.addresses">Adressen verwalten</entry>
+    <entry key="permissiontype.all">Alle Berechtigungen</entry>
+    <entry key="label.role.name">Name der Rolle</entry>
 </properties>

@@ -80,15 +80,17 @@ public abstract class CompanyPage extends AuthUserPage {
 
         BookmarkablePageLink<EmployeeListPage> employees = new BookmarkablePageLink<EmployeeListPage>("link", EmployeeListPage.class, getPageParameters());
         employees.setBody(Model.of(getString("label.company.employees.manage")));
+        employees.setVisible(companyService.isAuthorized(getUser().getId(), companyId, PermissionType.MANAGE_MEMBER));
         links.add(employees);
-
 
         BookmarkablePageLink<CompanyRoleListPage> companyRoles = new BookmarkablePageLink<CompanyRoleListPage>("link", CompanyRoleListPage.class, getPageParameters());
         companyRoles.setBody(Model.of(getString("label.company.roles.manage")));
+        companyRoles.setVisible(companyService.isAuthorized(getUser().getId(), companyId, PermissionType.MANAGE_ROLES));
         links.add(companyRoles);
 
         BookmarkablePageLink<CompanyAddressesListPage> companyAddresses = new BookmarkablePageLink<CompanyAddressesListPage>("link", CompanyAddressesListPage.class, getPageParameters());
         companyAddresses.setBody(Model.of(getString("label.company.addresses.manage")));
+        companyRoles.setVisible(companyService.isAuthorized(getUser().getId(), companyId, PermissionType.MANAGE_ADDRESSES));
         links.add(companyAddresses);
 
         return links;

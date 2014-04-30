@@ -93,11 +93,11 @@ public class EditProjectMembersForm extends Panel {
 
                 final BookmarkablePageLink<HomePage> editUserLink = new BookmarkablePageLink<HomePage>("user.edit", HomePage.class);
                 item.add(editUserLink);
-                editUserLink.setVisible(projectService.isAuthorized(getCurrentUser().getId(), project.getId(), PermissionType.PROJECT_ADD_MEMBER));
+                editUserLink.setVisible(projectService.isAuthorized(getCurrentUser().getId(), project.getId(), PermissionType.MANAGE_MEMBER));
 
                 final BookmarkablePageLink<HomePage> deleteUserLink = new BookmarkablePageLink<HomePage>("user.delete", HomePage.class);
                 item.add(deleteUserLink);
-                deleteUserLink.setVisible(projectService.isAuthorized(getCurrentUser().getId(), project.getId(), PermissionType.PROJECT_ADD_MEMBER) && !user.getId().equals(getCurrentUser().getId()));
+                deleteUserLink.setVisible(projectService.isAuthorized(getCurrentUser().getId(), project.getId(), PermissionType.MANAGE_MEMBER) && !user.getId().equals(getCurrentUser().getId()));
             }
         };
         add(projectMembersList);

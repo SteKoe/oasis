@@ -41,18 +41,18 @@ public class EmployeeListPage extends CompanyPage {
             }
         });
 
-        ModalAddEmployee modalAddEmployee = new ModalAddEmployee("modal.employee.add") {
+        AddEmployeeModal modalAddEmployee = new AddEmployeeModal("modal.employee.add") {
             @Override
             public void onSave(User existingUser) {
                 if(existingUser != null) {
-                    success(existingUser.toString());
-
                     Employee employee = new Employee();
                     employee.setUser(existingUser);
 
                     Company company = getCompany();
                     company.getEmployees().add(employee);
                     companyService.save(company);
+
+                    success(existingUser.toString());
 
                 } else {
                     error("User not found!");

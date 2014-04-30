@@ -14,19 +14,20 @@
   ~ limitations under the License.
   -->
 
-<html xmlns:wicket="http://wicket.sourceforge.net/">
+<html xmlns:wicket>
+<body>
 <wicket:extend>
-    <h1><wicket:message key="label.company.roles.manage" /></h1>
-    
-    <div class="well">
-        <a href="" class="btn btn-success" wicket:id="link.add">[Add]</a>
-    </div>
-
-    <wicket:container wicket:id="roles">
-        <wicket:container wicket:id="role">
+    <form wicket:id="form.add.role">
+        <div class="form-group">
+            <label>
+                <wicket:message key="label.role.name"/>
+            </label>
+            <input type="text" wicket:id="role.name" class="form-control">
+        </div>
+        
+        <wicket:container wicket:id="permissionTypes">
         </wicket:container>
-    </wicket:container>
-    
-    <div wicket:id="add.companyrole.modal"></div>
+    </form>
 </wicket:extend>
+</body>
 </html>

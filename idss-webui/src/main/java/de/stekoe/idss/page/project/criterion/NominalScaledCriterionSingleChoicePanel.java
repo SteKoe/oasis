@@ -1,5 +1,7 @@
 package de.stekoe.idss.page.project.criterion;
 
+import java.util.List;
+
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Radio;
 import org.apache.wicket.markup.html.form.RadioGroup;
@@ -17,10 +19,13 @@ public class NominalScaledCriterionSingleChoicePanel extends NominalScaledCriter
 
     @Override
     void renderChoices() {
-        final RadioGroup radioGroup = new RadioGroup("radiogroup", new PropertyModel<NominalValue>(getModel(), "measurementValues.0"));
+        List<NominalValue> availableValues = getPageElement().getValues();
+        PropertyModel<NominalValue> selectedValues = new PropertyModel<NominalValue>(getModel(), "measurementValues.0");
+
+        final RadioGroup radioGroup = new RadioGroup("radiogroup", selectedValues);
         add(radioGroup);
 
-        ListView<NominalValue> listView = new ListView<NominalValue>("choices", getPageElement().getValues()) {
+        ListView<NominalValue> listView = new ListView<NominalValue>("choices", availableValues) {
             @Override
             protected void populateItem(ListItem<NominalValue> item) {
                 Radio radio = new Radio("radio", item.getModel());

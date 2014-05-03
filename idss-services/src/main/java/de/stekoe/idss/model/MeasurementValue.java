@@ -90,10 +90,10 @@ public abstract class MeasurementValue implements Serializable {
 
     @Override
     public int hashCode() {
-        if(value == null) {
+        if(id == null) {
             return 0;
         } else {
-            return value.hashCode();
+            return id.hashCode();
         }
     }
 
@@ -111,7 +111,7 @@ public abstract class MeasurementValue implements Serializable {
         MeasurementValue rhs = (MeasurementValue) obj;
 
         return new EqualsBuilder()
-                .append(getValue(), rhs.value)
+                .append(getId(), rhs.id)
                 .isEquals();
     }
 

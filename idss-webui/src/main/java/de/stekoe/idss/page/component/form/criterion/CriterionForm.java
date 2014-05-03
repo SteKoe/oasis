@@ -24,12 +24,13 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.LoadableDetachableModel;
+import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import wicket.contrib.tinymce.TinyMceBehavior;
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.FormGroup;
 import de.stekoe.idss.model.MeasurementValue;
+import de.stekoe.idss.model.NominalScaledCriterion;
 import de.stekoe.idss.model.SingleScaledCriterion;
 import de.stekoe.idss.page.component.behavior.CustomTinyMCESettings;
 import de.stekoe.idss.service.CriterionService;
@@ -58,7 +59,7 @@ public abstract class CriterionForm<T extends MeasurementValue> extends Panel {
         scaleForm = new Form<SingleScaledCriterion<T>>("ordinalScaledCriterionForm", new CompoundPropertyModel<SingleScaledCriterion<T>>(getCriterionModel())) {
             @Override
             protected void onSubmit() {
-                onSaveCriterion(getModel());
+                onSaveCriterion(getCriterionModel());
             }
         };
         add(scaleForm);
@@ -73,9 +74,14 @@ public abstract class CriterionForm<T extends MeasurementValue> extends Panel {
         descriptionTextField.add(new PropertyValidator<String>());
         scaleForm.add(new FormGroup("description.group").add(descriptionTextField));
 
-        final CheckBox allowNoChoiceCheckBox = new CheckBox("allowNoChoice");
+        final CheckBox allowNoChoiceCheckBox = new CheckBox("allowNoChoice", new PropertyModel(getCriterionModel(), "allowNoChoice"));
         scaleForm.add(allowNoChoiceCheckBox);
 
+        CheckBox checkBox = new CheckBox("allowMultipleChoice", new PropertyModel(getCriterionModel(), "multipleChoice"));
+        scaleForm.add(checkBox);
+        if(!(getCriterionModel().getObject() instanceof NominalScaledCriterion)) {
+            checkBox.setVisible(false);
+        }
 
         scaleForm.add(new MarkRequiredFieldsBehavior());
 
@@ -98,6 +104,6 @@ public abstract class CriterionForm<T extends MeasurementValue> extends Panel {
         setResponsePage(getPage());
     }
 
-    public abstract LoadableDetachableModel<SingleScaledCriterion<T>> getCriterionModel();
+    public abstract IModel<SingleScaledCriterion<T>> getCriterionModel();
     public abstract void onSaveCriterion(IModel<SingleScaledCriterion<T>> aModel);
 }

@@ -16,6 +16,7 @@
 
 package de.stekoe.idss.page.project.criterion.page;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.wicket.AttributeModifier;
@@ -50,7 +51,11 @@ public class CriteriaPageListPage extends ProjectPage {
     private final LoadableDetachableModel<List<CriterionPage>> criterionPagesModel = new LoadableDetachableModel<List<CriterionPage>>() {
         @Override
         protected List<CriterionPage> load() {
-            return criterionPageService.getCriterionPagesForProject(getProjectId());
+            List<CriterionPage> criterionPagesForProject = criterionPageService.getCriterionPagesForProject(getProjectId());
+            if(criterionPagesForProject == null) {
+                criterionPagesForProject = new ArrayList<CriterionPage>();
+            }
+            return criterionPagesForProject;
         }
     };
 
@@ -82,7 +87,7 @@ public class CriteriaPageListPage extends ProjectPage {
 
                 final WebMarkupContainer emptyTable = new WebMarkupContainer("page.empty");
                 item.add(emptyTable);
-                emptyTable.setVisible(pageListItems.getList().isEmpty());
+                emptyTable.setVisible(pageListItems.getList() == null || pageListItems.getList().isEmpty());
             }
 
             private Link movePageUpLink(final CriterionPage criterionPage) {

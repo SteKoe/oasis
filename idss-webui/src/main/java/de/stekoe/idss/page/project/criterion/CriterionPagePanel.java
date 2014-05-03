@@ -65,10 +65,17 @@ public class CriterionPagePanel extends Panel {
             protected void populateItem(ListItem<PageElement> item) {
                 PageElement pageElement = item.getModelObject();
 
-                Component element = new Label("wicket");
+                Component element = new Label("element");
                 if(pageElement instanceof NominalScaledCriterion) {
-                    element = new NominalScaledCriterionPanel("element", (NominalScaledCriterion) pageElement);
-                    pageElementPanels.add((PageElementPanel) element);
+                    NominalScaledCriterion nsc = (NominalScaledCriterion) pageElement;
+                    if(!nsc.isMultipleChoice()) {
+                        element = new NominalScaledCriterionSingleChoicePanel("element", nsc);
+                    } else {
+                        element = new NominalScaledCriterionMultipleChoicePanel("element", nsc);
+                    }
+                    if(element instanceof PageElementPanel) {
+                        pageElementPanels.add((PageElementPanel) element);
+                    }
                 }
                 item.add(element);
             }

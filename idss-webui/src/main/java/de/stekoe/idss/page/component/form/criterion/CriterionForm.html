@@ -36,6 +36,18 @@
                 </p>
             </label>
         </div>
+        
+        <wicket:enclosure child="allowMultipleChoice">
+        <div class="form-group">
+            <label class="checkbox-inline">
+                <input type="checkbox" wicket:id="allowMultipleChoice">
+                <wicket:message key="label.criterion.allowMultipleChoice"/>
+                <p class="help-block">
+                    <wicket:message key="label.criterion.allowMultipleChoice.help"/>
+                </p>
+            </label>
+        </div>
+        </wicket:enclosure>
     </form>
 
     <wicket:child/>

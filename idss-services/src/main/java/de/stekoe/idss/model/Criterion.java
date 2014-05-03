@@ -21,9 +21,6 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
 @Entity
 public abstract class Criterion extends PageElement implements Serializable {
 

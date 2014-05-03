@@ -2,22 +2,15 @@ package de.stekoe.idss.page.project.criterion;
 
 import javax.inject.Inject;
 
-import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.Radio;
-import org.apache.wicket.markup.html.form.RadioGroup;
-import org.apache.wicket.markup.html.list.ListItem;
-import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
-import org.apache.wicket.model.PropertyModel;
 
 import de.stekoe.idss.model.NominalScaledCriterion;
-import de.stekoe.idss.model.NominalValue;
 import de.stekoe.idss.model.UserChoice;
 import de.stekoe.idss.repository.UserChoiceRepository;
 import de.stekoe.idss.session.WebSession;
 
-public class NominalScaledCriterionPanel extends PageElementPanel<NominalScaledCriterion> {
+public abstract class NominalScaledCriterionPanel extends PageElementPanel<NominalScaledCriterion> {
 
     @Inject
     UserChoiceRepository userChoiceRepository;
@@ -29,21 +22,7 @@ public class NominalScaledCriterionPanel extends PageElementPanel<NominalScaledC
         renderChoices();
     }
 
-    private void renderChoices() {
-        final RadioGroup radioGroup = new RadioGroup("radiogroup", new PropertyModel<NominalValue>(getModel(), "measurementValues.0"));
-        add(radioGroup);
-
-        ListView<NominalValue> listView = new ListView<NominalValue>("choices", getPageElement().getValues()) {
-            @Override
-            protected void populateItem(ListItem<NominalValue> item) {
-                Radio radio = new Radio("radio", item.getModel());
-                item.add(radio);
-                item.add(new Label("label", item.getModelObject().getValue()));
-            }
-        };
-        listView.setReuseItems(true);
-        radioGroup.add(listView);
-    }
+    abstract void renderChoices();
 
     @Override
     public IModel<UserChoice> getModel() {

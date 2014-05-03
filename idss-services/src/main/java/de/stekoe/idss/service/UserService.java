@@ -50,6 +50,10 @@ public class UserService {
         return userRepository.findOne(id);
     }
 
+    public long count() {
+        return userRepository.count();
+    }
+
     @Transactional
     public void save(User entity) throws UserException {
         if (emailInUse(entity)) {

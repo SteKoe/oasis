@@ -16,11 +16,13 @@
 
 package de.stekoe.idss.repository;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import de.stekoe.idss.model.Criterion;
 import de.stekoe.idss.model.SingleScaledCriterion;
 
 public interface CriterionRepository extends CrudRepository<Criterion, String> {
+    @Query("SELECT pe FROM PageElement pe WHERE pe.id = ?1")
     SingleScaledCriterion findSingleScaledCriterionById(String id);
 }

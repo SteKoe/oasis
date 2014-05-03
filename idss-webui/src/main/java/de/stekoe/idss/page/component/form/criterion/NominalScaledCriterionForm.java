@@ -26,7 +26,9 @@ import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.FormGroup;
@@ -47,9 +49,10 @@ public abstract class NominalScaledCriterionForm extends CriterionForm<NominalVa
 
     private Form<NominalValue> valueForm;
 
+    private NominalScaledCriterionModel nominalScaledCriterionModel;
+
     public NominalScaledCriterionForm(final String aId, final String aCriterionId) {
         super(aId, aCriterionId);
-
         valueForm();
     }
 
@@ -131,17 +134,34 @@ public abstract class NominalScaledCriterionForm extends CriterionForm<NominalVa
     }
 
     @Override
-    public LoadableDetachableModel<SingleScaledCriterion<NominalValue>> getCriterionModel() {
-        return new LoadableDetachableModel<SingleScaledCriterion<NominalValue>>() {
-            @Override
-            protected SingleScaledCriterion<NominalValue> load() {
-                if (getCriterionId() == null) {
-                    NominalScaledCriterion criterion = new NominalScaledCriterion();
-                    return criterion;
-                } else {
-                    return criterionService.findSingleScaledCriterionById(getCriterionId());
-                }
+    public IModel<SingleScaledCriterion<NominalValue>> getCriterionModel() {
+        if(nominalScaledCriterionModel == null) {
+            nominalScaledCriterionModel = new NominalScaledCriterionModel(getCriterionId());
+        }
+        return nominalScaledCriterionModel;
+    }
+
+    class NominalScaledCriterionModel extends Model<SingleScaledCriterion<NominalValue>> {
+        private SingleScaledCriterion<NominalValue> criterion;
+        private final String id;
+
+        public NominalScaledCriterionModel(String id) {
+            this.id = id;
+        }
+
+        @Override
+        public SingleScaledCriterion<NominalValue> getObject() {
+            if(criterion != null) {
+                return criterion;
             }
-        };
+
+            if(id == null) {
+                criterion = new NominalScaledCriterion();
+                return criterion;
+            } else {
+                criterion = criterionService.findSingleScaledCriterionById(getCriterionId());
+                return criterion;
+            }
+        }
     }
 }

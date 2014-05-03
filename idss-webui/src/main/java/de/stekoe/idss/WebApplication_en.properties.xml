@@ -160,4 +160,5 @@
     <entry key="permissiontype.manage.addresses">Manage addresses</entry>
     <entry key="permissiontype.all">All permissions</entry>
     <entry key="label.role.name">Name of the role</entry>
+    <entry key="label.criterion.allowMultipleChoice">Allow multiple selection</entry>
 </properties>

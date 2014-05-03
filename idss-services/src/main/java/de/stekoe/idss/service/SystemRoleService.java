@@ -62,4 +62,8 @@ public class SystemRoleService {
     public SystemRole getRoleByName(String rolename) {
         return systemRoleRepository.getRoleByName(rolename);
     }
+
+    public long count() {
+        return systemRoleRepository.count();
+    }
 }

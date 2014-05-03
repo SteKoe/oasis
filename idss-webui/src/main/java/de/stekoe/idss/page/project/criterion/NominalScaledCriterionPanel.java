@@ -30,7 +30,7 @@ public class NominalScaledCriterionPanel extends PageElementPanel<NominalScaledC
     }
 
     private void renderChoices() {
-        final RadioGroup radioGroup = new RadioGroup("radiogroup", new PropertyModel<NominalValue>(getModel(), "measurementValue"));
+        final RadioGroup radioGroup = new RadioGroup("radiogroup", new PropertyModel<NominalValue>(getModel(), "measurementValues.0"));
         add(radioGroup);
 
         ListView<NominalValue> listView = new ListView<NominalValue>("choices", getPageElement().getValues()) {

@@ -1,9 +1,12 @@
 package de.stekoe.idss.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -13,7 +16,7 @@ public class UserChoice implements Serializable {
     private String id = IDGenerator.createId();
     private User user;
     private Project project;
-    private MeasurementValue measurementValue;
+    private List<MeasurementValue> measurementValues = new ArrayList<MeasurementValue>();
 
     @Id
     public String getId() {
@@ -39,11 +42,11 @@ public class UserChoice implements Serializable {
         this.project = project;
     }
 
-    @ManyToOne(targetEntity = MeasurementValue.class)
-    public MeasurementValue getMeasurementValue() {
-        return measurementValue;
+    @ManyToMany(targetEntity = MeasurementValue.class)
+    public List<MeasurementValue> getMeasurementValues() {
+        return measurementValues;
     }
-    public void setMeasurementValue(MeasurementValue measurementValue) {
-        this.measurementValue = measurementValue;
+    public void setMeasurementValues(List<MeasurementValue> measurementValues) {
+        this.measurementValues = measurementValues;
     }
 }

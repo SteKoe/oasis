@@ -20,7 +20,6 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.validation.constraints.NotNull;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
@@ -30,27 +29,7 @@ public abstract class Criterion extends PageElement implements Serializable {
 
     private static final long serialVersionUID = 20141103925L;
 
-    private String name;
-    private String description;
     private boolean allowNoChoice = false;
-
-    @NotNull
-    @Column(nullable = false)
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     @Column(columnDefinition = "boolean default false")
     public boolean isAllowNoChoice() {

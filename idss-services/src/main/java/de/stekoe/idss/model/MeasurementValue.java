@@ -71,12 +71,12 @@ public abstract class MeasurementValue implements Serializable {
         this.value = value;
     }
 
-    public void setScale(SingleScaledCriterion criterion) {
+    public void setCriterion(SingleScaledCriterion criterion) {
         this.criterion = criterion;
     }
 
     @ManyToOne(targetEntity = SingleScaledCriterion.class)
-    public SingleScaledCriterion getScale() {
+    public SingleScaledCriterion getCriterion() {
         return criterion;
     }
 

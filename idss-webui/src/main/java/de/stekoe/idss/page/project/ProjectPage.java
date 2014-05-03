@@ -25,6 +25,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import de.stekoe.idss.model.PermissionType;
 import de.stekoe.idss.page.project.criterion.ResultPage;
+import de.stekoe.idss.page.project.criterion.SurveyPage;
 import de.stekoe.idss.page.project.criterion.page.CriteriaPageListPage;
 import de.stekoe.idss.service.ProjectService;
 
@@ -47,6 +48,8 @@ public abstract class ProjectPage extends AuthProjectPage {
         addLinkProjectDetails();
         addLinkSetOfCriteria();
         addLinkResult();
+
+        add(new BookmarkablePageLink<SurveyPage>("link.survey", SurveyPage.class, getProjectIdPageParam()));
     }
 
     private MarkupContainer addLabelProjectTitle() {

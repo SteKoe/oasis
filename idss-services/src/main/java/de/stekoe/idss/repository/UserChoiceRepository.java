@@ -13,8 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-jQuery(document).ready(function () {
-    $("[data-toggle='tooltip']").tooltip();
-    $('.dropdown-toggle').dropdown();
-    $('.expandable').expandable();
-});
+
+package de.stekoe.idss.repository;
+
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+
+import de.stekoe.idss.model.UserChoice;
+
+public interface UserChoiceRepository extends CrudRepository<UserChoice, String> {
+    @Query("SELECT uc FROM UserChoice uc JOIN uc.measurementValue mv JOIN mv.criterion c WITH c.id = ?2 WHERE uc.user.id = ?1")
+    UserChoice findByUserAndCriterion(String userId, String criterionId);
+}

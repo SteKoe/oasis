@@ -30,12 +30,14 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
+import de.stekoe.idss.model.Criterion;
 import de.stekoe.idss.model.MeasurementValue;
 import de.stekoe.idss.model.SingleScaledCriterion;
 import de.stekoe.idss.model.UserChoice;
 import de.stekoe.idss.page.project.ProjectPage;
 import de.stekoe.idss.repository.UserChoiceRepository;
 import de.stekoe.idss.service.CriterionService;
+import de.stekoe.idss.service.ProjectService;
 
 public class ResultPage extends ProjectPage {
 
@@ -45,23 +47,35 @@ public class ResultPage extends ProjectPage {
     @Inject
     CriterionService criterionService;
 
+    @Inject
+    ProjectService projectService;
+
     public ResultPage(PageParameters pageParameters) {
         super(pageParameters);
 
-        final ModeReport modeReport = new ModeReport("f6b482a8-69de-4487-857e-fe35c53843a6");
-        add(new Label("name", modeReport.getModel().getObject().getName()));
-        add(new ListView<MeasurementValue>("test", new ArrayList(modeReport.getCount().keySet())) {
+        add(new OccurrencesChartPanel("chart", new Model(criterionService.findSingleScaledCriterionById("a59230dc-1d40-4075-99a3-9e4f74709b9a"))));
+
+        add(new ListView<Criterion>("criterions", getProject().getScaleList()) {
             @Override
-            protected void populateItem(ListItem<MeasurementValue> item) {
-                MeasurementValue modelObject = item.getModelObject();
-                int count = modeReport.getCount().get(modelObject);
+            protected void populateItem(ListItem<Criterion> item) {
+                Criterion criterion = item.getModelObject();
 
-                StringBuilder sb = new StringBuilder();
-                sb.append(modelObject.getValue());
-                sb.append(": ");
-                sb.append(count);
+                final ModeReport modeReport = new ModeReport(criterion.getId());
+                item.add(new Label("name", modeReport.getModel().getObject().getName()));
+                item.add(new ListView<MeasurementValue>("criterion", new ArrayList(modeReport.getCount().keySet())) {
+                    @Override
+                    protected void populateItem(ListItem<MeasurementValue> iitem) {
+                        MeasurementValue modelObject = iitem.getModelObject();
+                        int count = modeReport.getCount().get(modelObject);
 
-                item.add(new Label("test.1", sb.toString()));
+                        StringBuilder sb = new StringBuilder();
+                        sb.append(modelObject.getValue());
+                        sb.append(": ");
+                        sb.append(count);
+
+                        iitem.add(new Label("test.1", sb.toString()));
+                    }
+                });
             }
         });
     }

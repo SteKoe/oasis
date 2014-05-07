@@ -22,9 +22,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
+
 @Entity
 public class MultiScaledCriterion extends Criterion {
     private static final long serialVersionUID = 201404132234L;

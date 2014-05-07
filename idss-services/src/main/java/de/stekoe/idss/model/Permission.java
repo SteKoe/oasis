@@ -27,9 +27,7 @@ import javax.persistence.Table;
 
 import org.apache.commons.lang3.StringUtils;
 
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
+
 @Entity
 @Table(name = "Permission")
 public class Permission implements Serializable {

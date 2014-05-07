@@ -34,13 +34,12 @@ import de.stekoe.idss.model.ProjectMember;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.page.HomePage;
 import de.stekoe.idss.page.component.modal.AddProjectMemberModal;
+import de.stekoe.idss.page.component.modal.EditProjectMemberModal;
+import de.stekoe.idss.page.component.modal.ProjectMemberModal;
 import de.stekoe.idss.page.component.user.UserInfoBlock;
 import de.stekoe.idss.service.ProjectService;
 import de.stekoe.idss.session.WebSession;
 
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
 public class EditProjectMembersForm extends Panel {
 
     private static final Logger LOG = Logger.getLogger(EditProjectMembersForm.class);
@@ -64,19 +63,7 @@ public class EditProjectMembersForm extends Panel {
         final Button buttonAddMember = new Button("button.add.member");
         add(buttonAddMember);
 
-        final AddProjectMemberModal addProjectMemberModal = new AddProjectMemberModal("modal.add.member", projectId) {
-            @Override
-            public void onSave(ProjectMember projectMember) {
-                LOG.error(projectMember);
-                if (projectMember.getUser() != null) {
-                    Project project = model.getObject();
-                    project.getProjectTeam().add(projectMember);
-                    projectService.save(project);
-                }
-
-                setResponsePage(getPage().getClass(), getPage().getPageParameters());
-            }
-        };
+        final ProjectMemberModal addProjectMemberModal = new AddProjectMemberModal("modal.add.member", projectId);
         add(addProjectMemberModal);
         addProjectMemberModal.addOpenerAttributesTo(buttonAddMember);
 
@@ -91,13 +78,17 @@ public class EditProjectMembersForm extends Panel {
                 final UserInfoBlock userInfoBlock = new UserInfoBlock("user.info.block", user, pm.getProjectRole().toString());
                 item.add(userInfoBlock);
 
-                final BookmarkablePageLink<HomePage> editUserLink = new BookmarkablePageLink<HomePage>("user.edit", HomePage.class);
+                final Button editUserLink = new Button("user.edit");
                 item.add(editUserLink);
                 editUserLink.setVisible(projectService.isAuthorized(getCurrentUser().getId(), project.getId(), PermissionType.MANAGE_MEMBER));
 
                 final BookmarkablePageLink<HomePage> deleteUserLink = new BookmarkablePageLink<HomePage>("user.delete", HomePage.class);
                 item.add(deleteUserLink);
                 deleteUserLink.setVisible(projectService.isAuthorized(getCurrentUser().getId(), project.getId(), PermissionType.MANAGE_MEMBER) && !user.getId().equals(getCurrentUser().getId()));
+
+                EditProjectMemberModal editProjectMemberModal = new EditProjectMemberModal("modal.edit.member", project.getId(), pm.getId());
+                item.add(editProjectMemberModal);
+                editProjectMemberModal.addOpenerAttributesTo(editUserLink);
             }
         };
         add(projectMembersList);

@@ -19,8 +19,11 @@ package de.stekoe.idss.page.component.form.project;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.bean.validation.PropertyValidator;
+import org.apache.wicket.extensions.markup.html.form.DateTextField;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
@@ -81,8 +84,8 @@ public abstract class ProjectForm extends Panel {
         addProjectNameField(projectForm);
         addProjectDescriptionField(projectForm);
         addProjectStatusField(projectForm);
-        addProjectStartDateField(projectForm);
-        addProjectEndDateField(projectForm);
+//        addProjectStartDateField(projectForm);
+//        addProjectEndDateField(projectForm);
         addButtons(projectForm);
 
         return projectForm;
@@ -90,8 +93,14 @@ public abstract class ProjectForm extends Panel {
 
     private void addProjectStartDateField(Form<Project> projectForm) {
         Locale.setDefault(getWebSession().getLocale());
-        final TextField projectStartDate = new TextField("projectStartDate");
-        projectForm.add(projectStartDate);
+
+        WebMarkupContainer webComponent = new WebMarkupContainer("projectStartDatePicker");
+        projectForm.add(webComponent);
+        webComponent.add(new AttributeModifier("data-date", projectForm.getModelObject().getProjectStartDate()));
+        webComponent.add(new AttributeModifier("data-date-format", getString("date.format")));
+
+        final DateTextField projectStartDate = new DateTextField("projectStartDate", getString("date.format"));
+        webComponent.add(projectStartDate);
     }
 
     private void addProjectEndDateField(Form<Project> projectForm) {

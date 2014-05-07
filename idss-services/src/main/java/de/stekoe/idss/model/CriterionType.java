@@ -16,9 +16,7 @@
 
 package de.stekoe.idss.model;
 
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
+
 public enum CriterionType implements L10NEnum {
     ORDINAL("label.criterion.type.ordinal"),
     NOMINAL("label.criterion.type.nominal"),

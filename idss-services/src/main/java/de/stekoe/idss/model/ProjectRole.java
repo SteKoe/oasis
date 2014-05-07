@@ -28,9 +28,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
+
 @Entity
 @Table(name = "ProjectRole")
 public class ProjectRole implements Serializable {

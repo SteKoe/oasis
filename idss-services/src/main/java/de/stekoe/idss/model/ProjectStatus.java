@@ -17,9 +17,7 @@
 package de.stekoe.idss.model;
 
 
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
+
 public enum ProjectStatus implements L10NEnum {
     EDITING("status.project.editing"),
     INPROGRESS("status.project.inprogress"),

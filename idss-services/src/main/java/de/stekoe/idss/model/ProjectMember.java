@@ -29,9 +29,7 @@ import javax.persistence.Table;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
+
 @Entity
 @Table(name = "ProjectMember")
 public class ProjectMember implements Serializable {

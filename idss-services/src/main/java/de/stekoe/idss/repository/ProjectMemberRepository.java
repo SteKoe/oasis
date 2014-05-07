@@ -14,17 +14,11 @@
  * limitations under the License.
  */
 
-package de.stekoe.idss.model;
+package de.stekoe.idss.repository;
 
-import java.util.UUID;
+import org.springframework.data.repository.CrudRepository;
 
+import de.stekoe.idss.model.ProjectMember;
 
-public class IDGenerator {
-    private IDGenerator() {
-        // NOP
-    }
-
-    public static String createId() {
-        return UUID.randomUUID().toString();
-    }
+public interface ProjectMemberRepository extends CrudRepository<ProjectMember, String> {
 }

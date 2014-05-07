@@ -16,9 +16,7 @@
 
 package de.stekoe.idss.model;
 
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
+
 public interface L10NEnum {
     String getKey();
 }

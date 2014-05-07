@@ -1,6 +1,8 @@
 package de.stekoe.idss.service;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
@@ -109,5 +111,14 @@ public class ProjectServiceTest extends AbstractBaseTest {
         assertFalse(usersProjects.isEmpty());
         assertTrue(usersProjects.size() == 1);
         assertTrue(usersProjects.get(0).getId().equals(project.getId()));
+    }
+
+    @Test
+    public void testDates() throws Exception {
+        Project project = TestFactory.createProject();
+        projectService.save(project);
+
+        project = projectService.findOne(project.getId());
+        assertThat(project.getProjectStartDate().toString(), equalTo(""));
     }
 }

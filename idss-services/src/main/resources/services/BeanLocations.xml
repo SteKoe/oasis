@@ -92,4 +92,5 @@
     <bean id="criterionService" class="de.stekoe.idss.service.CriterionService" />
     <bean id="companyService" class="de.stekoe.idss.service.CompanyService" />
     <bean id="companyRoleService" class="de.stekoe.idss.service.CompanyRoleService" />
+    <bean id="projectMemberService" class="de.stekoe.idss.service.ProjectMemberService" />
 </beans>

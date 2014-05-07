@@ -18,9 +18,7 @@ package de.stekoe.idss.model;
 
 import javax.persistence.Entity;
 
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
+
 @Entity
 public class OrdinalValue extends MeasurementValue {
     private static final long serialVersionUID = 201404132235L;

@@ -19,6 +19,8 @@ package de.stekoe.idss.page.component.behavior;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.wicket.request.resource.CssResourceReference;
+
 import wicket.contrib.tinymce.settings.Button;
 import wicket.contrib.tinymce.settings.TinyMCESettings;
 
@@ -34,8 +36,9 @@ public class CustomTinyMCESettings {
         settings.setToolbarLocation(TinyMCESettings.Location.top);
         settings.setToolbarAlign(TinyMCESettings.Align.center);
         settings.setStatusbarLocation(null);
+        settings.setContentCss(new CssResourceReference(CustomTinyMCESettings.class, "tinymce.css"));
         settings.addCustomSetting("width: '100%'");
-        settings.addCustomSetting("height: '200px'");
+        settings.addCustomSetting("height: '300px'");
 
         return settings;
     }

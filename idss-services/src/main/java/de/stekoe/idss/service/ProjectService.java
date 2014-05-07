@@ -131,8 +131,16 @@ public class ProjectService {
         projectRepository.delete(id);
     }
 
+    /**
+     * Returns a list of ProjectStatus (including the current ProjectStatus) which are allowed to set based
+     * on the current ProjectStatus. This implements a workflow like behavior.
+     *
+     * @param project The Project to get next status for
+     * @return A list of ProjectStatus
+     */
     public List<ProjectStatus> getNextProjectStatus(Project project) {
         List<ProjectStatus> nextProjectStatus = new ArrayList<ProjectStatus>();
+        nextProjectStatus.add(project.getProjectStatus());
 
         ProjectStatus projectStatus = project.getProjectStatus();
         if(ProjectStatus.EDITING.equals(projectStatus)) {

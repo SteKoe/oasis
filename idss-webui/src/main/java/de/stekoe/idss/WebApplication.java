@@ -71,23 +71,12 @@ public class WebApplication extends AuthenticatedWebApplication implements Appli
         super.init();
 
         new BeanValidationConfiguration().configure(this);
-
         getJavaScriptLibrarySettings().setJQueryReference(new UrlResourceReference(Url.parse("//code.jquery.com/jquery-1.10.2.min.js")));
         setConfigurationType();
-
         setSecuritySettings();
-
         setUpSpring();
-
         getMarkupSettings().setDefaultMarkupEncoding(StandardCharsets.UTF_8.displayName());
-
         Bootstrap.install(this, new BootstrapSettings());
-
-        for(String name : ctx.getBeanDefinitionNames()) {
-            Object bean = ctx.getBean(name);
-            LOG.info("Bean loaded: " + name + " ["+bean.getClass().getCanonicalName()+"]");
-        }
-
         applicationRoutes.create();
     }
 

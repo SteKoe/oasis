@@ -26,9 +26,7 @@ import org.apache.wicket.Application;
 import org.apache.wicket.authroles.authentication.AbstractAuthenticatedWebSession;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
 import org.apache.wicket.bean.validation.BeanValidationConfiguration;
-import org.apache.wicket.core.request.mapper.CryptoMapper;
 import org.apache.wicket.markup.html.WebPage;
-import org.apache.wicket.request.IRequestMapper;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.request.Response;
 import org.apache.wicket.request.Url;
@@ -104,8 +102,8 @@ public class WebApplication extends AuthenticatedWebApplication implements Appli
             default:
                 getExceptionSettings().setUnexpectedExceptionDisplay(IExceptionSettings.SHOW_INTERNAL_ERROR_PAGE);
                 getMarkupSettings().setCompressWhitespace(true);
-                IRequestMapper cryptoMapper = new CryptoMapper(getRootRequestMapper(), this);
-                setRootRequestMapper(cryptoMapper);
+//                IRequestMapper cryptoMapper = new CryptoMapper(getRootRequestMapper(), this);
+//                setRootRequestMapper(cryptoMapper);
                 break;
         }
     }

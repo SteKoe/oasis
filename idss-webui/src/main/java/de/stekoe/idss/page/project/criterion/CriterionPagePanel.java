@@ -17,6 +17,7 @@ import org.apache.wicket.model.IModel;
 
 import de.stekoe.idss.model.CriterionPage;
 import de.stekoe.idss.model.NominalScaledCriterion;
+import de.stekoe.idss.model.OrdinalScaledCriterion;
 import de.stekoe.idss.model.PageElement;
 import de.stekoe.idss.model.UserChoice;
 import de.stekoe.idss.repository.UserChoiceRepository;
@@ -73,9 +74,12 @@ public class CriterionPagePanel extends Panel {
                     } else {
                         element = new NominalScaledCriterionMultipleChoicePanel("element", nsc);
                     }
-                    if(element instanceof PageElementPanel) {
-                        pageElementPanels.add((PageElementPanel) element);
-                    }
+                } else if(pageElement instanceof OrdinalScaledCriterion) {
+                    element = new OrdinalScaledCriterionSingleChoicePanel("element", (OrdinalScaledCriterion) pageElement);
+                }
+
+                if(element instanceof PageElementPanel) {
+                    pageElementPanels.add((PageElementPanel) element);
                 }
                 item.add(element);
             }

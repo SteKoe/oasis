@@ -1,10 +1,7 @@
 <wicket:extend>
-    <div wicket:id="chart"></div>
-    
-    <div wicket:id="criterions">
-        <div wicket:id="name"></div>
-        <div wicket:id="criterion">
-            <div wicket:id="test.1"></div>
-        </div>
-    </div>
+    <h1>[Auswertung des Kriterienkatalogs]</h1>
+    <wicket:container wicket:id="charts">
+        <h3 wicket:id="criterion.name">[Name of criterion]</h3>
+        <div wicket:id="chart"></div>
+    </wicket:container>
 </wicket:extend>

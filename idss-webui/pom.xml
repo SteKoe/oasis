@@ -114,6 +114,11 @@
             <artifactId>wicketstuff-restannotations-json</artifactId>
             <version>${rest.api}</version>
         </dependency>
+        <dependency>
+            <groupId>de.stekoe</groupId>
+            <artifactId>amcharts</artifactId>
+            <version>3.0.0</version>
+        </dependency>
     </dependencies>
 
     <build>

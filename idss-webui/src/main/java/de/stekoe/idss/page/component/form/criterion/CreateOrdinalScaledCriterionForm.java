@@ -16,28 +16,31 @@
 
 package de.stekoe.idss.page.component.form.criterion;
 
+import javax.inject.Inject;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
-import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import de.stekoe.idss.model.CriterionPage;
 import de.stekoe.idss.model.OrdinalValue;
+import de.stekoe.idss.model.Project;
 import de.stekoe.idss.model.SingleScaledCriterion;
 import de.stekoe.idss.page.project.criterion.EditOrdinalCriterionPage;
 import de.stekoe.idss.service.CriterionPageService;
 import de.stekoe.idss.service.CriterionService;
+import de.stekoe.idss.service.ProjectService;
 
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
 public class CreateOrdinalScaledCriterionForm extends OrdinalScaledCriterionForm {
 
-    @SpringBean
-    private CriterionService itsCriterionService;
+    @Inject
+    private CriterionService criterionService;
 
-    @SpringBean
-    private CriterionPageService itsCriterionPageService;
+    @Inject
+    private CriterionPageService criterionPageService;
+
+    @Inject
+    private ProjectService projectService;
 
     private final String itsPageId;
 
@@ -48,7 +51,7 @@ public class CreateOrdinalScaledCriterionForm extends OrdinalScaledCriterionForm
 
     @Override
     public void onSaveCriterion(IModel<SingleScaledCriterion<OrdinalValue>> aModel) {
-        final CriterionPage page = itsCriterionPageService.findOne(itsPageId);
+        final CriterionPage page = criterionPageService.findOne(itsPageId);
 
         final SingleScaledCriterion<OrdinalValue> criterion = aModel.getObject();
         if(StringUtils.isEmpty(criterion.getName())) {
@@ -57,10 +60,14 @@ public class CreateOrdinalScaledCriterionForm extends OrdinalScaledCriterionForm
         criterion.setCriterionPage(page);
         criterion.setOrdering(page.getPageElements().size() + 1);
 
-        itsCriterionService.saveCriterion(criterion);
+        criterionService.saveCriterion(criterion);
 
         page.getPageElements().add(criterion);
-        itsCriterionPageService.save(page);
+        criterionPageService.save(page);
+
+        Project project = page.getProject();
+        project.getScaleList().add(criterion);
+        projectService.save(project);
 
         getWebSession().success("Success");
 

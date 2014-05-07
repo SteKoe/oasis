@@ -16,8 +16,6 @@
 
 package de.stekoe.idss.service;
 
-import java.io.File;
-
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -32,22 +30,7 @@ public class DocumentService {
     @Inject
     private DocumentRepository documentRepository;
 
-    private String path;
-
     public void save(Document document) {
         documentRepository.save(document);
-    }
-
-    public String getAbsolutePath(String id) {
-        final String[] idParts = id.split("-");
-        return getDocumentPath() + File.separator + idParts[1] + File.separator + idParts[0] + ".data";
-    }
-
-    public void setDocumentPath(String path) {
-        this.path = path;
-    }
-
-    public String getDocumentPath() {
-        return path;
     }
 }

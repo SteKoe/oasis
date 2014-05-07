@@ -23,6 +23,7 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -42,6 +43,7 @@ public class Document implements Serializable {
     private User user;
     private Date created = new Date();
     private String contentType;
+    private byte[] content;
 
     @Id
     public String getId() {
@@ -97,5 +99,14 @@ public class Document implements Serializable {
 
     public String getContentType() {
         return contentType;
+    }
+
+    @Lob
+    public byte[] getContent() {
+        return content;
+    }
+
+    public void setContent(byte[] content) {
+        this.content = content;
     }
 }

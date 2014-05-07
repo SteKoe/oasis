@@ -16,7 +16,10 @@
 
 package de.stekoe.idss.page.project;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,7 +37,9 @@ import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.apache.wicket.util.file.Files;
 import org.apache.wicket.util.lang.Bytes;
+import org.apache.wicket.util.time.Duration;
 
 import de.stekoe.idss.model.Document;
 import de.stekoe.idss.model.Project;
@@ -87,10 +92,24 @@ public class ProjectUploadDocument extends ProjectPage {
                 IModel<File> fileModel = new AbstractReadOnlyModel<File>() {
                     @Override
                     public File getObject() {
-                        return new File(documentService.getAbsolutePath(document.getId()));
+                        File tempFile;
+                        try
+                        {
+                            tempFile = File.createTempFile("oasis-download-", ".tmp");
+                            InputStream data = new ByteArrayInputStream(document.getContent());
+                            Files.writeTo(tempFile, data);
+                        }
+                        catch (IOException e)
+                        {
+                            throw new RuntimeException(e);
+                        }
+
+                        return tempFile;
                     }
                 };
+
                 final DownloadLink downloadLink = new DownloadLink("file.download", fileModel, document.getName());
+                downloadLink.setCacheDuration(Duration.NONE).setDeleteAfterDownload(true);
                 item.add(downloadLink);
                 item.setVisible(fileModel.getObject().canRead());
 

@@ -164,4 +164,5 @@
     <entry key="label.role.name">Name der Rolle</entry>
     <entry key="label.criterion.allowMultipleChoice">Mehrfachauswahl erlauben</entry>
     <entry key="label.criterion.allowMultipleChoice.help">Erlaubt die Auswahl mehrerer Antwortmöglichkeiten</entry>
+    <entry key="label.evaluation.result">Evaluationsergebnisse</entry>
 </properties>

@@ -24,6 +24,7 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import de.stekoe.idss.model.PermissionType;
+import de.stekoe.idss.model.ProjectStatus;
 import de.stekoe.idss.page.project.criterion.ResultPage;
 import de.stekoe.idss.page.project.criterion.SurveyPage;
 import de.stekoe.idss.page.project.criterion.page.CriteriaPageListPage;
@@ -48,8 +49,18 @@ public abstract class ProjectPage extends AuthProjectPage {
         addLinkProjectDetails();
         addLinkSetOfCriteria();
         addLinkResult();
+        addLinkSurveyPage();
+    }
 
-        add(new BookmarkablePageLink<SurveyPage>("link.survey", SurveyPage.class, getProjectIdPageParam()));
+    private void addLinkSurveyPage() {
+        BookmarkablePageLink<SurveyPage> surveyPage = new BookmarkablePageLink<SurveyPage>("link.survey", SurveyPage.class, getProjectIdPageParam());
+        add(surveyPage);
+        if(!ProjectStatus.INPROGRESS.equals(getProject().getProjectStatus())) {
+            surveyPage.setVisible(false);
+        }
+        if(projectService.isAuthorized(getUser().getId(), getProject().getId(), PermissionType.UPDATE)) {
+            surveyPage.setVisible(true);
+        }
     }
 
     private MarkupContainer addLabelProjectTitle() {
@@ -57,7 +68,14 @@ public abstract class ProjectPage extends AuthProjectPage {
     }
 
     private MarkupContainer addLinkResult() {
-        return add(new BookmarkablePageLink<ResultPage>("link.result", ResultPage.class, getProjectIdPageParam()));
+        BookmarkablePageLink<ResultPage> resultLink = new BookmarkablePageLink<ResultPage>("link.result", ResultPage.class, getProjectIdPageParam());
+        if(!ProjectStatus.FINISHED.equals(getProject().getProjectStatus())) {
+            resultLink.setVisible(false);
+        }
+        if(projectService.isAuthorized(getUser().getId(), getProject().getId(), PermissionType.UPDATE)) {
+            resultLink.setVisible(true);
+        }
+        return add(resultLink);
     }
 
     private MarkupContainer addLinkSetOfCriteria() {

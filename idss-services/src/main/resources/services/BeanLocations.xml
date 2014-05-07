@@ -83,9 +83,7 @@
     <bean id="userService" class="de.stekoe.idss.service.UserService" />
     <bean id="systemRoleService" class="de.stekoe.idss.service.SystemRoleService" />
     <bean id="projectRoleService" class="de.stekoe.idss.service.ProjectRoleService" />
-    <bean id="documentService" class="de.stekoe.idss.service.DocumentService">
-        <property name="documentPath" value="${document.upload.path}" />
-    </bean>
+    <bean id="documentService" class="de.stekoe.idss.service.DocumentService" />
     <bean id="mailService" class="de.stekoe.idss.service.MailService" />
     <bean id="permissionService" class="de.stekoe.idss.service.PermissionService" />
     <bean id="criterionPageService" class="de.stekoe.idss.service.CriterionPageService" />

@@ -60,6 +60,9 @@ public class CreateNominalScaledCriterionForm extends NominalScaledCriterionForm
         criterion.setCriterionPage(page);
         criterion.setOrdering(page.getPageElements().size() + 1);
 
+        IModel<NominalValue> valueModel = getValueModel();
+        criterion.getValues().add(valueModel.getObject());
+
         criterionService.saveCriterion(criterion);
 
         page.getPageElements().add(criterion);

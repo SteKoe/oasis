@@ -25,10 +25,10 @@ import org.apache.wicket.markup.html.form.RequiredTextField;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
-import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.FormGroup;
@@ -50,6 +50,7 @@ public abstract class NominalScaledCriterionForm extends CriterionForm<NominalVa
     private Form<NominalValue> valueForm;
 
     private NominalScaledCriterionModel nominalScaledCriterionModel;
+    private final IModel<NominalValue> nominalValueModel = new Model(new NominalValue());
 
     public NominalScaledCriterionForm(final String aId, final String aCriterionId) {
         super(aId, aCriterionId);
@@ -57,26 +58,10 @@ public abstract class NominalScaledCriterionForm extends CriterionForm<NominalVa
     }
 
     private void valueForm() {
-        valueForm = new Form<NominalValue>("valueForm", new CompoundPropertyModel<NominalValue>(new NominalValue())) {
-            @Override
-            protected void onSubmit() {
-                final SingleScaledCriterion<NominalValue> criterion = getCriterionModel().getObject();
-
-                final NominalValue value = getModel().getObject();
-                value.setCriterion(criterion);
-                criterion.addValue(value);
-
-                getCriterionModel().setObject(criterion);
-
-                onSaveCriterion(getCriterionModel());
-            }
-        };
-        add(valueForm);
-
-        final RequiredTextField<String> valueTextField = new RequiredTextField<String>("value");
+        final RequiredTextField<String> valueTextField = new RequiredTextField<String>("value", new PropertyModel<String>(nominalValueModel, "value"));
         valueTextField.add(new Placeholder("Ausprägung..."));
         FormGroup valueGroup = new FormGroup("value.group");
-        valueForm.add(valueGroup.add(valueTextField));
+        getScaleForm().add(valueGroup.add(valueTextField));
 
         final LoadableDetachableModel<List<NominalValue>> valueListModel = new LoadableDetachableModel<List<NominalValue>>() {
             @Override
@@ -126,10 +111,10 @@ public abstract class NominalScaledCriterionForm extends CriterionForm<NominalVa
                 });
             }
         };
-        valueForm.add(valueList);
+        getScaleForm().add(valueList);
 
         final WebMarkupContainer emptyListIndicator = new WebMarkupContainer("value.list.empty");
-        valueForm.add(emptyListIndicator);
+        getScaleForm().add(emptyListIndicator);
         emptyListIndicator.setVisible(valueList.getList().isEmpty());
     }
 
@@ -139,6 +124,11 @@ public abstract class NominalScaledCriterionForm extends CriterionForm<NominalVa
             nominalScaledCriterionModel = new NominalScaledCriterionModel(getCriterionId());
         }
         return nominalScaledCriterionModel;
+    }
+
+    @Override
+    public IModel<NominalValue> getValueModel() {
+        return nominalValueModel;
     }
 
     class NominalScaledCriterionModel extends Model<SingleScaledCriterion<NominalValue>> {

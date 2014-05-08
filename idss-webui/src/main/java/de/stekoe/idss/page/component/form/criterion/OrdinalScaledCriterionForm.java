@@ -26,7 +26,9 @@ import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.FormGroup;
@@ -47,6 +49,8 @@ public abstract class OrdinalScaledCriterionForm extends CriterionForm<OrdinalVa
 
     @SpringBean
     private CriterionService criterionService;
+
+    private final IModel<OrdinalValue> valueModel = new Model(new OrdinalValue());
 
     private Form<OrdinalValue> valueForm;
 
@@ -153,5 +157,10 @@ public abstract class OrdinalScaledCriterionForm extends CriterionForm<OrdinalVa
                 }
             }
         };
+    }
+
+    @Override
+    public IModel<OrdinalValue> getValueModel() {
+        return valueModel;
     }
 }

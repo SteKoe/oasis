@@ -25,9 +25,6 @@ import de.stekoe.idss.model.SingleScaledCriterion;
 import de.stekoe.idss.page.project.criterion.EditOrdinalCriterionPage;
 import de.stekoe.idss.service.CriterionService;
 
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
 public class EditOrdinalCriterionForm extends OrdinalScaledCriterionForm {
 
     @SpringBean

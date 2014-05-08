@@ -104,6 +104,11 @@ public abstract class CriterionForm<T extends MeasurementValue> extends Panel {
         setResponsePage(getPage());
     }
 
+    public Form<SingleScaledCriterion<T>> getScaleForm() {
+        return scaleForm;
+    }
+
     public abstract IModel<SingleScaledCriterion<T>> getCriterionModel();
+    public abstract IModel<T> getValueModel();
     public abstract void onSaveCriterion(IModel<SingleScaledCriterion<T>> aModel);
 }

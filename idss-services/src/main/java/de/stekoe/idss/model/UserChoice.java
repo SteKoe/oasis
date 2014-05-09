@@ -16,6 +16,7 @@ public class UserChoice implements Serializable {
     private String id = IDGenerator.createId();
     private User user;
     private Project project;
+    private SingleScaledCriterion criterion;
     private List<MeasurementValue> measurementValues = new ArrayList<MeasurementValue>();
 
     @Id
@@ -48,5 +49,13 @@ public class UserChoice implements Serializable {
     }
     public void setMeasurementValues(List<MeasurementValue> measurementValues) {
         this.measurementValues = measurementValues;
+    }
+
+    @ManyToOne(targetEntity = SingleScaledCriterion.class)
+    public SingleScaledCriterion<MeasurementValue> getCriterion() {
+        return criterion;
+    }
+    public void setCriterion(SingleScaledCriterion<? extends MeasurementValue> criterion) {
+        this.criterion = criterion;
     }
 }

@@ -6,6 +6,8 @@ import java.util.Set;
 
 import org.mindrot.jbcrypt.BCrypt;
 
+import de.stekoe.idss.model.Project;
+import de.stekoe.idss.model.ProjectMember;
 import de.stekoe.idss.model.SystemRole;
 import de.stekoe.idss.model.User;
 
@@ -63,5 +65,21 @@ public class TestFactory {
         user.setRoles(systemroles);
 
         return user;
+    }
+
+    public static Project createProjectWithTeam() {
+        Project project = new Project();
+        project.setName("Testproject");
+        project.getProjectTeam().add(createProjectMember());
+        project.getProjectTeam().add(createProjectMember());
+        project.getProjectTeam().add(createProjectMember());
+        return project;
+    }
+
+    private static ProjectMember createProjectMember() {
+        ProjectMember pm = new ProjectMember();
+        pm.setUser(new User());
+
+        return pm;
     }
 }

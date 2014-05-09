@@ -77,6 +77,13 @@ public class WebApplication extends AuthenticatedWebApplication implements Appli
         setUpSpring();
         getMarkupSettings().setDefaultMarkupEncoding(StandardCharsets.UTF_8.displayName());
         Bootstrap.install(this, new BootstrapSettings());
+
+        LOG.info("Found following beans:");
+        for(String beanName : ctx.getBeanDefinitionNames()) {
+            Object bean = ctx.getBean(beanName);
+            LOG.info("  '" + beanName + "': " + bean);
+        }
+
         applicationRoutes.create();
     }
 

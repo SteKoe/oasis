@@ -17,4 +17,7 @@
             </map>
         </property>
     </bean>
+    <bean id="csvReport" class="de.stekoe.idss.page.project.criterion.CSVReport">
+        <property name="userChoiceRepository" ref="userChoiceRepository" />
+    </bean>
 </beans>

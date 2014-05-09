@@ -16,14 +16,23 @@
 
 package de.stekoe.idss.page.project.criterion;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.link.DownloadLink;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
+import org.apache.wicket.model.AbstractReadOnlyModel;
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.apache.wicket.util.file.Files;
+import org.apache.wicket.util.time.Duration;
 
 import de.stekoe.idss.model.Criterion;
 import de.stekoe.idss.page.project.ProjectPage;
@@ -34,8 +43,36 @@ public class ResultPage extends ProjectPage {
     @Inject
     CriterionService criterionService;
 
+    @Inject
+    CSVReport csvReport;
+
     public ResultPage(PageParameters pageParameters) {
         super(pageParameters);
+
+        IModel<File> fileModel = new AbstractReadOnlyModel<File>() {
+            @Override
+            public File getObject() {
+                csvReport.setProject(getProject());
+
+                File tempFile;
+                try
+                {
+                    tempFile = File.createTempFile("oasis-csv-report-", ".tmp");
+                    InputStream data = new ByteArrayInputStream(csvReport.run().getBytes());
+                    Files.writeTo(tempFile, data);
+                }
+                catch (IOException e)
+                {
+                    throw new RuntimeException(e);
+                }
+
+                return tempFile;
+            }
+        };
+
+        final DownloadLink downloadLink = new DownloadLink("export.csv", fileModel, "data.csv");
+        downloadLink.setCacheDuration(Duration.NONE).setDeleteAfterDownload(true);
+        add(downloadLink);
 
         List<Criterion> scaleList = getProject().getScaleList();
         ListView<Criterion> listView = new ListView<Criterion>("charts", scaleList) {

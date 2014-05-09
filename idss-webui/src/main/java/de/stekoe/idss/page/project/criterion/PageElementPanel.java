@@ -1,7 +1,5 @@
 package de.stekoe.idss.page.project.criterion;
 
-import javax.inject.Inject;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -9,13 +7,8 @@ import org.apache.wicket.model.IModel;
 
 import de.stekoe.idss.model.PageElement;
 import de.stekoe.idss.model.UserChoice;
-import de.stekoe.idss.repository.UserChoiceRepository;
 
 public abstract class PageElementPanel<T extends PageElement> extends Panel {
-
-    @Inject
-    UserChoiceRepository userChoiceRepository;
-
     private static final String CONTENT_ID = "element.content";
     private final T pageElement;
     private IModel model;

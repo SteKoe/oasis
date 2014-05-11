@@ -1,4 +1,4 @@
-package de.stekoe.idss.page.project.criterion;
+package de.stekoe.idss.reports;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -10,25 +10,16 @@ import java.util.Map.Entry;
 
 import javax.inject.Inject;
 
-import org.apache.wicket.AttributeModifier;
-import org.apache.wicket.RuntimeConfigurationType;
-import org.apache.wicket.markup.head.IHeaderResponse;
-import org.apache.wicket.markup.head.JavaScriptHeaderItem;
-import org.apache.wicket.markup.html.WebComponent;
-import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
+import de.stekoe.amcharts.AmChart;
 import de.stekoe.amcharts.AmGraph;
 import de.stekoe.amcharts.AmSerialChart;
 import de.stekoe.amcharts.CategoryAxis;
 import de.stekoe.amcharts.ChartCursor;
 import de.stekoe.amcharts.ValueAxis;
 import de.stekoe.amcharts.addition.Color;
-import de.stekoe.idss.WebApplication;
 import de.stekoe.idss.model.Criterion;
 import de.stekoe.idss.model.MeasurementValue;
 import de.stekoe.idss.model.SingleScaledCriterion;
@@ -37,7 +28,7 @@ import de.stekoe.idss.repository.UserChoiceRepository;
 import de.stekoe.idss.service.CriterionService;
 import de.stekoe.idss.service.ProjectService;
 
-public class OccurrencesChartPanel extends Panel {
+public class OccurrencesChartPanel extends ChartPanel {
     private final AmSerialChart chart;
 
     @Inject
@@ -56,37 +47,21 @@ public class OccurrencesChartPanel extends Panel {
 
         htmlid = "chart" + model.hashCode();
         chart = Chart.getChart();
-        chart.setRotate(true);
 
         ModeReport modeReport = new ModeReport(model.getObject().getId());
         for(Entry<MeasurementValue, Integer> entry : modeReport.getCount().entrySet()) {
-            List<Object> dataProvider = chart.getDataProvider();
-            if(dataProvider == null) {
-                chart.setDataProvider(new ArrayList<Object>());
-            }
-
             Map<String, Object> data = new HashMap<String, Object>();
             data.put("choice", entry.getKey().getValue());
             data.put("count", entry.getValue());
-            data.put("count2", entry.getValue() * 2);
             chart.getDataProvider().add(data);
         }
-
-        WebComponent webComponent = new WebComponent("chartdiv");
-        webComponent.add(new AttributeModifier("id", htmlid));
-        add(webComponent);
     }
 
-    @Override
-    public void renderHead(IHeaderResponse response) {
-        super.renderHead(response);
 
-        Gson gson = new Gson();
-        if(RuntimeConfigurationType.DEVELOPMENT.equals(WebApplication.get().getConfigurationType())) {
-            gson = new GsonBuilder().setPrettyPrinting().create();
-        }
-        String string = String.format("var %1$s = AmCharts.makeChart(\"%1$s\", %2$s)", htmlid, gson.toJson(chart).toString());
-        response.render(JavaScriptHeaderItem.forScript(string, null));
+
+    @Override
+    protected AmChart getChart() {
+        return this.chart;
     }
 
     class ModeReport implements Serializable {
@@ -160,7 +135,7 @@ public class OccurrencesChartPanel extends Panel {
         private AmSerialChart get() {
             AmSerialChart chart = new AmSerialChart();
             chart.setType("serial");
-            chart.setTheme("none");
+            chart.setTheme("light");
             chart.setValueAxes(getValueAxes());
             chart.setGridAboveGraphs(true);
             chart.setStartDuration(1);
@@ -168,6 +143,7 @@ public class OccurrencesChartPanel extends Panel {
             chart.setChartCursor(getChartCursor());
             chart.setCategoryField("choice");
             chart.setCategoryAxis(getCategoryAxis());
+            chart.setRotate(true);
 //            chart.setExportConfig(getExportConfig());
             return chart;
         }
@@ -175,6 +151,7 @@ public class OccurrencesChartPanel extends Panel {
         private CategoryAxis getCategoryAxis() {
             CategoryAxis categoryAxis = new CategoryAxis();
             categoryAxis.setGridPosition("start");
+            categoryAxis.setTitle(ChartUtils.getString("label.axis.measurementvalues"));
             categoryAxis.setGridAlpha(0);
             return categoryAxis;
         }
@@ -198,14 +175,6 @@ public class OccurrencesChartPanel extends Panel {
             amGraph.setValueField("count");
             list.add(amGraph);
 
-            amGraph = new AmGraph();
-            amGraph.setBalloonText("[[choice]]: <b>[[count]]</b>");
-            amGraph.setFillAlphas(0.8);
-            amGraph.setLineAlpha(0.2);
-            amGraph.setType("column");
-            amGraph.setValueField("count2");
-            list.add(amGraph);
-
             return list;
         }
 
@@ -214,8 +183,8 @@ public class OccurrencesChartPanel extends Panel {
 
             ValueAxis valueAxis = new ValueAxis();
             valueAxis.setGridColor(Color.WHITE);
-            valueAxis.setGridAlpha(0.2);
-            valueAxis.setDashLength(0);
+            valueAxis.setTitle(ChartUtils.getString("label.axis.count"));
+            valueAxis.setIntegersOnly(true);
             list.add(valueAxis);
 
             return list;

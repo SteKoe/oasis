@@ -162,4 +162,10 @@
     <entry key="label.role.name">Name of the role</entry>
     <entry key="label.criterion.allowMultipleChoice">Allow multiple selection</entry>
     <entry key="label.evaluation.result">Results of evaluation</entry>
+    <entry key="label.median">Median</entry>
+    <entry key="label.mean.arithmetic">Arithmetric mean</entry>
+    <entry key="label.axis.measurementvalues">Measurement Values</entry>
+    <entry key="label.axis.count">Country</entry>
+    <entry key="label.standardDeviation">Standard deviation</entry>
+    <entry key="label.evaluation.results">Evaluation</entry>
 </properties>

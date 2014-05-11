@@ -48,8 +48,8 @@ public abstract class ProjectPage extends AuthProjectPage {
         addLinkEditProjectRoles();
         addLinkProjectDetails();
         addLinkSetOfCriteria();
-        addLinkResult();
         addLinkSurveyPage();
+        addLinkResult();
     }
 
     private void addLinkSurveyPage() {

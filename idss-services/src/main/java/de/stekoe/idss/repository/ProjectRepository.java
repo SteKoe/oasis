@@ -43,6 +43,6 @@ public interface ProjectRepository extends PagingAndSortingRepository<Project, S
      * @param userId The id of the user
      * @return A list of projects which the users is involved
      */
-    @Query("SELECT p FROM Project p LEFT JOIN p.projectTeam pt LEFT JOIN pt.user u WITH u.id = ?1)")
+    @Query("SELECT p FROM Project p JOIN p.projectTeam pt JOIN pt.user u WHERE u.id = ?1)")
     List<Project> findByUser(String userId);
 }

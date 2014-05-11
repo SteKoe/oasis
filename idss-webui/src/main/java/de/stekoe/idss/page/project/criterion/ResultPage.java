@@ -35,13 +35,13 @@ import org.apache.wicket.util.file.Files;
 import org.apache.wicket.util.time.Duration;
 
 import de.stekoe.idss.model.Criterion;
+import de.stekoe.idss.model.NominalScaledCriterion;
 import de.stekoe.idss.page.project.ProjectPage;
-import de.stekoe.idss.service.CriterionService;
+import de.stekoe.idss.reports.CSVReport;
+import de.stekoe.idss.reports.OccurrencesChartPanel;
+import de.stekoe.idss.reports.OrdinalChartPanel;
 
 public class ResultPage extends ProjectPage {
-
-    @Inject
-    CriterionService criterionService;
 
     @Inject
     CSVReport csvReport;
@@ -52,13 +52,13 @@ public class ResultPage extends ProjectPage {
         IModel<File> fileModel = new AbstractReadOnlyModel<File>() {
             @Override
             public File getObject() {
-                csvReport.setProject(getProject());
+                csvReport.setCriterions(getProject().getScaleList());
 
                 File tempFile;
                 try
                 {
                     tempFile = File.createTempFile("oasis-csv-report-", ".tmp");
-                    InputStream data = new ByteArrayInputStream(csvReport.run().getBytes());
+                    InputStream data = new ByteArrayInputStream(csvReport.getResult().getBytes());
                     Files.writeTo(tempFile, data);
                 }
                 catch (IOException e)
@@ -79,7 +79,11 @@ public class ResultPage extends ProjectPage {
             @Override
             protected void populateItem(ListItem<Criterion> item) {
                 item.add(new Label("criterion.name", item.getModelObject().getName()));
-                item.add(new OccurrencesChartPanel("chart", item.getModel()));
+                if(item.getModelObject() instanceof NominalScaledCriterion) {
+                    item.add(new OccurrencesChartPanel("chart", item.getModel()));
+                } else {
+                    item.add(new OrdinalChartPanel("chart", item.getModel()));
+                }
             }
         };
         add(listView);

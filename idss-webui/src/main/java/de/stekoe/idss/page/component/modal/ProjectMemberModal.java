@@ -87,7 +87,7 @@ public abstract class ProjectMemberModal extends Modal {
         final ListChoice<User> userSelection = new ListChoice<User>("user", userModel, userService.getAllUsers(), new ChoiceRenderer<User>("username", "id"));
         form.add(userSelection);
         if(projectMemberId != null) {
-            userSelection.add(new AttributeModifier("disabled", "disabled"));
+//            userSelection.add(new AttributeModifier("disabled", "disabled"));
         }
         userSelection.add(new AttributeModifier("size", 1));
 

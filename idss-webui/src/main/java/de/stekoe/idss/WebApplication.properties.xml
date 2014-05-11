@@ -165,4 +165,11 @@
     <entry key="label.criterion.allowMultipleChoice">Mehrfachauswahl erlauben</entry>
     <entry key="label.criterion.allowMultipleChoice.help">Erlaubt die Auswahl mehrerer Antwortmöglichkeiten</entry>
     <entry key="label.evaluation.result">Evaluationsergebnisse</entry>
+    <entry key="label.median">Median</entry>
+    <entry key="label.mean.arithmetic">Arithmetisches Mittel</entry>
+    <entry key="label.sampleSize">n</entry>
+    <entry key="label.axis.measurementvalues">Ausprägungen</entry>
+    <entry key="label.axis.count">Nennungen</entry>
+    <entry key="label.standardDeviation">Standardabweichung</entry>
+    <entry key="label.evaluation.results">Auswertung</entry>
 </properties>

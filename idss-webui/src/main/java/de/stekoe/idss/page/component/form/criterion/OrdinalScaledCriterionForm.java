@@ -27,6 +27,7 @@ import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.LoadableDetachableModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.FormGroup;
@@ -81,7 +82,7 @@ public abstract class OrdinalScaledCriterionForm extends CriterionForm<OrdinalVa
         FormGroup valueGroup = new FormGroup("value.group");
         valueForm.add(valueGroup.add(valueTextField));
 
-        final RequiredTextField<Double> rankTextField = new RequiredTextField<Double>("rank");
+        final RequiredTextField<Double> rankTextField = new RequiredTextField<Double>("rank", new Model(getCriterionModel().getObject().getValues().size() + 1));
         rankTextField.add(new Placeholder("Wert..."));
         valueForm.add(valueGroup.add(rankTextField));
 

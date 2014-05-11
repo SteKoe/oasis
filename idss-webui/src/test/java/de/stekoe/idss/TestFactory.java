@@ -67,12 +67,14 @@ public class TestFactory {
         return user;
     }
 
-    public static Project createProjectWithTeam() {
+    public static Project createProjectWithTeam(int teamSize) {
         Project project = new Project();
         project.setName("Testproject");
-        project.getProjectTeam().add(createProjectMember());
-        project.getProjectTeam().add(createProjectMember());
-        project.getProjectTeam().add(createProjectMember());
+        for(int i = 0; i < teamSize; i++) {
+            ProjectMember pm = createProjectMember();
+            pm.getUser().setUsername("User " + i);
+            project.getProjectTeam().add(pm);
+        }
         return project;
     }
 

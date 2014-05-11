@@ -111,8 +111,8 @@ public class OrdinalChartReportTest {
         };
 
         assertThat(report.calculateArithmeticMean(), equalTo(58d));
-        assertThat(report.calculateVariance(), equalTo(38.3));
-        assertThat(report.calculateStandardDeviation(), equalTo(6.19139));
+        assertThat(round(report.calculateVariance(),4), equalTo(38.3333));
+        assertThat(round(report.calculateStandardDeviation(),4), equalTo(6.1914));
     }
 
     @Test
@@ -142,7 +142,7 @@ public class OrdinalChartReportTest {
             }
         };
 
-        assertThat("Median mean error!", report.calculateMedian(), equalTo(0));
+        assertThat("Median mean error!", report.calculateMedian(), equalTo(1));
         assertThat("Arithmetic mean error!", round(report.calculateArithmeticMean(), 2), equalTo(1.86));
         assertThat("Variance error!", round(report.calculateVariance(), 4), equalTo(1.2653));
         assertThat("Standard deviation error!", round(report.calculateStandardDeviation(), 4), equalTo(1.1249));

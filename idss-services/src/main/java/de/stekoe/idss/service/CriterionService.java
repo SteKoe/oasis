@@ -52,4 +52,8 @@ public class CriterionService {
             iterator.next().setOrdering(index++);
         }
     }
+
+    public List<Criterion> findAllForProject(String id) {
+        return criterionRepository.findAllForProject(id);
+    }
 }

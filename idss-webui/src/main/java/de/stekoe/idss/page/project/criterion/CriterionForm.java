@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package de.stekoe.idss.page.component.form.criterion;
+package de.stekoe.idss.page.project.criterion;
 
 import org.apache.wicket.bean.validation.PropertyValidator;
 import org.apache.wicket.markup.html.form.CheckBox;

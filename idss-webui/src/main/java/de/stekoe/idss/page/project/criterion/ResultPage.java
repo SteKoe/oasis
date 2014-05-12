@@ -40,11 +40,15 @@ import de.stekoe.idss.page.project.ProjectPage;
 import de.stekoe.idss.reports.CSVReport;
 import de.stekoe.idss.reports.OccurrencesChartPanel;
 import de.stekoe.idss.reports.OrdinalChartPanel;
+import de.stekoe.idss.service.CriterionService;
 
 public class ResultPage extends ProjectPage {
 
     @Inject
     CSVReport csvReport;
+
+    @Inject
+    CriterionService criterionService;
 
     public ResultPage(PageParameters pageParameters) {
         super(pageParameters);
@@ -52,7 +56,7 @@ public class ResultPage extends ProjectPage {
         IModel<File> fileModel = new AbstractReadOnlyModel<File>() {
             @Override
             public File getObject() {
-                csvReport.setCriterions(getProject().getScaleList());
+                csvReport.setCriterions(criterionService.findAllForProject(getProject().getId()));
 
                 File tempFile;
                 try
@@ -74,7 +78,7 @@ public class ResultPage extends ProjectPage {
         downloadLink.setCacheDuration(Duration.NONE).setDeleteAfterDownload(true);
         add(downloadLink);
 
-        List<Criterion> scaleList = getProject().getScaleList();
+        List<Criterion> scaleList = criterionService.findAllForProject(getProject().getId());
         ListView<Criterion> listView = new ListView<Criterion>("charts", scaleList) {
             @Override
             protected void populateItem(ListItem<Criterion> item) {

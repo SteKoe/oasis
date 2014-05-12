@@ -16,8 +16,6 @@
 
 package de.stekoe.idss.page.project.criterion.page.element;
 
-import javax.inject.Inject;
-
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.Link;
@@ -29,13 +27,11 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import de.stekoe.idss.model.CriterionPage;
 import de.stekoe.idss.model.NominalScaledCriterion;
 import de.stekoe.idss.model.OrdinalScaledCriterion;
-import de.stekoe.idss.model.Project;
 import de.stekoe.idss.model.SingleScaledCriterion;
 import de.stekoe.idss.page.project.criterion.EditNominalCriterionPage;
 import de.stekoe.idss.page.project.criterion.EditOrdinalCriterionPage;
 import de.stekoe.idss.service.CriterionPageService;
 import de.stekoe.idss.service.CriterionService;
-import de.stekoe.idss.service.ProjectService;
 
 public class SingleScaledCriterionElement extends Panel {
 
@@ -44,9 +40,6 @@ public class SingleScaledCriterionElement extends Panel {
 
     @SpringBean
     private CriterionPageService criterionPageService;
-
-    @Inject
-    private ProjectService projectService;
 
     private final CompoundPropertyModel<SingleScaledCriterion> sscModel;
 
@@ -84,10 +77,6 @@ public class SingleScaledCriterionElement extends Panel {
                 criterionPage.getPageElements().remove(ssc);
                 criterionPageService.save(criterionPage);
                 criterionService.deleteCriterion(ssc.getId());
-
-                Project project = criterionPage.getProject();
-                project.getScaleList().remove(ssc);
-                projectService.save(project);
             }
         });
     }

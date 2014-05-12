@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package de.stekoe.idss.page.component.form.criterion;
+package de.stekoe.idss.page.project.criterion;
 
 import javax.inject.Inject;
 
@@ -24,9 +24,7 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import de.stekoe.idss.model.CriterionPage;
 import de.stekoe.idss.model.OrdinalValue;
-import de.stekoe.idss.model.Project;
 import de.stekoe.idss.model.SingleScaledCriterion;
-import de.stekoe.idss.page.project.criterion.EditOrdinalCriterionPage;
 import de.stekoe.idss.service.CriterionPageService;
 import de.stekoe.idss.service.CriterionService;
 import de.stekoe.idss.service.ProjectService;
@@ -64,10 +62,6 @@ public class CreateOrdinalScaledCriterionForm extends OrdinalScaledCriterionForm
 
         page.getPageElements().add(criterion);
         criterionPageService.save(page);
-
-        Project project = page.getProject();
-        project.getScaleList().add(criterion);
-        projectService.save(project);
 
         getWebSession().success("Success");
 

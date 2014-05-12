@@ -43,7 +43,8 @@ public abstract class ChartPanel extends Panel {
 
         Gson gson = new Gson();
         if(RuntimeConfigurationType.DEVELOPMENT.equals(WebApplication.get().getConfigurationType())) {
-            gson = new GsonBuilder().setPrettyPrinting().create();
+            GsonBuilder gsonBuilder = new GsonBuilder().setPrettyPrinting();
+            gson = gsonBuilder.create();
         }
         String string = String.format("var %1$s = AmCharts.makeChart(\"%1$s\", %2$s)", getDivId(), gson.toJson(getChart()).toString());
         response.render(JavaScriptHeaderItem.forScript(string, null));

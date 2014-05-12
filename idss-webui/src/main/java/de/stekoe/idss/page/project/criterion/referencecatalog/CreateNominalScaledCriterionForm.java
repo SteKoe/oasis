@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package de.stekoe.idss.page.component.form.criterion;
+package de.stekoe.idss.page.project.criterion.referencecatalog;
 
 import javax.inject.Inject;
 
@@ -24,12 +24,11 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import de.stekoe.idss.model.CriterionPage;
 import de.stekoe.idss.model.NominalValue;
-import de.stekoe.idss.model.Project;
 import de.stekoe.idss.model.SingleScaledCriterion;
 import de.stekoe.idss.page.project.criterion.EditNominalCriterionPage;
+import de.stekoe.idss.page.project.criterion.NominalScaledCriterionForm;
 import de.stekoe.idss.service.CriterionPageService;
 import de.stekoe.idss.service.CriterionService;
-import de.stekoe.idss.service.ProjectService;
 
 public class CreateNominalScaledCriterionForm extends NominalScaledCriterionForm {
 
@@ -38,9 +37,6 @@ public class CreateNominalScaledCriterionForm extends NominalScaledCriterionForm
 
     @Inject
     private CriterionPageService criterionPageService;
-
-    @Inject
-    private ProjectService projectService;
 
     private final String pageId;
 
@@ -64,10 +60,6 @@ public class CreateNominalScaledCriterionForm extends NominalScaledCriterionForm
 
         page.getPageElements().add(criterion);
         criterionPageService.save(page);
-
-        Project project = page.getProject();
-        project.getScaleList().add(criterion);
-        projectService.save(project);
 
         getWebSession().success("Success");
 

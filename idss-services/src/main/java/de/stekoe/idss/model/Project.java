@@ -17,10 +17,8 @@
 package de.stekoe.idss.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -48,7 +46,6 @@ public class Project implements Serializable, Identifyable<String>, NamedElement
     private Set<ProjectMember> projectTeam = new HashSet<ProjectMember>();
     private Set<Document> documents = new HashSet<Document>();
     private Set<ProjectRole> projectRoles = new HashSet<ProjectRole>();
-    private List<Criterion> criterionList = new ArrayList<Criterion>();
     private ProjectStatus projectStatus = ProjectStatus.EDITING;
     private Date projectStartDate = new Date();
     private Date projectEndDate;
@@ -111,15 +108,6 @@ public class Project implements Serializable, Identifyable<String>, NamedElement
 
     public void setProjectRoles(Set<ProjectRole> projectRoles) {
         this.projectRoles = projectRoles;
-    }
-
-    @OneToMany(targetEntity = Criterion.class)
-    public List<Criterion> getScaleList() {
-        return criterionList;
-    }
-
-    public void setScaleList(List<Criterion> criterionList) {
-        this.criterionList = criterionList;
     }
 
     @Enumerated(value = EnumType.STRING)

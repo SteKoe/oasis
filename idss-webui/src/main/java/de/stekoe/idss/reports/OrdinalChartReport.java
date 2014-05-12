@@ -18,6 +18,7 @@ import de.stekoe.amcharts.ChartCursor;
 import de.stekoe.amcharts.Label;
 import de.stekoe.amcharts.ValueAxis;
 import de.stekoe.amcharts.addition.Color;
+import de.stekoe.amcharts.addition.Function;
 import de.stekoe.idss.model.Criterion;
 import de.stekoe.idss.model.MeasurementValue;
 import de.stekoe.idss.model.OrdinalValue;
@@ -257,6 +258,10 @@ public class OrdinalChartReport extends Report<AmSerialChart> {
             categoryAxis.setGridPosition("start");
             categoryAxis.setTitle(ChartUtils.getString("label.axis.measurementvalues"));
             categoryAxis.setGridAlpha(0);
+
+            Function func = new Function();
+            func.setFunction("function(category, dataItem, categoryAxis) { console.log(category); console.log(dataItem); console.log(categoryAxis); }");
+            categoryAxis.setCategoryFunction(func);
             return categoryAxis;
         }
 

@@ -50,7 +50,6 @@ public class ReportTest {
         List<Criterion> list = new ArrayList<Criterion>();
         list.add(criterion);
 
-        project.getScaleList().add(criterion);
         report.setCriterions(list);
 
         List<Object> actual = report.getColumns();
@@ -77,7 +76,6 @@ public class ReportTest {
         List<Criterion> list = new ArrayList<Criterion>();
         list.add(criterion);
 
-        project.getScaleList().add(criterion);
         report.setCriterions(list);
 
         List<Object> actual = report.getColumns();
@@ -105,7 +103,6 @@ public class ReportTest {
         List<Criterion> list = new ArrayList<Criterion>();
         list.add(criterion);
 
-        project.getScaleList().add(criterion);
         report.setCriterions(list);
 
         List<Object> actual = report.getColumns();
@@ -130,7 +127,6 @@ public class ReportTest {
         List<Criterion> list = new ArrayList<Criterion>();
         list.add(criterion);
 
-        project.getScaleList().add(criterion);
         report.setCriterions(list);
 
         List<List<Object>> actual = report.getRows();
@@ -151,7 +147,6 @@ public class ReportTest {
         List<Criterion> list = new ArrayList<Criterion>();
         list.add(criterion);
 
-        project.getScaleList().add(criterion);
         report.setCriterions(list);
 
         List<List<Object>> actual = report.getRows();
@@ -169,7 +164,6 @@ public class ReportTest {
         List<Criterion> list = new ArrayList<Criterion>();
         list.add(criterion);
 
-        project.getScaleList().add(criterion);
         report.setCriterions(list);
 
         List<List<Object>> actual = report.getRows();
@@ -188,7 +182,6 @@ public class ReportTest {
         List<Criterion> list = new ArrayList<Criterion>();
         list.add(criterion);
 
-        project.getScaleList().add(criterion);
         report.setCriterions(list);
 
         List<List<Object>> actual = report.getRows();
@@ -207,7 +200,6 @@ public class ReportTest {
         List<Criterion> list = new ArrayList<Criterion>();
         list.add(criterion);
 
-        project.getScaleList().add(criterion);
         report.setCriterions(list);
 
         List<List<Object>> rows = report.getRows();

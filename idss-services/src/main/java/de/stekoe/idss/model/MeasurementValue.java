@@ -52,6 +52,11 @@ public abstract class MeasurementValue implements Serializable {
         this.value = value;
     }
 
+    public MeasurementValue(MeasurementValue measurementValue) {
+        value = measurementValue.getValue();
+        criterion = measurementValue.getCriterion();
+    }
+
     @Id
     public String getId() {
         return id;

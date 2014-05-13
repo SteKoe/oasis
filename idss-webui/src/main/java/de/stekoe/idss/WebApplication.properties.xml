@@ -172,4 +172,6 @@
     <entry key="label.axis.count">Nennungen</entry>
     <entry key="label.standardDeviation">Standardabweichung</entry>
     <entry key="label.evaluation.results">Auswertung</entry>
+    <entry key="label.reference.criterion.overview">Referenzkriterienkatalog</entry>
+    <entry key="label.reference.criterion.group.overview">Referenzkriteriengruppen</entry>
 </properties>

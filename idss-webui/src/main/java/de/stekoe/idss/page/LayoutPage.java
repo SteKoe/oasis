@@ -36,7 +36,6 @@ import de.stekoe.idss.model.User;
 import de.stekoe.idss.page.component.feedbackpanel.MyFencedFeedbackPanel;
 import de.stekoe.idss.page.component.navigation.language.LanguageSwitcher;
 import de.stekoe.idss.page.component.navigation.main.MainNavigation;
-import de.stekoe.idss.page.component.navigation.user.UserPanel;
 import de.stekoe.idss.session.WebSession;
 
 public abstract class LayoutPage extends WebPage {

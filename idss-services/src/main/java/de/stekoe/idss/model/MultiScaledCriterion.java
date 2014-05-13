@@ -29,6 +29,14 @@ public class MultiScaledCriterion extends Criterion {
 
     private List<SingleScaledCriterion> subCriterions = new ArrayList<SingleScaledCriterion>();
 
+    public MultiScaledCriterion() {
+    }
+
+    public MultiScaledCriterion(MultiScaledCriterion multiScaledCriterion) {
+        super(multiScaledCriterion);
+        subCriterions = multiScaledCriterion.getSubCriterions();
+    }
+
     @OneToMany(targetEntity = SingleScaledCriterion.class)
     public List<SingleScaledCriterion> getSubCriterions() {
         return subCriterions;

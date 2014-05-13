@@ -56,4 +56,9 @@ public class CriterionService {
     public List<Criterion> findAllForProject(String id) {
         return criterionRepository.findAllForProject(id);
     }
+
+    public Criterion findOne(String id) {
+        return criterionRepository.findOne(id);
+    }
+
 }

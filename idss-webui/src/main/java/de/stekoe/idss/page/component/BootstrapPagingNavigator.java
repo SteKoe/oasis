@@ -28,12 +28,9 @@ import org.apache.wicket.markup.html.navigation.paging.PagingNavigationLink;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
 
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
 public class BootstrapPagingNavigator extends Panel {
     private static final Logger LOG = Logger.getLogger(BootstrapPagingNavigator.class);
-    private IPageable pageable;
+    private final IPageable pageable;
 
     private boolean showFirstAndLastLink = true;
 
@@ -43,11 +40,11 @@ public class BootstrapPagingNavigator extends Panel {
         this.pageable = pageable;
 
         addFirstPageLink();
-        addNextPageLink();
+        addPrevPageLink();
 
         addSinglePagesLinks();
 
-        addPrevPageLink();
+        addNextPageLink();
         addLastPageLink();
     }
 

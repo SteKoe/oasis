@@ -21,9 +21,6 @@ import org.apache.wicket.util.string.StringValue;
 
 import de.stekoe.idss.page.project.ProjectPage;
 
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
 public class CreateNominalCriterionPage extends ProjectPage {
     public CreateNominalCriterionPage(PageParameters aPageParams) {
         super(aPageParams);

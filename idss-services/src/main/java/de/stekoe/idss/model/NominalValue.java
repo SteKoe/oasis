@@ -23,7 +23,10 @@ public class NominalValue extends MeasurementValue {
     private static final long serialVersionUID = 201404132234L;
 
     public NominalValue() {
-        super();
+    }
+
+    public NominalValue(NominalValue nominalValue) {
+        super(nominalValue);
     }
 
     public NominalValue(String value) {

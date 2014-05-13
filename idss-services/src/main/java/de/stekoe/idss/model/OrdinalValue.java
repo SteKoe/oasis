@@ -26,7 +26,11 @@ public class OrdinalValue extends MeasurementValue {
     private int rank;
 
     public OrdinalValue() {
-        // NOP
+    }
+
+    public OrdinalValue(OrdinalValue ordinalValue) {
+        super(ordinalValue);
+        rank = ordinalValue.getRank();
     }
 
     /**

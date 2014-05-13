@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PaginationConfigurator {
-    private int defaultValue = 25;
+    private int defaultValue = 20;
     private Map<Class, Integer> values = new HashMap<Class, Integer>();
 
     public int getDefaultValue() {

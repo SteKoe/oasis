@@ -40,9 +40,9 @@ import org.springframework.stereotype.Component;
 
 import de.agilecoders.wicket.core.Bootstrap;
 import de.agilecoders.wicket.core.settings.BootstrapSettings;
+import de.stekoe.idss.page.AuthorizationStrategy;
 import de.stekoe.idss.page.HomePage;
-import de.stekoe.idss.page.auth.AuthorizationStrategy;
-import de.stekoe.idss.page.auth.LoginPage;
+import de.stekoe.idss.page.LoginPage;
 import de.stekoe.idss.session.WebSession;
 
 @Component

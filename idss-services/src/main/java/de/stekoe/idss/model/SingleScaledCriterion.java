@@ -32,7 +32,22 @@ public abstract class SingleScaledCriterion<T extends MeasurementValue> extends 
 
     private static final long serialVersionUID = 201403181647L;
 
-    private List<T> values = new ArrayList<T>();
+    private List values = new ArrayList();
+
+    public SingleScaledCriterion() {
+    }
+
+    public SingleScaledCriterion(SingleScaledCriterion<T> singleScaledCriterion) {
+        super(singleScaledCriterion);
+
+        for(T mv : singleScaledCriterion.getValues()) {
+            if(mv instanceof OrdinalValue) {
+                values.add(new OrdinalValue((OrdinalValue) mv));
+            } else if(mv instanceof NominalValue) {
+                values.add(new NominalValue((NominalValue) mv));
+            }
+        }
+    }
 
     @OrderBy(value = "ordering")
     @OneToMany(targetEntity = MeasurementValue.class, cascade = CascadeType.ALL)

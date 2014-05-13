@@ -1,0 +1,57 @@
+<!--
+  ~ Copyright 2014 Stephan Koeninger
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ 	http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<html xmlns:wicket>
+<body>
+<wicket:panel>
+    <div>
+        <wicket:enclosure child="signin">
+            <a href="" wicket:id="register" class="btn btn-default">
+                <wicket:message key="form.register.title"/>
+            </a>
+            <a href="" wicket:id="signin" class="btn btn-success">
+                <wicket:message key="form.login.title"/>
+            </a>
+        </wicket:enclosure>
+
+        <wicket:enclosure child="signout">
+            <div class="loginPanel">
+                <div class="btn-group">
+                    <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="" wicket:id="userProfile">
+                        <i class="fa fa-user"></i>
+                        <strong wicket:id="username"></strong>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" >
+                        <li wicket:id="user.menu.item">
+                            <a href="#" wicket:id="user.menu.item.link">
+                                <wicket:container wicket:id="user.menu.item.link.label"/>
+                            </a>
+                            <wicket:container wicket:id="user.menu.item.label">
+                            </wicket:container>
+                        </li>
+                    </ul>
+                </div>
+
+                <a href="" wicket:id="signout" class="btn btn-default">
+                    <wicket:message key="label.logout"/>
+                </a>
+            </div>
+        </wicket:enclosure>
+    </div>
+</wicket:panel>
+</body>
+</html>

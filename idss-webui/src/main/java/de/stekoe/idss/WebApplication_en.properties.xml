@@ -168,4 +168,5 @@
     <entry key="label.axis.count">Country</entry>
     <entry key="label.standardDeviation">Standard deviation</entry>
     <entry key="label.evaluation.results">Evaluation</entry>
+    <entry key="label.reference.criterion.overview">Catalog of reference criterions</entry>
 </properties>

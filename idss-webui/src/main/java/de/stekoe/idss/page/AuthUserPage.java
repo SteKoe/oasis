@@ -16,13 +16,9 @@
 
 package de.stekoe.idss.page;
 
-import de.stekoe.idss.page.auth.annotation.UserOnly;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
-/**
- * @author Stephan Koeninger <mail@stekoe.de>
- */
 @SuppressWarnings("serial")
 @UserOnly
 public class AuthUserPage extends LayoutPage {

@@ -7,15 +7,25 @@
 
     <context:annotation-config/>
 
+    <!-- Dataprovider -->
+    <bean id="projectDataProvider" class="de.stekoe.idss.page.project.ProjectDataProvider"/>
+    <bean id="referenceCriterionDataProvider" class="de.stekoe.idss.page.project.criterion.referencecatalog.ReferenceCriterionDataProvider"/>
+    <bean id="referenceCriterionGroupDataProvider" class="de.stekoe.idss.page.project.criterion.referencecatalog.ReferenceCriterionGroupDataProvider"/>
+    
+    
     <bean id="applicationRoutes" class="de.stekoe.idss.ApplicationRoutes"/>
     <bean id="wicketApplication" class="de.stekoe.idss.WebApplication"/>
-    <bean id="projectDataProvider" class="de.stekoe.idss.model.provider.ProjectDataProvider"/>
     <bean id="paginationConfigurator" class="de.stekoe.idss.page.PaginationConfigurator">
+        <!--
+        If one wants to override default value for specific pages, add an entry here:
         <property name="values">
             <map>
                 <entry key="de.stekoe.idss.page.project.ProjectListPage" value="50" />
+                <entry key="de.stekoe.idss.page.project.criterion.referencecatalog.ReferenceCriterionListPage" value="3" />
+                <entry key="de.stekoe.idss.page.project.criterion.referencecatalog.ReferenceCriterionGroupListPage" value="3" />
             </map>
         </property>
+        -->
     </bean>
     <bean id="csvReport" class="de.stekoe.idss.reports.CSVReport">
         <property name="userChoiceRepository" ref="userChoiceRepository" />

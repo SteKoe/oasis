@@ -29,7 +29,7 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarButton;
 import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarComponents;
 import de.stekoe.idss.page.ContactPage;
 import de.stekoe.idss.page.HomePage;
-import de.stekoe.idss.page.auth.RegistrationPage;
+import de.stekoe.idss.page.RegistrationPage;
 import de.stekoe.idss.page.project.ProjectListPage;
 import de.stekoe.idss.session.WebSession;
 

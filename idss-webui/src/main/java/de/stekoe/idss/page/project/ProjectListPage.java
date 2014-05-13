@@ -34,7 +34,6 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import de.stekoe.idss.model.PermissionType;
 import de.stekoe.idss.model.Project;
-import de.stekoe.idss.model.provider.ProjectDataProvider;
 import de.stekoe.idss.page.AuthUserPage;
 import de.stekoe.idss.page.PaginationConfigurator;
 import de.stekoe.idss.page.component.DataListView;

@@ -35,7 +35,6 @@ import de.stekoe.idss.model.PageElement;
 import de.stekoe.idss.model.SingleScaledCriterion;
 import de.stekoe.idss.page.project.ProjectPage;
 import de.stekoe.idss.page.project.criterion.SelectCriterionPage;
-import de.stekoe.idss.page.project.criterion.page.element.SingleScaledCriterionElement;
 import de.stekoe.idss.service.CriterionPageService;
 import de.stekoe.idss.service.Direction;
 import de.stekoe.idss.service.ProjectService;

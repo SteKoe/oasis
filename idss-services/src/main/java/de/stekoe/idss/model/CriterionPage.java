@@ -79,10 +79,6 @@ public class CriterionPage implements Serializable {
     }
 
     public String getName() {
-        if (name == null) {
-            return String.valueOf(getOrdering());
-        }
-
         return name;
     }
 

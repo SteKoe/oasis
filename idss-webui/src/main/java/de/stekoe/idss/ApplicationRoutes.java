@@ -22,15 +22,11 @@ import org.apache.wicket.settings.IApplicationSettings;
 
 import de.stekoe.idss.page.ContactPage;
 import de.stekoe.idss.page.HomePage;
+import de.stekoe.idss.page.LoginPage;
+import de.stekoe.idss.page.LogoutPage;
+import de.stekoe.idss.page.RegistrationPage;
 import de.stekoe.idss.page.SetupPage;
 import de.stekoe.idss.page.admin.SystemInformationPage;
-import de.stekoe.idss.page.auth.LoginPage;
-import de.stekoe.idss.page.auth.LogoutPage;
-import de.stekoe.idss.page.auth.RegistrationPage;
-import de.stekoe.idss.page.error.Error403Page;
-import de.stekoe.idss.page.error.Error404Page;
-import de.stekoe.idss.page.error.Error410Page;
-import de.stekoe.idss.page.error.Error500Page;
 import de.stekoe.idss.page.project.ProjectCreatePage;
 import de.stekoe.idss.page.project.ProjectDetailsPage;
 import de.stekoe.idss.page.project.ProjectEditPage;

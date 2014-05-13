@@ -1,0 +1,23 @@
+<html xmlns:wicket="http://wicket.sourceforge.net/">
+<wicket:extend>
+    <div class="container-fluid">
+        <h1>
+            <wicket:message key="label.reference.criterion.group.overview"/>
+        </h1>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="list-group">
+                    <wicket:container wicket:id="links">
+                        <a href="#" class="list-group-item" wicket:id="link">
+                        </a>
+                    </wicket:container>
+                </div>
+            </div>
+
+            <div class="col-md-9" style="border-left: 1px solid #DDDDDD;">
+                <wicket:child/>
+            </div>
+        </div>
+    </div>
+</wicket:extend>
+</html>

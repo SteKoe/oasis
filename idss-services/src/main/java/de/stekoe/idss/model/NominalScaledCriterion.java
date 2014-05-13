@@ -9,6 +9,15 @@ public class NominalScaledCriterion extends SingleScaledCriterion<NominalValue> 
 
     private boolean multipleChoice = false;
 
+    public NominalScaledCriterion() {
+    }
+
+    public NominalScaledCriterion(NominalScaledCriterion nominalScaledCriterion) {
+        super(nominalScaledCriterion);
+
+        multipleChoice = nominalScaledCriterion.isMultipleChoice();
+    }
+
     @Column(columnDefinition = "boolean default false")
     public boolean isMultipleChoice() {
         return multipleChoice;

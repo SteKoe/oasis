@@ -28,8 +28,8 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class PageElement implements Serializable {
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class PageElement implements NamedElement, Serializable {
 
     private static final long serialVersionUID = 20141103926L;
 
@@ -38,6 +38,16 @@ public abstract class PageElement implements Serializable {
     private int ordering;
     private String name;
     private String description;
+    private boolean referenceType = false;
+
+    public PageElement() {
+    }
+
+    public PageElement(PageElement pageElement) {
+        this.criterionPage = pageElement.getCriterionPage();
+        this.name = pageElement.getName();
+        this.description = pageElement.getDescription();
+    }
 
     @Id
     public String getId() {
@@ -65,12 +75,13 @@ public abstract class PageElement implements Serializable {
         this.ordering = ordering;
     }
 
+    @Override
     @NotNull
     @Column(nullable = false)
     public String getName() {
         return name;
     }
-
+    @Override
     public void setName(String name) {
         this.name = name;
     }
@@ -79,8 +90,15 @@ public abstract class PageElement implements Serializable {
     public String getDescription() {
         return description;
     }
-
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Column(columnDefinition = "boolean default false")
+    public boolean isReferenceType() {
+        return referenceType;
+    }
+    public void setReferenceType(boolean referenceType) {
+        this.referenceType = referenceType;
     }
 }

@@ -16,15 +16,12 @@
 
 package de.stekoe.idss.wicket;
 
-import de.stekoe.idss.model.L10NEnum;
-
 import org.apache.wicket.Application;
 import org.apache.wicket.markup.html.form.IChoiceRenderer;
 import org.apache.wicket.util.string.Strings;
 
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
+import de.stekoe.idss.model.L10NEnum;
+
 public class EnumChoiceRenderer<T extends Enum<T> & L10NEnum> implements IChoiceRenderer<T> {
     @Override
     public final Object getDisplayValue(T object) {

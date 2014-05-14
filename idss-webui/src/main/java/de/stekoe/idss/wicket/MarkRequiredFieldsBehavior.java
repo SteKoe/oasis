@@ -16,22 +16,24 @@
 
 package de.stekoe.idss.wicket;
 
-import org.apache.log4j.Logger;
-import org.apache.wicket.Component;
-import org.apache.wicket.behavior.Behavior;
-import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.FormComponent;
-import org.apache.wicket.model.IModel;
-import org.apache.wicket.util.iterator.ComponentHierarchyIterator;
-import org.springframework.beans.factory.annotation.Required;
-
-import javax.validation.constraints.NotNull;
 import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
+
+import javax.validation.constraints.NotNull;
+
+import org.apache.log4j.Logger;
+import org.apache.wicket.Component;
+import org.apache.wicket.behavior.Behavior;
+import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.FormComponent;
+import org.apache.wicket.model.IModel;
+import org.apache.wicket.util.visit.IVisit;
+import org.apache.wicket.util.visit.IVisitor;
+import org.springframework.beans.factory.annotation.Required;
 
 public class MarkRequiredFieldsBehavior extends Behavior {
 
@@ -44,16 +46,15 @@ public class MarkRequiredFieldsBehavior extends Behavior {
         }
 
         final Form form = (Form) component;
-        final ComponentHierarchyIterator components = form.visitChildren();
-        while(components.hasNext()) {
-            final Component next = components.next();
-            if(next instanceof FormComponent) {
-                FormComponent formComponent = (FormComponent) next;
-                if(formComponent.isRequired() || checkModelAnnotations(formComponent)) {
-                    markFieldRequired(formComponent);
+
+        form.visitChildren(FormComponent.class, new IVisitor<FormComponent, Void>() {
+            @Override
+            public void component(FormComponent object, IVisit<Void> visit) {
+                if(object.isRequired() || checkModelAnnotations(object)) {
+                    markFieldRequired(object);
                 }
             }
-        }
+        });
     }
 
     private boolean checkModelAnnotations(FormComponent aNext) {

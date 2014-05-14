@@ -74,7 +74,6 @@ public class Project implements Serializable, Identifyable<String>, NamedElement
     }
 
     @Lob
-    @NotNull
     public String getDescription() {
         return this.description;
     }

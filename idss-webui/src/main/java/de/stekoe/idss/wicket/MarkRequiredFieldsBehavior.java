@@ -57,13 +57,13 @@ public class MarkRequiredFieldsBehavior extends Behavior {
         });
     }
 
-    private boolean checkModelAnnotations(FormComponent aNext) {
-        final Object modelObject = aNext.getForm().getModelObject();
+    private boolean checkModelAnnotations(FormComponent formComponent) {
+        final Object modelObject = formComponent.getForm().getModelObject();
         if(modelObject == null) {
             return false;
         }
 
-        final String fieldName = aNext.getId();
+        final String fieldName = formComponent.getId();
         final Class classObject = modelObject.getClass();
 
         try {
@@ -83,8 +83,8 @@ public class MarkRequiredFieldsBehavior extends Behavior {
         return false;
     }
 
-    private void markFieldRequired(FormComponent aComponent) {
-        final IModel<String> label = aComponent.getLabel();
+    private void markFieldRequired(FormComponent formComponent) {
+        final IModel<String> label = formComponent.getLabel();
         if(label != null) {
             final String object = label.getObject();
             label.setObject(object + "*");

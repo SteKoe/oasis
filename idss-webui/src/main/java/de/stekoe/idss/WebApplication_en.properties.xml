@@ -171,4 +171,12 @@
     <entry key="table.header.name">Name</entry>
     <entry key="message.save.success">Your changes have been saved!</entry>
     <entry key="message.save.error">Error while saving your changes.</entry>
+    <entry key="label.administration">Administration area</entry>
+    <entry key="label.home">Home</entry>
+    <entry key="label.contact">Contact</entry>
+    <entry key="label.impress">Disclaimer</entry>
+    <entry key="label.reference.criterion.group.create">Create reference criterion group</entry>
+    <entry key="label.reference.criterion.create">Create reference criterion</entry>
+    <entry key="label.reference.criterion.group.edit">Edit reference criterion group</entry>
+    <entry key="label.reference.criterion.edit">Edit reference criterion</entry>
 </properties>

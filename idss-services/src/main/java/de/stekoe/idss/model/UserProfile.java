@@ -20,6 +20,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
+import org.apache.commons.lang3.StringUtils;
+
 @Entity
 public class UserProfile implements Serializable {
     private static final long serialVersionUID = 201404031316L;
@@ -97,7 +99,25 @@ public class UserProfile implements Serializable {
 
     @Transient
     public String getFullName() {
-        String name = getFirstname() + " " + getSurname();
-        return name;
+        StringBuilder sb = new StringBuilder();
+
+        boolean hasFirstname = !StringUtils.isBlank(getFirstname());
+        boolean hasSurname = !StringUtils.isBlank(getSurname());
+
+        if(hasFirstname) {
+            sb.append(getFirstname());
+        }
+        if(hasFirstname && hasSurname) {
+            sb.append(" ");
+        }
+        if(hasSurname) {
+            sb.append(getSurname());
+        }
+        String fullname = sb.toString();
+        if(StringUtils.isBlank(fullname)) {
+            return null;
+        } else {
+            return fullname;
+        }
     }
 }

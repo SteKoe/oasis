@@ -16,6 +16,8 @@ import de.stekoe.idss.model.Criterion;
 import de.stekoe.idss.model.NominalScaledCriterion;
 import de.stekoe.idss.page.PaginationConfigurator;
 import de.stekoe.idss.page.component.DataListView;
+import de.stekoe.idss.service.CriterionService;
+import de.stekoe.idss.session.WebSession;
 import de.stekoe.idss.wicket.DeleteLink;
 import de.stekoe.idss.wicket.JavascriptEventConfirmation;
 
@@ -27,6 +29,9 @@ public class ReferenceCriterionListPage extends ReferenceCriterionPage {
     @Inject
     PaginationConfigurator paginationConfigurator;
 
+    @Inject
+    CriterionService criterionService;
+
     public ReferenceCriterionListPage() {
         add(new BookmarkablePageLink<CreateNominalReferenceCriterionPage>("link.add", CreateNominalReferenceCriterionPage.class));
 
@@ -35,15 +40,6 @@ public class ReferenceCriterionListPage extends ReferenceCriterionPage {
             @Override
             protected List<? extends Link> getButtons(final Criterion modelObject) {
                 List<Link> links = new ArrayList<Link>();
-
-                DeleteLink deleteLink = new DeleteLink(DataListView.BUTTON_ID) {
-                    @Override
-                    public void onClick() {
-                        setResponsePage(getPage());
-                    }
-                };
-                deleteLink.add(new AttributeAppender("class", " btn-xs"));
-                deleteLink.add(new JavascriptEventConfirmation("onClick", String.format(getString("project.delete.confirm"), modelObject.getName())));
 
                 PageParameters pageDetailsParameters = new PageParameters();
                 pageDetailsParameters.add("criterionId", modelObject.getId());
@@ -54,6 +50,18 @@ public class ReferenceCriterionListPage extends ReferenceCriterionPage {
                     editCriterionLink.add(new AttributeModifier("class", "btn btn-default btn-xs"));
                     links.add(editCriterionLink);
                 }
+
+                DeleteLink deleteLink = new DeleteLink(DataListView.BUTTON_ID) {
+                    @Override
+                    public void onClick() {
+                        criterionService.deleteCriterion(modelObject.getId());
+                        WebSession.get().success(getString("message.delete.success"));
+                        setResponsePage(getPage());
+                    }
+                };
+                deleteLink.add(new AttributeAppender("class", " btn-xs"));
+                deleteLink.add(new JavascriptEventConfirmation("onClick", String.format(getString("confirm.delete.reference.criterion"), modelObject.getName())));
+                links.add(deleteLink);
 
                 return links;
             }

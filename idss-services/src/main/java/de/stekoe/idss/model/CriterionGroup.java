@@ -36,4 +36,32 @@ public class CriterionGroup extends PageElement {
         this.criterions = criterions;
     }
 
+    /**
+     * This method allows to copy a subset of a CriterionGroup.
+     * E.g. if someone wants to have all but one Criterions of a particular CriterionGroup, one just passes all Criterions
+     * into this method which will be included in the copy.
+     *
+     * @param criteriaGroup            The CriterionGroup to copy
+     * @param selectedCriterions       Subset list of criterions to copy
+     * @return A full copy of the CriterionGroup excluding the non selected criterions
+     */
+    public static CriterionGroup selectiveCopy(CriterionGroup criteriaGroup, List<Criterion> selectedCriterions) {
+        CriterionGroup copy = new CriterionGroup(criteriaGroup);
+        List<Criterion> copiedCriterions = copy.getCriterions();
+
+        for (Criterion copiedCriterion : copiedCriterions) {
+            boolean isSelected = false;
+            for(Criterion selectedCriterion : selectedCriterions) {
+                if(copiedCriterion.getOriginId().equals(selectedCriterion.getId())) {
+                    isSelected = true;
+                    break;
+                }
+            }
+
+            if(!isSelected) {
+                copiedCriterions.remove(copiedCriterion);
+            }
+        }
+        return copy;
+    }
 }

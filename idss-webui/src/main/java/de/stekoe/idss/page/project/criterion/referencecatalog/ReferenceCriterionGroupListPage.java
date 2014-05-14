@@ -45,9 +45,9 @@ public class ReferenceCriterionGroupListPage extends ReferenceCriterionPage {
                 deleteLink.add(new JavascriptEventConfirmation("onClick", String.format(getString("project.delete.confirm"), modelObject.getName())));
 
                 PageParameters pageDetailsParameters = new PageParameters();
-                pageDetailsParameters.add("criterionId", modelObject.getId());
+                pageDetailsParameters.add("criterionGroupId", modelObject.getId());
 
-                BookmarkablePageLink<EditNominalReferenceCriterionPage> editCriterionLink = new BookmarkablePageLink<EditNominalReferenceCriterionPage>(DataListView.BUTTON_ID, EditNominalReferenceCriterionPage.class, pageDetailsParameters);
+                BookmarkablePageLink<EditReferenceCriterionGroupPage> editCriterionLink = new BookmarkablePageLink<EditReferenceCriterionGroupPage>(DataListView.BUTTON_ID, EditReferenceCriterionGroupPage.class, pageDetailsParameters);
                 editCriterionLink.setBody(Model.of(getString("label.edit")));
                 editCriterionLink.add(new AttributeModifier("class", "btn btn-default btn-xs"));
                 links.add(editCriterionLink);

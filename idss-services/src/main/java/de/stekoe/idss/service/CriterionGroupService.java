@@ -40,17 +40,18 @@ public class CriterionGroupService {
         return criterionGroupRepository.findAll();
     }
 
+    @Transactional(readOnly = false)
     public void delete(String id) {
         criterionGroupRepository.delete(id);
     }
 
+    @Transactional(readOnly = false)
     public void delete(CriterionGroup entity) {
         criterionGroupRepository.delete(entity);
     }
 
+    @Transactional(readOnly = false)
     public <S extends CriterionGroup> S save(S entity) {
         return criterionGroupRepository.save(entity);
     }
-
-
 }

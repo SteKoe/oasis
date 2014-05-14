@@ -3,10 +3,10 @@ package de.stekoe.idss.page.project.criterion.referencecatalog;
 import javax.inject.Inject;
 
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.Model;
 
 import de.stekoe.idss.model.CriterionGroup;
 import de.stekoe.idss.service.CriterionGroupService;
+import de.stekoe.idss.session.WebSession;
 
 public class CreateReferenceCriterionGroupPage extends ReferenceCriterionPage {
 
@@ -14,12 +14,15 @@ public class CreateReferenceCriterionGroupPage extends ReferenceCriterionPage {
     CriterionGroupService criterionGroupService;
 
     public CreateReferenceCriterionGroupPage() {
-        add(new CreateCriterionGroupForm("form", new Model(new CriterionGroup())) {
+        add(new CriterionGroupForm("form", null) {
             @Override
             public void onSaveCriterionGroup(IModel<CriterionGroup> iModel) {
                 CriterionGroup object = iModel.getObject();
                 object.setReferenceType(true);
-                criterionGroupService.save(object);
+                CriterionGroup save = criterionGroupService.save(object);
+
+                WebSession.get().success(getString("message.save.success"));
+                setResponsePage(ReferenceCriterionGroupListPage.class);
             }
         });
     }

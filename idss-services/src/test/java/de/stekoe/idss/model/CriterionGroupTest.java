@@ -6,6 +6,8 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
+
 import org.junit.Test;
 
 
@@ -29,5 +31,22 @@ public class CriterionGroupTest {
 
         assertTrue(clonedCriteriaGroup.getCriterions().get(2) instanceof MultiScaledCriterion);
         assertThat(clonedCriteriaGroup.getCriterions().get(2).getId(), is(not(equalTo(criteriaGroup.getCriterions().get(2).getId()))));
+    }
+
+    @Test
+    public void copySelectedCriterionsOnly() throws Exception {
+        NominalScaledCriterion criterion1 = new NominalScaledCriterion();
+        OrdinalScaledCriterion criterion2 = new OrdinalScaledCriterion();
+        MultiScaledCriterion criterion3 = new MultiScaledCriterion();
+
+        CriterionGroup criteriaGroup = new CriterionGroup();
+        criteriaGroup.getCriterions().add(criterion1);
+        criteriaGroup.getCriterions().add(criterion2);
+        criteriaGroup.getCriterions().add(criterion3);
+
+        assertThat(criteriaGroup.getCriterions().size(), is(equalTo(3)));
+
+        CriterionGroup copy = CriterionGroup.selectiveCopy(criteriaGroup, Arrays.asList(criterion1, criterion3));
+        assertThat(copy.getCriterions().size(), is(equalTo(2)));
     }
 }

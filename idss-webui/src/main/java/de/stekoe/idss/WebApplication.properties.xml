@@ -176,4 +176,13 @@
     <entry key="table.header.name">Name</entry>
     <entry key="message.save.success">Die Änderungen wurden gespeichert!</entry>
     <entry key="message.save.error">Fehler beim Speichern der Änderungen.</entry>
+    <entry key="label.administration">Administration</entry>
+    <entry key="label.home">Startseite</entry>
+    <entry key="label.contact">Kontakt</entry>
+    <entry key="label.impress">Impressum</entry>
+    <entry key="label.reference.criterion.group.create">Referenzkriteriengruppe erstellen</entry>
+    <entry key="label.reference.criterion.create">Referenzkriterium erstellen</entry>
+    <entry key="label.reference.criterion.group.edit">Referenzkriteriengruppe bearbeiten</entry>
+    <entry key="label.reference.criterion.edit">Referenzkriterium bearbeiten</entry>
+    <entry key="confirm.delete.reference.criterion">Möchten Sie das Referenzkriterium "%s" wirklich löschen?</entry>
 </properties>

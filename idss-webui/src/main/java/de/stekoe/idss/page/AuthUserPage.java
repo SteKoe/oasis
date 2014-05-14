@@ -21,7 +21,7 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 @SuppressWarnings("serial")
 @UserOnly
-public class AuthUserPage extends LayoutPage {
+public class AuthUserPage extends ContainerLayoutPage {
     protected AuthUserPage() {
         super();
     }

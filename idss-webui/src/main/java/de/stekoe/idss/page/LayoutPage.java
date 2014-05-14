@@ -38,6 +38,18 @@ import de.stekoe.idss.page.component.navigation.language.LanguageSwitcher;
 import de.stekoe.idss.page.component.navigation.main.MainNavigation;
 import de.stekoe.idss.session.WebSession;
 
+/**
+ * Provides the overall layout which encloses the header and footer in
+ * flexible div container. The content has no size and will stretch over the full width.
+ *
+ * |----- window width -----|
+ * |                        |
+ * |     |-- header --|     |
+ * |                        |
+ * |------- content --------|
+ * |                        |
+ * |     |-- footer --|     |
+ */
 public abstract class LayoutPage extends WebPage {
 
     public LayoutPage() {

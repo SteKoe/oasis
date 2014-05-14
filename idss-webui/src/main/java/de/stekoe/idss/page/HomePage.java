@@ -18,9 +18,6 @@ package de.stekoe.idss.page;
 
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
-/**
- * @author Stephan Koeninger <mail@stekoe.de>
- */
 public class HomePage extends LayoutPage {
 
     /**

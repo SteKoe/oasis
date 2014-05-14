@@ -34,15 +34,18 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import wicket.contrib.tinymce.TinyMceBehavior;
+import de.agilecoders.wicket.core.markup.html.bootstrap.form.FormGroup;
 import de.stekoe.idss.model.Project;
 import de.stekoe.idss.model.ProjectStatus;
 import de.stekoe.idss.page.component.behavior.CustomTinyMCESettings;
 import de.stekoe.idss.page.project.ProjectListPage;
 import de.stekoe.idss.service.ProjectService;
 import de.stekoe.idss.wicket.EnumChoiceRenderer;
+import de.stekoe.idss.wicket.MarkRequiredFieldsBehavior;
 
 public abstract class ProjectForm extends Panel {
 
@@ -88,6 +91,7 @@ public abstract class ProjectForm extends Panel {
 //        addProjectEndDateField(projectForm);
         addButtons(projectForm);
 
+        projectForm.add(new MarkRequiredFieldsBehavior());
         return projectForm;
     }
 
@@ -118,20 +122,23 @@ public abstract class ProjectForm extends Panel {
 
     private void addProjectStatusField(Form<Project> projectForm) {
         final DropDownChoice<ProjectStatus> projectStatus = new DropDownChoice<ProjectStatus>("projectStatus", new ArrayList<ProjectStatus>(projectService.getNextProjectStatus(projectForm.getModel().getObject())), new EnumChoiceRenderer<ProjectStatus>());
-        projectForm.add(projectStatus);
+        projectStatus.setLabel(new Model(getString("label.project.status")));
+        projectForm.add(new FormGroup("group.projectStatus").add(projectStatus));
     }
 
     private void addProjectNameField(Form<Project> projectForm) {
         final TextField projectName = new TextField("name");
-        projectForm.add(projectName);
+        projectName.setLabel(new Model(getString("label.name")));
         projectName.add(new PropertyValidator());
+        projectForm.add(new FormGroup("group.name").add(projectName));
     }
 
     private void addProjectDescriptionField(Form<Project> projectForm) {
         final TextArea<String> projectDescription = new TextArea<String>("description");
-        projectForm.add(projectDescription);
+        projectDescription.setLabel(new Model(getString("label.description")));
         projectDescription.add(new TinyMceBehavior(CustomTinyMCESettings.getStandard()));
         projectDescription.add(new PropertyValidator<String>());
+        projectForm.add(new FormGroup("group.description").add(projectDescription));
     }
 
     public abstract void onSave(IModel<Project> model);

@@ -16,10 +16,7 @@
 
 package de.stekoe.idss.page;
 
-/**
- * @author Stephan Koeninger <mail@stekoe.de>
- */
 @SuppressWarnings("serial")
-public class ContactPage extends LayoutPage {
+public class ContactPage extends ContainerLayoutPage {
 
 }

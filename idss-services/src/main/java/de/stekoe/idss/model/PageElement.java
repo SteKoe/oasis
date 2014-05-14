@@ -39,6 +39,7 @@ public abstract class PageElement implements NamedElement, Serializable {
     private String name;
     private String description;
     private boolean referenceType = false;
+    private String originId;
 
     public PageElement() {
     }
@@ -47,6 +48,7 @@ public abstract class PageElement implements NamedElement, Serializable {
         this.criterionPage = pageElement.getCriterionPage();
         this.name = pageElement.getName();
         this.description = pageElement.getDescription();
+        this.originId = pageElement.getId();
     }
 
     @Id
@@ -100,5 +102,12 @@ public abstract class PageElement implements NamedElement, Serializable {
     }
     public void setReferenceType(boolean referenceType) {
         this.referenceType = referenceType;
+    }
+
+    public String getOriginId() {
+        return originId;
+    }
+    public void setOriginId(String originId) {
+        this.originId = originId;
     }
 }

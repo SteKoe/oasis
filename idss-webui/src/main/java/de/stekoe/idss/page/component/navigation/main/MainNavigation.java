@@ -70,15 +70,14 @@ public class MainNavigation extends Panel {
     }
 
     private NavbarButton<HomePage> createHomePageLink() {
-        NavbarButton<HomePage> homePage = new NavbarButton<HomePage>(
-                HomePage.class, Model.of("Home"));
+        NavbarButton<HomePage> homePage = new NavbarButton<HomePage>(HomePage.class, Model.of(getString("label.home")));
         homePage.setIconType(GlyphIconType.home);
         return homePage;
     }
 
     private NavbarButton<ContactPage> createContactPageLink() {
         NavbarButton<ContactPage> contactPage = new NavbarButton<ContactPage>(
-                ContactPage.class, Model.of("Kontakt"));
+                ContactPage.class, Model.of(getString("label.contact")));
         contactPage.setIconType(GlyphIconType.questionsign);
         return contactPage;
     }

@@ -20,7 +20,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
@@ -45,6 +44,7 @@ import de.stekoe.idss.session.WebSession;
 @SuppressWarnings("serial")
 public class UserPanel extends Panel {
 
+    private static final String USER_MENU_ITEM_LINK = "user.menu.item.link";
     private String username = "N/A";
 
     /**
@@ -59,7 +59,7 @@ public class UserPanel extends Panel {
             username = currentUser.getUsername();
 
             UserProfile profile = currentUser.getProfile();
-            if(profile != null && !StringUtils.isBlank(profile.getFullName())) {
+            if(profile != null && profile.getFullName() != null) {
                 username = profile.getFullName();
             }
         }
@@ -82,16 +82,13 @@ public class UserPanel extends Panel {
         });
 
         List<MenuItem> menuItems = getUserMenuLinks();
-        if(WebSession.get().isSignedIn() && WebSession.get().getUser().isAdmin()) {
-            menuItems.addAll(getAdminMenuLinks());
-        }
 
         add(new ListView<MenuItem>("user.menu.item", menuItems) {
             @Override
             protected void populateItem(ListItem<MenuItem> item) {
                 MenuItem menuItem = item.getModelObject();
 
-                WebMarkupContainer link = new WebMarkupContainer("user.menu.item.link");
+                WebMarkupContainer link = new WebMarkupContainer(USER_MENU_ITEM_LINK);
 
                 Label label = new Label("user.menu.item.label");
 
@@ -119,11 +116,15 @@ public class UserPanel extends Panel {
     private List<MenuItem> getUserMenuLinks() {
         List<MenuItem> linkList = new ArrayList<MenuItem>();
 
-        linkList.add(new MenuLink("label.user.profile", new BookmarkablePageLink<EditUserProfilePage>("user.menu.item.link", EditUserProfilePage.class)));
-        linkList.add(new MenuLink("label.change.account.settings", new BookmarkablePageLink<EditPasswordPage>("user.menu.item.link", EditPasswordPage.class)));
+        linkList.add(new MenuLink("label.user.profile", new BookmarkablePageLink<EditUserProfilePage>(USER_MENU_ITEM_LINK, EditUserProfilePage.class)));
+        linkList.add(new MenuLink("label.change.account.settings", new BookmarkablePageLink<EditPasswordPage>(USER_MENU_ITEM_LINK, EditPasswordPage.class)));
         linkList.add(new MenuSeparator());
-        linkList.add(new MenuLink("label.project.overview", new BookmarkablePageLink<ProjectListPage>("user.menu.item.link", ProjectListPage.class)));
-        linkList.add(new MenuLink("label.company.overview", new BookmarkablePageLink<CompanyListPage>("user.menu.item.link", CompanyListPage.class)));
+        linkList.add(new MenuLink("label.project.overview", new BookmarkablePageLink<ProjectListPage>(USER_MENU_ITEM_LINK, ProjectListPage.class)));
+        linkList.add(new MenuLink("label.company.overview", new BookmarkablePageLink<CompanyListPage>(USER_MENU_ITEM_LINK, CompanyListPage.class)));
+
+        if(WebSession.get().isSignedIn() && WebSession.get().getUser().isAdmin()) {
+            linkList.addAll(getAdminMenuLinks());
+        }
 
         return linkList;
     }
@@ -131,8 +132,8 @@ public class UserPanel extends Panel {
     private List<MenuItem> getAdminMenuLinks() {
         List<MenuItem> linkList = new ArrayList<MenuItem>();
 
-        linkList.add(new MenuTitle("[Administration]"));
-        linkList.add(new MenuLink("label.reference.criterion.overview", new BookmarkablePageLink<ReferenceCriterionListPage>("user.menu.item.link", ReferenceCriterionListPage.class)));
+        linkList.add(new MenuSeparator());
+        linkList.add(new MenuLink("label.reference.criterion.overview", new BookmarkablePageLink<ReferenceCriterionListPage>(USER_MENU_ITEM_LINK, ReferenceCriterionListPage.class)));
 
         return linkList;
     }

@@ -3,12 +3,12 @@ package de.stekoe.idss.page.project.criterion.referencecatalog;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import de.stekoe.idss.page.AuthAdminPage;
@@ -44,11 +44,11 @@ public class ReferenceCriterionPage extends AuthAdminPage {
         List<Link> links = new ArrayList<Link>();
 
         BookmarkablePageLink<?> link = new BookmarkablePageLink<ReferenceCriterionListPage>(ID_LINK, ReferenceCriterionListPage.class);
-        link.setBody(new Model(getString("label.reference.criterion.overview")));
+        link.add(new Label("label", getString("label.reference.criterion.overview")));
         links.add(link);
 
         link = new BookmarkablePageLink<ReferenceCriterionGroupListPage>(ID_LINK, ReferenceCriterionGroupListPage.class);
-        link.setBody(new Model(getString("label.reference.criterion.group.overview")));
+        link.add(new Label("label", getString("label.reference.criterion.group.overview")));
         links.add(link);
 
         return links;

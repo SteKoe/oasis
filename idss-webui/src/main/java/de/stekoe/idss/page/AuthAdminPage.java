@@ -19,12 +19,9 @@ package de.stekoe.idss.page;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
-/**
- * @author Stephan Koeninger <mail@stekoe.de>
- */
 @SuppressWarnings("serial")
 @AdminOnly
-public class AuthAdminPage extends LayoutPage {
+public class AuthAdminPage extends ContainerLayoutPage {
     protected AuthAdminPage() {
         super();
     }

@@ -1,0 +1,29 @@
+<html xmlns:wicket="http://wicket.sourceforge.net/">
+<body>
+    <wicket:extend>
+        <div class="panel-group" id="referenceList">
+            <!-- -->
+            <div class="panel panel-default" wicket:id="panel">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#referenceList" href="#collapseOne" wicket:id="panel.title">
+                            Collapsible Group Item #1
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in" wicket:id="panel.collapse">
+                    <div class="panel-body" wicket:id="panel.body">
+                        <div class="checkbox" wicket:id="criterion.list">
+                          <label>
+                                <input type="checkbox" value="">
+                                <wicket:container wicket:id="criterion.name"></wicket:container>
+                          </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- -->
+        </div>
+    </wicket:extend>
+</body>
+</html>

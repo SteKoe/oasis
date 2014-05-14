@@ -24,10 +24,10 @@ public class EditNominalReferenceCriterionPage extends ReferenceCriterionPage {
                 SingleScaledCriterion<NominalValue> criterion = aModel.getObject();
                 criterionService.saveCriterion(criterion);
 
-                getWebSession().success("Success");
+                getWebSession().success(getString("message.save.success"));
 
                 final PageParameters pageParams = new PageParameters().add("criterionId", criterion.getId());
-                setResponsePage(ReferenceCriterionListPage.class);
+                setResponsePage(EditNominalReferenceCriterionPage.class, pageParams);
             }
         };
 

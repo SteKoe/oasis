@@ -4,7 +4,7 @@
   <class id="1" language="java" name="de.stekoe.idss.model.MultiScaledCriterion" project="idss-services" 
     file="/idss-services/src/main/java/de/stekoe/idss/model/MultiScaledCriterion.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="41" width="163" x="236" y="487"/>    
+    <position height="-1" width="-1" x="661" y="502"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="false" protected="false" private="false" static="true"/>      
@@ -65,25 +65,16 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <class id="8" language="java" name="de.stekoe.idss.model.OrdinalValueTest" project="idss-services" 
-    file="/idss-services/src/main/java/de/stekoe/idss/model/OrdinalValueTest.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="41" width="142" x="541" y="757"/>    
-    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
-      visibility="true">      
-      <attributes public="true" package="false" protected="false" private="false" static="true"/>      
-      <operations public="false" package="false" protected="false" private="false" static="true"/>    
-    </display>  
-  </class>  
-  <enumeration id="9" language="java" name="de.stekoe.idss.model.ProjectStatus" project="idss-services" 
+  <enumeration id="8" language="java" name="de.stekoe.idss.model.ProjectStatus" project="idss-services" 
     file="/idss-services/src/main/java/de/stekoe/idss/model/ProjectStatus.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="646" y="429"/>    
+    <position height="-1" width="-1" x="949" y="141"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="false" protected="false" private="false" static="true"/>      
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </enumeration>  
-  <class id="10" language="java" name="de.stekoe.idss.model.ProjectMemberGroup" project="idss-services" 
+  <class id="9" language="java" name="de.stekoe.idss.model.ProjectMemberGroup" project="idss-services" 
     file="/idss-services/src/main/java/de/stekoe/idss/model/ProjectMemberGroup.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="41" width="169" x="723" y="757"/>    
@@ -93,7 +84,7 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <class id="11" language="java" name="de.stekoe.idss.model.ProjectMember" project="idss-services" 
+  <class id="10" language="java" name="de.stekoe.idss.model.ProjectMember" project="idss-services" 
     file="/idss-services/src/main/java/de/stekoe/idss/model/ProjectMember.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="41" width="126" x="834" y="568"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
@@ -102,17 +93,17 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <class id="12" language="java" name="de.stekoe.idss.model.NominalScaledCriterion" project="idss-services" 
+  <class id="11" language="java" name="de.stekoe.idss.model.NominalScaledCriterion" project="idss-services" 
     file="/idss-services/src/main/java/de/stekoe/idss/model/NominalScaledCriterion.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="41" width="185" x="97" y="757"/>    
+    <position height="-1" width="-1" x="602" y="777"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="false" protected="false" private="false" static="true"/>      
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <class id="13" language="java" name="de.stekoe.idss.model.OrdinalScaledCriterion" project="idss-services" 
+  <class id="12" language="java" name="de.stekoe.idss.model.OrdinalScaledCriterion" project="idss-services" 
     file="/idss-services/src/main/java/de/stekoe/idss/model/OrdinalScaledCriterion.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="41" width="179" x="322" y="757"/>    
@@ -122,7 +113,7 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <enumeration id="14" language="java" name="de.stekoe.idss.model.PermissionObject" project="idss-services" 
+  <enumeration id="13" language="java" name="de.stekoe.idss.model.PermissionObject" project="idss-services" 
     file="/idss-services/src/main/java/de/stekoe/idss/model/PermissionObject.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="77" width="189" x="1424" y="919"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
@@ -131,7 +122,7 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </enumeration>  
-  <class id="15" language="java" name="de.stekoe.idss.model.UserProfile" project="idss-services" 
+  <class id="14" language="java" name="de.stekoe.idss.model.UserProfile" project="idss-services" 
     file="/idss-services/src/main/java/de/stekoe/idss/model/UserProfile.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="41" width="108" x="1000" y="568"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
@@ -140,7 +131,7 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <enumeration id="16" language="java" name="de.stekoe.idss.model.CriterionMetric" project="idss-services" 
+  <enumeration id="15" language="java" name="de.stekoe.idss.model.CriterionMetric" project="idss-services" 
     file="/idss-services/src/main/java/de/stekoe/idss/model/CriterionMetric.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="95" width="167" x="243" y="37"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
@@ -149,7 +140,7 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </enumeration>  
-  <class id="17" language="java" name="de.stekoe.idss.model.Employee" project="idss-services" 
+  <class id="16" language="java" name="de.stekoe.idss.model.Employee" project="idss-services" 
     file="/idss-services/src/main/java/de/stekoe/idss/model/Employee.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="41" width="108" x="1434" y="334"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
@@ -158,7 +149,7 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <enumeration id="18" language="java" name="de.stekoe.idss.model.PermissionType" project="idss-services" 
+  <enumeration id="17" language="java" name="de.stekoe.idss.model.PermissionType" project="idss-services" 
     file="/idss-services/src/main/java/de/stekoe/idss/model/PermissionType.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="203" width="254" x="1130" y="919"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
@@ -167,26 +158,26 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </enumeration>  
-  <class id="19" language="java" name="de.stekoe.idss.model.NominalValue" project="idss-services" 
+  <class id="18" language="java" name="de.stekoe.idss.model.NominalValue" project="idss-services" 
     file="/idss-services/src/main/java/de/stekoe/idss/model/NominalValue.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="41" width="118" x="42" y="838"/>    
+    <position height="-1" width="-1" x="156" y="726"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="false" protected="false" private="false" static="true"/>      
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <class id="20" language="java" name="de.stekoe.idss.model.SingleScaledCriterion" project="idss-services" 
+  <class id="19" language="java" name="de.stekoe.idss.model.SingleScaledCriterion" project="idss-services" 
     file="/idss-services/src/main/java/de/stekoe/idss/model/SingleScaledCriterion.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="417" y="624"/>    
+    <position height="-1" width="-1" x="431" y="502"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="false" protected="false" private="false" static="true"/>      
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <class id="21" language="java" name="de.stekoe.idss.model.Document" project="idss-services" 
+  <class id="20" language="java" name="de.stekoe.idss.model.Document" project="idss-services" 
     file="/idss-services/src/main/java/de/stekoe/idss/model/Document.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="41" width="108" x="1025" y="334"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
@@ -195,16 +186,16 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <class id="22" language="java" name="de.stekoe.idss.model.OrdinalValue" project="idss-services" 
+  <class id="21" language="java" name="de.stekoe.idss.model.OrdinalValue" project="idss-services" 
     file="/idss-services/src/main/java/de/stekoe/idss/model/OrdinalValue.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="41" width="112" x="322" y="838"/>    
+    <position height="-1" width="-1" x="40" y="726"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="false" protected="false" private="false" static="true"/>      
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <class id="23" language="java" name="de.stekoe.idss.model.CriterionPage" project="idss-services" 
+  <class id="22" language="java" name="de.stekoe.idss.model.CriterionPage" project="idss-services" 
     file="/idss-services/src/main/java/de/stekoe/idss/model/CriterionPage.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="41" width="117" x="460" y="172"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
@@ -213,16 +204,16 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <class id="24" language="java" name="de.stekoe.idss.model.MeasurementValue" project="idss-services" 
+  <class id="23" language="java" name="de.stekoe.idss.model.MeasurementValue" project="idss-services" 
     file="/idss-services/src/main/java/de/stekoe/idss/model/MeasurementValue.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="116" y="543"/>    
+    <position height="-1" width="-1" x="107" y="501"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="false" protected="false" private="false" static="true"/>      
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <class id="25" language="java" name="de.stekoe.idss.model.PhoneNumber" project="idss-services" 
+  <class id="24" language="java" name="de.stekoe.idss.model.PhoneNumber" project="idss-services" 
     file="/idss-services/src/main/java/de/stekoe/idss/model/PhoneNumber.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="41" width="121" x="1080" y="757"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
@@ -231,7 +222,7 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <enumeration id="26" language="java" name="de.stekoe.idss.model.CriterionType" project="idss-services" 
+  <enumeration id="25" language="java" name="de.stekoe.idss.model.CriterionType" project="idss-services" 
     file="/idss-services/src/main/java/de/stekoe/idss/model/CriterionType.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="95" width="161" x="42" y="37"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
@@ -240,7 +231,7 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </enumeration>  
-  <class id="27" language="java" name="de.stekoe.idss.model.PageElement" project="idss-services" 
+  <class id="26" language="java" name="de.stekoe.idss.model.PageElement" project="idss-services" 
     file="/idss-services/src/main/java/de/stekoe/idss/model/PageElement.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="41" width="113" x="450" y="37"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
@@ -249,7 +240,7 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <class id="28" language="java" name="de.stekoe.idss.model.ProjectRole" project="idss-services" 
+  <class id="27" language="java" name="de.stekoe.idss.model.ProjectRole" project="idss-services" 
     file="/idss-services/src/main/java/de/stekoe/idss/model/ProjectRole.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="41" width="108" x="932" y="757"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
@@ -258,7 +249,7 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <class id="29" language="java" name="de.stekoe.idss.model.Criterion" project="idss-services" 
+  <class id="28" language="java" name="de.stekoe.idss.model.Criterion" project="idss-services" 
     file="/idss-services/src/main/java/de/stekoe/idss/model/Criterion.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="41" width="108" x="420" y="334"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
@@ -267,7 +258,7 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <enumeration id="30" language="java" name="de.stekoe.idss.model.UserStatus" project="idss-services" 
+  <enumeration id="29" language="java" name="de.stekoe.idss.model.UserStatus" project="idss-services" 
     file="/idss-services/src/main/java/de/stekoe/idss/model/UserStatus.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="149" width="225" x="1317" y="568"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
@@ -276,7 +267,7 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </enumeration>  
-  <class id="31" language="java" name="de.stekoe.idss.model.CompanyRole" project="idss-services" 
+  <class id="30" language="java" name="de.stekoe.idss.model.CompanyRole" project="idss-services" 
     file="/idss-services/src/main/java/de/stekoe/idss/model/CompanyRole.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="41" width="120" x="1603" y="487"/>    
     <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
@@ -285,332 +276,338 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
+  <class id="31" language="java" name="de.stekoe.idss.model.CriterionGroup" project="idss-services" 
+    file="/idss-services/src/main/java/de/stekoe/idss/model/CriterionGroup.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="300" y="354"/>    
+    <display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
   <association id="32">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="33" name="userStatus"/>      
-      <multiplicity id="34" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="30" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="35">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="36" name="roles"/>      
-      <multiplicity id="37" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="38">    
-    <end type="SOURCE" refId="28" navigable="false">      
-      <attribute id="39" name="permissions"/>      
-      <multiplicity id="40" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="41">    
-    <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="42" name="projectRole"/>      
-      <multiplicity id="43" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="28" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <generalization id="44">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="29"/>  
-  </generalization>  
-  <association id="45">    
-    <bendpoint x="803" y="334"/>    
-    <bendpoint x="803" y="487"/>    
-    <bendpoint x="803" y="568"/>    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="46" name="projectRoles"/>      
-      <multiplicity id="47" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="28" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="48">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="49" name="permissionType"/>      
-      <multiplicity id="50" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="18" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="51">    
-    <bendpoint x="782" y="568"/>    
-    <bendpoint x="782" y="487"/>    
-    <bendpoint x="782" y="334"/>    
-    <end type="SOURCE" refId="10" navigable="false">      
-      <attribute id="52" name="project"/>      
-      <multiplicity id="53" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="54">    
-    <end type="SOURCE" refId="15" navigable="false">      
-      <attribute id="55" name="telefax"/>      
-      <multiplicity id="56" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="25" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="57">    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="58" name="employees"/>      
-      <multiplicity id="59" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="17" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="60">    
-    <end type="SOURCE" refId="15" navigable="false">      
-      <attribute id="61" name="telefon"/>      
-      <multiplicity id="62" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="25" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="63">    
-    <end type="SOURCE" refId="23" navigable="false">      
-      <attribute id="64" name="project"/>      
-      <multiplicity id="65" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="66">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="67" name="projectMemberships"/>      
-      <multiplicity id="68" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="11" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="69">    
-    <end type="SOURCE" refId="17" navigable="false">      
-      <attribute id="70" name="user"/>      
-      <multiplicity id="71" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="72">    
-    <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="73" name="user"/>      
-      <multiplicity id="74" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="75">    
-    <end type="SOURCE" refId="8" navigable="false">      
-      <attribute id="76" name="b"/>      
-      <multiplicity id="77" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="22" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="78">    
-    <end type="SOURCE" refId="23" navigable="false">      
-      <attribute id="79" name="pageElements"/>      
-      <multiplicity id="80" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="27" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="81">    
-    <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="82" name="projectGroups"/>      
-      <multiplicity id="83" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="10" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="84">    
-    <end type="SOURCE" refId="20" navigable="false">      
-      <attribute id="85" name="values"/>      
-      <multiplicity id="86" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="24" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="87">    
-    <bendpoint x="1286" y="568"/>    
-    <bendpoint x="1286" y="757"/>    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="88" name="permissions"/>      
-      <multiplicity id="89" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="90">    
-    <end type="SOURCE" refId="15" navigable="false">      
-      <attribute id="91" name="address"/>      
-      <multiplicity id="92" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <generalization id="93">    
-    <end type="SOURCE" refId="13"/>    
-    <end type="TARGET" refId="20"/>  
-  </generalization>  
-  <association id="94">    
-    <end type="SOURCE" refId="24" navigable="false">      
-      <attribute id="95" name="criterion"/>      
-      <multiplicity id="96" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="20" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="97">    
-    <bendpoint x="824" y="334"/>    
-    <bendpoint x="824" y="487"/>    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="98" name="projectTeam"/>      
-      <multiplicity id="99" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="11" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="100">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="101" name="permissionObject"/>      
-      <multiplicity id="102" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="14" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="103">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="104" name="criterionList"/>      
-      <multiplicity id="105" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="29" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="106">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="107" name="documents"/>      
-      <multiplicity id="108" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="21" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <generalization id="109">    
-    <bendpoint x="116" y="719"/>    
-    <bendpoint x="116" y="659"/>    
-    <end type="SOURCE" refId="22"/>    
-    <end type="TARGET" refId="24"/>  
-  </generalization>  
-  <association id="110">    
-    <bendpoint x="1612" y="568"/>    
-    <bendpoint x="1612" y="757"/>    
-    <end type="SOURCE" refId="31" navigable="false">      
-      <attribute id="111" name="permissions"/>      
-      <multiplicity id="112" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="113">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="114" name="subCriterions"/>      
-      <multiplicity id="115" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="20" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="116">    
-    <end type="SOURCE" refId="27" navigable="false">      
-      <attribute id="117" name="criterionPage"/>      
-      <multiplicity id="118" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="23" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="119">    
-    <end type="SOURCE" refId="17" navigable="false">      
-      <attribute id="120" name="role"/>      
-      <multiplicity id="121" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="31" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <association id="122">    
-    <bendpoint x="1593" y="334"/>    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="123" name="roles"/>      
-      <multiplicity id="124" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="31" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
-  </association>  
-  <generalization id="125">    
-    <end type="SOURCE" refId="12"/>    
-    <end type="TARGET" refId="20"/>  
-  </generalization>  
-  <association id="126">    
     <bendpoint x="1572" y="334"/>    
     <bendpoint x="1572" y="487"/>    
     <bendpoint x="1572" y="568"/>    
     <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="127" name="addresses"/>      
-      <multiplicity id="128" minimum="0" maximum="2147483647"/>    
+      <attribute id="33" name="addresses"/>      
+      <multiplicity id="34" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="7" navigable="true"/>    
     <display labels="false" multiplicity="true"/>  
   </association>  
-  <association id="129">    
-    <end type="SOURCE" refId="21" navigable="false">      
-      <attribute id="130" name="user"/>      
-      <multiplicity id="131" minimum="0" maximum="1"/>    
+  <association id="35">    
+    <bendpoint x="260" y="466"/>    
+    <end type="SOURCE" refId="19" navigable="false">      
+      <attribute id="36" name="values"/>      
+      <multiplicity id="37" minimum="0" maximum="2147483647"/>    
     </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
+    <end type="TARGET" refId="23" navigable="true"/>    
     <display labels="false" multiplicity="true"/>  
   </association>  
-  <generalization id="132">    
-    <bendpoint x="45" y="757"/>    
-    <bendpoint x="39" y="676"/>    
-    <end type="SOURCE" refId="19"/>    
-    <end type="TARGET" refId="24"/>  
-  </generalization>  
-  <association id="133">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="134" name="userProfile"/>      
-      <multiplicity id="135" minimum="0" maximum="1"/>    
+  <association id="38">    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="39" name="role"/>      
+      <multiplicity id="40" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="15" navigable="true"/>    
+    <end type="TARGET" refId="30" navigable="true"/>    
     <display labels="false" multiplicity="true"/>  
   </association>  
-  <association id="136">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="137" name="projectStatus"/>      
-      <multiplicity id="138" minimum="0" maximum="1"/>    
+  <association id="41">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="42" name="subCriterions"/>      
+      <multiplicity id="43" minimum="0" maximum="2147483647"/>    
     </end>    
-    <end type="TARGET" refId="9" navigable="true"/>    
+    <end type="TARGET" refId="19" navigable="true"/>    
     <display labels="false" multiplicity="true"/>  
   </association>  
-  <generalization id="139">    
-    <bendpoint x="429" y="253"/>    
-    <bendpoint x="429" y="172"/>    
-    <end type="SOURCE" refId="29"/>    
-    <end type="TARGET" refId="27"/>  
-  </generalization>  
-  <association id="140">    
-    <end type="SOURCE" refId="8" navigable="false">      
-      <attribute id="141" name="a"/>      
-      <multiplicity id="142" minimum="0" maximum="1"/>    
+  <association id="44">    
+    <end type="SOURCE" refId="26" navigable="false">      
+      <attribute id="45" name="criterionPage"/>      
+      <multiplicity id="46" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="22" navigable="true"/>    
     <display labels="false" multiplicity="true"/>  
   </association>  
+  <association id="47">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="48" name="userProfile"/>      
+      <multiplicity id="49" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="14" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="50">    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="51" name="pageElements"/>      
+      <multiplicity id="52" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="53">    
+    <end type="SOURCE" refId="23" navigable="false">      
+      <attribute id="54" name="criterion"/>      
+      <multiplicity id="55" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="56">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="57" name="projectGroups"/>      
+      <multiplicity id="58" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="59">    
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="60" name="telefon"/>      
+      <multiplicity id="61" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="24" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="62">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="63" name="userStatus"/>      
+      <multiplicity id="64" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="29" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="65">    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="66" name="project"/>      
+      <multiplicity id="67" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="68">    
+    <bendpoint x="1612" y="568"/>    
+    <bendpoint x="1612" y="757"/>    
+    <end type="SOURCE" refId="30" navigable="false">      
+      <attribute id="69" name="permissions"/>      
+      <multiplicity id="70" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="71">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="72" name="projectStatus"/>      
+      <multiplicity id="73" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <generalization id="74">    
+    <end type="SOURCE" refId="31"/>    
+    <end type="TARGET" refId="26"/>  
+  </generalization>  
+  <generalization id="75">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="23"/>  
+  </generalization>  
+  <association id="76">    
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="77" name="telefax"/>      
+      <multiplicity id="78" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="24" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="79">    
+    <bendpoint x="1286" y="568"/>    
+    <bendpoint x="1286" y="757"/>    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="80" name="permissions"/>      
+      <multiplicity id="81" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="82">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="83" name="permissionType"/>      
+      <multiplicity id="84" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="85">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="86" name="permissionObject"/>      
+      <multiplicity id="87" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="88">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="89" name="employees"/>      
+      <multiplicity id="90" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="91">    
+    <end type="SOURCE" refId="31" navigable="false">      
+      <attribute id="92" name="criterions"/>      
+      <multiplicity id="93" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="28" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="94">    
+    <end type="SOURCE" refId="27" navigable="false">      
+      <attribute id="95" name="permissions"/>      
+      <multiplicity id="96" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="97">    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="98" name="user"/>      
+      <multiplicity id="99" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="100">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="101" name="documents"/>      
+      <multiplicity id="102" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="20" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="103">    
+    <bendpoint x="803" y="334"/>    
+    <bendpoint x="803" y="487"/>    
+    <bendpoint x="803" y="568"/>    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="104" name="projectRoles"/>      
+      <multiplicity id="105" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="27" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="106">    
+    <bendpoint x="782" y="568"/>    
+    <bendpoint x="782" y="487"/>    
+    <bendpoint x="782" y="334"/>    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="107" name="project"/>      
+      <multiplicity id="108" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="109">    
+    <bendpoint x="824" y="334"/>    
+    <bendpoint x="824" y="487"/>    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="110" name="projectTeam"/>      
+      <multiplicity id="111" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <generalization id="112">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="23"/>  
+  </generalization>  
+  <generalization id="113">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="19"/>  
+  </generalization>  
+  <association id="114">    
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="115" name="address"/>      
+      <multiplicity id="116" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="117">    
+    <end type="SOURCE" refId="20" navigable="false">      
+      <attribute id="118" name="user"/>      
+      <multiplicity id="119" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="120">    
+    <end type="SOURCE" refId="28" navigable="false">      
+      <attribute id="121" name="criterionGroups"/>      
+      <multiplicity id="122" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="31" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <generalization id="123">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="28"/>  
+  </generalization>  
+  <association id="124">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="125" name="roles"/>      
+      <multiplicity id="126" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="127">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="128" name="projectRole"/>      
+      <multiplicity id="129" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="27" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="130">    
+    <bendpoint x="1593" y="334"/>    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="131" name="roles"/>      
+      <multiplicity id="132" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="30" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <generalization id="133">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="28"/>  
+  </generalization>  
+  <generalization id="134">    
+    <bendpoint x="429" y="253"/>    
+    <bendpoint x="429" y="172"/>    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="26"/>  
+  </generalization>  
+  <association id="135">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="136" name="user"/>      
+      <multiplicity id="137" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="138">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="139" name="projectMemberships"/>      
+      <multiplicity id="140" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <generalization id="141">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="19"/>  
+  </generalization>  
   <classifier-display autosize="true" stereotype="false" package="true" initial-value="false" signature="true" 
     accessors="true" visibility="true">    
     <attributes public="true" package="false" protected="false" private="false" static="true"/>    

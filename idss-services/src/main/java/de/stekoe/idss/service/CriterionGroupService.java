@@ -11,6 +11,8 @@
 
 package de.stekoe.idss.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.data.domain.Page;
@@ -18,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import de.stekoe.idss.model.Criterion;
 import de.stekoe.idss.model.CriterionGroup;
 import de.stekoe.idss.repository.CriterionGroupRepository;
 
@@ -27,6 +30,9 @@ public class CriterionGroupService {
 
     @Inject
     private CriterionGroupRepository criterionGroupRepository;
+
+    @Inject
+    private CriterionService criterionService;
 
     public Page<CriterionGroup> findAll(Pageable pageable) {
         return criterionGroupRepository.findAll(pageable);
@@ -40,18 +46,35 @@ public class CriterionGroupService {
         return criterionGroupRepository.findAll();
     }
 
-    @Transactional(readOnly = false)
-    public void delete(String id) {
-        criterionGroupRepository.delete(id);
-    }
-
-    @Transactional(readOnly = false)
     public void delete(CriterionGroup entity) {
-        criterionGroupRepository.delete(entity);
+        delete(entity.getId());
     }
 
-    @Transactional(readOnly = false)
+    @Transactional
+    public void delete(String id) {
+        CriterionGroup cg = findOne(id);
+        if(cg != null) {
+            criterionGroupRepository.delete(id);
+            if(!cg.isReferenceType()) {
+                List<Criterion> criterions = cg.getCriterions();
+                for (Criterion criterion : criterions) {
+                    criterionService.delete(criterion.getId());
+                }
+            }
+        }
+    }
+
+    @Transactional
     public <S extends CriterionGroup> S save(S entity) {
         return criterionGroupRepository.save(entity);
+    }
+
+    public long count() {
+        return criterionGroupRepository.count();
+    }
+
+    @Transactional
+    public <S extends CriterionGroup> Iterable<S> save(Iterable<S> entities) {
+        return criterionGroupRepository.save(entities);
     }
 }

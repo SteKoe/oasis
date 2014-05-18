@@ -27,7 +27,7 @@ public class CreateNominalReferenceCriterionPage extends ReferenceCriterionPage 
                     criterion.setName(getString("label.criterion.type.nominal"));
                 }
                 criterion.setReferenceType(true);
-                criterionService.saveCriterion(criterion);
+                criterionService.save(criterion);
 
                 getWebSession().success(getString("message.save.success"));
 

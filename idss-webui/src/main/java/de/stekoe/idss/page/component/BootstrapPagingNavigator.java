@@ -74,10 +74,17 @@ public class BootstrapPagingNavigator extends Panel {
         final PagingNavigationLink pageFirstLink = new PagingNavigationLink("page.first.link", pageable, 0);
         pageFirst.add(pageFirstLink);
         pageFirstLink.setAutoEnable(false);
+        pageFirst.add(AttributeModifier.append("class", new Model<String>() {
+            @Override
+            public String getObject() {
+                if (pageable.getCurrentPage() == 0) {
+                    return "disabled";
+                } else {
+                    return "enabled";
+                }
+            }
+        }));
 
-        if (pageable.getCurrentPage() == 0) {
-            pageFirst.add(AttributeModifier.append("class", "disabled"));
-        }
     }
 
     private void addPrevPageLink() {
@@ -88,9 +95,16 @@ public class BootstrapPagingNavigator extends Panel {
         pagePrev.add(pagePrevLink);
         pagePrevLink.setAutoEnable(false);
 
-        if (pageable.getCurrentPage() == 0) {
-            pagePrev.add(AttributeModifier.append("class", "disabled"));
-        }
+        pagePrev.add(AttributeModifier.append("class", new Model<String>() {
+            @Override
+            public String getObject() {
+                if (pageable.getCurrentPage() == 0) {
+                    return "disabled";
+                } else {
+                    return "enabled";
+                }
+            }
+        }));
     }
 
     private void addNextPageLink() {
@@ -100,10 +114,17 @@ public class BootstrapPagingNavigator extends Panel {
         final PagingNavigationIncrementLink pageNextLink = new PagingNavigationIncrementLink("page.next.link", pageable, 1);
         pageNext.add(pageNextLink);
         pageNextLink.setAutoEnable(false);
+        pageNext.add(AttributeModifier.append("class", new Model<String>() {
+            @Override
+            public String getObject() {
+                if (pageable.getCurrentPage() == pageable.getPageCount() - 1) {
+                    return "disabled";
+                } else {
+                    return "enabled";
+                }
+            }
+        }));
 
-        if (pageable.getCurrentPage() == pageable.getPageCount() - 1) {
-            pageNext.add(AttributeModifier.append("class", "disabled"));
-        }
     }
 
 
@@ -115,9 +136,16 @@ public class BootstrapPagingNavigator extends Panel {
         pageLast.add(pageLastLink);
         pageLastLink.setAutoEnable(false);
 
-        if (pageable.getCurrentPage() == pageable.getPageCount() - 1) {
-            pageLast.add(AttributeModifier.append("class", "disabled"));
-        }
+        pageLast.add(AttributeModifier.append("class", new Model<String>(){
+            @Override
+            public String getObject() {
+                if (pageable.getCurrentPage() == pageable.getPageCount() - 1) {
+                    return "disabled";
+                } {
+                    return "enabled";
+                }
+            }
+        }));
     }
 
     public boolean isShowFirstAndLastLink() {

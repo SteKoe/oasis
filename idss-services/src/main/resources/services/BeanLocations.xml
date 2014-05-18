@@ -30,7 +30,7 @@
         <property name="generateDdl" value="true" />
         <property name="database" value="MYSQL" />
     </bean>
-    <bean class="org.springframework.orm.jpa.JpaTransactionManager" id="transactionManager">
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory" />
         <property name="jpaDialect">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
@@ -42,6 +42,7 @@
         <property name="jpaProperties">
             <props>
                 <prop key="hibernate.hbm2ddl.auto">update</prop>
+                
             </props>
         </property>
     </bean>

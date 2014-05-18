@@ -6,13 +6,13 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import de.stekoe.idss.model.CriterionGroup;
-import de.stekoe.idss.service.CriterionGroupService;
+import de.stekoe.idss.service.ReferenceCriterionGroupService;
 import de.stekoe.idss.session.WebSession;
 
 public class EditReferenceCriterionGroupPage extends ReferenceCriterionPage {
 
     @Inject
-    CriterionGroupService criterionGroupService;
+    ReferenceCriterionGroupService referenceCriterionGroupService;
 
     public EditReferenceCriterionGroupPage(PageParameters parameters) {
         super(parameters);
@@ -28,8 +28,7 @@ public class EditReferenceCriterionGroupPage extends ReferenceCriterionPage {
             @Override
             public void onSaveCriterionGroup(IModel<CriterionGroup> iModel) {
                 CriterionGroup object = iModel.getObject();
-                object.setReferenceType(true);
-                CriterionGroup save = criterionGroupService.save(object);
+                referenceCriterionGroupService.save(object);
 
                 WebSession.get().success(getString("message.save.success"));
                 setResponsePage(ReferenceCriterionGroupListPage.class);

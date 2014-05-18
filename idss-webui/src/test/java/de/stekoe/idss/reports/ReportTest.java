@@ -44,8 +44,8 @@ public class ReportTest {
     public void getColumnsOrdinalScaledCriterion() throws Exception {
         OrdinalScaledCriterion criterion = new OrdinalScaledCriterion();
         criterion.setCriterionPage(criterionPage);
-        criterion.addValue(new OrdinalValue(1, "A"));
-        criterion.addValue(new OrdinalValue(2, "B"));
+        criterion.addValue(new OrdinalValue("A"));
+        criterion.addValue(new OrdinalValue("B"));
 
         List<Criterion> list = new ArrayList<Criterion>();
         list.add(criterion);
@@ -158,8 +158,8 @@ public class ReportTest {
     public void getRowsOrdinalScaledCriterion() throws Exception {
         OrdinalScaledCriterion criterion = new OrdinalScaledCriterion();
         criterion.setCriterionPage(criterionPage);
-        criterion.addValue(new OrdinalValue(1, "A"));
-        criterion.addValue(new OrdinalValue(2, "B"));
+        criterion.addValue(new OrdinalValue("A"));
+        criterion.addValue(new OrdinalValue("B"));
 
         List<Criterion> list = new ArrayList<Criterion>();
         list.add(criterion);
@@ -176,8 +176,8 @@ public class ReportTest {
         OrdinalScaledCriterion criterion = new OrdinalScaledCriterion();
         criterion.setCriterionPage(criterionPage);
         criterion.setName("no choices made");
-        criterion.addValue(new OrdinalValue(1, "A"));
-        criterion.addValue(new OrdinalValue(2, "B"));
+        criterion.addValue(new OrdinalValue("A"));
+        criterion.addValue(new OrdinalValue("B"));
 
         List<Criterion> list = new ArrayList<Criterion>();
         list.add(criterion);
@@ -192,10 +192,10 @@ public class ReportTest {
     public void getColumnForValueInRowTest() throws Exception {
         OrdinalScaledCriterion criterion = new OrdinalScaledCriterion();
         criterion.setCriterionPage(criterionPage);
-        OrdinalValue value = new OrdinalValue(1, "A");
+        OrdinalValue value = new OrdinalValue("A");
         criterion.addValue(value);
-        criterion.addValue(new OrdinalValue(2, "B"));
-        criterion.addValue(new OrdinalValue(3, "C"));
+        criterion.addValue(new OrdinalValue("B"));
+        criterion.addValue(new OrdinalValue("C"));
 
         List<Criterion> list = new ArrayList<Criterion>();
         list.add(criterion);

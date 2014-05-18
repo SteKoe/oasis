@@ -56,7 +56,6 @@
     <entry key="label.move.up">Przesuń w górę</entry>
     <entry key="label.name">Nazwa</entry>
     <entry key="label.number">Numer domu</entry>
-    <entry key="label.page.counter">Strona {0} z {1}</entry>
     <entry key="label.page.first">Pierwszy</entry>
     <entry key="label.page.last">Ostatni</entry>
     <entry key="label.password">Hasło</entry>
@@ -99,7 +98,6 @@
     <entry key="label.surname">Nazwisko</entry>
     <entry key="label.systeminfo">Informacje systemowe</entry>
     <entry key="label.thisisyou">Informacje o Tobie</entry>
-    <entry key="label.upload">Załaduj dokument</entry>
     <entry key="label.user.profile">Profil</entry>
     <entry key="label.username">Nazwa użytkownika</entry>
     <entry key="label.website">Strona WWW</entry>

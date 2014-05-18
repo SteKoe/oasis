@@ -27,8 +27,10 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.upload.FileUpload;
 import org.apache.wicket.markup.html.link.DownloadLink;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
@@ -43,7 +45,7 @@ import org.apache.wicket.util.time.Duration;
 
 import de.stekoe.idss.model.Document;
 import de.stekoe.idss.model.Project;
-import de.stekoe.idss.page.component.form.upload.DocumentUploadForm;
+import de.stekoe.idss.page.component.form.upload.FileUploadForm;
 import de.stekoe.idss.service.DocumentService;
 import de.stekoe.idss.service.ProjectService;
 import de.stekoe.idss.session.WebSession;
@@ -134,12 +136,25 @@ public class ProjectUploadDocument extends ProjectPage {
     }
 
     private void addUploadForm() {
-        final DocumentUploadForm documentUploadForm = new DocumentUploadForm("form.document.upload") {
+        final FileUploadForm documentUploadForm = new FileUploadForm("form.document.upload") {
             @Override
-            public void onAfterSubmit(Document document) {
-                final Project project = projectService.findOne(getProjectId());
-                project.getDocuments().add(document);
-                projectService.save(project);
+            public void onAfterSubmit(FileUpload uploadedFile) {
+                if(uploadedFile != null) {
+                    Document document = new Document();
+                    document.setName(uploadedFile.getClientFileName());
+                    document.setContentType(FilenameUtils.getExtension(uploadedFile.getClientFileName()));
+                    document.setSize(uploadedFile.getSize());
+                    document.setUser(WebSession.get().getUser());
+                    document.setContent(uploadedFile.getBytes());
+
+                    documentService.save(document);
+                    final Project project = projectService.findOne(getProjectId());
+                    project.getDocuments().add(document);
+                    projectService.save(project);
+                    WebSession.get().success(getString("message.upload.success"));
+                } else {
+                    WebSession.get().error(getString("message.upload.error"));
+                }
                 setResponsePage(getPage().getClass(), getPage().getPageParameters());
             }
         };

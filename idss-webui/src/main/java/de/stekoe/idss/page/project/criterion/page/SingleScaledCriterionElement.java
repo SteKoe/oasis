@@ -76,7 +76,7 @@ public class SingleScaledCriterionElement extends Panel {
                 final CriterionPage criterionPage = ssc.getCriterionPage();
                 criterionPage.getPageElements().remove(ssc);
                 criterionPageService.save(criterionPage);
-                criterionService.deleteCriterion(ssc.getId());
+                criterionService.delete(ssc.getId());
             }
         });
     }

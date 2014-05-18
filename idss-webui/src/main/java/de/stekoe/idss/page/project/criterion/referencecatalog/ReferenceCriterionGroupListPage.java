@@ -15,6 +15,7 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import de.stekoe.idss.model.CriterionGroup;
 import de.stekoe.idss.page.PaginationConfigurator;
 import de.stekoe.idss.page.component.DataListView;
+import de.stekoe.idss.service.ReferenceCriterionGroupService;
 import de.stekoe.idss.wicket.DeleteLink;
 import de.stekoe.idss.wicket.JavascriptEventConfirmation;
 
@@ -22,6 +23,9 @@ public class ReferenceCriterionGroupListPage extends ReferenceCriterionPage {
 
     @Inject
     ReferenceCriterionGroupDataProvider referenceCriterionGroupDataProvider;
+
+    @Inject
+    ReferenceCriterionGroupService referenceCriterionGroupService;
 
     @Inject
     PaginationConfigurator paginationConfigurator;
@@ -35,15 +39,6 @@ public class ReferenceCriterionGroupListPage extends ReferenceCriterionPage {
             protected List<? extends Link> getButtons(final CriterionGroup modelObject) {
                 List<Link> links = new ArrayList<Link>();
 
-                DeleteLink deleteLink = new DeleteLink(DataListView.BUTTON_ID) {
-                    @Override
-                    public void onClick() {
-                        setResponsePage(getPage());
-                    }
-                };
-                deleteLink.add(new AttributeAppender("class", " btn-xs"));
-                deleteLink.add(new JavascriptEventConfirmation("onClick", String.format(getString("project.delete.confirm"), modelObject.getName())));
-
                 PageParameters pageDetailsParameters = new PageParameters();
                 pageDetailsParameters.add("criterionGroupId", modelObject.getId());
 
@@ -51,6 +46,17 @@ public class ReferenceCriterionGroupListPage extends ReferenceCriterionPage {
                 editCriterionLink.setBody(Model.of(getString("label.edit")));
                 editCriterionLink.add(new AttributeModifier("class", "btn btn-default btn-xs"));
                 links.add(editCriterionLink);
+
+                DeleteLink deleteLink = new DeleteLink(DataListView.BUTTON_ID) {
+                    @Override
+                    public void onClick() {
+                        referenceCriterionGroupService.delete(modelObject.getId());
+                        setResponsePage(getPage());
+                    }
+                };
+                deleteLink.add(new AttributeAppender("class", " btn-xs"));
+                deleteLink.add(new JavascriptEventConfirmation("onClick", String.format(getString("message.delete.confirm"), modelObject.getName())));
+                links.add(deleteLink);
 
                 return links;
             }

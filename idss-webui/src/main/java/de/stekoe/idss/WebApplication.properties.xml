@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
+    <entry key="confirm.delete.reference.criterion">Möchten Sie das Referenzkriterium "%s" wirklich löschen?</entry>
     <entry key="currentPasswort.wrong">Das aktuelle Passwort ist falsch!</entry>
     <entry key="date.format">dd.mm.yyyy</entry>
     <entry key="email.subject.resetpassword">Password zurücksetzen</entry>
@@ -20,8 +21,8 @@
     <entry key="label.add">Hinzufügen</entry>
     <entry key="label.address">Adresse</entry>
     <entry key="label.addresses">Adressen</entry>
-    <entry key="label.axis.count">Nennungen</entry>
-    <entry key="label.axis.measurementvalues">Ausprägungen</entry>
+    <entry key="label.administration">Administration</entry>
+    <entry key="label.criterion.count">Nennungen</entry>
     <entry key="label.cancel">Abbrechen</entry>
     <entry key="label.change.account.settings">Kontoeinstellungen bearbeiten</entry>
     <entry key="label.change.email">E-Mail-Adresse ändern</entry>
@@ -36,6 +37,7 @@
     <entry key="label.company.manage">Unternehmen verwalten</entry>
     <entry key="label.company.overview">Übersicht Unternehmen</entry>
     <entry key="label.company.roles.manage">Rollen verwalten</entry>
+    <entry key="label.contact">Kontakt</entry>
     <entry key="label.country">Land</entry>
     <entry key="label.criterion.allowMultipleChoice">Mehrfachauswahl erlauben</entry>
     <entry key="label.criterion.allowMultipleChoice.help">Erlaubt die Auswahl mehrerer Antwortmöglichkeiten</entry>
@@ -66,6 +68,8 @@
     <entry key="label.file.size">Dokumentgröße</entry>
     <entry key="label.file.type">Dokumententyp</entry>
     <entry key="label.firstname">Vorname</entry>
+    <entry key="label.home">Startseite</entry>
+    <entry key="label.impress">Impressum</entry>
     <entry key="label.logout">Abmelden</entry>
     <entry key="label.mean.arithmetic">Arithmetisches Mittel</entry>
     <entry key="label.median">Median</entry>
@@ -76,7 +80,7 @@
     <entry key="label.new">Neu</entry>
     <entry key="label.number">Hausnummer</entry>
     <entry key="label.overview">Übersicht</entry>
-    <entry key="label.page.counter">Seite {0} von {1}</entry>
+    <entry key="label.page.counter">Seite %s von %s, zeige %s von insgesamt %s Einträgen, beginnend bei Eintrag %s bis %s.</entry>
     <entry key="label.page.first">Erste</entry>
     <entry key="label.page.last">Letzte</entry>
     <entry key="label.page.next"><![CDATA[&raquo;]]></entry>
@@ -112,6 +116,10 @@
     <entry key="label.project.role.edit.introduction">Sie sind dabei die Projektrolle "{0}" des Projekts "{1}" zu bearbeiten.</entry>
     <entry key="label.project.start.date">Startdatum</entry>
     <entry key="label.project.status">Projektstatus</entry>
+    <entry key="label.reference.criterion.create">Referenzkriterium erstellen</entry>
+    <entry key="label.reference.criterion.edit">Referenzkriterium bearbeiten</entry>
+    <entry key="label.reference.criterion.group.create">Referenzkriteriengruppe erstellen</entry>
+    <entry key="label.reference.criterion.group.edit">Referenzkriteriengruppe bearbeiten</entry>
     <entry key="label.reference.criterion.group.overview">Referenzkriteriengruppen</entry>
     <entry key="label.reference.criterion.overview">Referenzkriterienkatalog</entry>
     <entry key="label.remove.from">Von %s entfernen!</entry>
@@ -127,7 +135,7 @@
     <entry key="label.surname">Nachname</entry>
     <entry key="label.systeminfo">Systeminformationen</entry>
     <entry key="label.thisisyou">Das sind sie!</entry>
-    <entry key="label.upload">Dokument hochladen</entry>
+    <entry key="label.upload">Datei(en) hochladen</entry>
     <entry key="label.user.profile">Mein Profil</entry>
     <entry key="label.username">Benutzername</entry>
     <entry key="label.usernameOrEmail">Benutzername oder E-Mail-Adresse</entry>
@@ -149,6 +157,8 @@
     <entry key="message.project.create.success">Das Projekt wurde erfolgreich angelegt!</entry>
     <entry key="message.registration.error">Fehler beim Registrieren. Bitte versuchen Sie es erneut, oder wenden Sie sich an einen Administrator!</entry>
     <entry key="message.registration.success">Ihr Benutzerkonto wurde erstellt. Sie müssen es jedoch erst freischalten. Dazu wurde ein Aktivierungs-Schlüssel an die von Ihnen angegebene Adresse geschickt. Bitte überprüfen Sie Ihre E-Mails für weitere Informationen.</entry>
+    <entry key="message.save.error">Fehler beim Speichern der Änderungen.</entry>
+    <entry key="message.save.success">Die Änderungen wurden gespeichert!</entry>
     <entry key="newEmailConfirm.EqualInputValidator">Die E-Mail-Adressen stimmen nicht überein!</entry>
     <entry key="newPasswordConfirm.EqualInputValidator">Die Passwörter stimmen nicht überein!</entry>
     <entry key="newPasswordConfirm.label">Neues Passwort bestätigen</entry>
@@ -174,15 +184,13 @@
     <entry key="table.header.actions">Aktionen</entry>
     <entry key="table.header.id">ID</entry>
     <entry key="table.header.name">Name</entry>
-    <entry key="message.save.success">Die Änderungen wurden gespeichert!</entry>
-    <entry key="message.save.error">Fehler beim Speichern der Änderungen.</entry>
-    <entry key="label.administration">Administration</entry>
-    <entry key="label.home">Startseite</entry>
-    <entry key="label.contact">Kontakt</entry>
-    <entry key="label.impress">Impressum</entry>
-    <entry key="label.reference.criterion.group.create">Referenzkriteriengruppe erstellen</entry>
-    <entry key="label.reference.criterion.create">Referenzkriterium erstellen</entry>
-    <entry key="label.reference.criterion.group.edit">Referenzkriteriengruppe bearbeiten</entry>
-    <entry key="label.reference.criterion.edit">Referenzkriterium bearbeiten</entry>
-    <entry key="confirm.delete.reference.criterion">Möchten Sie das Referenzkriterium "%s" wirklich löschen?</entry>
+    <entry key="label.criterion.value">Ausprägung</entry>
+    <entry key="label.criterion.values">Ausprägungen</entry>
+    <entry key="message.upload.error">Die Datei wurde erfolgreich hochgeladen!</entry>
+    <entry key="message.upload.success">Es ist ein Fehler beim Hochladen aufgetreten.</entry>
+    <entry key="label.file.change">Ändern</entry>
+    <entry key="label.file.select">Datei wählen</entry>
+    <entry key="label.reference.criterion.upload">Referenzkriterienkatalog hochladen</entry>
+    <entry key="help.reference.criterion.upload">Hier könne Sie einen Referenzkriterienkatalog hochladen. Dieser muss in Form eines XML-Dokumentes vorliegen, welches folgendem XML-Schema entspricht.</entry>
+    <entry key="message.delete.confirm">Möchten Sie das Element "%s" wirklich löschen?</entry>
 </properties>

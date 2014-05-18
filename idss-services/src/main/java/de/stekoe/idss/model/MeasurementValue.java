@@ -27,6 +27,7 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -120,4 +121,13 @@ public abstract class MeasurementValue implements Serializable {
                 .isEquals();
     }
 
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+            .append(super.toString())
+            .append("id", getId())
+            .append("value", getValue())
+            .append("ordering", getOrdering())
+            .toString();
+    }
 }

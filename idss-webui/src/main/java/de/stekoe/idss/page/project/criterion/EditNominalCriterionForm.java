@@ -36,7 +36,7 @@ public class EditNominalCriterionForm extends NominalScaledCriterionForm {
     @Override
     public void onSaveCriterion(IModel<SingleScaledCriterion<NominalValue>> aModel) {
         final SingleScaledCriterion<NominalValue> criterion = aModel.getObject();
-        itsCriterionService.saveCriterion(criterion);
+        itsCriterionService.save(criterion);
         final PageParameters pageParams = new PageParameters().add("criterionId", criterion.getId());
         setResponsePage(EditNominalCriterionPage.class, getPage().getPageParameters().mergeWith(pageParams));
     }

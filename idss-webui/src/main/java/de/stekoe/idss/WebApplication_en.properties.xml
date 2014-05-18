@@ -20,8 +20,8 @@
     <entry key="label.add">Add</entry>
     <entry key="label.address">Address</entry>
     <entry key="label.addresses">Addresses</entry>
-    <entry key="label.axis.count">Country</entry>
-    <entry key="label.axis.measurementvalues">Measurement Values</entry>
+    <entry key="label.administration">Administration area</entry>
+    <entry key="label.criterion.count">Country</entry>
     <entry key="label.cancel">Cancel</entry>
     <entry key="label.change.account.settings">Change account settings</entry>
     <entry key="label.change.email">Change your email address</entry>
@@ -36,6 +36,7 @@
     <entry key="label.company.manage">Manage company</entry>
     <entry key="label.company.overview">Company overview</entry>
     <entry key="label.company.roles.manage">Manage company roles</entry>
+    <entry key="label.contact">Contact</entry>
     <entry key="label.country">Country</entry>
     <entry key="label.criterion.allowMultipleChoice">Allow multiple selection</entry>
     <entry key="label.criterion.allowNoChoice">Selection of this criteria is not allowed</entry>
@@ -65,6 +66,8 @@
     <entry key="label.file.size">Document size</entry>
     <entry key="label.file.type">Document type</entry>
     <entry key="label.firstname">First name</entry>
+    <entry key="label.home">Home</entry>
+    <entry key="label.impress">Disclaimer</entry>
     <entry key="label.logout">Logout</entry>
     <entry key="label.mean.arithmetic">Arithmetric mean</entry>
     <entry key="label.median">Median</entry>
@@ -75,7 +78,7 @@
     <entry key="label.new">New</entry>
     <entry key="label.number">House number</entry>
     <entry key="label.overview">Overview</entry>
-    <entry key="label.page.counter">Page {0} of {1}</entry>
+    <entry key="label.page.counter">Page %s of %s, showing %s records out of %s total, starting on record %s, ending on %s.</entry>
     <entry key="label.page.first">First</entry>
     <entry key="label.page.last">Last</entry>
     <entry key="label.password">Password</entry>
@@ -109,6 +112,10 @@
     <entry key="label.project.role.edit.introduction">You will change project role "{0}" of project "{1}".</entry>
     <entry key="label.project.start.date">Start date</entry>
     <entry key="label.project.status">Project status</entry>
+    <entry key="label.reference.criterion.create">Create reference criterion</entry>
+    <entry key="label.reference.criterion.edit">Edit reference criterion</entry>
+    <entry key="label.reference.criterion.group.create">Create reference criterion group</entry>
+    <entry key="label.reference.criterion.group.edit">Edit reference criterion group</entry>
     <entry key="label.reference.criterion.overview">Catalog of reference criterions</entry>
     <entry key="label.remove.from">Remove from %s!</entry>
     <entry key="label.role.name">Name of the role</entry>
@@ -122,7 +129,7 @@
     <entry key="label.surname">Surname</entry>
     <entry key="label.systeminfo">System information</entry>
     <entry key="label.thisisyou">This is you!</entry>
-    <entry key="label.upload">Upload document</entry>
+    <entry key="label.upload">Upload file(s)</entry>
     <entry key="label.user.profile">Your profile</entry>
     <entry key="label.username">User name</entry>
     <entry key="label.usernameOrEmail">Username or email address</entry>
@@ -144,6 +151,8 @@
     <entry key="message.project.create.success">The project was created successfully!</entry>
     <entry key="message.registration.error">Error during registation. Please try again or contact an administrator!</entry>
     <entry key="message.registration.success">Your account was successfully created. You have to activate it before you can use it. To do this, an E-Mail was send to you with an activation key. Please check your E-Mails.</entry>
+    <entry key="message.save.error">Error while saving your changes.</entry>
+    <entry key="message.save.success">Your changes have been saved!</entry>
     <entry key="newEmailConfirm.EqualInputValidator">The E-Mail addresses do not match!</entry>
     <entry key="newPasswordConfirm.EqualInputValidator">The passwords do not match!</entry>
     <entry key="newPasswordConfirm.label">Reenter new password</entry>
@@ -169,14 +178,10 @@
     <entry key="table.header.actions">Actions</entry>
     <entry key="table.header.id">ID</entry>
     <entry key="table.header.name">Name</entry>
-    <entry key="message.save.success">Your changes have been saved!</entry>
-    <entry key="message.save.error">Error while saving your changes.</entry>
-    <entry key="label.administration">Administration area</entry>
-    <entry key="label.home">Home</entry>
-    <entry key="label.contact">Contact</entry>
-    <entry key="label.impress">Disclaimer</entry>
-    <entry key="label.reference.criterion.group.create">Create reference criterion group</entry>
-    <entry key="label.reference.criterion.create">Create reference criterion</entry>
-    <entry key="label.reference.criterion.group.edit">Edit reference criterion group</entry>
-    <entry key="label.reference.criterion.edit">Edit reference criterion</entry>
+    <entry key="label.criterion.value">Value</entry>
+    <entry key="label.criterion.values">Values</entry>
+    <entry key="label.file.change">Cancel</entry>
+    <entry key="label.file.select">Select file</entry>
+    <entry key="label.reference.criterion.upload">Upload reference catalog</entry>
+    <entry key="message.delete.confirm">Do you really want to delete "%s"?</entry>
 </properties>

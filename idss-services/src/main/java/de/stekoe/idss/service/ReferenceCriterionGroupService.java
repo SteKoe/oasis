@@ -15,7 +15,6 @@ import javax.inject.Inject;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +28,19 @@ public class ReferenceCriterionGroupService {
     @Inject
     private ReferenceCriterionGroupRepository referenceCriterionGroupRepository;
 
+    @Transactional
+    public <S extends CriterionGroup> S save(S entity) {
+        return referenceCriterionGroupRepository.save(entity);
+    }
+
+    public Page<CriterionGroup> findAll(Pageable pageable) {
+        return referenceCriterionGroupRepository.findAll(pageable);
+    }
+
+    public CriterionGroup findOne(String id) {
+        return referenceCriterionGroupRepository.findOne(id);
+    }
+
     public Iterable<CriterionGroup> findAll() {
         return referenceCriterionGroupRepository.findAll();
     }
@@ -37,11 +49,8 @@ public class ReferenceCriterionGroupService {
         return referenceCriterionGroupRepository.count();
     }
 
-    public Iterable<CriterionGroup> findAll(Sort sort) {
-        return referenceCriterionGroupRepository.findAll(sort);
-    }
-
-    public Page<CriterionGroup> findAll(Pageable pageable) {
-        return referenceCriterionGroupRepository.findAll(pageable);
+    @Transactional
+    public void delete(String id) {
+        referenceCriterionGroupRepository.delete(id);
     }
 }

@@ -51,6 +51,10 @@ public class ReferenceCriterionPage extends AuthAdminPage {
         link.add(new Label("label", getString("label.reference.criterion.group.overview")));
         links.add(link);
 
+        link = new BookmarkablePageLink<UploadReferenceCriterionCatalogPage>(ID_LINK, UploadReferenceCriterionCatalogPage.class);
+        link.add(new Label("label", getString("label.reference.criterion.upload")));
+        links.add(link);
+
         return links;
     }
 }

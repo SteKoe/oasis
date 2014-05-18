@@ -1,5 +1,6 @@
 package de.stekoe.idss.service;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.util.List;
@@ -92,7 +93,7 @@ public class CriterionPageServiceTest extends AbstractBaseTest {
         final CriterionPage page = new CriterionPage();
         page.setProject(project);
         criterionPageService.save(page);
-        assertThat(criterionPageService.findAll().size(), IsEqual.equalTo(1));
+        assertThat(criterionPageService.findAll().size(), equalTo(1));
 
         assertThat(criterionPageService.getNextPageNumForProject(project.getId()), IsEqual.equalTo(1));
     }

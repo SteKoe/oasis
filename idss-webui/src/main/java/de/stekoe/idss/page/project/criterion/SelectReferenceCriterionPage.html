@@ -1,21 +1,57 @@
 <html xmlns:wicket="http://wicket.sourceforge.net/">
+<wicket:head>
+    <script>
+    $(function(){
+    	$('.checkall').on('click', function(){
+    		$(this).closest('.panel').find('.panel-body :checkbox').prop('checked', this.checked);
+    	});
+    	$('.criterion').on('change', function(){
+    		var anySelected = false;
+    		var allSelected = true;
+    		
+    		$(this).closest('.panel').find('.panel-body :checkbox').each(function(index){
+    			  console.log(index + ": " + this.checked);
+    			  if(this.checked == false) {
+    				  allSelected = false;
+    			  }
+    			  if(this.checked == true) {
+    				  anySelected = true;
+    			  }
+    		});
+    		
+    		if(allSelected == true) {
+        		$(this).closest('.panel').find('.panel-title :checkbox').prop('checked', true);
+        		$(this).closest('.panel').find('.panel-title :checkbox').prop('indeterminate', false);
+    		} else if(anySelected == true) {
+        		$(this).closest('.panel').find('.panel-title :checkbox').prop('checked', true);
+        		$(this).closest('.panel').find('.panel-title :checkbox').prop('indeterminate', true);
+    		} else {
+        		$(this).closest('.panel').find('.panel-title :checkbox').prop('checked', false);
+        		$(this).closest('.panel').find('.panel-title :checkbox').prop('indeterminate', false);
+    		}
+		});
+    });
+    </script>
+</wicket:head>
 <body>
     <wicket:extend>
+        <form wicket:id="form">
         <div class="panel-group" id="referenceList">
             <!-- -->
             <div class="panel panel-default" wicket:id="panel">
                 <div class="panel-heading">
                     <h4 class="panel-title">
+                        <input type="checkbox" value="" class="checkall"> 
                         <a data-toggle="collapse" data-parent="#referenceList" href="#collapseOne" wicket:id="panel.title">
-                            Collapsible Group Item #1
+                            <wicket:container wicket:id="criteriongroup.name"></wicket:container>
                         </a>
                     </h4>
                 </div>
-                <div id="collapseOne" class="panel-collapse collapse in" wicket:id="panel.collapse">
+                <div id="collapseOne" class="panel-collapse collapse" wicket:id="panel.collapse">
                     <div class="panel-body" wicket:id="panel.body">
                         <div class="checkbox" wicket:id="criterion.list">
                           <label>
-                                <input type="checkbox" value="">
+                                <input type="checkbox" value="" class="criterion" wicket:id="criterion.checkbox">
                                 <wicket:container wicket:id="criterion.name"></wicket:container>
                           </label>
                         </div>
@@ -24,6 +60,10 @@
             </div>
             <!-- -->
         </div>
+        <div class="well">
+            <input type="submit" class="btn btn-success">
+        </div>
+        </form>
     </wicket:extend>
 </body>
 </html>

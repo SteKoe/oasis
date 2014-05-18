@@ -32,7 +32,6 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import de.stekoe.idss.model.CriterionPage;
 import de.stekoe.idss.model.PageElement;
-import de.stekoe.idss.model.SingleScaledCriterion;
 import de.stekoe.idss.page.project.ProjectPage;
 import de.stekoe.idss.page.project.criterion.SelectCriterionPage;
 import de.stekoe.idss.service.CriterionPageService;
@@ -81,7 +80,7 @@ public class CriteriaPageListPage extends ProjectPage {
                 item.add(deletePageLink(criterionPage));
                 item.add(new BookmarkablePageLink<SelectCriterionPage>("page.add.criterion", SelectCriterionPage.class, new PageParameters(getPageParameters()).add("pageId", criterionPage.getId())));
 
-                final ListView<PageElement> pageListItems = new CriterionPageElementListView("page.list.items", item.getModelObject().getPageElements());
+                final ListView<PageElement> pageListItems = new CriterionPageElementListView("page.list.items", criterionPage.getPageElements());
                 item.add(pageListItems);
 
                 final WebMarkupContainer emptyTable = new WebMarkupContainer("page.empty");
@@ -157,21 +156,5 @@ public class CriteriaPageListPage extends ProjectPage {
             }
         };
         add(newPageButton);
-    }
-
-    private class CriterionPageElementListView extends ListView<PageElement> {
-
-        public CriterionPageElementListView(String id, List<? extends PageElement> list) {
-            super(id, list);
-        }
-
-        @Override
-        protected void populateItem(ListItem<PageElement> item) {
-            final PageElement criterionPageElement = item.getModelObject();
-            if (criterionPageElement instanceof SingleScaledCriterion) {
-                SingleScaledCriterion ssc = (SingleScaledCriterion) criterionPageElement;
-                item.add(new SingleScaledCriterionElement("page.list.item", ssc));
-            }
-        }
     }
 }

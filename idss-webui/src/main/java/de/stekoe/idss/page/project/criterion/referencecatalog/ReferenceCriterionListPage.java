@@ -16,7 +16,7 @@ import de.stekoe.idss.model.Criterion;
 import de.stekoe.idss.model.NominalScaledCriterion;
 import de.stekoe.idss.page.PaginationConfigurator;
 import de.stekoe.idss.page.component.DataListView;
-import de.stekoe.idss.service.CriterionService;
+import de.stekoe.idss.service.ReferenceCriterionService;
 import de.stekoe.idss.session.WebSession;
 import de.stekoe.idss.wicket.DeleteLink;
 import de.stekoe.idss.wicket.JavascriptEventConfirmation;
@@ -30,7 +30,7 @@ public class ReferenceCriterionListPage extends ReferenceCriterionPage {
     PaginationConfigurator paginationConfigurator;
 
     @Inject
-    CriterionService criterionService;
+    ReferenceCriterionService referenceCriterionService;
 
     public ReferenceCriterionListPage() {
         add(new BookmarkablePageLink<CreateNominalReferenceCriterionPage>("link.add", CreateNominalReferenceCriterionPage.class));
@@ -54,7 +54,7 @@ public class ReferenceCriterionListPage extends ReferenceCriterionPage {
                 DeleteLink deleteLink = new DeleteLink(DataListView.BUTTON_ID) {
                     @Override
                     public void onClick() {
-                        criterionService.deleteCriterion(modelObject.getId());
+                        referenceCriterionService.delete(modelObject.getId());
                         WebSession.get().success(getString("message.delete.success"));
                         setResponsePage(getPage());
                     }

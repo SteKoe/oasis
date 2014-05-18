@@ -19,12 +19,12 @@ package de.stekoe.idss.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 import de.stekoe.idss.model.Criterion;
 import de.stekoe.idss.model.SingleScaledCriterion;
 
-public interface CriterionRepository extends CrudRepository<Criterion, String> {
+public interface CriterionRepository extends PagingAndSortingRepository<Criterion, String> {
     @Query("SELECT pe FROM PageElement pe WHERE pe.id = ?1")
     SingleScaledCriterion findSingleScaledCriterionById(String id);
 

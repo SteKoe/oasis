@@ -20,34 +20,33 @@
 <wicket:panel>
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-
-            <form role="form" wicket:id="loginForm">
-                <fieldset>
-                    <legend>
-                        <wicket:message key="form.login.title"></wicket:message>
-                    </legend>
-
-                    <div class="form-group" wicket:id="group.username">
-                        <input id="username" wicket:id="username" type="text" class="form-control">
-                    </div>
-
-                    <div class="form-group" wicket:id="group.password">
-                        <input id="password" wicket:id="password" type="password" class="form-control">
-                        <div class="helb-block">
-                            <a href="" wicket:id="link.password.lost">
-                                <wicket:message key="label.password.lost" />
-                            </a>
+                
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <wicket:message key="form.login.title"></wicket:message>
+                </div>
+                <div class="panel-body">
+                    <form role="form" wicket:id="loginForm">
+                        <div class="form-group" wicket:id="group.username">
+                            <input id="username" wicket:id="username" type="text" class="form-control">
                         </div>
-                    </div>
-
-                    <div class="form-group well">
+    
+                        <div class="form-group" wicket:id="group.password">
+                            <input id="password" wicket:id="password" type="password" class="form-control">
+                            <div class="helb-block">
+                                <a href="" wicket:id="link.password.lost">
+                                    <wicket:message key="label.password.lost" />
+                                </a>
+                            </div>
+                        </div>
+    
                         <button wicket:id="submit" type="submit" class="btn btn-success">
                             <wicket:message key="form.login.title"/>
                         </button>
-                    </div>
-                </fieldset>
-            </form>
-
+                    </form>
+                </div>
+            </div>
+            
         </div>
     </div>
 </wicket:panel>

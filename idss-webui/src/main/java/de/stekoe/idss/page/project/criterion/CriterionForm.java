@@ -91,7 +91,7 @@ public abstract class CriterionForm<T extends MeasurementValue> extends Panel {
     void moveValueUp(final T value) {
         SingleScaledCriterion<T> criterion = getCriterionModel().getObject();
         criterion.moveUp(value);
-        criterionService.saveCriterion(criterion);
+        criterionService.save(criterion);
         getCriterionModel().detach();
         setResponsePage(getPage());
     }
@@ -99,7 +99,7 @@ public abstract class CriterionForm<T extends MeasurementValue> extends Panel {
     void moveValueDown(final T value) {
         SingleScaledCriterion<T> criterion = getCriterionModel().getObject();
         criterion.moveDown(value);
-        criterionService.saveCriterion(criterion);
+        criterionService.save(criterion);
         getCriterionModel().detach();
         setResponsePage(getPage());
     }

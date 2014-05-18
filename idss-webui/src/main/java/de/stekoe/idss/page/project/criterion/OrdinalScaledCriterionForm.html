@@ -20,13 +20,10 @@
 <wicket:extend>
     <form wicket:id="valueForm">
         <fieldset class="form-horizontal">
-            <legend>Ausprägungen</legend>
+            <legend><wicket:message key="label.criterion.values" /></legend>
             <div class="form-group" wicket:id="value.group">
-                <div class="col-sm-8">
+                <div class="col-sm-10">
                     <input type="text" class="form-control" wicket:id="value">
-                </div>
-                <div class="col-sm-2">
-                    <input type="text" class="form-control" wicket:id="rank">
                 </div>
                 
                 <div class="col-sm-2 text-right">
@@ -40,15 +37,17 @@
             <table class="table table-border-top-bottom">
                 <thead>
                     <tr>
-                        <th>Ausprägung</th>
-                        <th class="text-center">Wert</th>
-                        <th class="text-right">Aktionen</th>
+                        <th>
+                            <wicket:message key="label.criterion.value" />
+                        </th>
+                        <th class="text-right">
+                            <wicket:message key="table.header.actions" />
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr wicket:id="value.list">
-                        <td wicket:id="value.list.value">männlich</td>
-                        <td wicket:id="value.list.rank" class="text-center">5</td>
+                        <td wicket:id="value.list.value">[name of value]</td>
                         <td class="text-right">
                             <div class="btn-group btn-group-xs">
                                 <a href="" class="btn btn-default btn-xs" wicket:id="value.move.up"><i class="fa fa-caret-up"></i></a>

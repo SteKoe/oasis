@@ -16,17 +16,22 @@
 
 package de.stekoe.idss.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.PagingAndSortingRepository;
 
 import de.stekoe.idss.model.CriterionGroup;
 
-public interface ReferenceCriterionGroupRepository extends PagingAndSortingRepository<CriterionGroup, String> {
+public interface ReferenceCriterionGroupRepository extends CriterionGroupRepository {
     @Override
-    @Query("FROM CriterionGroup c WHERE c.referenceType = true")
+    @Query("FROM CriterionGroup cg WHERE cg.referenceType = 1")
     public Iterable<CriterionGroup> findAll();
 
     @Override
-    @Query("SELECT count(*) FROM CriterionGroup c WHERE c.referenceType = true")
+    @Query("FROM CriterionGroup cg WHERE cg.referenceType = 1")
+    public Page<CriterionGroup> findAll(Pageable pageable);
+
+    @Override
+    @Query("SELECT COUNT(*) FROM CriterionGroup cg WHERE cg.referenceType = 1")
     public long count();
 }

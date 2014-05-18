@@ -20,7 +20,7 @@ import de.stekoe.idss.page.component.form.auth.login.LoginForm;
 
 
 @SuppressWarnings("serial")
-public class LoginPage extends LayoutPage {
+public class LoginPage extends ContainerLayoutPage {
     public LoginPage() {
         add(new LoginForm("loginForm"));
     }

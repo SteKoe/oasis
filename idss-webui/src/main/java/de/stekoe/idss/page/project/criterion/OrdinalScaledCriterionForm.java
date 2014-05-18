@@ -27,7 +27,6 @@ import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.LoadableDetachableModel;
-import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.FormGroup;
@@ -82,10 +81,6 @@ public abstract class OrdinalScaledCriterionForm extends CriterionForm<OrdinalVa
         FormGroup valueGroup = new FormGroup("value.group");
         valueForm.add(valueGroup.add(valueTextField));
 
-        final RequiredTextField<Double> rankTextField = new RequiredTextField<Double>("rank", new Model(getCriterionModel().getObject().getValues().size() + 1));
-        rankTextField.add(new Placeholder("Wert..."));
-        valueForm.add(valueGroup.add(rankTextField));
-
         final LoadableDetachableModel<List<OrdinalValue>> valueListModel = new LoadableDetachableModel<List<OrdinalValue>>() {
             @Override
             protected List<OrdinalValue> load() {
@@ -98,13 +93,12 @@ public abstract class OrdinalScaledCriterionForm extends CriterionForm<OrdinalVa
             protected void populateItem(final ListItem<OrdinalValue> item) {
                 final OrdinalValue value = item.getModelObject();
                 item.add(new Label("value.list.value", value.getValue()));
-                item.add(new Label("value.list.rank", value.getRank()));
 
                 item.add(new Link("value.delete") {
                     @Override
                     public void onClick() {
                         getCriterionModel().getObject().getValues().remove(value);
-                        criterionService.saveCriterion(getCriterionModel().getObject());
+                        criterionService.save(getCriterionModel().getObject());
                         setResponsePage(getPage());
                     }
                 });

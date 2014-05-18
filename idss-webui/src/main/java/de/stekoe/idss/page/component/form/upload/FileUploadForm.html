@@ -1,0 +1,17 @@
+<html xmlns:wicket="http://wicket.sourceforge.net/">
+<wicket:head>
+    <script src="vendors/bootstrap-jasny/js/jasny-bootstrap.min.js"></script>
+    <link href="vendors/bootstrap-jasny/css/jasny-bootstrap.min.css" rel="stylesheet" type="text/css" media="all">
+    <script>
+    $(function(){
+    	$('.fileinput').fileinput();
+    });
+    </script>
+</wicket:head>
+<wicket:panel>
+    <form wicket:id="form">
+        <wicket:container wicket:id="fileUploadField"></wicket:container>
+    </form>
+
+</wicket:panel>
+</html>

@@ -18,43 +18,25 @@ package de.stekoe.idss.model;
 
 import javax.persistence.Entity;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 @Entity
 public class OrdinalValue extends MeasurementValue {
     private static final long serialVersionUID = 201404132235L;
-
-    private int rank;
 
     public OrdinalValue() {
     }
 
     public OrdinalValue(OrdinalValue ordinalValue) {
         super(ordinalValue);
-        rank = ordinalValue.getRank();
     }
 
-    /**
-     * @param rank  Rank of the current value
-     * @param value The value itself
-     */
-    public OrdinalValue(int rank, String value) {
+    public OrdinalValue(String value) {
         super(value);
-        this.rank = rank;
     }
 
-    public int getRank() {
-        return rank;
-    }
-
-    public void setRank(int rank) {
-        this.rank = rank;
-    }
-
-    public boolean isGreaterThan(OrdinalValue aVal) {
-        return getRank() > aVal.getRank();
-    }
-
-    public boolean isLowerThan(OrdinalValue aVal) {
-        return this.getRank() < aVal.getRank();
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this).append(super.toString()).toString();
     }
 }

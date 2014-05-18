@@ -16,61 +16,38 @@
 
 package de.stekoe.idss.page.component.form.upload;
 
-import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.Logger;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.upload.FileUpload;
-import org.apache.wicket.markup.html.form.upload.FileUploadField;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.lang.Bytes;
 
-import de.stekoe.idss.model.Document;
-import de.stekoe.idss.service.DocumentService;
-import de.stekoe.idss.session.WebSession;
+public abstract class FileUploadForm extends Panel {
 
-/**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
- */
-public abstract class DocumentUploadForm extends Panel {
-
-    private static final Logger LOG = Logger.getLogger(DocumentUploadForm.class);
-
-    @SpringBean
-    DocumentService documentService;
+    private static final Logger LOG = Logger.getLogger(FileUploadForm.class);
 
     private final FileUploadField fileUpload;
 
-    public DocumentUploadForm(String id) {
+    public FileUploadForm(String id) {
         super(id);
 
         Form<?> form = new Form<Void>("form") {
             @Override
             protected void onSubmit() {
-
                 final FileUpload uploadedFile = fileUpload.getFileUpload();
-                if (uploadedFile != null) {
-                    Document document = new Document();
-                    document.setName(uploadedFile.getClientFileName());
-                    document.setContentType(FilenameUtils.getExtension(uploadedFile.getClientFileName()));
-                    document.setSize(uploadedFile.getSize());
-                    document.setUser(WebSession.get().getUser());
-                    document.setContent(uploadedFile.getBytes());
-
-                    documentService.save(document);
-                    onAfterSubmit(document);
-                }
+                LOG.info("A file has been uploaded: " + uploadedFile.getClientFileName());
+                onAfterSubmit(uploadedFile);
             }
         };
 
         form.setMultiPart(true);
         form.setMaxSize(Bytes.megabytes(50));
 
-        fileUpload = new FileUploadField("fileUpload");
+        fileUpload = new FileUploadField("fileUploadField");
         form.add(fileUpload);
 
         add(form);
     }
 
-    public abstract void onAfterSubmit(Document document);
+    public abstract void onAfterSubmit(FileUpload uploadedFile);
 }

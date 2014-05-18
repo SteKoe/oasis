@@ -95,7 +95,7 @@ public abstract class NominalScaledCriterionForm extends CriterionForm<NominalVa
                     @Override
                     public void onClick() {
                         getCriterionModel().getObject().getValues().remove(value);
-                        criterionService.saveCriterion(getCriterionModel().getObject());
+                        criterionService.save(getCriterionModel().getObject());
                         setResponsePage(getPage());
                     }
                 });

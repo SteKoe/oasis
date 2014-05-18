@@ -58,7 +58,7 @@ public class CreateNominalScaledCriterionForm extends NominalScaledCriterionForm
         criterion.setCriterionPage(page);
         criterion.setOrdering(page.getPageElements().size() + 1);
 
-        criterionService.saveCriterion(criterion);
+        criterionService.save(criterion);
 
         page.getPageElements().add(criterion);
         criterionPageService.save(page);

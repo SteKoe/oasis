@@ -10,6 +10,7 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.markup.repeater.data.IDataProvider;
+import org.apache.wicket.model.Model;
 
 import de.stekoe.idss.model.NamedElement;
 
@@ -56,6 +57,22 @@ public abstract class DataListView<T extends NamedElement> extends Panel {
             }
         });
 
+
+        add(new Label("navigator.counter", new Model<String>() {
+            @Override
+            public String getObject() {
+                PaginationInfoLabel infoLabel = new PaginationInfoLabel(dataView);
+                long curPage = infoLabel.getCurrentPage();
+                long pages = infoLabel.getPages();
+                long itemsCurrentPage = infoLabel.getItemCountOnCurrentPage();
+                long totalElements = infoLabel.getTotalElements();
+                long start = infoLabel.getStart();
+                long end = infoLabel.getEnd();
+
+                String format = String.format(getString("label.page.counter"), curPage, pages, itemsCurrentPage, totalElements, start, end);
+                return format;
+            }
+        }));
         add(new BootstrapPagingNavigator("navigator", dataView));
     }
 

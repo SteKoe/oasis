@@ -18,6 +18,8 @@ package de.stekoe.idss.model;
 
 import javax.persistence.Entity;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 @Entity
 public class NominalValue extends MeasurementValue {
     private static final long serialVersionUID = 201404132234L;
@@ -31,5 +33,12 @@ public class NominalValue extends MeasurementValue {
 
     public NominalValue(String value) {
         super(value);
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+            .append(super.toString())
+            .toString();
     }
 }

@@ -25,7 +25,7 @@ import de.stekoe.idss.model.SingleScaledCriterion;
 import de.stekoe.idss.repository.CriterionRepository;
 
 @Service
-@Transactional(readOnly = true)
+@Transactional
 public class CriterionService {
 
     @Inject
@@ -36,12 +36,12 @@ public class CriterionService {
     }
 
     @Transactional
-    public void saveCriterion(Criterion entity) {
+    public void save(Criterion entity) {
         criterionRepository.save(entity);
     }
 
     @Transactional
-    public void deleteCriterion(String criterionId) {
+    public void delete(String criterionId) {
         criterionRepository.delete(criterionId);
     }
 
@@ -61,4 +61,16 @@ public class CriterionService {
         return criterionRepository.findOne(id);
     }
 
+    public long count() {
+        return criterionRepository.count();
+    }
+
+    public List<Criterion> findAll() {
+        return (List<Criterion>) criterionRepository.findAll();
+    }
+
+    @Transactional
+    public <S extends Criterion> Iterable<S> save(Iterable<S> entities) {
+        return criterionRepository.save(entities);
+    }
 }

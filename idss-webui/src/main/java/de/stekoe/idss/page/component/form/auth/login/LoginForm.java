@@ -72,7 +72,8 @@ public class LoginForm extends Panel {
             PasswordTextField passwordTextField = new PasswordTextField("password");
             passwordTextField.setLabel(Model.of(getString("label.password")));
             passwordTextField.setRequired(true);
-            add(new FormGroup("group.password").add(passwordTextField).add(new BookmarkablePageLink<RequestNewPasswordPage>("link.password.lost", RequestNewPasswordPage.class)));
+            BookmarkablePageLink<RequestNewPasswordPage> passwordLostLink = new BookmarkablePageLink<RequestNewPasswordPage>("link.password.lost", RequestNewPasswordPage.class);
+            add(new FormGroup("group.password").add(passwordTextField).add(passwordLostLink));
 
             Button submitButton = new Button("submit");
             submitButton.setModel(Model.of(getString("label.submit")));

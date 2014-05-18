@@ -1,0 +1,30 @@
+<html xmlns:wicket="http://wicket.sourceforge.net/">
+<wicket:head>
+    <script src="vendors/bootstrap-jasny/js/jasny-bootstrap.min.js" id="jasny-bootstrap-js"></script>
+    <link href="vendors/bootstrap-jasny/css/jasny-bootstrap.min.css" id="jasny-bootstrap-css" rel="stylesheet" type="text/css" media="all">
+    <script>
+    $(function(){
+    	$('.fileinput').fileinput();
+    });
+    </script>
+</wicket:head>
+<wicket:panel>
+    <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+        <div class="form-control" data-trigger="fileinput">
+            <i class="glyphicon glyphicon-file fileinput-exists"></i>
+            <span class="fileinput-filename"></span>
+        </div>
+        <span class="input-group-addon btn btn-default btn-file">
+            <span class="fileinput-new">
+                <wicket:message key="label.file.select" />
+            </span>
+            <span class="fileinput-exists">
+                <wicket:message key="label.file.change" />
+            </span>
+            <input type="file" wicket:id="fileUpload" name="..."></span>
+            <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">
+                <wicket:message key="label.delete" />
+            </a>
+    </div>
+</wicket:panel>
+</html>

@@ -23,9 +23,11 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.Transient;
+
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 @Entity
 public abstract class SingleScaledCriterion<T extends MeasurementValue> extends Criterion {
@@ -49,8 +51,7 @@ public abstract class SingleScaledCriterion<T extends MeasurementValue> extends 
         }
     }
 
-    @OrderBy(value = "ordering")
-    @OneToMany(targetEntity = MeasurementValue.class, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, targetEntity = MeasurementValue.class, cascade = CascadeType.ALL)
     public List<T> getValues() {
         return this.values;
     }
@@ -114,5 +115,12 @@ public abstract class SingleScaledCriterion<T extends MeasurementValue> extends 
         }
 
         return null;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+            .append(super.toString())
+            .toString();
     }
 }

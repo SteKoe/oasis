@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * 	http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -27,6 +27,10 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class PageElement implements NamedElement, Serializable {
@@ -44,6 +48,16 @@ public abstract class PageElement implements NamedElement, Serializable {
     public PageElement() {
     }
 
+    /**
+     * Copy constructor.
+     * Creates a copy of the given PageElement. The resulting new PageElement object will have an pointer to the original
+     * (copied) PageElement identified by originId:
+     *
+     * PageElement              Copy of PageElement
+     *   id          <-------     originId
+     *
+     * @param pageElement
+     */
     public PageElement(PageElement pageElement) {
         this.criterionPage = pageElement.getCriterionPage();
         this.name = pageElement.getName();
@@ -109,5 +123,32 @@ public abstract class PageElement implements NamedElement, Serializable {
     }
     public void setOriginId(String originId) {
         this.originId = originId;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+            .append("id", getId())
+            .append("criterionPage", getCriterionPage())
+            .append("ordering", getOrdering())
+            .append("name", getName())
+            .append("description", getDescription())
+            .append("referenceType", isReferenceType())
+            .append("originId", getOriginId())
+            .toString();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(13,37).append(getId()).hashCode();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof PageElement)) {
+            return false;
+        }
+        PageElement other  = (PageElement) o;
+        return new EqualsBuilder().append(getId(), other.getId()).isEquals();
     }
 }

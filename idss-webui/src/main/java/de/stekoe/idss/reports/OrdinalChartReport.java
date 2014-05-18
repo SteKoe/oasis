@@ -256,7 +256,7 @@ public class OrdinalChartReport extends Report<AmSerialChart> {
         private CategoryAxis getCategoryAxis() {
             CategoryAxis categoryAxis = new CategoryAxis();
             categoryAxis.setGridPosition("start");
-            categoryAxis.setTitle(ChartUtils.getString("label.axis.measurementvalues"));
+            categoryAxis.setTitle(ChartUtils.getString("label.criterion.values"));
             categoryAxis.setGridAlpha(0);
 
             Function func = new Function();
@@ -293,7 +293,7 @@ public class OrdinalChartReport extends Report<AmSerialChart> {
             ValueAxis valueAxis = new ValueAxis();
             valueAxis.setId("countAxis");
             valueAxis.setGridColor(Color.WHITE);
-            valueAxis.setTitle(ChartUtils.getString("label.axis.count"));
+            valueAxis.setTitle(ChartUtils.getString("label.criterion.count"));
             valueAxis.setIntegersOnly(true);
             list.add(valueAxis);
 

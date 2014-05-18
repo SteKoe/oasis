@@ -36,7 +36,7 @@ public class EditOrdinalCriterionForm extends OrdinalScaledCriterionForm {
     @Override
     public void onSaveCriterion(IModel<SingleScaledCriterion<OrdinalValue>> aModel) {
         final SingleScaledCriterion<OrdinalValue> criterion = aModel.getObject();
-        itsCriterionService.saveCriterion(criterion);
+        itsCriterionService.save(criterion);
         final PageParameters pageParams = new PageParameters().add("criterionId", criterion.getId());
         setResponsePage(EditOrdinalCriterionPage.class, getPage().getPageParameters().mergeWith(pageParams));
     }

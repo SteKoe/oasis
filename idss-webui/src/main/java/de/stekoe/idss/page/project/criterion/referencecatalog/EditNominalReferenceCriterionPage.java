@@ -22,7 +22,7 @@ public class EditNominalReferenceCriterionPage extends ReferenceCriterionPage {
             @Override
             public void onSaveCriterion(IModel<SingleScaledCriterion<NominalValue>> aModel) {
                 SingleScaledCriterion<NominalValue> criterion = aModel.getObject();
-                criterionService.saveCriterion(criterion);
+                criterionService.save(criterion);
 
                 getWebSession().success(getString("message.save.success"));
 

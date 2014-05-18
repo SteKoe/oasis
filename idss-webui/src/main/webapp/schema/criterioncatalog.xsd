@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://oasis.stekoe.de/schema/criterioncatalog" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://oasis.stekoe.de/schema/criterioncatalog">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <!-- CriterionCatalog -->
+    <xsd:element name="criterionCatalog">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:choice>
+                    <xsd:element ref="criterions" />
+                </xsd:choice>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    
+    <!-- Criterions -->
+    <xsd:element name="criterions">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:choice>
+                    <xsd:element ref="nominalScaledCriterion" />
+                    <xsd:element ref="ordinalScaledCriterion" />
+                </xsd:choice>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    
+    <xsd:group name="criterion">
+        <xsd:sequence>
+            <xsd:element name="name"></xsd:element>
+        </xsd:sequence>
+    </xsd:group>
+    
+    <xsd:attributeGroup name="criterionAttributes">
+        <xsd:attribute name="id" type="xsd:string"></xsd:attribute>
+        <xsd:attribute name="name" type="xsd:string"></xsd:attribute>
+        <xsd:attribute name="description" type="xsd:string"></xsd:attribute>
+        <xsd:attribute name="allowNoChoice" type="xsd:boolean"></xsd:attribute>
+    </xsd:attributeGroup>
+    
+    <xsd:attributeGroup name="nominalScaledCriterionAttributes">
+        <xsd:attribute name="multipleChoice" type="xsd:boolean"></xsd:attribute>
+    </xsd:attributeGroup>
+
+    <xsd:complexType name="criterion" abstract="true">
+        <xsd:attributeGroup ref="criterionAttributes"></xsd:attributeGroup>
+    </xsd:complexType>
+    
+    <xsd:element name="nominalScaledCriterion">
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="criterion">
+                    <xsd:attributeGroup ref="nominalScaledCriterionAttributes" />
+                </xsd:extension>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="ordinalScaledCriterion">
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:extension base="criterion">
+                </xsd:extension>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

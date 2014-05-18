@@ -5,35 +5,74 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
+import javax.persistence.PreRemove;
+
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 @Entity
 public class CriterionGroup extends PageElement {
     private List<Criterion> criterions = new ArrayList<Criterion>();
 
     public CriterionGroup() {
+        // NOP
     }
 
+    /**
+     * Copy constructor.
+     * Copies the whole CriterionGroup including the associated criterions.
+     * If you just want to copy the CriterionGroup only without its criterions, use CriterionGroup(CriterionGroup, Boolean)
+     * instead.
+     *
+     * @param group The CriterionGroup object to clone
+     */
     public CriterionGroup(CriterionGroup group) {
-        super(group);
+        this(group, true);
+    }
 
-        for (Criterion c : group.getCriterions()) {
-            if(c instanceof MultiScaledCriterion) {
-                criterions.add(new MultiScaledCriterion((MultiScaledCriterion) c));
-            } else if(c instanceof NominalScaledCriterion) {
-                criterions.add(new NominalScaledCriterion((NominalScaledCriterion) c));
-            } else if(c instanceof OrdinalScaledCriterion) {
-                criterions.add(new OrdinalScaledCriterion((OrdinalScaledCriterion) c));
+    /**
+     * Copy constructor.
+     * Creates a flat copy of the given CriterionGroup if copyCriterions is false. Flat copy means that no associated
+     * criterions will be cloned. If argument copyCriterions is true, all associated criterions will be copied as well.
+     *
+     * @param group             The CriterionGroup to copy
+     * @param copyCriterions    true if one wants to copy the assicated criterions, false otherwise
+     */
+    public CriterionGroup(CriterionGroup group, boolean copyCriterions) {
+        super(group);
+        if(copyCriterions) {
+            for (Criterion c : group.getCriterions()) {
+                criterions.add(Criterion.copyCriterion(c));
             }
         }
     }
 
-    @ManyToMany(cascade = CascadeType.ALL, targetEntity = Criterion.class)
+    @PreRemove
+    private void removeCriterionGroupFromCriterions() {
+        for (Criterion c : getCriterions()) {
+            c.getCriterionGroups().remove(this);
+        }
+    }
+
+    /**
+     * If you want to add new Criterions to this CriterionGroup use
+     * {@code CriterionGroup#addCriterion(Criterion)} instead!
+     * @return
+     */
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, targetEntity = Criterion.class)
     public List<Criterion> getCriterions() {
         return criterions;
     }
     public void setCriterions(List<Criterion> criterions) {
         this.criterions = criterions;
+    }
+
+    public void addCriterion(Criterion criterion) {
+        if(!getCriterions().contains(criterion)) {
+            getCriterions().add(criterion);
+            criterion.addCriterionGroup(this);
+        }
     }
 
     /**
@@ -63,5 +102,13 @@ public class CriterionGroup extends PageElement {
             }
         }
         return copy;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+            .append(super.toString())
+            .append("criterions", getCriterions())
+            .toString();
     }
 }

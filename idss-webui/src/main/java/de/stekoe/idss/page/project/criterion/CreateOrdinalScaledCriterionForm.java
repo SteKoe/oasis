@@ -28,6 +28,7 @@ import de.stekoe.idss.model.SingleScaledCriterion;
 import de.stekoe.idss.service.CriterionPageService;
 import de.stekoe.idss.service.CriterionService;
 import de.stekoe.idss.service.ProjectService;
+import de.stekoe.idss.session.WebSession;
 
 public class CreateOrdinalScaledCriterionForm extends OrdinalScaledCriterionForm {
 
@@ -63,7 +64,7 @@ public class CreateOrdinalScaledCriterionForm extends OrdinalScaledCriterionForm
         page.getPageElements().add(criterion);
         criterionPageService.save(page);
 
-        getWebSession().success("Success");
+        WebSession.get().success(getString("message.save.success"));
 
         final PageParameters pageParams = new PageParameters().add("criterionId", criterion.getId());
         setResponsePage(EditOrdinalCriterionPage.class, getPage().getPageParameters().mergeWith(pageParams));

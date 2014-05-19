@@ -186,8 +186,8 @@
     <entry key="table.header.name">Name</entry>
     <entry key="label.criterion.value">Ausprägung</entry>
     <entry key="label.criterion.values">Ausprägungen</entry>
-    <entry key="message.upload.error">Die Datei wurde erfolgreich hochgeladen!</entry>
-    <entry key="message.upload.success">Es ist ein Fehler beim Hochladen aufgetreten.</entry>
+    <entry key="message.upload.success">Die Datei wurde erfolgreich hochgeladen!</entry>
+    <entry key="message.upload.error">Es ist ein Fehler beim Hochladen aufgetreten.</entry>
     <entry key="label.file.change">Ändern</entry>
     <entry key="label.file.select">Datei wählen</entry>
     <entry key="label.reference.criterion.upload">Referenzkriterienkatalog hochladen</entry>

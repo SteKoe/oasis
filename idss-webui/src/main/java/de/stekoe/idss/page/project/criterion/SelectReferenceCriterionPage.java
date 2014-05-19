@@ -83,8 +83,11 @@ public class SelectReferenceCriterionPage extends ProjectPage {
 
                     int order = 0;
                     for(Criterion criterion : criterionGroup.getCriterions()) {
-                        criterion.setCriterionPage(criterionPage);
-                        criterionPage.getPageElements().add(criterion);
+                        /*
+                         *  Do not add the criterions to the page itself since they belong to the group which
+                         *  is connected to a criterion page.
+                         */
+
                         criterion.setOrdering(order);
                         order++;
                     }

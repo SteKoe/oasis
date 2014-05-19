@@ -73,9 +73,8 @@ public class SingleScaledCriterionElement extends Panel {
             @Override
             public void onClick() {
                 final SingleScaledCriterion ssc = sscModel.getObject();
+
                 final CriterionPage criterionPage = ssc.getCriterionPage();
-                criterionPage.getPageElements().remove(ssc);
-                criterionPageService.save(criterionPage);
                 criterionService.delete(ssc.getId());
             }
         });

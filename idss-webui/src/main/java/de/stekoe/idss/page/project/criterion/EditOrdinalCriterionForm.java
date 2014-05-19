@@ -23,6 +23,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import de.stekoe.idss.model.OrdinalValue;
 import de.stekoe.idss.model.SingleScaledCriterion;
 import de.stekoe.idss.service.CriterionService;
+import de.stekoe.idss.session.WebSession;
 
 public class EditOrdinalCriterionForm extends OrdinalScaledCriterionForm {
 
@@ -38,6 +39,8 @@ public class EditOrdinalCriterionForm extends OrdinalScaledCriterionForm {
         final SingleScaledCriterion<OrdinalValue> criterion = aModel.getObject();
         itsCriterionService.save(criterion);
         final PageParameters pageParams = new PageParameters().add("criterionId", criterion.getId());
+
+        WebSession.get().success(getString("message.save.success"));
         setResponsePage(EditOrdinalCriterionPage.class, getPage().getPageParameters().mergeWith(pageParams));
     }
 }

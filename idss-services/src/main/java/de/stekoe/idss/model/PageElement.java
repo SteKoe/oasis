@@ -25,6 +25,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.PreRemove;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -63,6 +64,13 @@ public abstract class PageElement implements NamedElement, Serializable {
         this.name = pageElement.getName();
         this.description = pageElement.getDescription();
         this.originId = pageElement.getId();
+    }
+
+    @PreRemove
+    private void removeFromCriterionPage() {
+        if(criterionPage != null) {
+            criterionPage.getPageElements().remove(this);
+        }
     }
 
     @Id

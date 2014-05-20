@@ -11,7 +11,7 @@
 
 package de.stekoe.idss.service;
 
-import java.util.Iterator;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -20,13 +20,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.stekoe.idss.model.Criterion;
-import de.stekoe.idss.model.MeasurementValue;
+import de.stekoe.idss.model.CriterionGroup;
+import de.stekoe.idss.model.PageElement;
 import de.stekoe.idss.model.SingleScaledCriterion;
 import de.stekoe.idss.repository.CriterionRepository;
 
 @Service
 @Transactional
-public class CriterionService {
+public class CriterionService extends PageElementService {
 
     @Inject
     private CriterionRepository criterionRepository;
@@ -45,16 +46,25 @@ public class CriterionService {
         criterionRepository.delete(criterionId);
     }
 
-    private void reorderValues(List<MeasurementValue> values) {
-        int index = 0;
-        final Iterator<MeasurementValue> iterator = values.iterator();
-        while (iterator.hasNext()) {
-            iterator.next().setOrdering(index++);
-        }
-    }
+    public List<Criterion> findAllForReport(String id) {
+        List<PageElement> findAllForProject = criterionRepository.findAllForProject(id);
 
-    public List<Criterion> findAllForProject(String id) {
-        return criterionRepository.findAllForProject(id);
+        List<Criterion> criterions = new ArrayList<Criterion>();
+
+        for (PageElement criterion : findAllForProject) {
+            if(criterion instanceof Criterion) {
+                criterions.add((Criterion) criterion);
+            } else if(criterion instanceof CriterionGroup) {
+                CriterionGroup cg = (CriterionGroup) criterion;
+
+                for (Criterion c : cg.getCriterions()) {
+                    c.setCriterionPage(cg.getCriterionPage());
+                    criterions.add(c);
+                }
+            }
+        }
+
+        return criterions;
     }
 
     public Criterion findOne(String id) {

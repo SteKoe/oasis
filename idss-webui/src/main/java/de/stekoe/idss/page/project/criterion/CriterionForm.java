@@ -31,6 +31,7 @@ import wicket.contrib.tinymce.TinyMceBehavior;
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.FormGroup;
 import de.stekoe.idss.model.MeasurementValue;
 import de.stekoe.idss.model.NominalScaledCriterion;
+import de.stekoe.idss.model.OrderableUtil.Direction;
 import de.stekoe.idss.model.SingleScaledCriterion;
 import de.stekoe.idss.page.component.behavior.CustomTinyMCESettings;
 import de.stekoe.idss.service.CriterionService;
@@ -90,7 +91,7 @@ public abstract class CriterionForm<T extends MeasurementValue> extends Panel {
 
     void moveValueUp(final T value) {
         SingleScaledCriterion<T> criterion = getCriterionModel().getObject();
-        criterion.moveUp(value);
+        criterion.move(value, Direction.UP);
         criterionService.save(criterion);
         getCriterionModel().detach();
         setResponsePage(getPage());
@@ -98,7 +99,7 @@ public abstract class CriterionForm<T extends MeasurementValue> extends Panel {
 
     void moveValueDown(final T value) {
         SingleScaledCriterion<T> criterion = getCriterionModel().getObject();
-        criterion.moveDown(value);
+        criterion.move(value, Direction.DOWN);
         criterionService.save(criterion);
         getCriterionModel().detach();
         setResponsePage(getPage());

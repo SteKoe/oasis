@@ -67,13 +67,11 @@
 }
 
 .page-canvas {
-  background-color: #eeeeee;
-  padding: 15px 0px 5px 0px;
   margin-bottom: 10px;
 }
 
 .criterion-page {
-  box-shadow: 0 0 0 1px #D1D1D1, 0 0 4px 1px #CCCCCC;
+  border: 1px solid #cccccc;
   background-color: #fff;
   margin-bottom: 10px;
 
@@ -85,12 +83,13 @@
   .criterion-page-body {
     padding: 5px;
 
-    .table {
-      margin-bottom: 0px;
-
-      td {
-        vertical-align: middle;
-      }
+    &:last-child {
+        margin-bottom: 0px;
     }
+  }
+  
+  .criterion-page {
+      box-shadow: none;
+      border: 1px solid #cccccc;
   }
 }

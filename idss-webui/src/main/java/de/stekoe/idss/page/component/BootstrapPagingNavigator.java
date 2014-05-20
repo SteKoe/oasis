@@ -58,6 +58,7 @@ public class BootstrapPagingNavigator extends Panel {
                 }
                 final PagingNavigationLink link = new PagingNavigationLink("page.list.link", pageable, currentIndex);
                 item.add(link);
+                link.add(new AttributeModifier("data-page", Model.of(link.getPageNumber())));
                 link.setBody(Model.of(currentIndex + 1));
             }
 
@@ -74,6 +75,7 @@ public class BootstrapPagingNavigator extends Panel {
         final PagingNavigationLink pageFirstLink = new PagingNavigationLink("page.first.link", pageable, 0);
         pageFirst.add(pageFirstLink);
         pageFirstLink.setAutoEnable(false);
+        pageFirstLink.add(new AttributeModifier("data-page", Model.of("0")));
         pageFirst.add(AttributeModifier.append("class", new Model<String>() {
             @Override
             public String getObject() {
@@ -94,7 +96,7 @@ public class BootstrapPagingNavigator extends Panel {
         final PagingNavigationIncrementLink pagePrevLink = new PagingNavigationIncrementLink("page.prev.link", pageable, -1);
         pagePrev.add(pagePrevLink);
         pagePrevLink.setAutoEnable(false);
-
+        pagePrevLink.add(new AttributeModifier("data-page", Model.of(pagePrevLink.getPageNumber())));
         pagePrev.add(AttributeModifier.append("class", new Model<String>() {
             @Override
             public String getObject() {
@@ -114,6 +116,7 @@ public class BootstrapPagingNavigator extends Panel {
         final PagingNavigationIncrementLink pageNextLink = new PagingNavigationIncrementLink("page.next.link", pageable, 1);
         pageNext.add(pageNextLink);
         pageNextLink.setAutoEnable(false);
+        pageNextLink.add(new AttributeModifier("data-page", Model.of(pageNextLink.getPageNumber())));
         pageNext.add(AttributeModifier.append("class", new Model<String>() {
             @Override
             public String getObject() {
@@ -135,13 +138,13 @@ public class BootstrapPagingNavigator extends Panel {
         final PagingNavigationLink pageLastLink = new PagingNavigationLink("page.last.link", pageable, -1);
         pageLast.add(pageLastLink);
         pageLastLink.setAutoEnable(false);
-
+        pageLastLink.add(new AttributeModifier("data-page", Model.of(pageLastLink.getPageNumber())));
         pageLast.add(AttributeModifier.append("class", new Model<String>(){
             @Override
             public String getObject() {
                 if (pageable.getCurrentPage() == pageable.getPageCount() - 1) {
                     return "disabled";
-                } {
+                } else {
                     return "enabled";
                 }
             }

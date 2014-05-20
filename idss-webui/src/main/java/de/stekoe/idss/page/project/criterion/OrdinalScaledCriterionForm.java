@@ -67,7 +67,7 @@ public abstract class OrdinalScaledCriterionForm extends CriterionForm<OrdinalVa
 
                 final OrdinalValue value = getModel().getObject();
                 value.setCriterion(criterion);
-                criterion.addValue(value);
+                criterion.getValues().add(value);
 
                 getCriterionModel().setObject(criterion);
 

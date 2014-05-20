@@ -56,12 +56,7 @@ public class CreateNominalScaledCriterionForm extends NominalScaledCriterionForm
         if(StringUtils.isEmpty(criterion.getName())) {
             criterion.setName(getString("label.criterion.type.nominal"));
         }
-        criterion.setCriterionPage(page);
-        criterion.setOrdering(page.getPageElements().size() + 1);
-
-        criterionService.save(criterion);
-
-        page.getPageElements().add(criterion);
+        page.addPageElement(criterion);
         criterionPageService.save(page);
 
         WebSession.get().success(getString("message.save.success"));

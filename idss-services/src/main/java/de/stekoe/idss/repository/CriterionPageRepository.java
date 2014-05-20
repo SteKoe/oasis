@@ -19,36 +19,17 @@ package de.stekoe.idss.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 import de.stekoe.idss.model.CriterionPage;
 
-public interface CriterionPageRepository extends CrudRepository<CriterionPage, String> {
+public interface CriterionPageRepository extends PagingAndSortingRepository<CriterionPage, String> {
     /**
      * Find all {@link CriterionPage}s for a Project
      *
      * @param String Project id
      * @return A list of CirterionPages for the given Project id
      */
-    @Query("FROM CriterionPage cp WHERE cp.project.id = ?1 ORDER BY cp.ordering ASC")
+    @Query("FROM CriterionPage cp WHERE cp.project.id = ?1")
     List<CriterionPage> findAllForProject(String String);
-
-    /**
-     * Get the next page num for {@link CriterionPage}
-     *
-     * @param String Project id
-     * @return Integer which represents the next (free) page number
-     */
-    @Query("SELECT COALESCE(max(cp.ordering) + 1, 0) FROM CriterionPage cp LEFT JOIN cp.project p WHERE p.id = ?1")
-    int getNextPageNumForProject(String String);
-
-    /**
-     * Find a {@link CriterionPage} by ordering and Project
-     *
-     * @param ordering  The position of the page
-     * @param String The id of the Project the page belongs to
-     * @return The CriterionPage if found, null otherwise
-     */
-    @Query("FROM CriterionPage cp LEFT JOIN cp.project p WHERE ordering = ?1 AND p.id = ?2")
-    CriterionPage findByOrdering(int ordering, String String);
 }

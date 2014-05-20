@@ -21,6 +21,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
 import org.apache.log4j.Logger;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
@@ -36,10 +38,13 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import de.stekoe.idss.model.Criterion;
 import de.stekoe.idss.model.CriterionGroup;
 import de.stekoe.idss.model.CriterionPage;
+import de.stekoe.idss.model.MeasurementValue;
+import de.stekoe.idss.model.SingleScaledCriterion;
 import de.stekoe.idss.page.project.ProjectPage;
 import de.stekoe.idss.page.project.criterion.page.CriteriaPageListPage;
 import de.stekoe.idss.service.CriterionGroupService;
 import de.stekoe.idss.service.CriterionPageService;
+import de.stekoe.idss.service.CriterionService;
 import de.stekoe.idss.service.ReferenceCriterionGroupService;
 
 public class SelectReferenceCriterionPage extends ProjectPage {
@@ -54,6 +59,9 @@ public class SelectReferenceCriterionPage extends ProjectPage {
     @Inject
     CriterionPageService criterionPageService;
 
+    @Inject
+    CriterionService criterionService;
+
     private List<CriterionGroup> selectedGroups = new ArrayList<CriterionGroup>();
     private CriterionPage criterionPage;
 
@@ -66,33 +74,28 @@ public class SelectReferenceCriterionPage extends ProjectPage {
         }
 
         ArrayList<CriterionGroup> referenceGroups = (ArrayList<CriterionGroup>) referenceCriterionGroupService.findAll();
+        filterEmptyGroups(referenceGroups);
 
         Form form = new Form("form") {
             @Override
             protected void onSubmit() {
                 super.onSubmit();
 
-                int pageNum = criterionPageService.getNextPageNumForProject(getProjectId());
-
                 List<CriterionGroup> selectedCritionGroups = getSelectedGroups();
                 for (CriterionGroup criterionGroup : selectedCritionGroups) {
-                    criterionGroup.setCriterionPage(criterionPage);
-                    criterionPage.getPageElements().add(criterionGroup);
-                    criterionGroup.setOrdering(pageNum);
-                    pageNum++;
 
-                    int order = 0;
-                    for(Criterion criterion : criterionGroup.getCriterions()) {
-                        /*
-                         *  Do not add the criterions to the page itself since they belong to the group which
-                         *  is connected to a criterion page.
-                         */
-
-                        criterion.setOrdering(order);
-                        order++;
+                    for(Criterion c : criterionGroup.getCriterions()) {
+                        if(c instanceof SingleScaledCriterion) {
+                            SingleScaledCriterion<MeasurementValue> ssc = (SingleScaledCriterion<MeasurementValue>) c;
+                            for (MeasurementValue mv : ssc.getValues()) {
+                                mv.setCriterion(ssc);
+                            }
+                            criterionService.save(ssc);
+                        }
                     }
 
-                    criterionGroupService.save(criterionGroup);
+                    criterionGroup.setCriterionPage(criterionPage);
+                    criterionPage.addPageElement(criterionGroup);
                     criterionPageService.save(criterionPage);
                 }
 
@@ -136,6 +139,24 @@ public class SelectReferenceCriterionPage extends ProjectPage {
             }
         };
         form.add(listView);
+    }
+
+    /**
+     * We do not want to present the user empty lists of criterions which are not selectable.
+     *
+     * @param referenceGroups List of referenceCriterionGroups which are filtered
+     */
+    private void filterEmptyGroups(ArrayList<CriterionGroup> referenceGroups) {
+        CollectionUtils.filter(referenceGroups, new Predicate() {
+            @Override
+            public boolean evaluate(Object object) {
+                if(object instanceof CriterionGroup && ((CriterionGroup) object).getCriterions().size() > 0) {
+                    return true;
+                }
+
+                return false;
+            }
+        });
     }
 
     public List<CriterionGroup> getSelectedGroups() {

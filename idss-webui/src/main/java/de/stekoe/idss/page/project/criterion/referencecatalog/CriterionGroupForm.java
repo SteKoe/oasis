@@ -1,7 +1,5 @@
 package de.stekoe.idss.page.project.criterion.referencecatalog;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import org.apache.wicket.bean.validation.PropertyValidator;
@@ -36,6 +34,7 @@ public abstract class CriterionGroupForm extends Panel {
 
     private final String criterionGroupId;
     private final CriterionGroupModel criterionGroupModel;
+    private ListMultipleChoice<Criterion> listChoice;
 
     public CriterionGroupForm(String wicketId, String criterionGroupId) {
         super(wicketId);
@@ -63,7 +62,7 @@ public abstract class CriterionGroupForm extends Panel {
         descriptionTextField.add(new PropertyValidator<String>());
         form.add(new FormGroup("description.group").add(descriptionTextField));
 
-        ListMultipleChoice<Criterion> listChoice = new ListMultipleChoice<Criterion>("criterions", (List<? extends Criterion>) referenceCriterionService.findAll(), new IChoiceRenderer<Criterion>() {
+        listChoice = new ListMultipleChoice<Criterion>("criterions", referenceCriterionService.findAll(), new IChoiceRenderer<Criterion>() {
             @Override
             public Object getDisplayValue(Criterion object) {
                 return object.getName();
@@ -87,6 +86,10 @@ public abstract class CriterionGroupForm extends Panel {
         response.render(JavaScriptHeaderItem.forUrl("vendors/select2/select2_locale_" + WebSession.get().getLocale().getLanguage() + ".js"));
         response.render(CssContentHeaderItem.forUrl("vendors/select2/select2.css"));
         response.render(JavaScriptHeaderItem.forScript("$(document).ready(function() { $(\".select2\").select2(); });", null));
+    }
+
+    protected void disableCriterionSelectionList() {
+        listChoice.setVisible(false);
     }
 
     public abstract void onSaveCriterionGroup(IModel<CriterionGroup> iModel);

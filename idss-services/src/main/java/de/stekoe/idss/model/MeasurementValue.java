@@ -37,19 +37,16 @@ public abstract class MeasurementValue implements Serializable {
     private String id = IDGenerator.createId();
     private String value;
     private SingleScaledCriterion criterion;
-    private int ordering;
 
     protected MeasurementValue() {
         // NOP
     }
 
     protected MeasurementValue(String value) {
-        this.ordering = 0;
         this.value = value;
     }
 
     protected MeasurementValue(int ordering, String value) {
-        this.ordering = ordering;
         this.value = value;
     }
 
@@ -62,7 +59,6 @@ public abstract class MeasurementValue implements Serializable {
     public String getId() {
         return id;
     }
-
     public void setId(String id) {
         this.id = id;
     }
@@ -72,26 +68,16 @@ public abstract class MeasurementValue implements Serializable {
     public String getValue() {
         return value;
     }
-
     public void setValue(String value) {
         this.value = value;
-    }
-
-    public void setCriterion(SingleScaledCriterion criterion) {
-        this.criterion = criterion;
     }
 
     @ManyToOne(targetEntity = SingleScaledCriterion.class)
     public SingleScaledCriterion getCriterion() {
         return criterion;
     }
-
-    public int getOrdering() {
-        return ordering;
-    }
-
-    public void setOrdering(int ordering) {
-        this.ordering = ordering;
+    public void setCriterion(SingleScaledCriterion criterion) {
+        this.criterion = criterion;
     }
 
     @Override
@@ -127,7 +113,6 @@ public abstract class MeasurementValue implements Serializable {
             .append(super.toString())
             .append("id", getId())
             .append("value", getValue())
-            .append("ordering", getOrdering())
             .toString();
     }
 }

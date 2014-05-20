@@ -151,7 +151,7 @@ public class OccurrencesChartPanel extends ChartPanel {
         private CategoryAxis getCategoryAxis() {
             CategoryAxis categoryAxis = new CategoryAxis();
             categoryAxis.setGridPosition("start");
-            categoryAxis.setTitle(ChartUtils.getString("label.axis.measurementvalues"));
+            categoryAxis.setTitle(ChartUtils.getString("label.criterion.values"));
             categoryAxis.setGridAlpha(0);
             return categoryAxis;
         }
@@ -183,7 +183,7 @@ public class OccurrencesChartPanel extends ChartPanel {
 
             ValueAxis valueAxis = new ValueAxis();
             valueAxis.setGridColor(Color.WHITE);
-            valueAxis.setTitle(ChartUtils.getString("label.axis.count"));
+            valueAxis.setTitle(ChartUtils.getString("label.criterion.count"));
             valueAxis.setIntegersOnly(true);
             list.add(valueAxis);
 

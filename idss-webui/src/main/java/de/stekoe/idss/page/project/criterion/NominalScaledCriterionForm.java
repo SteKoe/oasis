@@ -64,7 +64,7 @@ public abstract class NominalScaledCriterionForm extends CriterionForm<NominalVa
 
                 final NominalValue value = getModel().getObject();
                 value.setCriterion(criterion);
-                criterion.addValue(value);
+                criterion.getValues().add(value);
 
                 getCriterionModel().setObject(criterion);
 

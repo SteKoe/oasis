@@ -193,4 +193,6 @@
     <entry key="label.reference.criterion.upload">Referenzkriterienkatalog hochladen</entry>
     <entry key="help.reference.criterion.upload">Hier könne Sie einen Referenzkriterienkatalog hochladen. Dieser muss in Form eines XML-Dokumentes vorliegen, welches folgendem XML-Schema entspricht.</entry>
     <entry key="message.delete.confirm">Möchten Sie das Element "%s" wirklich löschen?</entry>
+    <entry key="label.group">Gruppe</entry>
+    <entry key="label.groups">Gruppen</entry>
 </properties>

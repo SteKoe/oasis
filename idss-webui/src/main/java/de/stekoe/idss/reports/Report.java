@@ -96,10 +96,8 @@ public abstract class Report<T> implements Serializable {
         for(Criterion criterion : getCriterions()) {
             if(criterion instanceof NominalScaledCriterion) {
                 NominalScaledCriterion nsc = (NominalScaledCriterion) criterion;
-                int critOrder = nsc.getOrdering();
                 if(nsc.isMultipleChoice()) {
                     for(MeasurementValue mv : nsc.getValues()) {
-                        int mvOrder = mv.getOrdering();
                         columns.add(mv);
                     }
                 } else {

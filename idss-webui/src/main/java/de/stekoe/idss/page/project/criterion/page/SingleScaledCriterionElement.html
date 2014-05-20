@@ -17,14 +17,26 @@
 <html xmlns:wicket="http://wicket.sourceforge.net/">
 <body>
 <wicket:panel>
-    <td class="col-md-5">
-        <strong wicket:id="name">Name</strong><br>
-        <small wicket:id="type" class="">Type</small>
-    </td>
-    <td class="col-md-2">
-        <a href="#" wicket:id="edit">EDIT</a>
-        <a href="#" wicket:id="delete">DEL</a>
-    </td>
+    <div style="padding: 5px; border: 1px solid #ccc; margin-bottom: 5px;">
+        <div class="row">
+            <div class="col-md-8">
+                <strong wicket:id="name">Name</strong><br>
+                <small wicket:id="type" class="">Type</small>
+            </div>
+            <div class="col-md-2 text-right">
+                <div class="btn-group btn-group-xs">
+                    <a href="#" class="btn btn-default" wicket:id="move.up"><i class="fa fa-caret-up"></i></a>
+                    <a href="#" class="btn btn-default" wicket:id="move.down"><i class="fa fa-caret-down"></i></a>
+                </div>
+            </div>
+            <div class="col-md-2 text-right">
+                <div class="btn-group btn-group-xs">
+                    <a href="#" class="btn btn-default" wicket:id="edit"><i class="fa fa-pencil"></i></a>
+                    <a href="#" class="btn btn-default" wicket:id="delete"><i class="fa fa-times"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
 </wicket:panel>
 </body>
 </html>

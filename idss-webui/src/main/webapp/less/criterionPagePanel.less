@@ -1,0 +1,41 @@
+#surveyPage {
+    .element {
+        border: 3px solid #efefef;
+        border-radius: 3px;
+        margin-bottom: 10px;
+        
+        &.group {
+            .element {
+                border: none;
+            }
+        }
+        .header {
+            background-color: #efefef;
+            padding: 5px;
+        }
+        .content {
+            border: 1px solid #d8d8d8;
+            padding: 5px;
+            .title {
+                font-size: 14px;
+                font-weight: bold;
+            }
+
+            .description {
+                font-size: 13px;
+                color: #666;
+                margin-top: 5px;
+            }
+
+            .body {
+                .choices {
+                    margin: 5px 5px 0px 5px;
+                    &:last-child {
+                        margin-bottom: 0px;
+                    }
+                }
+            }
+        }
+    }
+}
+

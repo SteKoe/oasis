@@ -10,7 +10,7 @@
     <artifactId>idss-services</artifactId>
     <name>OASIS - Services</name>
     <properties>
-        <hibernate.version>4.3.4.Final</hibernate.version>
+        <hibernate.version>4.3.5.Final</hibernate.version>
     </properties>
     <build>
         <filters>

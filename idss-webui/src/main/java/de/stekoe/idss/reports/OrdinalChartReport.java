@@ -130,7 +130,7 @@ public class OrdinalChartReport extends Report<AmSerialChart> {
         for(Entry<OrdinalValue, Integer> entry : getOccurrences().entrySet()) {
             OrdinalValue mv = entry.getKey();
             int occurrences = entry.getValue();
-            sum += occurrences * (mv.getOrdering() + 1);
+            sum += occurrences * (mv.getCriterion().getValues().indexOf(mv) + 1);
         }
 
         double calculateSampleSize = calculateSampleSize();
@@ -150,7 +150,7 @@ public class OrdinalChartReport extends Report<AmSerialChart> {
         double deviation = 0.0;
         for(Entry<OrdinalValue, Integer> entry : getOccurrences().entrySet()) {
             OrdinalValue mv = entry.getKey();
-            int value = mv.getOrdering() + 1;
+            int value = mv.getCriterion().getValues().indexOf(mv) + 1;
 
             for(int i = 0; i < entry.getValue(); i++) {
                 deviation += Math.pow(value - arithmeticMean, 2);
@@ -177,7 +177,7 @@ public class OrdinalChartReport extends Report<AmSerialChart> {
             int occurrences = entry.getValue();
 
             for(int i = 0; i < occurrences; i++) {
-                median.add(mv.getOrdering() + 1);
+                median.add(mv.getCriterion().getValues().indexOf(mv) + 1);
             }
         }
 

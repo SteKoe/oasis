@@ -26,7 +26,7 @@ import de.stekoe.idss.repository.CriterionGroupRepository;
 
 @Service
 @Transactional(readOnly = true)
-public class CriterionGroupService {
+public class CriterionGroupService extends PageElementService {
 
     @Inject
     private CriterionGroupRepository criterionGroupRepository;

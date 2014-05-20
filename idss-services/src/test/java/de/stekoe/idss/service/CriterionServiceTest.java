@@ -17,6 +17,7 @@ import de.stekoe.idss.model.CriterionGroup;
 import de.stekoe.idss.model.CriterionPage;
 import de.stekoe.idss.model.NominalScaledCriterion;
 import de.stekoe.idss.model.NominalValue;
+import de.stekoe.idss.model.OrderableUtil.Direction;
 import de.stekoe.idss.model.Project;
 
 
@@ -63,7 +64,7 @@ public class CriterionServiceTest extends AbstractBaseTest {
         criterionPage.getPageElements().add(nsc);
         criterionPageService.save(criterionPage);
 
-        List<Criterion> findAllForProject = criterionService.findAllForProject(project.getId());
+        List<Criterion> findAllForProject = criterionService.findAllForReport(project.getId());
         assertThat(findAllForProject.size(), equalTo(2));
     }
 
@@ -87,5 +88,32 @@ public class CriterionServiceTest extends AbstractBaseTest {
         assertThat(criterionService.findOne(nsc.getId()), is(equalTo(null)));
         findOne = criterionGroupService.findOne(cg.getId());
         assertThat(findOne.getCriterions().size(), is(equalTo(0)));
+    }
+
+    @Test
+    public void moveUp() throws Exception {
+        Project project = TestFactory.createProject();
+        projectService.save(project);
+
+        CriterionPage criterionPage = new CriterionPage();
+        criterionPage.setProject(project);
+
+        NominalScaledCriterion c1 = new NominalScaledCriterion();
+        c1.setName("C1");
+        criterionPage.addPageElement(c1);
+
+        NominalScaledCriterion c2 = new NominalScaledCriterion();
+        c2.setName("C2");
+        criterionPage.addPageElement(c2);
+        criterionPageService.save(criterionPage);
+
+        assertThat((NominalScaledCriterion)criterionPage.getPageElements().get(0), is(equalTo(c1)));
+        assertThat((NominalScaledCriterion)criterionPage.getPageElements().get(1), is(equalTo(c2)));
+
+        assertThat(criterionPage.move(c2, Direction.UP), is(true));
+        criterionPageService.save(criterionPage);
+
+        assertThat((NominalScaledCriterion)criterionPage.getPageElements().get(0), is(equalTo(c2)));
+        assertThat((NominalScaledCriterion)criterionPage.getPageElements().get(1), is(equalTo(c1)));
     }
 }

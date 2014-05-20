@@ -17,17 +17,18 @@
 package de.stekoe.idss.model;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
 import javax.persistence.Transient;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import de.stekoe.idss.model.OrderableUtil.Direction;
 
 @Entity
 public abstract class SingleScaledCriterion<T extends MeasurementValue> extends Criterion {
@@ -42,7 +43,7 @@ public abstract class SingleScaledCriterion<T extends MeasurementValue> extends 
     public SingleScaledCriterion(SingleScaledCriterion<T> singleScaledCriterion) {
         super(singleScaledCriterion);
 
-        for(T mv : singleScaledCriterion.getValues()) {
+        for(Object mv : singleScaledCriterion.getValues()) {
             if(mv instanceof OrdinalValue) {
                 values.add(new OrdinalValue((OrdinalValue) mv));
             } else if(mv instanceof NominalValue) {
@@ -52,69 +53,17 @@ public abstract class SingleScaledCriterion<T extends MeasurementValue> extends 
     }
 
     @OneToMany(fetch = FetchType.EAGER, targetEntity = MeasurementValue.class, cascade = CascadeType.ALL)
+    @OrderColumn(name = "ordering")
     public List<T> getValues() {
         return this.values;
     }
-
     public void setValues(List<T> values) {
         this.values = values;
     }
 
     @Transient
-    public void addValue(T value) {
-        int ordering = getNextValueOrdering();
-        value.setOrdering(ordering);
-        getValues().add(value);
-    }
-
-    @Transient
-    int getNextValueOrdering() {
-        if(getValues().size() == 0) {
-            return 0;
-        }
-
-        T max = Collections.max(getValues(), new Comparator<T>() {
-            @Override
-            public int compare(T o1, T o2) {
-                return Integer.valueOf(o1.getOrdering()).compareTo(Integer.valueOf(o2.getOrdering()));
-            }
-        });
-        return max.getOrdering() + 1;
-    }
-
-    @Transient
-    public void moveUp(T value) {
-        int index = getValues().indexOf(value);
-        value = getValues().get(index);
-
-        if(value != null && value.getOrdering() > 0) {
-            T upperValue = getValueWithOrdering(value.getOrdering() - 1);
-            upperValue.setOrdering(value.getOrdering());
-            value.setOrdering(value.getOrdering() - 1);
-        }
-    }
-
-    @Transient
-    public void moveDown(T value) {
-        int index = getValues().indexOf(value);
-        value = getValues().get(index);
-
-        if(value != null && value.getOrdering() < getValues().size() - 1) {
-            T upperValue = getValueWithOrdering(value.getOrdering() + 1);
-            upperValue.setOrdering(value.getOrdering());
-            value.setOrdering(value.getOrdering() + 1);
-        }
-    }
-
-    @Transient
-    T getValueWithOrdering(final int ordering) {
-        for(T value : getValues()) {
-            if(value.getOrdering() == ordering) {
-                return value;
-            }
-        }
-
-        return null;
+    public boolean move(T value, Direction direction) {
+        return OrderableUtil.<T>move(values, value, direction);
     }
 
     @Override

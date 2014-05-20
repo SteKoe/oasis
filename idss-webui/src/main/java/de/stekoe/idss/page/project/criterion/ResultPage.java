@@ -56,7 +56,7 @@ public class ResultPage extends ProjectPage {
         IModel<File> fileModel = new AbstractReadOnlyModel<File>() {
             @Override
             public File getObject() {
-                csvReport.setCriterions(criterionService.findAllForProject(getProject().getId()));
+                csvReport.setCriterions(criterionService.findAllForReport(getProject().getId()));
 
                 File tempFile;
                 try
@@ -78,7 +78,7 @@ public class ResultPage extends ProjectPage {
         downloadLink.setCacheDuration(Duration.NONE).setDeleteAfterDownload(true);
         add(downloadLink);
 
-        List<Criterion> scaleList = criterionService.findAllForProject(getProject().getId());
+        List<Criterion> scaleList = criterionService.findAllForReport(getProject().getId());
         ListView<Criterion> listView = new ListView<Criterion>("charts", scaleList) {
             @Override
             protected void populateItem(ListItem<Criterion> item) {

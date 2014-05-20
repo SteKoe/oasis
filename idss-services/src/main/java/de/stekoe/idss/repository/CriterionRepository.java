@@ -22,6 +22,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import de.stekoe.idss.model.Criterion;
+import de.stekoe.idss.model.PageElement;
 import de.stekoe.idss.model.SingleScaledCriterion;
 
 public interface CriterionRepository extends PagingAndSortingRepository<Criterion, String> {
@@ -29,5 +30,5 @@ public interface CriterionRepository extends PagingAndSortingRepository<Criterio
     SingleScaledCriterion findSingleScaledCriterionById(String id);
 
     @Query("SELECT pe FROM CriterionPage cp JOIN cp.pageElements as pe WHERE cp.project.id = ?1")
-    List<Criterion> findAllForProject(String id);
+    List<PageElement> findAllForProject(String id);
 }

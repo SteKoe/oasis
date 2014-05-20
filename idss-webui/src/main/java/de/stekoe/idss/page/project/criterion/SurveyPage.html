@@ -1,22 +1,24 @@
-<!--
-  ~ Copyright 2014 Stephan Koeninger
-  ~
-  ~ Licensed under the Apache License, Version 2.0 (the "License");
-  ~ you may not use this file except in compliance with the License.
-  ~ You may obtain a copy of the License at
-  ~
-  ~ 	http://www.apache.org/licenses/LICENSE-2.0
-  ~
-  ~ Unless required by applicable law or agreed to in writing, software
-  ~ distributed under the License is distributed on an "AS IS" BASIS,
-  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  ~ See the License for the specific language governing permissions and
-  ~ limitations under the License.
-  -->
-
 <html xmlns:wicket="http://wicket.sourceforge.net/">
 <wicket:extend>
-    <wicket:container wicket:id="criterionPage">
-    </wicket:container>
+    <div id="surveyPage">
+        <form wicket:id="survey.form" id="surveyPageForm">
+            <wicket:container wicket:id="criterionDataList">
+                <wicket:container wicket:id="criterionPagePanel">
+                </wicket:container>
+            </wicket:container>
+            
+            <div class="text-center">
+                <button type="submit" class="btn btn-default" wicket:id="btn.prev">
+                    <wicket:message key="label.page.prev" />
+                </button>
+                <button type="submit" class="btn btn-default">
+                    <wicket:message key="label.save" />
+                </button>
+                <button type="submit" class="btn btn-default" wicket:id="btn.next">
+                    <wicket:message key="label.page.next" />
+                </button>
+            </div>
+        </form>
+    </div>
 </wicket:extend>
 </html>

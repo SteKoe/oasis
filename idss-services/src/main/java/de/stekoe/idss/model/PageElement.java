@@ -40,7 +40,6 @@ public abstract class PageElement implements NamedElement, Serializable {
 
     private String id = IDGenerator.createId();
     private CriterionPage criterionPage;
-    private int ordering;
     private String name;
     private String description;
     private boolean referenceType = false;
@@ -67,7 +66,7 @@ public abstract class PageElement implements NamedElement, Serializable {
     }
 
     @PreRemove
-    private void removeFromCriterionPage() {
+    private void preRemove() {
         if(criterionPage != null) {
             criterionPage.getPageElements().remove(this);
         }
@@ -77,7 +76,6 @@ public abstract class PageElement implements NamedElement, Serializable {
     public String getId() {
         return id;
     }
-
     public void setId(String id) {
         this.id = id;
     }
@@ -86,17 +84,8 @@ public abstract class PageElement implements NamedElement, Serializable {
     public CriterionPage getCriterionPage() {
         return criterionPage;
     }
-
     public void setCriterionPage(CriterionPage criterionPage) {
         this.criterionPage = criterionPage;
-    }
-
-    public int getOrdering() {
-        return ordering;
-    }
-
-    public void setOrdering(int ordering) {
-        this.ordering = ordering;
     }
 
     @Override
@@ -138,7 +127,6 @@ public abstract class PageElement implements NamedElement, Serializable {
         return new ToStringBuilder(this)
             .append("id", getId())
             .append("criterionPage", getCriterionPage())
-            .append("ordering", getOrdering())
             .append("name", getName())
             .append("description", getDescription())
             .append("referenceType", isReferenceType())

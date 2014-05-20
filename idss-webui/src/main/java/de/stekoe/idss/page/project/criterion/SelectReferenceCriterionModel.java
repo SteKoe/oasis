@@ -42,7 +42,8 @@ class SelectReferenceCriterionModel extends Model<Boolean> {
 
         if(isSelected) {
             if(selectedCriterionGroup != null) {
-                selectedCriterionGroup.getCriterions().add(criterion);
+                Criterion copiedCriterion = Criterion.copyCriterion(criterion);
+                selectedCriterionGroup.getCriterions().add(copiedCriterion);
             } else {
                 // Create a copy of the selected reference CriterionGroup and add a copy of the criterion to it.
                 CriterionGroup copiedCriterionGroup = new CriterionGroup(criterionGroup, false);

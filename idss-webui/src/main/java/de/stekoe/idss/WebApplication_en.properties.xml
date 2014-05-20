@@ -184,4 +184,6 @@
     <entry key="label.file.select">Select file</entry>
     <entry key="label.reference.criterion.upload">Upload reference catalog</entry>
     <entry key="message.delete.confirm">Do you really want to delete "%s"?</entry>
+    <entry key="label.group">Group</entry>
+    <entry key="label.groups">Groups</entry>
 </properties>

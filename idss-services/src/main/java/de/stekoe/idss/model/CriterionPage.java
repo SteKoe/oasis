@@ -21,13 +21,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.validation.constraints.NotNull;
+import javax.persistence.OrderColumn;
+import javax.persistence.Transient;
+
+import de.stekoe.idss.model.OrderableUtil.Direction;
 
 @Entity
 public class CriterionPage implements Serializable {
@@ -35,7 +37,6 @@ public class CriterionPage implements Serializable {
     private static final long serialVersionUID = 20141103925L;
 
     private String id = IDGenerator.createId();
-    private int ordering = -1;
     private String name;
     private List<PageElement> pageElements = new ArrayList<PageElement>();
     private Project project;
@@ -44,35 +45,39 @@ public class CriterionPage implements Serializable {
     public String getId() {
         return id;
     }
-
     public void setId(String id) {
         this.id = id;
     }
 
-    @NotNull
-    @Column(nullable = false)
-    public int getOrdering() {
-        return ordering;
-    }
-
-    public void setOrdering(int ordering) {
-        this.ordering = ordering;
-    }
-
-    @OneToMany(fetch = FetchType.EAGER, targetEntity = PageElement.class, cascade = CascadeType.ALL)
+    /**
+     * If you want to add new elements use {@code CriterionPage#addPageElement(PageElement)}.
+     *
+     * @return A list of all PageElements of this CriterionPage
+     */
+    @ManyToMany(fetch = FetchType.EAGER, targetEntity = PageElement.class, cascade = CascadeType.ALL)
+    @OrderColumn(name = "ordering")
     public List<PageElement> getPageElements() {
         return pageElements;
     }
-
     public void setPageElements(List<PageElement> pageElements) {
         this.pageElements = pageElements;
+    }
+    public void addPageElement(PageElement pageElement) {
+        if(!pageElements.contains(pageElement)) {
+            pageElements.add(pageElement);
+            pageElement.setCriterionPage(this);
+        }
+    }
+
+    @Transient
+    public boolean move(PageElement pageElement, Direction direction) {
+        return OrderableUtil.<PageElement>move(pageElements, pageElement, direction);
     }
 
     @ManyToOne(targetEntity = Project.class, optional = false)
     public Project getProject() {
         return project;
     }
-
     public void setProject(Project project) {
         this.project = project;
     }
@@ -80,7 +85,6 @@ public class CriterionPage implements Serializable {
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }

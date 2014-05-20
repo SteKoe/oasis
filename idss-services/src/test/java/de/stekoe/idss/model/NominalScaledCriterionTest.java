@@ -17,7 +17,6 @@ public class NominalScaledCriterionTest {
         scale.setDescription("Description");
         scale.setAllowNoChoice(true);
         scale.setMultipleChoice(true);
-        scale.setOrdering(999);
 
         NominalValue value = new NominalValue("A");
         scale.addValue(value);
@@ -33,7 +32,6 @@ public class NominalScaledCriterionTest {
         assertThat(scaleCopy.getDescription(), equalTo(scale.getDescription()));
         assertThat(scaleCopy.isAllowNoChoice(), equalTo(scale.isAllowNoChoice()));
         assertThat(scaleCopy.isMultipleChoice(), equalTo(scale.isMultipleChoice()));
-        assertThat(scaleCopy.getOrdering(), not(equalTo(scale.getOrdering())));
 
         assertThat(scaleCopy.getValues().size(), is(equalTo(scale.getValues().size())));
 

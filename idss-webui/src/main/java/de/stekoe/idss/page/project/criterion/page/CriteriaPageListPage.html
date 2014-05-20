@@ -19,53 +19,42 @@
 <wicket:extend>
     <h1>Kriterienkatalogverwaltung</h1>
 
-    <div class="page-canvas">
+    <wicket:container wicket:id="page.list">
+        <div class="criterion-page">
+            <div class="criterion-page-header">
+                <div class="row">
+                    <div class="col-md-8">
+                        &nbsp;
+                    </div>
 
-        <div wicket:id="page.list" class="container-fluid">
-            <div class="criterion-page">
-                <div class="criterion-page-header">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <span class="badge">Id: <span wicket:id="id"></span></span>
-                            <span class="badge">Order: <span wicket:id="order"></span></span>
-                        </div>
-
-                        <div class="col-md-2 text-right">
-                            <div class="btn-group btn-group-xs">
-                                <a href="#" class="btn btn-default" wicket:id="move.page.up"><i
-                                        class="fa fa-caret-up"></i></a>
-                                <a href="#" class="btn btn-default" wicket:id="move.page.down"><i
-                                        class="fa fa-caret-down"></i></a>
-                            </div>
-                        </div>
-
-                        <div class="col-md-2 text-right">
-                            <div class="btn-group btn-group-xs">
-                                <a href="#" class="btn btn-default" wicket:id="page.show"><i
-                                        class="fa fa-search"></i></a>
-                                <a href="#" class="btn btn-default" wicket:id="page.add.criterion"><i
-                                        class="fa fa-plus"></i></a>
-                                <a href="#" class="btn btn-default" wicket:id="page.delete"><i class="fa fa-times"></i></a>
-                            </div>
+                    <div class="col-md-2 text-right">
+                        <div class="btn-group btn-group-xs">
+                            <a href="#" class="btn btn-default" wicket:id="move.page.up"><i class="fa fa-caret-up"></i></a>
+                            <a href="#" class="btn btn-default" wicket:id="move.page.down"><i class="fa fa-caret-down"></i></a>
                         </div>
                     </div>
-                </div>
 
-                <div class="criterion-page-body">
-                    <div wicket:id="page.empty" class="text-center empty">
-                        Leer
+                    <div class="col-md-2 text-right">
+                        <div class="btn-group btn-group-xs">
+                            <a href="#" class="btn btn-default" wicket:id="page.add.criterion"><i class="fa fa-plus"></i></a>
+                            <a href="#" class="btn btn-default" wicket:id="page.delete"><i class="fa fa-times"></i></a>
+                        </div>
                     </div>
-                    <table class="table table-bordered table-condensed">
-                        <tr wicket:id="page.list.items">
-                            <wicket:container wicket:id="page.list.item">
-
-                            </wicket:container>
-                        </tr>
-                    </table>
                 </div>
             </div>
+
+            <div class="criterion-page-body">
+                <div wicket:id="page.empty" class="text-center empty">
+                    Leer
+                </div>
+                <wicket:container wicket:id="page.list.items">
+                    <wicket:container wicket:id="page.list.item">
+                        [Content goes here]
+                    </wicket:container>
+                </wicket:container>
+            </div>
         </div>
-    </div>
+    </wicket:container>
 
     <a href="#" class="btn btn-default btn-block" wicket:id="add.page">
         <i class="fa fa-plus"></i> Add new page

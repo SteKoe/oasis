@@ -7,9 +7,12 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
+import javax.persistence.OrderColumn;
 import javax.persistence.PreRemove;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import de.stekoe.idss.model.OrderableUtil.Direction;
 
 @Entity
 public class CriterionGroup extends PageElement {
@@ -61,18 +64,22 @@ public class CriterionGroup extends PageElement {
      * @return
      */
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, targetEntity = Criterion.class)
+    @OrderColumn(name = "ordering")
     public List<Criterion> getCriterions() {
         return criterions;
     }
     public void setCriterions(List<Criterion> criterions) {
         this.criterions = criterions;
     }
-
     public void addCriterion(Criterion criterion) {
         if(!getCriterions().contains(criterion)) {
             getCriterions().add(criterion);
             criterion.addCriterionGroup(this);
         }
+    }
+
+    public boolean move(Criterion criterion, Direction direction) {
+        return OrderableUtil.<Criterion>move(criterions, criterion, direction);
     }
 
     /**

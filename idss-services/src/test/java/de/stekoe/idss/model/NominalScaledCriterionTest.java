@@ -19,11 +19,11 @@ public class NominalScaledCriterionTest {
         scale.setMultipleChoice(true);
 
         NominalValue value = new NominalValue("A");
-        scale.addValue(value);
+        scale.getValues().add(value);
         value = new NominalValue("B");
-        scale.addValue(value);
+        scale.getValues().add(value);
         value = new NominalValue("C");
-        scale.addValue(value);
+        scale.getValues().add(value);
 
         NominalScaledCriterion scaleCopy = new NominalScaledCriterion(scale);
 

@@ -44,8 +44,8 @@ public class ReportTest {
     public void getColumnsOrdinalScaledCriterion() throws Exception {
         OrdinalScaledCriterion criterion = new OrdinalScaledCriterion();
         criterion.setCriterionPage(criterionPage);
-        criterion.addValue(new OrdinalValue("A"));
-        criterion.addValue(new OrdinalValue("B"));
+        criterion.getValues().add(new OrdinalValue("A"));
+        criterion.getValues().add(new OrdinalValue("B"));
 
         List<Criterion> list = new ArrayList<Criterion>();
         list.add(criterion);
@@ -67,11 +67,11 @@ public class ReportTest {
         NominalScaledCriterion criterion = new NominalScaledCriterion();
         criterion.setCriterionPage(criterionPage);
         NominalValue value1 = new NominalValue("D");
-        criterion.addValue(value1);
+        criterion.getValues().add(value1);
         NominalValue value2 = new NominalValue("E");
-        criterion.addValue(value2);
+        criterion.getValues().add(value2);
         NominalValue value3 = new NominalValue("F");
-        criterion.addValue(value3);
+        criterion.getValues().add(value3);
 
         List<Criterion> list = new ArrayList<Criterion>();
         list.add(criterion);
@@ -94,11 +94,11 @@ public class ReportTest {
         criterion.setCriterionPage(criterionPage);
         criterion.setMultipleChoice(true);
         NominalValue value1 = new NominalValue("D");
-        criterion.addValue(value1);
+        criterion.getValues().add(value1);
         NominalValue value2 = new NominalValue("E");
-        criterion.addValue(value2);
+        criterion.getValues().add(value2);
         NominalValue value3 = new NominalValue("F");
-        criterion.addValue(value3);
+        criterion.getValues().add(value3);
 
         List<Criterion> list = new ArrayList<Criterion>();
         list.add(criterion);
@@ -121,8 +121,8 @@ public class ReportTest {
     public void getRowsNominalScaledCriterionSingleChoice() throws Exception {
         NominalScaledCriterion criterion = new NominalScaledCriterion();
         criterion.setCriterionPage(criterionPage);
-        criterion.addValue(new NominalValue("männlich"));
-        criterion.addValue(new NominalValue("weiblich"));
+        criterion.getValues().add(new NominalValue("männlich"));
+        criterion.getValues().add(new NominalValue("weiblich"));
 
         List<Criterion> list = new ArrayList<Criterion>();
         list.add(criterion);
@@ -140,9 +140,9 @@ public class ReportTest {
         NominalScaledCriterion criterion = new NominalScaledCriterion();
         criterion.setCriterionPage(criterionPage);
         criterion.setMultipleChoice(true);
-        criterion.addValue(new NominalValue("D"));
-        criterion.addValue(new NominalValue("E"));
-        criterion.addValue(new NominalValue("F"));
+        criterion.getValues().add(new NominalValue("D"));
+        criterion.getValues().add(new NominalValue("E"));
+        criterion.getValues().add(new NominalValue("F"));
 
         List<Criterion> list = new ArrayList<Criterion>();
         list.add(criterion);
@@ -158,8 +158,8 @@ public class ReportTest {
     public void getRowsOrdinalScaledCriterion() throws Exception {
         OrdinalScaledCriterion criterion = new OrdinalScaledCriterion();
         criterion.setCriterionPage(criterionPage);
-        criterion.addValue(new OrdinalValue("A"));
-        criterion.addValue(new OrdinalValue("B"));
+        criterion.getValues().add(new OrdinalValue("A"));
+        criterion.getValues().add(new OrdinalValue("B"));
 
         List<Criterion> list = new ArrayList<Criterion>();
         list.add(criterion);
@@ -176,8 +176,8 @@ public class ReportTest {
         OrdinalScaledCriterion criterion = new OrdinalScaledCriterion();
         criterion.setCriterionPage(criterionPage);
         criterion.setName("no choices made");
-        criterion.addValue(new OrdinalValue("A"));
-        criterion.addValue(new OrdinalValue("B"));
+        criterion.getValues().add(new OrdinalValue("A"));
+        criterion.getValues().add(new OrdinalValue("B"));
 
         List<Criterion> list = new ArrayList<Criterion>();
         list.add(criterion);
@@ -193,9 +193,9 @@ public class ReportTest {
         OrdinalScaledCriterion criterion = new OrdinalScaledCriterion();
         criterion.setCriterionPage(criterionPage);
         OrdinalValue value = new OrdinalValue("A");
-        criterion.addValue(value);
-        criterion.addValue(new OrdinalValue("B"));
-        criterion.addValue(new OrdinalValue("C"));
+        criterion.getValues().add(value);
+        criterion.getValues().add(new OrdinalValue("B"));
+        criterion.getValues().add(new OrdinalValue("C"));
 
         List<Criterion> list = new ArrayList<Criterion>();
         list.add(criterion);

@@ -83,27 +83,21 @@ public class OrdinalChartReportTest {
                 Map<OrdinalValue, Integer> occurrences = new LinkedHashMap<OrdinalValue, Integer>();
 
                 OrdinalValue value = new OrdinalValue();
-                value.setOrdering(52);
                 occurrences.put(value, 1);
 
                 value = new OrdinalValue();
-                value.setOrdering(60);
                 occurrences.put(value, 1);
 
                 value = new OrdinalValue();
-                value.setOrdering(48);
                 occurrences.put(value, 1);
 
                 value = new OrdinalValue();
-                value.setOrdering(66);
                 occurrences.put(value, 1);
 
                 value = new OrdinalValue();
-                value.setOrdering(54);
                 occurrences.put(value, 1);
 
                 value = new OrdinalValue();
-                value.setOrdering(62);
                 occurrences.put(value, 1);
 
                 return occurrences;
@@ -123,19 +117,15 @@ public class OrdinalChartReportTest {
                 Map<OrdinalValue, Integer> occurrences = new LinkedHashMap<OrdinalValue, Integer>();
 
                 OrdinalValue value = new OrdinalValue();
-                value.setOrdering(0);
                 occurrences.put(value, 4);
 
                 value = new OrdinalValue();
-                value.setOrdering(1);
                 occurrences.put(value, 1);
 
                 value = new OrdinalValue();
-                value.setOrdering(2);
                 occurrences.put(value, 1);
 
                 value = new OrdinalValue();
-                value.setOrdering(3);
                 occurrences.put(value, 1);
 
                 return occurrences;

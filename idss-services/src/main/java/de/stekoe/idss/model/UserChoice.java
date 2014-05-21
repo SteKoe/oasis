@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -43,7 +43,7 @@ public class UserChoice implements Serializable {
         this.project = project;
     }
 
-    @ManyToMany(targetEntity = MeasurementValue.class)
+    @ElementCollection(targetClass = MeasurementValue.class)
     public List<MeasurementValue> getMeasurementValues() {
         return measurementValues;
     }

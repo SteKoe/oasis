@@ -23,7 +23,9 @@ import de.stekoe.idss.model.Criterion;
 import de.stekoe.idss.model.CriterionGroup;
 import de.stekoe.idss.model.PageElement;
 import de.stekoe.idss.model.SingleScaledCriterion;
+import de.stekoe.idss.model.UserChoice;
 import de.stekoe.idss.repository.CriterionRepository;
+import de.stekoe.idss.repository.UserChoiceRepository;
 
 @Service
 @Transactional
@@ -31,6 +33,9 @@ public class CriterionService extends PageElementService {
 
     @Inject
     private CriterionRepository criterionRepository;
+
+    @Inject
+    private UserChoiceRepository userChoiceRepository;
 
     public SingleScaledCriterion findSingleScaledCriterionById(String id) {
         return criterionRepository.findSingleScaledCriterionById(id);
@@ -43,6 +48,8 @@ public class CriterionService extends PageElementService {
 
     @Transactional
     public void delete(String criterionId) {
+        List<UserChoice> userChoices = userChoiceRepository.findByCriterionId(criterionId);
+        userChoiceRepository.delete(userChoices);
         criterionRepository.delete(criterionId);
     }
 

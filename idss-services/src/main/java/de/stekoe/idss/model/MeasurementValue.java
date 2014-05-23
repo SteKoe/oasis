@@ -46,10 +46,6 @@ public abstract class MeasurementValue implements Serializable {
         this.value = value;
     }
 
-    protected MeasurementValue(int ordering, String value) {
-        this.value = value;
-    }
-
     public MeasurementValue(MeasurementValue measurementValue) {
         value = measurementValue.getValue();
         criterion = measurementValue.getCriterion();

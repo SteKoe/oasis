@@ -10,6 +10,7 @@ import java.util.Map;
 
 import org.junit.Test;
 
+import de.stekoe.idss.model.OrdinalScaledCriterion;
 import de.stekoe.idss.model.OrdinalValue;
 
 
@@ -82,22 +83,36 @@ public class OrdinalChartReportTest {
             Map<OrdinalValue, Integer> getOccurrences() {
                 Map<OrdinalValue, Integer> occurrences = new LinkedHashMap<OrdinalValue, Integer>();
 
+                OrdinalScaledCriterion osc = new OrdinalScaledCriterion();
+
                 OrdinalValue value = new OrdinalValue();
+                value.setCriterion(osc);
+                osc.getValues().add(value);
                 occurrences.put(value, 1);
 
                 value = new OrdinalValue();
+                value.setCriterion(osc);
+                osc.getValues().add(value);
                 occurrences.put(value, 1);
 
                 value = new OrdinalValue();
+                value.setCriterion(osc);
+                osc.getValues().add(value);
                 occurrences.put(value, 1);
 
                 value = new OrdinalValue();
+                value.setCriterion(osc);
+                osc.getValues().add(value);
                 occurrences.put(value, 1);
 
                 value = new OrdinalValue();
+                value.setCriterion(osc);
+                osc.getValues().add(value);
                 occurrences.put(value, 1);
 
                 value = new OrdinalValue();
+                value.setCriterion(osc);
+                osc.getValues().add(value);
                 occurrences.put(value, 1);
 
                 return occurrences;
@@ -116,16 +131,26 @@ public class OrdinalChartReportTest {
             Map<OrdinalValue, Integer> getOccurrences() {
                 Map<OrdinalValue, Integer> occurrences = new LinkedHashMap<OrdinalValue, Integer>();
 
+                OrdinalScaledCriterion osc = new OrdinalScaledCriterion();
+
                 OrdinalValue value = new OrdinalValue();
+                value.setCriterion(osc);
+                osc.getValues().add(value);
                 occurrences.put(value, 4);
 
                 value = new OrdinalValue();
+                value.setCriterion(osc);
+                osc.getValues().add(value);
                 occurrences.put(value, 1);
 
                 value = new OrdinalValue();
+                value.setCriterion(osc);
+                osc.getValues().add(value);
                 occurrences.put(value, 1);
 
                 value = new OrdinalValue();
+                value.setCriterion(osc);
+                osc.getValues().add(value);
                 occurrences.put(value, 1);
 
                 return occurrences;

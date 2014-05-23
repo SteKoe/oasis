@@ -24,8 +24,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.stekoe.idss.model.CriterionPage;
-import de.stekoe.idss.model.Project;
 import de.stekoe.idss.repository.CriterionPageRepository;
+import de.stekoe.idss.repository.PageElementRepository;
 
 @Service
 @Transactional(readOnly = true)
@@ -33,6 +33,9 @@ public class CriterionPageService {
 
     @Inject
     private CriterionPageRepository criterionPageRepository;
+
+    @Inject
+    private PageElementRepository pageElementRepository;
 
     public CriterionPage findOne(String id) {
         return criterionPageRepository.findOne(id);
@@ -45,7 +48,8 @@ public class CriterionPageService {
 
     @Transactional
     public void delete(String criterionPageId) {
-        final Project project = findOne(criterionPageId).getProject();
+        CriterionPage criterionPage = findOne(criterionPageId);
+        pageElementRepository.delete(criterionPage.getPageElements());
         criterionPageRepository.delete(criterionPageId);
     }
 

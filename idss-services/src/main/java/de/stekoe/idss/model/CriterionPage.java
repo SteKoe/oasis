@@ -27,6 +27,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OrderColumn;
+import javax.persistence.PreRemove;
 import javax.persistence.Transient;
 
 import de.stekoe.idss.model.OrderableUtil.Direction;
@@ -47,6 +48,13 @@ public class CriterionPage implements Serializable {
     }
     public void setId(String id) {
         this.id = id;
+    }
+
+    @PreRemove
+    private void preRemove() {
+        for(PageElement pe : pageElements) {
+            pe.setCriterionPage(null);
+        }
     }
 
     /**

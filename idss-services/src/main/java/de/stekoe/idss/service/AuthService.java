@@ -88,16 +88,18 @@ public class AuthService {
     }
 
     public boolean isAuthorized(String userId, final Identifyable identifyable, final PermissionType permissionType) {
-        User user = userRepository.findOne(userId);
-
-        if (user == null) {
+        if(userId == null || identifyable == null) {
             return false;
         }
 
+
+        User user = userRepository.findOne(userId);
+        if (user == null) {
+            return false;
+        }
         if(user.getRoles().contains(new SystemRole(SystemRole.ADMIN))) {
             return true;
         }
-
         if (user.getPermissions() == null) {
             return false;
         }

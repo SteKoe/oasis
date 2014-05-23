@@ -1,6 +1,9 @@
 package de.stekoe.idss.service;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
@@ -109,5 +112,11 @@ public class ProjectServiceTest extends AbstractBaseTest {
         assertFalse(usersProjects.isEmpty());
         assertTrue(usersProjects.size() == 1);
         assertTrue(usersProjects.get(0).getId().equals(project.getId()));
+    }
+
+    @Test
+    public void isAuthorizedNull() throws Exception {
+        boolean authorized = projectService.isAuthorized(null, null, null);
+        assertThat(authorized, is(equalTo(false)));
     }
 }

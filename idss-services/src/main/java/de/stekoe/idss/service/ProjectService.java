@@ -55,6 +55,9 @@ public class ProjectService {
     private AuthService authService;
 
     public boolean isAuthorized(final String userId, final String projectId, final PermissionType permissionType) {
+        if(userId == null || projectId == null) {
+            return false;
+        }
 
         final Project project = projectRepository.findOne(projectId);
 
@@ -98,7 +101,7 @@ public class ProjectService {
         // User has specific roles. So check if he has the one which is necessary to perform action.
         for (Permission permission : permissions) {
             if (permission.getPermissionObject().equals(PermissionObject.valueOf(Project.class))) {
-                if(permission.getPermissionType().equals(PermissionType.ALL) || permission.getPermissionType().equals(permissionType)) {
+                if(permission.getPermissionType().equals(permissionType)) {
                     return true;
                 }
             }

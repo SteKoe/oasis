@@ -1,0 +1,113 @@
+/*
+ * Copyright 2014 Stephan Koeninger
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * 	http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+@import "../vendors/bootstrap/less/variables.less";
+@import "../vendors/bootstrap/less/mixins.less";
+@import "userInfoBlock.less";
+@import "criteria.less";
+@import "criterionPagePanel.less";
+
+body {
+    background: url("../img/background.png");
+}
+
+#content, #header {
+    background-color: #fff;
+}
+
+.sidebar {
+  background-color: @tableBackgroundHover;
+}
+ 
+.table {
+  &.table-no-border {
+    th, td, tr {
+      border: none;
+    }
+  }
+  &.table-border-top-bottom {
+
+    border-top: 1px solid @tableBorder;
+    border-bottom: 1px solid @tableBorder;
+
+    th, td, tr {
+      border: none;
+    }
+  }
+}
+
+tr .id {
+  width: 25px;
+}
+
+.empty {
+  color: #aaaaaa;
+}
+
+.monospace {
+  font-family: @monoFontFamily;
+}
+
+.control-label {
+  font-weight: bold;
+}
+
+.form-centered-container {
+  margin: 0px auto;
+}
+
+#logo {
+  margin: 5px 10px 20px 10px;
+}
+
+.navbar-secondary {
+  margin-top: 10px;
+}
+
+input[type="file"] {
+  line-height: normal;
+  height: 20px;
+}
+
+.text-left {
+  text-align: left !important;
+}
+
+.text-right {
+  text-align: right !important;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+#chartdiv {
+  border: 1px solid #aaaaaa;
+
+  &.chalk {
+    background-color: #000;
+  }
+}
+
+.criterionFormElement {
+    border: 1px solid #eee;
+    padding: 5px;
+    margin-bottom: 10px;
+    
+    .table {
+        margin-bottom: 0px;
+    }
+}

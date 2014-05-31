@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+    xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+                            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+                            http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+                            
+    <bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="systemPropertiesModeName">
+            <value>SYSTEM_PROPERTIES_MODE_FALLBACK</value>
+        </property>
+    </bean>
+    
+    
+    <context:property-placeholder location="classpath:application.properties"/>
+                            
+    <context:annotation-config />
+    <jpa:repositories base-package="de.stekoe.idss.repository" />
+    <tx:annotation-driven transaction-manager="transactionManager" />
+    
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driverClassName}" />
+        <property name="url" value="${jdbc.url}" />
+        <property name="username" value="${jdbc.username}" />
+        <property name="password" value="${jdbc.password}" />
+    </bean>
+    <bean id="vendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+        <property name="generateDdl" value="true" />
+        <property name="database" value="MYSQL" />
+    </bean>
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+        <property name="jpaDialect">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
+        </property>
+    </bean>
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="jpaVendorAdapter" ref="vendorAdapter" />
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                
+            </props>
+        </property>
+    </bean>
+    <!-- SMTP Connector -->
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="username" value="${smtp.user}" />
+        <property name="password" value="${smtp.password}" />
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.from">${smtp.from}</prop>
+                <prop key="mail.smtp.host">${smtp.host}</prop>
+                <prop key="mail.smtp.port">${smtp.port}</prop>
+                <prop key="mail.smtp.auth">${smtp.auth}</prop>
+                <prop key="mail.smtp.starttls.enable">${smtp.ssl}</prop>
+                <prop key="mail.debug">${smtp.debug}</prop>
+            </props>
+        </property>
+    </bean>
+    <!-- SETUP BEAN -->
+    <bean id="setupService" class="de.stekoe.idss.setup.DatabaseSetup" />
+    <!-- Services -->
+    <bean id="authService" class="de.stekoe.idss.service.AuthService" />
+    <bean id="addressService" class="de.stekoe.idss.service.AddressService" />
+    <bean id="configurationService" class="de.stekoe.idss.service.ConfigurationService" />
+    <bean id="projectService" class="de.stekoe.idss.service.ProjectService" />
+    <bean id="userService" class="de.stekoe.idss.service.UserService" />
+    <bean id="systemRoleService" class="de.stekoe.idss.service.SystemRoleService" />
+    <bean id="projectRoleService" class="de.stekoe.idss.service.ProjectRoleService" />
+    <bean id="documentService" class="de.stekoe.idss.service.DocumentService" />
+    <bean id="mailService" class="de.stekoe.idss.service.MailService" />
+    <bean id="permissionService" class="de.stekoe.idss.service.PermissionService" />
+    <bean id="criterionPageService" class="de.stekoe.idss.service.CriterionPageService" />
+    <bean id="criterionService" class="de.stekoe.idss.service.CriterionService" />
+    <bean id="criterionGroupService" class="de.stekoe.idss.service.CriterionGroupService" />
+    <bean id="companyService" class="de.stekoe.idss.service.CompanyService" />
+    <bean id="companyRoleService" class="de.stekoe.idss.service.CompanyRoleService" />
+    <bean id="projectMemberService" class="de.stekoe.idss.service.ProjectMemberService" />
+    
+    <!-- Meta -->
+    <bean id="referenceCriterionService" class="de.stekoe.idss.service.ReferenceCriterionService" />
+    <bean id="referenceCriterionGroupService" class="de.stekoe.idss.service.ReferenceCriterionGroupService" />
+</beans>

@@ -26,6 +26,7 @@ import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 @Entity
 @Table(name = "SystemRole")
@@ -67,31 +68,25 @@ public class SystemRole implements Serializable {
     }
 
     @Override
-    public String toString() {
-        return getName();
-    }
+    public boolean equals(Object other) {
+        if(this == other) return true;
+        if(!(other instanceof SystemRole)) return false;
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == null) {
-            return false;
-        }
-        if (o == this) {
-            return true;
-        }
-        if (o.getClass() != getClass()) {
-            return false;
-        }
-        SystemRole that = (SystemRole) o;
+        SystemRole that  = (SystemRole) other;
         return new EqualsBuilder()
-                .append(getName(), that.getName())
-                .isEquals();
+            .append(getName(), that.getName())
+            .isEquals();
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(17, 37)
-                .append(getName())
-                .hashCode();
+        return new HashCodeBuilder()
+            .append(getName())
+            .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return ReflectionToStringBuilder.toString(this);
     }
 }

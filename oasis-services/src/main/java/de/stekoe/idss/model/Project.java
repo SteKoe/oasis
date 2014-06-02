@@ -34,6 +34,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -136,5 +139,29 @@ public class Project implements Serializable, Identifyable<String>, NamedElement
 
     public void setProjectEndDate(Date projectEndDate) {
         this.projectEndDate = projectEndDate;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if(this == other) return true;
+        if(!(other instanceof Project)) return false;
+
+        Project that  = (Project) other;
+        return new EqualsBuilder()
+            .appendSuper(super.equals(other))
+            .append(getId(), that.getId())
+            .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder()
+            .append(getId())
+            .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return ReflectionToStringBuilder.toString(this);
     }
 }

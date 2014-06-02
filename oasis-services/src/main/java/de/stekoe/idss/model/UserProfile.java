@@ -21,6 +21,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 @Entity
 public class UserProfile implements Serializable {
@@ -120,4 +123,29 @@ public class UserProfile implements Serializable {
             return fullname;
         }
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if(this == other) return true;
+        if(!(other instanceof UserProfile)) return false;
+
+        UserProfile that  = (UserProfile) other;
+        return new EqualsBuilder()
+            .appendSuper(super.equals(other))
+            .append(getId(), that.getId())
+            .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder()
+            .append(getId())
+            .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return ReflectionToStringBuilder.toString(this);
+    }
+
 }

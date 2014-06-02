@@ -28,6 +28,7 @@ import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 
 @Entity
@@ -78,27 +79,26 @@ public class ProjectMember implements Serializable {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (o == null) {
-            return false;
-        }
-        if (o == this) {
-            return true;
-        }
-        if (o.getClass() != getClass()) {
-            return false;
-        }
-        ProjectMember that = (ProjectMember) o;
+    public boolean equals(Object other) {
+        if(this == other) return true;
+        if(!(other instanceof ProjectMember)) return false;
+
+        ProjectMember that  = (ProjectMember) other;
         return new EqualsBuilder()
-                .appendSuper(super.equals(o))
-                .append(getId(), that.getId())
-                .isEquals();
+            .appendSuper(super.equals(other))
+            .append(getId(), that.getId())
+            .isEquals();
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(17, 37)
-                .append(getId())
-                .hashCode();
+        return new HashCodeBuilder()
+            .append(getId())
+            .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return ReflectionToStringBuilder.toString(this);
     }
 }

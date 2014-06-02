@@ -12,7 +12,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import javax.inject.Inject;
 import java.util.Locale;
 
-public class EditPasswordPageTestCase extends AbstractWicketApplicationTester {
+public class EditPasswordPageTest extends AbstractWicketApplicationTester {
 
     private static final String NEWPASSWORD = "i am your new password!";
     private static final String NEWEMAIL = "new_mail@example.com";

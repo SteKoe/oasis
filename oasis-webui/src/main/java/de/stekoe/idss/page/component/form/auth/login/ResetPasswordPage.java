@@ -14,7 +14,7 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.util.string.StringValue;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.FormGroup;
-import de.stekoe.idss.WebApplication;
+import de.stekoe.idss.OASISWebApplication;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.model.UserStatus;
 import de.stekoe.idss.page.HomePage;
@@ -57,7 +57,7 @@ public class ResetPasswordPage extends LayoutPage {
                     try {
                         userService.save(user);
                         success(getString("message.password.reset.success"));
-                        setResponsePage(WebApplication.get().getHomePage());
+                        setResponsePage(OASISWebApplication.get().getHomePage());
                         return;
                     } catch (UserException e) {
                         LOG.error("Error saving user.", e);

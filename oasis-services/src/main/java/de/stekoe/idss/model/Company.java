@@ -11,7 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 @Entity
 public class Company implements Serializable, Identifyable<String>, NamedElement {
@@ -67,11 +69,6 @@ public class Company implements Serializable, Identifyable<String>, NamedElement
         this.employees = employees;
     }
 
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this).append("name", name).append("addresses", addresses).toString();
-    }
-
     @Transient
     public Employee getEmployee(User user) {
         for(Employee e : getEmployees()) {
@@ -79,7 +76,30 @@ public class Company implements Serializable, Identifyable<String>, NamedElement
                 return e;
             }
         }
-
         return null;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if(this == other) return true;
+        if(!(other instanceof Company)) return false;
+
+        Company that  = (Company) other;
+        return new EqualsBuilder()
+            .appendSuper(super.equals(other))
+            .append(getId(), that.getId())
+            .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder()
+            .append(getId())
+            .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return ReflectionToStringBuilder.toString(this);
     }
 }

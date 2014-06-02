@@ -54,13 +54,13 @@ public class CriterionGroupService extends PageElementService {
     public void delete(String id) {
         CriterionGroup cg = findOne(id);
         if(cg != null) {
-            criterionGroupRepository.delete(id);
             if(!cg.isReferenceType()) {
                 List<Criterion> criterions = cg.getCriterions();
                 for (Criterion criterion : criterions) {
                     criterionService.delete(criterion.getId());
                 }
             }
+            criterionGroupRepository.delete(id);
         }
     }
 

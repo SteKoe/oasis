@@ -44,7 +44,7 @@ import de.stekoe.idss.page.user.ViewUserProfilePage;
 public class ApplicationRoutes {
 
     @Inject
-    private WebApplication webApplication;
+    private OASISWebApplication webApplication;
 
     public void create() {
         createPageRoutes();
@@ -94,7 +94,7 @@ public class ApplicationRoutes {
         getWebApplication().mountPage("/setup", SetupPage.class);
     }
 
-    public WebApplication getWebApplication() {
+    public OASISWebApplication getWebApplication() {
         return webApplication;
     }
 }

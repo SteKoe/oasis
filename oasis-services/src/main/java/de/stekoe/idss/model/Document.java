@@ -30,6 +30,10 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 
 @Entity
 @Table(name = "Document")
@@ -49,7 +53,6 @@ public class Document implements Serializable {
     public String getId() {
         return id;
     }
-
     public void setId(String id) {
         this.id = id;
     }
@@ -58,7 +61,6 @@ public class Document implements Serializable {
     public long getSize() {
         return this.size;
     }
-
     public void setSize(long size) {
         this.size = size;
     }
@@ -78,7 +80,6 @@ public class Document implements Serializable {
     public User getUser() {
         return this.user;
     }
-
     public void setUser(User user) {
         this.user = user;
     }
@@ -88,7 +89,6 @@ public class Document implements Serializable {
     public Date getCreated() {
         return created;
     }
-
     public void setCreated(Date created) {
         this.created = created;
     }
@@ -96,7 +96,6 @@ public class Document implements Serializable {
     public void setContentType(String contentType) {
         this.contentType = contentType;
     }
-
     public String getContentType() {
         return contentType;
     }
@@ -105,8 +104,31 @@ public class Document implements Serializable {
     public byte[] getContent() {
         return content;
     }
-
     public void setContent(byte[] content) {
         this.content = content;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if(this == other) return true;
+        if(!(other instanceof Document)) return false;
+
+        Document that  = (Document) other;
+        return new EqualsBuilder()
+            .appendSuper(super.equals(other))
+            .append(getId(), that.getId())
+            .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder()
+            .append(getId())
+            .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return ReflectionToStringBuilder.toString(this);
     }
 }

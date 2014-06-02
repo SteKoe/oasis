@@ -82,7 +82,16 @@ public abstract class PageElement implements NamedElement, Serializable {
     }
     public void setCriterionPage(CriterionPage criterionPage) {
         this.criterionPage = criterionPage;
-        criterionPage.getPageElements().add(this);
+
+        if(criterionPage != null) {
+            try {
+                if(!criterionPage.getPageElements().contains(this)) {
+                    criterionPage.getPageElements().add(this);
+                }
+            } catch(Exception e) {
+
+            }
+        }
     }
 
     @Override
@@ -125,18 +134,16 @@ public abstract class PageElement implements NamedElement, Serializable {
         if(this == other) return true;
         if(!(other instanceof PageElement)) return false;
 
-        PageElement pageElement  = (PageElement) other;
+        PageElement that  = (PageElement) other;
         return new EqualsBuilder()
-            .append(getName(), pageElement.getName())
-            .append(getCriterionPage(), pageElement.getCriterionPage())
+            .append(getId(), that.getId())
             .isEquals();
     }
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getName())
-            .append(getCriterionPage())
+            .append(getId())
             .toHashCode();
     }
 

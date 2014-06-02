@@ -18,6 +18,7 @@ package de.stekoe.idss.model;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -26,6 +27,8 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.PreRemove;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 @Entity
@@ -47,8 +50,14 @@ public abstract class Criterion extends PageElement implements Serializable {
 
     @PreRemove
     private void removeFromCriterionGroups() {
-        for(CriterionGroup cg : criterionGroups) {
-            cg.getCriterions().remove(this);
+        Iterator<CriterionGroup> cgIterator = getCriterionGroups().iterator();
+        while(cgIterator.hasNext()) {
+            Iterator<Criterion> criterionIterator = cgIterator.next().getCriterions().iterator();
+            while(criterionIterator.hasNext()) {
+                if(this.equals(criterionIterator.next())) {
+                    criterionIterator.remove();
+                }
+            }
         }
     }
 
@@ -61,7 +70,7 @@ public abstract class Criterion extends PageElement implements Serializable {
         allowNoChoice = aAllowNoChoice;
     }
 
-    @ManyToMany(targetEntity = CriterionGroup.class, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToMany(targetEntity = CriterionGroup.class, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
     public Set<CriterionGroup> getCriterionGroups() {
         return criterionGroups;
     }
@@ -87,6 +96,23 @@ public abstract class Criterion extends PageElement implements Serializable {
         return null;
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if(this == other) return true;
+        if(!(other instanceof Criterion)) return false;
+
+        Criterion that  = (Criterion) other;
+        return new EqualsBuilder()
+            .append(getId(), that.getId())
+            .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder()
+            .append(getId())
+            .toHashCode();
+    }
 
     @Override
     public String toString() {

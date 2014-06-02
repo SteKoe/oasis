@@ -13,7 +13,7 @@ import org.apache.wicket.request.Url;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
-import de.stekoe.idss.WebApplication;
+import de.stekoe.idss.OASISWebApplication;
 import de.stekoe.idss.mail.template.ResetPasswordMailTemplate;
 import de.stekoe.idss.model.IDGenerator;
 import de.stekoe.idss.model.User;
@@ -60,7 +60,7 @@ public class RequestNewPasswordPage extends LayoutPage {
 
                         mailService.sendMail(user.getEmail(), getString("email.subject.resetpassword"), body);
                         success(getString("message.password.reset.success"));
-                        setResponsePage(WebApplication.get().getHomePage());
+                        setResponsePage(OASISWebApplication.get().getHomePage());
                     } catch (UserException e) {
                         LOG.error("Error while resetting password of user.", e);
                     }

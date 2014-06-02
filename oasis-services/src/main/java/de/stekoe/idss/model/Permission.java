@@ -26,6 +26,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 
 @Entity
@@ -91,7 +94,26 @@ public class Permission implements Serializable {
     }
 
     @Override
+    public boolean equals(Object other) {
+        if(this == other) return true;
+        if(!(other instanceof Permission)) return false;
+
+        Permission that  = (Permission) other;
+        return new EqualsBuilder()
+            .appendSuper(super.equals(other))
+            .append(getId(), that.getId())
+            .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder()
+            .append(getId())
+            .toHashCode();
+    }
+
+    @Override
     public String toString() {
-        return this.getPermissionType().getKey();
+        return ReflectionToStringBuilder.toString(this);
     }
 }

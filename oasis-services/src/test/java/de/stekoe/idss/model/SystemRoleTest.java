@@ -19,7 +19,6 @@ package de.stekoe.idss.model;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 
-import org.hamcrest.core.IsEqual;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,11 +29,6 @@ public class SystemRoleTest {
     public void setUp() throws Exception {
         systemRole = new SystemRole();
         systemRole.setName("ABC");
-    }
-
-    @Test
-    public void testToString() throws Exception {
-        assertThat(systemRole.toString(), IsEqual.equalTo("ABC"));
     }
 
     @Test

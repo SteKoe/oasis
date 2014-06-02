@@ -16,7 +16,7 @@
     <bean id="referenceCriterionGroupDataProvider" class="de.stekoe.idss.page.project.criterion.referencecatalog.ReferenceCriterionGroupDataProvider"/>
     
     <bean id="applicationRoutes" class="de.stekoe.idss.ApplicationRoutes"/>
-    <bean id="wicketApplication" class="de.stekoe.idss.WebApplication"/>
+    <bean id="wicketApplication" class="de.stekoe.idss.OASISWebApplication"/>
     <bean id="paginationConfigurator" class="de.stekoe.idss.page.PaginationConfigurator">
         <!--
         If one wants to override default value for specific pages, add an entry here:

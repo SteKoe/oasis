@@ -44,7 +44,7 @@ import javax.validation.constraints.Size;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 @Entity
 @Table(name = "User", uniqueConstraints = @UniqueConstraint(columnNames = {"username", "email"}))
@@ -69,7 +69,6 @@ public class User implements Serializable {
     public String getId() {
         return id;
     }
-
     public void setId(String id) {
         this.id = id;
     }
@@ -78,7 +77,6 @@ public class User implements Serializable {
     public UserProfile getProfile() {
         return this.userProfile;
     }
-
     public void setProfile(UserProfile userProfile) {
         this.userProfile = userProfile;
     }
@@ -89,7 +87,6 @@ public class User implements Serializable {
     public String getUsername() {
         return this.username;
     }
-
     public void setUsername(String username) {
         this.username = username;
     }
@@ -100,7 +97,6 @@ public class User implements Serializable {
     public String getPassword() {
         return this.password;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }
@@ -111,7 +107,6 @@ public class User implements Serializable {
     public String getEmail() {
         return this.email;
     }
-
     public void setEmail(String email) {
         this.email = email;
     }
@@ -120,7 +115,6 @@ public class User implements Serializable {
     public String getActivationKey() {
         return this.activationKey;
     }
-
     public void setActivationKey(String activationKey) {
         this.activationKey = activationKey;
     }
@@ -130,7 +124,6 @@ public class User implements Serializable {
     public Set<SystemRole> getRoles() {
         return this.roles;
     }
-
     public void setRoles(Set<SystemRole> roles) {
         this.roles = roles;
     }
@@ -139,7 +132,6 @@ public class User implements Serializable {
     public UserStatus getUserStatus() {
         return this.userStatus;
     }
-
     public void setUserStatus(UserStatus userStatus) {
         if (UserStatus.ACTIVATED.equals(userStatus)) {
             setActivationKey(null);
@@ -199,31 +191,26 @@ public class User implements Serializable {
     }
 
     @Override
-    public String toString() {
-        return new ToStringBuilder(this).append(id).append(username).append(email).toString();
-    }
+    public boolean equals(Object other) {
+        if(this == other) return true;
+        if(!(other instanceof User)) return false;
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (obj == this) {
-            return true;
-        }
-        if (obj.getClass() != getClass()) {
-            return false;
-        }
-        User rhs = (User) obj;
+        User that  = (User) other;
         return new EqualsBuilder()
-                .append(getId(), rhs.getId())
-                .isEquals();
+            .appendSuper(super.equals(other))
+            .append(getId(), that.getId())
+            .isEquals();
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(17, 37)
-                .append(getId())
-                .hashCode();
+        return new HashCodeBuilder()
+            .append(getId())
+            .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return ReflectionToStringBuilder.toString(this);
     }
 }

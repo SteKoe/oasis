@@ -20,7 +20,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -28,6 +30,7 @@ import javax.persistence.Transient;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 import de.stekoe.idss.model.OrderableUtil.Direction;
 
@@ -48,8 +51,11 @@ public class CriterionPage implements Serializable {
         this.id = id;
     }
 
-    @OneToMany(mappedBy="criterionPage", targetEntity = PageElement.class)
+    @OneToMany(mappedBy="criterionPage", targetEntity = PageElement.class, cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
     public List<PageElement> getPageElements() {
+        if(pageElements == null) {
+            return new ArrayList<PageElement>();
+        }
         return pageElements;
     }
     public void setPageElements(List<PageElement> pageElements) {
@@ -58,7 +64,10 @@ public class CriterionPage implements Serializable {
 
     @Transient
     public boolean move(PageElement pageElement, Direction direction) {
-        return OrderableUtil.<PageElement>move(pageElements, pageElement, direction);
+        List<PageElement> oldList = pageElements;
+        List<PageElement> reorderedList = OrderableUtil.<PageElement>move(pageElements, pageElement, direction);
+        setPageElements(reorderedList);
+        return oldList.equals(reorderedList);
     }
 
     @ManyToOne(targetEntity = Project.class)
@@ -78,21 +87,25 @@ public class CriterionPage implements Serializable {
 
     @Override
     public boolean equals(Object other) {
-        if (this == other) return true;
-        if (!(other instanceof CriterionPage)) return false;
+        if(this == other) return true;
+        if(!(other instanceof PageElement)) return false;
 
-        CriterionPage criterionPage = (CriterionPage) other;
+        CriterionPage that  = (CriterionPage) other;
         return new EqualsBuilder()
-            .append(getName(), criterionPage.getName())
-            .append(getPageElements(), criterionPage.getPageElements())
+            .appendSuper(super.equals(other))
+            .append(getId(), that.getId())
             .isEquals();
     }
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getName())
-            .append(getPageElements())
+            .append(getId())
             .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return ReflectionToStringBuilder.toString(this);
     }
 }

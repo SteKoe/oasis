@@ -12,7 +12,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import de.stekoe.amcharts.AmChart;
-import de.stekoe.idss.WebApplication;
+import de.stekoe.idss.OASISWebApplication;
 import de.stekoe.idss.model.Criterion;
 import de.stekoe.idss.model.SingleScaledCriterion;
 
@@ -42,7 +42,7 @@ public abstract class ChartPanel extends Panel {
         super.renderHead(response);
 
         Gson gson = new Gson();
-        if(RuntimeConfigurationType.DEVELOPMENT.equals(WebApplication.get().getConfigurationType())) {
+        if(RuntimeConfigurationType.DEVELOPMENT.equals(OASISWebApplication.get().getConfigurationType())) {
             GsonBuilder gsonBuilder = new GsonBuilder().setPrettyPrinting();
             gson = gsonBuilder.create();
         }

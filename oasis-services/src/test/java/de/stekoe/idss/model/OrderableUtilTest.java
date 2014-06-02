@@ -16,7 +16,7 @@ public class OrderableUtilTest {
 
     @Test
     public void moveDownFirstElement() throws Exception {
-        assertThat(OrderableUtil.<String>move(strings, "A", Direction.DOWN), is(true));
+        OrderableUtil.<String>move(strings, "A", Direction.DOWN);
 
         assertThat(strings.get(0), is(equalTo("B")));
         assertThat(strings.get(1), is(equalTo("A")));
@@ -26,7 +26,7 @@ public class OrderableUtilTest {
     @Test
     public void moveDownLastElement() throws Exception {
         // We expect this to be false since the last element can not be moved down
-        assertThat(OrderableUtil.<String>move(strings, "C", Direction.DOWN), is(false));
+        OrderableUtil.<String>move(strings, "C", Direction.DOWN);
 
         assertThat(strings.get(0), is(equalTo("A")));
         assertThat(strings.get(1), is(equalTo("B")));
@@ -35,18 +35,22 @@ public class OrderableUtilTest {
 
     @Test
     public void moveNonExistingValue() throws Exception {
-        assertThat(OrderableUtil.<String>move(strings, "D", Direction.DOWN), is(false));
-        assertThat(OrderableUtil.<String>move(strings, "D", Direction.UP), is(false));
+        List<String> old = strings;
+        OrderableUtil.<String>move(strings, "D", Direction.DOWN);
+        OrderableUtil.<String>move(strings, "D", Direction.UP);
+        old.equals(strings);
     }
 
     @Test
     public void moveNullValue() throws Exception {
-        assertThat(OrderableUtil.<String>move(strings, null, Direction.DOWN), is(false));
+        List<String> old = strings;
+        OrderableUtil.<String>move(strings, null, Direction.DOWN);
+        old.equals(strings);
     }
 
     @Test
     public void moveUpLastElement() throws Exception {
-        assertThat(OrderableUtil.<String>move(strings, "C", Direction.UP), is(true));
+        OrderableUtil.<String>move(strings, "C", Direction.UP);
 
         assertThat(strings.get(0), is(equalTo("A")));
         assertThat(strings.get(1), is(equalTo("C")));
@@ -55,7 +59,7 @@ public class OrderableUtilTest {
 
     @Test
     public void moveUpFirstElement() throws Exception {
-        assertThat(OrderableUtil.<String>move(strings, "A", Direction.UP), is(false));
+        OrderableUtil.<String>move(strings, "A", Direction.UP);
 
         assertThat(strings.get(0), is(equalTo("A")));
         assertThat(strings.get(1), is(equalTo("B")));

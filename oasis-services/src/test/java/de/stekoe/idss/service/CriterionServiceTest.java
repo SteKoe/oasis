@@ -40,27 +40,30 @@ public class CriterionServiceTest extends AbstractBaseTest {
         Project project = TestFactory.createProject();
         projectService.save(project);
 
+        CriterionPage criterionPage = new CriterionPage();
+        criterionPage.setProject(project);
+
         NominalScaledCriterion nsc = new NominalScaledCriterion();
         nsc.setName("NSC1");
+        nsc.setCriterionPage(criterionPage);
         nsc.getValues().add(new NominalValue("A"));
         nsc.getValues().add(new NominalValue("B"));
         nsc.getValues().add(new NominalValue("C"));
         criterionService.save(nsc);
 
-        CriterionPage criterionPage = new CriterionPage();
-        criterionPage.setProject(project);
         criterionPage.getPageElements().add(nsc);
         criterionPageService.save(criterionPage);
 
+        criterionPage = new CriterionPage();
+        criterionPage.setProject(project);
         nsc = new NominalScaledCriterion();
         nsc.setName("NSC2");
+        nsc.setCriterionPage(criterionPage);
         nsc.getValues().add(new NominalValue("A"));
         nsc.getValues().add(new NominalValue("B"));
         nsc.getValues().add(new NominalValue("C"));
         criterionService.save(nsc);
 
-        criterionPage = new CriterionPage();
-        criterionPage.setProject(project);
         criterionPage.getPageElements().add(nsc);
         criterionPageService.save(criterionPage);
 
@@ -106,15 +109,20 @@ public class CriterionServiceTest extends AbstractBaseTest {
         NominalScaledCriterion c2 = new NominalScaledCriterion();
         c2.setName("C2");
         c2.setCriterionPage(criterionPage);
+
         criterionPageService.save(criterionPage);
 
-        assertThat((NominalScaledCriterion)criterionPage.getPageElements().get(0), is(equalTo(c1)));
-        assertThat((NominalScaledCriterion)criterionPage.getPageElements().get(1), is(equalTo(c2)));
+        NominalScaledCriterion c1i = (NominalScaledCriterion)criterionPage.getPageElements().get(0);
+        NominalScaledCriterion c2i = (NominalScaledCriterion)criterionPage.getPageElements().get(1);
+        assertThat(c1i, is(equalTo(c1)));
+        assertThat(c2i, is(equalTo(c2)));
 
-        assertThat(criterionPage.move(c2, Direction.UP), is(true));
+        criterionPage.move(c2, Direction.UP);
         criterionPageService.save(criterionPage);
 
-        assertThat((NominalScaledCriterion)criterionPage.getPageElements().get(0), is(equalTo(c2)));
-        assertThat((NominalScaledCriterion)criterionPage.getPageElements().get(1), is(equalTo(c1)));
+        c1i = (NominalScaledCriterion)criterionPage.getPageElements().get(0);
+        c2i = (NominalScaledCriterion)criterionPage.getPageElements().get(1);
+        assertThat(c1i, is(equalTo(c2)));
+        assertThat(c2i, is(equalTo(c1)));
     }
 }

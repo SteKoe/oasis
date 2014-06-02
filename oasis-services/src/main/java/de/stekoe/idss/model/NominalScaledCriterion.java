@@ -3,6 +3,8 @@ package de.stekoe.idss.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 @Entity
@@ -26,6 +28,24 @@ public class NominalScaledCriterion extends SingleScaledCriterion<NominalValue> 
     }
     public void setMultipleChoice(boolean multipleChoice) {
         this.multipleChoice = multipleChoice;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if(this == other) return true;
+        if(!(other instanceof NominalScaledCriterion)) return false;
+
+        NominalScaledCriterion that  = (NominalScaledCriterion) other;
+        return new EqualsBuilder()
+            .append(getId(), that.getId())
+            .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder()
+            .append(getId())
+            .toHashCode();
     }
 
     @Override

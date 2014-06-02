@@ -6,7 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 @Entity
 public class Address implements Serializable {
@@ -62,17 +64,6 @@ public class Address implements Serializable {
         this.city = city;
     }
 
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this)
-            .append("street", street)
-            .append("number", number)
-            .append("country", country)
-            .append("zip", zip)
-            .append("city", city)
-            .toString();
-    }
-
     /**
      * Indicates wether the address has any values set.
      *
@@ -96,5 +87,29 @@ public class Address implements Serializable {
         }
 
         return false;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if(this == other) return true;
+        if(!(other instanceof Address)) return false;
+
+        Address that  = (Address) other;
+        return new EqualsBuilder()
+            .appendSuper(super.equals(other))
+            .append(getId(), that.getId())
+            .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder()
+            .append(getId())
+            .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return ReflectionToStringBuilder.toString(this);
     }
 }

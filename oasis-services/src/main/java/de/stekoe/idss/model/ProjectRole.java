@@ -28,6 +28,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 
 @Entity
 @Table(name = "ProjectRole")
@@ -68,8 +71,26 @@ public class ProjectRole implements Serializable {
     }
 
     @Override
-    public String toString() {
-        return this.name;
+    public boolean equals(Object other) {
+        if(this == other) return true;
+        if(!(other instanceof ProjectRole)) return false;
+
+        ProjectRole that  = (ProjectRole) other;
+        return new EqualsBuilder()
+            .appendSuper(super.equals(other))
+            .append(getId(), that.getId())
+            .isEquals();
     }
 
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder()
+            .append(getId())
+            .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return getName();
+    }
 }

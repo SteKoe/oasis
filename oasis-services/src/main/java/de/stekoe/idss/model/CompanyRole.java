@@ -12,6 +12,7 @@ import javax.persistence.OneToMany;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 @Entity
 public class CompanyRole implements Serializable {
@@ -45,29 +46,26 @@ public class CompanyRole implements Serializable {
     }
 
     @Override
-    public String toString() {
-        return getName();
-    }
+    public boolean equals(Object other) {
+        if(this == other) return true;
+        if(!(other instanceof CompanyRole)) return false;
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == null) {
-            return false;
-        }
-        if (o == this) {
-            return true;
-        }
-
-        CompanyRole that = (CompanyRole) o;
+        CompanyRole that  = (CompanyRole) other;
         return new EqualsBuilder()
-                .append(getName(), that.getName())
-                .isEquals();
+            .appendSuper(super.equals(other))
+            .append(getId(), that.getId())
+            .isEquals();
     }
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder()
-                .append(getName())
-                .hashCode();
+            .append(getId())
+            .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return ReflectionToStringBuilder.toString(this);
     }
 }

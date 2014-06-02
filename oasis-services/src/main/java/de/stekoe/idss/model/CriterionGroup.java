@@ -1,6 +1,7 @@
 package de.stekoe.idss.model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -10,7 +11,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OrderColumn;
 import javax.persistence.PreRemove;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 import de.stekoe.idss.model.OrderableUtil.Direction;
 
@@ -55,8 +58,14 @@ public class CriterionGroup extends PageElement {
 
     @PreRemove
     private void removeCriterionGroupFromCriterions() {
-        for (Criterion c : getCriterions()) {
-            c.getCriterionGroups().remove(this);
+        Iterator<Criterion> criterionIterator = getCriterions().iterator();
+        while(criterionIterator.hasNext()) {
+            Iterator<CriterionGroup> iterator = criterionIterator.next().getCriterionGroups().iterator();
+            while(iterator.hasNext()) {
+                if(this.equals(iterator.next())) {
+                    iterator.remove();
+                }
+            }
         }
     }
 
@@ -65,7 +74,7 @@ public class CriterionGroup extends PageElement {
      * {@code CriterionGroup#addCriterion(Criterion)} instead!
      * @return
      */
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, targetEntity = Criterion.class)
+    @ManyToMany(fetch = FetchType.EAGER, cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, targetEntity = Criterion.class)
     @OrderColumn(name = "ordering")
     public List<Criterion> getCriterions() {
         return criterions;
@@ -75,7 +84,9 @@ public class CriterionGroup extends PageElement {
     }
 
     public boolean move(Criterion criterion, Direction direction) {
-        return OrderableUtil.<Criterion>move(criterions, criterion, direction);
+        List<Criterion> old = criterions;
+        OrderableUtil.<Criterion>move(criterions, criterion, direction);
+        return old.equals(criterions);
     }
 
     /**
@@ -108,10 +119,25 @@ public class CriterionGroup extends PageElement {
     }
 
     @Override
+    public boolean equals(Object other) {
+        if(this == other) return true;
+        if(!(other instanceof CriterionGroup)) return false;
+
+        CriterionGroup that  = (CriterionGroup) other;
+        return new EqualsBuilder()
+            .append(getId(), that.getId())
+            .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder()
+            .append(getId())
+            .toHashCode();
+    }
+
+    @Override
     public String toString() {
-        return new ToStringBuilder(this)
-            .append(super.toString())
-            .append("criterions", getCriterions())
-            .toString();
+        return ReflectionToStringBuilder.toString(this);
     }
 }

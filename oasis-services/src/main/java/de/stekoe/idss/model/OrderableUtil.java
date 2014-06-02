@@ -12,7 +12,7 @@ public class OrderableUtil<T> {
         // NOP
     }
 
-    public static <T> boolean move(List<T> list, T value, Direction direction) {
+    public static <T> List<T> move(List<T> list, T value, Direction direction) {
         if(value != null) {
             List<T> reorderedValues = list;
             int index = reorderedValues.indexOf(value);
@@ -22,12 +22,12 @@ public class OrderableUtil<T> {
                 if(Direction.UP.equals(direction)) {
                     otherIndex = index - 1;
                     if(otherIndex < 0) {
-                        return false;
+                        return list;
                     }
                 } else {
                     otherIndex = index + 1;
                     if(otherIndex >= list.size()) {
-                        return false;
+                        return list;
                     }
                 }
 
@@ -37,10 +37,10 @@ public class OrderableUtil<T> {
                 reorderedValues.set(otherIndex, value);
 
                 list = reorderedValues;
-                return true;
+                return list;
             }
         }
 
-        return false;
+        return list;
     }
 }

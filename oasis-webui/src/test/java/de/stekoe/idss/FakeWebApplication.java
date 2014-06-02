@@ -5,7 +5,7 @@ package de.stekoe.idss;
  */
 
 
-public class FakeWebApplication extends WebApplication {
+public class FakeWebApplication extends OASISWebApplication {
 
 //    @Override
 //    public Session newSession(Request request, Response response) {

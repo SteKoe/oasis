@@ -25,6 +25,8 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 import de.stekoe.idss.model.OrderableUtil.Direction;
@@ -44,9 +46,13 @@ public abstract class SingleScaledCriterion<T extends MeasurementValue> extends 
 
         for(Object mv : singleScaledCriterion.getValues()) {
             if(mv instanceof OrdinalValue) {
-                values.add(new OrdinalValue((OrdinalValue) mv));
+                OrdinalValue val = new OrdinalValue((OrdinalValue) mv);
+                values.add(val);
+                val.setCriterion(this);
             } else if(mv instanceof NominalValue) {
-                values.add(new NominalValue((NominalValue) mv));
+                NominalValue val = new NominalValue((NominalValue) mv);
+                values.add(val);
+                val.setCriterion(this);
             }
         }
     }
@@ -60,8 +66,26 @@ public abstract class SingleScaledCriterion<T extends MeasurementValue> extends 
     }
 
     @Transient
-    public boolean move(T value, Direction direction) {
+    public List<T> move(T value, Direction direction) {
         return OrderableUtil.<T>move(values, value, direction);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if(this == other) return true;
+        if(!(other instanceof SingleScaledCriterion)) return false;
+
+        SingleScaledCriterion that  = (SingleScaledCriterion) other;
+        return new EqualsBuilder()
+            .append(getId(), that.getId())
+            .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder()
+            .append(getId())
+            .toHashCode();
     }
 
     @Override

@@ -46,9 +46,9 @@ import de.stekoe.idss.page.LoginPage;
 import de.stekoe.idss.session.WebSession;
 
 @Component
-public class WebApplication extends AuthenticatedWebApplication implements ApplicationContextAware {
+public class OASISWebApplication extends AuthenticatedWebApplication implements ApplicationContextAware {
 
-    private static final Logger LOG = Logger.getLogger(WebApplication.class);
+    private static final Logger LOG = Logger.getLogger(OASISWebApplication.class);
     public static final Class<? extends WebPage> HOMEPAGE = HomePage.class;
 
     public static final Locale[] LANGUAGES = {
@@ -62,8 +62,8 @@ public class WebApplication extends AuthenticatedWebApplication implements Appli
     @Inject
     private ApplicationRoutes applicationRoutes;
 
-    public static WebApplication get() {
-        return (WebApplication) Application.get();
+    public static OASISWebApplication get() {
+        return (OASISWebApplication) Application.get();
     }
 
     @Override

@@ -72,6 +72,7 @@ public class UploadReferenceCriterionCatalogPage extends ReferenceCriterionPage 
                             WebSession.get().success(getString("message.upload.success"));
                         } catch(Exception e) {
                             LOG.error("Error uploading file.", e);
+                            WebSession.get().error(getString("message.upload.error"));
                         }
                     } else {
                         WebSession.get().error("Filetype not supported!");

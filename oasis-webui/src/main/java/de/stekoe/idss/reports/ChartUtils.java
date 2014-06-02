@@ -2,7 +2,7 @@ package de.stekoe.idss.reports;
 
 import org.apache.wicket.Localizer;
 
-import de.stekoe.idss.WebApplication;
+import de.stekoe.idss.OASISWebApplication;
 
 public class ChartUtils {
 
@@ -11,7 +11,7 @@ public class ChartUtils {
     }
 
     public static String getString(String key) {
-        Localizer localizer = WebApplication.get().getResourceSettings().getLocalizer();
+        Localizer localizer = OASISWebApplication.get().getResourceSettings().getLocalizer();
         return localizer.getString(key, null);
     }
 }

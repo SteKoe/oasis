@@ -29,7 +29,7 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.string.StringValue;
 
-import de.stekoe.idss.WebApplication;
+import de.stekoe.idss.OASISWebApplication;
 import de.stekoe.idss.model.Company;
 import de.stekoe.idss.model.PermissionType;
 import de.stekoe.idss.page.AuthUserPage;
@@ -50,14 +50,14 @@ public abstract class CompanyPage extends AuthUserPage {
 
         StringValue companyIdParam = pageParameters.get("companyId");
         if(companyIdParam.isEmpty()) {
-            setResponsePage(WebApplication.HOMEPAGE);
+            setResponsePage(OASISWebApplication.HOMEPAGE);
             return;
         } else {
             this.companyId = companyIdParam.toString();
         }
 
         if(!companyService.isAuthorized(WebSession.get().getUser().getId(), this.companyId, PermissionType.READ)) {
-            setResponsePage(WebApplication.HOMEPAGE);
+            setResponsePage(OASISWebApplication.HOMEPAGE);
             return;
         }
 

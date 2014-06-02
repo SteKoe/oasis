@@ -61,12 +61,12 @@ public class CriterionPageServiceTest extends AbstractBaseTest {
 
         criterionPageService.save(page);
 
-        final CriterionPage byId = criterionPageService.findOne(page.getId());
-        assertThat(byId.getPageElements().size(), is(equalTo(2)));
+        final CriterionPage criterionPage = criterionPageService.findOne(page.getId());
+        assertThat(criterionPage.getPageElements().size(), is(equalTo(2)));
 
-        criterionPageService.delete(byId.getId());
+        criterionPageService.delete(criterionPage.getId());
 
-        for (PageElement pe : byId.getPageElements()) {
+        for (PageElement pe : criterionPage.getPageElements()) {
             Criterion findOne = criterionService.findOne(pe.getId());
             assertThat(findOne, is(nullValue()));
         }

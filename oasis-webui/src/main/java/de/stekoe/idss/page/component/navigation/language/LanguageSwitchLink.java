@@ -25,7 +25,7 @@ import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.request.resource.ContextRelativeResource;
 
-import de.stekoe.idss.WebApplication;
+import de.stekoe.idss.OASISWebApplication;
 import de.stekoe.idss.session.WebSession;
 
 public class LanguageSwitchLink extends Link {
@@ -40,7 +40,7 @@ public class LanguageSwitchLink extends Link {
         Image image = null;
         String flagImagePath = "/vendors/famfamfam/flags/" + getLanguageKey() + ".png";
         try {
-            if(WebApplication.get().getServletContext().getResource(flagImagePath) == null) {
+            if(OASISWebApplication.get().getServletContext().getResource(flagImagePath) == null) {
                 flagImagePath = "/vendors/famfamfam/flags/unknown.png";
             }
         } catch (MalformedURLException e) {

@@ -18,10 +18,9 @@ package de.stekoe.idss.repository;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.model.UserStatus;

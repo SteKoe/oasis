@@ -31,7 +31,7 @@ import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.request.resource.ContextRelativeResource;
 
-import de.stekoe.idss.WebApplication;
+import de.stekoe.idss.OASISWebApplication;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.page.component.feedbackpanel.MyFencedFeedbackPanel;
 import de.stekoe.idss.page.component.navigation.language.LanguageSwitcher;
@@ -77,7 +77,7 @@ public abstract class LayoutPage extends WebPage {
     }
 
     public String getContextParameter(String key) {
-        return WebApplication.get().getServletContext().getInitParameter(key);
+        return OASISWebApplication.get().getServletContext().getInitParameter(key);
     }
 
     /**

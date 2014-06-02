@@ -28,6 +28,7 @@ import javax.persistence.OrderColumn;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 @Entity
@@ -79,32 +80,23 @@ public abstract class MeasurementValue implements Serializable {
     }
 
     @Override
-    public int hashCode() {
-        if(id == null) {
-            return 0;
-        } else {
-            return id.hashCode();
-        }
+    public boolean equals(Object other) {
+        if(this == other) return true;
+        if(!(other instanceof MeasurementValue)) return false;
+
+        MeasurementValue that  = (MeasurementValue) other;
+        return new EqualsBuilder()
+            .appendSuper(super.equals(other))
+            .append(getId(), that.getId())
+            .isEquals();
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (obj == this) {
-            return true;
-        }
-        if (obj.getClass() != getClass()) {
-            return false;
-        }
-        MeasurementValue rhs = (MeasurementValue) obj;
-
-        return new EqualsBuilder()
-                .append(getId(), rhs.id)
-                .isEquals();
+    public int hashCode() {
+        return new HashCodeBuilder()
+            .append(getId())
+            .toHashCode();
     }
-
 
     @Override
     public String toString() {

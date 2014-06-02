@@ -24,7 +24,7 @@ import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
 
-import de.stekoe.idss.WebApplication;
+import de.stekoe.idss.OASISWebApplication;
 import de.stekoe.idss.session.WebSession;
 
 
@@ -74,7 +74,7 @@ public class LanguageSwitcher extends Panel {
     private List<Locale> getLanguages() {
         List<Locale> languages = new ArrayList<Locale>();
 
-        for (Locale l : WebApplication.LANGUAGES) {
+        for (Locale l : OASISWebApplication.LANGUAGES) {
             languages.add(l);
         }
 

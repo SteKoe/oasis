@@ -69,7 +69,9 @@ public class XmlImport {
             if(descriptionNode != null) crit.setDescription(nameNode.getText());
 
             for (Element element : values) {
-                crit.getValues().add(new NominalValue(element.getText()));
+                NominalValue val = new NominalValue(element.getText());
+                crit.getValues().add(val);
+                val.setCriterion(crit);
             }
 
             return crit;
@@ -82,7 +84,9 @@ public class XmlImport {
             if(descriptionNode != null) crit.setDescription(nameNode.getText());
 
             for (Element element : values) {
-                crit.getValues().add(new OrdinalValue(element.getText()));
+                OrdinalValue val = new OrdinalValue(element.getText());
+                crit.getValues().add(val);
+                val.setCriterion(crit);
             }
 
             return crit;
@@ -116,6 +120,7 @@ public class XmlImport {
                 Criterion crit = criterions.get(refid.getText());
                 if(crit != null) {
                     criterions.remove(refid);
+                    crit.getCriterionGroups().add(cg);
                     cg.getCriterions().add(crit);
                 }
             }

@@ -90,11 +90,13 @@ public class SelectReferenceCriterionPage extends ProjectPage {
                             for (MeasurementValue mv : ssc.getValues()) {
                                 mv.setCriterion(ssc);
                             }
+                            ssc.getCriterionGroups().add(criterionGroup);
                             criterionService.save(ssc);
                         }
                     }
 
                     criterionGroup.setCriterionPage(criterionPage);
+                    criterionPage.getPageElements().add(criterionGroup);
                     criterionPageService.save(criterionPage);
                 }
 

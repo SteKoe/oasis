@@ -30,4 +30,11 @@ public class XmlImportTest extends AbstractWicketApplicationTester {
 
         criterionGroupService.save(criterionGroups);
     }
+
+    @Test
+    public void isValidUUID() throws Exception {
+        XmlImport xml = new XmlImport(null);
+        assertThat(xml.isValidUUID("96196819-f7ff-462a-8ecc-46ad4d4852b0"), is(true));
+        assertThat(xml.isValidUUID("96196819-f7zf-862a-8ecc-46ad4d4852b0"), is(false));
+    }
 }

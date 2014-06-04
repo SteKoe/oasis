@@ -31,14 +31,16 @@ public class XmlImport {
     private Document document;
 
     public XmlImport(File xmlFile) {
-        SAXReader reader = new SAXReader();
-        try {
-            document = reader.read(xmlFile);
+        if(xmlFile != null) {
+            SAXReader reader = new SAXReader();
+            try {
+                document = reader.read(xmlFile);
 
-            processCriterions();
-            processGroups();
-        } catch (DocumentException e) {
-            LOG.error("Error processing xml file.", e);
+                processCriterions();
+                processGroups();
+            } catch (DocumentException e) {
+                LOG.error("Error processing xml file.", e);
+            }
         }
     }
 
@@ -55,7 +57,7 @@ public class XmlImport {
 
     private Criterion processCriterion(Element criterion) {
         Attribute criterionType = criterion.attribute("type");
-        Node idNode = criterion.selectSingleNode("id");
+        Attribute idNode = criterion.attribute("id");
         Node nameNode = criterion.selectSingleNode("name");
         Node descriptionNode = criterion.selectSingleNode("description");
         List<Element> values = criterion.selectNodes("values/value");
@@ -64,12 +66,17 @@ public class XmlImport {
             NominalScaledCriterion crit = new NominalScaledCriterion();
             crit.setReferenceType(true);
 
-            if(idNode != null) crit.setId(idNode.getText());
+            if(idNode != null && isValidUUID(idNode.getText())) crit.setId(idNode.getText());
             if(nameNode != null) crit.setName(nameNode.getText());
             if(descriptionNode != null) crit.setDescription(nameNode.getText());
 
             for (Element element : values) {
                 NominalValue val = new NominalValue(element.getText());
+
+                Attribute valueIdAttribute = element.attribute("id");
+                if(valueIdAttribute != null && isValidUUID(valueIdAttribute.getText())) {
+                    val.setId(valueIdAttribute.getText());
+                }
                 crit.getValues().add(val);
                 val.setCriterion(crit);
             }
@@ -79,12 +86,18 @@ public class XmlImport {
             OrdinalScaledCriterion crit = new OrdinalScaledCriterion();
             crit.setReferenceType(true);
 
-            if(idNode != null) crit.setId(idNode.getText());
+            if(idNode != null && isValidUUID(idNode.getText())) crit.setId(idNode.getText());
             if(nameNode != null) crit.setName(nameNode.getText());
             if(descriptionNode != null) crit.setDescription(nameNode.getText());
 
             for (Element element : values) {
                 OrdinalValue val = new OrdinalValue(element.getText());
+
+                Attribute valueIdAttribute = element.attribute("id");
+                if(valueIdAttribute != null && isValidUUID(valueIdAttribute.getText())) {
+                    val.setId(valueIdAttribute.getText());
+                }
+
                 crit.getValues().add(val);
                 val.setCriterion(crit);
             }
@@ -100,6 +113,15 @@ public class XmlImport {
         for (Element criterionGroup : criterionGroups) {
             CriterionGroup cg = new CriterionGroup();
             cg.setReferenceType(true);
+
+            // Id
+            Attribute idAttr = criterionGroup.attribute("id");
+            if(idAttr != null) {
+                String uuid = idAttr.getText();
+                if(isValidUUID(uuid)) {
+                    cg.setId(uuid);
+                }
+            }
 
             // Name
             Node nameNode = criterionGroup.selectSingleNode("name");
@@ -127,6 +149,10 @@ public class XmlImport {
 
             getCriterionGroups().add(cg);
         }
+    }
+
+    boolean isValidUUID(String uuid) {
+        return uuid.matches("[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}");
     }
 
     /**

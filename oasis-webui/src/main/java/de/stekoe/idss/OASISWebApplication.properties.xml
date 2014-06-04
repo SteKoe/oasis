@@ -195,4 +195,8 @@
     <entry key="message.delete.confirm">Möchten Sie das Element "%s" wirklich löschen?</entry>
     <entry key="label.group">Gruppe</entry>
     <entry key="label.groups">Gruppen</entry>
+    <entry key="label.import">Importieren</entry>
+    <entry key="label.export">Exportieren</entry>
+    <entry key="label.reference.criterion.import">Katalog importieren</entry>
+    <entry key="label.reference.criterion.export">Katalog exportieren</entry>
 </properties>

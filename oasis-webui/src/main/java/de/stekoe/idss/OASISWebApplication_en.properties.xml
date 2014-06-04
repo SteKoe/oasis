@@ -186,4 +186,6 @@
     <entry key="message.delete.confirm">Do you really want to delete "%s"?</entry>
     <entry key="label.group">Group</entry>
     <entry key="label.groups">Groups</entry>
+    <entry key="label.import">Import</entry>
+    <entry key="label.export">Export</entry>
 </properties>

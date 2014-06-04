@@ -18,8 +18,6 @@ public class CSVReport extends Report<String> {
     private static final Logger LOG = Logger.getLogger(CSVReport.class);
 
     private final CSVPrinter csvPrinter = new CSVPrinter(getPrintStream(), getCSVFormat());
-    private String csvHeader;
-    private String csvBody;
     private String result;
 
     @Override

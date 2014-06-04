@@ -17,7 +17,7 @@
 package de.stekoe.idss.service;
 
 /**
- * @author Stephan Koeninger <mail@stekoe.de>
+ * @author Stephan Koeninger
  */
 @SuppressWarnings("serial")
 public class ProjectNotFoundException extends Exception {

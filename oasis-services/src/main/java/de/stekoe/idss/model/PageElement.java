@@ -56,9 +56,9 @@ public abstract class PageElement implements NamedElement, Serializable {
      * (copied) PageElement identified by originId:
      *
      * PageElement              Copy of PageElement
-     *   id          <-------     originId
+     *   id          &gt;-------     originId
      *
-     * @param pageElement
+     * @param pageElement The PageElement to copy
      */
     public PageElement(PageElement pageElement) {
         this.criterionPage = pageElement.getCriterionPage();

@@ -1,17 +1,37 @@
 package de.stekoe.idss.session;
 
-import de.stekoe.idss.AbstractWicketApplicationTester;
-import de.stekoe.idss.TestFactory;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
+
+import javax.inject.Inject;
+
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.test.annotation.DirtiesContext;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import de.stekoe.idss.AbstractWicketApplicationTester;
+import de.stekoe.idss.TestFactory;
+import de.stekoe.idss.model.User;
+import de.stekoe.idss.model.UserStatus;
+import de.stekoe.idss.service.UserService;
 
 /**
  * @author Stephan Koeninger <mail@stephan-koeninger.de>
  */
 public class WebSessionTest extends AbstractWicketApplicationTester {
+
+    @Inject
+    private UserService userService;
+
+    @Before
+    public void setUp() throws Exception {
+        User user = TestFactory.createUser(TestFactory.USER_USERNAME, TestFactory.USER_PASSWORD);
+        user.setUserStatus(UserStatus.ACTIVATED);
+        userService.save(user);
+    }
 
     @Test
     @DirtiesContext
@@ -23,7 +43,7 @@ public class WebSessionTest extends AbstractWicketApplicationTester {
     @DirtiesContext
     public void userLoggedIn() {
         getSession().signIn(TestFactory.USER_USERNAME, TestFactory.USER_PASSWORD);
-        assertTrue(getSession().isSignedIn());
+        assertThat(getSession().isSignedIn(), is(equalTo(true)));
     }
 
     @Test
@@ -32,6 +52,6 @@ public class WebSessionTest extends AbstractWicketApplicationTester {
         getSession().signIn(TestFactory.USER_USERNAME, TestFactory.USER_PASSWORD);
         getSession().invalidate();
 
-        assertFalse(getSession().isSignedIn());
+        assertThat(getSession().isSignedIn(), is(not(true)));
     }
 }

@@ -20,7 +20,7 @@ package de.stekoe.idss.model;
  * In order to add more semantic to a users status, this enumeration may be used to
  * set a user's status.
  *
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
+ * @author Stephan Koeninger
  */
 public enum UserStatus {
     /**

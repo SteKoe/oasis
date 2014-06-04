@@ -1,16 +1,21 @@
 package de.stekoe.idss.page.user;
 
-import de.stekoe.idss.AbstractWicketApplicationTester;
-import de.stekoe.idss.TestFactory;
-import de.stekoe.idss.service.AuthService;
+import java.util.Locale;
+
+import javax.inject.Inject;
+
 import org.apache.wicket.util.tester.FormTester;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.test.annotation.DirtiesContext;
 
-import javax.inject.Inject;
-import java.util.Locale;
+import de.stekoe.idss.AbstractWicketApplicationTester;
+import de.stekoe.idss.TestFactory;
+import de.stekoe.idss.model.User;
+import de.stekoe.idss.model.UserStatus;
+import de.stekoe.idss.service.AuthService;
+import de.stekoe.idss.service.UserService;
 
 public class EditPasswordPageTest extends AbstractWicketApplicationTester {
 
@@ -21,8 +26,15 @@ public class EditPasswordPageTest extends AbstractWicketApplicationTester {
     @Inject
     private AuthService authService;
 
+    @Inject
+    private UserService userService;
+
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
+        User user = TestFactory.createUser(TestFactory.USER_USERNAME, TestFactory.USER_PASSWORD);
+        user.setUserStatus(UserStatus.ACTIVATED);
+        userService.save(user);
+
         getSession().signIn(TestFactory.USER_USERNAME, TestFactory.USER_PASSWORD);
         getSession().setLocale(Locale.GERMAN);
     }

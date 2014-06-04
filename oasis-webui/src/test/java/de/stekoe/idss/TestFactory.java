@@ -23,7 +23,7 @@ public class TestFactory {
         User user = new User();
         user.setUsername(username);
         user.setEmail(username.toLowerCase().replace(" ", "") + "@example.com");
-        user.setPassword(password);
+        user.setPassword(BCrypt.hashpw(password, BCrypt.gensalt()));
         return user;
     }
 

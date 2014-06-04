@@ -92,7 +92,6 @@ public class AuthService {
             return false;
         }
 
-
         User user = userRepository.findOne(userId);
         if (user == null) {
             return false;
@@ -104,15 +103,10 @@ public class AuthService {
             return false;
         }
 
-        final List<Permission> permissions = new ArrayList<Permission>(user.getPermissions());
-
-        // The user has permission to anything!
-        if(permissions.contains(PermissionType.ALL)) {
-            return true;
-        }
+        List<Permission> permissions = new ArrayList<Permission>(user.getPermissions());
 
         final PermissionObject permissionObject = PermissionObject.valueOf(identifyable.getClass());
-        permissionsFilter(permissions, permissionType, permissionObject);
+        permissions = permissionsFilter(permissions, permissionType, permissionObject);
 
         for (Permission permission : permissions) {
             if (permission.hasObjectId() && identifyable.getId().equals(permission.getObjectId())) {
@@ -127,27 +121,35 @@ public class AuthService {
      * Filters out all permissions of aPermissionList which are not type of
      * aPermissionType or do not have aPermissionObject
      *
-     * @param aPermissionList List of Permissions to filter
-     * @param aPermissionType PermissionType which has to be part of Permission
-     * @param aPermissionObject PermissionObject which has to be part of
+     * @param listOfPermissions List of Permissions to filter
+     * @param permissionType PermissionType which has to be part of Permission
+     * @param permissionObject PermissionObject which has to be part of
      *            Permission
+     * @return
      */
-    private void permissionsFilter(List<Permission> aPermissionList,
-            final PermissionType aPermissionType,
-            final PermissionObject aPermissionObject) {
-        CollectionUtils.filter(aPermissionList, new Predicate() {
+    List<Permission> permissionsFilter(List<Permission> listOfPermissions, final PermissionType permissionType, final PermissionObject permissionObject) {
+
+//        The Java 8 way :)
+
+//        return listOfPermissions
+//            .stream()
+//            .filter(p -> p.getPermissionObject().equals(permissionObject))
+//            .filter(p -> p.getPermissionType().equals(permissionType))
+//            .collect(Collectors.toList());
+
+        CollectionUtils.filter(listOfPermissions, new Predicate() {
             @Override
             public boolean evaluate(Object object) {
                 if (object instanceof Permission) {
                     final Permission permission = (Permission) object;
-                    final boolean permissionObjectFits = permission
-                            .getPermissionObject().equals(aPermissionObject);
-                    final boolean permissionTypeFits = permission
-                            .getPermissionType().equals(aPermissionType);
+                    final boolean permissionTypeFits = permission.getPermissionType().equals(permissionType) || PermissionType.ALL.equals(permission.getPermissionType());
+                    final boolean permissionObjectFits = permission.getPermissionObject().equals(permissionObject);
                     return permissionObjectFits && permissionTypeFits;
                 }
                 return false;
             }
         });
+
+        return listOfPermissions;
     }
 }

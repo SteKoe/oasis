@@ -1,6 +1,9 @@
 package de.stekoe.idss.reports;
 
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 
 import java.util.ArrayList;
@@ -15,6 +18,18 @@ import de.stekoe.idss.model.OrdinalValue;
 
 
 public class OrdinalChartReportTest {
+
+    private boolean test;
+    @Test
+    public void testName() throws Exception {
+        assertFalse(test);
+    }
+
+    private int[] a;
+    @Test
+    public void intArray() throws Exception {
+        assertThat(a, is(nullValue()));
+    }
 
     @Test
     public void medianTest1() throws Exception {
@@ -119,9 +134,9 @@ public class OrdinalChartReportTest {
             }
         };
 
-        assertThat(report.calculateArithmeticMean(), equalTo(58d));
-        assertThat(round(report.calculateVariance(),4), equalTo(38.3333));
-        assertThat(round(report.calculateStandardDeviation(),4), equalTo(6.1914));
+        assertThat(report.calculateArithmeticMean(), equalTo(3.5d));
+        assertThat(round(report.calculateVariance(),4), equalTo(2.9167));
+        assertThat(round(report.calculateStandardDeviation(),4), equalTo(1.7078));
     }
 
     @Test

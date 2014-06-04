@@ -32,7 +32,7 @@ public class CreateNominalCriterionPageTest extends AbstractWicketApplicationTes
     UserService userService;
 
     @Test
-    public void testName() throws Exception {
+    public void permissionAll() throws Exception {
         Project project = new Project();
         project.setName("Project");
 

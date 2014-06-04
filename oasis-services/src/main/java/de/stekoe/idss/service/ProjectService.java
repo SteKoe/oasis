@@ -91,6 +91,9 @@ public class ProjectService {
         }
 
         final ProjectRole projectRole = pm.getProjectRole();
+        if(projectRole == null) {
+            return false;
+        }
         final Set<Permission> permissions = projectRole.getPermissions();
 
         // User is allowed to to anything

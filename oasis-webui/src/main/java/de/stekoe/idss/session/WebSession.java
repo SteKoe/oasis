@@ -107,6 +107,12 @@ public class WebSession extends AuthenticatedWebSession {
         setUser(null);
     }
 
+    @Override
+    public void invalidate() {
+        signOut();
+        super.invalidate();
+    }
+
     /*
      * Since this object is instanciated manually, we have to get the beans for user service manually, too.
      */

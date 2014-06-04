@@ -1,11 +1,14 @@
 package de.stekoe.idss.service;
 
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -145,5 +148,16 @@ public class AuthServiceTest extends AbstractBaseTest {
 
         authStatus = authService.authenticate(user.getUsername(), PASSWORD);
         assertThat(authStatus, IsEqual.equalTo(AuthStatus.SUCCESS));
+    }
+
+    @Test
+    public void permissionsFilter() throws Exception {
+        List<Permission> permissionList = new ArrayList<Permission>();
+        permissionList.add(new Permission(PermissionObject.PROJECT, PermissionType.READ, "P1"));
+        permissionList.add(new Permission(PermissionObject.PROJECT, PermissionType.CREATE, "P2"));
+        permissionList.add(new Permission(PermissionObject.PROJECT, PermissionType.UPDATE, "P3"));
+
+        permissionList = authService.permissionsFilter(permissionList, PermissionType.READ, PermissionObject.PROJECT);
+        assertThat(permissionList.size(), is(equalTo(1)));
     }
 }

@@ -69,11 +69,6 @@ public class CriterionGroup extends PageElement {
         }
     }
 
-    /**
-     * If you want to add new Criterions to this CriterionGroup use
-     * {@code CriterionGroup#addCriterion(Criterion)} instead!
-     * @return
-     */
     @ManyToMany(fetch = FetchType.EAGER, cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, targetEntity = Criterion.class)
     @OrderColumn(name = "ordering")
     public List<Criterion> getCriterions() {

@@ -29,7 +29,7 @@ import de.stekoe.idss.service.AuthStatus;
 import de.stekoe.idss.service.UserService;
 
 /**
- * @author Stephan Koeninger <mail@stekoe.de>
+ * @author Stephan Koeninger 
  */
 @SuppressWarnings("serial")
 public class WebSession extends AuthenticatedWebSession {

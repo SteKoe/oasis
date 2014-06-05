@@ -29,7 +29,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.string.StringValue;
 
 /**
- * @author Stephan Koeninger <mail@stekoe.de>
+ * @author Stephan Koeninger 
  */
 @SuppressWarnings("serial")
 public class ActivateUserPage extends LayoutPage {

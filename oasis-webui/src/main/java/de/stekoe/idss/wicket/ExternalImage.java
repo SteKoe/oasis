@@ -25,7 +25,7 @@ import org.apache.wicket.model.Model;
 /**
  * Allows to use external URLs for image.
  *
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
+ * @author Stephan Koeninger 
  */
 public class ExternalImage extends WebMarkupContainer {
 

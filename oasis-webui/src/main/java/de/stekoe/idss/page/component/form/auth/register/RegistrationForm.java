@@ -55,7 +55,7 @@ import de.stekoe.idss.validator.UniqueValueValidator;
 import de.stekoe.idss.wicket.MarkRequiredFieldsBehavior;
 
 /**
- * @author Stephan Koeninger <mail@stekoe.de>
+ * @author Stephan Koeninger 
  */
 @SuppressWarnings("serial")
 public class RegistrationForm extends Panel {

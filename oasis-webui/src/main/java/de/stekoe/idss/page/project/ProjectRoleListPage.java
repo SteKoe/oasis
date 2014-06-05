@@ -39,7 +39,7 @@ import de.stekoe.idss.page.project.role.ProjectRoleEditPage;
 import de.stekoe.idss.service.ProjectService;
 
 /**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
+ * @author Stephan Koeninger 
  */
 public class ProjectRoleListPage extends ProjectPage {
 

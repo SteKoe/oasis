@@ -24,7 +24,7 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.PropertyModel;
 
 /**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
+ * @author Stephan Koeninger 
  */
 public class UserInfoBlock extends Panel {
     private final User user;

@@ -20,7 +20,7 @@ import de.stekoe.idss.page.AuthAdminPage;
 import de.stekoe.idss.page.component.form.user.CreateUserForm;
 
 /**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
+ * @author Stephan Koeninger 
  */
 public class CreateUserPage extends AuthAdminPage {
 

@@ -19,7 +19,7 @@ package de.stekoe.idss.page;
 import org.apache.log4j.Logger;
 
 /**
- * @author Stephan Koeninger <mail@stekoe.de>
+ * @author Stephan Koeninger 
  */
 @SuppressWarnings("serial")
 public class LogoutPage extends LayoutPage {

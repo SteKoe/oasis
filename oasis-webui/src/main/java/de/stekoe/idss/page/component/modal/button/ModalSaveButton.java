@@ -22,7 +22,7 @@ import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.IModel;
 
 /**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
+ * @author Stephan Koeninger 
  */
 public class ModalSaveButton extends Link {
 

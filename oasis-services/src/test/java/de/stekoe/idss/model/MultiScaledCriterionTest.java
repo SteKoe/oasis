@@ -9,7 +9,7 @@ import de.stekoe.idss.model.OrdinalScaledCriterion;
 import de.stekoe.idss.model.SingleScaledCriterion;
 
 /**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
+ * @author Stephan Koeninger 
  */
 public class MultiScaledCriterionTest {
     @Test

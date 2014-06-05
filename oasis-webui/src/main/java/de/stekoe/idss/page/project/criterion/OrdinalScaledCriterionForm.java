@@ -38,7 +38,7 @@ import de.stekoe.idss.service.CriterionPageService;
 import de.stekoe.idss.service.CriterionService;
 
 /**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
+ * @author Stephan Koeninger 
  */
 public abstract class OrdinalScaledCriterionForm extends CriterionForm<OrdinalValue> {
 

@@ -26,7 +26,7 @@ import org.apache.wicket.feedback.IFeedbackMessageFilter;
 import java.util.List;
 
 /**
- * @author Stephan Koeninger <mail@stekoe.de>
+ * @author Stephan Koeninger 
  */
 public class MyFencedFeedbackPanel extends MyFeedbackPanel {
     private static final MetaDataKey<Integer> FENCE_KEY = new MetaDataKey<Integer>() {

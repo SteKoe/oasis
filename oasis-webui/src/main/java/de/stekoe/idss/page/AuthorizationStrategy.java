@@ -27,7 +27,7 @@ import org.apache.wicket.authorization.IAuthorizationStrategy;
 import org.apache.wicket.authorization.IUnauthorizedComponentInstantiationListener;
 
 /**
- * @author Stephan Koeninger <mail@stekoe.de>
+ * @author Stephan Koeninger 
  */
 public class AuthorizationStrategy implements IAuthorizationStrategy, IUnauthorizedComponentInstantiationListener {
     private static final Logger LOG = Logger.getLogger(AuthorizationStrategy.class);

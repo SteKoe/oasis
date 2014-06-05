@@ -12,7 +12,7 @@ import de.stekoe.idss.model.UserStatus;
 import de.stekoe.idss.service.UserService;
 
 /**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
+ * @author Stephan Koeninger 
  */
 public class HomePageTest extends AbstractWicketApplicationTester {
 

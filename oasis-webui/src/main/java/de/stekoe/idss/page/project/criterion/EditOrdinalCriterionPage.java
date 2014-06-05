@@ -22,7 +22,7 @@ import org.apache.wicket.util.string.StringValue;
 import de.stekoe.idss.page.project.ProjectPage;
 
 /**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
+ * @author Stephan Koeninger 
  */
 public class EditOrdinalCriterionPage extends ProjectPage {
     public EditOrdinalCriterionPage(PageParameters aPageParams) {

@@ -39,7 +39,7 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * @author Stephan Koeninger <mail@stekoe.de>
+ * @author Stephan Koeninger 
  */
 public class MyFeedbackPanel extends Panel implements IFeedback {
 

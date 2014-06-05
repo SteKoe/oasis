@@ -11,6 +11,7 @@
 
 package de.stekoe.idss.service;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -56,8 +57,9 @@ public class CriterionGroupService extends PageElementService {
         if(cg != null) {
             if(!cg.isReferenceType()) {
                 List<Criterion> criterions = cg.getCriterions();
-                for (Criterion criterion : criterions) {
-                    criterionService.delete(criterion.getId());
+                Iterator<Criterion> iterator = criterions.iterator();
+                while(iterator.hasNext()) {
+                    iterator.remove();
                 }
             }
             criterionGroupRepository.delete(id);

@@ -20,7 +20,7 @@ import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.model.Model;
 
 /**
- * @author Stephan Koeninger <mail@stephan-koeninger.de>
+ * @author Stephan Koeninger 
  */
 public class JavascriptEventConfirmation extends AttributeModifier {
 

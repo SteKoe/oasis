@@ -23,7 +23,7 @@ import org.apache.wicket.validation.ValidationError;
 import java.util.List;
 
 /**
- * @author Stephan Koeninger <mail@stekoe.de>
+ * @author Stephan Koeninger 
  */
 @SuppressWarnings("serial")
 public class UniqueValueValidator implements IValidator<String> {

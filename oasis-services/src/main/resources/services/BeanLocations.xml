@@ -52,6 +52,7 @@
         <property name="password" value="${smtp.password}" />
         <property name="javaMailProperties">
             <props>
+                <prop key="mail.smtp.localhost">${smtp.host}</prop>
                 <prop key="mail.smtp.from">${smtp.from}</prop>
                 <prop key="mail.smtp.host">${smtp.host}</prop>
                 <prop key="mail.smtp.port">${smtp.port}</prop>

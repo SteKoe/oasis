@@ -54,7 +54,7 @@ public class CriterionService extends PageElementService {
     }
 
     public List<Criterion> findAllForReport(String id) {
-        List<PageElement> findAllForProject = criterionRepository.findAllForProject(id);
+        List<PageElement> findAllForProject = new ArrayList<PageElement>(criterionRepository.findAllForProject(id));
 
         List<Criterion> criterions = new ArrayList<Criterion>();
 
@@ -63,9 +63,7 @@ public class CriterionService extends PageElementService {
                 criterions.add((Criterion) criterion);
             } else if(criterion instanceof CriterionGroup) {
                 CriterionGroup cg = (CriterionGroup) criterion;
-
                 for (Criterion c : cg.getCriterions()) {
-                    c.setCriterionPage(cg.getCriterionPage());
                     criterions.add(c);
                 }
             }

@@ -31,6 +31,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import de.stekoe.idss.model.PermissionType;
 import de.stekoe.idss.model.Project;
 import de.stekoe.idss.model.ProjectMember;
+import de.stekoe.idss.model.ProjectRole;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.page.HomePage;
 import de.stekoe.idss.page.component.modal.AddProjectMemberModal;
@@ -75,7 +76,8 @@ public class EditProjectMembersForm extends Panel {
                 ProjectMember pm = (ProjectMember) item.getModelObject();
                 final User user = pm.getUser();
 
-                final UserInfoBlock userInfoBlock = new UserInfoBlock("user.info.block", user, pm.getProjectRole().toString());
+                ProjectRole projectRole = pm.getProjectRole();
+                final UserInfoBlock userInfoBlock = new UserInfoBlock("user.info.block", user, (projectRole != null) ? projectRole.toString() : "");
                 item.add(userInfoBlock);
 
                 final Button editUserLink = new Button("user.edit");

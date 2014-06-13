@@ -42,8 +42,8 @@ public class CriterionPagePanel extends Panel {
     }
 
     private final class SurveyPageElementsListView extends ListView<PageElement> {
-        private SurveyPageElementsListView(String id, List<? extends PageElement> list) {
-            super(id, list);
+        private SurveyPageElementsListView(String wicketId, List<? extends PageElement> list) {
+            super(wicketId, list);
         }
 
         @Override
@@ -59,7 +59,8 @@ public class CriterionPagePanel extends Panel {
                     element = new NominalScaledCriterionMultipleChoicePanel("element", nsc);
                 }
             } else if(pageElement instanceof OrdinalScaledCriterion) {
-                element = new OrdinalScaledCriterionSingleChoicePanel("element", (OrdinalScaledCriterion) pageElement);
+                OrdinalScaledCriterion osc = (OrdinalScaledCriterion) pageElement;
+                element = new OrdinalScaledCriterionSingleChoicePanel("element", osc);
             } else if(pageElement instanceof CriterionGroup) {
                 element = new CriterionGroupSurveyElementPanel("element", (CriterionGroup) pageElement);
                 element.add(new SurveyPageElementsListView("elements", ((CriterionGroup) pageElement).getCriterions()));

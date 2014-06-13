@@ -16,20 +16,22 @@
 
 package de.stekoe.idss.page.user;
 
+import org.apache.log4j.Logger;
+import org.apache.wicket.protocol.http.WebSession;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.apache.wicket.util.string.StringValue;
+
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.model.UserStatus;
+import de.stekoe.idss.page.HomePage;
 import de.stekoe.idss.page.LayoutPage;
 import de.stekoe.idss.page.LoginPage;
 import de.stekoe.idss.service.UserException;
 import de.stekoe.idss.service.UserService;
 
-import org.apache.log4j.Logger;
-import org.apache.wicket.request.mapper.parameter.PageParameters;
-import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.apache.wicket.util.string.StringValue;
-
 /**
- * @author Stephan Koeninger 
+ * @author Stephan Koeninger
  */
 @SuppressWarnings("serial")
 public class ActivateUserPage extends LayoutPage {
@@ -50,6 +52,9 @@ public class ActivateUserPage extends LayoutPage {
                 activateUser(userToActivate);
             }
         }
+
+        WebSession.get().error(getString("message.user.notfound"));
+        setResponsePage(HomePage.class);
     }
 
     private User getUserToActivate() {
@@ -68,9 +73,12 @@ public class ActivateUserPage extends LayoutPage {
         aUserToActivate.setUserStatus(UserStatus.ACTIVATED);
         try {
             itsUserManager.save(aUserToActivate);
+            WebSession.get().success(getString("message.user.activation.success"));
             setResponsePage(LoginPage.class);
         } catch (UserException e) {
             LOG.error("Error while activating user " + aUserToActivate.getUsername() + "!", e);
+            WebSession.get().error(getString("message.user.activation.error"));
+            setResponsePage(HomePage.class);
         }
     }
 }

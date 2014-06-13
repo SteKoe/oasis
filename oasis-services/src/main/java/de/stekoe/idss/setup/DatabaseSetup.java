@@ -56,27 +56,21 @@ public class DatabaseSetup {
     @Inject
     AuthService authService;
 
+
+    /*
+     * Ärztlicher Dienst
+     * Pflegedienst
+     * IT
+     * Medizin Controlling
+     */
+    private static final String aerztlicherDienst = "Ärztlicher Dienst";
+    private static final String pflegeDienst = "Pflegedienst";
+    private static final String it = "IT";
+    private static final String medizinControlling = "Medizin Controlling";
+
     private static final List<String> SYSTEMROLES = Arrays.asList(
             SystemRole.USER,
             SystemRole.ADMIN
-    );
-
-    private static final List<String> USERNAMES = Arrays.asList(
-            "administrator",
-            "rainer.zufall",
-            "klara.fall",
-            "anna.gramm",
-            "anna.nass",
-            "hans.wurst",
-            "jeff.trainer",
-            "jo.kher",
-            "kai.ser",
-            "peer.manent",
-            "melita.kaffee",
-            "jonas.sprenger",
-            "benedikt.ritter",
-            "michael.hess",
-            "stephan.koeninger"
     );
 
     private void createSystemRoles() {
@@ -89,32 +83,103 @@ public class DatabaseSetup {
         }
     }
 
+
     private void createUsers() {
-        for (String name : USERNAMES) {
-            User user = new User();
-            user.setEmail(name.toLowerCase() + "@example.com");
-            user.setUsername(name.toLowerCase());
-            user.setPassword(authService.hashPassword("password"));
-            user.setActivationKey(null);
-            user.setUserStatus(UserStatus.ACTIVATED);
+        try {
+            // Admin
+            User user = createUser("administrator", "");
+            List<SystemRole> systemRoles = new ArrayList<SystemRole>();
+            systemRoles.add(systemRoleService.getAdminRole());
+            user.setRoles(new HashSet<SystemRole>(systemRoles));
+            userService.save(user);
 
-            if (user.getUsername().contains("admin")) {
+            // Michael
+            user = createUser("Michael Hess", "");
+            systemRoles = new ArrayList<SystemRole>();
+            systemRoles.add(systemRoleService.getUserRole());
+            user.setRoles(new HashSet<SystemRole>(systemRoles));
+            userService.save(user);
 
-                final List<SystemRole> systemRoles = new ArrayList<SystemRole>();
-                systemRoles.add(systemRoleService.getAdminRole());
-                user.setRoles(new HashSet<SystemRole>(systemRoles));
-            } else {
-                final List<SystemRole> systemRoles = new ArrayList<SystemRole>();
-                systemRoles.add(systemRoleService.getUserRole());
-                user.setRoles(new HashSet<SystemRole>(systemRoles));
-            }
+            // Stephan
+            user = createUser("Stephan Köninger", "");
+            systemRoles = new ArrayList<SystemRole>();
+            systemRoles.add(systemRoleService.getUserRole());
+            user.setRoles(new HashSet<SystemRole>(systemRoles));
+            userService.save(user);
 
-            try {
-                userService.save(user);
-            } catch (Exception e) {
-                LOG.error("Error while saving User!", e);
-            }
+            // Dr. Müller
+            user = createUser("Dr. Müller", aerztlicherDienst);
+            systemRoles = new ArrayList<SystemRole>();
+            systemRoles.add(systemRoleService.getUserRole());
+            user.setRoles(new HashSet<SystemRole>(systemRoles));
+            userService.save(user);
+
+            // Dr. Meier
+            user = createUser("Dr. Meier", aerztlicherDienst);
+            systemRoles = new ArrayList<SystemRole>();
+            systemRoles.add(systemRoleService.getUserRole());
+            user.setRoles(new HashSet<SystemRole>(systemRoles));
+            userService.save(user);
+
+            // Sr. Silke
+            user = createUser("Sr. Silke", pflegeDienst);
+            systemRoles = new ArrayList<SystemRole>();
+            systemRoles.add(systemRoleService.getUserRole());
+            user.setRoles(new HashSet<SystemRole>(systemRoles));
+            userService.save(user);
+
+            // Pfl. Peter
+            user = createUser("Pfl. Peter", pflegeDienst);
+            systemRoles = new ArrayList<SystemRole>();
+            systemRoles.add(systemRoleService.getUserRole());
+            user.setRoles(new HashSet<SystemRole>(systemRoles));
+            userService.save(user);
+
+            // Katharina Klick
+            user = createUser("Katharina Klick", it);
+            systemRoles = new ArrayList<SystemRole>();
+            systemRoles.add(systemRoleService.getAdminRole());
+            user.setRoles(new HashSet<SystemRole>(systemRoles));
+            userService.save(user);
+
+            // Manfred Maus
+            user = createUser("Manfred Maus", it);
+            systemRoles = new ArrayList<SystemRole>();
+            systemRoles.add(systemRoleService.getAdminRole());
+            user.setRoles(new HashSet<SystemRole>(systemRoles));
+            userService.save(user);
+
+            // Petra Prüfer
+            user = createUser("Petra Prüfer", medizinControlling);
+            systemRoles = new ArrayList<SystemRole>();
+            systemRoles.add(systemRoleService.getUserRole());
+            user.setRoles(new HashSet<SystemRole>(systemRoles));
+            userService.save(user);
+
+            // Bernd Berger
+            user = createUser("Bernd Berger", medizinControlling);
+            systemRoles = new ArrayList<SystemRole>();
+            systemRoles.add(systemRoleService.getUserRole());
+            user.setRoles(new HashSet<SystemRole>(systemRoles));
+            userService.save(user);
+        } catch(Exception e) {
+            LOG.error("Error while saving User!", e);
         }
+    }
+
+
+    private User createUser(String name, String professional) {
+        String username = name.toLowerCase().replace(".","").replace(" ",".");
+        String email = name.toLowerCase().replace(".", "").replace(" ", ".") + "@example.com";
+
+        User user = new User();
+        user.setEmail(email);
+        user.setUsername(username);
+        user.setPassword(authService.hashPassword("password"));
+        user.setProfessional(professional);
+        user.setActivationKey(null);
+        user.setUserStatus(UserStatus.ACTIVATED);
+        return user;
     }
 
     private void createSampleProject() {
@@ -129,7 +194,7 @@ public class DatabaseSetup {
         project.getProjectRoles().add(projectRoleForMember);
 
         ProjectMember projectCreator = new ProjectMember();
-        projectCreator.setUser(userService.findByUsername("klara.fall"));
+        projectCreator.setUser(userService.findByUsername("stephan.köninger"));
         projectCreator.setProjectRole(projectRoleForCreator);
 
         project.getProjectTeam().add(projectCreator);

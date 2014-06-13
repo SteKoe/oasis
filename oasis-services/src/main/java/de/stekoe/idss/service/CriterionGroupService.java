@@ -32,9 +32,6 @@ public class CriterionGroupService extends PageElementService {
     @Inject
     private CriterionGroupRepository criterionGroupRepository;
 
-    @Inject
-    private CriterionService criterionService;
-
     public Page<CriterionGroup> findAll(Pageable pageable) {
         return criterionGroupRepository.findAll(pageable);
     }

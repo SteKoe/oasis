@@ -130,10 +130,9 @@ public class AuthService {
     List<Permission> permissionsFilter(List<Permission> listOfPermissions, final PermissionType permissionType, final PermissionObject permissionObject) {
 
 //        The Java 8 way :)
-
 //        return listOfPermissions
 //            .stream()
-//            .filter(p -> p.getPermissionObject().equals(permissionObject))
+//            .filter(p -> p.getPermissionObject().equals(permissionObject) || PermissionType.ALL.equals(p.getPermissionType()))
 //            .filter(p -> p.getPermissionType().equals(permissionType))
 //            .collect(Collectors.toList());
 
@@ -149,7 +148,6 @@ public class AuthService {
                 return false;
             }
         });
-
         return listOfPermissions;
     }
 }

@@ -29,7 +29,7 @@ import de.stekoe.idss.service.AuthStatus;
 import de.stekoe.idss.service.UserService;
 
 /**
- * @author Stephan Koeninger 
+ * @author Stephan Koeninger
  */
 @SuppressWarnings("serial")
 public class WebSession extends AuthenticatedWebSession {
@@ -109,8 +109,8 @@ public class WebSession extends AuthenticatedWebSession {
 
     @Override
     public void invalidate() {
-        signOut();
         super.invalidate();
+        signOut();
     }
 
     /*

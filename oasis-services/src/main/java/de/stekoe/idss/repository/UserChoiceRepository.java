@@ -24,7 +24,7 @@ import org.springframework.data.repository.CrudRepository;
 import de.stekoe.idss.model.UserChoice;
 
 public interface UserChoiceRepository extends CrudRepository<UserChoice, String> {
-    @Query("SELECT uc FROM UserChoice uc WHERE uc.criterion.id = ?2 AND uc.user.id = ?1")
+    @Query("SELECT DISTINCT uc FROM UserChoice uc WHERE uc.criterion.id = ?2 AND uc.user.id = ?1")
     UserChoice findByUserAndCriterion(String userId, String criterionId);
 
     @Query("SELECT uc FROM UserChoice uc WHERE uc.criterion.id = ?2 AND uc.project.id = ?1")

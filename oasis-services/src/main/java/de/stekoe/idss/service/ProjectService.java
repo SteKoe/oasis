@@ -30,13 +30,13 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import de.stekoe.idss.model.EvaluationStatus;
 import de.stekoe.idss.model.Permission;
 import de.stekoe.idss.model.PermissionObject;
 import de.stekoe.idss.model.PermissionType;
 import de.stekoe.idss.model.Project;
 import de.stekoe.idss.model.ProjectMember;
 import de.stekoe.idss.model.ProjectRole;
-import de.stekoe.idss.model.ProjectStatus;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.repository.ProjectRepository;
 import de.stekoe.idss.repository.UserRepository;
@@ -69,6 +69,10 @@ public class ProjectService {
         // The user to check is not available! No access here!
         final User user = userRepository.findOne(userId);
         if (user == null) {
+            return false;
+        }
+
+        if(project == null) {
             return false;
         }
 
@@ -146,20 +150,21 @@ public class ProjectService {
      * @param project The Project to get next status for
      * @return A list of ProjectStatus
      */
-    public List<ProjectStatus> getNextProjectStatus(Project project) {
-        List<ProjectStatus> nextProjectStatus = new ArrayList<ProjectStatus>();
+    public List<EvaluationStatus> getNextProjectStatus(Project project) {
+        List<EvaluationStatus> nextProjectStatus = new ArrayList<EvaluationStatus>();
         nextProjectStatus.add(project.getProjectStatus());
 
-        ProjectStatus projectStatus = project.getProjectStatus();
-        if(ProjectStatus.EDITING.equals(projectStatus)) {
-            nextProjectStatus.add(ProjectStatus.INPROGRESS);
-        } else if(ProjectStatus.INPROGRESS.equals(projectStatus)) {
-            nextProjectStatus.add(ProjectStatus.FINISHED);
+        EvaluationStatus projectStatus = project.getProjectStatus();
+        if(EvaluationStatus.PREPARATION.equals(projectStatus)) {
+            nextProjectStatus.add(EvaluationStatus.TESTING);
+            nextProjectStatus.add(EvaluationStatus.INPROGRESS);
+        } else if(EvaluationStatus.TESTING.equals(projectStatus)) {
+            nextProjectStatus.add(EvaluationStatus.PREPARATION);
+        } else if(EvaluationStatus.INPROGRESS.equals(projectStatus)) {
+            nextProjectStatus.add(EvaluationStatus.FINISHED);
         }
 
-        nextProjectStatus.add(ProjectStatus.CANCELED);
         return nextProjectStatus;
-
     }
 
     public Page<Project> findAll(Pageable pageable) {

@@ -26,6 +26,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.PreRemove;
+import javax.persistence.Transient;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -65,7 +66,6 @@ public abstract class Criterion extends PageElement implements Serializable {
     public boolean isAllowNoChoice() {
         return allowNoChoice;
     }
-
     public void setAllowNoChoice(boolean aAllowNoChoice) {
         allowNoChoice = aAllowNoChoice;
     }
@@ -78,6 +78,10 @@ public abstract class Criterion extends PageElement implements Serializable {
         this.criterionGroups = criterionGroups;
     }
 
+    @Transient
+    public boolean isMemberOfGroup() {
+        return this.getCriterionGroups().size() != 0;
+    }
     /**
      * Copies the given criterion.
      *

@@ -53,6 +53,9 @@ public class OccurrencesChartPanel extends ChartPanel {
             Map<String, Object> data = new HashMap<String, Object>();
             data.put("choice", entry.getKey().getValue());
             data.put("count", entry.getValue());
+            if(chart.getDataProvider() == null) {
+                chart.setDataProvider(new ArrayList<Object>());
+            }
             chart.getDataProvider().add(data);
         }
     }
@@ -153,6 +156,7 @@ public class OccurrencesChartPanel extends ChartPanel {
             categoryAxis.setGridPosition("start");
             categoryAxis.setTitle(ChartUtils.getString("label.criterion.values"));
             categoryAxis.setGridAlpha(0);
+            categoryAxis.setAutoWrap(true);
             return categoryAxis;
         }
 
@@ -185,6 +189,7 @@ public class OccurrencesChartPanel extends ChartPanel {
             valueAxis.setGridColor(Color.WHITE);
             valueAxis.setTitle(ChartUtils.getString("label.criterion.count"));
             valueAxis.setIntegersOnly(true);
+            valueAxis.setLabelRotation(45);
             list.add(valueAxis);
 
             return list;

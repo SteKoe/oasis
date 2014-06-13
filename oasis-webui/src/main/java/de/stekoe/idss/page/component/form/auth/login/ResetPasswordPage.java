@@ -23,6 +23,7 @@ import de.stekoe.idss.page.component.behavior.Placeholder;
 import de.stekoe.idss.service.AuthService;
 import de.stekoe.idss.service.UserException;
 import de.stekoe.idss.service.UserService;
+import de.stekoe.idss.session.WebSession;
 
 public class ResetPasswordPage extends LayoutPage {
 
@@ -92,7 +93,7 @@ public class ResetPasswordPage extends LayoutPage {
     }
 
     private void redirectOnFailure() {
-        error(getString("message.password.reset.error"));
+        WebSession.get().error(getString("message.password.reset.error"));
         setResponsePage(HomePage.class);
     }
 

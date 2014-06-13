@@ -64,6 +64,9 @@ public class User implements Serializable {
     private Set<ProjectMember> projectMemberships = new HashSet<ProjectMember>();
     private Set<Permission> permissions = new HashSet<Permission>();
 
+    //
+    private String professional;
+
     @Id
     @Column(name = "user_id")
     public String getId() {
@@ -152,9 +155,15 @@ public class User implements Serializable {
     public Set<Permission> getPermissions() {
         return permissions;
     }
-
     public void setPermissions(Set<Permission> permissions) {
         this.permissions = permissions;
+    }
+
+    public String getProfessional() {
+        return professional;
+    }
+    public void setProfessional(String professional) {
+        this.professional = professional;
     }
 
     /**

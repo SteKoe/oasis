@@ -39,8 +39,8 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import wicket.contrib.tinymce.TinyMceBehavior;
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.FormGroup;
+import de.stekoe.idss.model.EvaluationStatus;
 import de.stekoe.idss.model.Project;
-import de.stekoe.idss.model.ProjectStatus;
 import de.stekoe.idss.page.component.behavior.CustomTinyMCESettings;
 import de.stekoe.idss.page.project.ProjectListPage;
 import de.stekoe.idss.service.ProjectService;
@@ -121,7 +121,7 @@ public abstract class ProjectForm extends Panel {
     }
 
     private void addProjectStatusField(Form<Project> projectForm) {
-        final DropDownChoice<ProjectStatus> projectStatus = new DropDownChoice<ProjectStatus>("projectStatus", new ArrayList<ProjectStatus>(projectService.getNextProjectStatus(projectForm.getModel().getObject())), new EnumChoiceRenderer<ProjectStatus>());
+        final DropDownChoice<EvaluationStatus> projectStatus = new DropDownChoice<EvaluationStatus>("projectStatus", new ArrayList<EvaluationStatus>(projectService.getNextProjectStatus(projectForm.getModel().getObject())), new EnumChoiceRenderer<EvaluationStatus>());
         projectStatus.setLabel(new Model(getString("label.project.status")));
         projectForm.add(new FormGroup("group.projectStatus").add(projectStatus));
     }

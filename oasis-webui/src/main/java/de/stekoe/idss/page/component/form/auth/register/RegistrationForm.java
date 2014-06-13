@@ -43,6 +43,7 @@ import de.stekoe.idss.mail.template.RegistrationMailTemplate;
 import de.stekoe.idss.model.SystemRole;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.model.UserProfile;
+import de.stekoe.idss.page.HomePage;
 import de.stekoe.idss.page.user.ActivateUserPage;
 import de.stekoe.idss.service.AuthService;
 import de.stekoe.idss.service.EmailAddressAlreadyInUseException;
@@ -55,7 +56,7 @@ import de.stekoe.idss.validator.UniqueValueValidator;
 import de.stekoe.idss.wicket.MarkRequiredFieldsBehavior;
 
 /**
- * @author Stephan Koeninger 
+ * @author Stephan Koeninger
  */
 @SuppressWarnings("serial")
 public class RegistrationForm extends Panel {
@@ -127,6 +128,7 @@ public class RegistrationForm extends Panel {
                         LOG.error("A user tried to register with existing email address!", e);
                     }
                 }
+                setResponsePage(HomePage.class);
             }
 
             private User createUser() {

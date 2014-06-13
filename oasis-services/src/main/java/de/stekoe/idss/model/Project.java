@@ -49,7 +49,7 @@ public class Project implements Serializable, Identifyable<String>, NamedElement
     private Set<ProjectMember> projectTeam = new HashSet<ProjectMember>();
     private Set<Document> documents = new HashSet<Document>();
     private Set<ProjectRole> projectRoles = new HashSet<ProjectRole>();
-    private ProjectStatus projectStatus = ProjectStatus.EDITING;
+    private EvaluationStatus projectStatus = EvaluationStatus.PREPARATION;
     private Date projectStartDate = new Date();
     private Date projectEndDate;
 
@@ -113,11 +113,11 @@ public class Project implements Serializable, Identifyable<String>, NamedElement
     }
 
     @Enumerated(value = EnumType.STRING)
-    public ProjectStatus getProjectStatus() {
+    public EvaluationStatus getProjectStatus() {
         return projectStatus;
     }
 
-    public void setProjectStatus(ProjectStatus projectStatus) {
+    public void setProjectStatus(EvaluationStatus projectStatus) {
         this.projectStatus = projectStatus;
     }
 

@@ -73,9 +73,6 @@ public class SelectReferenceCriterionPage extends ProjectPage {
             criterionPage = criterionPageService.findOne(criterionPageId);
         }
 
-        ArrayList<CriterionGroup> referenceGroups = (ArrayList<CriterionGroup>) referenceCriterionGroupService.findAll();
-        filterEmptyGroups(referenceGroups);
-
         Form form = new Form("form") {
             @Override
             protected void onSubmit() {
@@ -106,6 +103,8 @@ public class SelectReferenceCriterionPage extends ProjectPage {
         add(form);
 
         // ListView of Reference CriterionGroups with its ReferenceCriterions
+        ArrayList<CriterionGroup> referenceGroups = (ArrayList<CriterionGroup>) referenceCriterionGroupService.findAll();
+        filterEmptyGroups(referenceGroups);
         ListView<CriterionGroup> listView = new ListView<CriterionGroup>("panel", new Model<ArrayList<CriterionGroup>>(referenceGroups)) {
             @Override
             protected void populateItem(ListItem<CriterionGroup> item) {

@@ -121,7 +121,7 @@ public class ProjectUploadDocument extends ProjectPage {
                         final Project project = getProject();
                         project.getDocuments().remove(document);
                         projectService.save(project);
-                        WebSession.get().success("The document '" + document.getName() + "' has been removed from project!");
+                        WebSession.get().success(getString("message.delete.success"));
                         setResponsePage(getPage().getClass(), getPage().getPageParameters());
                     }
                 };

@@ -28,6 +28,7 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.FormGroup;
+import de.stekoe.idss.page.company.CompanyListPage;
 import de.stekoe.idss.page.project.ProjectListPage;
 import de.stekoe.idss.service.AuthService;
 import de.stekoe.idss.service.AuthStatus;
@@ -82,9 +83,7 @@ public class LoginForm extends Panel {
 
         @Override
         protected void onSubmit() {
-
             if (username != null && password != null) {
-
                 final AuthStatus authStatus = authService.authenticate(username, password);
                 LOG.info(String.format("Login for User %s returned status %s.", username, authStatus.toString()));
 
@@ -94,8 +93,12 @@ public class LoginForm extends Panel {
 
                     // Try to redirect to page which required authentication
                     continueToOriginalDestination();
-                    // If that did not happen, redirect to standard landing page
-                    setResponsePage(ProjectListPage.class);
+
+                    if(!WebSession.get().getUser().isAdmin()) {
+                        setResponsePage(ProjectListPage.class);
+                    } else {
+                        setResponsePage(CompanyListPage.class);
+                    }
                 } else {
                     boolean error = true;
                     String message;

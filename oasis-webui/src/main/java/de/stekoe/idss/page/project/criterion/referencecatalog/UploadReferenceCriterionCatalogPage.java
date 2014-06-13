@@ -1,6 +1,7 @@
 package de.stekoe.idss.page.project.criterion.referencecatalog;
 
 import java.io.File;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -13,6 +14,8 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import de.stekoe.idss.XmlImport;
+import de.stekoe.idss.model.Criterion;
+import de.stekoe.idss.model.CriterionGroup;
 import de.stekoe.idss.page.component.form.upload.FileUploadField;
 import de.stekoe.idss.service.CriterionGroupService;
 import de.stekoe.idss.service.CriterionService;
@@ -67,15 +70,17 @@ public class UploadReferenceCriterionCatalogPage extends ReferenceCriterionPage 
                             FileUtils.writeByteArrayToFile(tmpFile, fileUpload.getBytes());
 
                             XmlImport xml = new XmlImport(tmpFile);
-                            criterionGroupService.save(xml.getCriterionGroups());
-                            criterionService.save(xml.getCriterions());
+                            List<CriterionGroup> criterionGroups = xml.getCriterionGroups();
+                            criterionGroupService.save(criterionGroups);
+                            List<Criterion> criterions = xml.getCriterions();
+                            criterionService.save(criterions);
                             WebSession.get().success(getString("message.upload.success"));
                         } catch(Exception e) {
                             LOG.error("Error uploading file.", e);
                             WebSession.get().error(getString("message.upload.error"));
                         }
                     } else {
-                        WebSession.get().error("Filetype not supported!");
+                        WebSession.get().error(getString("message.filetype.notsupported"));
                     }
                 } else {
                     WebSession.get().error(getString("message.upload.error"));

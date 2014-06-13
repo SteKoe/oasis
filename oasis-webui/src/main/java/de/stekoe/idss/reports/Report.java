@@ -2,6 +2,7 @@ package de.stekoe.idss.reports;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -26,18 +27,22 @@ public abstract class Report<T> implements Serializable {
     private List<Object> columns;
     private List<List<Object>> rows;
     private Project project;
-    private List<Criterion> criterionList;
+    private Criterion criterion;
 
     /**
      * Set a List of Criterions which should be part of report.
      * All Criterions have to be associated to the same project.
      *
-     * @param criterions List of criterions
+     * @param criterion List of criterions
      */
     public void setCriterions(List<Criterion> criterions) {
-        Project project = null;
-        for(Criterion criterion : criterions) {
+        for (Criterion criterion : criterions) {
+            Project project = null;
             CriterionPage criterionPage = criterion.getCriterionPage();
+            if(criterionPage == null) {
+                // TODO: Pass in the criteriongroup?
+                criterionPage = criterion.getCriterionGroups().iterator().next().getCriterionPage();
+            }
             Validate.notNull(criterionPage, "The criterion is not connected to a page!");
 
             Project projectOfCriterion = criterionPage.getProject();
@@ -48,21 +53,18 @@ public abstract class Report<T> implements Serializable {
             } else if(!projectOfCriterion.equals(project)) {
                 throw new IllegalArgumentException("One is trying to mix criterions of different project which is not allowed!");
             }
+
+            this.project = project;
+            this.criterion = criterion;
+
+            computeColumns();
+            computeRows();
+
+            run();
         }
-
-        this.project = project;
-        this.criterionList = criterions;
-
-        computeColumns();
-        computeRows();
-
-        run();
     }
-
     public void setCriterion(Criterion criterion) {
-        List<Criterion> criterions = new ArrayList<Criterion>();
-        criterions.add(criterion);
-        setCriterions(criterions);
+        setCriterions(Arrays.<Criterion>asList(criterion));
     }
 
     public void setUserChoiceRepository(UserChoiceRepository userChoiceRepository) {
@@ -81,8 +83,8 @@ public abstract class Report<T> implements Serializable {
         return rows;
     }
 
-    protected List<Criterion> getCriterions() {
-        return criterionList;
+    protected Criterion getCriterion() {
+        return criterion;
     }
 
     /**
@@ -92,21 +94,21 @@ public abstract class Report<T> implements Serializable {
         columns = new ArrayList<Object>();
         columns.add("id");
         columns.add("username");
+        columns.add("projectMember");
 
-        for(Criterion criterion : getCriterions()) {
-            if(criterion instanceof NominalScaledCriterion) {
-                NominalScaledCriterion nsc = (NominalScaledCriterion) criterion;
-                if(nsc.isMultipleChoice()) {
-                    for(MeasurementValue mv : nsc.getValues()) {
-                        columns.add(mv);
-                    }
-                } else {
-                    columns.add(criterion);
+        Criterion criterion = getCriterion();
+        if(criterion instanceof NominalScaledCriterion) {
+            NominalScaledCriterion nsc = (NominalScaledCriterion) criterion;
+            if(nsc.isMultipleChoice()) {
+                for(MeasurementValue mv : nsc.getValues()) {
+                    columns.add(mv);
                 }
-            } else if(criterion instanceof OrdinalScaledCriterion) {
-                OrdinalScaledCriterion osc = (OrdinalScaledCriterion) criterion;
+            } else {
                 columns.add(criterion);
             }
+        } else if(criterion instanceof OrdinalScaledCriterion) {
+            OrdinalScaledCriterion osc = (OrdinalScaledCriterion) criterion;
+            columns.add(criterion);
         }
     }
 
@@ -118,16 +120,15 @@ public abstract class Report<T> implements Serializable {
             List<Object> row = new ArrayList<Object>();
             row.add(projectMember.getUser().getId());
             row.add(projectMember.getUser().getUsername());
+            row.add(projectMember);
 
-            for(Criterion criterion : getCriterions()) {
+            Criterion criterion = getCriterion();
+            UserChoice userChoiceForCriterion = getUserChoiceForCriterion(projectMember.getUser(), criterion);
 
-                UserChoice userChoiceForCriterion = getUserChoiceForCriterion(projectMember.getUser(), criterion);
-
-                if(criterion instanceof NominalScaledCriterion) {
-                    computeRowForNominalScaledCriterion(row, criterion, userChoiceForCriterion);
-                } else if(criterion instanceof OrdinalScaledCriterion) {
-                    computeRowForOrdinalScaledCriterion(row, criterion, userChoiceForCriterion);
-                }
+            if(criterion instanceof NominalScaledCriterion) {
+                computeRowForNominalScaledCriterion(row, criterion, userChoiceForCriterion);
+            } else if(criterion instanceof OrdinalScaledCriterion) {
+                computeRowForOrdinalScaledCriterion(row, criterion, userChoiceForCriterion);
             }
 
             rows.add(row);

@@ -16,15 +16,16 @@
 
 <html xmlns:wicket="http://wicket.sourceforge.net/">
 <wicket:extend>
-    <h1>Projekte verwalten</h1>
+    <h1><wicket:message key="label.criterion.list" /></h1>
 
     <div class="well">
         <a href="" wicket:id="createProject" class="btn btn-success">
-            <i class="icon-white icon-plus"></i> Projekt erstellen
+            <i class="icon-white icon-plus"></i>
+            <wicket:message key="label.new" />
         </a>
     </div>
 
-    <h4>Vorhandene Projekte</h4>
+    <h4><wicket:message key="label.projects.existing" /></h4>
     <wicket:container wicket:id="project.list">
     </wicket:container>
 </wicket:extend>

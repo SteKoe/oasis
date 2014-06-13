@@ -47,10 +47,7 @@ public class ReportTest {
         criterion.getValues().add(new OrdinalValue("A"));
         criterion.getValues().add(new OrdinalValue("B"));
 
-        List<Criterion> list = new ArrayList<Criterion>();
-        list.add(criterion);
-
-        report.setCriterions(list);
+        report.setCriterion(criterion);
 
         List<Object> actual = report.getColumns();
 
@@ -73,10 +70,7 @@ public class ReportTest {
         NominalValue value3 = new NominalValue("F");
         criterion.getValues().add(value3);
 
-        List<Criterion> list = new ArrayList<Criterion>();
-        list.add(criterion);
-
-        report.setCriterions(list);
+        report.setCriterion(criterion);
 
         List<Object> actual = report.getColumns();
 
@@ -103,7 +97,7 @@ public class ReportTest {
         List<Criterion> list = new ArrayList<Criterion>();
         list.add(criterion);
 
-        report.setCriterions(list);
+        report.setCriterion(criterion);
 
         List<Object> actual = report.getColumns();
 
@@ -124,10 +118,7 @@ public class ReportTest {
         criterion.getValues().add(new NominalValue("männlich"));
         criterion.getValues().add(new NominalValue("weiblich"));
 
-        List<Criterion> list = new ArrayList<Criterion>();
-        list.add(criterion);
-
-        report.setCriterions(list);
+        report.setCriterion(criterion);
 
         List<List<Object>> actual = report.getRows();
         assertThat(actual.size(), equalTo(report.getProject().getProjectTeam().size()));
@@ -144,10 +135,7 @@ public class ReportTest {
         criterion.getValues().add(new NominalValue("E"));
         criterion.getValues().add(new NominalValue("F"));
 
-        List<Criterion> list = new ArrayList<Criterion>();
-        list.add(criterion);
-
-        report.setCriterions(list);
+        report.setCriterion(criterion);
 
         List<List<Object>> actual = report.getRows();
         assertThat(actual.size(), equalTo(report.getProject().getProjectTeam().size()));
@@ -161,10 +149,7 @@ public class ReportTest {
         criterion.getValues().add(new OrdinalValue("A"));
         criterion.getValues().add(new OrdinalValue("B"));
 
-        List<Criterion> list = new ArrayList<Criterion>();
-        list.add(criterion);
-
-        report.setCriterions(list);
+        report.setCriterion(criterion);
 
         List<List<Object>> actual = report.getRows();
         assertThat(actual.size(), equalTo(report.getProject().getProjectTeam().size()));
@@ -179,10 +164,7 @@ public class ReportTest {
         criterion.getValues().add(new OrdinalValue("A"));
         criterion.getValues().add(new OrdinalValue("B"));
 
-        List<Criterion> list = new ArrayList<Criterion>();
-        list.add(criterion);
-
-        report.setCriterions(list);
+        report.setCriterion(criterion);
 
         List<List<Object>> actual = report.getRows();
         assertThat(actual.size(), equalTo(report.getProject().getProjectTeam().size()));
@@ -197,10 +179,7 @@ public class ReportTest {
         criterion.getValues().add(new OrdinalValue("B"));
         criterion.getValues().add(new OrdinalValue("C"));
 
-        List<Criterion> list = new ArrayList<Criterion>();
-        list.add(criterion);
-
-        report.setCriterions(list);
+        report.setCriterion(criterion);
 
         List<List<Object>> rows = report.getRows();
         List<Object> row = rows.get(0);

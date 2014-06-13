@@ -45,7 +45,7 @@ public class ProjectDetailsPage extends ProjectPage {
         super(pageParameters);
 
         addDescription();
-        addDateInformation();
+//        addDateInformation();
         addListOfProjectMember();
     }
 
@@ -55,9 +55,11 @@ public class ProjectDetailsPage extends ProjectPage {
 
         final Label projectStartDateLabel = new Label("projectStartDate", projectStartDate);
         add(projectStartDateLabel);
+        projectStartDateLabel.setVisible(false);
 
         final Label projectEndDateLabel = new Label("projectEndDate", projectEndDate);
         add(projectEndDateLabel);
+        projectEndDateLabel.setVisible(false);
 
         double progress = 0;
         if (projectEndDate == null) {

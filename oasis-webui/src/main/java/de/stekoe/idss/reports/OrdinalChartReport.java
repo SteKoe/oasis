@@ -140,7 +140,11 @@ public class OrdinalChartReport extends Report<AmSerialChart> {
     int calculateMedian() {
         List<Integer> median = getValuesAsFlatList();
         double half = Math.floor(median.size()/2.0);
-        return median.get((int) half);
+        if(median.size()-1 >= half) {
+            return median.get((int) half);
+        } else {
+            return 0;
+        }
     }
 
     double calculateVariance() {
@@ -212,14 +216,6 @@ public class OrdinalChartReport extends Report<AmSerialChart> {
         }
     }
 
-    public Criterion getCriterion() {
-        if(getCriterions().size() == 1) {
-            return getCriterions().get(0);
-        } else {
-            return null;
-        }
-    }
-
     @Override
     public AmSerialChart getResult() {
         return chart;
@@ -257,6 +253,7 @@ public class OrdinalChartReport extends Report<AmSerialChart> {
             categoryAxis.setGridPosition("start");
             categoryAxis.setTitle(ChartUtils.getString("label.criterion.values"));
             categoryAxis.setGridAlpha(0);
+            categoryAxis.setAutoWrap(true);
             return categoryAxis;
         }
 

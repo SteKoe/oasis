@@ -108,6 +108,11 @@ public class EditUserProfilePage extends AuthUserPage {
         website.add(new Placeholder(getString("label.website")));
         form.add(website);
 
+        // Professional
+        TextField professional = new TextField("professional", new PropertyModel(user, "professional"));
+        professional.add(new Placeholder(getString("label.professional")));
+        form.add(professional);
+
         // Address
         form.add(new AddressField("address", new PropertyModel(profile, "address")));
 

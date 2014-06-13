@@ -111,6 +111,9 @@ public abstract class LayoutPage extends WebPage {
     private void addPageFooter() {
         String applicationName = getContextParameter("application.name");
         String applicationVersion = getContextParameter("application.version");
+        applicationName = "OASIS";
+        applicationVersion = "1.0.0-SNAPSHOT";
+
         add(new Label("application.footer", applicationName + " " + applicationVersion));
     }
 

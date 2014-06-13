@@ -54,7 +54,9 @@ public class OASISWebApplication extends AuthenticatedWebApplication implements 
     public static final Locale[] LANGUAGES = {
             Locale.GERMAN,
             Locale.ENGLISH,
-            new Locale("pl", "pl")
+            new Locale("pl", ""),
+            Locale.ITALIAN,
+            new Locale("es", "")
     };
 
     private ApplicationContext ctx;

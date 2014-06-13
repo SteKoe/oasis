@@ -107,8 +107,6 @@
     <entry key="message.error.upload">Wystąpił błąd podczas ładowania dokumentu!</entry>
     <entry key="message.login.error">Wystąpił błąd podczas logowania!</entry>
     <entry key="message.login.error.not_activated">Przed zalogowaniem, należy aktywować konto.</entry>
-    <entry key="message.login.error.user_not_found">Nie znaleziono użytkownika odpowiadającego wprowadzonym danym.</entry>
-    <entry key="message.login.error.wrong_password">Wprowadzono błędne hasło.</entry>
     <entry key="message.login.success">Logowanie zakończyło się sukcesem!</entry>
     <entry key="message.logout.success">Użytkownik został pomyślnie zalogowany.</entry>
     <entry key="message.password.reset.error">Wystąpił błąd podczas zmiany hasła. Proszę spróbować ponownie!</entry>

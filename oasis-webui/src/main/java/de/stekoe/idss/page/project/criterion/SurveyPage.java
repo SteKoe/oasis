@@ -57,7 +57,6 @@ public class SurveyPage extends ProjectPage {
 
         // ====
         IDataProvider<CriterionPage> dataProvider = new IDataProvider<CriterionPage>() {
-
             @Override
             public void detach() {
             }

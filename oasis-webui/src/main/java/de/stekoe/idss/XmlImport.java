@@ -30,27 +30,23 @@ public class XmlImport {
 
     private Document document;
 
-    public XmlImport(File xmlFile) {
+    public XmlImport(File xmlFile) throws DocumentException {
         if(xmlFile != null) {
             SAXReader reader = new SAXReader();
-            try {
-                document = reader.read(xmlFile);
+            document = reader.read(xmlFile);
 
-                processCriterions();
-                processGroups();
-            } catch (DocumentException e) {
-                LOG.error("Error processing xml file.", e);
-            }
+            processCriterions();
+            processGroups();
         }
     }
 
     private void processCriterions() {
         List<Element> criterions = document.selectNodes("//criterions/criterion");
         for (Element criterion : criterions) {
-            Attribute attribute = criterion.attribute("id");
-            if(attribute != null) {
+            Attribute idAttribute = criterion.attribute("id");
+            if(idAttribute != null) {
                 Criterion crit = processCriterion(criterion);
-                this.criterions.put(attribute.getText(), crit);
+                this.criterions.put(idAttribute.getText(), crit);
             }
         }
     }
@@ -163,7 +159,10 @@ public class XmlImport {
     public List<Criterion> getCriterions() {
         List<Criterion> criterions = new ArrayList<Criterion>();
         for (Entry<String, Criterion> entry : this.criterions.entrySet()) {
-            criterions.add(entry.getValue());
+            Criterion value = entry.getValue();
+            if(value != null) {
+                criterions.add(value);
+            }
         }
         return criterions;
     }

@@ -60,7 +60,7 @@ public class ReferenceCriterionListPage extends ReferenceCriterionPage {
                     }
                 };
                 deleteLink.add(new AttributeAppender("class", " btn-xs"));
-                deleteLink.add(new JavascriptEventConfirmation("onClick", String.format(getString("confirm.delete.reference.criterion"), modelObject.getName())));
+                deleteLink.add(new JavascriptEventConfirmation("onClick", String.format(getString("message.delete.confirm"), modelObject.getName())));
                 links.add(deleteLink);
 
                 return links;

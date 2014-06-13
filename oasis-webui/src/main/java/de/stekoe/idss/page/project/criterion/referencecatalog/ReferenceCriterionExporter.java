@@ -125,7 +125,6 @@ public class ReferenceCriterionExporter {
 
             // values
             Element values = doc.createElement("values");
-            values.setTextContent(c.getDescription());
             criterion.appendChild(values);
 
             if(c instanceof SingleScaledCriterion) {

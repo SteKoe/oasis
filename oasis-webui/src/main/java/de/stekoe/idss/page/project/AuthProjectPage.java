@@ -48,12 +48,12 @@ public abstract class AuthProjectPage extends AuthUserPage {
         projectModel = new ProjectModel(projectIdParam.toString());
 
         if (projectModel.getObject() == null) {
-            WebSession.get().error("You are not allowed to access this project!");
+            WebSession.get().error(getString("message.accessdenied"));
             throw new RestartResponseException(ProjectListPage.class);
         }
 
         if (!projectService.isAuthorized(getUser().getId(), getProjectId(), PermissionType.READ)) {
-            WebSession.get().error("You are not allowed to access this project!");
+            WebSession.get().error(getString("message.accessdenied"));
             throw new RestartResponseException(ProjectListPage.class);
         }
     }

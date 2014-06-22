@@ -13,7 +13,7 @@ import de.stekoe.idss.AbstractWicketApplicationTester;
 public class LanguageSwitchLinkTest extends AbstractWicketApplicationTester {
     @Test
     public void getLocaleString() throws Exception {
-        LanguageSwitchLink link = new LanguageSwitchLink("wicketId", Locale.GERMAN);
+        LanguageSwitchLink link = new LanguageSwitchLink("wicketId", Locale.GERMAN, "Deutsch");
         assertThat(link.getLanguageKey(), equalTo("de"));
     }
 }

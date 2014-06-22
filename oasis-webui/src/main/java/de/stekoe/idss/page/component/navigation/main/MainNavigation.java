@@ -34,7 +34,7 @@ import de.stekoe.idss.page.project.ProjectListPage;
 import de.stekoe.idss.session.WebSession;
 
 /**
- * @author Stephan Koeninger 
+ * @author Stephan Koeninger
  */
 @SuppressWarnings("serial")
 public class MainNavigation extends Panel {

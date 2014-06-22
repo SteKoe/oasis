@@ -100,7 +100,9 @@ public class ProjectDetailsPage extends ProjectPage {
             }
         });
 
-        add(new Label("projectMemberCount", MessageFormat.format(getString("label.project.numOfPersons"), projectMember.size())));
+        String numOfPersonsString = getString("label.project.numOfPersons");
+        int projectMemberCount = projectMember.size();
+        add(new Label("projectMemberCount", MessageFormat.format(numOfPersonsString, projectMemberCount)));
 
         add(new ListView<ProjectMember>("projectMemberItem", projectMember) {
             @Override

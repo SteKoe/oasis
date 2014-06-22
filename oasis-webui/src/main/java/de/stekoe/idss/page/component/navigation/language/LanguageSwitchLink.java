@@ -23,6 +23,7 @@ import org.apache.log4j.Logger;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.link.Link;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.request.resource.ContextRelativeResource;
 
 import de.stekoe.idss.OASISWebApplication;
@@ -33,7 +34,7 @@ public class LanguageSwitchLink extends Link {
 
     private final Locale lang;
 
-    public LanguageSwitchLink(String id, Locale lang) {
+    public LanguageSwitchLink(String id, Locale lang, String languageName) {
         super(id);
         this.lang = lang;
 
@@ -48,11 +49,13 @@ public class LanguageSwitchLink extends Link {
             flagImagePath = "/vendors/famfamfam/flags/unknown.png";
         }
 
+        setBody(Model.<String>of(languageName));
+
         ContextRelativeResource languageFlagImage = new ContextRelativeResource(flagImagePath);
         image = new Image("language.flag", languageFlagImage);
         image.add(new AttributeAppender("alt", getLanguageKey()));
         image.add(new AttributeAppender("title", getLanguageKey()));
-        add(image);
+//        add(image);
     }
 
     String getLanguageKey() {

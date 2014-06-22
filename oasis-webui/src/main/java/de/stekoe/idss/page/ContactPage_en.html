@@ -16,27 +16,83 @@
 
 <html xmlns:wicket="http://wicket.sourceforge.net/">
 <body>
-<wicket:extend>
-    <h1>Contact us</h1>
-    <address>
-        <strong>Information Systems and Enterprise Modelling</strong><br>
-        <em>Professor Dr. Ulrich Frank</em><br>
-        University Duisburg-Essen<br>
-        Campus Essen<br>
-        Universitätsstr. 9<br>
-        45141 Essen<br>
-        Germany
-    </address>
+    <wicket:extend>
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9942.986478880899!2d7.005598900000001!3d51.46280840000006!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b8c2bb20a69bd9%3A0x8addc7184b7a1873!2sUniversit%C3%A4tsstra%C3%9Fe+9!5e0!3m2!1sde!2sde!4v1403200957821"
+            width=100% height="500" frameborder="0" style="border: 0"></iframe>
+        <div class="container">
+            <div class="row">
 
-    <a href="http://www.icb.uni-duisburg-essen.de/um"></a>
+                <div class="col-sm-8">
+                    <h3>Contact</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur
+                        adipiscing elit. Donec fringilla ante sed lacus
+                        ultricies, quis facilisis eros scelerisque.
+                        Donec ut elit lacus.</p>
 
-    <address>
-        <strong>Dipl.-Wirt.-Inf. Michael Heß</strong><br>
-        <a href="http://www.wi-inf.uni-duisburg-essen.de/FGFrank/index.php?lang=de&groupId=1&contentType=GroupMember&persId=800">Webseite</a>
-    </address>
-    <address>
-        <strong>Stephan Köninger</strong><br>
-    </address>
-</wicket:extend>
+                    <form role="form" method="POST"
+                        action="contact-form-submission.php">
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label for="input1">Name</label> <input
+                                    type="text" name="contact_name"
+                                    class="form-control" id="input1">
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="input2">Email
+                                    Address</label> <input type="email"
+                                    name="contact_email"
+                                    class="form-control" id="input2">
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="input3">Phone Number</label>
+                                <input type="phone" name="contact_phone"
+                                    class="form-control" id="input3">
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="form-group col-lg-12">
+                                <label for="input4">Message</label>
+                                <textarea name="contact_message"
+                                    class="form-control" rows="6"
+                                    id="input4"></textarea>
+                            </div>
+                            <div class="form-group col-lg-12">
+                                <input type="hidden" name="save"
+                                    value="contact">
+                                <button type="submit"
+                                    class="btn btn-primary pull-right">Submit</button>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="col-sm-4">
+                    <h3>Address</h3>
+                    <h4>Information Systems and Enterprise Modelling</h4>
+                    <p>
+                        <i class="fa fa-user"></i>
+                        Professor Dr. Ulrich Frank
+                    </p>
+                    <p>
+                        <i class="fa fa-map-marker"></i> 
+                        Universitätsstraße 9, D-45141 Essen
+                    </p>
+                    <p>
+                        <i class="fa fa-phone"></i> +49 (201) 183 4041
+                    </p>
+                    <p>
+                        <i class="fa fa-envelope"></i> 
+                        <a href="mailto:unternehmensmodellierung@uni-due.de">unternehmensmodellierung@uni-due.de</a>
+                    </p>
+                    <p>
+                        <i class="fa fa-globe"></i> 
+                        <a href="http://www.icb.uni-duisburg-essen.de/um">Institute's Website</a>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </wicket:extend>
 </body>
 </html>

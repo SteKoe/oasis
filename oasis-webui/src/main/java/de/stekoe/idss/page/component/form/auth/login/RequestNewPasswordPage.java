@@ -18,13 +18,13 @@ import de.stekoe.idss.mail.template.ResetPasswordMailTemplate;
 import de.stekoe.idss.model.IDGenerator;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.model.UserStatus;
-import de.stekoe.idss.page.LayoutPage;
+import de.stekoe.idss.page.ContainerLayoutPage;
 import de.stekoe.idss.page.component.behavior.Placeholder;
 import de.stekoe.idss.service.MailService;
 import de.stekoe.idss.service.UserException;
 import de.stekoe.idss.service.UserService;
 
-public class RequestNewPasswordPage extends LayoutPage {
+public class RequestNewPasswordPage extends ContainerLayoutPage {
     private static final Logger LOG = Logger.getLogger(RequestNewPasswordPage.class);
 
     @Inject

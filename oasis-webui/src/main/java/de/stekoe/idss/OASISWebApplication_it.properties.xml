@@ -2,7 +2,7 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
     <entry key="currentPasswort.wrong">La password attuale non è corretta</entry>
-    <entry key="date.format">gg-mm-aa</entry>
+    <entry key="date.format">Dd-mm-yyyy</entry>
     <entry key="email.subject.resetpassword">Resetta la password</entry>
     <entry key="emailChanged.success">Hai cambiato con successo il tuo indirizzo E-Mail</entry>
     <entry key="form.login.title">Login</entry>
@@ -114,9 +114,9 @@
     <entry key="label.project.edit.roles">Cambia i ruoli del progetto</entry>
     <entry key="label.project.end.date">Data di fine</entry>
     <entry key="label.project.manage">Gestione del progetto</entry>
-    <entry key="label.project.member">Membro/i</entry>
-    <entry key="label.project.numOfPermissions">{0,opzione,0#Nessun accesso|1#Un accesso|1&lt;{0} Accesso}</entry>
-    <entry key="label.project.numOfPersons">{0,opzione,0#Nessuno|1#Una persona|1&lt;{0} Persone}</entry>
+    <entry key="label.project.member">Membro/i</entry>  
+    <entry key="label.project.numOfPermissions">{0,choice,0#Nessun accesso|1#Un accesso|1&lt;{0} Accesso}</entry>
+    <entry key="label.project.numOfPersons">{0,choice,0#Nessuno|1#Una persona|1&lt;{0} Persone}</entry>
     <entry key="label.project.overview">Visione d'insieme del progetto</entry>
     <entry key="label.project.progress.time">Progresso</entry>
     <entry key="label.project.role.edit.introduction">Cambierai il ruolo "{0}" del progetto "{1}".</entry>

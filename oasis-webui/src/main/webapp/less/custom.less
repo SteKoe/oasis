@@ -1,112 +1,273 @@
-/*
- * Copyright 2014 Stephan Koeninger
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * 	http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 @import "../vendors/bootstrap/less/variables.less";
 @import "../vendors/bootstrap/less/mixins.less";
+@import "mixins.less";
 @import "userInfoBlock.less";
 @import "criteria.less";
 @import "criterionPagePanel.less";
+@headerOpacity: 0.15;
+@main-theme-color: #7e92a0;
+@user-nav-background-color: #FBFBFB;
+@user-nav-border-color: #e9e9e9;
 
+// === FONTS ================
 body {
+    font-family: "Open Sans", serif;
 }
 
-#content, #header {
-    background-color: #fff;
+h1 , h2 , h3 , h4 , h5 , h6 {
+    font-family: "Abel", Arial, sans-serif;
+    font-weight: 400;
+}
+
+// === HEADER ===============
+header {
+    .user-nav-wrapper {
+        background-color: @user-nav-background-color;
+        border-bottom: 1px solid @user-nav-border-color;
+        font-size: 12px;
+        height: 35px;
+        
+        .user-nav-additional {
+            padding-top: 9px;
+        }
+        
+        .user-nav {
+            background-color: #fff;
+            border: 1px solid;
+            border-color: transparent #e8e8e8;
+            float: right;
+            padding: 9px 10px 7px 10px;
+            a {
+                color: #000;
+                text-decoration: none;
+                &:not(:last-child) {
+                    margin-right: 10px;
+                }
+            }
+        }
+    }
+
+    .main-nav-wrapper {
+        margin-top: 15px;
+        
+        .navbar-oasis {
+            margin-top: 5px;
+            margin-left: 5px;
+            
+            .navbar-collapse {
+                padding-right: 0px;
+            }
+            
+            .navbar-toggle {
+                background-color: @user-nav-background-color;
+                border: 1px solid @user-nav-border-color;
+                
+                .icon-bar {
+                    background-color: @user-nav-border-color;
+                }
+            }
+            
+            .navbar-nav {
+                &>li {
+                    &>a {
+                        border-radius: 5px;
+                        padding: 10px 15px;
+                        margin-left: 5px;
+                        color: @text-color;
+                        
+                        &:hover {
+                            background-color: lighten(@main-theme-color, 40%);
+                        }
+                    }
+                    &.active {
+                        a {
+                            background-color: @main-theme-color;
+                            color: #fff;
+                        }
+                    }
+                } 
+            }
+        }
+    }
+}
+
+#content {
+    margin-bottom: 20px;
+    .containered-content {
+        h1 {
+            &:first-child {
+                margin-top: 0px;
+            }
+        }
+    }
+}
+
+.jumbotron {
+    p {
+        background-color: rgba(0, 0, 0, 0.7);
+        color: #fff;
+        padding-left: 5px;
+    }
+}
+
+footer {
+    margin-top: 20px;
+    color: #fff;
+    font-size: 12px;
+    #footerTop {
+        padding: 40px 0;
+        background-color: #7c92a0;
+    }
+
+    #footerBottom {
+        padding: 15px 0 10px 0;
+        background-color: darken(#7c92a0, 10%);
+        a {
+            margin: 0px 4px;
+        }
+    }
+
+    h3 {
+        font-size: 14px;
+        margin: 20px 0 15px 0;
+    }
+
+    a {
+        color: #fff;
+        &:hover , &:active , &:focus {
+            color: #fff;
+        }
+    }
+
+    .supporter {
+        a:not(:last-child) {
+            img {
+                margin-bottom: 25px;
+            }
+        }
+    }
+}
+
+.feedbackPanel {
+    .alert {
+        margin-top: 20px;
+        margin-bottom: 0px;
+    }
 }
 
 .sidebar {
-  background-color: @tableBackgroundHover;
+    background-color: @table-bg-hover;
 }
- 
+
 .table {
-  &.table-no-border {
-    th, td, tr {
-      border: none;
+    &.table-no-border {
+        th , td , tr {
+            border: none;
+        }
     }
-  }
-  &.table-border-top-bottom {
 
-    border-top: 1px solid @tableBorder;
-    border-bottom: 1px solid @tableBorder;
-
-    th, td, tr {
-      border: none;
+    &.table-border-top-bottom {
+        border-top: 1px solid @table-border-color;
+        border-bottom: 1px solid @table-border-color;
+        th , td , tr {
+            border: none;
+        }
     }
-  }
+}
+
+.jumbotron {
+    h3 {
+        span {
+            padding: 5px;
+            background: rgba(0, 0, 0, 0.6);
+            line-height: 45px;
+            color: #fff;
+        }
+    }
 }
 
 tr .id {
-  width: 25px;
+    width: 25px;
 }
 
 .empty {
-  color: #aaaaaa;
+    color: #aaaaaa;
 }
 
 .monospace {
-  font-family: @monoFontFamily;
+    font-family: @font-family-monospace;
 }
 
 .control-label {
-  font-weight: bold;
+    font-weight: bold;
 }
 
 .form-centered-container {
-  margin: 0px auto;
-}
-
-#logo {
-  margin: 5px 10px 20px 10px;
+    margin: 0px auto;
 }
 
 .navbar-secondary {
-  margin-top: 10px;
+    margin-top: 10px;
 }
 
 input[type="file"] {
-  line-height: normal;
-  height: 20px;
+    line-height: normal;
+    height: 20px;
 }
 
 .text-left {
-  text-align: left !important;
+    text-align: left ! important;
 }
 
 .text-right {
-  text-align: right !important;
+    text-align: right ! important;
 }
 
 .text-center {
-  text-align: center !important;
+    text-align: center ! important;
 }
 
 #chartdiv {
-  border: 1px solid #aaaaaa;
-
-  &.chalk {
-    background-color: #000;
-  }
+    border: 1px solid #aaaaaa;
+    &.chalk {
+        background-color: #000;
+    }
 }
 
 .criterionFormElement {
     border: 1px solid #eee;
     padding: 5px;
     margin-bottom: 10px;
-    
     .table {
         margin-bottom: 0px;
     }
 }
+
+// === BLOCK
+.block {
+    .block-icon {
+        width: 70px;
+        height: 70px;
+        .border-radius (40px);
+        font-size: 30px;
+        background: #627987;
+        color: #fff;
+        line-height: 70px;
+        margin: 0 auto;
+    }
+
+    .block-title-line {
+        height: 1px;
+        width: 70px;
+        margin: 15px auto;
+        background: #DBDBDB;
+    }
+
+    .block-body {
+        h2 {
+            font-size: 19px;
+            text-align: center;
+        }
+    }
+}
+

@@ -22,14 +22,12 @@ import org.apache.wicket.feedback.IFeedbackMessageFilter;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.FormComponent;
-import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.panel.EmptyPanel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
-import org.apache.wicket.request.resource.ContextRelativeResource;
 
 import de.stekoe.idss.OASISWebApplication;
 import de.stekoe.idss.model.User;
@@ -111,8 +109,6 @@ public abstract class LayoutPage extends WebPage {
     private void addPageFooter() {
         String applicationName = getContextParameter("application.name");
         String applicationVersion = getContextParameter("application.version");
-        applicationName = "OASIS";
-        applicationVersion = "1.0.0-SNAPSHOT";
 
         add(new Label("application.footer", applicationName + " " + applicationVersion));
     }
@@ -120,7 +116,6 @@ public abstract class LayoutPage extends WebPage {
     private void addPageLogo() {
         final BookmarkablePageLink<HomePage> logoLink = new BookmarkablePageLink<HomePage>("logo.link", getApplication().getHomePage());
         add(logoLink);
-        logoLink.add(new Image("logo", new ContextRelativeResource("/img/logo.png")));
     }
 
     private void addDebugPanel() {

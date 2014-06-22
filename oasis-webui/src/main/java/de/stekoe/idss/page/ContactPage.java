@@ -17,6 +17,6 @@
 package de.stekoe.idss.page;
 
 @SuppressWarnings("serial")
-public class ContactPage extends ContainerLayoutPage {
+public class ContactPage extends LayoutPage {
 
 }

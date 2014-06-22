@@ -17,7 +17,9 @@
 package de.stekoe.idss;
 
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -50,14 +52,7 @@ public class OASISWebApplication extends AuthenticatedWebApplication implements 
 
     private static final Logger LOG = Logger.getLogger(OASISWebApplication.class);
     public static final Class<? extends WebPage> HOMEPAGE = HomePage.class;
-
-    public static final Locale[] LANGUAGES = {
-            Locale.GERMAN,
-            Locale.ENGLISH,
-            new Locale("pl", ""),
-            Locale.ITALIAN,
-            new Locale("es", "")
-    };
+    public static final Map<Locale, String> LANGUAGES = new HashMap<Locale, String>();
 
     private ApplicationContext ctx;
 
@@ -71,6 +66,12 @@ public class OASISWebApplication extends AuthenticatedWebApplication implements 
     @Override
     public void init() {
         super.init();
+
+        LANGUAGES.put(Locale.GERMAN, "Deutsch");
+        LANGUAGES.put(Locale.ENGLISH, "English");
+        LANGUAGES.put(new Locale("pl", ""), "Polski");
+        LANGUAGES.put(Locale.ITALIAN, "Italiano");
+        LANGUAGES.put(new Locale("es", ""), "Español");
 
         new BeanValidationConfiguration().configure(this);
         getJavaScriptLibrarySettings().setJQueryReference(new UrlResourceReference(Url.parse("//code.jquery.com/jquery-1.10.2.min.js")));

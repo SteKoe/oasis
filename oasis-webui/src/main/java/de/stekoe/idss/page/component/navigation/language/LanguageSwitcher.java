@@ -57,7 +57,7 @@ public class LanguageSwitcher extends Panel {
             protected void populateItem(final ListItem<Locale> item) {
                 final Locale languageKey = item.getModelObject();
                 boolean languageEqual = isCurrentLanguage(languageKey);
-                final LanguageSwitchLink languageLink = new LanguageSwitchLink("languageLink", languageKey);
+                final LanguageSwitchLink languageLink = new LanguageSwitchLink("languageLink", languageKey, OASISWebApplication.LANGUAGES.get(languageKey));
                 languageLink.setEnabled(!languageEqual);
                 item.add(languageLink);
             }
@@ -74,7 +74,7 @@ public class LanguageSwitcher extends Panel {
     private List<Locale> getLanguages() {
         List<Locale> languages = new ArrayList<Locale>();
 
-        for (Locale l : OASISWebApplication.LANGUAGES) {
+        for (Locale l : OASISWebApplication.LANGUAGES.keySet()) {
             languages.add(l);
         }
 

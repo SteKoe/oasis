@@ -49,7 +49,11 @@ public class BootstrapPagingNavigator extends Panel {
     }
 
     private void addSinglePagesLinks() {
-        add(new Loop("page.list", (int) pageable.getPageCount()) {
+        int pageCount = (int)pageable.getPageCount();
+        if(pageCount <= 0) {
+            pageCount = 1;
+        }
+        add(new Loop("page.list", pageCount) {
             @Override
             protected void populateItem(LoopItem item) {
                 final int currentIndex = item.getIndex();
@@ -120,7 +124,7 @@ public class BootstrapPagingNavigator extends Panel {
         pageNext.add(AttributeModifier.append("class", new Model<String>() {
             @Override
             public String getObject() {
-                if (pageable.getCurrentPage() == pageable.getPageCount() - 1) {
+                if (pageable.getCurrentPage() >= pageable.getPageCount() - 1) {
                     return "disabled";
                 } else {
                     return "enabled";
@@ -142,7 +146,7 @@ public class BootstrapPagingNavigator extends Panel {
         pageLast.add(AttributeModifier.append("class", new Model<String>(){
             @Override
             public String getObject() {
-                if (pageable.getCurrentPage() == pageable.getPageCount() - 1) {
+                if (pageable.getCurrentPage() >= pageable.getPageCount() - 1) {
                     return "disabled";
                 } else {
                     return "enabled";

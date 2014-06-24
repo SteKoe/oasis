@@ -15,7 +15,7 @@ body {
 }
 
 h1 , h2 , h3 , h4 , h5 , h6 {
-    font-family: "Abel", Arial, sans-serif;
+    font-family: "Ubuntu", Arial, sans-serif;
     font-weight: 400;
 }
 
@@ -51,8 +51,9 @@ header {
         margin-top: 15px;
         
         .navbar-oasis {
-            margin-top: 5px;
+            margin-top: 10px;
             margin-left: 5px;
+            min-height: 0px;
             
             .navbar-collapse {
                 padding-right: 0px;
@@ -89,16 +90,24 @@ header {
             }
         }
     }
+    
+    .breadcrumb {
+        background-color: @user-nav-background-color;
+        border-top: 2px solid @user-nav-border-color;
+        border-bottom: 1px solid @user-nav-border-color;
+        margin-bottom: 0px;
+        
+        h1 {
+            margin: 10px 0;
+            font-size: 25px;
+        }
+    }
 }
 
 #content {
-    margin-bottom: 20px;
+    margin-bottom: 40px;
+    
     .containered-content {
-        h1 {
-            &:first-child {
-                margin-top: 0px;
-            }
-        }
     }
 }
 
@@ -151,7 +160,7 @@ footer {
 .feedbackPanel {
     .alert {
         margin-top: 20px;
-        margin-bottom: 0px;
+        margin-bottom: 20px;
     }
 }
 
@@ -271,3 +280,25 @@ input[type="file"] {
     }
 }
 
+.form-page {
+    &:extend(.col-md-6);
+    margin: 0px auto;
+    margin-top: 40px;
+    padding: 30px;
+    background: #fefefe;
+    border: solid 1px #eee;
+    box-shadow: 0 0 3px #eee;
+    
+    h2 {
+        margin-top: 0px;
+        display: block;
+        text-align: center;
+        font-size: 25px;
+    }
+}
+
+@media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+    #contact-maps {
+        height: 200px;
+    }
+}

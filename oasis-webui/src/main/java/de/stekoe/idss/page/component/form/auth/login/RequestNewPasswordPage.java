@@ -8,21 +8,23 @@ import javax.inject.Inject;
 import org.apache.log4j.Logger;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.Url;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
+import de.agilecoders.wicket.core.markup.html.bootstrap.form.FormGroup;
 import de.stekoe.idss.OASISWebApplication;
 import de.stekoe.idss.mail.template.ResetPasswordMailTemplate;
 import de.stekoe.idss.model.IDGenerator;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.model.UserStatus;
 import de.stekoe.idss.page.ContainerLayoutPage;
-import de.stekoe.idss.page.component.behavior.Placeholder;
 import de.stekoe.idss.service.MailService;
 import de.stekoe.idss.service.UserException;
 import de.stekoe.idss.service.UserService;
+import de.stekoe.idss.wicket.MarkRequiredFieldsBehavior;
 
 public class RequestNewPasswordPage extends ContainerLayoutPage {
     private static final Logger LOG = Logger.getLogger(RequestNewPasswordPage.class);
@@ -36,6 +38,8 @@ public class RequestNewPasswordPage extends ContainerLayoutPage {
     private String email;
 
     public RequestNewPasswordPage() {
+        setTitle(getString("label.password.reset"));
+
         Form form = new Form("form.password.reset") {
             @Override
             protected void onSubmit() {
@@ -70,7 +74,10 @@ public class RequestNewPasswordPage extends ContainerLayoutPage {
         add(form);
 
         TextField<String> emailField = new TextField<String>("email", new PropertyModel<String>(this, "email"));
-        emailField.add(new Placeholder(getString("label.email")));
-        form.add(emailField);
+        form.add(new FormGroup("group.email").add(emailField));
+        emailField.setLabel(Model.of(getString("label.email")));
+        emailField.setRequired(true);
+
+        form.add(new MarkRequiredFieldsBehavior());
     }
 }

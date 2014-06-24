@@ -210,4 +210,8 @@
     <entry key="label.add.page">Seite hinzufügen</entry>
     <entry key="label.files.manage">Dokumente verwalten</entry>
     <entry key="label.professional">Berufsgruppe</entry>
+    <entry key="label.click.here">hier</entry>
+    <entry key="message.password.lost">Sie können ihr Passwort ${link.password.lost} zurücksetzen.</entry>
+    <entry key="message.login.register">Sie haben noch keinen Zugang? Dann können Sie sich ${link.register} registrieren!</entry>
+    <entry key="label.link.top">Nach oben</entry>
 </properties>

@@ -50,6 +50,8 @@ public class EditUserProfilePage extends AuthUserPage {
         super(parameters);
         user = WebSession.get().getUser();
 
+        setTitle(getString("label.user.profile"));
+
         Form form = new Form<User>("userprofile") {
             @Override
             protected void onSubmit() {

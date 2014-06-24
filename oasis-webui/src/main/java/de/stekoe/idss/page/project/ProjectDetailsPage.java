@@ -44,6 +44,8 @@ public class ProjectDetailsPage extends ProjectPage {
     public ProjectDetailsPage(PageParameters pageParameters) {
         super(pageParameters);
 
+        setTitle(getProject().getName());
+
         addDescription();
 //        addDateInformation();
         addListOfProjectMember();

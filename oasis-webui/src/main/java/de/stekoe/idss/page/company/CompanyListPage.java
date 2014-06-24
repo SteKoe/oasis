@@ -48,6 +48,8 @@ public class CompanyListPage extends AuthUserPage {
     public CompanyListPage(PageParameters pageParameters) {
         super(pageParameters);
 
+        setTitle(getString("label.company.manage"));
+
         add(new BookmarkablePageLink<CreateCompanyPage>("link.new", CreateCompanyPage.class));
 
         IDataProvider<Company> dataProvider = new IDataProvider<Company>() {

@@ -58,6 +58,7 @@ public class ProjectListPage extends AuthUserPage {
     private ProjectDataProvider projectDataProvider;
 
     public ProjectListPage() {
+        setTitle(getString("label.criterion.list"));
         addCreateProjectLink();
         addProjectList();
     }

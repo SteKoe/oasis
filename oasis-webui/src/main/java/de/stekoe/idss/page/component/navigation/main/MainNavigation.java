@@ -18,20 +18,18 @@ package de.stekoe.idss.page.component.navigation.main;
 
 import java.util.List;
 
+import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 
-import de.agilecoders.wicket.core.markup.html.bootstrap.image.GlyphIconType;
+import de.agilecoders.wicket.core.markup.html.bootstrap.behavior.CssClassNameModifier;
 import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.INavbarComponent;
 import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.Navbar;
 import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarButton;
 import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarComponents;
 import de.stekoe.idss.page.ContactPage;
 import de.stekoe.idss.page.HomePage;
-import de.stekoe.idss.page.RegistrationPage;
-import de.stekoe.idss.page.project.ProjectListPage;
-import de.stekoe.idss.session.WebSession;
 
 /**
  * @author Stephan Koeninger
@@ -60,38 +58,24 @@ public class MainNavigation extends Panel {
         navbar.setPosition(Navbar.Position.DEFAULT);
 
         List<INavbarComponent> navbarComponent = NavbarComponents.transform(
-                Navbar.ComponentPosition.LEFT,
+                Navbar.ComponentPosition.RIGHT,
                 createHomePageLink(),
                 createContactPageLink());
         navbar.addComponents(navbarComponent);
-
-
+        navbar.add(new CssClassNameModifier("navbar navbar-oasis"));
+        Component container = navbar.get("container");
+        container.add(new CssClassNameModifier("container-fluid"));
         return navbar;
     }
 
     private NavbarButton<HomePage> createHomePageLink() {
         NavbarButton<HomePage> homePage = new NavbarButton<HomePage>(HomePage.class, Model.of(getString("label.home")));
-        homePage.setIconType(GlyphIconType.home);
         return homePage;
     }
 
     private NavbarButton<ContactPage> createContactPageLink() {
         NavbarButton<ContactPage> contactPage = new NavbarButton<ContactPage>(
                 ContactPage.class, Model.of(getString("label.contact")));
-        contactPage.setIconType(GlyphIconType.questionsign);
         return contactPage;
-    }
-
-    private NavbarButton<RegistrationPage> createRegistrationPageLink() {
-        NavbarButton<RegistrationPage> registrationPage = new NavbarButton<RegistrationPage>(
-                RegistrationPage.class, Model.of("Registrieren"));
-        registrationPage.setIconType(GlyphIconType.user);
-        return registrationPage;
-    }
-
-    private NavbarButton<ProjectListPage> createProjectOverviewPageLink() {
-        NavbarButton<ProjectListPage> projectOverview = new NavbarButton<ProjectListPage>(ProjectListPage.class, Model.of("Project overview"));
-        projectOverview.setVisible(WebSession.get().getUser() != null);
-        return projectOverview;
     }
 }

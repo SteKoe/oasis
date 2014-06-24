@@ -20,12 +20,14 @@
     <jpa:repositories base-package="de.stekoe.idss.repository" />
     <tx:annotation-driven transaction-manager="transactionManager" />
     
-    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
-        <property name="driverClassName" value="${jdbc.driverClassName}" />
-        <property name="url" value="${jdbc.url}" />
-        <property name="username" value="${jdbc.username}" />
-        <property name="password" value="${jdbc.password}" />
+    <!--
+    See context.xml!
+    -->
+    <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName" value="java:comp/env/jdbc/oasis-services" />
+        <property name="proxyInterface" value="javax.sql.DataSource" />
     </bean>
+    
     <bean id="vendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
         <property name="generateDdl" value="true" />
         <property name="database" value="MYSQL" />

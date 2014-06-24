@@ -57,6 +57,10 @@ public class EditPasswordPage extends AuthUserPage {
     private EmailTextField newEmailField;
     private EmailTextField newEmailConfirmField;
 
+    public EditPasswordPage() {
+        setTitle(getString("label.changemailorpassword"));
+    }
+
     @Override
     protected void onInitialize() {
         super.onInitialize();

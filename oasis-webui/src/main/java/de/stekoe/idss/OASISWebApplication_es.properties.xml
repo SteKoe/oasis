@@ -115,8 +115,8 @@
     <entry key="label.project.end.date">Fecha final</entry>
     <entry key="label.project.manage">Gestion del proyecto</entry>
     <entry key="label.project.member">Miembro(s)</entry>
-    <entry key="label.project.numOfPermissions">{0,choice,0#No acceso|1#Un acceso|1&lt;{0} Acceso}</entry>
-    <entry key="label.project.numOfPersons">{0,choice,0#Ninguna|1#Una Persona|1&lt;{0} Personas}</entry>
+    <entry key="label.project.numOfPermissions">{0,opción,0#No acceso|1#Un acceso|1&lt;{0} Acceso}</entry>
+    <entry key="label.project.numOfPersons">{0,opción,0#Ninguna|1#Una Persona|1&lt;{0} Personas}</entry>
     <entry key="label.project.overview">Visión general del proyecto</entry>
     <entry key="label.project.progress.time">Progreso</entry>
     <entry key="label.project.role.edit.introduction">Usted cambiará el role del proyecto "{0}" del proyecto "{1}".</entry>

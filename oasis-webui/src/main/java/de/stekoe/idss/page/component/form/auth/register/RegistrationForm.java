@@ -172,6 +172,7 @@ public class RegistrationForm extends Panel {
         itsForm.add(new FormGroup("group.email").add(email));
         email.setLabel(Model.of(getString("label.email")));
         email.add(new UniqueValueValidator(itsUserService.findAllEmailAddresses()));
+        email.setRequired(true);
 
         PasswordTextField password = new PasswordTextField("password");
         itsForm.add(new FormGroup("group.password").add(password));

@@ -21,6 +21,7 @@ import de.stekoe.idss.page.component.form.project.CreateProjectForm;
 
 public class ProjectCreatePage extends AuthUserPage {
     public ProjectCreatePage() {
+        setTitle(getString("form.project.create.title"));
         add(new CreateProjectForm("form.create.project"));
     }
 }

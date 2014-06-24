@@ -16,6 +16,7 @@
 
 package de.stekoe.idss.page;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.devutils.debugbar.DebugBar;
 import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.feedback.IFeedbackMessageFilter;
@@ -26,7 +27,6 @@ import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.panel.EmptyPanel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
-import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import de.stekoe.idss.OASISWebApplication;
@@ -50,19 +50,35 @@ import de.stekoe.idss.session.WebSession;
  */
 public abstract class LayoutPage extends WebPage {
 
+    private String pageTitle;
+
     public LayoutPage() {
         super();
-        init();
     }
 
     public LayoutPage(IModel<?> model) {
         super(model);
-        init();
     }
 
     public LayoutPage(PageParameters parameters) {
         super(parameters);
-        init();
+    }
+
+    @Override
+    protected void onInitialize() {
+        super.onInitialize();
+
+        configureSession();
+
+        addPageLogo();
+        addPageTitle(getContextParameter("application.title"));
+        addContentElements();
+        addPageFooter();
+        addDebugPanel();
+
+        Label titleLabel = new Label("page.title", pageTitle);
+        add(titleLabel);
+        titleLabel.setVisible(!StringUtils.isBlank(pageTitle));
     }
 
     /**
@@ -78,13 +94,8 @@ public abstract class LayoutPage extends WebPage {
         return OASISWebApplication.get().getServletContext().getInitParameter(key);
     }
 
-    /**
-     * Set the page title.
-     *
-     * @param pageTitle Must not be null
-     */
-    public void setTitle(StringResourceModel pageTitle) {
-        add(new Label("pageTitle", pageTitle));
+    public void setTitle(String pageTitle) {
+        this.pageTitle = pageTitle;
     }
 
     @Override
@@ -94,16 +105,6 @@ public abstract class LayoutPage extends WebPage {
 
     public User getUser() {
         return getSession().getUser();
-    }
-
-    private void init() {
-        configureSession();
-
-        addPageLogo();
-        addPageTitle(getContextParameter("application.title"));
-        addContentElements();
-        addPageFooter();
-        addDebugPanel();
     }
 
     private void addPageFooter() {

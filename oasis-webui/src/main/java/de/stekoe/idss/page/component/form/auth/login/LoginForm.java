@@ -28,11 +28,13 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.FormGroup;
+import de.stekoe.idss.page.RegistrationPage;
 import de.stekoe.idss.page.company.CompanyListPage;
 import de.stekoe.idss.page.project.ProjectListPage;
 import de.stekoe.idss.service.AuthService;
 import de.stekoe.idss.service.AuthStatus;
 import de.stekoe.idss.session.WebSession;
+import de.stekoe.idss.wicket.MarkRequiredFieldsBehavior;
 
 @SuppressWarnings("serial")
 public class LoginForm extends Panel {
@@ -66,19 +68,26 @@ public class LoginForm extends Panel {
             setModel(new CompoundPropertyModel(this));
 
             TextField usernameTextField = new TextField("username");
+            add(new FormGroup("group.username").add(usernameTextField));
             usernameTextField.setLabel(Model.of(getString("label.username")));
             usernameTextField.setRequired(true);
-            add(new FormGroup("group.username").add(usernameTextField));
 
             PasswordTextField passwordTextField = new PasswordTextField("password");
+            add(new FormGroup("group.password").add(passwordTextField));
             passwordTextField.setLabel(Model.of(getString("label.password")));
             passwordTextField.setRequired(true);
+
             BookmarkablePageLink<RequestNewPasswordPage> passwordLostLink = new BookmarkablePageLink<RequestNewPasswordPage>("link.password.lost", RequestNewPasswordPage.class);
-            add(new FormGroup("group.password").add(passwordTextField).add(passwordLostLink));
+            add(passwordLostLink);
+
+            BookmarkablePageLink<Object> linkRegister = new BookmarkablePageLink<>("link.register", RegistrationPage.class);
+            add(linkRegister);
 
             Button submitButton = new Button("submit");
             submitButton.setModel(Model.of(getString("label.submit")));
             add(submitButton);
+
+            add(new MarkRequiredFieldsBehavior());
         }
 
         @Override

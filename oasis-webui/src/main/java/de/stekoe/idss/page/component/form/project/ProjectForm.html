@@ -25,7 +25,7 @@
             });
         });
     </script>
-    <form wicket:id="form.project">
+    <form wicket:id="form.project" class="form-page">
         <div class="form-group" wicket:id="group.name">
             <input id="name" wicket:id="name" type="text" class="form-control">
         </div>
@@ -38,13 +38,17 @@
             <select id="projectStatus" wicket:id="projectStatus" class="form-control"></select>
         </div>
 
-        <div class="form-group well">
-            <button type="submit" class="btn btn-success" wicket:id="submitButton">
-                <wicket:message key="label.save"></wicket:message>
-            </button>
-            <a href="" class="btn btn-default" wicket:id="cancelButton">
-                <wicket:message key="label.cancel"></wicket:message>
-            </a>
+        <div class="row">
+            <div class="col-lg-6">
+            </div>
+            <div class="col-lg-6 text-right">
+                <button type="submit" class="btn btn-success" wicket:id="submitButton">
+                    <wicket:message key="label.save"></wicket:message>
+                </button>
+                <a href="" class="btn btn-default" wicket:id="cancelButton">
+                    <wicket:message key="label.cancel"></wicket:message>
+                </a>
+            </div>
         </div>
     </form>
 </wicket:panel>

@@ -45,6 +45,7 @@ public class ResetPasswordPage extends LayoutPage {
         if(userModel.getObject() == null) {
             redirectOnFailure();
         }
+        setTitle(getString("label.password.set.new"));
 
         form = new Form("resetPasswordForm") {
             @Override
@@ -57,7 +58,7 @@ public class ResetPasswordPage extends LayoutPage {
 
                     try {
                         userService.save(user);
-                        success(getString("message.password.reset.success"));
+                        WebSession.get().success(getString("message.password.reset.success"));
                         setResponsePage(OASISWebApplication.get().getHomePage());
                         return;
                     } catch (UserException e) {
@@ -65,7 +66,7 @@ public class ResetPasswordPage extends LayoutPage {
                     }
                 }
 
-                error(getString("message.password.reset.error"));
+                WebSession.get().error(getString("message.password.reset.error"));
                 setResponsePage(getPage());
                 return;
             }

@@ -21,8 +21,8 @@
 <body>
 <wicket:extend>
     <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-            <form wicket:id="userprofile">
+        <div class="col-md-8 col-md-offset-2">
+            <form wicket:id="userprofile" class="form-page">
                 <fieldset>
                     <label><wicket:message key="label.name" /></label>
                     <div class="row">
@@ -79,9 +79,13 @@
                     </fieldset>
                     
                     <!-- Submit -->
-                    <div class="well">
-                        <button type="submit" class="btn btn-success"><wicket:message key="label.save" /></button>
-                        <button type="reset" class="btn"><wicket:message key="label.cancel" /></button>
+                    <div class="row">
+                        <div class="col-lg-6">
+                        </div>
+                        <div class="col-lg-6 text-right">
+                            <button type="submit" class="btn btn-success"><wicket:message key="label.save" /></button>
+                            <button type="reset" class="btn"><wicket:message key="label.cancel" /></button>
+                        </div>
                     </div>
                 </fieldset>
             </form>

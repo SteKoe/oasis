@@ -17,12 +17,14 @@
 package de.stekoe.idss.page.project;
 
 import org.apache.wicket.MarkupContainer;
+import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
+import de.agilecoders.wicket.core.markup.html.bootstrap.behavior.CssClassNameAppender;
 import de.stekoe.idss.model.PermissionType;
 import de.stekoe.idss.model.ProjectStatus;
 import de.stekoe.idss.page.project.criterion.ResultPage;
@@ -39,7 +41,7 @@ public abstract class ProjectPage extends AuthProjectPage {
         super(pageParameters);
 
         addLabelProjectTitle();
-        addLabelProjectStatus();
+//        addLabelProjectStatus();
 
         // Links
         addLinkUploadDocument();
@@ -61,10 +63,13 @@ public abstract class ProjectPage extends AuthProjectPage {
         if(projectService.isAuthorized(getUser().getId(), getProject().getId(), PermissionType.UPDATE)) {
             surveyPage.setVisible(true);
         }
+        if(isLinkActive(surveyPage)) {
+            surveyPage.add(new CssClassNameAppender("active"));
+        }
     }
 
-    private MarkupContainer addLabelProjectTitle() {
-        return add(new Label("projectTitle", Model.of(getProject().getName())));
+    private void addLabelProjectTitle() {
+        setTitle(getProject().getName());
     }
 
     private MarkupContainer addLinkResult() {
@@ -75,11 +80,18 @@ public abstract class ProjectPage extends AuthProjectPage {
         if(projectService.isAuthorized(getUser().getId(), getProject().getId(), PermissionType.UPDATE)) {
             resultLink.setVisible(true);
         }
+        if(isLinkActive(resultLink)) {
+            resultLink.add(new CssClassNameAppender("active"));
+        }
         return add(resultLink);
     }
 
     private MarkupContainer addLinkSetOfCriteria() {
-        return add(new BookmarkablePageLink<CriteriaPageListPage>("link.setofcriteria.edit", CriteriaPageListPage.class, getProjectIdPageParam()));
+        BookmarkablePageLink<CriteriaPageListPage> link = new BookmarkablePageLink<CriteriaPageListPage>("link.setofcriteria.edit", CriteriaPageListPage.class, getProjectIdPageParam());
+        if(isLinkActive(link)) {
+            link.add(new CssClassNameAppender("active"));
+        }
+        return add(link);
     }
 
     private PageParameters getProjectIdPageParam() {
@@ -87,13 +99,20 @@ public abstract class ProjectPage extends AuthProjectPage {
     }
 
     private MarkupContainer addLinkProjectDetails() {
-        return add(new BookmarkablePageLink<ProjectDetailsPage>("link.project.overview", ProjectDetailsPage.class, getProjectIdPageParam()));
+        BookmarkablePageLink<ProjectDetailsPage> link = new BookmarkablePageLink<ProjectDetailsPage>("link.project.overview", ProjectDetailsPage.class, getProjectIdPageParam());
+        if(isLinkActive(link)) {
+            link.add(new CssClassNameAppender("active"));
+        }
+        return add(link);
     }
 
     private void addLinkUploadDocument() {
         final BookmarkablePageLink<ProjectUploadDocument> linkUploadPage = new BookmarkablePageLink<ProjectUploadDocument>("link.upload.document", ProjectUploadDocument.class, getProjectIdPageParam());
         add(linkUploadPage);
         linkUploadPage.setVisible(projectService.isAuthorized(getUser().getId(), getProject().getId(), PermissionType.UPLOAD_FILE));
+        if(isLinkActive(linkUploadPage)) {
+            linkUploadPage.add(new CssClassNameAppender("active"));
+        }
     }
 
     private void addLabelProjectStatus() {
@@ -105,17 +124,30 @@ public abstract class ProjectPage extends AuthProjectPage {
         final BookmarkablePageLink<ProjectRoleListPage> editProjectRolesLink = new BookmarkablePageLink<ProjectRoleListPage>("editProjectRolesLink", ProjectRoleListPage.class, getProjectIdPageParam());
         add(editProjectRolesLink);
         editProjectRolesLink.setVisible(projectService.isAuthorized(getUser().getId(), getProject().getId(), PermissionType.MANAGE_ROLES));
+        if(isLinkActive(editProjectRolesLink)) {
+            editProjectRolesLink.add(new CssClassNameAppender("active"));
+        }
     }
 
     private void addLinkEditProjectMember() {
         final BookmarkablePageLink<ProjectMemberListPage> addMemberLink = new BookmarkablePageLink<ProjectMemberListPage>("addMember", ProjectMemberListPage.class, getProjectIdPageParam());
         add(addMemberLink);
         addMemberLink.setVisible(projectService.isAuthorized(getUser().getId(), getProject().getId(), PermissionType.MANAGE_MEMBER));
+        if(isLinkActive(addMemberLink)) {
+            addMemberLink.add(new CssClassNameAppender("active"));
+        }
     }
 
     private void addLinkEditProject() {
         final BookmarkablePageLink<ProjectEditPage> editProjectLink = new BookmarkablePageLink<ProjectEditPage>("editProject", ProjectEditPage.class, getProjectIdPageParam());
         add(editProjectLink);
         editProjectLink.setVisible(projectService.isAuthorized(getUser().getId(), getProject().getId(), PermissionType.UPDATE));
+        if(isLinkActive(editProjectLink)) {
+            editProjectLink.add(new CssClassNameAppender("active"));
+        }
+    }
+
+    private boolean isLinkActive(BookmarkablePageLink<? extends WebPage> link) {
+        return link.linksTo(getPage());
     }
 }

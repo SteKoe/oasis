@@ -2,6 +2,7 @@ package de.stekoe.idss.page.component;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
@@ -39,6 +40,11 @@ public abstract class DataListView<T extends NamedElement> extends Panel {
             protected void populateItem(Item<T> item) {
                 T modelObject = item.getModelObject();
 
+                Label labelInfo = new Label("info", getInfo(modelObject));
+                labelInfo.setVisible(!StringUtils.isBlank(getInfo(modelObject)));
+                labelInfo.setEscapeModelStrings(false);
+                item.add(labelInfo);
+
                 item.add(new Label("name", modelObject.getName()));
                 item.add(new ListView<Link>("buttons", getButtons(modelObject)) {
                     @Override
@@ -74,6 +80,10 @@ public abstract class DataListView<T extends NamedElement> extends Panel {
             }
         }));
         add(new BootstrapPagingNavigator("navigator", dataView));
+    }
+
+    protected String getInfo(T modelObject) {
+        return null;
     }
 
     protected abstract List<? extends Link> getButtons(final T modelObject);

@@ -34,10 +34,27 @@ public class ReferenceCriterionListPage extends ReferenceCriterionPage {
     ReferenceCriterionService referenceCriterionService;
 
     public ReferenceCriterionListPage() {
-        add(new BookmarkablePageLink<CreateNominalReferenceCriterionPage>("link.add", CreateNominalReferenceCriterionPage.class));
+        add(new BookmarkablePageLink<CreateOrdinalReferenceCriterionPage>("link.add.ordinal", CreateOrdinalReferenceCriterionPage.class));
+        add(new BookmarkablePageLink<CreateNominalReferenceCriterionPage>("link.add.nominal", CreateNominalReferenceCriterionPage.class));
 
 
         DataListView<Criterion> dataListView = new DataListView<Criterion>("referencecriteriongroup.list", referenceCriterionDataProvider, paginationConfigurator.getValueFor(ReferenceCriterionListPage.class)) {
+            @Override
+            protected String getInfo(final Criterion modelObject) {
+                String scaleType = null;
+                if(modelObject instanceof OrdinalScaledCriterion) {
+                    scaleType = getString("label.criterion.ordinal");
+                } else if(modelObject instanceof NominalScaledCriterion){
+                    scaleType = getString("label.criterion.nominal");
+                }
+
+                if(scaleType == null) {
+                    return null;
+                } else {
+                    return "<span class='label label-default'>" + scaleType + "</span>";
+                }
+            }
+
             @Override
             protected List<? extends Link> getButtons(final Criterion modelObject) {
                 List<Link> links = new ArrayList<Link>();

@@ -14,6 +14,7 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import de.stekoe.idss.model.Criterion;
 import de.stekoe.idss.model.NominalScaledCriterion;
+import de.stekoe.idss.model.OrdinalScaledCriterion;
 import de.stekoe.idss.page.PaginationConfigurator;
 import de.stekoe.idss.page.component.DataListView;
 import de.stekoe.idss.service.ReferenceCriterionService;
@@ -46,6 +47,11 @@ public class ReferenceCriterionListPage extends ReferenceCriterionPage {
 
                 if(modelObject instanceof NominalScaledCriterion) {
                     BookmarkablePageLink<EditNominalReferenceCriterionPage> editCriterionLink = new BookmarkablePageLink<EditNominalReferenceCriterionPage>(DataListView.BUTTON_ID, EditNominalReferenceCriterionPage.class, pageDetailsParameters);
+                    editCriterionLink.setBody(Model.of(getString("label.edit")));
+                    editCriterionLink.add(new AttributeModifier("class", "btn btn-default btn-xs"));
+                    links.add(editCriterionLink);
+                } else if (modelObject instanceof OrdinalScaledCriterion) {
+                    BookmarkablePageLink<EditOrdinalReferenceCriterionPage> editCriterionLink = new BookmarkablePageLink<EditOrdinalReferenceCriterionPage>(DataListView.BUTTON_ID, EditOrdinalReferenceCriterionPage.class, pageDetailsParameters);
                     editCriterionLink.setBody(Model.of(getString("label.edit")));
                     editCriterionLink.add(new AttributeModifier("class", "btn btn-default btn-xs"));
                     links.add(editCriterionLink);

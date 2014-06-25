@@ -62,6 +62,10 @@
         <param-value>/Volumes/HDD/stekoe2000/Development/java/workspaces/Masterprojekt/workspace/IDSS/uploads
         </param-value>
     </context-param>
+    <context-param>
+        <param-name>ldap.server</param-name>
+        <param-value>localhost</param-value>
+    </context-param>
     
     <resource-ref>
         <description>OASIS Services</description>

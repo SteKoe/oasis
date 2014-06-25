@@ -14,6 +14,7 @@ import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import de.stekoe.idss.model.CriterionGroup;
@@ -32,14 +33,21 @@ public class ReferenceCriterionPage extends AuthAdminPage {
     private static final String ID_LINK = "link";
 
     public ReferenceCriterionPage() {
+        setTitle();
     }
 
     public ReferenceCriterionPage(IModel<?> model) {
         super(model);
+        setTitle();
     }
 
     public ReferenceCriterionPage(PageParameters parameters) {
         super(parameters);
+        setTitle();
+    }
+
+    private void setTitle() {
+        setTitle(new ResourceModel("label.reference.criterion.overview").getObject());
     }
 
     @Override

@@ -83,6 +83,7 @@ public abstract class CriterionForm<T extends MeasurementValue> extends Panel {
         if(!(getCriterionModel().getObject() instanceof NominalScaledCriterion)) {
             checkBox.setVisible(false);
         }
+        checkBox.setVisible(false);
 
         scaleForm.add(new MarkRequiredFieldsBehavior());
 

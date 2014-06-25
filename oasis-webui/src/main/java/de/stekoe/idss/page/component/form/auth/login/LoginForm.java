@@ -24,7 +24,7 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
-import org.apache.wicket.model.Model;
+import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.FormGroup;
@@ -69,12 +69,12 @@ public class LoginForm extends Panel {
 
             TextField usernameTextField = new TextField("username");
             add(new FormGroup("group.username").add(usernameTextField));
-            usernameTextField.setLabel(Model.of(getString("label.username")));
+            usernameTextField.setLabel(new ResourceModel("label.username"));
             usernameTextField.setRequired(true);
 
             PasswordTextField passwordTextField = new PasswordTextField("password");
             add(new FormGroup("group.password").add(passwordTextField));
-            passwordTextField.setLabel(Model.of(getString("label.password")));
+            passwordTextField.setLabel(new ResourceModel("label.password"));
             passwordTextField.setRequired(true);
 
             BookmarkablePageLink<RequestNewPasswordPage> passwordLostLink = new BookmarkablePageLink<RequestNewPasswordPage>("link.password.lost", RequestNewPasswordPage.class);
@@ -84,7 +84,7 @@ public class LoginForm extends Panel {
             add(linkRegister);
 
             Button submitButton = new Button("submit");
-            submitButton.setModel(Model.of(getString("label.submit")));
+            submitButton.setModel(new ResourceModel("label.submit"));
             add(submitButton);
 
             add(new MarkRequiredFieldsBehavior());

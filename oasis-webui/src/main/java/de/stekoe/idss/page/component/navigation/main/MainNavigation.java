@@ -21,7 +21,7 @@ import java.util.List;
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.Model;
+import org.apache.wicket.model.ResourceModel;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.behavior.CssClassNameModifier;
 import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.INavbarComponent;
@@ -69,13 +69,13 @@ public class MainNavigation extends Panel {
     }
 
     private NavbarButton<HomePage> createHomePageLink() {
-        NavbarButton<HomePage> homePage = new NavbarButton<HomePage>(HomePage.class, Model.of(getString("label.home")));
+        NavbarButton<HomePage> homePage = new NavbarButton<HomePage>(HomePage.class, new ResourceModel("label.home"));
         return homePage;
     }
 
     private NavbarButton<ContactPage> createContactPageLink() {
         NavbarButton<ContactPage> contactPage = new NavbarButton<ContactPage>(
-                ContactPage.class, Model.of(getString("label.contact")));
+                ContactPage.class, new ResourceModel("label.contact"));
         return contactPage;
     }
 }

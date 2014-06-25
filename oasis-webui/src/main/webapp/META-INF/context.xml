@@ -3,6 +3,7 @@
     path="/oasis"
     docBase="/path/to/war">
     
+    
     <Resource name="jdbc/oasis-services"
                 auth="Container"
                 type="javax.sql.DataSource"

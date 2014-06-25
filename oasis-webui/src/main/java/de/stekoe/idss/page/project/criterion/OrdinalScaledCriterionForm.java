@@ -22,11 +22,13 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.RequiredTextField;
+import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.LoadableDetachableModel;
+import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import de.agilecoders.wicket.core.markup.html.bootstrap.form.FormGroup;
@@ -38,7 +40,7 @@ import de.stekoe.idss.service.CriterionPageService;
 import de.stekoe.idss.service.CriterionService;
 
 /**
- * @author Stephan Koeninger 
+ * @author Stephan Koeninger
  */
 public abstract class OrdinalScaledCriterionForm extends CriterionForm<OrdinalValue> {
 
@@ -92,7 +94,21 @@ public abstract class OrdinalScaledCriterionForm extends CriterionForm<OrdinalVa
             @Override
             protected void populateItem(final ListItem<OrdinalValue> item) {
                 final OrdinalValue value = item.getModelObject();
-                item.add(new Label("value.list.value", value.getValue()));
+                Label labelValue = new Label("value.list.value", value.getValue());
+                item.add(labelValue);
+
+                Form<OrdinalValue> valueFormEdit = new Form<OrdinalValue>("value.form.edit", new CompoundPropertyModel<OrdinalValue>(value)) {
+                    @Override
+                    protected void onSubmit() {
+                        OrdinalValue editedOrdinalValue = getModel().getObject();
+                        SingleScaledCriterion criterion = editedOrdinalValue.getCriterion();
+                        criterionService.save(criterion);
+                    }
+                };
+                item.add(valueFormEdit);
+
+                TextField<String> textField = new TextField<String>("value.list.value.textfield", new PropertyModel<String>(value, "value"));
+                valueFormEdit.add(textField);
 
                 item.add(new Link("value.delete") {
                     @Override
@@ -128,10 +144,10 @@ public abstract class OrdinalScaledCriterionForm extends CriterionForm<OrdinalVa
                 });
             }
         };
-        valueForm.add(valueList);
+        add(valueList);
 
         final WebMarkupContainer emptyListIndicator = new WebMarkupContainer("value.list.empty");
-        valueForm.add(emptyListIndicator);
+        add(emptyListIndicator);
         emptyListIndicator.setVisible(valueList.getList().isEmpty());
     }
 

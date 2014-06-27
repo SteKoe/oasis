@@ -25,31 +25,18 @@
 
                 <div class="col-sm-8">
                     <h3>Kontakt</h3>
-
-                    <form role="form" method="POST"
-                        action="contact-form-submission.php">
+                    <form role="form" wicket:id="form.contact">
                         <div class="row">
-                            <div class="form-group col-md-12">
-                                <label for="input1">Name</label> <input
-                                    type="text" name="contact_name"
-                                    class="form-control" id="input1">
+                            <div class="form-group col-md-12" wicket:id="form.contact.name.group">
+                                <input type="text" class="form-control" wicket:id="form.contact.name.field">
                             </div>
-                            <div class="form-group col-md-12">
-                                <label for="input2">E-mail Adresse</label> <input type="email"
-                                    name="contact_email"
-                                    class="form-control" id="input2">
-                            </div>
-                            <div class="form-group col-md-12">
-                                <label for="input3">Telefonnummer</label>
-                                <input type="phone" name="contact_phone"
-                                    class="form-control" id="input3">
+                            <div class="form-group col-md-12" wicket:id="form.contact.email.group">
+                                <input type="email" class="form-control" wicket:id="form.contact.email.field">
                             </div>
                             <div class="clearfix"></div>
-                            <div class="form-group col-lg-12">
-                                <label for="input4">Nachricht</label>
-                                <textarea name="contact_message"
-                                    class="form-control" rows="6"
-                                    id="input4"></textarea>
+                            <div class="form-group col-lg-12" wicket:id="form.contact.body.group">
+                                <textarea name="contact_message" class="form-control" wicket:id="form.contact.body.field">
+                                </textarea>
                             </div>
                             <div class="form-group col-lg-12">
                                 <input type="hidden" name="save"

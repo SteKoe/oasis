@@ -9,7 +9,7 @@
     <link href="vendors/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" type="text/css" media="all">
     <link href="vendors/jquery-ui/css/theme/jquery-ui-1.10.3.custom.css" rel="stylesheet" type="text/css" media="all">
     <link href="vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all">
-    <link href='http://fonts.googleapis.com/css?family=Abel|Open+Sans:400,600' rel='stylesheet'>
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet'>
     <link href="css/custom.css" rel="stylesheet" type="text/css" media="all">
     
     <script src="vendors/jquery/jquery.min.js"></script>
@@ -22,6 +22,17 @@
     
     <wicket:header-items/>    
     
+    <style>
+    /* id=myMenu */
+    #myMenu {
+        float:left;
+        border: 1px solid #ccc;
+        margin: 0 10px 10px 0;
+        padding: 0 5px 5px 5px;
+        box-shadow: 2px 2px 2px #ccc;
+        border-radius: 5px;
+    }
+    </style>    
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <![endif]-->
@@ -40,7 +51,7 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="user-nav text-right" wicket:id="nav.user">
+                        <div class="user-nav" wicket:id="nav.user">
                             <a href=""><i class="fa fa-sign-in"></i> Registrieren</a>
                             <a href=""><i class="fa fa-power-off"></i> Einloggen</a>
                         </div>
@@ -125,10 +136,22 @@
         <wicket:remove>
             <div class="containered-content container">
                 <!-- Sample Content to Plugin to Template -->
+                <div id="myMenu">
+                    <h1>Menü links</h1>
+                    <p>
+                        Hier soll später das Menü erscheinen.
+                    </p>
+                </div>
                 <h1>CSS Basic Elements</h1>
                 <p>The purpose of this HTML is to help determine what default settings are with CSS and to make sure that all possible HTML Elements are included in this HTML so as to not miss any possible Elements when designing a site.</p>
                 <hr />
                 <h1>Heading 1</h1>
+                <if condition="a = 2">
+                    <h2>asdasd</h2>
+                </if>
+                <else>
+                    <h2>ghgh</h2>
+                </else>
                 <h2>Heading 2</h2>
                 <h3>Heading 3</h3>
                 <h4>Heading 4</h4>
@@ -317,7 +340,7 @@
                     </div>
                     <div class="col-md-4 col-sm-4 col-xs-4 text-right">
                         <a href="#top">
-                            Nach oben <i class="fa fa-arrow-up"></i>
+                            <wicket:message key="label.link.top" /> <i class="fa fa-arrow-up"></i>
                         </a>
                     </div>
                 </div>

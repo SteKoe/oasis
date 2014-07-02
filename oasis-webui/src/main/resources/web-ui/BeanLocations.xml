@@ -8,6 +8,23 @@
     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
     
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+    </bean>
+     
+    <bean class="org.springframework.web.context.support.ServletContextPropertyPlaceholderConfigurer">
+        <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
+        <property name="searchContextAttributes" value="true"/>
+        <property name="contextOverride" value="true"/>
+        <property name="ignoreResourceNotFound" value="true"/>
+        <property name="locations">
+            <list>
+                <value>classpath:application.properties</value>
+                <value>classpath:local.properties</value>
+            </list>
+        </property>
+    </bean>
+    
     <context:annotation-config/>
 
     <!-- Dataprovider -->
@@ -32,5 +49,8 @@
     <bean id="csvReport" class="de.stekoe.idss.reports.CSVReport">
         <property name="userChoiceRepository" ref="userChoiceRepository" />
     </bean>
+    
+    <!-- REST -->
+    <bean id="criterionPageRestResource" class="de.stekoe.idss.rest.CriterionPageRestResource" />
     
 </beans>

@@ -4,23 +4,26 @@
     <meta charset="utf-8">
     <title wicket:id="pageTitle"></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="baseUrl" content="/" wicket:id="meta.baseUrl">
+    
+    <!-- jQuery/Bootstrap is added via Application.java -->
+    <wicket:header-items/>
+    
+    <link href="vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    
+    <script src="js/jquery.expandable.js"></script>
+    
+    <script src="vendors/jquery-ui/jquery-ui.min.js"></script>
+    <link href="vendors/jquery-ui/jquery-ui.min.css" rel="stylesheet" type="text/css" media="all">
+    
+    <link href="vendors/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" type="text/css" media="all">
+    <script src="vendors/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
     
     <link href="vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all">
-    <link href="vendors/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" type="text/css" media="all">
-    <link href="vendors/jquery-ui/css/theme/jquery-ui-1.10.3.custom.css" rel="stylesheet" type="text/css" media="all">
-    <link href="vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all">
-    <link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet'>
+    
     <link href="css/custom.css" rel="stylesheet" type="text/css" media="all">
-    
-    <script src="vendors/jquery/jquery.min.js"></script>
-    <script src="vendors/jquery-ui/js/jquery-ui-1.10.3.custom.js"></script>
-    <script src="vendors/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-    <script src="vendors/bootstrap/js/bootstrap.min.js"></script>
-    <script src="vendors/less/less-1.7.0.min.js"></script>
-    <script src="js/jquery.expandable.js"></script>
     <script src="js/custom.js"></script>
-    
-    <wicket:header-items/>    
     
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
@@ -28,6 +31,11 @@
 </head>
 
 <body>
+    <script>
+    function getBaseUrl() {
+    	return $('meta[name=baseUrl]').attr('content');
+    }
+    </script>
     <div wicket:id="dev"></div>
     
     <header>
@@ -288,46 +296,19 @@
         </wicket:remove>
     </div>
     <footer>
-        <div id="footerTop">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4 col-xs-12">
-                        <h3>OASIS - Online Assessed Innovations</h3>
-                        <p>
-                            <small wicket:id="application.footer"></small>
-                        </p>
-                    </div>
-                    <div class="col-md-4 col-xs-12">
-                        <h3>CONTACT</h3>
-                        <address>
-                          <i class="fa fa-map-marker"></i> Universitätsstraße 9, D-45141 Essen<br>
-                          <i class="fa fa-phone"></i> +49 (201) 183 4041<br>
-                          <i class="fa fa-envelope"></i> unternehmensmodellierung@uni-due.de
-                        </address>
-                    </div>
-                    <div class="col-md-4 col-xs-12 supporter">
-                        <h3>SUPPORTED BY</h3>
-                        <a href="http://www.iml.fraunhofer.de">
-                            <img src="logos/iml_logo_190.png">
-                        </a>
-                        <br>
-                        <a href="http://www.uni-due.de">
-                            <img src="logos/ude_logo_190.png">
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div id="footerBottom">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-4 col-sm-4 col-xs-4">
+                    <div class="col-md-4 col-sm-4 ">
                         &copy;2014. All rights reserved.
+                        <a href="#" wicket:id="link.disclaimer">
+                            <wicket:message key="label.disclaimer"/>
+                        </a>
                     </div>
-                    <div class="col-md-4 col-sm-4 col-xs-4 text-center">
+                    <div class="col-md-4 col-sm-4 text-center">
                         <wicket:container wicket:id="nav.lang"></wicket:container>
                     </div>
-                    <div class="col-md-4 col-sm-4 col-xs-4 text-right">
+                    <div class="col-md-4 col-sm-4 text-right">
                         <a href="#top">
                             <wicket:message key="label.link.top" /> <i class="fa fa-arrow-up"></i>
                         </a>

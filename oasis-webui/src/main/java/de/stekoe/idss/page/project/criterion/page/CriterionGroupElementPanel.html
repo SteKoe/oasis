@@ -1,8 +1,8 @@
 <html xmlns:wicket="http://wicket.sourceforge.net/">
 <body>
 <wicket:panel>
-    <div class="criterion-page">
-        <div class="criterion-page-header">
+    <div class="criterion-group">
+        <div class="criterion-group-header">
             <div class="row">
                 <div class="col-md-8">
                     <strong><wicket:message key="label.group" /></strong>
@@ -23,15 +23,14 @@
             </div>
         </div>
 
-        <div class="criterion-page-body">
+        <div class="criterion-group-body">
             <div wicket:id="page.empty" class="text-center empty">
                 Leer
             </div>
-            <div wicket:id="group.items">
+            <wicket:container wicket:id="group.items">
                 <wicket:container wicket:id="page.list.item">
-
                 </wicket:container>
-            </div>
+            </wicket:container>
         </div>
     </div>
 </wicket:panel>

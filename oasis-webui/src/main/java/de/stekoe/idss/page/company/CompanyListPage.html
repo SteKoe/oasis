@@ -1,10 +1,10 @@
 <html xmlns:wicket="http://wicket.sourceforge.net/">
 <wicket:extend>
-    <div class="well">
-        <a href="" class="btn btn-success" wicket:id="link.new">
-            <wicket:message key="label.new" />
-        </a>
-    </div>
+    <a href="" class="btn btn-nav" wicket:id="link.new">
+        <wicket:message key="label.create">
+            <span wicket:id="item"></span>
+        </wicket:message>
+    </a>
     <wicket:container wicket:id="company.list">
     </wicket:container>
 </wicket:extend>

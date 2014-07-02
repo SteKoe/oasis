@@ -214,4 +214,9 @@
     <entry key="message.password.lost">Sie können ihr Passwort ${link.password.lost} zurücksetzen.</entry>
     <entry key="message.login.register">Sie haben noch keinen Zugang? Dann können Sie sich ${link.register} registrieren!</entry>
     <entry key="label.link.top">Nach oben</entry>
+    <entry key="label.page">Seite</entry>
+    <entry key="label.disclaimer">Impressum</entry>
+    <entry key="label.project.manager">Projektverwaltung</entry>
+    <entry key="label.company.manager">Unternehmensverwaltung</entry>
+    <entry key="label.create">${item} erstellen</entry>
 </properties>

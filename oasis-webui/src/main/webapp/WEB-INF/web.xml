@@ -43,7 +43,7 @@
     </context-param>
     <context-param>
         <param-name>configuration</param-name>
-        <param-value>DEVELOPMENT</param-value>
+        <param-value>DEPLOYMENT</param-value>
     </context-param>
     <context-param>
         <param-name>email.noreply</param-name>

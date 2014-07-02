@@ -22,6 +22,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.repeater.data.IDataProvider;
@@ -50,7 +51,9 @@ public class CompanyListPage extends AuthUserPage {
 
         setTitle(getString("label.company.manage"));
 
-        add(new BookmarkablePageLink<CreateCompanyPage>("link.new", CreateCompanyPage.class));
+        BookmarkablePageLink<CreateCompanyPage> createCompanyLink = new BookmarkablePageLink<CreateCompanyPage>("link.new", CreateCompanyPage.class);
+        add(createCompanyLink);
+        createCompanyLink.add(new Label("item", getString("label.company")));
 
         IDataProvider<Company> dataProvider = new IDataProvider<Company>() {
 

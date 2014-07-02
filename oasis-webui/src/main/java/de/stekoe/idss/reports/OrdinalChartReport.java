@@ -69,11 +69,15 @@ public class OrdinalChartReport extends Report<AmSerialChart> {
     }
 
     private String numberFormat(double number) {
-        Locale locale  = WebSession.get().getLocale();
-        DecimalFormat decimalFormat = (DecimalFormat)NumberFormat.getNumberInstance(locale);
-        decimalFormat.applyPattern("######.##");
+        if(!Double.isNaN(number)) {
+            Locale locale  = WebSession.get().getLocale();
+            DecimalFormat decimalFormat = (DecimalFormat)NumberFormat.getNumberInstance(locale);
+            decimalFormat.applyPattern("######.##");
 
-        return decimalFormat.format(number);
+            return decimalFormat.format(number);
+        } else {
+            return "n/a";
+        }
     }
 
     List<Label> getLabel() {

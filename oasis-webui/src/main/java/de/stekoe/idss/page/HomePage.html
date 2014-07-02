@@ -3,10 +3,12 @@
 <body>
     <wicket:head>
         <script>
-									$(document).ready(function() {
-										$('#myCarousel').carousel();
-									});
-								</script>
+			$(document).ready(function() {
+				$('#myCarousel').carousel({
+					interval: 7500
+				});
+			});
+		</script>
     </wicket:head>
     <wicket:extend>
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -24,7 +26,7 @@
                 <div class="item active">
                     <img
                         src="img/slider/slide-innovation.png">
-                    <div class="carousel-caption">
+                    <div class="carousel-caption caption-top">
                         <h3>Assess innovations</h3><br>
                         <h3>Share your knowledge</h3><br>
                     </div>
@@ -49,7 +51,7 @@
 
                 <div class="item">
                     <img src="img/slider/slide-collaboration.png">
-                    <div class="carousel-caption">
+                    <div class="carousel-caption caption-top">
                         <h3>Build for collaboration</h3><br>
                     </div>
                 </div>

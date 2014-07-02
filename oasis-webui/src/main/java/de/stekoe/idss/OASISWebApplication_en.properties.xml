@@ -211,5 +211,10 @@
     <entry key="label.click.here">here</entry>
     <entry key="message.password.lost">You can reset your password ${link.password.lost}.</entry>
     <entry key="message.login.register">You do not have an account yet? Click ${link.register} to register.</entry>
-    <entry key="label.link.top">top</entry>
+    <entry key="label.link.top">To top</entry>
+    <entry key="label.page">Page</entry>
+    <entry key="label.disclaimer">Disclaimer</entry>
+    <entry key="label.project.manager">Manage projects</entry>
+    <entry key="label.company.manager">Manage companies</entry>
+    <entry key="label.create">Create ${item}</entry>
 </properties>

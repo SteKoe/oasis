@@ -1,5 +1,6 @@
 <html xmlns:wicket="http://wicket.sourceforge.net/">
-<wicket:head>
+<body>
+    <wicket:extend>
     <script>
     $(function(){
     	$('.checkall').on('click', function(){
@@ -32,9 +33,6 @@
 		});
     });
     </script>
-</wicket:head>
-<body>
-    <wicket:extend>
         <form wicket:id="form">
         <div class="panel-group" id="referenceList">
             <!-- -->

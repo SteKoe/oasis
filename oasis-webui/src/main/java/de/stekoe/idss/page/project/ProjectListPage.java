@@ -58,7 +58,7 @@ public class ProjectListPage extends AuthUserPage {
     private ProjectDataProvider projectDataProvider;
 
     public ProjectListPage() {
-        setTitle(getString("label.criterion.list"));
+        setTitle(getString("label.project.manager"));
         addCreateProjectLink();
         addProjectList();
     }
@@ -95,6 +95,7 @@ public class ProjectListPage extends AuthUserPage {
     private void addCreateProjectLink() {
         final BookmarkablePageLink<ProjectCreatePage> createProject = new BookmarkablePageLink<ProjectCreatePage>("createProject", ProjectCreatePage.class);
         add(createProject);
+        createProject.add(new Label("item", getString("label.project")));
     }
 
     /**

@@ -28,13 +28,11 @@ import org.apache.wicket.Application;
 import org.apache.wicket.authroles.authentication.AbstractAuthenticatedWebSession;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
 import org.apache.wicket.bean.validation.BeanValidationConfiguration;
-import org.apache.wicket.core.request.mapper.CryptoMapper;
 import org.apache.wicket.markup.html.WebPage;
-import org.apache.wicket.request.IRequestMapper;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.request.Response;
-import org.apache.wicket.request.Url;
-import org.apache.wicket.request.resource.UrlResourceReference;
+import org.apache.wicket.request.resource.IResource;
+import org.apache.wicket.request.resource.ResourceReference;
 import org.apache.wicket.settings.IExceptionSettings;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 import org.springframework.beans.BeansException;
@@ -47,6 +45,7 @@ import de.agilecoders.wicket.core.settings.BootstrapSettings;
 import de.stekoe.idss.page.AuthorizationStrategy;
 import de.stekoe.idss.page.HomePage;
 import de.stekoe.idss.page.LoginPage;
+import de.stekoe.idss.rest.CriterionPageRestResource;
 import de.stekoe.idss.session.WebSession;
 
 @Component
@@ -60,6 +59,9 @@ public class OASISWebApplication extends AuthenticatedWebApplication implements 
 
     @Inject
     private ApplicationRoutes applicationRoutes;
+
+    @Inject
+    CriterionPageRestResource criterionPageRestResource;
 
     public static OASISWebApplication get() {
         return (OASISWebApplication) Application.get();
@@ -75,19 +77,20 @@ public class OASISWebApplication extends AuthenticatedWebApplication implements 
         LANGUAGES.put(Locale.ITALIAN, "Italiano");
         LANGUAGES.put(new Locale("es", ""), "Español");
 
+        mountResource("/rest/criterionpage", new ResourceReference("criterionPageRestReference") {
+            @Override
+            public IResource getResource() {
+                return criterionPageRestResource;
+            }
+        });
+
         new BeanValidationConfiguration().configure(this);
-        getJavaScriptLibrarySettings().setJQueryReference(new UrlResourceReference(Url.parse("//code.jquery.com/jquery-1.10.2.min.js")));
         setConfigurationType();
         setSecuritySettings();
         setUpSpring();
         getMarkupSettings().setDefaultMarkupEncoding(StandardCharsets.UTF_8.displayName());
-        Bootstrap.install(this, new BootstrapSettings());
-
-        LOG.info("Found following beans:");
-        for(String beanName : ctx.getBeanDefinitionNames()) {
-            Object bean = ctx.getBean(beanName);
-            LOG.info("  '" + beanName + "': " + bean);
-        }
+        BootstrapSettings settings = new BootstrapSettings();
+        Bootstrap.install(this, settings);
 
         applicationRoutes.create();
     }
@@ -105,8 +108,6 @@ public class OASISWebApplication extends AuthenticatedWebApplication implements 
                 getMarkupSettings().setCompressWhitespace(true);
                 break;
         }
-        IRequestMapper cryptoMapper = new CryptoMapper(getRootRequestMapper(), this);
-        setRootRequestMapper(cryptoMapper);
     }
 
     private void setSecuritySettings() {

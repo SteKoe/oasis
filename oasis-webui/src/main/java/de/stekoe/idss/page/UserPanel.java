@@ -119,8 +119,8 @@ public class UserPanel extends Panel {
         linkList.add(new MenuLink("label.user.profile", new BookmarkablePageLink<EditUserProfilePage>(USER_MENU_ITEM_LINK, EditUserProfilePage.class)));
         linkList.add(new MenuLink("label.change.account.settings", new BookmarkablePageLink<EditPasswordPage>(USER_MENU_ITEM_LINK, EditPasswordPage.class)));
         linkList.add(new MenuSeparator());
-        linkList.add(new MenuLink("label.project.overview", new BookmarkablePageLink<ProjectListPage>(USER_MENU_ITEM_LINK, ProjectListPage.class)));
-        linkList.add(new MenuLink("label.company.overview", new BookmarkablePageLink<CompanyListPage>(USER_MENU_ITEM_LINK, CompanyListPage.class)));
+        linkList.add(new MenuLink("label.project.manager", new BookmarkablePageLink<ProjectListPage>(USER_MENU_ITEM_LINK, ProjectListPage.class)));
+        linkList.add(new MenuLink("label.company.manager", new BookmarkablePageLink<CompanyListPage>(USER_MENU_ITEM_LINK, CompanyListPage.class)));
 
         if(WebSession.get().isSignedIn() && WebSession.get().getUser().isAdmin()) {
             linkList.addAll(getAdminMenuLinks());

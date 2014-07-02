@@ -20,6 +20,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -42,6 +43,7 @@ public class CriterionPage implements Serializable {
     private String name;
     private List<PageElement> pageElements = new ArrayList<PageElement>();
     private Project project;
+    private int ordering = -1;
 
     @Id
     public String getId() {
@@ -78,11 +80,20 @@ public class CriterionPage implements Serializable {
         this.project = project;
     }
 
+    @Basic
     public String getName() {
         return name;
     }
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Basic
+    public int getOrdering() {
+        return ordering;
+    }
+    public void setOrdering(int ordering) {
+        this.ordering = ordering;
     }
 
     @Override

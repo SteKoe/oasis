@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import de.stekoe.idss.TestFactory;
@@ -25,7 +26,7 @@ import de.stekoe.idss.model.SingleScaledCriterion;
 import de.stekoe.idss.model.User;
 import de.stekoe.idss.model.UserChoice;
 
-
+@Ignore
 public class ReportTest {
 
     private Project project = new Project();

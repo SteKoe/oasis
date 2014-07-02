@@ -8,7 +8,6 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 
 import de.stekoe.idss.model.PageElement;
-import de.stekoe.idss.model.SingleScaledCriterion;
 import de.stekoe.idss.model.UserChoice;
 
 public abstract class PageElementPanel<T extends PageElement> extends Panel {
@@ -33,13 +32,8 @@ public abstract class PageElementPanel<T extends PageElement> extends Panel {
     }
 
     private void addName() {
-        int parentGroupId = -1;
-        if(getPageElement() instanceof SingleScaledCriterion) {
-            parentGroupId = ((SingleScaledCriterion) getPageElement()).getCriterionGroups().size();
-        }
-
         String elementName = this.getPageElement().getName();
-        Label elementNameLabel = new Label("element.name", getPageElement().getName() + " - " + parentGroupId);
+        Label elementNameLabel = new Label("element.name", getPageElement().getName());
         elementNameLabel.setVisible(!StringUtils.isBlank(elementName));
         add(elementNameLabel);
     }

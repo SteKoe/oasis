@@ -1,35 +1,11 @@
-<!--
-  ~ Copyright 2014 Stephan Koeninger
-  ~
-  ~ Licensed under the Apache License, Version 2.0 (the "License");
-  ~ you may not use this file except in compliance with the License.
-  ~ You may obtain a copy of the License at
-  ~
-  ~ 	http://www.apache.org/licenses/LICENSE-2.0
-  ~
-  ~ Unless required by applicable law or agreed to in writing, software
-  ~ distributed under the License is distributed on an "AS IS" BASIS,
-  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  ~ See the License for the specific language governing permissions and
-  ~ limitations under the License.
-  -->
-
 <html xmlns:wicket="http://wicket.sourceforge.net/">
 <wicket:extend>
-    <div class="menubar">
-        <div class="container">
-            <a href="" wicket:id="createProject" class="btn btn-success btn-xs">
-                <i class="fa fa-plus"></i>
-                <wicket:message key="label.new" />
-            </a>
-        </div>
-    </div>
-    <div style="height: 50px;">
-        &nbsp;
-    </div>
-
-
-    <h4><wicket:message key="label.projects.existing" /></h4>
+    <a href="" wicket:id="createProject" class="btn btn-nav">
+        <wicket:message key="label.create">
+            <span wicket:id="item"></span>
+        </wicket:message>
+    </a>
+    
     <wicket:container wicket:id="project.list">
     </wicket:container>
 </wicket:extend>

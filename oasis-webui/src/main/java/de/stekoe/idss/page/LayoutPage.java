@@ -17,9 +17,12 @@
 package de.stekoe.idss.page;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
+import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.devutils.debugbar.DebugBar;
 import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.feedback.IFeedbackMessageFilter;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.FormComponent;
@@ -27,6 +30,7 @@ import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.panel.EmptyPanel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.request.Url;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import de.stekoe.idss.OASISWebApplication;
@@ -49,6 +53,7 @@ import de.stekoe.idss.session.WebSession;
  * |     |-- footer --|     |
  */
 public abstract class LayoutPage extends WebPage {
+    private static final Logger LOG = Logger.getLogger(LayoutPage.class);
 
     private String pageTitle;
 
@@ -68,17 +73,34 @@ public abstract class LayoutPage extends WebPage {
     protected void onInitialize() {
         super.onInitialize();
 
+
+        Url relative = Url.parse(getRequest().getContextPath());
+        String baseUrl = getRequestCycle().getUrlRenderer().renderFullUrl(relative);
+
+        WebMarkupContainer metaBaseUrl = new WebMarkupContainer("meta.baseUrl");
+        add(metaBaseUrl);
+        metaBaseUrl.add(new AttributeModifier("content", baseUrl.toString()));
+
         configureSession();
 
         addPageLogo();
         addPageTitle(getContextParameter("application.title"));
         addContentElements();
-        addPageFooter();
         addDebugPanel();
+
+        addFooter();
 
         Label titleLabel = new Label("page.title", pageTitle);
         add(titleLabel);
         titleLabel.setVisible(!StringUtils.isBlank(pageTitle));
+    }
+
+    private void addFooter() {
+        addDisclaimerLink();
+    }
+
+    private void addDisclaimerLink() {
+        add(new BookmarkablePageLink<DisclaimerPage>("link.disclaimer", DisclaimerPage.class));
     }
 
     /**
@@ -105,13 +127,6 @@ public abstract class LayoutPage extends WebPage {
 
     public User getUser() {
         return getSession().getUser();
-    }
-
-    private void addPageFooter() {
-        String applicationName = getContextParameter("application.name");
-        String applicationVersion = getContextParameter("application.version");
-
-        add(new Label("application.footer", applicationName + " " + applicationVersion));
     }
 
     private void addPageLogo() {

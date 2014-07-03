@@ -41,7 +41,7 @@
     <entry key="label.criterion.allowMultipleChoice.help">Allows to select multiple choices.</entry>
     <entry key="label.criterion.allowNoChoice">Selection of this criteria is not allowed</entry>
     <entry key="label.criterion.allowNoChoice.help">This option generates an additional field with the value "I dont't know".</entry>
-    <entry key="label.criterion.count">Country</entry>
+    <entry key="label.criterion.count">Count</entry>
     <entry key="label.criterion.list">List of projects</entry>
     <entry key="label.criterion.metric">Metric</entry>
     <entry key="label.criterion.nominal">Nominal</entry>

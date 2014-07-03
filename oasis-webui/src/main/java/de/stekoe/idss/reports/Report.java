@@ -138,8 +138,12 @@ public abstract class Report<T> implements Serializable {
     private void computeRowForOrdinalScaledCriterion(List<Object> row, Criterion criterion, UserChoice userChoiceForCriterion) {
         OrdinalScaledCriterion nsc = (OrdinalScaledCriterion) criterion;
         List<? extends MeasurementValue> values = nsc.getValues();
-        if(userChoiceForCriterion != null && values.contains(userChoiceForCriterion.getMeasurementValues().get(0))) {
-            row.add(userChoiceForCriterion.getMeasurementValues().get(0));
+        if(userChoiceForCriterion != null && userChoiceForCriterion.getMeasurementValues().size() > 0) {
+            if(userChoiceForCriterion != null && values.contains(userChoiceForCriterion.getMeasurementValues().get(0))) {
+                row.add(userChoiceForCriterion.getMeasurementValues().get(0));
+            } else {
+                row.add(null);
+            }
         } else {
             row.add(null);
         }
@@ -151,8 +155,12 @@ public abstract class Report<T> implements Serializable {
         if(nsc.isMultipleChoice()) {
             computeRow(row, userChoiceForCriterion, values);
         } else {
-            if(userChoiceForCriterion != null && values.contains(userChoiceForCriterion.getMeasurementValues().get(0))) {
-                row.add(userChoiceForCriterion.getMeasurementValues().get(0));
+            if(userChoiceForCriterion != null && userChoiceForCriterion.getMeasurementValues().size() > 0) {
+                if(userChoiceForCriterion != null && values.contains(userChoiceForCriterion.getMeasurementValues().get(0))) {
+                    row.add(userChoiceForCriterion.getMeasurementValues().get(0));
+                } else {
+                    row.add(null);
+                }
             } else {
                 row.add(null);
             }

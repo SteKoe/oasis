@@ -5,13 +5,40 @@
 <head layout:fragment="header" th:remove="tag">
     <link rel="stylesheet" th:href="@{/vendors/bootstrap-jasny/css/jasny-bootstrap.min.css}">
     <script th:src="@{/vendors/bootstrap-jasny/js/jasny-bootstrap.min.js}"></script>
-    <script>
+    <script th:inline="javascript">
         $(document).ready(function(){
+            deleteDocumentButton();
+
             $('.btn.save').on('click', function(event){
                 event.preventDefault();
                 $('#addProjectDocumentModal').find('form').submit();
             });
         });
+
+        function deleteDocumentButton() {
+            $('.btn-delete').on('click', function(event) {
+                event.preventDefault();
+
+                var token = $("meta[name='_csrf']").attr("content");
+                var header = $("meta[name='_csrf_header']").attr("content");
+                var id = $(this).data('id');
+                var url = /*[[@{/api/project/{pid}/document(pid=${project.id})}]]*/ '';
+
+                var promise = $.ajax({
+                    url: url + '/' + id,
+                    type: 'DELETE',
+                    beforeSend: function( xhr ) {
+                        xhr.setRequestHeader(header, token);
+                    }
+                });
+                promise.success(function(data){
+                    data = JSON.parse(data);
+                    if(data.ok !== undefined && data.ok === true) {
+                        window.location.reload();
+                    }
+                });
+            });
+        }
     </script>
 </head>
 <body>
@@ -31,27 +58,32 @@
         <thead>
         <tr>
             <th th:text="#{table.header.file.name}">Dateiname</th>
-            <th th:text="#{table.header.file.size}" class="text-right">Dateigröße</th>
-            <th th:text="#{table.header.file.uploader}" class="text-right">Hochgeladen von</th>
             <th th:text="#{table.header.actions}" class="actions text-right">Aktionen</th>
         </tr>
         </thead>
         <tbody>
             <tr th:each="document : ${project.documents}">
-                <td th:text="${document.name}">
-                    Dateiname
+                <td>
+                    <div th:text="${document.name}">
+                        Dateiname
+                    </div>
+                    <div class="small">
+                        <span th:text="#{label.file.uploader}">Hochgeladen von</span>:
+                        <a th:object="${document.user}" th:href="@{/profile/{username}(username=*{username})}" th:text="*{username}">
+                            Hans Peter
+                        </a>
+                        |
+                        <span th:text="#{label.file.size}">Größe</span>:
+                        <span th:text="${document.size}">
+                            453.0 kb
+                        </span>
+                    </div>
                 </td>
                 <td class="actions text-right">
-                    453.0 kb
-                </td>
-                <td class="actions text-right">
-                    Hans Peter
-                </td>
-                <td class="actions text-right">
-                    <a href="" class="btn btn-xs btn-default">
+                    <a href="#" th:href="@{/project/{pid}/document/{did}(pid=${project.id},did=${document.id})}" class="btn btn-xs btn-default">
                         Herunterladen
                     </a>
-                    <a href="" class="btn btn-xs btn-danger">
+                    <a href="#" class="btn btn-xs btn-danger btn-delete" th:attr="data-id=${document.id}" th:if="${@projectDocumentController.canDelete(document.id, project.id)}">
                         Löschen
                     </a>
                 </td>

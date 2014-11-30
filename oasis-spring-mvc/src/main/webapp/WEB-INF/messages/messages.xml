@@ -210,8 +210,8 @@
     <entry key="table.empty">Keine Einträge vorhanden</entry>
     <entry key="table.header.actions">Aktionen</entry>
     <entry key="table.header.file.name">Dateiname</entry>
-    <entry key="table.header.file.size">Dateigröße</entry>
-    <entry key="table.header.file.uploader">Hochgeladen von</entry>
+    <entry key="label.file.size">Dateigröße</entry>
+    <entry key="label.file.uploader">Hochgeladen von</entry>
     <entry key="table.header.id">ID</entry>
     <entry key="table.header.name">Name</entry>
     <entry key="status.evaluation.preparation">Evaluation in Vorbereitung</entry>

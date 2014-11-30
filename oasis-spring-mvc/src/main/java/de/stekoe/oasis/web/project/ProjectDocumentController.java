@@ -1,25 +1,27 @@
 package de.stekoe.oasis.web.project;
 
 import de.stekoe.idss.model.Document;
+import de.stekoe.idss.model.PermissionType;
 import de.stekoe.idss.model.Project;
 import de.stekoe.idss.service.DocumentService;
 import de.stekoe.idss.service.ProjectService;
 import de.stekoe.idss.service.UserService;
+import de.stekoe.oasis.beans.PermissionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.Locale;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller
 public class ProjectDocumentController {
@@ -36,6 +38,9 @@ public class ProjectDocumentController {
     @Autowired
     MessageSource messageSource;
 
+    @Autowired
+    PermissionManager permissionManager;
+
     @RequestMapping(value = "/project/{pid}/document", method = RequestMethod.GET)
     @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.idss.model.PermissionType).UPLOAD_FILE)")
     public ModelAndView list(@PathVariable String pid) {
@@ -47,6 +52,27 @@ public class ProjectDocumentController {
         model.addObject("document", new Document());
 
         return model;
+    }
+
+    @RequestMapping(value = "/project/{pid}/document/{did}", method = RequestMethod.GET)
+    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.idss.model.PermissionType).UPLOAD_FILE)")
+    public void download(@PathVariable String did, HttpServletResponse response) {
+        Document document = documentService.findOne(did);
+    }
+
+    public boolean canDelete(String did, String pid) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) auth.getPrincipal();
+
+        boolean mayManageFiles = permissionManager.hasProjectPermission(principal, pid, PermissionType.UPLOAD_FILE);
+
+        Document document = documentService.findOne(did);
+        boolean fileUploadedByUser = document.getUser().getUsername().equals(principal.getUsername());
+        if(fileUploadedByUser || mayManageFiles) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /*
@@ -66,12 +92,11 @@ public class ProjectDocumentController {
                 document.setContent(file.getBytes());
                 document.setContentType(file.getContentType());
                 document.setUser(userService.findByUsername(username));
+                documentService.save(document);
 
-//            documentService.save(document);
-//
-//            Project project = projectService.findOne(pid);
-//            project.getDocuments().add(document);
-//            projectService.save(project);
+                Project project = projectService.findOne(pid);
+                project.getDocuments().add(document);
+                projectService.save(project);
 
                 redirectAttributes.addFlashAttribute("flashSuccess", messageSource.getMessage("message.upload.success", null, locale));
             } catch (Exception e) {
@@ -81,5 +106,23 @@ public class ProjectDocumentController {
             redirectAttributes.addFlashAttribute("flashError", messageSource.getMessage("message.upload.no.file", null, locale));
         }
         return "redirect:/project/" + pid + "/document";
+    }
+
+    @RequestMapping(value = "/api/project/{pid}/document/{did}", method = RequestMethod.DELETE)
+    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.idss.model.PermissionType).UPLOAD_FILE)")
+    public @ResponseBody String post(@PathVariable String pid, @PathVariable String did) {
+        if(canDelete(did, pid)) {
+            // Delete Document from Project
+            Project project = projectService.findOne(pid);
+            Set<Document> documents = project.getDocuments().stream().filter(document -> !document.getId().equals(did)).collect(Collectors.toSet());
+            project.setDocuments(documents);
+            projectService.save(project);
+
+            // Delete the Document itself
+            documentService.delete(did);
+            return "{\"ok\":true}";
+        } else {
+            return "{\"ok\":false}";
+        }
     }
 }

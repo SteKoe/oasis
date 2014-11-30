@@ -14,6 +14,14 @@ public class DocumentService {
     @Inject
     private DocumentRepository documentRepository;
 
+    public void delete(String id) {
+        documentRepository.delete(id);
+    }
+
+    public Document findOne(String s) {
+        return documentRepository.findOne(s);
+    }
+
     public void save(Document document) {
         documentRepository.save(document);
     }

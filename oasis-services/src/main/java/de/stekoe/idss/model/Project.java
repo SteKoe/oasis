@@ -5,18 +5,9 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -50,6 +41,7 @@ public class Project implements Serializable, Identifyable<String>, NamedElement
 
     @Override
     @NotNull
+    @Size(min = 2, max = 200)
     @Column(nullable = false)
     public String getName() {
         return this.name;
@@ -69,7 +61,7 @@ public class Project implements Serializable, Identifyable<String>, NamedElement
         this.description = description;
     }
 
-    @OneToMany(cascade = CascadeType.ALL, targetEntity = ProjectMember.class)
+    @OneToMany(cascade = CascadeType.ALL, targetEntity = ProjectMember.class, fetch = FetchType.EAGER)
     public Set<ProjectMember> getProjectTeam() {
         return projectTeam;
     }

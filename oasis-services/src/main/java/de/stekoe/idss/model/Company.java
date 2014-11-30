@@ -2,6 +2,8 @@ package de.stekoe.idss.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -47,7 +49,7 @@ public class Company implements Serializable, Identifyable<String>, NamedElement
 
     @OneToMany(targetEntity = CompanyRole.class, cascade = CascadeType.ALL)
     public List<CompanyRole> getRoles() {
-        return roles;
+        return (roles == null ? Collections.EMPTY_LIST : roles);
     }
     public void setRoles(List<CompanyRole> roles) {
         this.roles = roles;
@@ -72,7 +74,10 @@ public class Company implements Serializable, Identifyable<String>, NamedElement
     @Transient
     public Employee getEmployee(User user) {
         for(Employee e : getEmployees()) {
-            if(e.getUser().equals(user)) {
+            if(e.getUser().getUsername().equals(user.getUsername())) {
+                return e;
+            }
+            if(e.getUser().getEmail().equals(user.getEmail())) {
                 return e;
             }
         }

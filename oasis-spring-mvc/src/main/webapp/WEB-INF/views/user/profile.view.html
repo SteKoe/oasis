@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout_containered">
+<body layout:fragment="content">
+    <div class="container">
+        <div class="col-md-2">
+            <div class="text-center">
+                <img th:src="${image}">
+            </div>
+        </div>
+        <div class="col-md-10">
+            <h1 th:text="${user.username}"></h1>
+        </div>
+    </div>
+</body>
+</html>

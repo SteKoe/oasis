@@ -1,0 +1,47 @@
+<div id="footerTop">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-xs-12">
+                <h3>OASIS - Online Assessed Innovations</h3>
+                <p>
+                    This is the application footer
+                </p>
+            </div>
+            <div class="col-md-4 col-xs-12">
+                <h3>CONTACT</h3>
+                <address>
+                    <i class="fa fa-map-marker"></i> Universitätsstraße 9, D-45141 Essen<br />
+                    <i class="fa fa-phone"></i> +49 (201) 183 4041<br />
+                    <i class="fa fa-envelope"></i> unternehmensmodellierung@uni-due.de
+                </address>
+            </div>
+            <div class="col-md-4 col-xs-12 supporter">
+                <h3>SUPPORTED BY</h3>
+                <a href="http://www.iml.fraunhofer.de">
+                    <img src="/img/logos/iml_logo_190.png">
+                </a>
+                <br />
+                <a href="http://www.uni-due.de">
+                    <img src="/img/logos/ude_logo_190.png">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="footerBottom">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-4">
+                &copy;<span th:text="${@dateFormatter.getCurrentYear()}"></span>. All rights reserved.
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-4 text-center">
+                <a th:each="k : ${@appConfiguration.getLocales()}" th:href="@{?lang={lang}(lang=${k.key})}" th:text="${k.value}">Deutsch</a>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-4 text-right">
+                <a href="#top">
+                    <span th:text="#{label.link.top}" /> <i class="fa fa-arrow-up"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

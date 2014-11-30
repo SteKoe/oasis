@@ -1,0 +1,33 @@
+<div class="modal fade" id="addProjectDocumentModal" th:fragment="addProjectDocumentModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">
+                    <span th:text="#{label.project.add.document}"></span>
+                    <span class="username"></span>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form name="editMember" id="editMember" th:action="@{/api/project/{pid}/document(pid=${project.id})}" method="post" enctype="multipart/form-data">
+                    <div>
+                        <label th:text="#{label.file}">Datei</label>
+                        <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                            <div class="form-control" data-trigger="fileinput">
+                                <i class="glyphicon glyphicon-file fileinput-exists"></i>
+                                <span class="fileinput-filename"></span>
+                            </div>
+                            <span class="input-group-addon btn btn-default btn-file">
+                                <span class="fileinput-new">Select file</span>
+                                <span class="fileinput-exists">Change</span>
+                                <input type="file" name="file">
+                            </span>
+                            <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" th:replace="fragments/modal/footer/savecancel"></div>
+        </div>
+    </div>
+</div>

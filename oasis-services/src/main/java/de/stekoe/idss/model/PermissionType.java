@@ -1,5 +1,7 @@
 package de.stekoe.idss.model;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,6 +27,11 @@ public enum PermissionType implements L10NEnum {
     public String getKey() {
         return this.key;
     }
+
+    public static PermissionType getByKey(String key) {
+        PermissionType[] values = PermissionType.values();
+        return Arrays.<PermissionType>stream(values).filter(pt -> pt.getKey().equals(key)).findFirst().get();
+    };
 
     public static final Set<PermissionType> forReadOnly() {
         final Set<PermissionType> permissionTypes = new HashSet<PermissionType>();
@@ -54,7 +61,6 @@ public enum PermissionType implements L10NEnum {
 
     public static final Set<PermissionType> forCompany() {
         final Set<PermissionType> permissionTypes = new HashSet<PermissionType>();
-        permissionTypes.add(READ);
         permissionTypes.add(UPDATE);
         permissionTypes.add(DELETE);
         permissionTypes.add(MANAGE_MEMBER);

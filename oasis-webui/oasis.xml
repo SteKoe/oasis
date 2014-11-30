@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Context path="/" docBase="/opt/tomcat/7.0.53/oasis-webapps">
-    <Parameter name="configuration" value="DEPLOYMENT" override="false" />
-</Context>

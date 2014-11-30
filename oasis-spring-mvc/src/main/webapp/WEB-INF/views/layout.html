@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:include="layout/head">
+</head>
+<body th:inline="text">
+    <header th:include="layout/header">
+        <!-- Header here -->
+    </header>
+
+    <div class="container systemmessages" th:if="${flashError != null || flashSuccess != null}">
+        <div class="alert alert-success alert-dismissable" th:if="${flashSuccess}">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <span th:text="${flashSuccess}" th:remove="tag"></span>
+        </div>
+        <div class="alert alert-danger alert-dismissable" th:if="${flashError}">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <span th:text="${flashError}" th:remove="tag"></span>
+        </div>
+    </div>
+
+    <div id="content" layout:fragment="content">
+        <!-- Content here -->
+    </div>
+    <footer th:include="layout/footer">
+        <!-- Footer here -->
+    </footer>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout_containered">
+<body >
+    <div class="container" layout:fragment="content">
+        <div class="col-md-3">
+            <div class="list-group">
+                <a th:href="@{/project/{id}(id=${project.id})}" class="list-group-item" th:text="#{label.project.overview}">
+                </a>
+                <a th:href="@{/project/{id}/edit(id=${project.id})}" class="list-group-item" th:text="#{label.project.edit}">
+                </a>
+                <a th:href="@{/project/{id}/member(id=${project.id})}" class="list-group-item" th:text="#{label.project.edit.member}">
+                </a>
+                <a th:href="@{/project/{id}/role(id=${project.id})}" class="list-group-item" th:text="#{label.project.edit.roles}">
+                </a>
+                <a th:href="@{/project/{id}/document(id=${project.id})}" class="list-group-item" th:text="#{label.files.manage}">
+                </a>
+                <a th:href="@{/project/{id}/criteria(id=${project.id})}" class="list-group-item" th:text="#{label.setOfCriteria}">
+                </a>
+                <a th:href="@{/project/{id}/evaluation(id=${project.id})}" class="list-group-item" th:text="#{label.evaluation}">
+                </a>
+                <a th:href="@{/project/{id}/evaulation/result(id=${project.id})}" class="list-group-item" th:text="#{label.evaluation.result}">
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-9" layout:fragment="project_content">
+        </div>
+    </div>
+</body>
+</html>

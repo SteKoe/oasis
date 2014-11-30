@@ -1,0 +1,39 @@
+<div class="user-nav-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 hidden-xs">
+                <div class="user-nav-additional">
+                    Online Assessed Innovations
+                </div>
+            </div>
+            <div class="col-md-6" th:include="layout/top_navigation">
+
+            </div>
+        </div>
+    </div>
+</div>
+<div id="logo-wrapper">
+    <div class="container">
+    </div>
+</div>
+
+<div class="main-nav-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-2">
+                <a th:href="@{/}">
+                    <img id="logo" src="/img/logo.png" />
+                </a>
+            </div>
+            <div class="col-md-10" th:include="layout/navigation">
+                <!-- Navigation here -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="breadcrumb" th:if="${pageTitle}">
+    <div class="container">
+        <h1 th:text="${pageTitle}">Title of the page</h1>
+    </div>
+</div>

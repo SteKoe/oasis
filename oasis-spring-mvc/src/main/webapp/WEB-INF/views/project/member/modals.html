@@ -1,0 +1,73 @@
+<div class="modal fade" id="memberDetailModal" th:fragment="memberDetailModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">
+                    <span th:text="#{label.project.member}"></span>
+                    <span class="username"></span>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form name="editMember" id="editMember" th:action="@{/}">
+                    <div class="form-group">
+                        <label class="control-label" for="edit_name" th:text="#{label.name}">Name</label>
+                        <input id="edit_name" name="name" type="text" class="form-control" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label" for="edit_projectRole" th:text="#{label.project.role}">Rolle im Projekt</label>
+                        <select name="projectRole" id="edit_projectRole" class="form-control select2">
+                            <option th:each="role : ${projectRoles}"
+                                    th:value="${role}"
+                                    th:text="${role.getName()}">
+                            </option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" th:replace="fragments/modal/footer/savecancel">
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div class="modal fade" id="addMemberModal" th:fragment="addMemberModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">
+                    <span th:text="#{label.project.member}"></span>
+                    <span class="username"></span>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form name="addMember" id="addMember" th:action="@{/}">
+                    <div class="form-group">
+                        <label class="control-label" for="add_userid" th:text="#{label.name}">Name</label>
+                        <select name="userid" id="add_userid" class="form-control select2">
+                            <option th:each="member : ${users}"
+                                    th:value="${member.getId()}"
+                                    th:text="${member.getUsername()}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label" for="add_projectStatus" th:text="#{label.project.role}">Projektstatus</label>
+                        <select name="projectRole" id="add_projectStatus" class="form-control select2">
+                            <option th:each="role : ${projectRoles}"
+                                    th:value="${role}"
+                                    th:text="${role.getName()}">
+                            </option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" th:replace="fragments/modal/footer/savecancel">
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

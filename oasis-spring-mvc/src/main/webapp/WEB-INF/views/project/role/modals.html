@@ -1,0 +1,69 @@
+<div class="modal fade" id="addProjectRoleModal" th:fragment="addProjectRoleModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">
+                    <span th:text="#{label.project.role}">
+                        Projektrolle
+                    </span>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form name="addProjectRole" id="addProjectRole" th:action="@{/}">
+                    <div class="form-group">
+                        <label class="control-label" for="add_name" th:text="#{label.name}">Name</label>
+                        <input type="text" name="name" id="add_name" class="form-control select2" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" th:text="#{label.permissions}">Zugriffsrechte</label>
+
+                        <div class="checkbox" th:each="permission : ${permissionTypes}">
+                            <label>
+                                <input type="checkbox" th:value="${permission.getKey()}" name="permission" th:disabled="${permission.toString() == 'READ'}" th:checked="${permission.toString() == 'READ'}">
+                                <span th:text="#{__${permission.getKey()}__(#{label.project})}" th:remove="tag"></span>
+                            </label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" th:replace="fragments/modal/footer/savecancel">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editProjectRoleModal" th:fragment="editProjectRoleModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">
+                    <span th:text="#{label.project.role}">
+                        Projektrolle
+                    </span>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form name="addProjectRole" id="editProjectRole" th:action="@{/}">
+                    <div class="form-group">
+                        <label class="control-label" for="edit_name" th:text="#{label.name}">Name</label>
+                        <input type="text" name="name" id="edit_name" class="form-control select2" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" th:text="#{label.permissions}">Zugriffsrechte</label>
+
+                        <div class="checkbox" th:each="permission : ${permissionTypes}">
+                            <label>
+                                <input type="checkbox" th:value="${permission}" name="permission" th:disabled="${permission.toString() == 'READ'}" th:checked="${permission.toString() == 'READ'}">
+                                <span th:text="#{__${permission.getKey()}__(#{label.project})}" th:remove="tag"></span>
+                            </label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" th:replace="fragments/modal/footer/savecancel">
+            </div>
+        </div>
+    </div>
+</div>

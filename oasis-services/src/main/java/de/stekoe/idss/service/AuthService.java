@@ -114,7 +114,8 @@ public class AuthService {
      * @param permissionType PermissionType which has to be part of Permission
      * @param permissionObject PermissionObject which has to be part of
      *            Permission
-     * @return
+     *
+     * @return A List of Permissions
      */
     List<Permission> permissionsFilter(List<Permission> listOfPermissions, final PermissionType permissionType, final PermissionObject permissionObject) {
 

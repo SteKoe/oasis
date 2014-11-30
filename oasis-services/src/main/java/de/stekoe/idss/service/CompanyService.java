@@ -1,21 +1,15 @@
 package de.stekoe.idss.service;
 
-import java.util.List;
-
-import javax.inject.Inject;
-
+import de.stekoe.idss.model.*;
+import de.stekoe.idss.repository.CompanyRepository;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import de.stekoe.idss.model.Company;
-import de.stekoe.idss.model.CompanyRole;
-import de.stekoe.idss.model.Employee;
-import de.stekoe.idss.model.Permission;
-import de.stekoe.idss.model.PermissionObject;
-import de.stekoe.idss.model.PermissionType;
-import de.stekoe.idss.repository.CompanyRepository;
+import javax.inject.Inject;
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -94,5 +88,9 @@ public class CompanyService {
 
     public List<Company> findAll() {
         return (List<Company>) companyRepository.findAll();
+    }
+
+    public List<Company> findByNameLike(String name, Pageable pageable) {
+        return companyRepository.findByNameLike(name, pageable);
     }
 }

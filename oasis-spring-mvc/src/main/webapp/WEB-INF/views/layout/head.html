@@ -1,0 +1,41 @@
+<title></title>
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+<meta name="_csrf" th:content="${_csrf.token}"/>
+<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+
+<link href='//fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' />
+
+<link th:href="@{/vendors/bootstrap/css/bootstrap.min.css}" rel="stylesheet" type="text/css" media="all" />
+<link th:href="@{/vendors/bootstrap-datepicker/css/datepicker.css}" rel="stylesheet" type="text/css" media="all" />
+<link th:href="@{/vendors/jquery-ui/jquery-ui.min.css}" rel="stylesheet" type="text/css" media="all" />
+<link th:href="@{/vendors/font-awesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css" media="all" />
+<link th:href="@{/css/custom.css}" rel="stylesheet" type="text/css" media="all" />
+
+<script th:src="@{/vendors/jquery/jquery.min.js}"></script>
+<script th:src="@{/vendors/jquery-ui/jquery-ui.js}"></script>
+<script th:src="@{/vendors/bootstrap-datepicker/js/bootstrap-datepicker.js}"></script>
+<script th:src="@{/vendors/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/vendors/less/less-1.7.0.min.js}"></script>
+<script th:src="@{/js/jquery.expandable.js}"></script>
+<script th:src="@{/js/custom.js}"></script>
+
+<style>
+    #myMenu {
+        float:left;
+        border: 1px solid #ccc;
+        margin: 0 10px 10px 0;
+        padding: 0 5px 5px 5px;
+        box-shadow: 2px 2px 2px #ccc;
+        border-radius: 5px;
+    }
+</style>
+
+<div layout:fragment="header">
+</div>
+
+<!--[if lt IE 9]>
+<script src="js/html5shiv.js"></script>
+<![endif]-->

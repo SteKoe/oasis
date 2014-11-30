@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="project/layout">
+<head layout:fragment="header" th:remove="tag">
+    <link rel="stylesheet" th:href="@{/vendors/select2/select2.css}">
+    <link rel="stylesheet" th:href="@{/vendors/select2/select2-bootstrap.css}">
+    <script th:src="@{/vendors/select2/select2.min.js}"></script>
+    <script th:inline="javascript">
+        $(document).ready(function() {
+            $('.select2').select2();
+
+            $('.btn-delete').on('click', function(event) {
+                event.preventDefault();
+
+                var token = $("meta[name='_csrf']").attr("content");
+                var header = $("meta[name='_csrf_header']").attr("content");
+
+                var memberId = $(this).data('member-id');
+                var url = /*[[@{/api/project/{pid}/member/(pid=${project.id})}]]*/ '';
+                    url = url + memberId;
+
+                var promise = $.ajax({
+                    url: url,
+                    type: 'DELETE',
+                    beforeSend: function( xhr ) {
+                        xhr.setRequestHeader(header, token);
+                    }
+                });
+                promise.success(function(data){
+                    data = JSON.parse(data);
+                    if(data.ok !== undefined && data.ok === true) {
+                        window.location.reload();
+                    }
+                });
+            });
+
+            $('#memberDetailModal, #addMemberModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var memberId = button.data('member-id');
+                var modal = $(this);
+                var url = /*[[@{/api/project/{pid}/member/(pid=${project.id})}]]*/ '';
+                var editMode = modal.attr('id').indexOf("add") === -1;
+
+                if(editMode) {
+                    $.getJSON(url + memberId, function (data) {
+                        modal.find('.modal-title .username').text(data.username);
+                        modal.find('#edit_name').val(data.username);
+                        modal.find('#edit_projectRole').each(function (idx, opt) {
+                            var $opt = $(opt);
+                            if ($opt.val() === data.projectRoleName) {
+                                $opt.attr('selected', 'selected');
+                                return;
+                            }
+                        });
+                        modal.find('#edit_projectRole').select2('val', data.projectRoleName);
+                    });
+                }
+
+                modal.find('button.save').on('click', function() {
+                    var token = $("meta[name='_csrf']").attr("content");
+                    var header = $("meta[name='_csrf_header']").attr("content");
+                    var url;
+                    if(editMode) {
+                        url = /*[[@{/api/project/{pid}/member/(pid=${project.id})}]]*/ '';
+                        url = url + memberId;
+                    } else {
+                        url = /*[[@{/api/project/{pid}/member/(pid=${project.id})}]]*/ '';
+                    }
+                    var promise = $.ajax({
+                        url: url,
+                        type: (editMode ? 'PUT' : 'POST'),
+                        data: modal.find('form').serialize(),
+                        beforeSend: function( xhr ) {
+                            xhr.setRequestHeader(header, token);
+                        }
+                    });
+                    promise.success(function(data) {
+                        data = JSON.parse(data);
+                        if(data.ok !== undefined && data.ok === true) {
+                            window.location.reload();
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+<div layout:fragment="project_content">
+    <h4 th:text="#{label.project.edit.member}">
+        Projektmitglieder
+    </h4>
+
+    <div>
+        <a href="" class="btn btn-default btn-primary" data-toggle="modal" data-target="#addMemberModal" >
+            <span class="fa fa-plus"></span>
+            <span th:text="#{label.add}"></span>
+        </a>
+    </div>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th th:text="#{table.header.name}">Name/Bezeichnung</th>
+            <th th:text="#{table.header.actions}" class="actions text-right">Aktionen</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr th:each="projectMember : ${project.projectTeam}">
+                <td>
+                    <span th:text="${projectMember.user.username}"></span>
+                    <small th:text="${projectMember.projectRole}"></small>
+                </td>
+                <td class="actions text-right">
+                    <a data-toggle="modal" data-target="#memberDetailModal" th:if="${projectMember.user.username != #authentication.name}" th:attr="data-member-id=${projectMember.id}" href="#" class="btn btn-xs btn-default" th:text="#{label.details}">
+                        Details
+                    </a>
+                    <a th:if="${projectMember.user.username != #authentication.name}" th:attr="data-member-id=${projectMember.id}" th:href="@{/project/{id}(id=${project.id})}" class="btn btn-xs btn-danger btn-delete" th:text="#{label.delete}">
+                        Löschen
+                    </a>
+                    <span th:if="${projectMember.user.username == #authentication.name}" th:text="#{label.thisisyou}" class="btn btn-xs btn-default">
+                        Das sind sie!
+                    </span>
+                </td>
+            </tr>
+
+            <tr th:if="${project.projectTeam.size() == 0}">
+                <td colspan="2" class="text-center" th:text="noItemLabel">
+                    Keine Einträge vorhanden!
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div th:replace="project/member/modals :: memberDetailModal"></div>
+    <div th:replace="project/member/modals :: addMemberModal"></div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="project/layout">
+<head layout:fragment="header" th:remove="tag">
+    <link rel="stylesheet" th:href="@{/vendors/bootstrap-jasny/css/jasny-bootstrap.min.css}">
+    <script th:src="@{/vendors/bootstrap-jasny/js/jasny-bootstrap.min.js}"></script>
+    <script>
+        $(document).ready(function(){
+            $('.btn.save').on('click', function(event){
+                event.preventDefault();
+                $('#addProjectDocumentModal').find('form').submit();
+            });
+        });
+    </script>
+</head>
+<body>
+<div layout:fragment="project_content">
+    <h4 th:text="#{label.project.edit.documents}">
+        Dokumentenverwaltung
+    </h4>
+
+    <div>
+        <a href="" class="btn btn-default btn-primary" data-toggle="modal" data-target="#addProjectDocumentModal">
+            <span class="fa fa-upload"></span>
+            <span th:text="#{label.upload}"></span>
+        </a>
+    </div>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th th:text="#{table.header.file.name}">Dateiname</th>
+            <th th:text="#{table.header.file.size}" class="text-right">Dateigröße</th>
+            <th th:text="#{table.header.file.uploader}" class="text-right">Hochgeladen von</th>
+            <th th:text="#{table.header.actions}" class="actions text-right">Aktionen</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr th:each="document : ${project.documents}">
+                <td th:text="${document.name}">
+                    Dateiname
+                </td>
+                <td class="actions text-right">
+                    453.0 kb
+                </td>
+                <td class="actions text-right">
+                    Hans Peter
+                </td>
+                <td class="actions text-right">
+                    <a href="" class="btn btn-xs btn-default">
+                        Herunterladen
+                    </a>
+                    <a href="" class="btn btn-xs btn-danger">
+                        Löschen
+                    </a>
+                </td>
+            </tr>
+
+            <tr th:if="${project.documents.size() == 0}">
+                <td colspan="2" class="text-center" th:text="#{label.no.items}">
+                    Keine Einträge vorhanden!
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div th:replace="/project/document/modals :: addProjectDocumentModal"></div>
+</div>
+</body>
+</html>

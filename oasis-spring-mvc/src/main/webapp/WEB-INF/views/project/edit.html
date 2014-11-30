@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="project/layout">
+<head layout:fragment="header" th:remove="tag">
+    <script th:src="@{/vendors/tinymce/tinymce.min.js}"></script>
+    <script th:inline="javascript">
+        tinymce.init({
+            selector: "textarea.editor",
+            plugins : "paste",
+            paste_as_text: true,
+            toolbar: 'undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist',
+            height: 300,
+            content_css: /*[[@{/css/tinymce.css}]]*/ '/css/tinymce.css'
+        });
+    </script>
+</head>
+<body>
+<div layout:fragment="project_content">
+    <script>
+        $(document).ready(function () {
+            $('.input-group.date').datepicker({
+                showWeek: true
+            });
+        });
+    </script>
+    <form th:action="@{/project/{id}(id=${project.id})}" th:object="${project}" method="post">
+        <div class="form-group" th:classappend="${#fields.hasErrors('name')} ? 'has-error has-feedback' : ''">
+            <label class="control-label" for="name" th:text="#{label.name}">Name</label>
+            <input id="name"  type="text" class="form-control" th:field="${project.name}">
+            <span class="help-block" th:each="err : ${#fields.errors('name')}" th:text="${err}"></span>
+        </div>
+
+        <div class="form-group" >
+            <label class="control-label" for="description" th:text="#{label.description}">Beschreibung</label>
+            <textarea name="description" id="description" class="form-control editor" th:field="${project.description}"></textarea>
+        </div>
+
+        <div class="form-group" th:classappend="${#fields.hasErrors('projectStatus')} ? 'has-error has-feedback' : ''">
+            <label class="control-label" for="projectStatus" th:text="#{label.project.status}">Projektstatus</label>
+            <select name="projectStatus" id="projectStatus" class="form-control" th:field="${project.projectStatus}">
+                <option th:each="status : ${allStati}"
+                        th:value="${status}"
+                        th:text="#{${status.getKey()}}">
+                </option>
+            </select>
+            <span class="help-block" th:each="err : ${#fields.errors('projectStatus')}" th:text="${err}"></span>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6">
+            </div>
+            <div class="col-lg-6 text-right">
+                <button type="submit" class="btn btn-success" th:text="#{label.save}">
+                    Speichern
+                </button>
+                <a href="" class="btn btn-default" th:text="#{label.cancel}">
+                    Abbrechen
+                </a>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

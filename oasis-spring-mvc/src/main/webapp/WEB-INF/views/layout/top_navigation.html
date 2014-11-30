@@ -1,0 +1,10 @@
+<div class="user-nav" th:if="${#authorization.expression('isAuthenticated()') == false}">
+    <a th:href="@{/register}"><i class="fa fa-sign-in"></i> [[#{label.register}]]</a>
+    <a th:href="@{/login}"><i class="fa fa-power-off"></i> [[#{label.login}]]</a>
+</div>
+<div class="user-nav" th:if="${#authorization.expression('isAuthenticated()') == true}">
+    <a th:href="@{/user/profile}"><i class="fa fa-user"></i> [[#{label.user.profile}]]</a>
+    <form name="logoutForm" method="post" th:action="@{/logout}" style="display: inline;">
+        <a href="#" onclick="logoutForm.submit()"><i class="fa fa-power-off"></i> [[#{label.logout}]]</a>
+    </form>
+</div>

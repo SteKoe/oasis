@@ -12,17 +12,14 @@
             <value>SYSTEM_PROPERTIES_MODE_FALLBACK</value>
         </property>
     </bean>
-    
-    
+
     <context:property-placeholder location="classpath:application.properties"/>
-                            
     <context:annotation-config />
+    <context:component-scan base-package="de.stekoe.idss" />
+
     <jpa:repositories base-package="de.stekoe.idss.repository" />
     <tx:annotation-driven transaction-manager="transactionManager" />
     
-    <!--
-    See context.xml!
-    -->
     <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
         <property name="jndiName" value="java:comp/env/jdbc/oasis-services" />
         <property name="proxyInterface" value="javax.sql.DataSource" />
@@ -32,22 +29,24 @@
         <property name="generateDdl" value="true" />
         <property name="database" value="MYSQL" />
     </bean>
+
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory" />
         <property name="jpaDialect">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
         </property>
     </bean>
+
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <property name="jpaVendorAdapter" ref="vendorAdapter" />
         <property name="jpaProperties">
             <props>
                 <prop key="hibernate.hbm2ddl.auto">update</prop>
-                
             </props>
         </property>
     </bean>
+
     <!-- SMTP Connector -->
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
         <property name="username" value="${smtp.user}" />
@@ -64,27 +63,4 @@
             </props>
         </property>
     </bean>
-    <!-- SETUP BEAN -->
-    <bean id="setupService" class="de.stekoe.idss.setup.DatabaseSetup" />
-    <!-- Services -->
-    <bean id="authService" class="de.stekoe.idss.service.AuthService" />
-    <bean id="addressService" class="de.stekoe.idss.service.AddressService" />
-    <bean id="configurationService" class="de.stekoe.idss.service.ConfigurationService" />
-    <bean id="projectService" class="de.stekoe.idss.service.ProjectService" />
-    <bean id="userService" class="de.stekoe.idss.service.UserService" />
-    <bean id="systemRoleService" class="de.stekoe.idss.service.SystemRoleService" />
-    <bean id="projectRoleService" class="de.stekoe.idss.service.ProjectRoleService" />
-    <bean id="documentService" class="de.stekoe.idss.service.DocumentService" />
-    <bean id="mailService" class="de.stekoe.idss.service.MailService" />
-    <bean id="permissionService" class="de.stekoe.idss.service.PermissionService" />
-    <bean id="criterionPageService" class="de.stekoe.idss.service.CriterionPageService" />
-    <bean id="criterionService" class="de.stekoe.idss.service.CriterionService" />
-    <bean id="criterionGroupService" class="de.stekoe.idss.service.CriterionGroupService" />
-    <bean id="companyService" class="de.stekoe.idss.service.CompanyService" />
-    <bean id="companyRoleService" class="de.stekoe.idss.service.CompanyRoleService" />
-    <bean id="projectMemberService" class="de.stekoe.idss.service.ProjectMemberService" />
-    
-    <!-- Meta -->
-    <bean id="referenceCriterionService" class="de.stekoe.idss.service.ReferenceCriterionService" />
-    <bean id="referenceCriterionGroupService" class="de.stekoe.idss.service.ReferenceCriterionGroupService" />
 </beans>

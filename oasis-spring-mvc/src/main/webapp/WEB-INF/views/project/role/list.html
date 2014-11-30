@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="project/layout">
+<head layout:fragment="header" th:remove="tag">
+    <link rel="stylesheet" th:href="@{/vendors/select2/select2.css}">
+    <link rel="stylesheet" th:href="@{/vendors/select2/select2-bootstrap.css}">
+    <script th:src="@{/vendors/select2/select2.min.js}"></script>
+    <script th:inline="javascript">
+        $(document).ready(function() {
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
+
+            $('.btn-delete').on('click', function(event) {
+                event.preventDefault();
+
+                var id = $(this).data('id');
+                var url = /*[[@{/api/project/{pid}/role(pid=${project.id})}]]*/ '';
+
+                var promise = $.ajax({
+                    url: url + '/' + id,
+                    type: 'DELETE',
+                    beforeSend: function( xhr ) {
+                        xhr.setRequestHeader(header, token);
+                    }
+                });
+                promise.success(function(data){
+                    data = JSON.parse(data);
+                    if(data.ok !== undefined && data.ok === true) {
+                        window.location.reload();
+                    }
+                });
+            });
+
+            $('#addProjectRoleModal, #editProjectRoleModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var id = button.data('id');
+                var modal = $(this);
+                var editMode = modal.attr('id').indexOf("add") === -1;
+                var url = /*[[@{/api/project/{pid}/role(pid=${project.id})}]]*/ '';
+                var title = /*[[#{label.project.add.role}]]*/ '';
+
+                if(editMode) {
+                    title = /*[[#{label.project.edit.role}]]*/ '';
+                    url = url + '/' + id;
+                }
+
+                modal.find('.modal-title').text(title);
+
+                if(editMode) {
+                    modal.find('input[type=checkbox]').prop('checked', false);
+                    $.getJSON(url, function (data) {
+                        modal.find('#edit_name').val(data.name);
+
+                        var permissions = data.permissions;
+                        for(var i = 0; i < permissions.length; i++) {
+                            var pt = permissions[i].permissionType;
+
+                            modal.find('input[value='+pt+']').prop('checked',true);
+                        }
+                    });
+                }
+
+                modal.find('button.save').on('click', function() {
+                    var promise = $.ajax({
+                        url: url,
+                        type: (editMode ? 'PUT' : 'POST'),
+                        data: modal.find('form').serialize(),
+                        beforeSend: function( xhr ) {
+                            xhr.setRequestHeader(header, token);
+                        }
+                    });
+                    promise.success(function(data) {
+                        data = JSON.parse(data);
+                        if(data.ok !== undefined && data.ok === true) {
+                            window.location.reload();
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+<div layout:fragment="project_content">
+    <h4 th:text="#{label.project.edit.roles}">
+        Projektrollen
+    </h4>
+
+    <div>
+        <a href="" class="btn btn-default btn-primary" data-toggle="modal" data-target="#addProjectRoleModal">
+            <span class="fa fa-plus"></span>
+            <span th:text="#{label.add}"></span>
+        </a>
+    </div>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th th:text="#{table.header.name}">Name/Bezeichnung</th>
+            <th th:text="#{table.header.actions}" class="actions text-right">Aktionen</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr th:each="role : ${project.projectRoles}">
+                <td>
+                    <span th:text="${role.name}"></span>
+                </td>
+                <td class="actions text-right">
+                    <a data-toggle="modal" data-target="#editProjectRoleModal" th:attr="data-id=${role.id}" href="#" class="btn btn-xs btn-default" th:text="#{label.details}">
+                        Details
+                    </a>
+                    <a th:if="${@projectRoleController.canDelete(project.id, role.id)}" th:attr="data-id=${role.id}" th:href="@{/project/{id}(id=${project.id})}" class="btn btn-xs btn-danger btn-delete" th:text="#{label.delete}">
+                        Löschen
+                    </a>
+                </td>
+            </tr>
+
+            <tr th:if="${project.projectRoles.size() == 0}">
+                <td colspan="2" class="text-center" th:text="noItemLabel">
+                    Keine Einträge vorhanden!
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div th:replace="project/role/modals :: addProjectRoleModal"></div>
+    <div th:replace="project/role/modals :: editProjectRoleModal"></div>
+</div>
+</body>
+</html>

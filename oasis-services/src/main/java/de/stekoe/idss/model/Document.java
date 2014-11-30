@@ -54,7 +54,6 @@ public class Document implements Serializable {
     public String getName() {
         return this.name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -115,4 +114,6 @@ public class Document implements Serializable {
     public String toString() {
         return ReflectionToStringBuilder.toString(this);
     }
+
+
 }

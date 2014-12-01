@@ -4,17 +4,17 @@
       layout:decorator="project/layout">
 <body>
     <div layout:fragment="project_content">
-        <h4 th:text="#{label.description}">
+        <h3 th:text="#{label.description}">
             Beschreibung
-        </h4>
+        </h3>
         <div th:utext="${project.description}">
             Beschreibungstext
         </div>
 
-        <h4>
+        <h3>
             [[#{label.project.member}]]
             <small th:text="${project.projectTeam.size()}">asd</small>
-        </h4>
+        </h3>
         <div class="list-group">
             <a th:href="@{/user/profile/{id}(id=${member.user.username})}" class="list-group-item" wicket:id="projectMemberItemLink" th:each="member : ${project.projectTeam}">
                 <strong th:text="${member.user.username}"></strong>

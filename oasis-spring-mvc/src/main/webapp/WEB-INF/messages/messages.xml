@@ -229,7 +229,10 @@
     <entry key="label.disclaimer">Impressum</entry>
     <entry key="label.project.manager">Projektverwaltung</entry>
     <entry key="label.company.manager">Unternehmensverwaltung</entry>
-    <entry key="label.create">${item} erstellen</entry>
+    <entry key="label.create">{0} erstellen</entry>
     <entry key="label.login"></entry>
     <entry key="label.login">Anmelden</entry>
+    <!-- VALIDATION MESSAGES -->
+    <entry key="NotEmpty.java.lang.String">Das Feld darf nicht leer sein!</entry>
+    <entry key="Size.java.lang.String">Der Wert muss länger sein als {0} Zeichen!</entry>
 </properties>

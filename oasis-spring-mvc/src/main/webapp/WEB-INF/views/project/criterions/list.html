@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="project/layout">
+<head layout:fragment="header" th:remove="tag">
+</head>
+<body>
+<div layout:fragment="project_content">
+    <h3 th:text="#{label.project.edit.criterions}">
+        Kriteriencatalog
+    </h3>
+
+    <div th:each="criterionPage : ${criterionPages}" class="criterion-page">
+        <div class="criterion-page-header">
+            <div class="row">
+                <div class="col-md-6">
+                    <span th:text="${#strings.isEmpty(criterionPage.name)} ? #{label.page} + ': ' + ${criterionPage.ordering+1} : ${criterionPage.name}">Miau</span>
+                </div>
+                <div class="col-md-6">
+                    <div class="pull-right">
+                        <div class="btn-group">
+                            <a href="" class="btn btn-xs btn-default" th:if="${criterionPage.ordering} > 0">
+                                <span class="fa fa-chevron-up"></span>
+                            </a>
+                            <a href="" class="btn btn-xs btn-default" th:if="${criterionPage.ordering <= criterionPages.size()-1}">
+                                <span class="fa fa-chevron-down"></span>
+                            </a>
+                        </div>
+
+                        <div class="btn-group">
+                            <a href="" class="btn btn-xs btn-default">
+                                <span class="fa fa-pencil"></span>
+                            </a>
+                            <a href="" class="btn btn-xs btn-default">
+                                <span class="fa fa-remove"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:each="pageElement : ${criterionPage.pageElements}" class="criterion-page-body">
+
+            <div th:if="${pageElement instanceof T(de.stekoe.idss.model.CriterionGroup}" th:replace="/project/criterions/criterionGroup"></div>
+
+        </div>
+    </div>
+
+    <div th:include="fragments/paginaton" class="text-center">
+        asd
+    </div>
+</div>
+</body>
+</html>

@@ -13,12 +13,15 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Locale;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -56,8 +59,21 @@ public class ProjectDocumentController {
 
     @RequestMapping(value = "/project/{pid}/document/{did}", method = RequestMethod.GET)
     @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.idss.model.PermissionType).UPLOAD_FILE)")
-    public void download(@PathVariable String did, HttpServletResponse response) {
-        Document document = documentService.findOne(did);
+    public void download(@PathVariable String pid, @PathVariable String did, HttpServletResponse response) {
+        try {
+            Document document = documentService.findOne(did);
+            response.setContentType(document.getContentType());
+            response.setContentLengthLong(document.getSize());
+
+            String headerKey = "Content-Disposition";
+            String headerValue = String.format("attachment; filename=\"%s\"", document.getName());
+            response.setHeader(headerKey, headerValue);
+
+            ServletOutputStream outputStream = response.getOutputStream();
+            FileCopyUtils.copy(document.getContent(), outputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public boolean canDelete(String did, String pid) {

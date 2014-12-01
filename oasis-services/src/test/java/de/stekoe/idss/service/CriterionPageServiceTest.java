@@ -7,14 +7,11 @@ import static org.junit.Assert.assertThat;
 
 import javax.inject.Inject;
 
+import de.stekoe.idss.model.*;
 import org.junit.Assert;
 import org.junit.Test;
 
 import de.stekoe.idss.AbstractBaseTest;
-import de.stekoe.idss.model.Criterion;
-import de.stekoe.idss.model.CriterionPage;
-import de.stekoe.idss.model.NominalScaledCriterion;
-import de.stekoe.idss.model.PageElement;
 
 public class CriterionPageServiceTest extends AbstractBaseTest {
 
@@ -35,7 +32,6 @@ public class CriterionPageServiceTest extends AbstractBaseTest {
         nsc.setName("NSC");
 
         nsc.setCriterionPage(page);
-//        page.getPageElements().add(nsc);
 
         criterionPageService.save(page);
 
@@ -45,6 +41,23 @@ public class CriterionPageServiceTest extends AbstractBaseTest {
 
         assertThat(page.getPageElements().size(), is(equalTo(1)));
         assertThat(page.getPageElements().get(0).getCriterionPage(), is(equalTo(page)));
+    }
+
+    @Test
+    public void moveDown() throws Exception {
+        final CriterionPage page = new CriterionPage();
+
+        NominalScaledCriterion nsc = new NominalScaledCriterion();
+        nsc.setName("NSC 1");
+        nsc.setCriterionPage(page);
+
+        nsc = new NominalScaledCriterion();
+        nsc.setName("NSC 2");
+        nsc.setCriterionPage(page);
+
+        page.move(page.getPageElements().get(1), OrderableUtil.Direction.DOWN);
+
+        page.getPageElements().get(0).getName().equals("NSC 1");
     }
 
     @Test

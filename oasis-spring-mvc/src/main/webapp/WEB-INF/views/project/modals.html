@@ -1,0 +1,30 @@
+<div class="modal fade" id="addProjectModal" th:fragment="addProjectModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">
+                    <span th:text="#{label.project.add}"></span>
+                    <span class="username"></span>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{/project}" method="post">
+                    <div class="alert alert-warning alert-dismissible" style="display: none;" role="alert">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label" for="name" th:text="#{label.name}">Name</label>
+                        <input id="name" name="name" type="text" class="form-control" >
+                    </div>
+
+                    <div class="form-group" >
+                        <label class="control-label" for="description" th:text="#{label.description}">Beschreibung</label>
+                        <textarea name="description" id="description" class="form-control editor"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" th:replace="fragments/modal/footer/savecancel"></div>
+        </div>
+    </div>
+</div>

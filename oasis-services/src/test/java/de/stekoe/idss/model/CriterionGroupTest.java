@@ -4,6 +4,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 import java.util.Arrays;
@@ -48,5 +49,43 @@ public class CriterionGroupTest {
 
         CriterionGroup copy = CriterionGroup.selectiveCopy(criteriaGroup, Arrays.asList(criterion1, criterion3));
         assertThat(copy.getCriterions().size(), is(equalTo(2)));
+    }
+
+    @Test
+    public void moveDown() throws Exception {
+        final CriterionPage page = new CriterionPage();
+
+        CriterionGroup cg1 = new CriterionGroup();
+        cg1.setName("CG1");
+
+        CriterionGroup cg2 = new CriterionGroup();
+        cg2.setName("CG2");
+
+        page.getPageElements().add(cg1);
+        page.getPageElements().add(cg2);
+
+
+        assertEquals(cg1, page.getPageElements().get(0));
+        page.move(cg1, OrderableUtil.Direction.DOWN);
+        assertEquals(cg2, page.getPageElements().get(0));
+    }
+
+    @Test
+    public void moveUp() throws Exception {
+        final CriterionPage page = new CriterionPage();
+
+        CriterionGroup cg1 = new CriterionGroup();
+        cg1.setName("CG1");
+
+        CriterionGroup cg2 = new CriterionGroup();
+        cg2.setName("CG2");
+
+        page.getPageElements().add(cg1);
+        page.getPageElements().add(cg2);
+
+
+        assertEquals(cg2, page.getPageElements().get(1));
+        page.move(cg2, OrderableUtil.Direction.UP);
+        assertEquals(cg1, page.getPageElements().get(1));
     }
 }

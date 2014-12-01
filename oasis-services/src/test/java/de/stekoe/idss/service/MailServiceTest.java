@@ -1,10 +1,12 @@
 package de.stekoe.idss.service;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import de.stekoe.idss.AbstractBaseTest;
 
+@Ignore
 public class MailServiceTest extends AbstractBaseTest {
 
     @Autowired

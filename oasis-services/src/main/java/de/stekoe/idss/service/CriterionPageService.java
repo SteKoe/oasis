@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,12 +40,8 @@ public class CriterionPageService {
         reorderPages(projectId);
     }
 
-    public List<CriterionPage> getCriterionPagesForProject(String projectId) {
-        return criterionPageRepository.findAllForProject(projectId);
-    }
-
-    public List<CriterionPage> findAllForProject(String id) {
-        return criterionPageRepository.findAllForProject(id);
+    public List<CriterionPage> findAllForProject(String id, Pageable pageable) {
+        return criterionPageRepository.findAllForProject(id, pageable);
     }
 
     public List<CriterionPage> findAll() {
@@ -54,7 +51,7 @@ public class CriterionPageService {
     public void reorderPages(String projectId) {
         int ordering = 0;
 
-        List<CriterionPage> pages = findAllForProject(projectId);
+        List<CriterionPage> pages = findAllForProject(projectId, null);
         Iterator<CriterionPage> pagesIterator = pages.iterator();
         while(pagesIterator.hasNext()) {
             CriterionPage page = pagesIterator.next();
@@ -108,5 +105,9 @@ public class CriterionPageService {
             criterionPageRepository.save(criterionPage);
             criterionPageRepository.save(otherPage);
         }
+    }
+
+    public long countForProject(String pid) {
+        return criterionPageRepository.countForProject(pid);
     }
 }

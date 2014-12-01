@@ -17,13 +17,9 @@
 </head>
 <body>
 <div layout:fragment="project_content">
-    <script>
-        $(document).ready(function () {
-            $('.input-group.date').datepicker({
-                showWeek: true
-            });
-        });
-    </script>
+    <h3 th:text="#{label.project.edit}">
+        Projekt bearbeiten
+    </h3>
     <form th:action="@{/project/{id}(id=${project.id})}" th:object="${project}" method="post">
         <div class="form-group" th:classappend="${#fields.hasErrors('name')} ? 'has-error has-feedback' : ''">
             <label class="control-label" for="name" th:text="#{label.name}">Name</label>

@@ -53,7 +53,7 @@ public class CriterionPage implements Serializable {
         List<PageElement> oldList = pageElements;
         List<PageElement> reorderedList = OrderableUtil.<PageElement>move(pageElements, pageElement, direction);
         setPageElements(reorderedList);
-        return oldList.equals(reorderedList);
+        return !oldList.equals(reorderedList);
     }
 
     @ManyToOne(targetEntity = Project.class)

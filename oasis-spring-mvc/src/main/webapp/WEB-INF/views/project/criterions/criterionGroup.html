@@ -1,0 +1,37 @@
+<div class="criterion-group" th:with="ordering=${pageElement.criterionPage.pageElements.indexOf(pageElement)},count=${pageElement.criterionPage.pageElements.size()}">
+    <div class="criterion-group-header">
+        <div class="row">
+            <div class="col-md-6">
+                <span th:text="${pageElement.name}">Miau</span>
+            </div>
+            <div class="col-md-6">
+                <div class="pull-right">
+                    <div class="btn-group">
+                        <a th:href="@{/project/{pid}/criteriongroup/{gid}/move/up(pid=${project.id},gid=${pageElement.id})}" class="btn btn-xs btn-default" th:if="${ordering} > 0">
+                            <span class="fa fa-chevron-up"></span>
+                        </a>
+                        <a th:href="@{/project/{pid}/criteriongroup/{gid}/move/down(pid=${project.id},gid=${pageElement.id})}" class="btn btn-xs btn-default" th:if="${ordering < count-1}">
+                            <span class="fa fa-chevron-down"></span>
+                        </a>
+                    </div>
+
+                    <div class="btn-group">
+                        <a href="" class="btn btn-xs btn-default">
+                            <span class="fa fa-pencil"></span>
+                        </a>
+                        <a href="" class="btn btn-xs btn-default">
+                            <span class="fa fa-remove"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="criterion-group-body">
+
+        <div th:each="criterion : ${pageElement.criterions}">
+            <div th:if="${criterion instanceof T(de.stekoe.idss.model.OrdinalScaledCriterion)}" th:replace="/project/criterions/ordinalScaledCriterion"></div>
+        </div>
+
+    </div>
+</div>

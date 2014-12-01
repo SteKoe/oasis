@@ -2,25 +2,27 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layout_containered">
-<body >
-    <div class="container" layout:fragment="content">
+<body>
+    <div class="container" layout:fragment="content" th:with="currentURI=${#httpServletRequest.requestURI}">
         <div class="col-md-3">
             <div class="list-group">
-                <a th:href="@{/project/{id}(id=${project.id})}" class="list-group-item" th:text="#{label.project.overview}">
+                <a th:with="link=@{/project/{id}(id=${project.id})}" th:href="${link}" class="list-group-item" th:text="#{label.project.overview}" th:classappend="${link == currentURI} ? 'active' : ''">
                 </a>
-                <a th:href="@{/project/{id}/edit(id=${project.id})}" class="list-group-item" th:text="#{label.project.edit}">
+                <a th:with="link=@{/project/{id}/edit(id=${project.id})}"  th:href="${link}"class="list-group-item" th:text="#{label.project.edit}" th:classappend="${link == currentURI} ? 'active' : ''">
                 </a>
-                <a th:href="@{/project/{id}/member(id=${project.id})}" class="list-group-item" th:text="#{label.project.edit.member}">
+                <a th:with="link=@{/project/{id}/member(id=${project.id})}"  th:href="${link}"class="list-group-item" th:text="#{label.project.edit.member}" th:classappend="${link == currentURI} ? 'active' : ''">
                 </a>
-                <a th:href="@{/project/{id}/role(id=${project.id})}" class="list-group-item" th:text="#{label.project.edit.roles}">
+                <a th:with="link=@{/project/{id}/role(id=${project.id})}"  th:href="${link}"class="list-group-item" th:text="#{label.project.edit.roles}" th:classappend="${link == currentURI} ? 'active' : ''">
                 </a>
-                <a th:href="@{/project/{id}/document(id=${project.id})}" class="list-group-item" th:text="#{label.files.manage}">
+                <a th:with="link=@{/project/{id}/document(id=${project.id})}"  th:href="${link}"class="list-group-item" th:text="#{label.files.manage}" th:classappend="${link == currentURI} ? 'active' : ''">
                 </a>
-                <a th:href="@{/project/{id}/criteria(id=${project.id})}" class="list-group-item" th:text="#{label.setOfCriteria}">
+            </div>
+            <div class="list-group">
+                <a th:with="link=@{/project/{id}/criterions(id=${project.id})}"  th:href="${link}"class="list-group-item" th:text="#{label.setOfCriteria}" th:classappend="${link == currentURI} ? 'active' : ''">
                 </a>
-                <a th:href="@{/project/{id}/evaluation(id=${project.id})}" class="list-group-item" th:text="#{label.evaluation}">
+                <a th:with="link=@{/project/{id}/evaluation(id=${project.id})}"  th:href="${link}"class="list-group-item" th:text="#{label.evaluation}" th:classappend="${link == currentURI} ? 'active' : ''">
                 </a>
-                <a th:href="@{/project/{id}/evaulation/result(id=${project.id})}" class="list-group-item" th:text="#{label.evaluation.result}">
+                <a th:with="link=@{/project/{id}/evaulation/result(id=${project.id})}" th:href="${link}" class="list-group-item" th:text="#{label.evaluation.result}" th:classappend="${link == currentURI} ? 'active' : ''">
                 </a>
             </div>
         </div>

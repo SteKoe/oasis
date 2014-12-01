@@ -28,6 +28,15 @@ public class Project implements Serializable, Identifyable<String>, NamedElement
     private Date projectStartDate = new Date();
     private Date projectEndDate;
 
+    public Project() {
+    }
+
+    public Project(ProjectDescriptor projectDescriptor) {
+        this.id = projectDescriptor.getId();
+        this.name = projectDescriptor.getName();
+        this.description = projectDescriptor.getDescription();
+    }
+
     @Override
     @Id
     public String getId() {

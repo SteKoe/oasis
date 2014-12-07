@@ -5,16 +5,21 @@ import de.stekoe.idss.service.ProjectMemberService;
 import de.stekoe.idss.service.ProjectRoleService;
 import de.stekoe.idss.service.ProjectService;
 import de.stekoe.idss.service.UserService;
+import de.stekoe.oasis.web.JSONValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.MultiValueMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.HashSet;
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
+import javax.validation.Valid;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -36,9 +41,12 @@ public class ProjectRoleController {
     @Autowired
     ProjectMemberService projectMemberService;
 
+    @Autowired
+    JSONValidator jsonValidator;
+
     @RequestMapping(value = "/project/{pid}/role", method = RequestMethod.GET)
     @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.idss.model.PermissionType).MANAGE_ROLES)")
-    public ModelAndView edit(@PathVariable String pid) {
+    public ModelAndView list(@PathVariable String pid) {
         Project project = projectService.findOne(pid);
 
         ModelAndView model = new ModelAndView("project/role/list");
@@ -55,33 +63,26 @@ public class ProjectRoleController {
     @RequestMapping(value = "/api/project/{pid}/role", method = RequestMethod.POST)
     @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.idss.model.PermissionType).MANAGE_ROLES)")
     @ResponseBody
-    public String post(@PathVariable String pid, @RequestBody MultiValueMap<String,String> body) {
-        String name = body.getFirst("name");
-        List<String> permissionsTypes = body.get("permission");
+    public String post(@PathVariable String pid, @Valid @RequestBody ProjectRoleDescriptor role, BindingResult bindingResult, Locale locale) {
 
-        // Build Permission objects
-        Set<Permission> permissions = new HashSet<>();
-
-        if(permissionsTypes != null) {
-            permissionsTypes.forEach(permissionType -> {
-                    Permission permission = new Permission();
-                    permission.setPermissionType(PermissionType.valueOf(permissionType));
-                    permission.setPermissionObject(PermissionObject.PROJECT);
-                    permission.setObjectId(pid);
-                    permissions.add(permission);
-            });
+        if(bindingResult.hasErrors()) {
+            JsonObjectBuilder json = Json.createObjectBuilder();
+            json.add("errors", jsonValidator.getErrors(bindingResult, locale));
+            json.add("ok", false);
+            return json.build().toString();
         }
 
-        // Always grant READ access!
-        Permission permission = new Permission();
-        permission.setPermissionType(PermissionType.READ);
-        permission.setPermissionObject(PermissionObject.PROJECT);
-        permission.setObjectId(pid);
-        permissions.add(permission);
+        List<String> permissionsTypes = role.getPermissions();
+
+        Set<Permission> permissions = role
+                .getPermissions()
+                .stream()
+                .map(permissionType -> new Permission(PermissionObject.PROJECT, PermissionType.valueOf(permissionType), pid))
+                .collect(Collectors.toSet());
 
         // Assign Permissions and Name to ProjectRole
         ProjectRole projectRole = new ProjectRole();
-        projectRole.setName(name);
+        projectRole.setName(role.getName());
         projectRole.setPermissions(permissions);
 
         Project project = projectService.findOne(pid);
@@ -89,7 +90,10 @@ public class ProjectRoleController {
 
         projectService.save(project);
 
-        return "{\"ok\":true}";
+        JsonObject json = Json.createObjectBuilder()
+                .add("ok", true)
+                .build();
+        return json.toString();
     }
 
     @RequestMapping(value = "/api/project/{pid}/role/{rid}", method = RequestMethod.DELETE)
@@ -98,7 +102,7 @@ public class ProjectRoleController {
     public String delete(@PathVariable String pid, @PathVariable String rid) {
         if(canDelete(pid,rid)) {
             Project project = projectService.findOne(pid);
-            Set<ProjectRole> projectRoles = project.getProjectRoles().stream().filter(pr -> !pr.getId().equals(rid)).collect(Collectors.toSet());
+            List<ProjectRole> projectRoles = project.getProjectRoles().stream().filter(pr -> !pr.getId().equals(rid)).collect(Collectors.toList());
             project.setProjectRoles(projectRoles);
 
             projectService.save(project);
@@ -114,7 +118,25 @@ public class ProjectRoleController {
     @ResponseBody
     public ProjectRoleDescriptor get(@PathVariable String pid, @PathVariable String rid) {
         ProjectRole projectRole = projectRoleService.findOne(rid);
-        return new ProjectRoleDescriptor(projectRole);
+        ProjectRoleDescriptor projectRoleDescriptor = new ProjectRoleDescriptor(projectRole);
+        return projectRoleDescriptor;
+    }
+
+    @RequestMapping(value = "/api/project/{pid}/role/{rid}", method = RequestMethod.PUT)
+    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.idss.model.PermissionType).MANAGE_ROLES)")
+    @ResponseBody
+    public String edit(@PathVariable String pid, @PathVariable String rid, @RequestBody ProjectRoleDescriptor projectRoleDescriptor) {
+        ProjectRole projectRole = projectRoleService.findOne(rid);
+        Set<Permission> permissions = projectRoleDescriptor
+                .getPermissions()
+                .stream()
+                .map(permissionType -> new Permission(PermissionObject.PROJECT, PermissionType.valueOf(permissionType), pid))
+                .collect(Collectors.toSet());
+        projectRole.setPermissions(permissions);
+
+        projectRoleService.save(projectRole);
+
+        return Json.createObjectBuilder().add("ok", true).build().toString();
     }
 
     /**

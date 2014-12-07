@@ -1,12 +1,19 @@
 package de.stekoe.idss.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import java.io.Serializable;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProjectRoleDescriptor implements Serializable {
     private String id;
     private String name;
-    private Set<Permission> permissions;
+    private List<String> permissions = new ArrayList<>();
+
+    public ProjectRoleDescriptor() {
+        // NOP
+    }
 
     public ProjectRoleDescriptor(String id, String name) {
         this.id = id;
@@ -16,7 +23,12 @@ public class ProjectRoleDescriptor implements Serializable {
     public ProjectRoleDescriptor(ProjectRole projectRole) {
         this.id = projectRole.getId();
         this.name = projectRole.getName();
-        this.permissions = projectRole.getPermissions();
+
+        for (Permission p : projectRole.getPermissions()) {
+            permissions.add(p.getPermissionType().toString());
+        }
+
+//        this.permissions = projectRole.getPermissions().stream().map(perm -> perm.getPermissionType()).collect(Collectors.toList());
     }
 
     public String getId() {
@@ -27,6 +39,7 @@ public class ProjectRoleDescriptor implements Serializable {
         this.id = id;
     }
 
+    @NotEmpty
     public String getName() {
         return name;
     }
@@ -35,11 +48,11 @@ public class ProjectRoleDescriptor implements Serializable {
         this.name = name;
     }
 
-    public Set<Permission> getPermissions() {
+    public List<String> getPermissions() {
         return permissions;
     }
 
-    public void setPermissions(Set<Permission> permissions) {
+    public void setPermissions(List<String> permissions) {
         this.permissions = permissions;
     }
 }

@@ -1,16 +1,13 @@
 package de.stekoe.idss.model;
 
-import java.io.Serializable;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "SystemRole")
@@ -20,7 +17,7 @@ public class SystemRole implements Serializable {
     public static final transient String USER = "USER";
     public static final transient String ADMIN = "ADMIN";
 
-    private String id = IDGenerator.createId();
+    private String id;
     private String name;
 
     public SystemRole() {
@@ -32,6 +29,8 @@ public class SystemRole implements Serializable {
     }
 
     @Id
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "system_role_id")
     public String getId() {
         return id;
@@ -53,20 +52,20 @@ public class SystemRole implements Serializable {
 
     @Override
     public boolean equals(Object other) {
-        if(this == other) return true;
-        if(!(other instanceof SystemRole)) return false;
+        if (this == other) return true;
+        if (!(other instanceof SystemRole)) return false;
 
-        SystemRole that  = (SystemRole) other;
+        SystemRole that = (SystemRole) other;
         return new EqualsBuilder()
-            .append(getName(), that.getName())
-            .isEquals();
+                .append(getName(), that.getName())
+                .isEquals();
     }
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getName())
-            .toHashCode();
+                .append(getName())
+                .toHashCode();
     }
 
     @Override

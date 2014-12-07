@@ -1,0 +1,60 @@
+<div class="panel panel-default">
+    <!-- Panel: Header -->
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-6">
+                    <a data-toggle="collapse" data-parent="#criterionPage" th:href="${'#cp-' + criterionPage.id}">
+                        <span th:if="${!#strings.isEmpty(criterionPage.name)}" th:text="${criterionPage.name}">Name der Seite</span>
+                        <span class="small" th:text="|#{label.page} ${criterionPage.ordering+1}|">Seite 1</span>
+                    </a>
+            </div>
+            <div class="col-md-6">
+                <div class="pull-right">
+                    <div class="btn-group">
+                        <a href="javascript:void(0);" class="btn btn-xs btn-default btn-move" th:if="${criterionPage.ordering} > 0" data-move-dir="up" data-type="criterionPage" th:attr="data-id=${criterionPage.id}">
+                            <span class="fa fa-chevron-up"></span>
+                        </a>
+                        <a href="javascript:void(0);" class="btn btn-xs btn-default btn-move" th:if="${criterionPage.ordering < count - 1}" data-move-dir="down" data-type="criterionPage" th:attr="data-id=${criterionPage.id}">
+                            <span class="fa fa-chevron-down"></span>
+                        </a>
+                    </div>
+
+                    <div class="btn-group">
+                        <a href="#" th:href="@{/project/{pid}/criterions/{cpid}/select(pid=${project.id},cpid=${criterionPage.id})}" class="btn btn-xs btn-default btn-add">
+                            <span class="fa fa-plus"></span>
+                        </a>
+                        <a href="#" class="btn btn-xs btn-default btn-edit" th:attr="data-id=${criterionPage.id}" data-toggle="modal" data-target="#editCriterionPageModal">
+                            <span class="fa fa-pencil"></span>
+                        </a>
+                        <a href="#" class="btn btn-xs btn-default btn-delete" data-type="criterionPage" th:attr="data-id=${criterionPage.id}">
+                            <span class="fa fa-remove"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Panel: Header -->
+    <div th:id="'cp-' + ${criterionPage.id}" class="panel-collapse collapse" th:classappend="${iter.index == 0} ? 'in' : ''">
+        <div class="panel-body">
+
+            <div th:if="${criterionPage.pageElements.size() <= 0}" class="criterion-page-body text-center">
+                No elements on this page!
+            </div>
+
+            <div th:if="${criterionPage.pageElements.size() > 0}" class="criterion-page-body">
+                <div th:each="pageElement,iter : ${criterionPage.pageElements}" th:remove="tag">
+                    <!-- CriterionGroup -->
+                    <div th:if="${pageElement instanceof T(de.stekoe.idss.model.CriterionGroup)}" th:remove="tag">
+                        <div th:replace="/project/criterions/criterionGroup"></div>
+                    </div>
+                    <!-- SSC -->
+                    <div th:with="criterion=${pageElement}" th:if="${pageElement instanceof T(de.stekoe.idss.model.SingleScaledCriterion)}" th:remove="tag">
+                        <div  th:replace="/project/criterions/generic/singleScaledCriterion"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -47,7 +47,7 @@ public class CriterionGroupTest {
 
         assertThat(criteriaGroup.getCriterions().size(), is(equalTo(3)));
 
-        CriterionGroup copy = CriterionGroup.selectiveCopy(criteriaGroup, Arrays.asList(criterion1, criterion3));
+        CriterionGroup copy = CriterionGroup.selectiveCopy(criteriaGroup, Arrays.asList(criterion1.getId(), criterion3.getId()));
         assertThat(copy.getCriterions().size(), is(equalTo(2)));
     }
 

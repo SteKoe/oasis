@@ -1,7 +1,6 @@
 package de.stekoe.oasis.beans;
 
 import org.joda.time.DateTime;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;

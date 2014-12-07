@@ -1,18 +1,14 @@
 package de.stekoe.idss.model;
 
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -21,12 +17,14 @@ public class ProjectMember implements Serializable {
 
     private static final long serialVersionUID = 20141103926L;
 
-    private String id = IDGenerator.createId();
+    private String id;
     private User user;
     private ProjectRole projectRole;
     private Set<ProjectMemberGroup> projectGroups = new HashSet<ProjectMemberGroup>();
 
     @Id
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
     public String getId() {
         return id;
     }
@@ -44,7 +42,7 @@ public class ProjectMember implements Serializable {
         this.user = user;
     }
 
-    @ManyToOne(targetEntity = ProjectRole.class)
+    @ManyToOne(targetEntity = ProjectRole.class, cascade = {CascadeType.PERSIST})
     public ProjectRole getProjectRole() {
         return this.projectRole;
     }
@@ -64,21 +62,21 @@ public class ProjectMember implements Serializable {
 
     @Override
     public boolean equals(Object other) {
-        if(this == other) return true;
-        if(!(other instanceof ProjectMember)) return false;
+        if (this == other) return true;
+        if (!(other instanceof ProjectMember)) return false;
 
-        ProjectMember that  = (ProjectMember) other;
+        ProjectMember that = (ProjectMember) other;
         return new EqualsBuilder()
-            .appendSuper(super.equals(other))
-            .append(getId(), that.getId())
-            .isEquals();
+                .appendSuper(super.equals(other))
+                .append(getId(), that.getId())
+                .isEquals();
     }
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getId())
-            .toHashCode();
+                .append(getId())
+                .toHashCode();
     }
 
     @Override

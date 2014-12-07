@@ -13,20 +13,20 @@ public class OrderableUtil<T> {
     }
 
     public static <T> List<T> move(List<T> list, T value, Direction direction) {
-        if(value != null) {
+        if (value != null) {
             List<T> reorderedValues = list;
             int index = reorderedValues.indexOf(value);
 
-            if(index >= 0) {
+            if (index >= 0) {
                 int otherIndex;
-                if(Direction.UP.equals(direction)) {
+                if (Direction.UP.equals(direction)) {
                     otherIndex = index - 1;
-                    if(otherIndex < 0) {
+                    if (otherIndex < 0) {
                         return list;
                     }
                 } else {
                     otherIndex = index + 1;
-                    if(otherIndex >= list.size()) {
+                    if (otherIndex >= list.size()) {
                         return list;
                     }
                 }

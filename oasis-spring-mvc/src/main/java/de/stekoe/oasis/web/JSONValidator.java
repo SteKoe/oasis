@@ -1,13 +1,15 @@
 package de.stekoe.oasis.web;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
+import javax.json.Json;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Locale;
@@ -18,30 +20,31 @@ public class JSONValidator {
     @Autowired
     MessageSource messageSource;
 
-    public JSONObject getErrors(BindingResult bindingResult, Locale locale) {
-        JSONObject errors = new JSONObject();
+    public JsonObject getErrors(BindingResult bindingResult, Locale locale) {
+        JsonObjectBuilder jsonErrors = Json.createObjectBuilder();
 
         Field[] declaredFields = getFields(bindingResult);
         for(Field f : declaredFields) {
+
             String fieldName = f.getName();
             List<FieldError> fieldErrors = bindingResult.getFieldErrors(fieldName);
 
             if(fieldErrors.size() > 0) {
-                JSONArray err = new JSONArray();
+                JsonArrayBuilder jsonFieldError = Json.createArrayBuilder();
 
                 fieldErrors.forEach(error -> {
                     String errorMsg = getErrorMessage(locale, error);
                     if(errorMsg == null) {
                         errorMsg = error.getDefaultMessage();
                     }
-                    err.put(errorMsg);
+                    jsonFieldError.add(errorMsg);
                 });
 
-                errors.put(fieldName, err);
+                jsonErrors.add(fieldName, jsonFieldError);
             }
         }
 
-        return errors;
+        return jsonErrors.build();
     }
 
     private String getErrorMessage(Locale locale, FieldError error) {

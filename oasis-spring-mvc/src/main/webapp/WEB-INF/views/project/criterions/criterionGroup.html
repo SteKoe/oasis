@@ -1,25 +1,29 @@
-<div class="criterion-group" th:with="ordering=${pageElement.criterionPage.pageElements.indexOf(pageElement)},count=${pageElement.criterionPage.pageElements.size()}">
-    <div class="criterion-group-header">
+<div class="criterion-group panel panel-default" th:if="${pageElement}">
+    <div class="panel-heading">
         <div class="row">
             <div class="col-md-6">
+                <span th:text="#{label.group}"></span>:
                 <span th:text="${pageElement.name}">Miau</span>
             </div>
             <div class="col-md-6">
                 <div class="pull-right">
                     <div class="btn-group">
-                        <a th:href="@{/project/{pid}/criteriongroup/{gid}/move/up(pid=${project.id},gid=${pageElement.id})}" class="btn btn-xs btn-default" th:if="${ordering} > 0">
+                        <a class="btn btn-xs btn-default btn-move" th:if="${iter.index} > 0" data-type="criterionGroup" data-move-dir="up" th:attr="data-id=${pageElement.id}">
                             <span class="fa fa-chevron-up"></span>
                         </a>
-                        <a th:href="@{/project/{pid}/criteriongroup/{gid}/move/down(pid=${project.id},gid=${pageElement.id})}" class="btn btn-xs btn-default" th:if="${ordering < count-1}">
+                        <a class="btn btn-xs btn-default btn-move" th:if="${iter.index < iter.size-1}" data-type="criterionGroup" data-move-dir="down" th:attr="data-id=${pageElement.id}">
                             <span class="fa fa-chevron-down"></span>
                         </a>
                     </div>
 
                     <div class="btn-group">
+                        <a href="#" th:href="@{/project/{pid}/criterions/{cpid}/select(pid=${project.id},cpid=${pageElement.id})}" class="btn btn-xs btn-default btn-add">
+                            <span class="fa fa-plus"></span>
+                        </a>
                         <a href="" class="btn btn-xs btn-default">
                             <span class="fa fa-pencil"></span>
                         </a>
-                        <a href="" class="btn btn-xs btn-default">
+                        <a href="" class="btn btn-xs btn-default btn-delete" data-type="criterionGroup" th:attr="data-id=${pageElement.id}">
                             <span class="fa fa-remove"></span>
                         </a>
                     </div>
@@ -27,11 +31,9 @@
             </div>
         </div>
     </div>
-    <div class="criterion-group-body">
-
-        <div th:each="criterion : ${pageElement.criterions}">
-            <div th:if="${criterion instanceof T(de.stekoe.idss.model.OrdinalScaledCriterion)}" th:replace="/project/criterions/ordinalScaledCriterion"></div>
+    <div class="panel-body">
+        <div th:each="criterion,iter : ${pageElement.criterions}" th:remove="tag">
+            <div th:remove="tag" th:if="${criterion instanceof T(de.stekoe.idss.model.SingleScaledCriterion)}" th:include="/project/criterions/generic/singleScaledCriterion"></div>
         </div>
-
     </div>
 </div>

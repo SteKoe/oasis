@@ -1,19 +1,14 @@
 package de.stekoe.idss.model;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 
 @Entity
@@ -22,15 +17,17 @@ public class ProjectRole implements Serializable {
 
     private static final long serialVersionUID = 20141103926L;
 
-    private String id = IDGenerator.createId();
+    private String id;
     private String name;
     private Set<Permission> permissions = new HashSet<Permission>();
+    private Project project;
 
     @Id
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
     public String getId() {
         return id;
     }
-
     public void setId(String id) {
         this.id = id;
     }
@@ -40,7 +37,6 @@ public class ProjectRole implements Serializable {
     public String getName() {
         return this.name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -49,28 +45,35 @@ public class ProjectRole implements Serializable {
     public Set<Permission> getPermissions() {
         return permissions;
     }
-
     public void setPermissions(Set<Permission> permissions) {
         this.permissions = permissions;
     }
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    public Project getProject() {
+        return project;
+    }
+    public void setProject(Project project) {
+        this.project = project;
+    }
+
     @Override
     public boolean equals(Object other) {
-        if(this == other) return true;
-        if(!(other instanceof ProjectRole)) return false;
+        if (this == other) return true;
+        if (!(other instanceof ProjectRole)) return false;
 
-        ProjectRole that  = (ProjectRole) other;
+        ProjectRole that = (ProjectRole) other;
         return new EqualsBuilder()
-            .appendSuper(super.equals(other))
-            .append(getId(), that.getId())
-            .isEquals();
+                .appendSuper(super.equals(other))
+                .append(getId(), that.getId())
+                .isEquals();
     }
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getId())
-            .toHashCode();
+                .append(getId())
+                .toHashCode();
     }
 
     @Override

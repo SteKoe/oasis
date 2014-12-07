@@ -11,16 +11,19 @@
             Beschreibungstext
         </div>
 
-        <h3>
-            [[#{label.project.member}]]
-            <small th:text="${project.projectTeam.size()}">asd</small>
+        <h3 th:text="#{label.project.member(${project.projectTeam.size()})}">
         </h3>
-        <div class="list-group">
-            <a th:href="@{/user/profile/{id}(id=${member.user.username})}" class="list-group-item" wicket:id="projectMemberItemLink" th:each="member : ${project.projectTeam}">
-                <strong th:text="${member.user.username}"></strong>
-                <small th:text="${member.projectRole}"></small>
-            </a>
+
+        <div th:each="groupedMembers : ${groupedMembers}">
+            <h4 th:text="${groupedMembers.key.name}"></h4>
+
+            <div class="list-group">
+                <a th:href="@{/user/profile/{id}(id=${member.user.username})}" class="list-group-item" wicket:id="projectMemberItemLink" th:each="member : ${groupedMembers.value}">
+                    <span th:text="${member.user.username}"></span>
+                </a>
+            </div>
         </div>
+
     </div>
 </body>
 </html>

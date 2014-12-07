@@ -1,5 +1,6 @@
 package de.stekoe.oasis.web;
 
+import de.stekoe.idss.setup.DatabaseSetup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -9,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.thymeleaf.expression.Messages;
 
 import java.util.Locale;
 
@@ -19,8 +19,12 @@ public class IndexController {
     @Autowired
     private MessageSource messageSource;
 
+    @Autowired
+    private DatabaseSetup databaseSetup;
+
     @RequestMapping("/")
     public String index(@RequestParam(value="name", required=false, defaultValue="World") String name, Model model) {
+        databaseSetup.run();
         return "index";
     }
 
@@ -31,7 +35,6 @@ public class IndexController {
                               Locale locale) {
 
         ModelAndView model = new ModelAndView();
-        model.addObject("pageTitle", messageSource.getMessage("form.login.title", null, locale));
 
         if (error != null) {
             model.addObject("flashError", messageSource.getMessage("message.login.error", null, locale));

@@ -1,0 +1,43 @@
+<div class="modal fade" id="addCriterionPageModal" th:fragment="addCriterionPageModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">
+                    <span th:text="#{label.add.page}"></span>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{/api/project/{pid}/criterionpage(pid=${project.id})}">
+                    <div class="form-group">
+                        <label class="control-label" for="add_name" th:text="#{label.name}">Name</label>
+                        <input id="add_name" name="name" type="text" class="form-control" >
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" th:replace="fragments/modal/footer/savecancel"></div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editCriterionPageModal" th:fragment="editCriterionPageModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">
+                    <span th:text="#{label.edit.page}"></span>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{/api/project/{pid}/criterionpage(pid=${project.id})}">
+                    <div class="form-group">
+                        <label class="control-label" for="edit_name" th:text="#{label.name}">Name</label>
+                        <input id="edit_name" name="name" type="text" class="form-control" >
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" th:replace="fragments/modal/footer/savecancel"></div>
+        </div>
+    </div>
+</div>

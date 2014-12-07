@@ -1,6 +1,5 @@
 package de.stekoe.oasis.conf;
 
-import de.stekoe.oasis.interceptors.BaseInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -82,7 +81,6 @@ public class DispatcherConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         super.addInterceptors(registry);
-        registry.addInterceptor(new BaseInterceptor());
         registry.addInterceptor(localeChangeInterceptor());
     }
 }

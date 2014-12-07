@@ -1,29 +1,28 @@
 package de.stekoe.idss.model;
 
-import java.io.Serializable;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.hibernate.annotations.GenericGenerator;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-import org.springframework.format.annotation.DateTimeFormat;
+import java.io.Serializable;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 public class Project implements Serializable, Identifyable<String>, NamedElement {
     private static final long serialVersionUID = 20141103923L;
 
-    private String id = IDGenerator.createId();
+    private String id;
     private String name;
     private String description;
-    private Set<ProjectMember> projectTeam = new HashSet<ProjectMember>();
-    private Set<Document> documents = new HashSet<Document>();
-    private Set<ProjectRole> projectRoles = new HashSet<ProjectRole>();
+    private Set<ProjectMember> projectTeam = new HashSet<>();
+    private Set<Document> documents = new HashSet<>();
+    private List<ProjectRole> projectRoles = new LinkedList<>();
     private EvaluationStatus projectStatus = EvaluationStatus.PREPARATION;
     private Date projectStartDate = new Date();
     private Date projectEndDate;
@@ -39,6 +38,8 @@ public class Project implements Serializable, Identifyable<String>, NamedElement
 
     @Override
     @Id
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
     public String getId() {
         return id;
     }
@@ -70,11 +71,10 @@ public class Project implements Serializable, Identifyable<String>, NamedElement
         this.description = description;
     }
 
-    @OneToMany(cascade = CascadeType.ALL, targetEntity = ProjectMember.class, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, targetEntity = ProjectMember.class)
     public Set<ProjectMember> getProjectTeam() {
         return projectTeam;
     }
-
     public void setProjectTeam(Set<ProjectMember> projectTeam) {
         this.projectTeam = projectTeam;
     }
@@ -88,12 +88,12 @@ public class Project implements Serializable, Identifyable<String>, NamedElement
         this.documents = documents;
     }
 
-    @OneToMany(targetEntity = ProjectRole.class, cascade = CascadeType.ALL)
-    public Set<ProjectRole> getProjectRoles() {
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+    @OrderColumn(name = "ordering")
+    public List<ProjectRole> getProjectRoles() {
         return projectRoles;
     }
-
-    public void setProjectRoles(Set<ProjectRole> projectRoles) {
+    public void setProjectRoles(List<ProjectRole> projectRoles) {
         this.projectRoles = projectRoles;
     }
 
@@ -128,25 +128,30 @@ public class Project implements Serializable, Identifyable<String>, NamedElement
 
     @Override
     public boolean equals(Object other) {
-        if(this == other) return true;
-        if(!(other instanceof Project)) return false;
+        if (this == other) return true;
+        if (!(other instanceof Project)) return false;
 
-        Project that  = (Project) other;
+        Project that = (Project) other;
         return new EqualsBuilder()
-            .appendSuper(super.equals(other))
-            .append(getId(), that.getId())
-            .isEquals();
+                .appendSuper(super.equals(other))
+                .append(getId(), that.getId())
+                .isEquals();
     }
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getId())
-            .toHashCode();
+                .append(getId())
+                .toHashCode();
     }
 
     @Override
     public String toString() {
         return ReflectionToStringBuilder.toString(this);
+    }
+
+    @Transient
+    public List<ProjectMember> getMembersByRole(ProjectRole projectRole) {
+        return getProjectTeam().stream().filter(projectMember -> projectMember.getProjectRole().equals(projectRole)).collect(Collectors.toList());
     }
 }

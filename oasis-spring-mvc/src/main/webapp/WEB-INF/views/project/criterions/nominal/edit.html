@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="project/layout">
+<head layout:fragment="header" th:remove="tag">
+    <script th:src="@{/vendors/tinymce/tinymce.min.js}"></script>
+    <script th:inline="javascript">
+        tinymce.init({
+            selector: "textarea.editor",
+            plugins : "paste",
+            paste_as_text: true,
+            toolbar: 'undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist',
+            height: 200,
+            content_css: /*[[@{/css/tinymce.css}]]*/ '/css/tinymce.css'
+        });
+        $(document).ready(function(){
+            $('.table-values tbody').sortable({
+                items: 'tr',
+                handle: '.handle',
+                forceHelperSize: true,
+                forcePlaceholderSize: true,
+                stop: function() {
+                    reorder();
+                }
+            });
+
+            $('.btn-add-value').on('click', function(){
+                var $btn = $(this);
+                var $form = $btn.closest('form');
+                var $newValueField = $form.find('input[name=newMeasurementValue]');
+                var $tblValues = $form.find('.table-values');
+                var $tblTemplateRow = $tblValues.find('tr.template');
+                var count = $('.table-values tbody tr.measurementValue').length;
+
+                console.log(count);
+
+                var $newRow = $tblTemplateRow.clone();
+                $newRow.show();
+                $newRow.removeClass('template');
+                $newRow.addClass('measurementValue');
+                $newRow.find('input').attr('name','values[' + count + '].value').val($newValueField.val());
+                $tblTemplateRow.before($newRow);
+
+                $newValueField.val('');
+            });
+
+            $('.table-values').on('click', '.btn-delete-value', function(){
+                var $btn = $(this);
+                $btn.closest('tr').remove();
+
+                reorder();
+            });
+
+            function reorder() {
+                var $trs = $('.table-values tbody tr');
+                $trs.each(function(idx,element) {
+                    if($(this).hasClass('template') === false) {
+                        var $tr = $(this);
+                        var $valueField = $tr.find('input.measurementValue');
+                        $valueField.attr('name', 'values[' + idx + '].value');
+                    }
+                });
+            }
+        });
+    </script>
+</head>
+<body>
+<div layout:fragment="project_content">
+    <div th:replace="/project/criterions/nominal/form"></div>
+</div>
+</body>
+</html>

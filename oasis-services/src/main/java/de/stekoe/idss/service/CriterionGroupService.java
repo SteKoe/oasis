@@ -2,6 +2,7 @@ package de.stekoe.idss.service;
 
 import javax.inject.Inject;
 
+import de.stekoe.idss.model.Criterion;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -10,12 +11,18 @@ import org.springframework.transaction.annotation.Transactional;
 import de.stekoe.idss.model.CriterionGroup;
 import de.stekoe.idss.repository.CriterionGroupRepository;
 
+import java.util.Iterator;
+import java.util.List;
+
 @Service
 @Transactional(readOnly = true)
 public class CriterionGroupService extends PageElementService {
 
     @Inject
     private CriterionGroupRepository criterionGroupRepository;
+
+    @Inject
+    private CriterionService criterionService;
 
     public Page<CriterionGroup> findAll(Pageable pageable) {
         return criterionGroupRepository.findAll(pageable);
@@ -35,18 +42,7 @@ public class CriterionGroupService extends PageElementService {
 
     @Transactional
     public void delete(String id) {
-        CriterionGroup cg = findOne(id);
-        if(cg != null) {
-//            if(!cg.isReferenceType()) {
-//                List<Criterion> criterions = cg.getCriterions();
-//                Iterator<Criterion> iterator = criterions.iterator();
-//                while(iterator.hasNext()) {
-//                    iterator.next();
-//                    iterator.remove();
-//                }
-//            }
-            criterionGroupRepository.delete(cg);
-        }
+        criterionGroupRepository.delete(id);
     }
 
     @Transactional

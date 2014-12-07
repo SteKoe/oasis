@@ -1,21 +1,21 @@
 package de.stekoe.oasis.conf;
 
-import de.stekoe.oasis.init.WebInitializer;
-import org.springframework.cglib.core.Local;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "de.stekoe.oasis")
 @Import({ WebInitializer.class, DispatcherConfig.class, SecurityConfig.class})
-@ContextConfiguration(locations = {"classpath:services/BeanLocations.xml"})
+@ContextConfiguration(locations = {"classpath*:services/BeanLocations.xml"})
 public class AppConfiguration {
     public Map<Locale, String> getLocales() {
         Map<Locale, String> locales = new HashMap<>();

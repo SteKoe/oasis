@@ -50,12 +50,13 @@ public class UserProfileController {
 
         user = userService.findByUsername(username);
 
+        model.addAttribute("image", getGravatar(user));
         model.addAttribute("user", user);
 
         return "user/profile.view";
     }
 
-    private String getGravatar() {
+    private String getGravatar(User user) {
         if (user.getEmail() == null) {
             return null;
         } else {

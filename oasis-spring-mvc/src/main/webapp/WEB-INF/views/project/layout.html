@@ -18,7 +18,7 @@
                 </a>
             </div>
             <div class="list-group">
-                <a th:with="link=@{/project/{id}/criterions(id=${project.id})}"  th:href="${link}"class="list-group-item" th:text="#{label.setOfCriteria}" th:classappend="${link == currentURI} ? 'active' : ''">
+                <a th:with="link=@{/project/{id}/criterions(id=${project.id})}"  th:href="${link}"class="list-group-item" th:text="#{label.setOfCriteria}" th:classappend="${#strings.startsWith(currentURI,link)} ? 'active' : ''">
                 </a>
                 <a th:with="link=@{/project/{id}/evaluation(id=${project.id})}"  th:href="${link}"class="list-group-item" th:text="#{label.evaluation}" th:classappend="${link == currentURI} ? 'active' : ''">
                 </a>

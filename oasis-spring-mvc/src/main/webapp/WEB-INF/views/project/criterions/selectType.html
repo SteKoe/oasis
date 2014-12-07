@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="project/layout">
+<head layout:fragment="header" th:remove="tag">
+</head>
+<body>
+<div layout:fragment="project_content">
+    <h3 th:text="#{label.project.select.criteriontype}">
+        Kriterientyp auswählen
+    </h3>
+
+    <p>
+        Bitte wh&auml;len sie f&uuml;r das Kriterium eine Skala aus, mit welcher das Kritierum gemessen werden soll.
+        Die gew&auml;hlte Skala bestimmt die Auswertungsm&ouml;glichkeiten f&uuml;r das jeweilige Kriterium.
+    </p>
+
+    <div class="list-group">
+        <a class="list-group-item" href="" th:href="@{/project/{pid}/criterions/{cpid}/select/referencecriterion(pid=${project.id},cpid=${criterionPageId})}">
+            <h4>Referenzkriterienkatalog</h4>
+
+            <p>
+                Wählen Sie aus einer Vielzahl an vorgefertigten Skalen und passen Sie sich diese an Ihre Bedürfnisse an!
+            </p>
+        </a>
+    </div>
+
+    <div class="list-group">
+        <a class="list-group-item" th:href="@{/project/{pid}/criterions/{cpid}/nominal(pid=${project.id},cpid=${criterionPageId})}">
+            <h4>Nominal skaliertes Kriteriuam</h4>
+
+            <p>
+                Skala, deren Auspr&auml;gungen keine Ordnung besitzen, aber unterscheidbar sind.
+            </p>
+            <dl class="dl-horizontal small">
+                <dt>Geschlecht</dt>
+                <dd>m&auml;nnlich, weiblich</dd>
+
+                <dt>Orte</dt>
+                <dd>K&ouml;ln, Berlin, M&uuml;nchen</dd>
+            </dl>
+        </a>
+        <a class="list-group-item" th:href="@{/project/{pid}/criterions/{cpid}/ordinal(pid=${project.id},cpid=${criterionPageId})}">
+            <h4>Ordinal skaliertes Kriterium</h4>
+
+            <p>
+                Erstellen Sie eine Skala, deren Werte geordnet und unterscheidbar sind.
+            </p>
+            <dl class="dl-horizontal small">
+                <dt>Zensuren</dt>
+                <dd>sehr gut &lt; gut &lt; befriedigend &lt; ausreichend &lt; mangelhaft &lt; ungenügend</dd>
+
+                <dt>Zufriedenheit</dt>
+                <dd>sehr zufrieden &lt; zufrieden &lt; unzufrieden &lt; sehr unzufrieden</dd>
+            </dl>
+        </a>
+</div>
+</body>
+</html>

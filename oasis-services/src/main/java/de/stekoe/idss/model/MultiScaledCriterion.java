@@ -1,14 +1,13 @@
 package de.stekoe.idss.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -36,21 +35,21 @@ public class MultiScaledCriterion extends Criterion {
 
     @Override
     public boolean equals(Object other) {
-        if(this == other) return true;
-        if(!(other instanceof MultiScaledCriterion)) return false;
+        if (this == other) return true;
+        if (!(other instanceof MultiScaledCriterion)) return false;
 
-        MultiScaledCriterion that  = (MultiScaledCriterion) other;
+        MultiScaledCriterion that = (MultiScaledCriterion) other;
         return new EqualsBuilder()
-            .appendSuper(super.equals(other))
-            .append(getId(), that.getId())
-            .isEquals();
+                .appendSuper(super.equals(other))
+                .append(getId(), that.getId())
+                .isEquals();
     }
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getId())
-            .toHashCode();
+                .append(getId())
+                .toHashCode();
     }
 
     @Override

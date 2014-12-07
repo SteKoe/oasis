@@ -1,28 +1,23 @@
 package de.stekoe.idss.model;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.PreRemove;
-import javax.persistence.Transient;
-
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-
 @Entity
 public abstract class Criterion extends PageElement implements Serializable {
 
-    private static final long serialVersionUID = 20141103925L;
+    private static final long serialVersionUID = 20141205L;
 
     private boolean allowNoChoice = false;
-    private Set<CriterionGroup> criterionGroups = new HashSet<CriterionGroup>();
+    private int weight = 1;
+    private CriterionGroup criterionGroup;
 
     public Criterion() {
         // NOP
@@ -33,19 +28,6 @@ public abstract class Criterion extends PageElement implements Serializable {
         this.allowNoChoice = criterion.isAllowNoChoice();
     }
 
-    @PreRemove
-    private void removeFromCriterionGroups() {
-        Iterator<CriterionGroup> cgIterator = getCriterionGroups().iterator();
-        while(cgIterator.hasNext()) {
-            Iterator<Criterion> criterionIterator = cgIterator.next().getCriterions().iterator();
-            while(criterionIterator.hasNext()) {
-                if(this.equals(criterionIterator.next())) {
-                    criterionIterator.remove();
-                }
-            }
-        }
-    }
-
     @Column(columnDefinition = "boolean default false")
     public boolean isAllowNoChoice() {
         return allowNoChoice;
@@ -54,18 +36,22 @@ public abstract class Criterion extends PageElement implements Serializable {
         allowNoChoice = aAllowNoChoice;
     }
 
-    @ManyToMany(targetEntity = CriterionGroup.class, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
-    public Set<CriterionGroup> getCriterionGroups() {
-        return criterionGroups;
+    @Column
+    public int getWeight() {
+        return this.weight;
     }
-    public void setCriterionGroups(Set<CriterionGroup> criterionGroups) {
-        this.criterionGroups = criterionGroups;
+    public void setWeight(int weight) {
+        this.weight = weight;
     }
 
-    @Transient
-    public boolean isMemberOfGroup() {
-        return this.getCriterionGroups().size() != 0;
+    @ManyToOne
+    public CriterionGroup getCriterionGroup() {
+        return criterionGroup;
     }
+    public void setCriterionGroup(CriterionGroup criterionGroup) {
+        this.criterionGroup = criterionGroup;
+    }
+
     /**
      * Copies the given criterion.
      *
@@ -73,11 +59,11 @@ public abstract class Criterion extends PageElement implements Serializable {
      * @return The copied criterion or null on failure
      */
     public static Criterion copyCriterion(Criterion criterion) {
-        if(criterion instanceof MultiScaledCriterion) {
+        if (criterion instanceof MultiScaledCriterion) {
             return new MultiScaledCriterion((MultiScaledCriterion) criterion);
-        } else if(criterion instanceof NominalScaledCriterion) {
+        } else if (criterion instanceof NominalScaledCriterion) {
             return new NominalScaledCriterion((NominalScaledCriterion) criterion);
-        } else if(criterion instanceof OrdinalScaledCriterion) {
+        } else if (criterion instanceof OrdinalScaledCriterion) {
             return new OrdinalScaledCriterion((OrdinalScaledCriterion) criterion);
         }
 
@@ -86,20 +72,20 @@ public abstract class Criterion extends PageElement implements Serializable {
 
     @Override
     public boolean equals(Object other) {
-        if(this == other) return true;
-        if(!(other instanceof Criterion)) return false;
+        if (this == other) return true;
+        if (!(other instanceof Criterion)) return false;
 
-        Criterion that  = (Criterion) other;
+        Criterion that = (Criterion) other;
         return new EqualsBuilder()
-            .append(getId(), that.getId())
-            .isEquals();
+                .append(getId(), that.getId())
+                .isEquals();
     }
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getId())
-            .toHashCode();
+                .append(getId())
+                .toHashCode();
     }
 
     @Override

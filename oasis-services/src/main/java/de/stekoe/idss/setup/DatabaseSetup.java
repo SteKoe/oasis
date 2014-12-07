@@ -23,7 +23,9 @@ import de.stekoe.idss.service.AuthService;
 import de.stekoe.idss.service.ProjectService;
 import de.stekoe.idss.service.SystemRoleService;
 import de.stekoe.idss.service.UserService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class DatabaseSetup {
 
     private static final Logger LOG = Logger.getLogger(DatabaseSetup.class);
@@ -166,62 +168,14 @@ public class DatabaseSetup {
         return user;
     }
 
-    private void createSampleProject() {
-        Project project = new Project();
-
-        final ProjectRole projectRoleForCreator = createProjectRoleForCreator(project);
-        final ProjectRole projectRoleForMember = createProjectRoleForMember(project);
-
-        project.setName("Sample Name for Project");
-        project.setDescription("Contrary to popular belief, Lorem Ipsum is not simply random text. <strong>It has roots</strong> in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance.");
-        project.getProjectRoles().add(projectRoleForCreator);
-        project.getProjectRoles().add(projectRoleForMember);
-
-        ProjectMember projectCreator = new ProjectMember();
-        projectCreator.setUser(userService.findByUsername("stephan.köninger"));
-        projectCreator.setProjectRole(projectRoleForCreator);
-
-        project.getProjectTeam().add(projectCreator);
-
-        projectService.save(project);
-    }
-
-    private ProjectRole createProjectRoleForCreator(Project project) {
-        ProjectRole projectRoleCreator = new ProjectRole();
-        projectRoleCreator.setName("Projektleiter");
-
-        final Set<Permission> projectPermissions = new HashSet<Permission>();
-        for (PermissionType permissionType : PermissionType.forProject()) {
-            projectPermissions.add(new Permission(PermissionObject.PROJECT, permissionType, project.getId()));
-        }
-
-        projectRoleCreator.setPermissions(projectPermissions);
-        return projectRoleCreator;
-    }
-
-    private ProjectRole createProjectRoleForMember(Project project) {
-        ProjectRole projectRoleMember = new ProjectRole();
-        projectRoleMember.setName("Projektmitglied");
-
-        for (PermissionType permissionType : PermissionType.forReadOnly()) {
-            projectRoleMember.getPermissions().add(new Permission(PermissionObject.PROJECT, permissionType, project.getId()));
-        }
-        return projectRoleMember;
-    }
-
     private void installSampleUser() {
         createSystemRoles();
         createUsers();
     }
 
-    private void installSampleProject() {
-        createSampleProject();
-    }
-
     public void run() {
         if(userService.findAll().size() == 0) {
             installSampleUser();
-            installSampleProject();
         }
     }
 }

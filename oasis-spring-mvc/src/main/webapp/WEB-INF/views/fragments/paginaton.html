@@ -1,18 +1,23 @@
 <nav th:object="${pagination}">
-    <div th:text="${active}">
-    </div>
-    <ul class="pagination">
-        <li>
-            <a href="#" th:href="@{?page={page}(page=*{currentPage-1})}" >
+    <ul class="pagination" th:with="prev=*{currentPage-1},next=*{currentPage+1},prev=(${prev <= 0 ? 0 : prev}),next=(${next >= pagination.pages-1 ? pagination.pages-1 : next})">
+        <li th:class="${prev == 0} ? 'disabled' : ''">
+            <a href="#" th:href="@{?page={page}(page=${prev})}">
                 <span aria-hidden="true">&laquo;</span>
                 <span class="sr-only">Previous</span>
             </a>
         </li>
-        <li th:each="page : ${#numbers.sequence(0,pagination.pages-1)}">
+
+        <li th:each="page : ${#numbers.sequence(0,pagination.pages-1)}" th:if="*{pages-1 > 0}">
             <a href="#" th:href="@{?page={page}(page=${page})}" th:text="${page+1}">1</a>
         </li>
-        <li>
-            <a href="#" th:href="@{?page={page}(page=*{currentPage+1})}">
+
+        <li th:if="*{pages-1 <= 0}">
+            <a href="#" th:href="@{?page=0}" th:text="1">1</a>
+        </li>
+
+
+        <li th:class="${next == pagination.pages-1} ? 'disabled' : ''">
+            <a href="#" th:href="@{?page={page}(page=${next})}">
                 <span aria-hidden="true">&raquo;</span>
                 <span class="sr-only">Next</span>
             </a>

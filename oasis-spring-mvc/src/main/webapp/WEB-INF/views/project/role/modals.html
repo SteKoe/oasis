@@ -20,7 +20,7 @@
 
                         <div class="checkbox" th:each="permission : ${permissionTypes}">
                             <label>
-                                <input type="checkbox" th:value="${permission.getKey()}" name="permission" th:disabled="${permission.toString() == 'READ'}" th:checked="${permission.toString() == 'READ'}">
+                                <input type="checkbox" th:value="${permission}" name="permission" th:disabled="${permission.toString() == 'READ'}" th:checked="${permission.toString() == 'READ'}">
                                 <span th:text="#{__${permission.getKey()}__(#{label.project})}" th:remove="tag"></span>
                             </label>
                         </div>

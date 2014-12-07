@@ -23,38 +23,43 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        String query = "SELECT username, password, userStatus = 'ACTIVATED' as enabled " +
-                "FROM User " +
-                "WHERE username = ?";
-        String authoritiesQuery = "SELECT username, SystemRole.name " +
-                "FROM User " +
-                "LEFT JOIN User_SystemRole USING(user_id) " +
-                "LEFT JOIN SystemRole USING(system_role_id) " +
-                "WHERE username = ?";
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
-                .usersByUsernameQuery(query)
-                .authoritiesByUsernameQuery(authoritiesQuery)
+                .usersByUsernameQuery(getUserQuery())
+                .authoritiesByUsernameQuery(getAuthoritiesQuery())
                 .passwordEncoder(new BCryptPasswordEncoder());
+    }
+
+    private String getUserQuery() {
+        return "SELECT username, password, userStatus = 'ACTIVATED' as enabled " +
+                    "FROM User " +
+                    "WHERE username = ?";
+    }
+
+    private String getAuthoritiesQuery() {
+        return "SELECT username, SystemRole.name " +
+                    "FROM User " +
+                    "LEFT JOIN User_SystemRole USING(user_id) " +
+                    "LEFT JOIN SystemRole USING(system_role_id) " +
+                    "WHERE username = ?";
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/admin/**").access("hasRole('USER')")
-                .antMatchers("/user/**").access("hasRole('USER')")
-                .antMatchers("/project/**").access("hasRole('USER')")
+                    .antMatchers("/user/**").access("hasRole('USER')")
+                    .antMatchers("/project/**").access("hasRole('USER')")
                 .and()
-                .formLogin().loginPage("/login")
-                .failureUrl("/login?error")
-                .defaultSuccessUrl("/project")
-                .usernameParameter("username")
-                .passwordParameter("password")
+                    .formLogin().loginPage("/login")
+                    .failureUrl("/login?error")
+                    .defaultSuccessUrl("/project")
+                    .usernameParameter("username")
+                    .passwordParameter("password")
                 .and()
-                .logout()
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/login?logout")
+                    .logout()
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("/login?logout")
                 .and()
-                .csrf();
+                    .csrf();
     }
 }

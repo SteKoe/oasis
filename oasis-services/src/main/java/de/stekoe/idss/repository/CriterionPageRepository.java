@@ -24,6 +24,6 @@ public interface CriterionPageRepository extends PagingAndSortingRepository<Crit
     @Query("FROM CriterionPage cp WHERE cp.project.id = ?1 AND cp.ordering = ?2")
     CriterionPage findOneByOrdering(String projectId, int ordering);
 
-    @Query("SELECT COUNT(cp.id) FROM CriterionPage cp WHERE cp.project.id = ?1")
+    @Query("SELECT COUNT(*) FROM CriterionPage cp WHERE cp.project.id = ?1")
     long countForProject(String projectId);
 }

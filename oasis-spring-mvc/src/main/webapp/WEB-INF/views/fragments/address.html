@@ -1,0 +1,5 @@
+<address th:if="${!address.isEmpty()}">
+    <div th:text="${address.street + ' ' + address.number}"></div>
+    <div th:text="${address.zip + ' ' + address.city}"></div>
+    <div th:text="${address.country}"></div>
+</address>

@@ -1,22 +1,14 @@
 package de.stekoe.idss.model;
 
-import java.io.Serializable;
-import java.util.Date;
-
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.Date;
 
 
 @Entity
@@ -25,7 +17,7 @@ public class Document implements Serializable {
 
     private static final long serialVersionUID = 201403011956L;
 
-    private String id = IDGenerator.createId();
+    private String id;
     private long size;
     private String name;
     private User user;
@@ -34,9 +26,12 @@ public class Document implements Serializable {
     private byte[] content;
 
     @Id
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
     public String getId() {
         return id;
     }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -45,6 +40,7 @@ public class Document implements Serializable {
     public long getSize() {
         return this.size;
     }
+
     public void setSize(long size) {
         this.size = size;
     }
@@ -54,6 +50,7 @@ public class Document implements Serializable {
     public String getName() {
         return this.name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -63,6 +60,7 @@ public class Document implements Serializable {
     public User getUser() {
         return this.user;
     }
+
     public void setUser(User user) {
         this.user = user;
     }
@@ -72,6 +70,7 @@ public class Document implements Serializable {
     public Date getCreated() {
         return created;
     }
+
     public void setCreated(Date created) {
         this.created = created;
     }
@@ -79,6 +78,7 @@ public class Document implements Serializable {
     public void setContentType(String contentType) {
         this.contentType = contentType;
     }
+
     public String getContentType() {
         return contentType;
     }
@@ -87,27 +87,28 @@ public class Document implements Serializable {
     public byte[] getContent() {
         return content;
     }
+
     public void setContent(byte[] content) {
         this.content = content;
     }
 
     @Override
     public boolean equals(Object other) {
-        if(this == other) return true;
-        if(!(other instanceof Document)) return false;
+        if (this == other) return true;
+        if (!(other instanceof Document)) return false;
 
-        Document that  = (Document) other;
+        Document that = (Document) other;
         return new EqualsBuilder()
-            .appendSuper(super.equals(other))
-            .append(getId(), that.getId())
-            .isEquals();
+                .appendSuper(super.equals(other))
+                .append(getId(), that.getId())
+                .isEquals();
     }
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getId())
-            .toHashCode();
+                .append(getId())
+                .toHashCode();
     }
 
     @Override

@@ -5,14 +5,11 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import de.stekoe.idss.model.*;
+import de.stekoe.idss.repository.CriterionPageRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import de.stekoe.idss.model.Criterion;
-import de.stekoe.idss.model.CriterionGroup;
-import de.stekoe.idss.model.PageElement;
-import de.stekoe.idss.model.SingleScaledCriterion;
-import de.stekoe.idss.model.UserChoice;
 import de.stekoe.idss.repository.CriterionRepository;
 import de.stekoe.idss.repository.UserChoiceRepository;
 
@@ -22,6 +19,12 @@ public class CriterionService extends PageElementService {
 
     @Inject
     private CriterionRepository criterionRepository;
+
+    @Inject
+    private CriterionGroupService criterionGroupService;
+
+    @Inject
+    private CriterionPageService criterionPageService;
 
     @Inject
     private UserChoiceRepository userChoiceRepository;
@@ -37,9 +40,25 @@ public class CriterionService extends PageElementService {
 
     @Transactional
     public void delete(String criterionId) {
+        // Delete associated userChoices...
         List<UserChoice> userChoices = userChoiceRepository.findByCriterionId(criterionId);
         userChoiceRepository.delete(userChoices);
+
+        Criterion one = criterionRepository.findOne(criterionId);
+        CriterionGroup criterionGroup = one.getCriterionGroup();
+        CriterionPage criterionPage = one.getCriterionPage();
+        reorder(criterionPage, criterionGroup);
+
         criterionRepository.delete(criterionId);
+    }
+
+    private void reorder(CriterionPage criterionPage, CriterionGroup criterionGroup) {
+        if(criterionPage != null) {
+            criterionPageService.save(criterionPage);
+        }
+        if(criterionGroup != null) {
+            criterionGroupService.save(criterionGroup);
+        }
     }
 
     public List<Criterion> findAllForReport(String id) {

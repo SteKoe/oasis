@@ -6,6 +6,9 @@
       <script th:src="@{/vendors/tinymce/tinymce.min.js}"></script>
       <script th:inline="javascript">
             $(document).ready(function() {
+                  var token = $("meta[name='_csrf']").attr("content");
+                  var header = $("meta[name='_csrf_header']").attr("content");
+
                   $('#addProjectModal').on('show.bs.modal', function (event) {
                         var button = $(event.relatedTarget);
                         var memberId = button.data('member-id');
@@ -16,12 +19,11 @@
                         OASIS.form.hideErrors(form);
 
                         modal.find('button.save').on('click', function() {
-                              var token = $("meta[name='_csrf']").attr("content");
-                              var header = $("meta[name='_csrf_header']").attr("content");
-
-
+                              var $btn = $(this);
+                              $btn.button('loading');
 
                               var content = tinymce.get('description').getContent();
+
                               form.find('#description').val(content);
 
                               var data = {
@@ -31,10 +33,10 @@
 
                               var promise = $.ajax({
                                     url: url,
+                                    data: JSON.stringify(data),
                                     contentType : 'application/json; charset=utf-8',
                                     dataType : 'json',
                                     type: 'POST',
-                                    data: JSON.stringify(data),
                                     beforeSend: function( xhr ) {
                                           xhr.setRequestHeader(header, token);
                                     }
@@ -44,10 +46,32 @@
                                     if(data.ok !== undefined && data.ok === true) {
                                           window.location.reload();
                                     } else {
+                                          $btn.button('reset');
                                           OASIS.form.showErrors(form, data.errors);
                                     }
                               });
                         });
+                  });
+
+                  $('.btn-delete').on('click', function(event) {
+                        event.preventDefault();
+
+                        var id = $(this).data('id');
+                        if(id !== undefined) {
+                              var promise = $.ajax({
+                                    url: '/api/project/' + id,
+                                    type: 'DELETE',
+                                    beforeSend: function( xhr ) {
+                                          xhr.setRequestHeader(header, token);
+                                    }
+                              });
+                              promise.success(function(data) {
+                                    data = JSON.parse(data);
+                                    if(data.ok !== undefined && data.ok === true) {
+                                          window.location.reload();
+                                    }
+                              });
+                        }
                   });
             });
             tinymce.init({
@@ -84,7 +108,7 @@
                               <a th:href="@{/project/{id}(id=${project.id})}" class="btn btn-xs btn-default" th:text="#{label.details}">
                                     Details
                               </a>
-                              <a th:href="@{/project/{id}(id=${project.id})}" class="btn btn-xs btn-danger" th:text="#{label.delete}">
+                              <a th:href="@{/project/{id}(id=${project.id})}" th:attr="data-id=${project.id}" class="btn btn-xs btn-danger btn-delete" th:text="#{label.delete}">
                                     Löschen
                               </a>
                         </td>

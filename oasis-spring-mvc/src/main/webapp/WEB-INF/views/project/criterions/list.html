@@ -3,52 +3,167 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="project/layout">
 <head layout:fragment="header" th:remove="tag">
+    <script th:inline="javascript">
+        $(document).ready(function(){
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
+
+            var getFormData = function(form) {
+                return {
+                    "name": form.find('[name="name"]').val()
+                };
+            };
+
+            $('.btn-move').on('click', function(e) {
+                var btn = $(this);
+                var pageElementId = btn.data('id');
+                var moveDir = btn.data('move-dir');
+                var pageElementType = btn.data('type');
+
+                var url;
+                if(pageElementType  === "criterionGroup") {
+                    if(moveDir === "up") {
+                        url = /*[[@{/api/criteriongroup/{id}/move/up/1}]]*/ '';
+                    }
+                    if(moveDir === "down") {
+                        url = /*[[@{/api/criteriongroup/{id}/move/down/1}]]*/ '';
+                    }
+                }
+                if(pageElementType === "criterionPage") {
+                    if(moveDir === "up") {
+                        url = /*[[@{/api/criterionpage/{id}/move/up/1}]]*/ '';
+                    }
+                    if(moveDir === "down") {
+                        url = /*[[@{/api/criterionpage/{id}/move/down/1}]]*/ '';
+                    }
+                }
+                if(pageElementType === "criterion") {
+                    if(moveDir === "up") {
+                        url = /*[[@{/api/criterion/{id}/move/up/1}]]*/ '';
+                    }
+                    if(moveDir === "down") {
+                        url = /*[[@{/api/criterion/{id}/move/down/1}]]*/ '';
+                    }
+                }
+
+                if(url) {
+                    // Set the actual id which should be moved :)
+                    url = url.replace("{id}", pageElementId);
+                    var promise = OASIS.ajax({
+                        url: url,
+                        type: 'PUT',
+                        data: ''
+                    });
+                    promise.success(function(data){
+                        data = JSON.parse(data);
+                        if(data.ok === true) {
+                            window.location.reload();
+                        }
+                    });
+                }
+            });
+
+            $('.btn-delete').on('click', function(){
+                var $btn = $(this);
+                $btn.button('loading');
+                var type = $(this).data('type');
+                if(type === "criterionGroup") {
+                    var url = /*[[@{/api/criteriongroup/}]]*/ '';
+                    OASIS.form.delete($(this), url);
+                } else if (type === "criterionPage") {
+                    var url = /*[[@{/api/project/{pid}/criterionpage(pid=${project.id})}]]*/ '';
+                    OASIS.form.delete($(this), url);
+                } else if (type === "criterion") {
+                    var url = /*[[@{/api/criterion}]]*/ '';
+                    OASIS.form.delete($(this), url);
+                }
+            });
+
+            $('#addCriterionPageModal').on('show.bs.modal', function(){
+                var modal = $(this);
+                var form = modal.find('form');
+
+                modal.find('button.save').on('click', function(){
+                    var $btn = $(this);
+                    $btn.button('loading');
+                    var url = form.attr('action');
+                    var data = getFormData(form);
+
+                    var promise = OASIS.form.sendJSON(url, 'POST', data);
+
+                    promise.success(function(data) {
+                        data = JSON.parse(data);
+                        if(data.ok !== undefined && data.ok === true) {
+                            window.location.reload();
+                        } else {
+                            OASIS.form.showErrors(form, data.errors);
+                            $btn.button('reset');
+                        }
+                    });
+                })
+            });
+
+            $('#editCriterionPageModal').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget);
+                var id = button.data('id');
+                var modal = $(this);
+                var form = modal.find('form');
+
+                var url = /*[[@{/api/project/{pid}/criterionpage/(pid=${project.id})}]]*/ '';
+                url += id;
+                $.getJSON(url, function(data){
+                    data = JSON.parse(data);
+                    if(data.ok === true) {
+                        for(var field in data.form) {
+                            form.find('[name='+field+']').val(data.form[field]);
+                        }
+                    }
+                });
+
+                modal.find('button.save').on('click', function() {
+                    var data = getFormData(form);
+                    var promise = OASIS.form.sendJSON(url, 'PUT', data);
+                    promise.success(function(data){
+                        data = JSON.parse(data);
+                        if(data.ok === true) {
+                            window.location.reload();
+                        } else {
+                            OASIS.form.showErrors(form, data.errors);
+                        }
+                    });
+                });
+            });
+
+            $('#editCriterionModal').on('show.bs.modal', function(event) {
+
+            });
+        });
+    </script>
 </head>
 <body>
 <div layout:fragment="project_content">
     <h3 th:text="#{label.project.edit.criterions}">
-        Kriteriencatalog
+        Kriterienkatalog
     </h3>
 
-    <div th:each="criterionPage : ${criterionPages}" class="criterion-page">
-        <div class="criterion-page-header">
-            <div class="row">
-                <div class="col-md-6">
-                    <span th:text="${#strings.isEmpty(criterionPage.name)} ? #{label.page} + ': ' + ${criterionPage.ordering+1} : ${criterionPage.name}">Miau</span>
-                </div>
-                <div class="col-md-6">
-                    <div class="pull-right">
-                        <div class="btn-group">
-                            <a href="" class="btn btn-xs btn-default" th:if="${criterionPage.ordering} > 0">
-                                <span class="fa fa-chevron-up"></span>
-                            </a>
-                            <a href="" class="btn btn-xs btn-default" th:if="${criterionPage.ordering <= criterionPages.size()-1}">
-                                <span class="fa fa-chevron-down"></span>
-                            </a>
-                        </div>
+    <div class="well">
+        <a href="" class="btn btn-primary btn-create-page" data-toggle="modal" data-target="#addCriterionPageModal">
+            <span class="fa fa-plus"></span>
+            <span th:text="#{label.add.page}">Seite hinzufügen</span>
+        </a>
+    </div>
 
-                        <div class="btn-group">
-                            <a href="" class="btn btn-xs btn-default">
-                                <span class="fa fa-pencil"></span>
-                            </a>
-                            <a href="" class="btn btn-xs btn-default">
-                                <span class="fa fa-remove"></span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div th:each="pageElement : ${criterionPage.pageElements}" class="criterion-page-body">
-
-            <div th:if="${pageElement instanceof T(de.stekoe.idss.model.CriterionGroup}" th:replace="/project/criterions/criterionGroup"></div>
-
+    <div th:each="criterionPage, iter : ${criterionPages}" class="panel-group" id="criterionPage">
+        <div th:replace="/project/criterions/criterionPage">
+            CRITERION PAGE HERE
         </div>
     </div>
 
-    <div th:include="fragments/paginaton" class="text-center">
-        asd
+    <div th:include="/fragments/paginaton" class="text-center">
+        PAGINATION NAVIGATION HERE
     </div>
+
+    <div th:replace="/project/criterions/modals"></div>
 </div>
 </body>
 </html>

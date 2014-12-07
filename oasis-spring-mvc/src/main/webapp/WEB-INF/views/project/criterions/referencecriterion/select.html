@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="project/layout">
+<head layout:fragment="header" th:remove="tag">
+    <script>
+        $(function(){
+            $('.checkall').on('click', function(){
+                $(this).closest('.panel').find('.panel-body :checkbox').prop('checked', this.checked);
+            });
+            $('.criterion').on('change', function(){
+                var anySelected = false;
+                var allSelected = true;
+
+                $(this).closest('.panel').find('.panel-body :checkbox').each(function(index){
+                    console.log(index + ": " + this.checked);
+                    if(this.checked == false) {
+                        allSelected = false;
+                    }
+                    if(this.checked == true) {
+                        anySelected = true;
+                    }
+                });
+
+                if(allSelected == true) {
+                    $(this).closest('.panel').find('.panel-title :checkbox').prop('checked', true);
+                    $(this).closest('.panel').find('.panel-title :checkbox').prop('indeterminate', false);
+                } else if(anySelected == true) {
+                    $(this).closest('.panel').find('.panel-title :checkbox').prop('checked', true);
+                    $(this).closest('.panel').find('.panel-title :checkbox').prop('indeterminate', true);
+                } else {
+                    $(this).closest('.panel').find('.panel-title :checkbox').prop('checked', false);
+                    $(this).closest('.panel').find('.panel-title :checkbox').prop('indeterminate', false);
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+<div layout:fragment="project_content">
+    <h3 th:text="#{label.project.edit.criterions}">
+        Kriterienkatalog
+    </h3>
+
+
+    <form th:action="@{/project/{pid}/criterions/{cpid}/select/referencecriterion(pid=${project.id},cpid=${criterionPage.id})}" method="post">
+        <div class="panel-group" id="referenceList">
+            <div class="panel panel-default" th:each="group : ${referenceCriterionGroups}">
+                <!-- Panel: Header -->
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <input type="checkbox" value="" class="checkall">
+                        <a data-toggle="collapse" data-parent="#referenceList" th:href="${'#' + group.id}">
+                            <span th:text="#{label.group} + ': ' + ${group.name}" th:remove="tag"></span>
+                            <small th:text="#{label.criterions(${group.criterions.size()})}"></small>
+                        </a>
+                    </h4>
+                </div>
+                <!-- Panel: Header -->
+                <div th:id="${group.id}" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="checkbox" th:each="criterion : ${group.criterions}">
+                            <label>
+                                <input type="checkbox" th:field="${refcSel.selectedReferenceCriterions[__${group.id}__]}" th:value="${criterion.id}" class="criterion">
+                                <span th:text="${criterion.name}" th:remove="tag"></span>
+
+                                <ul>
+                                    <li th:each="value : ${criterion.values}" th:text="${value.value}"></li>
+                                </ul>
+
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="well">
+            <button type="submit" class="btn btn-success" th:text="#{label.add}">
+                Hinzufügen
+            </button>
+        </div>
+    </form>
+
+</div>
+</body>
+</html>

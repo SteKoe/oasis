@@ -1,18 +1,13 @@
 package de.stekoe.idss.model;
 
-import java.io.Serializable;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
+import java.io.Serializable;
 
 
 @Entity
@@ -21,7 +16,7 @@ public class Permission implements Serializable {
 
     private static final long serialVersionUID = 101403011956L;
 
-    private String id = IDGenerator.createId();
+    private String id;
     private PermissionObject permissionObject;
     private PermissionType permissionType;
     private String objectId;
@@ -37,6 +32,8 @@ public class Permission implements Serializable {
     }
 
     @Id
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
     public String getId() {
         return id;
     }
@@ -79,21 +76,21 @@ public class Permission implements Serializable {
 
     @Override
     public boolean equals(Object other) {
-        if(this == other) return true;
-        if(!(other instanceof Permission)) return false;
+        if (this == other) return true;
+        if (!(other instanceof Permission)) return false;
 
-        Permission that  = (Permission) other;
+        Permission that = (Permission) other;
         return new EqualsBuilder()
-            .appendSuper(super.equals(other))
-            .append(getId(), that.getId())
-            .isEquals();
+                .appendSuper(super.equals(other))
+                .append(getId(), that.getId())
+                .isEquals();
     }
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder()
-            .append(getId())
-            .toHashCode();
+                .append(getId())
+                .toHashCode();
     }
 
     @Override

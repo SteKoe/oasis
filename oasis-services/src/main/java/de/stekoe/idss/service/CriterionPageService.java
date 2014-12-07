@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import de.stekoe.idss.model.Project;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,8 +36,12 @@ public class CriterionPageService {
 
     @Transactional
     public void delete(String criterionPageId) {
-        String projectId = findOne(criterionPageId).getProject().getId();
+        CriterionPage criterionPage = findOne(criterionPageId);
+        Project project = criterionPage.getProject();
+
         criterionPageRepository.delete(criterionPageId);
+
+        String projectId = project.getId();
         reorderPages(projectId);
     }
 
@@ -109,5 +114,9 @@ public class CriterionPageService {
 
     public long countForProject(String pid) {
         return criterionPageRepository.countForProject(pid);
+    }
+
+    public CriterionPage findByProjectAndOrdering(Project project, int ordering) {
+        return criterionPageRepository.findOneByOrdering(project.getId(), ordering);
     }
 }

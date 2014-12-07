@@ -11,6 +11,27 @@
             var token = $("meta[name='_csrf']").attr("content");
             var header = $("meta[name='_csrf_header']").attr("content");
 
+            //TODO: Implement sorting of roles?
+            var sortable = OASIS.sortable.table(function(item, delta) {
+                if(delta == 0) {
+                    return;
+                }
+
+                var id = item.data('id');
+                var url = /*[[@{/api/project/{pid}/role(pid=${project.id})}]]*/ '';
+                url += '/' + id + '/move';
+
+                if(delta > 0) {
+                    url += '/down';
+                } else if (delta < 0) {
+                    url += '/up';
+                }
+
+                console.log(url + '/' + Math.abs(delta));
+
+                OASIS.form.sendJSON(url + '/' + Math.abs(delta), 'PUT');
+            });
+
             $('.btn-delete').on('click', function(event) {
                 event.preventDefault();
 
@@ -39,6 +60,7 @@
                 var editMode = modal.attr('id').indexOf("add") === -1;
                 var url = /*[[@{/api/project/{pid}/role(pid=${project.id})}]]*/ '';
                 var title = /*[[#{label.project.add.role}]]*/ '';
+                var form = modal.find('form');
 
                 if(editMode) {
                     title = /*[[#{label.project.edit.role}]]*/ '';
@@ -54,26 +76,43 @@
 
                         var permissions = data.permissions;
                         for(var i = 0; i < permissions.length; i++) {
-                            var pt = permissions[i].permissionType;
-
+                            var pt = permissions[i];
                             modal.find('input[value='+pt+']').prop('checked',true);
                         }
                     });
                 }
 
                 modal.find('button.save').on('click', function() {
+                    OASIS.form.hideErrors(form);
+
+                    var permissions = [];
+                    form.find('[name=permission]').each(function(){
+                        if($(this).prop('checked')) {
+                            permissions.push($(this).val());
+                        }
+                    });
+
+                    var data = {
+                        name: form.find('[name=name]').val(),
+                        permissions: permissions
+                    };
+
                     var promise = $.ajax({
                         url: url,
                         type: (editMode ? 'PUT' : 'POST'),
-                        data: modal.find('form').serialize(),
+                        data: JSON.stringify(data),
+                        contentType:"application/json; charset=utf-8",
+                        dataType:"json",
                         beforeSend: function( xhr ) {
                             xhr.setRequestHeader(header, token);
                         }
                     });
                     promise.success(function(data) {
                         data = JSON.parse(data);
-                        if(data.ok !== undefined && data.ok === true) {
+                        if(data.ok === true) {
                             window.location.reload();
+                        } else {
+                            OASIS.form.showErrors(form, data.errors);
                         }
                     });
                 });
@@ -94,15 +133,19 @@
         </a>
     </div>
 
-    <table class="table">
+    <table class="table table-sortable">
         <thead>
         <tr>
+            <th>&nbsp;</th>
             <th th:text="#{table.header.name}">Name/Bezeichnung</th>
             <th th:text="#{table.header.actions}" class="actions text-right">Aktionen</th>
         </tr>
         </thead>
         <tbody>
-            <tr th:each="role : ${project.projectRoles}">
+            <tr th:each="role : ${project.projectRoles}" th:attr="data-id=${role.id}">
+                <td class="text-center" width="1%">
+                    <span class="fa fa-sort handle"></span>
+                </td>
                 <td>
                     <span th:text="${role.name}"></span>
                 </td>

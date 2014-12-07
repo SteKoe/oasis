@@ -79,7 +79,7 @@ public class CriterionServiceTest extends AbstractBaseTest {
         NominalScaledCriterion nsc = new NominalScaledCriterion();
         nsc.setName("Criterion");
         cg.getCriterions().add(nsc);
-        nsc.getCriterionGroups().add(cg);
+        nsc.setCriterionGroup(cg);
 
         criterionGroupService.save(cg);
 

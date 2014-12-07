@@ -23,7 +23,7 @@ public class ProjectRoleServiceTest extends AbstractBaseTest {
         ProjectRole projectRole = new ProjectRole();
         projectRole.setName("ProjectRole");
 
-        final String projectId = IDGenerator.createId();
+        final String projectId = "";
         projectRole.getPermissions().add(new Permission(PermissionObject.PROJECT, PermissionType.UPDATE, projectId));
         projectRoleService.save(projectRole);
 

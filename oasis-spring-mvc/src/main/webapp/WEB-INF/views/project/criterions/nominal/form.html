@@ -1,0 +1,81 @@
+<h3 th:text="#{label.criterion.edit}"></h3>
+<form id="criterionForm"
+      th:with="new=${criterion.id == null}"
+      th:object="${criterion}"
+      th:action="${criterion.id == null} ?
+            @{/project/{pid}/criterion/{cpid}/nominal(pid=${project.id},cpid=${parentElementId})} :
+            @{/project/{pid}/criterion/nominal/{cid}(pid=${project.id},cid=${criterion.id})}"
+      method="POST">
+
+    <div th:replace="/project/criterions/generic/form"></div>
+
+    <hr>
+    <h4 th:text="#{label.criterion.values}"></h4>
+    <fieldset class="form-horizontal">
+        <div class="form-group">
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="newMeasurementValue" th:placeholder="#{label.criterion.value} + '...'">
+            </div>
+
+            <div class="col-sm-2 text-right">
+                <button type="button" class="btn btn-primary btn-add-value" th:text="#{label.add}">
+                    Hinzufügen
+                </button>
+            </div>
+        </div>
+    </fieldset>
+
+    <table class="table table-border-top-bottom table-values">
+        <thead>
+            <tr>
+                <th  th:text="#{label.criterion.value}">
+                    Ausprägung
+                </th>
+                <th class="text-right" th:text="#{table.header.actions}">
+                    Aktionen
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="value,iter : *{values}" class="measurementValue">
+                <td colspan="2">
+                    <div class="input-group" style="width: 100%">
+                        <div class="input-group-addon handle">
+                            <span class="fa fa-sort"></span>
+                        </div>
+                        <input type="text" class="form-control measurementValue" th:field="${criterion.values[__${iter.index}__].value}">
+                        <div class="input-group-btn">
+                            <a href="javascript:void(0);" class="btn btn-primary btn-delete-value">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <!-- LE template row -->
+            <tr class="template" style="display: none;">
+                <td colspan="2">
+                    <div class="input-group" style="width: 100%">
+                        <div class="input-group-addon handle">
+                            <span class="fa fa-sort"></span>
+                        </div>
+                        <input type="text" class="form-control measurementValue">
+                        <div class="input-group-btn">
+                            <a href="javascript:void(0);" class="btn btn-primary btn-delete-value">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr th:if="*{values.size() == 0}">
+                <td colspan="2" class="empty text-center">Leer</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="form-group text-right">
+        <button class="btn btn-primary" type="submit" th:text="#{label.save}">
+            Speichern
+        </button>
+    </div>
+</form>

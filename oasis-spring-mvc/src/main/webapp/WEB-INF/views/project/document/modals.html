@@ -18,11 +18,13 @@
                                 <span class="fileinput-filename"></span>
                             </div>
                             <span class="input-group-addon btn btn-default btn-file">
-                                <span class="fileinput-new">Select file</span>
-                                <span class="fileinput-exists">Change</span>
+                                <span class="fileinput-new" th:text="#{label.file.select}">Select file</span>
+                                <span class="fileinput-exists" th:text="#{label.change}">Change</span>
                                 <input type="file" name="file">
                             </span>
-                            <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                            <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput" th:text="#{label.remove}">
+                                Entfernen
+                            </a>
                         </div>
                     </div>
                 </form>

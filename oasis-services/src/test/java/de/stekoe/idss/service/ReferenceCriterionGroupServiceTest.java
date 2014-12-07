@@ -31,19 +31,19 @@ public class ReferenceCriterionGroupServiceTest extends AbstractBaseTest {
         nsc.setReferenceType(true);
         nsc.setName("Criterion 1");
         cg.getCriterions().add(nsc);
-        nsc.getCriterionGroups().add(cg);
+        nsc.setCriterionGroup(cg);
 
         nsc = new NominalScaledCriterion();
         nsc.setReferenceType(true);
         nsc.setName("Criterion 2");
         cg.getCriterions().add(nsc);
-        nsc.getCriterionGroups().add(cg);
+        nsc.setCriterionGroup(cg);
 
         nsc = new NominalScaledCriterion();
         nsc.setReferenceType(true);
         nsc.setName("Criterion 3");
         cg.getCriterions().add(nsc);
-        nsc.getCriterionGroups().add(cg);
+        nsc.setCriterionGroup(cg);
 
         assertThat(referenceCriterionGroupService.count(), is(equalTo((long)0)));
         assertThat(referenceCriterionService.count(), is(equalTo((long)0)));

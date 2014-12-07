@@ -1,0 +1,37 @@
+<div class="form-horizontal">
+    <div class="form-group">
+        <div class="col-sm-10"  th:classAppend="${#fields.hasErrors('name')}? 'has-error'">
+            <label for="criterion_name" th:text="#{label.name}" class="control-label"></label>
+            <input type="text" id="criterion_name" class="form-control" th:field="*{name}">
+        </div>
+
+        <div class="col-sm-2"  th:classAppend="${#fields.hasErrors('weight')}? 'has-error'">
+            <label for="criterion_weight" th:text="#{label.criterion.weight}"  class="control-label"></label>
+            <input type="text" id="criterion_weight" class="form-control" th:field="*{weight}">
+        </div>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="criterion_description" th:text="#{label.description}" class="control-label"></label>
+    <textarea class="form-control editor" id="criterion_description" th:field="*{description}"></textarea>
+</div>
+<div class="checkbox">
+    <label>
+        <input type="checkbox" th:field="*{allowNoChoice}">
+        <span th:text="#{label.criterion.allowNoChoice}" th:remove="tag"></span>
+        <p class="help-block" th:text="#{label.criterion.allowNoChoice.help}">
+            Allow no choice?
+        </p>
+    </label>
+</div>
+
+<div class="checkbox" th:if="${criterion instanceof T(de.stekoe.idss.model.NominalScaledCriterion)}">
+    <label>
+        <input type="checkbox" th:field="*{multipleChoice}">
+        <span th:text="#{label.criterion.allowMultipleChoice}" th:remove="tag"></span>
+        <p class="help-block" th:text="#{label.criterion.allowMultipleChoice.help}">
+            Allow multiple choice?
+        </p>
+    </label>
+</div>

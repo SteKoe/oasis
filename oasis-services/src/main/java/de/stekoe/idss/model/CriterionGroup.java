@@ -1,27 +1,18 @@
 package de.stekoe.idss.model;
 
+import de.stekoe.idss.model.OrderableUtil.Direction;
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
-import javax.persistence.OrderColumn;
-import javax.persistence.PreRemove;
-
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-
-import de.stekoe.idss.model.OrderableUtil.Direction;
+import java.util.stream.Collectors;
 
 @Entity
 public class CriterionGroup extends PageElement {
-    private static final long serialVersionUID = 201405301330L;
+    private static final long serialVersionUID = 20141205;
 
-    private List<Criterion> criterions = new ArrayList<Criterion>();
+    private List<Criterion> criterions = new ArrayList<>();
 
     public CriterionGroup() {
         // NOP
@@ -44,32 +35,19 @@ public class CriterionGroup extends PageElement {
      * Creates a flat copy of the given CriterionGroup if copyCriterions is false. Flat copy means that no associated
      * criterions will be cloned. If argument copyCriterions is true, all associated criterions will be copied as well.
      *
-     * @param group             The CriterionGroup to copy
-     * @param copyCriterions    true if one wants to copy the assicated criterions, false otherwise
+     * @param group          The CriterionGroup to copy
+     * @param copyCriterions true if one wants to copy the assicated criterions, false otherwise
      */
     public CriterionGroup(CriterionGroup group, boolean copyCriterions) {
         super(group);
-        if(copyCriterions) {
+        if (copyCriterions) {
             for (Criterion c : group.getCriterions()) {
                 criterions.add(Criterion.copyCriterion(c));
             }
         }
     }
 
-    @PreRemove
-    private void removeCriterionGroupFromCriterions() {
-        Iterator<Criterion> criterionIterator = getCriterions().iterator();
-        while(criterionIterator.hasNext()) {
-            Iterator<CriterionGroup> iterator = criterionIterator.next().getCriterionGroups().iterator();
-            while(iterator.hasNext()) {
-                if(this.equals(iterator.next())) {
-                    iterator.remove();
-                }
-            }
-        }
-    }
-
-    @ManyToMany(fetch = FetchType.EAGER, cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, targetEntity = Criterion.class)
+    @OneToMany(mappedBy = "criterionGroup", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderColumn(name = "ordering")
     public List<Criterion> getCriterions() {
         return criterions;
@@ -89,50 +67,24 @@ public class CriterionGroup extends PageElement {
      * E.g. if someone wants to have all but one Criterions of a particular CriterionGroup, one just passes all Criterions
      * into this method which will be included in the copy.
      *
-     * @param criteriaGroup            The CriterionGroup to copy
-     * @param selectedCriterions       Subset list of criterions to copy
+     * @param criteriaGroup      The CriterionGroup to copy
+     * @param selectedCriterions Subset list of criterions to copy
      * @return A full copy of the CriterionGroup excluding the non selected criterions
      */
-    public static CriterionGroup selectiveCopy(CriterionGroup criteriaGroup, List<Criterion> selectedCriterions) {
+    public static CriterionGroup selectiveCopy(CriterionGroup criteriaGroup, List<String> selectedCriterions) {
         CriterionGroup copy = new CriterionGroup(criteriaGroup);
         List<Criterion> copiedCriterions = copy.getCriterions();
 
-        for (Criterion copiedCriterion : copiedCriterions) {
-            boolean isSelected = false;
-            for(Criterion selectedCriterion : selectedCriterions) {
-                if(copiedCriterion.getOriginId().equals(selectedCriterion.getId())) {
-                    isSelected = true;
-                    break;
-                }
-            }
+        List<Criterion> collect = copiedCriterions.stream()
+                .filter(criterion -> selectedCriterions.contains(criterion.getOriginId()))
+                .collect(Collectors.toList());
 
-            if(!isSelected) {
-                copiedCriterions.remove(copiedCriterion);
-            }
+        for(Criterion c : collect) {
+            c.setCriterionGroup(copy);
+            System.out.println();
         }
+        copy.setCriterions(collect);
+
         return copy;
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        if(this == other) return true;
-        if(!(other instanceof CriterionGroup)) return false;
-
-        CriterionGroup that  = (CriterionGroup) other;
-        return new EqualsBuilder()
-            .append(getId(), that.getId())
-            .isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder()
-            .append(getId())
-            .toHashCode();
-    }
-
-    @Override
-    public String toString() {
-        return ReflectionToStringBuilder.toString(this);
     }
 }

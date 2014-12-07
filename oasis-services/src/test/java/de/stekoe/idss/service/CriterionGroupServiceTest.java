@@ -6,6 +6,7 @@ import static org.junit.Assert.assertThat;
 
 import javax.inject.Inject;
 
+import de.stekoe.idss.model.Criterion;
 import org.junit.Test;
 
 import de.stekoe.idss.AbstractBaseTest;
@@ -29,17 +30,17 @@ public class CriterionGroupServiceTest extends AbstractBaseTest {
         NominalScaledCriterion nsc = new NominalScaledCriterion();
         nsc.setName("Criterion 1");
         cg.getCriterions().add(nsc);
-        nsc.getCriterionGroups().add(cg);
+        nsc.setCriterionGroup(cg);
 
         nsc = new NominalScaledCriterion();
         nsc.setName("Criterion 2");
         cg.getCriterions().add(nsc);
-        nsc.getCriterionGroups().add(cg);
+        nsc.setCriterionGroup(cg);
 
         nsc = new NominalScaledCriterion();
         nsc.setName("Criterion 3");
         cg.getCriterions().add(nsc);
-        nsc.getCriterionGroups().add(cg);
+        nsc.setCriterionGroup(cg);
 
         assertThat(criterionGroupService.count(), is(equalTo((long)0)));
         assertThat(criterionService.count(), is(equalTo((long)0)));
@@ -53,6 +54,30 @@ public class CriterionGroupServiceTest extends AbstractBaseTest {
         criterionGroupService.delete(cg.getId());
 
         assertThat(criterionGroupService.findOne(cg.getId()), is(equalTo(null)));
-        assertThat(criterionService.findAll().size(), is(equalTo(0)));
+        assertThat(criterionService.count(), is(equalTo(0L)));
+    }
+
+    @Test
+    public void saveCriterionGroupWithOriginId() throws Exception {
+        CriterionGroup cg = new CriterionGroup();
+        cg.setName("CG");
+        cg.setOriginId("12345");
+
+        criterionGroupService.save(cg);
+    }
+
+    @Test
+    public void saveCriterionGroupWhichHasBeenRetrievedFromDB() throws Exception {
+        CriterionGroup cg = new CriterionGroup();
+        cg.setName("CG");
+        criterionGroupService.save(cg);
+
+        assertThat(criterionGroupService.count(), equalTo(1L));
+
+        cg = criterionGroupService.findOne(cg.getId());
+
+        CriterionGroup criterionGroup = new CriterionGroup(cg);
+        criterionGroupService.save(criterionGroup);
+        assertThat(criterionGroupService.count(), equalTo(2L));
     }
 }

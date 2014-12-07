@@ -6,11 +6,27 @@
     <div class="container">
         <div class="col-md-2">
             <div class="text-center">
-                <img th:src="${image}">
+                <img th:src="${image}" class="img-thumbnail">
             </div>
         </div>
         <div class="col-md-10">
             <h1 th:text="${user.username}"></h1>
+
+            <div th:if="${user.profile}" th:object="${user.profile}">
+                <dl>
+                    <dt th:text="#{label.name}"></dt>
+                    <dl th:text="*{fullName}"></dl>
+
+                    <dt th:text="#{label.address}" th:if="*{!address.isEmpty()}"></dt>
+                    <dl th:include="/fragments/address" th:with="address=*{address}" th:if="*{!address.isEmpty()}"></dl>
+
+                    <dt th:text="#{label.phone}" th:if="*{!telefon.isEmpty()}"></dt>
+                    <dl th:text="*{phone.asString()}" th:if="*{!telefon.isEmpty()}"></dl>
+
+                    <dt th:text="#{label.telefax}" th:if="*{!telefax.isEmpty()}"></dt>
+                    <dl th:text="*{telefax.asString()}" th:if="*{!telefax.isEmpty()}"></dl>
+                </dl>
+            </div>
         </div>
     </div>
 </body>

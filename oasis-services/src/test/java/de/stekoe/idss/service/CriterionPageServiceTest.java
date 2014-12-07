@@ -26,7 +26,12 @@ public class CriterionPageServiceTest extends AbstractBaseTest {
 
     @Test
     public void savePageWithElements() throws Exception {
+        Project project = new Project();
+        project.setName("Projekt");
+        projectService.save(project);
+
         CriterionPage page = new CriterionPage();
+        page.setProject(project);
 
         NominalScaledCriterion nsc = new NominalScaledCriterion();
         nsc.setName("NSC");
@@ -62,7 +67,12 @@ public class CriterionPageServiceTest extends AbstractBaseTest {
 
     @Test
     public void deletePage() throws Exception {
+        Project project = new Project();
+        project.setName("Projekt");
+        projectService.save(project);
+
         final CriterionPage page = new CriterionPage();
+        page.setProject(project);
 
         NominalScaledCriterion nsc = new NominalScaledCriterion();
         nsc.setName("NSC 1");

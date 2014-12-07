@@ -4,7 +4,6 @@ import de.stekoe.idss.model.PermissionType;
 import de.stekoe.idss.service.ProjectService;
 import de.stekoe.idss.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 

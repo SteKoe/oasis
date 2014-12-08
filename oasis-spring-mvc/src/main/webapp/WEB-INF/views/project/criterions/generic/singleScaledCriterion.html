@@ -1,27 +1,27 @@
-<div th:object="${criterion}" class="panel panel-default" th:if="${criterion != null}">
+<div class="panel panel-default" th:if="${criterion != null}">
     <div class="panel-heading">
         <div class="row">
             <div class="col-md-8">
                 <span th:text="#{label.criterion}" th:remove="tag"></span>:
-                <span th:text="*{name}" th:remove="tag"></span>
-                <small>([[#{label.criterion.weight}]]: [[*{weight}]])</small>
+                <span th:text="${criterion.name}" th:remove="tag"></span>
+                <small>([[#{label.criterion.weight}]]: [[${criterion.weight}]])</small>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4" th:if="${edit}">
                 <div class="pull-right">
                     <div class="btn-group">
-                        <a class="btn btn-xs btn-default btn-move" th:if="${iter.index} > 0" data-type="criterion" data-move-dir="up" th:attr="data-id=*{id}">
+                        <a class="btn btn-xs btn-default btn-move" th:if="${iter.index} > 0" data-type="criterion" data-move-dir="up" th:attr="data-id=${criterion.id}">
                             <span class="fa fa-chevron-up"></span>
                         </a>
-                        <a class="btn btn-xs btn-default btn-move" th:if="${iter.index < iter.size-1}" data-type="criterion" data-move-dir="down" th:attr="data-id=*{id}">
+                        <a class="btn btn-xs btn-default btn-move" th:if="${iter.index < iter.size-1}" data-type="criterion" data-move-dir="down" th:attr="data-id=${criterion.id}">
                             <span class="fa fa-chevron-down"></span>
                         </a>
                     </div>
 
                     <div class="btn-group">
-                        <a th:href="@{/project/{pid}/criterion/{cid}/edit(pid=${project.id},cid=*{id})}" class="btn btn-xs btn-default">
+                        <a th:href="@{/project/{pid}/criterion/{cid}/edit(pid=${project.id},cid=${criterion.id})}" class="btn btn-xs btn-default">
                             <span class="fa fa-pencil"></span>
                         </a>
-                        <a href="" data-type="criterion" th:attr="data-id=*{id}" class="btn btn-xs btn-default btn-delete">
+                        <a href="" data-type="criterion" th:attr="data-id=${criterion.id}" class="btn btn-xs btn-default btn-delete">
                             <span class="fa fa-remove"></span>
                         </a>
                     </div>
@@ -34,17 +34,16 @@
             Description
         </div>
         <div class="measure">
-            <div class="radio" th:each="measure : *{values}" th:if="${criterion instanceof T(de.stekoe.idss.model.NominalScaledCriterion)}">
+            <div class="radio" th:each="measure,iter : ${criterion.values}" th:if="${not criterion.multipleChoice}">
                 <label>
-                    <input type="radio" th:name="${criterion.id}" th:value="${criterion.id}">
+                    <input type="radio" th:value="${measure.id}" th:field="*{userChoices['__${criterion.id}__'].choices}">
                     <span th:text="${measure.value}" th:remove="tag"></span>
                 </label>
             </div>
-            <div class="checkbox" th:each="measure : *{values}" th:if="${criterion instanceof T(de.stekoe.idss.model.OrdinalScaledCriterion)}">
+            <div class="checkbox" th:each="measure,iter : ${criterion.values}" th:if="${criterion.multipleChoice}">
                 <label>
-                    <input type="checkbox" th:name="${criterion.id}" th:value="${criterion.id}">
+                    <input type="checkbox" th:value="${measure.id}" th:field="*{userChoices['__${criterion.id}__'].choices}">
                     <span th:text="${measure.value}" th:remove="tag"></span>
-                    <small th:text="#{label.criterion.weight} + ': ' + ${measure.weight}"></small>
                 </label>
             </div>
         </div>

@@ -24,7 +24,6 @@ public class MeasurementValue implements Serializable {
     public MeasurementValue(String value) {
         this.value = value;
     }
-
     public MeasurementValue(MeasurementValue measurementValue) {
         value = measurementValue.getValue();
     }

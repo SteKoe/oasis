@@ -66,52 +66,6 @@ public class CriterionPageService {
         }
     }
 
-    @Transactional
-    public void move(CriterionPage criterionPage, Direction direction) {
-        if(Direction.UP.equals(direction)) {
-            moveUp(criterionPage, 1);
-        } else {
-            moveDown(criterionPage, 1);
-        }
-    }
-
-    /**
-     * @param criterionPage
-     * @param delta
-     *
-     * A 0
-     * B 1
-     */
-    @Transactional
-    public void moveUp(CriterionPage criterionPage, int delta) {
-        int pageIndex = criterionPage.getOrdering();
-        int newPageIndex = pageIndex - delta;
-
-        if(newPageIndex >= 0) {
-            CriterionPage otherPage = criterionPageRepository.findOneByOrdering(criterionPage.getProject().getId(), newPageIndex);
-            criterionPage.setOrdering(newPageIndex);
-            otherPage.setOrdering(pageIndex);
-
-            criterionPageRepository.save(criterionPage);
-            criterionPageRepository.save(otherPage);
-        }
-    }
-
-    @Transactional
-    public void moveDown(CriterionPage criterionPage, int delta) {
-        int pageIndex = criterionPage.getOrdering();
-        int newPageIndex = pageIndex + delta;
-
-        if(newPageIndex <= criterionPageRepository.findMaxOrderingForProject(criterionPage.getProject().getId())) {
-            CriterionPage otherPage = criterionPageRepository.findOneByOrdering(criterionPage.getProject().getId(), newPageIndex);
-            criterionPage.setOrdering(newPageIndex);
-            otherPage.setOrdering(pageIndex);
-
-            criterionPageRepository.save(criterionPage);
-            criterionPageRepository.save(otherPage);
-        }
-    }
-
     public long countForProject(String pid) {
         return criterionPageRepository.countForProject(pid);
     }

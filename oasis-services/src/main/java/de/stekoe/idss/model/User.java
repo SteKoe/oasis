@@ -33,9 +33,6 @@ public class User implements Serializable {
     private Set<ProjectMember> projectMemberships = new HashSet<ProjectMember>();
     private Set<Permission> permissions = new HashSet<Permission>();
 
-    //
-    private String professional;
-
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
@@ -113,7 +110,6 @@ public class User implements Serializable {
     public UserStatus getUserStatus() {
         return this.userStatus;
     }
-
     public void setUserStatus(UserStatus userStatus) {
         if (UserStatus.ACTIVATED.equals(userStatus)) {
             setActivationKey(null);
@@ -125,7 +121,6 @@ public class User implements Serializable {
     public Set<ProjectMember> getProjectMemberships() {
         return this.projectMemberships;
     }
-
     public void setProjectMemberships(Set<ProjectMember> projectMemberships) {
         this.projectMemberships = projectMemberships;
     }
@@ -134,17 +129,8 @@ public class User implements Serializable {
     public Set<Permission> getPermissions() {
         return permissions;
     }
-
     public void setPermissions(Set<Permission> permissions) {
         this.permissions = permissions;
-    }
-
-    public String getProfessional() {
-        return professional;
-    }
-
-    public void setProfessional(String professional) {
-        this.professional = professional;
     }
 
     /**

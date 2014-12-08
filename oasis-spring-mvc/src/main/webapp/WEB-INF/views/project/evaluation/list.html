@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th=""
+      layout:decorator="project/layout">
+<body>
+<div layout:fragment="project_content">
+      <h4 th:text="#{label.project.evaluation}"></h4>
+
+      <form th:action="@{/project/{pid}/evaluation(pid=${project.id})}" th:method="POST" th:object="${userChoices}">
+            <div th:each="criterionPage, iter : ${criterionPages}" class="panel-group" id="criterionPage" th:with="evaluaton=${true}">
+                  <div th:replace="/project/criterions/criterionPage">
+                        CRITERION PAGE HERE
+                  </div>
+            </div>
+
+            <input type="hidden" th:field="*{id}">
+
+            <div class="form-group">
+                  <button type="submit">
+                        Save
+                  </button>
+            </div>
+      </form>
+
+      <div th:include="/fragments/paginaton" class="text-center">
+            PAGINATION NAVIGATION HERE
+      </div>
+
+</div>
+</body>
+</html>

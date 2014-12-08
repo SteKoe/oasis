@@ -1,17 +1,13 @@
 package de.stekoe.idss.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.inject.Inject;
-
 import de.stekoe.idss.model.*;
-import de.stekoe.idss.repository.CriterionPageRepository;
+import de.stekoe.idss.repository.CriterionRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import de.stekoe.idss.repository.CriterionRepository;
-import de.stekoe.idss.repository.UserChoiceRepository;
+import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Transactional
@@ -26,8 +22,6 @@ public class CriterionService extends PageElementService {
     @Inject
     private CriterionPageService criterionPageService;
 
-    @Inject
-    private UserChoiceRepository userChoiceRepository;
 
     public SingleScaledCriterion findSingleScaledCriterionById(String id) {
         return criterionRepository.findSingleScaledCriterionById(id);
@@ -40,10 +34,6 @@ public class CriterionService extends PageElementService {
 
     @Transactional
     public void delete(String criterionId) {
-        // Delete associated userChoices...
-        List<UserChoice> userChoices = userChoiceRepository.findByCriterionId(criterionId);
-        userChoiceRepository.delete(userChoices);
-
         Criterion one = criterionRepository.findOne(criterionId);
         CriterionGroup criterionGroup = one.getCriterionGroup();
         CriterionPage criterionPage = one.getCriterionPage();

@@ -8,7 +8,7 @@
                         <span class="small" th:text="|#{label.page} ${criterionPage.ordering+1}|">Seite 1</span>
                     </a>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6" th:if="${edit}">
                 <div class="pull-right">
                     <div class="btn-group">
                         <a href="javascript:void(0);" class="btn btn-xs btn-default btn-move" th:if="${criterionPage.ordering} > 0" data-move-dir="up" data-type="criterionPage" th:attr="data-id=${criterionPage.id}">

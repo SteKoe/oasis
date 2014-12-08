@@ -5,7 +5,7 @@
                 <span th:text="#{label.group}"></span>:
                 <span th:text="${pageElement.name}">Miau</span>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6" th:if="${edit} == true">
                 <div class="pull-right">
                     <div class="btn-group">
                         <a class="btn btn-xs btn-default btn-move" th:if="${iter.index} > 0" data-type="criterionGroup" data-move-dir="up" th:attr="data-id=${pageElement.id}">

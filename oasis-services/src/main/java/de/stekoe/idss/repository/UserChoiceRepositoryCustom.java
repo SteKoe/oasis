@@ -8,5 +8,4 @@ import de.stekoe.idss.model.User;
 import de.stekoe.idss.model.UserChoice;
 
 public interface UserChoiceRepositoryCustom {
-    Map<User, List<UserChoice>> findUserChoicesGroupedByUser(List<Criterion> criterionList);
 }

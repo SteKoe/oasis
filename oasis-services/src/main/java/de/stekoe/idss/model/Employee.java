@@ -27,11 +27,10 @@ public class Employee implements Serializable {
         this.id = id;
     }
 
-    @ManyToOne(targetEntity = User.class)
+    @OneToOne(targetEntity = User.class)
     public User getUser() {
         return user;
     }
-
     public void setUser(User user) {
         this.user = user;
     }
@@ -40,7 +39,6 @@ public class Employee implements Serializable {
     public CompanyRole getRole() {
         return role;
     }
-
     public void setRole(CompanyRole role) {
         this.role = role;
     }

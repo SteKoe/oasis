@@ -48,6 +48,7 @@ public class ProjectCriterionsController {
         model.addObject("pagination", new Pagination(count, 1, page.intValue()));
         model.addObject("criterionPages", criterionPages);
         model.addObject("pageTitle", project.getName());
+        model.addObject("userChoices", new UserChoices());
         return model;
     }
 

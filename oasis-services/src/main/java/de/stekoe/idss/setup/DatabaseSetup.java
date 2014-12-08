@@ -162,7 +162,6 @@ public class DatabaseSetup {
         user.setEmail(email);
         user.setUsername(username);
         user.setPassword(authService.hashPassword("password"));
-        user.setProfessional(professional);
         user.setActivationKey(null);
         user.setUserStatus(UserStatus.ACTIVATED);
         return user;

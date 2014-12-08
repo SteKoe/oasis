@@ -153,11 +153,13 @@
         </a>
     </div>
 
-    <div th:each="criterionPage, iter : ${criterionPages}" class="panel-group" id="criterionPage">
-        <div th:replace="/project/criterions/criterionPage">
-            CRITERION PAGE HERE
+    <form th:object="${userChoices}">
+        <div th:each="criterionPage, iter : ${criterionPages}" class="panel-group" id="criterionPage" th:with="edit=${true}">
+            <div th:replace="/project/criterions/criterionPage">
+                CRITERION PAGE HERE
+            </div>
         </div>
-    </div>
+    </form>
 
     <div th:include="/fragments/paginaton" class="text-center">
         PAGINATION NAVIGATION HERE

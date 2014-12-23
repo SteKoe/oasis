@@ -1,8 +1,7 @@
 package de.stekoe.idss.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import de.stekoe.idss.model.*;
+import de.stekoe.idss.repository.UserRepository;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang3.Validate;
@@ -12,14 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import de.stekoe.idss.model.Identifyable;
-import de.stekoe.idss.model.Permission;
-import de.stekoe.idss.model.PermissionObject;
-import de.stekoe.idss.model.PermissionType;
-import de.stekoe.idss.model.SystemRole;
-import de.stekoe.idss.model.User;
-import de.stekoe.idss.model.UserStatus;
-import de.stekoe.idss.repository.UserRepository;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)

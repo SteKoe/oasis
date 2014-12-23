@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout_containered">
+<body>
+    <div layout:fragment="content">
+        <h3 th:text="#{label.compare}">
+            Compare
+        </h3>
+
+
+        <th:block  th:each="matchingCriterion : ${matchingCriterions}">
+            <h5 th:text="${matchingCriterion.key.name}"></h5>
+
+            <table class="table table-striped">
+                <tr th:each="a : ${matchingCriterion.value}">
+                    <td th:text="${a.left != null ? a.left.value : '--'}">
+
+                    </td>
+                    <td th:text="${a.right != null ? a.right.value : '--'}">
+
+                    </td>
+                </tr>
+            </table>
+        </th:block>
+    </div>
+</body>
+</html>

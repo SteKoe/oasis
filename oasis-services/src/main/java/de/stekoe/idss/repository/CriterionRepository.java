@@ -13,6 +13,6 @@ public interface CriterionRepository extends PagingAndSortingRepository<Criterio
     @Query("SELECT pe FROM PageElement pe WHERE pe.id = ?1")
     SingleScaledCriterion findSingleScaledCriterionById(String id);
 
-    @Query("SELECT pe FROM CriterionPage cp JOIN cp.pageElements as pe WHERE cp.project.id = ?1")
+    @Query("SELECT pe FROM CriterionPage cp JOIN cp.pageElements as pe WHERE cp.project.id = ?1 ORDER BY cp.ordering ASC")
     List<PageElement> findAllForProject(String id);
 }

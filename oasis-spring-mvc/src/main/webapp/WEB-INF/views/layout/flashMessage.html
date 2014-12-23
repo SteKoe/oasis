@@ -1,0 +1,13 @@
+<div class="container systemmessages" th:if="${flashError != null || flashSuccess != null || #vars['flashError'] != null || #vars['flashSuccess'] != null}">
+    <div class="alert alert-success alert-dismissable" th:if="${!#strings.isEmpty(flashSuccess) || !#strings.isEmpty(#vars['flashSuccess'])}">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <span th:text="#{__${flashSuccess}__}" th:remove="tag"></span>
+        <span th:text="#{__${session.flashSuccess}__}" th:remove="tag" th:if="${session.flashSuccess != null}"></span>
+    </div>
+    <div class="alert alert-danger alert-dismissable" th:if="${!#strings.isEmpty(flashError) || !#strings.isEmpty(#vars['flashError'])}">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <span th:text="#{__${flashError}__}" th:remove="tag"></span>
+        <span th:text="#{__${session.flashError}__}" th:remove="tag" th:if="${session.flashError != null}"></span>
+    </div>
+</div>
+<div th:text="${flash}"></div>

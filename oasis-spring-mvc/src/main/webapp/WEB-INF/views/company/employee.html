@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="company/layout">
+<head layout:fragment="header" th:remove="tag">
+    <link rel="stylesheet" th:href="@{/vendors/select2/select2.css}">
+    <link rel="stylesheet" th:href="@{/vendors/select2/select2-bootstrap.css}">
+    <script th:src="@{/vendors/select2/select2.min.js}"></script>
+    <script th:inline="javascript">
+        $(document).ready(function() {
+            $('.select2').select2();
+
+            $('.btn-delete').on('click', function(event) {
+                event.preventDefault();
+
+                var token = $("meta[name='_csrf']").attr("content");
+                var header = $("meta[name='_csrf_header']").attr("content");
+
+                var memberId = $(this).data('member-id');
+                var url = /*[[@{/api/project/{pid}/member/(pid=${project.id})}]]*/ '';
+                    url = url + memberId;
+
+                var promise = $.ajax({
+                    url: url,
+                    type: 'DELETE',
+                    beforeSend: function( xhr ) {
+                        xhr.setRequestHeader(header, token);
+                    }
+                });
+                promise.success(function(data){
+                    data = JSON.parse(data);
+                    if(data.ok !== undefined && data.ok === true) {
+                        window.location.reload();
+                    }
+                });
+            });
+
+            $('#memberDetailModal, #addMemberModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var memberId = button.data('member-id');
+                var modal = $(this);
+                var url = /*[[@{/api/project/{pid}/member/(pid=${project.id})}]]*/ '';
+                var editMode = modal.attr('id').indexOf("add") === -1;
+
+                if(editMode) {
+                    $.getJSON(url + memberId, function (data) {
+                        modal.find('.modal-title .username').text(data.username);
+                        modal.find('#edit_name').val(data.username);
+                        modal.find('#edit_projectRole').each(function (idx, opt) {
+                            var $opt = $(opt);
+                            if ($opt.val() === data.projectRoleName) {
+                                $opt.attr('selected', 'selected');
+                                return;
+                            }
+                        });
+                        modal.find('#edit_projectRole').select2('val', data.projectRoleName);
+                    });
+                }
+
+                modal.find('button.save').on('click', function() {
+                    var token = $("meta[name='_csrf']").attr("content");
+                    var header = $("meta[name='_csrf_header']").attr("content");
+                    var url;
+                    if(editMode) {
+                        url = /*[[@{/api/project/{pid}/member/(pid=${project.id})}]]*/ '';
+                        url = url + memberId;
+                    } else {
+                        url = /*[[@{/api/project/{pid}/member/(pid=${project.id})}]]*/ '';
+                    }
+                    var promise = $.ajax({
+                        url: url,
+                        type: (editMode ? 'PUT' : 'POST'),
+                        data: modal.find('form').serialize(),
+                        beforeSend: function( xhr ) {
+                            xhr.setRequestHeader(header, token);
+                        }
+                    });
+                    promise.success(function(data) {
+                        data = JSON.parse(data);
+                        if(data.ok !== undefined && data.ok === true) {
+                            window.location.reload();
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+<div layout:fragment="company_content">
+    <h3 th:text="#{label.company.edit.employee}">
+        Projektmitglieder
+    </h3>
+
+    <div class="well">
+        <a th:href="@{/company/{cid}/employee/create(cid=${company.id})}" class="btn btn-default btn-primary">
+            <span class="fa fa-plus"></span>
+            <span th:text="#{label.add}"></span>
+        </a>
+    </div>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th th:text="#{table.header.name}">Name/Bezeichnung</th>
+            <th th:text="#{table.header.actions}" class="actions text-right">Aktionen</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr th:each="employee : ${company.employees}">
+                <td>
+                    <span th:text="${employee.user.username}"></span>
+                    <small th:text="${employee.role != null ? employee.role.name : ''}"></small>
+                </td>
+                <td class="actions text-right">
+                    <a th:if="${employee.user.username != #authentication.name && employee.employeeStatus != T(de.stekoe.idss.model.UserStatus).ACTIVATION_PENDING}" th:href="@{/company/{cid}/employee/{eid}(cid=${company.id},eid=${employee.id})}" class="btn btn-xs btn-default" th:text="#{label.details}">
+                        Details
+                    </a>
+                    <a th:if="${employee.user.username != #authentication.name && employee.employeeStatus == T(de.stekoe.idss.model.UserStatus).ACTIVATION_PENDING}" th:href="@{/company/{cid}/employee/{eid}/activate(cid=${company.id},eid=${employee.id})}" class="btn btn-xs btn-default" th:text="#{label.activate}">
+                        Aktivieren
+                    </a>
+                    <a th:if="${employee.user.username != #authentication.name}" th:href="@{/company/{cid}/employee/{eid}/delete(cid=${company.id},eid=${employee.id})}" class="btn btn-xs btn-danger btn-delete" th:text="#{label.delete}">
+                        Löschen
+                    </a>
+                    <span th:if="${employee.user.username == #authentication.name}" th:text="#{label.thisisyou}" class="btn btn-xs btn-default">
+                        Das sind sie!
+                    </span>
+                </td>
+            </tr>
+
+            <tr th:if="${company.employees.size() == 0}">
+                <td colspan="2" class="text-center" th:text="noItemLabel">
+                    Keine Einträge vorhanden!
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>

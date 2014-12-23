@@ -47,7 +47,7 @@
                 <form name="addMember" id="addMember" th:action="@{/}">
                     <div class="form-group">
                         <label class="control-label" for="add_userid" th:text="#{label.name}">Name</label>
-                        <select name="userid" id="add_userid" class="form-control select2">
+                        <select id="add_userid" name="userid" class="form-control addMember-select2">
                             <option th:each="member : ${users}"
                                     th:value="${member.getId()}"
                                     th:text="${member.getUsername()}">

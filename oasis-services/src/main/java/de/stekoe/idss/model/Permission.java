@@ -81,15 +81,18 @@ public class Permission implements Serializable {
 
         Permission that = (Permission) other;
         return new EqualsBuilder()
-                .appendSuper(super.equals(other))
-                .append(getId(), that.getId())
+                .append(getObjectId(), that.getObjectId())
+                .append(getPermissionObject(), that.getPermissionObject())
+                .append(getPermissionType(), that.getPermissionType())
                 .isEquals();
     }
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder()
-                .append(getId())
+                .append(getObjectId())
+                .append(getPermissionObject())
+                .append(getPermissionType())
                 .toHashCode();
     }
 

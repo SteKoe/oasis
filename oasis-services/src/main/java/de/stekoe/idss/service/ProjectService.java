@@ -106,7 +106,7 @@ public class ProjectService {
         return projectRepository.save(project);
     }
 
-    public List<Project> findByUser(String id) {
+    public List<Project> findByUserId(String id) {
         return projectRepository.findByUser(id);
     }
 

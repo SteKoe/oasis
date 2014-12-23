@@ -108,7 +108,7 @@ public class ProjectServiceTest extends AbstractBaseTest {
 
         projectService.save(project);
 
-        List<Project> usersProjects = projectService.findByUser(user.getId());
+        List<Project> usersProjects = projectService.findByUserId(user.getId());
         assertFalse(usersProjects.isEmpty());
         assertTrue(usersProjects.size() == 1);
         assertTrue(usersProjects.get(0).getId().equals(project.getId()));

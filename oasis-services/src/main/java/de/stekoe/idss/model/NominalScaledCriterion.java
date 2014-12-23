@@ -29,7 +29,7 @@ public class NominalScaledCriterion extends SingleScaledCriterion<NominalValue> 
         }
     }
 
-    @Column(columnDefinition = "boolean default false")
+    @Column
     public boolean isMultipleChoice() {
         return multipleChoice;
     }
@@ -38,7 +38,7 @@ public class NominalScaledCriterion extends SingleScaledCriterion<NominalValue> 
     }
 
 
-    @OneToMany(mappedBy = "criterion", targetEntity = NominalValue.class, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "criterion", targetEntity = NominalValue.class, cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @OrderColumn(name = "ordering")
     public List<NominalValue> getValues() {
         return this.values;

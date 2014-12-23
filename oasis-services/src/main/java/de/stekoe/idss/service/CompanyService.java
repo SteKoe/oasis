@@ -30,7 +30,7 @@ public class CompanyService {
         companyRepository.save(company);
     }
 
-    public List<Company> findByUser(String userId) {
+    public Company findByUser(String userId) {
         return companyRepository.findByUser(userId);
     }
 
@@ -60,15 +60,24 @@ public class CompanyService {
             }
         });
 
+
+
         // User is no employee of the current company
         if(emp == null) {
             return false;
-        } else {
-            // When "READ" permission is required and user is employee, grant access
-            if(PermissionType.READ.equals(permissionType)) {
-                return true;
-            }
         }
+
+        // Not yet confirmed employees do not have access
+        if(UserStatus.ACTIVATION_PENDING.equals(emp.getEmployeeStatus())) {
+            return false;
+        }
+
+        // When "READ" permission is required and user is employee, grant access
+        if(PermissionType.READ.equals(permissionType)) {
+            return true;
+        }
+
+
 
         CompanyRole role = emp.getRole();
         if(role == null) {
@@ -92,5 +101,17 @@ public class CompanyService {
 
     public List<Company> findByNameLike(String name, Pageable pageable) {
         return companyRepository.findByNameLike(name, pageable);
+    }
+
+    public void delete(Company company) {
+        companyRepository.delete(company);
+    }
+
+    public Company findByRegistrationToken(String registryToken) {
+        return companyRepository.findByRegistrationToken(registryToken);
+    }
+
+    public Company findByUsername(String username) {
+        return companyRepository.findByUsername(username);
     }
 }

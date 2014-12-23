@@ -79,7 +79,7 @@ public abstract class PageElement implements NamedElement, Serializable {
         this.description = description;
     }
 
-    @Column(columnDefinition = "boolean default false")
+    @Column
     public boolean isReferenceType() {
         return referenceType;
     }

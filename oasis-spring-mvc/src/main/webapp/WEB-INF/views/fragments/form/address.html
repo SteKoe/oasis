@@ -1,0 +1,46 @@
+
+<div class="form-group">
+    <div class="col-md-8" th:classappend="${#fields.hasErrors('street')} ? 'has-error' : ''">
+        <label class="control-label" for="address.street" th:text="#{label.address.street}">Straße</label>
+        <input type="text" class="form-control" id="address.street" th:field="*{street}" th:placeholder="#{label.address.street}">
+        <p class="help-block" th:if="${#fields.hasErrors('street')}" th:errors="*{street}">
+            Incorrect date
+        </p>
+    </div>
+    <div class="col-md-4" th:classappend="${#fields.hasErrors('number')} ? 'has-error' : ''">
+        <label class="control-label" for="address.number" th:text="#{label.address.number}">Nummer</label>
+        <input type="text" class="form-control" id="address.number" th:field="*{number}" th:placeholder="#{label.address.number}">
+        <p class="help-block" th:if="${#fields.hasErrors('number')}" th:errors="*{number}">
+            Incorrect date
+        </p>
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="col-md-4" th:classappend="${#fields.hasErrors('zip')} ? 'has-error' : ''">
+        <label class="control-label" for="address.zip" th:text="#{label.address.zip}">PLZ</label>
+        <input type="text" class="form-control" id="address.zip" th:field="*{zip}" th:placeholder="#{label.address.zip}">
+        <p class="help-block" th:if="${#fields.hasErrors('zip')}" th:errors="*{zip}">
+            Incorrect date
+        </p>
+    </div>
+    <div class="col-md-8" th:classappend="${#fields.hasErrors('city')} ? 'has-error' : ''">
+        <label class="control-label" for="address.city" th:text="#{label.address.city}">Ort</label>
+        <input type="text" class="form-control" id="address.city" th:field="*{city}" th:placeholder="#{label.address.city}">
+        <p class="help-block" th:if="${#fields.hasErrors('city')}" th:errors="*{city}">
+            Incorrect date
+        </p>
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="col-md-12" th:classappend="${#fields.hasErrors('country')} ? 'has-error' : ''">
+        <label class="control-label" for="address.country" th:text="#{label.address.country}">Land</label>
+        <input type="text" class="form-control" id="address.country" th:field="*{country}" th:placeholder="#{label.address.country}">
+        <p class="help-block" th:if="${#fields.hasErrors('country')}" th:errors="*{country}">
+            Incorrect date
+        </p>
+    </div>
+</div>
+
+<input type="hidden" th:field="*{id}">

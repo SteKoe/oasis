@@ -1,0 +1,24 @@
+{
+  "name": "OASIS",
+  "version": "1.0.0",
+  "homepage": "https://github.com/SteKoe/oasis",
+  "authors": [
+    "Stephan Köninger <mail@stekoe.de>"
+  ],
+  "license": "GPL",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-sass": "~3.0.2",
+    "jquery": "~2.1.1",
+    "select2": "~3.5.2",
+    "tinymce": "~4.1.7",
+    "amcharts": "~3.11.2"
+  }
+}

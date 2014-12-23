@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="company/layout">
+<body>
+<div layout:fragment="company_content">
+    <h3 th:text="#{label.edit.addresses}">
+        Adressen bearbeiten
+    </h3>
+
+    <div class="well">
+        <a th:href="@{/company/{cid}/address/create(cid=${company.id})}" class="btn btn-default btn-primary">
+            <span class="fa fa-plus"></span>
+            <span th:text="#{label.add}"></span>
+        </a>
+    </div>
+
+    <ul class="list-group">
+        <li class="list-group-item" th:each="address,iter : ${company.addresses}">
+            <div class="pull-right btn-group-vertical">
+                <a th:href="@{/company/{cid}/address/{aid}(cid=${company.id},aid=${address.id})}" class="btn btn-xs btn-default"><span class="fa fa-pencil"></span></a>
+                <a th:href="@{/company/{cid}/address/{aid}/delete(cid=${company.id},aid=${address.id})}" th:if="${iter.size > 1}" class="btn btn-xs btn-default"><span class="fa fa-remove"></span></a>
+            </div>
+            <div th:replace="/fragments/address" class="pull-left"></div>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

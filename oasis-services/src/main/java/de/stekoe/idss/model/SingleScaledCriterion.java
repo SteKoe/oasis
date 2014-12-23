@@ -1,12 +1,11 @@
 package de.stekoe.idss.model;
 
-import de.stekoe.idss.model.OrderableUtil.Direction;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
-import javax.persistence.*;
-import java.util.ArrayList;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import java.util.List;
 
 @Entity
@@ -31,6 +30,10 @@ public abstract class SingleScaledCriterion<T extends MeasurementValue> extends 
                 .append(getId(), that.getId())
                 .isEquals();
     }
+
+    @OneToMany
+    public abstract List<T> getValues();
+    public abstract void setValues(List<T> values);
 
     @Override
     public int hashCode() {

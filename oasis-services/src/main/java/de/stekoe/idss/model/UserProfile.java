@@ -17,9 +17,9 @@ public class UserProfile implements Serializable {
     private String nameSuffix;
     private String firstname;
     private String surname;
-    private PhoneNumber telefon = new PhoneNumber();
-    private PhoneNumber telefax = new PhoneNumber();
-    private Address address = new Address();
+    private PhoneNumber telefon;
+    private PhoneNumber telefax;
+    private Address address;
     private String website;
 
     @Id

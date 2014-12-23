@@ -1,0 +1,28 @@
+<!-- Radio in case of no multiple choice! -->
+<div class="radio" th:each="measure,iter : ${criterion.values}" th:if="${not criterion.multipleChoice}">
+    <label>
+        <input type="radio" th:value="${measure.id}" th:field="*{userChoices['__${criterion.id}__'].choices}">
+        <span th:text="${measure.value}" th:remove="tag"></span>
+    </label>
+</div>
+<!-- Checkboxes otherwise :) -->
+<div class="checkbox" th:each="measure,iter : ${criterion.values}" th:if="${criterion.multipleChoice}">
+    <label>
+        <input type="checkbox" th:value="${measure.id}" th:field="*{userChoices['__${criterion.id}__'].choices}">
+        <span th:text="${measure.value}" th:remove="tag"></span>
+    </label>
+</div>
+
+<!-- What about "don't know"? -->
+<div class="radio" th:if="${criterion.allowNoChoice and not criterion.multipleChoice}">
+    <label>
+        <input type="radio" class="dontknow" value="::nv::" th:field="*{userChoices['__${criterion.id}__'].choices}">
+        <span th:text="#{label.criterion.dontknow}" th:remove="tag"></span>
+    </label>
+</div>
+<div class="checkbox" th:if="${criterion.allowNoChoice and criterion.multipleChoice}">
+    <label>
+        <input type="checkbox" class="dontknow" value="::nv::" th:field="*{userChoices['__${criterion.id}__'].choices}">
+        <span th:text="#{label.criterion.dontknow}" th:remove="tag"></span>
+    </label>
+</div>

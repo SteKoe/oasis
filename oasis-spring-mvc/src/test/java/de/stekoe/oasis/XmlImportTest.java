@@ -4,8 +4,7 @@ import de.stekoe.idss.model.CriterionGroup;
 import de.stekoe.idss.model.NominalScaledCriterion;
 import de.stekoe.idss.service.CriterionGroupService;
 import de.stekoe.idss.service.CriterionService;
-import org.apache.commons.io.FileUtils;
-import org.dom4j.DocumentException;
+import de.stekoe.oasis.web.project.criterions.XmlImport;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

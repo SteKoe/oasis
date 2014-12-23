@@ -1,7 +1,7 @@
 <div id="footerTop">
     <div class="container">
         <div class="row">
-            <div class="col-md-4 col-xs-12">
+            <div class="col-md-4 hidden-xs">
                 <h3>OASIS - Online Assessed Innovations</h3>
                 <p>
                     This is the application footer
@@ -18,11 +18,11 @@
             <div class="col-md-4 col-xs-12 supporter">
                 <h3>SUPPORTED BY</h3>
                 <a href="http://www.iml.fraunhofer.de">
-                    <img src="/img/logos/iml_logo_190.png">
+                    <img th:src="@{/img/logos/iml_logo_190.png}">
                 </a>
                 <br />
                 <a href="http://www.uni-due.de">
-                    <img src="/img/logos/ude_logo_190.png">
+                    <img th:src="@{/img/logos/ude_logo_190.png}">
                 </a>
             </div>
         </div>
@@ -31,13 +31,13 @@
 <div id="footerBottom">
     <div class="container">
         <div class="row">
-            <div class="col-md-4 col-sm-4 col-xs-4">
+            <div class="col-md-4 col-xs-12">
                 &copy;<span th:text="${@dateFormatter.getCurrentYear()}"></span>. All rights reserved.
             </div>
-            <div class="col-md-4 col-sm-4 col-xs-4 text-center">
+            <div class="col-md-4 col-xs-12 text-center">
                 <a th:each="k : ${@appConfiguration.getLocales()}" th:href="@{?lang={lang}(lang=${k.key})}" th:text="${k.value}">Deutsch</a>
             </div>
-            <div class="col-md-4 col-sm-4 col-xs-4 text-right">
+            <div class="col-md-4 col-xs-12 text-right">
                 <a href="#top">
                     <span th:text="#{label.link.top}" /> <i class="fa fa-arrow-up"></i>
                 </a>

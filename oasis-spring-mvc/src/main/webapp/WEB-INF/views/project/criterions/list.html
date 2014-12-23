@@ -134,9 +134,7 @@
                 });
             });
 
-            $('#editCriterionModal').on('show.bs.modal', function(event) {
-
-            });
+            OASIS.form.evaluation.toggleDontKnow();
         });
     </script>
 </head>
@@ -153,7 +151,7 @@
         </a>
     </div>
 
-    <form th:object="${userChoices}">
+    <form th:object="${userChoices}" class="userChoices">
         <div th:each="criterionPage, iter : ${criterionPages}" class="panel-group" id="criterionPage" th:with="edit=${true}">
             <div th:replace="/project/criterions/criterionPage">
                 CRITERION PAGE HERE

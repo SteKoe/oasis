@@ -1,6 +1,5 @@
 jQuery(document).ready(function () {
     $("[data-toggle='tooltip']").tooltip();
-    $('[data-toggle="popover"]').popover();
 
     $('.dropdown-toggle').dropdown();
 });
@@ -87,6 +86,24 @@ OASIS.form.delete = function(link, url, cb) {
         return null;
     }
 };
+// Evaluation Form
+OASIS.form.evaluation = {};
+OASIS.form.evaluation.toggleDontKnow = function() {
+    $('form.userChoices').on('click', 'input', function(){
+        var $el = $(this);
+        var $measureDiv = $el.closest('.measure');
+
+        if($el.hasClass('dontknow') !== true) {
+            $measureDiv.find('input.dontknow').prop('checked', false);
+        } else if($el.hasClass('dontknow') === true && $el.prop('checked') === true) {
+            var $inputs = $measureDiv.find('input');
+            $inputs.each(function(){
+                $(this).prop('checked',false);
+            });
+            $el.prop('checked', true);
+        }
+    });
+}
 
 // Sortable Helper
 OASIS.sortable = {};

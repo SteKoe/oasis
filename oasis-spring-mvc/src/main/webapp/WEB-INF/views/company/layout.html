@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout_containered">
+<body>
+    <div class="container" layout:fragment="content" th:with="currentURI=${#httpServletRequest.requestURI}">
+        <div class="col-md-3">
+            <div class="list-group">
+                <a th:with="link=@{/company/{id}(id=${company.id})}" th:href="${link}" class="list-group-item" th:text="#{label.company.overview}" th:classappend="${link == currentURI} ? 'active' : ''">
+                </a>
+                <a th:with="link=@{/company/{id}/address(id=${company.id})}"  th:href="${link}"class="list-group-item" th:text="#{label.edit.addresses}" th:classappend="${link == currentURI} ? 'active' : ''">
+                </a>
+                <a th:with="link=@{/company/{id}/role(id=${company.id})}"  th:href="${link}"class="list-group-item" th:text="#{label.edit.roles}" th:classappend="${link == currentURI} ? 'active' : ''">
+                </a>
+                <a th:with="link=@{/company/{id}/employee(id=${company.id})}"  th:href="${link}"class="list-group-item" th:text="#{label.company.edit.employee}" th:classappend="${link == currentURI} ? 'active' : ''">
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-9" layout:fragment="company_content">
+        </div>
+    </div>
+</body>
+</html>

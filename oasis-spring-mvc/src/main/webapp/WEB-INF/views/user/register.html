@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout_containered">
+<head layout:fragment="header" th:remove="tag">
+    <script th:inline="javascript">
+        $(document).ready(function(){
+            $('#userRegistrationForm').on('keydown','input', function(){
+                var id = $(this).attr('id');
+                if(id === "company_registry_token") {
+                }
+            });
+        });
+    </script>
+</head>
+<body layout:fragment="content" th:remove="tag">
+
+<form autocomplete="off" method="POST" th:action="@{/register}" th:object="${userRegistrationForm}" id="userRegistrationForm">
+    <div class="row" th:include="/user/register/step1/step">
+        //
+    </div>
+    <hr>
+    <div class="row" th:include="/user/register/step2/step">
+        //
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group text-right">
+                <button type="submit" class="btn btn-primary" th:text="#{label.register}">
+                    Registrieren
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
+
+</body>
+</html>

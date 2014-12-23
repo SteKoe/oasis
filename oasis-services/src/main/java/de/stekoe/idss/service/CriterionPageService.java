@@ -73,4 +73,8 @@ public class CriterionPageService {
     public CriterionPage findByProjectAndOrdering(Project project, int ordering) {
         return criterionPageRepository.findOneByOrdering(project.getId(), ordering);
     }
+
+    public List<CriterionPage> findAllForProject(String id) {
+        return criterionPageRepository.findAllForProject(id);
+    }
 }

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="company/layout">
+<body>
+<div layout:fragment="company_content">
+    <h3 th:text="#{label.edit.address}">
+        Adresse bearbeiten
+    </h3>
+
+    <form th:object="${address}" th:action="@{/company/{cid}/address(cid=${company.id})}" method="post" class="form-horizontal">
+        <div th:replace="/fragments/form/address"></div>
+
+        <div class="form-group">
+            <div class="col-md-12 text-right">
+                <button type="submit" class="btn btn-primary">
+                    Speichern
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

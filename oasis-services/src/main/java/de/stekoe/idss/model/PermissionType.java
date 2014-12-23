@@ -63,9 +63,12 @@ public enum PermissionType implements L10NEnum {
 
     public static final Set<PermissionType> forCompany() {
         final Set<PermissionType> permissionTypes = new HashSet<PermissionType>();
+        permissionTypes.add(ALL);
+        permissionTypes.add(READ);
         permissionTypes.add(UPDATE);
         permissionTypes.add(DELETE);
         permissionTypes.add(MANAGE_MEMBER);
+        permissionTypes.add(MANAGE_ADDRESSES);
         permissionTypes.add(MANAGE_ROLES);
         return permissionTypes;
     }

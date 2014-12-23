@@ -13,4 +13,7 @@ import de.stekoe.idss.model.UserChoice;
 public interface UserChoicesRepository extends CrudRepository<UserChoices, String> {
     @Query("SELECT uc FROM UserChoices uc WHERE uc.user = ?1 AND uc.project = ?2")
     UserChoices findByUserAndProject(User user, Project project);
+
+    @Query("SELECT uc FROM UserChoices uc WHERE uc.project.id = ?1")
+    List<UserChoices> findByProject(String projectId);
 }

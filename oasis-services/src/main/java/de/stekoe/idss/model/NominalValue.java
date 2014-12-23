@@ -3,6 +3,7 @@ package de.stekoe.idss.model;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -56,6 +57,9 @@ public class NominalValue extends MeasurementValue {
 
     @Override
     public String toString() {
-        return ReflectionToStringBuilder.toString(this);
+        return new ToStringBuilder(this)
+                .append("id", getId())
+                .append("value", getValue())
+                .toString();
     }
 }

@@ -9,12 +9,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import de.stekoe.idss.model.CriterionPage;
 
 public interface CriterionPageRepository extends PagingAndSortingRepository<CriterionPage, String> {
-    /**
-     * Find all {@link CriterionPage}s for a Project
-     *
-     * @param String Project id
-     * @return A list of CirterionPages for the given Project id
-     */
     @Query("FROM CriterionPage cp WHERE cp.project.id = ?1 ORDER BY cp.ordering")
     List<CriterionPage> findAllForProject(String String, Pageable pageable);
 
@@ -26,4 +20,7 @@ public interface CriterionPageRepository extends PagingAndSortingRepository<Crit
 
     @Query("SELECT COUNT(*) FROM CriterionPage cp WHERE cp.project.id = ?1")
     long countForProject(String projectId);
+
+    @Query("FROM CriterionPage cp WHERE cp.project.id = ?1 ORDER BY cp.ordering")
+    List<CriterionPage> findAllForProject(String id);
 }

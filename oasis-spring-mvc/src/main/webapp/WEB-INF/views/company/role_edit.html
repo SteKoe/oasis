@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="company/layout">
+<head layout:fragment="header" th:remove="tag">
+    <script th:inline="javascript">
+        $(document).ready(function() {
+            $('form').on('change', 'input:checkbox', function() {
+                if($(this).val() === "ALL") {
+                    var checkboxes = $(this).closest('.form-group').find('input:checkbox');
+
+                    var status = $(this).prop('checked');
+                    checkboxes.prop('disabled', status);
+                    $(this).prop('disabled', false);
+
+                    checkboxes.prop('checked', status);
+                }
+            })
+        });
+    </script>
+</head>
+<body>
+<div layout:fragment="company_content">
+    <h3 th:text="#{label.edit.role}">
+        Role bearbeiten
+    </h3>
+
+    <form th:object="${role}" th:action="@{/company/{cid}/role(cid=${company.id})}" method="post">
+        <div class="form-group">
+            <label for="name" th:text="${role.name}" class="control-label">Name</label>
+            <input type="text" th:field="*{name}" class="form-control" id="name">
+        </div>
+        <div class="form-group">
+            <label class="control-label" th:text="#{label.permissions}">Zugriffsrechte</label>
+
+            <div class="checkbox" th:each="perm,iter : ${allPermissions}">
+                <label>
+                    <input type="checkbox" th:field="*{permissions}" th:value="${perm.permissionType}">
+                    <span th:text="#{__${perm.permissionType.getKey()}__(#{label.company})}" th:remove="tag"></span>
+                </label>
+            </div>
+        </div>
+
+        <input type="hidden" th:field="*{id}" class="form-control">
+
+        <div class="form-group">
+            <div class="col-md-12 text-right">
+                <button type="submit" class="btn btn-primary">
+                    Speichern
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

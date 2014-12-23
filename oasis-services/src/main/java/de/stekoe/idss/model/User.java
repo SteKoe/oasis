@@ -10,13 +10,11 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.lang.reflect.Field;
+import java.util.*;
 
 @Entity
-@Table(name = "User", uniqueConstraints = @UniqueConstraint(columnNames = {"username", "email"}))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"username", "email"}))
 public class User implements Serializable {
     private static final long serialVersionUID = 201404031316L;
 
@@ -24,7 +22,7 @@ public class User implements Serializable {
 
     private String id;
     private Set<SystemRole> roles = new HashSet<SystemRole>(0);
-    private UserProfile userProfile;
+    private UserProfile profile = new UserProfile();
     private String username;
     private String password;
     private String email;
@@ -32,6 +30,9 @@ public class User implements Serializable {
     private UserStatus userStatus = UserStatus.ACTIVATION_PENDING;
     private Set<ProjectMember> projectMemberships = new HashSet<ProjectMember>();
     private Set<Permission> permissions = new HashSet<Permission>();
+
+    private Date created;
+    private Date updated;
 
     @Id
     @GeneratedValue(generator = "uuid2")
@@ -47,11 +48,14 @@ public class User implements Serializable {
 
     @OneToOne(cascade = CascadeType.ALL, targetEntity = UserProfile.class)
     public UserProfile getProfile() {
-        return this.userProfile;
+        return this.profile;
     }
-
     public void setProfile(UserProfile userProfile) {
-        this.userProfile = userProfile;
+        if(userProfile == null) {
+            this.profile = new UserProfile();
+        } else {
+            this.profile = userProfile;
+        }
     }
 
     @NotNull
@@ -133,6 +137,45 @@ public class User implements Serializable {
         this.permissions = permissions;
     }
 
+    @Column(nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    public Date getCreated() {
+        return created;
+    }
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    @Column(nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    public Date getUpdated() {
+        return updated;
+    }
+    public void setUpdated(Date updated) {
+        this.updated = updated;
+    }
+
+    @PreUpdate
+    @PrePersist
+    public void updateTimeStamps() {
+        updated = new Date();
+        if (created == null) {
+            created = new Date();
+        }
+    }
+
+    /**
+     * Set the relevant fields to activate the current user.
+     * Will only apply when UserState is UserStatus.ACTIVATION_PENDING
+     */
+    @Transient
+    public void activate() {
+        if(UserStatus.ACTIVATION_PENDING.equals(getUserStatus())) {
+            setActivationKey(null);
+            setUserStatus(UserStatus.ACTIVATED);
+        }
+    }
+
     /**
      * @return true if the user has admin role, false otherwise
      */
@@ -187,6 +230,11 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return ReflectionToStringBuilder.toString(this);
+        return (new ReflectionToStringBuilder(this) {
+            // We do not want to see passwords here!
+            protected boolean accept(Field f) {
+                return super.accept(f) && !f.getName().equals("password");
+            }
+        }).toString();
     }
 }

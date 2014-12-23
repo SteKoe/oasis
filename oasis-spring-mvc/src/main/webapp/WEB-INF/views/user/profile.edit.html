@@ -3,71 +3,62 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layout_containered">
 <body layout:fragment="content">
+
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <form wicket:id="userprofile" class="form-page">
+            <form th:object="${userProfile}" class="form-page" th:action="@{/user/profile/edit}" method="post">
                 <fieldset>
-                    <label><wicket:message key="label.name" /></label>
+                    <label th:text="#{label.name}"></label>
                     <div class="row">
                         <div class="form-group col-xs-2">
-                            <input class="form-control" type="text" id="nameSuffix" wicket:id="nameSuffix"/>
+                            <input class="form-control" type="text" id="nameSuffix" th:field="*{nameSuffix}" th:placeholder="#{label.nameSuffix}"/>
                         </div>
                         <div class="form-group col-xs-5">
-                            <input class="form-control" type="text" id="firstname" wicket:id="firstname"/>
+                            <input class="form-control" type="text" id="firstname" th:field="*{firstname}" th:placeholder="#{label.firstname}"/>
                         </div>
                         <div class="form-group col-xs-5">
-                            <input class="form-control" type="text" id="surename" wicket:id="surname"/>
+                            <input class="form-control" type="text" id="surename" th:field="*{surname}" th:placeholder="#{label.surname}" />
                         </div>
                     </div>
 
-                    <label><wicket:message key="label.phone" /></label>
+                    <label th:text="#{label.phone}"></label>
                     <div class="row">
                         <div class="form-group col-xs-3">
-                            <input class="form-control" type="text" id="phone.countryCode" wicket:id="phone.countryCode"/>
+                            <input class="form-control" type="text" id="phone.countryCode" th:field="*{telefon.countryCode}" th:placeholder="#{label.phone.countryCode}"/>
                         </div>
                         <div class="form-group col-xs-4">
-                            <input class="form-control" type="text" id="phone.areaCode" wicket:id="phone.areaCode"/>
+                            <input class="form-control" type="text" id="phone.areaCode" th:field="*{telefon.areaCode}" th:placeholder="#{label.phone.areaCode}"/>
                         </div>
                         <div class="form-group col-xs-5">
-                            <input class="form-control" type="text" id="phone.subscriberNumber" wicket:id="phone.subscriberNumber"/>
+                            <input class="form-control" type="text" id="phone.subscriberNumber" th:field="*{telefon.subscriberNumber}" th:placeholder="#{label.phone.subscriberNumber}"/>
                         </div>
                     </div>
 
-                    <label><wicket:message key="label.fax" /></label>
+                    <label th:text="#{label.fax}"></label>
                     <div class="row">
                         <div class="form-group col-xs-3">
-                            <input class="form-control" type="text" id="fax.countryCode" wicket:id="fax.countryCode"/>
+                            <input class="form-control" type="text" th:field="*{telefax.countryCode}" th:placeholder="#{label.phone.countryCode}"/>
                         </div>
                         <div class="form-group col-xs-4">
-                            <input class="form-control" type="text" id="fax.areaCode" wicket:id="fax.areaCode"/>
+                            <input class="form-control" type="text" th:field="*{telefax.areaCode}" th:placeholder="#{label.phone.areaCode}"/>
                         </div>
                         <div class="form-group col-xs-5">
-                            <input class="form-control" type="text" id="fax.subscriberNumber" wicket:id="fax.subscriberNumber"/>
+                            <input class="form-control" type="text" th:field="*{telefax.subscriberNumber}" th:placeholder="#{label.phone.subscriberNumber}"/>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="website"><wicket:message key="label.website" /></label>
-                        <input class="form-control" type="text" id="website" wicket:id="website"/>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="professional"><wicket:message key="label.professional" /></label>
-                        <input class="form-control" type="text" id="professional" wicket:id="professional"/>
-                    </div>
-
-                    <fieldset>
-                        <legend><wicket:message key="label.address" /></legend>
-                        <wicket:container wicket:id="address"></wicket:container>
-                    </fieldset>
 
                     <!-- Submit -->
                     <div class="row">
                         <div class="col-lg-6">
                         </div>
                         <div class="col-lg-6 text-right">
-                            <button type="submit" class="btn btn-success"><wicket:message key="label.save" /></button>
-                            <button type="reset" class="btn"><wicket:message key="label.cancel" /></button>
+                            <button type="submit" class="btn btn-primary" th:text="#{label.save}">
+                                Speichern
+                            </button>
+                            <button type="reset" class="btn" th:text="#{label.cancel}">
+                                Abbrechen
+                            </button>
                         </div>
                     </div>
                 </fieldset>

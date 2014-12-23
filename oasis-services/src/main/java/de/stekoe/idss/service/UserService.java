@@ -39,14 +39,15 @@ public class UserService {
     }
 
     @Transactional
-    public void save(User entity) throws UserException {
-        if (emailInUse(entity)) {
-            throw new EmailAddressAlreadyInUseException();
-        } else if (usernameInUse(entity)) {
-            throw new UsernameAlreadyInUseException();
-        } else {
-            userRepository.save(entity);
+    public void save(User entity) throws EmailAddressAlreadyInUseException, UsernameAlreadyInUseException {
+        if(entity.getId() == null) {
+            if (emailInUse(entity)) {
+                throw new EmailAddressAlreadyInUseException();
+            } else if (usernameInUse(entity)) {
+                throw new UsernameAlreadyInUseException();
+            }
         }
+        userRepository.save(entity);
     }
 
     @Transactional

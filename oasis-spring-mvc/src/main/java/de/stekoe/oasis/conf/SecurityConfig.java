@@ -33,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private String getUserQuery() {
         return "SELECT username, password, userStatus = 'ACTIVATED' as enabled " +
                     "FROM User " +
-                    "WHERE username = ?";
+                    "WHERE email = ?";
     }
 
     private String getAuthoritiesQuery() {
@@ -41,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     "FROM User " +
                     "LEFT JOIN User_SystemRole USING(user_id) " +
                     "LEFT JOIN SystemRole USING(system_role_id) " +
-                    "WHERE username = ?";
+                    "WHERE email = ?";
     }
 
     @Override
@@ -53,13 +53,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .formLogin().loginPage("/login")
                     .failureUrl("/login?error")
                     .defaultSuccessUrl("/project")
-                    .usernameParameter("username")
+                    .usernameParameter("email")
                     .passwordParameter("password")
                 .and()
                     .logout()
                     .logoutUrl("/logout")
                     .logoutSuccessUrl("/login?logout")
                 .and()
-                    .csrf();
+                    .csrf()
+                .and()
+                    .exceptionHandling()
+                    .accessDeniedPage("/403");
     }
 }

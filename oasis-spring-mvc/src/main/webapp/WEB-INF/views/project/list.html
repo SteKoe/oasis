@@ -9,6 +9,7 @@
                   var token = $("meta[name='_csrf']").attr("content");
                   var header = $("meta[name='_csrf_header']").attr("content");
 
+
                   $('#addProjectModal').on('show.bs.modal', function (event) {
                         var button = $(event.relatedTarget);
                         var memberId = button.data('member-id');
@@ -17,6 +18,29 @@
                         var form = modal.find('form');
 
                         OASIS.form.hideErrors(form);
+
+                        modal.on('submit', 'form', function(e) {
+                              e.preventDefault();
+
+                              console.log();
+
+                              var data = {
+                                    name: $(this).find('#name').val(),
+                                    description: $(this).find('#description').val()
+                              }
+
+                              var promise = saveProject(data);
+                              promise.success(function(data) {
+                                    data = JSON.parse(data);
+                                    if(data.ok !== undefined && data.ok === true) {
+                                          window.location.reload();
+                                    } else {
+                                          OASIS.form.showErrors(form, data.errors);
+                                    }
+                              });
+
+                              return false;
+                        });
 
                         modal.find('button.save').on('click', function() {
                               var $btn = $(this);
@@ -31,16 +55,7 @@
                                     description: form.find('#description').val()
                               }
 
-                              var promise = $.ajax({
-                                    url: url,
-                                    data: JSON.stringify(data),
-                                    contentType : 'application/json; charset=utf-8',
-                                    dataType : 'json',
-                                    type: 'POST',
-                                    beforeSend: function( xhr ) {
-                                          xhr.setRequestHeader(header, token);
-                                    }
-                              });
+                              var promise = saveProject(data);
                               promise.success(function(data) {
                                     data = JSON.parse(data);
                                     if(data.ok !== undefined && data.ok === true) {
@@ -51,6 +66,19 @@
                                     }
                               });
                         });
+
+                        var saveProject = function(data) {
+                              return $.ajax({
+                                    url: url,
+                                    data: JSON.stringify(data),
+                                    contentType : 'application/json; charset=utf-8',
+                                    dataType : 'json',
+                                    type: 'POST',
+                                    beforeSend: function( xhr ) {
+                                          xhr.setRequestHeader(header, token);
+                                    }
+                              });
+                        }
                   });
 
                   $('.btn-delete').on('click', function(event) {
@@ -115,7 +143,7 @@
                   </tr>
 
                   <tr th:if="${projects.size() == 0}">
-                        <td colspan="2" class="text-center" th:text="noItemLabel">
+                        <td colspan="2" class="text-center" th:text="#{table.body.empty}">
                               Keine Einträge vorhanden!
                         </td>
                   </tr>

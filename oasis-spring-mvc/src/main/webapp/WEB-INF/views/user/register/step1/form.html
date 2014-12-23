@@ -1,0 +1,21 @@
+<div class="form-group" th:classappend="${#fields.hasErrors('email')} ? 'has-error' : ''">
+    <label class="control-label" for="email" th:text="#{label.email}">Email address</label>
+    <input type="email" class="form-control" id="email" th:placeholder="#{label.email.placeholder}" th:field="*{email}">
+    <p class="help-block" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
+        Incorrect date
+    </p>
+</div>
+<div class="form-group" th:classappend="${#fields.hasErrors('password')} ? 'has-error' : ''">
+    <label class="control-label" for="password" th:text="#{label.password}">Password</label>
+    <input type="password" class="form-control" id="password" th:placeholder="#{label.required.placeholder}" th:field="*{password}">
+    <p class="help-block" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
+        Incorrect date
+    </p>
+</div>
+<div class="form-group" th:classappend="${#fields.hasErrors('confirmPassword')} ? 'has-error' : ''">
+    <label class="control-label" for="password_repeat" th:text="#{label.password.confirm}">Passwort (wiederholen)</label>
+    <input type="password" class="form-control" id="password_repeat" th:placeholder="#{label.required.placeholder}" th:field="*{confirmPassword}">
+    <p class="help-block" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}">
+        Incorrect date
+    </p>
+</div>

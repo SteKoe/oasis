@@ -20,28 +20,14 @@
                     <a th:href="${link}" th:text="#{label.contact}">Kontakt</a>
                 </li>
 
-
-
-                <div th:remove="tag" th:if="${#authorization.expression('isAuthenticated()') == true}">
+                <th:block th:if="${#authorization.expression('isAuthenticated()') == true}">
                     <li th:with="link=@{/project}" th:class="${currentURI.toString().startsWith('/project')} ? 'active' : ''">
-                        <a th:href="${link}" th:text="#{label.project.overview}">Projekte</a>
+                        <a th:href="${link}" th:text="#{label.project.overview}">Meine Projekte</a>
                     </li>
-
-                    <!--
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">One more separated link</a></li>
-                        </ul>
+                    <li th:with="link=@{/company}" th:class="${currentURI.toString().startsWith('/company')} ? 'active' : ''">
+                        <a th:href="${link}" th:text="#{label.company.overview}">Mein Unternehmen</a>
                     </li>
-                    -->
-                </div>
+                </th:block>
             </ul>
         </div>
     </div>

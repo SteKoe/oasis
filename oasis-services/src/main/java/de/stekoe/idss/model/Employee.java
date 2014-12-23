@@ -15,6 +15,7 @@ public class Employee implements Serializable {
     private String id;
     private User user;
     private CompanyRole role;
+    private UserStatus employeeStatus;
 
     @Id
     @GeneratedValue(generator = "uuid2")
@@ -41,6 +42,14 @@ public class Employee implements Serializable {
     }
     public void setRole(CompanyRole role) {
         this.role = role;
+    }
+
+    @Enumerated(EnumType.STRING)
+    public UserStatus getEmployeeStatus() {
+        return this.employeeStatus;
+    }
+    public void setEmployeeStatus(UserStatus userStatus) {
+        this.employeeStatus = userStatus;
     }
 
     @Transient

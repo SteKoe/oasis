@@ -1,6 +1,5 @@
 package de.stekoe.oasis.web.project.criterions;
 
-import de.stekoe.idss.model.Criterion;
 import de.stekoe.idss.model.CriterionGroup;
 import de.stekoe.idss.model.CriterionPage;
 import de.stekoe.idss.model.Project;
@@ -19,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Controller
 public class ReferenceCriterionController {

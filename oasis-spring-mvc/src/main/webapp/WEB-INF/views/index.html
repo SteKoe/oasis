@@ -2,15 +2,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layout">
-<head>
-    <script>
-        $(document).ready(function() {
-            $('#myCarousel').carousel({
-                interval: 7500
-            });
-        });
-    </script>
-</head>
 <body layout:fragment="content">
 
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -26,7 +17,7 @@
         <div class="carousel-inner">
 
             <div class="item active">
-                <img src="/img/slider/slide-innovation.png">
+                <img th:src="@{/img/slider/slide-innovation.png}">
                 <div class="carousel-caption caption-top">
                     <h3>Assess innovations</h3><br>
                     <h3>Share your knowledge</h3><br>
@@ -34,7 +25,7 @@
             </div>
 
             <div class="item">
-                <img src="/img/slider/slide-responsive.png">
+                <img th:src="@{/img/slider/slide-responsive.png}">
                 <div class="carousel-caption caption-top" style="width: 400px;">
                     <h3>Responsive design</h3>
                     <br>
@@ -45,7 +36,7 @@
             </div>
 
             <div class="item">
-                <img src="/img/slider/slide-collaboration.png">
+                <img th:src="@{/img/slider/slide-collaboration.png}">
                 <div class="carousel-caption caption-top">
                     <h3>Build for collaboration</h3><br>
                 </div>

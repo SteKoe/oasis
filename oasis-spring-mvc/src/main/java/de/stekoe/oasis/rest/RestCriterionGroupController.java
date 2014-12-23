@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.json.Json;
-import java.nio.file.Path;
 import java.util.List;
 
 @RestController

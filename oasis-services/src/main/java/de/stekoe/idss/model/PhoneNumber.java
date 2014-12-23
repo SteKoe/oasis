@@ -68,10 +68,22 @@ public class PhoneNumber implements Serializable {
     @Transient
     public String asString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("+")
-                .append(getCountryCode() + " ")
-                .append("(" + getAreaCode() + ") ")
-                .append(getSubscriberNumber());
+
+        if(getCountryCode().startsWith("+")) {
+            sb.append(getCountryCode());
+        } else if(getCountryCode().startsWith("00")) {
+            sb.append("+").append(getCountryCode().substring(2));
+        }
+
+        if(!getCountryCode().isEmpty()) {
+            sb.append(" ");
+            sb.append("(" + getAreaCode().replaceFirst("0","") + ") ");
+        } else {
+            sb.append(getAreaCode());
+        }
+        sb.append(" ");
+        sb.append(getSubscriberNumber());
+
         return sb.toString();
     }
 

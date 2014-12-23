@@ -28,7 +28,7 @@ public abstract class Criterion extends PageElement implements Serializable {
         this.allowNoChoice = criterion.isAllowNoChoice();
     }
 
-    @Column(columnDefinition = "boolean default false")
+    @Column
     public boolean isAllowNoChoice() {
         return allowNoChoice;
     }

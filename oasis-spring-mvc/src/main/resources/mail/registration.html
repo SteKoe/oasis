@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<p th:text="#{email.greeting(${username})}">
+    Hello, Peter Static!
+</p>
+<p>
+    Ihr Benutzerkonto wurde erstellt. Sie müssen es jedoch erst freischalten.
+</p>
+<p>
+    Hierfür klicken Sie bitte auf folgenden Link:<br>
+    <a th:with="link = @{__${baseUrl}__/activate/{token}(token=${token})}" th:href="${link}" th:text="${link}">
+        http://www.example.org/activate/374947047493904748
+    </a>
+</p>
+<p>
+    Herzliche Grüße, <br />
+    <em>Ihr OASIS Team</em>
+</p>
+</body>
+</html>

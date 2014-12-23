@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.json.Json;
 import javax.json.JsonObjectBuilder;
 import javax.validation.Valid;
-import java.util.List;
 import java.util.Locale;
-import java.util.logging.Logger;
 
 @Controller
 public class RestCriterionPageController {

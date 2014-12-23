@@ -1,0 +1,15 @@
+<div class="col-md-8">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title" th:text="#{label.register.step1.desc}">
+                Benutzerdaten
+            </h3>
+        </div>
+        <div class="panel-body">
+            <div th:replace="/user/register/step1/form"></div>
+        </div>
+    </div>
+</div>
+<div class="col-md-4">
+    <div th:replace="/user/register/step1/site_note"></div>
+</div>

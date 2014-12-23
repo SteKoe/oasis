@@ -169,7 +169,6 @@ public class DatabaseSetup {
 
     private void installSampleUser() {
         createSystemRoles();
-        createUsers();
     }
 
     public void run() {

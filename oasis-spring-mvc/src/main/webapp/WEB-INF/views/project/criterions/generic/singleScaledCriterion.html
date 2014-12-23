@@ -30,21 +30,16 @@
         </div>
     </div>
     <div class="panel-body">
-        <div class="description" th:if="${#strings.isEmpty(description) == false}">
+        <div class="" th:if="${not #strings.isEmpty(criterion.description)}" th:utext="${criterion.description}">
             Description
         </div>
         <div class="measure">
-            <div class="radio" th:each="measure,iter : ${criterion.values}" th:if="${not criterion.multipleChoice}">
-                <label>
-                    <input type="radio" th:value="${measure.id}" th:field="*{userChoices['__${criterion.id}__'].choices}">
-                    <span th:text="${measure.value}" th:remove="tag"></span>
-                </label>
+
+            <div th:if="${criterion instanceof T(de.stekoe.idss.model.NominalScaledCriterion)}" th:remove="tag">
+                <div th:replace="/project/criterions/generic/nominalScaledCriterion"></div>
             </div>
-            <div class="checkbox" th:each="measure,iter : ${criterion.values}" th:if="${criterion.multipleChoice}">
-                <label>
-                    <input type="checkbox" th:value="${measure.id}" th:field="*{userChoices['__${criterion.id}__'].choices}">
-                    <span th:text="${measure.value}" th:remove="tag"></span>
-                </label>
+            <div th:if="${criterion instanceof T(de.stekoe.idss.model.OrdinalScaledCriterion)}" th:remove="tag">
+                <div th:replace="/project/criterions/generic/ordinalScaledCriterion"></div>
             </div>
         </div>
     </div>

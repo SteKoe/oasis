@@ -3,24 +3,50 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th=""
       layout:decorator="project/layout">
+<head layout:fragment="header" th:remove="tag">
+      <script th:inline="javascript">
+      $(document).ready(function(){
+            OASIS.form.evaluation.toggleDontKnow();
+
+            $('.pagination').on('click', 'a', function(e) {
+                  e.preventDefault();
+
+                  var $link = $(this);
+                  var $form = $('form.userChoices');
+                  var formData = $form.serialize();
+
+                  var promise = $.ajax({
+                        url: $form.attr('action'),
+                        data: formData,
+                        type: 'POST'
+                  });
+                  promise.success(function(){
+                        window.location.href = $link.attr('href');
+                  });
+            });
+      });
+      </script>
+</head>
 <body>
 <div layout:fragment="project_content">
       <h4 th:text="#{label.project.evaluation}"></h4>
 
-      <form th:action="@{/project/{pid}/evaluation(pid=${project.id})}" th:method="POST" th:object="${userChoices}">
-            <div th:each="criterionPage, iter : ${criterionPages}" class="panel-group" id="criterionPage" th:with="evaluaton=${true}">
-                  <div th:replace="/project/criterions/criterionPage">
-                        CRITERION PAGE HERE
+      <div class="progress">
+            <div class="progress-bar" role="progressbar" th:attr="aria-valuenow=${pagination.progress}" aria-valuemin="0" aria-valuemax="100" th:style="|width: ${pagination.progress * 100.0}%;|">
+                  <span th:text="${pagination.progress * 100 + '%'}">60% Complete</span>
+            </div>
+      </div>
+
+      <form th:action="@{/project/{pid}/evaluation(pid=${project.id})}" th:method="POST" th:object="${userChoices}" class="userChoices">
+            <div class="panel-group" id="criterionPage">
+                  <div th:each="criterionPage, iter : ${criterionPages}" th:with="evaluaton=${true}" th:remove="tag">
+                        <div th:replace="/project/criterions/criterionPage">
+                              CRITERION PAGE HERE
+                        </div>
                   </div>
             </div>
 
             <input type="hidden" th:field="*{id}">
-
-            <div class="form-group">
-                  <button type="submit">
-                        Save
-                  </button>
-            </div>
       </form>
 
       <div th:include="/fragments/paginaton" class="text-center">

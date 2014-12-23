@@ -1,5 +1,7 @@
 package de.stekoe.idss.model;
 
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
@@ -10,6 +12,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Entity
 public class Company implements Serializable, Identifyable<String>, NamedElement {
@@ -17,9 +21,19 @@ public class Company implements Serializable, Identifyable<String>, NamedElement
 
     private String id;
     private String name;
+    private String registrationToken = RandomStringUtils.randomAlphanumeric(7);
+
     private List<CompanyRole> roles = new ArrayList<CompanyRole>();
     private List<Address> addresses = new ArrayList<Address>();
     private List<Employee> employees = new ArrayList<Employee>();
+
+    public Company() {
+        // NOP
+    }
+
+    public Company(CompanyDescriptor companyDescriptor) {
+        setName(companyDescriptor.getName());
+    }
 
     @Id
     @GeneratedValue(generator = "uuid2")
@@ -45,11 +59,11 @@ public class Company implements Serializable, Identifyable<String>, NamedElement
         this.name = name;
     }
 
-    @OneToMany(targetEntity = CompanyRole.class, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = CompanyRole.class, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OrderColumn(name = "ordering")
     public List<CompanyRole> getRoles() {
         return (roles == null ? Collections.EMPTY_LIST : roles);
     }
-
     public void setRoles(List<CompanyRole> roles) {
         this.roles = roles;
     }
@@ -72,17 +86,42 @@ public class Company implements Serializable, Identifyable<String>, NamedElement
         this.employees = employees;
     }
 
+    @Column(unique = true)
+    public String getRegistrationToken() {
+        return registrationToken;
+    }
+    public void setRegistrationToken(String registrationToken) {
+        this.registrationToken = registrationToken;
+    }
+
     @Transient
     public Employee getEmployee(User user) {
         for (Employee e : getEmployees()) {
-            if (e.getUser().getUsername().equals(user.getUsername())) {
+            if (e.getUser().getUsername().equalsIgnoreCase(user.getUsername())) {
                 return e;
             }
-            if (e.getUser().getEmail().equals(user.getEmail())) {
+            if (e.getUser().getEmail().equalsIgnoreCase(user.getEmail())) {
                 return e;
             }
         }
         return null;
+    }
+
+    @Transient
+    public Employee getEmployee(String usernameOrEmail) {
+        Optional<Employee> any = getEmployees().stream().map(emp -> (Employee) emp).filter(emp -> {
+            return emp.getUser().getUsername().equalsIgnoreCase(usernameOrEmail) || emp.getUser().getEmail().equalsIgnoreCase(usernameOrEmail);
+        }).findAny();
+
+        if(any.isPresent()) {
+            return any.get();
+        }
+
+        return null;
+    }
+
+    public List<Employee> getEmployeesByRole(CompanyRole companyRole) {
+        return getEmployees().stream().filter(emp -> emp.getRole() != null && emp.getRole().equals(companyRole)).collect(Collectors.toList());
     }
 
     @Override

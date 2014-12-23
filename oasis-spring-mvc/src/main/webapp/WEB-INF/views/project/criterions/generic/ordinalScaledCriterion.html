@@ -1,0 +1,15 @@
+<!-- Radio in case of no multiple choice! -->
+<div class="radio" th:each="measure,iter : ${criterion.values}">
+    <label>
+        <input type="radio" th:value="${measure.id}" th:field="*{userChoices['__${criterion.id}__'].choices}">
+        <span th:text="${measure.value}" th:remove="tag"></span>
+    </label>
+</div>
+
+<!-- What about "don't know"? -->
+<div class="radio" th:if="${criterion.allowNoChoice}">
+    <label>
+        <input type="radio" class="dontknow" value="::nv::" th:field="*{userChoices['__${criterion.id}__'].choices}">
+        <span th:text="#{label.criterion.dontknow}" th:remove="tag"></span>
+    </label>
+</div>

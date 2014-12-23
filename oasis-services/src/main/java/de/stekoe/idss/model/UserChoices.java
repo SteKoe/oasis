@@ -44,6 +44,10 @@ public class UserChoices implements Serializable {
         this.project = project;
     }
 
+    /**
+     * Returns a map having the Criterion ID as key and selected Choices as value.
+     * @return Map<Criterion Id, Selected Values>
+     */
     @OneToMany(mappedBy = "userChoices", cascade = CascadeType.ALL, orphanRemoval = true)
     public Map<String, UserChoice> getUserChoices() {
         return userChoices;

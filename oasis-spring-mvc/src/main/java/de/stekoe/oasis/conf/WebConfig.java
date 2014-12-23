@@ -8,7 +8,6 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 
 @Configuration
 public class WebConfig extends WebMvcConfigurationSupport {
-
     @Bean
     public RequestMappingHandlerAdapter requestMappingHandlerAdapter() {
         RequestMappingHandlerAdapter handlerAdapter = super.requestMappingHandlerAdapter();

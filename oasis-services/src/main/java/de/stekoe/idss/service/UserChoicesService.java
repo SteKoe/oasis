@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -18,7 +19,6 @@ public class UserChoicesService {
     @Inject
     private UserChoicesRepository userChoicesRepository;
 
-    @Query("SELECT uc FROM UserChoices uc WHERE uc.user = ?1 AND uc.project = ?2")
     public UserChoices findByUserAndProject(User user, Project project) {
         return userChoicesRepository.findByUserAndProject(user, project);
     }
@@ -71,5 +71,9 @@ public class UserChoicesService {
     @Transactional
     public Iterable<UserChoices> save(Iterable<UserChoices> entities) {
         return userChoicesRepository.save(entities);
+    }
+
+    public List<UserChoices> findByProject(String projectId) {
+        return userChoicesRepository.findByProject(projectId);
     }
 }

@@ -51,10 +51,10 @@ public class CriterionService extends PageElementService {
         }
     }
 
-    public List<Criterion> findAllForReport(String id) {
-        List<PageElement> findAllForProject = new ArrayList<PageElement>(criterionRepository.findAllForProject(id));
+    public List<Criterion> findAllForReport(String projectId) {
+        List<PageElement> findAllForProject = new ArrayList<>(criterionRepository.findAllForProject(projectId));
 
-        List<Criterion> criterions = new ArrayList<Criterion>();
+        List<Criterion> criterions = new ArrayList<>();
 
         for (PageElement criterion : findAllForProject) {
             if(criterion instanceof Criterion) {

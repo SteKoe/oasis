@@ -10,21 +10,50 @@
             </div>
         </div>
         <div class="col-md-10">
+            <a th:if="${currentUsersProfile}" th:href="@{/user/profile/edit}" class="btn btn-primary btn-xs pull-right" th:text="#{label.user.profile.edit}">
+                Profil bearbeiten
+            </a>
             <h1 th:text="${user.username}"></h1>
-
             <div th:if="${user.profile}" th:object="${user.profile}">
                 <dl>
+                    <th:block th:if="*{fullName != null}">
+                        <dt th:text="#{label.name}"></dt>
+                        <dl th:text="*{fullName}"></dl>
+                    </th:block>
+
+                    <th:block th:if="*{address != null && !address.isEmpty()}">
+                        <dt th:text="#{label.address}"></dt>
+                        <dl th:include="/fragments/address" th:with="address=*{address}"></dl>
+                    </th:block>
+
+                    <th:block th:if="*{telefon != null && !telefon.isEmpty()}">
+                        <dt th:text="#{label.phone}"></dt>
+                        <dl th:text="*{telefon.asString()}"></dl>
+                    </th:block>
+
+                    <th:block th:if="*{telefax != null && !telefax.isEmpty()}">
+                        <dt th:text="#{label.fax}"></dt>
+                        <dl th:text="*{telefax.asString()}"></dl>
+                    </th:block>
+                </dl>
+            </div>
+
+            <div th:if="${company != null}">
+                <a th:if="${currentUsersProfile}" th:href="@{/company/{id}(id=${company.id})}" class="btn btn-primary btn-xs pull-right" th:text="#{label.company}">
+                    Profil bearbeiten
+                </a>
+                <h2 th:text="#{label.company}"></h2>
+                <div th:each="address : ${company.addresses}">
+                    <div th:replace="/fragments/address"></div>
+                </div>
+                <dl>
                     <dt th:text="#{label.name}"></dt>
-                    <dl th:text="*{fullName}"></dl>
+                    <dl th:text="${company.name}"></dl>
 
-                    <dt th:text="#{label.address}" th:if="*{!address.isEmpty()}"></dt>
-                    <dl th:include="/fragments/address" th:with="address=*{address}" th:if="*{!address.isEmpty()}"></dl>
-
-                    <dt th:text="#{label.phone}" th:if="*{!telefon.isEmpty()}"></dt>
-                    <dl th:text="*{phone.asString()}" th:if="*{!telefon.isEmpty()}"></dl>
-
-                    <dt th:text="#{label.telefax}" th:if="*{!telefax.isEmpty()}"></dt>
-                    <dl th:text="*{telefax.asString()}" th:if="*{!telefax.isEmpty()}"></dl>
+                    <div th:if="${employee.role != null}" th:remove="tag">
+                        <dt th:text="#{label.role.in.company}"></dt>
+                        <dl th:text="${employee.role.name}"></dl>
+                    </div>
                 </dl>
             </div>
         </div>

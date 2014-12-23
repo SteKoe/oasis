@@ -45,12 +45,12 @@ public class ProjectMemberController {
         Project project = projectService.findOne(pid);
 
         Set<User> projectMembers = new HashSet<>();
-        project.getProjectTeam().forEach(member -> projectMembers.add(member.getUser()));
+        project.getProjectTeam().stream().map(member -> (ProjectMember)member).forEach(member -> projectMembers.add(member.getUser()));
 
         List<User> userList = userService.findAll();
-        userList = userList.stream().filter(user -> !projectMembers.contains(user)).collect(Collectors.toList());
+        userList = userList.stream().map(user -> (User)user).filter(user -> !projectMembers.contains(user)).collect(Collectors.toList());
 
-        ModelAndView model = new ModelAndView("project/member/list");
+        ModelAndView model = new ModelAndView("/project/member/list");
         model.addObject("pageTitle", project.getName());
         model.addObject("project", project);
         model.addObject("users", userList);
@@ -68,7 +68,7 @@ public class ProjectMemberController {
         Set<ProjectMemberDescriptor> pm = new HashSet<>();
 
         Project project = projectService.findOne(pid);
-        project.getProjectTeam().stream().forEach(member -> {
+        project.getProjectTeam().stream().map(member -> (ProjectMember) member).forEach(member -> {
             pm.add(new ProjectMemberDescriptor(member.getId(), member.getUser().getUsername(), member.getProjectRole().getName()));
         });
 

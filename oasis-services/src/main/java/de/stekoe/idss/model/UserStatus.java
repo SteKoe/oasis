@@ -32,5 +32,7 @@ public enum UserStatus {
     /**
      * User has requested a new password.
      */
-    RESET_PASSWORD;
+    RESET_PASSWORD,
+
+    INVITED;
 }

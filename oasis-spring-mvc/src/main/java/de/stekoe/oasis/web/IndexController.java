@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.security.Principal;
 import java.util.Locale;
 
 @Controller
@@ -23,7 +24,7 @@ public class IndexController {
     private DatabaseSetup databaseSetup;
 
     @RequestMapping("/")
-    public String index(@RequestParam(value="name", required=false, defaultValue="World") String name, Model model) {
+    public String index(@RequestParam(value = "name", required = false, defaultValue = "World") String name, Model model) {
         databaseSetup.run();
         return "index";
     }
@@ -45,6 +46,23 @@ public class IndexController {
         }
         model.setViewName("auth/login");
 
+        return model;
+
+    }
+
+    @RequestMapping(value = "/403", method = RequestMethod.GET)
+    public ModelAndView accesssDenied(Principal user) {
+        ModelAndView model = new ModelAndView("/error/403");
+
+        if (user != null) {
+            model.addObject("msg", "Hi " + user.getName()
+                    + ", you do not have permission to access this page!");
+        } else {
+            model.addObject("msg",
+                    "You do not have permission to access this page!");
+        }
+
+        model.addObject("pageTitle", "Zugriff verweigert!");
         return model;
 
     }

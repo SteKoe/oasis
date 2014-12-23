@@ -1,0 +1,69 @@
+<div role="tabpanel">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#create" aria-controls="create" role="tab" data-toggle="tab" th:text="#{label.company.create}">Unternehmen erstellen</a></li>
+        <li role="presentation"><a href="#select" aria-controls="profile" role="tab" data-toggle="tab"th:text="#{label.company.select}" >Unternehmen wählen</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="create">
+            <br>
+            <p class="alert" th:text="#{label.company.create.help}">
+            </p>
+            <div class="form-group" th:classappend="${#fields.hasErrors('company.name')} ? 'has-error' : ''">
+                <label class="control-label" for="company_name" th:text="#{label.company.name}">Unternehmensname:</label>
+                <input type="text" class="form-control" id="company_name" th:placeholder="#{label.company.name.placeholder}" th:field="*{company.name}">
+                <p class="help-block" th:if="${#fields.hasErrors('company.name')}" th:errors="*{company.name}">
+                    Incorrect date
+                </p>
+            </div>
+
+            <h3>Unternehmenssitz</h3>
+
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-md-8">
+                        <label class="control-label" for="address.street" th:text="#{label.address.street}">Straße</label>
+                        <input type="text" class="form-control" id="address.street" th:field="*{company.address.street}" th:placeholder="#{label.address.street}">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="control-label" for="address.number" th:text="#{label.address.number}">Nummer</label>
+                        <input type="text" class="form-control" id="address.number" th:field="*{company.address.number}" th:placeholder="#{label.address.number}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label class="control-label" for="address.zip" th:text="#{label.address.zip}">PLZ</label>
+                        <input type="text" class="form-control" id="address.zip" th:field="*{company.address.zip}" th:placeholder="#{label.address.zip}">
+                    </div>
+                    <div class="col-md-8">
+                        <label class="control-label" for="address.city" th:text="#{label.address.city}">Ort</label>
+                        <input type="text" class="form-control" id="address.city" th:field="*{company.address.city}" th:placeholder="#{label.address.city}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label class="control-label" for="address.country" th:text="#{label.address.country}">Land</label>
+                        <input type="text" class="form-control" id="address.country" th:field="*{company.address.country}" th:placeholder="#{label.address.country}">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="select">
+            <br>
+            <p class="alert" th:text="#{label.company.select.help}">
+            </p>
+            <div class="form-group" th:classappend="${#fields.hasErrors('registryToken')} ? 'has-error' : ''">
+                <label class="control-label" for="company_registry_token" th:text="#{label.company.register.token}">Zugangsschlüssel:</label>
+                <input type="text" class="form-control" id="company_registry_token" th:placeholder="#{label.company.register.token}" th:field="*{registryToken}">
+                <p class="help-block" th:if="${#fields.hasErrors('registryToken')}" th:errors="*{registryToken}">
+                    Incorrect date
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+

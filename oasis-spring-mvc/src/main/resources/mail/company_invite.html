@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<p th:text="#{email.greeting(${invitedUser})}">
+    Hello, Peter Static!
+</p>
+<p>
+    Sie wurden von <span th:text="${invitingUser}"></span> zum Unternehmen <span th:text="${company.name}"></span>
+    hinzugefügt.<br>
+    Hierfür wurde für Sei ein Benutzerkonto erstellt, welches erst noch durch Sie freigeschaltet werden muss.<br>
+    Hierfür verwenden Sie bitte auf folgenden Link.<br>
+
+    <a th:with="link = @{__${baseUrl}__/activate/{token}(token=${token})}" th:href="${link}" th:text="${link}">
+        http://www.example.org/activate/374947047493904748
+    </a>
+</p>
+<p>
+    Anschließend könne Sie sich mit folgenden Daten am System anmelden:
+</p>
+<p>
+    Benutzername: <span th:text="${invitedUser}"></span><br>
+    Password: <span th:text="${password}"></span>
+</p>
+<p>
+    Wir empfehlen Ihnen das Passwort nach erstmaliger Anmeldung zu ändern!
+</p>
+<p>
+    Herzliche Grüße, <br />
+    <em>Ihr OASIS Team</em>
+</p>
+</body>
+</html>

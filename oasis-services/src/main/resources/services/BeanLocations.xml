@@ -42,24 +42,8 @@
         <property name="jpaVendorAdapter" ref="vendorAdapter" />
         <property name="jpaProperties">
             <props>
-                <prop key="hibernate.hbm2ddl.auto">update</prop>
-            </props>
-        </property>
-    </bean>
-
-    <!-- SMTP Connector -->
-    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-        <property name="username" value="${smtp.user}" />
-        <property name="password" value="${smtp.password}" />
-        <property name="javaMailProperties">
-            <props>
-                <prop key="mail.smtp.localhost">${smtp.host}</prop>
-                <prop key="mail.smtp.from">${smtp.from}</prop>
-                <prop key="mail.smtp.host">${smtp.host}</prop>
-                <prop key="mail.smtp.port">${smtp.port}</prop>
-                <prop key="mail.smtp.auth">${smtp.auth}</prop>
-                <prop key="mail.smtp.starttls.enable">${smtp.ssl}</prop>
-                <prop key="mail.debug">${smtp.debug}</prop>
+                <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2dll.auto}</prop>
+                <!--<prop key="hibernate.hbm2ddl.auto">update</prop>-->
             </props>
         </property>
     </bean>

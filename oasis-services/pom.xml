@@ -13,9 +13,6 @@
         <hibernate.version>4.3.7.Final</hibernate.version>
     </properties>
     <build>
-        <filters>
-            <filter>src/main/resources/application.properties</filter>
-        </filters>
         <resources>
             <resource>
                 <filtering>true</filtering>

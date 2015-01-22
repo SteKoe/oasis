@@ -1,6 +1,5 @@
 package de.stekoe.oasis.web;
 
-import de.stekoe.idss.setup.DatabaseSetup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -21,11 +20,9 @@ public class IndexController {
     private MessageSource messageSource;
 
     @Autowired
-    private DatabaseSetup databaseSetup;
 
     @RequestMapping("/")
-    public String index(@RequestParam(value = "name", required = false, defaultValue = "World") String name, Model model) {
-        databaseSetup.run();
+    public String index() {
         return "index";
     }
 

@@ -318,6 +318,10 @@ input[type="file"] {
     background: url(../img/ajax-loader.gif) no-repeat center rgba(0,0,0,0.5);
 }
 
+.text-capitalized {
+    text-transform: capitalize;
+}
+
 @media (max-width: $screen-xs-max) {
     body {
         margin-bottom: 610px;

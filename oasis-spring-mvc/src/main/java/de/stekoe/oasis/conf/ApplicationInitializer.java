@@ -21,6 +21,8 @@ public class ApplicationInitializer implements WebApplicationInitializer {
     public void onStartup(ServletContext servletContext) throws ServletException {
         AnnotationConfigWebApplicationContext rootContext = getContext();
         servletContext.addListener(new ContextLoaderListener(rootContext));
+        rootContext.setServletContext(servletContext);
+
         ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher", new DispatcherServlet(rootContext));
         dispatcher.setLoadOnStartup(1);
         dispatcher.addMapping("/*");
@@ -37,7 +39,6 @@ public class ApplicationInitializer implements WebApplicationInitializer {
 
         FilterRegistration.Dynamic hibernateFilter = servletContext.addFilter("hibernateFilter", new OpenEntityManagerInViewFilter());
         hibernateFilter.addMappingForUrlPatterns(null, false, "/*");
-
     }
 
     private CharacterEncodingFilter getCharacterEncodingFilter() {
@@ -53,7 +54,6 @@ public class ApplicationInitializer implements WebApplicationInitializer {
 
         // Important! Scan package for config files and do not assign single ApplicationContext.class!
         rootContext.setConfigLocation("de.stekoe.oasis.conf");
-        rootContext.setDisplayName("Spring Social Tutorial");
         return rootContext;
     }
 }

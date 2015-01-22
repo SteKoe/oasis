@@ -1,10 +1,10 @@
 package de.stekoe.oasis.web.project.criterions;
 
-import de.stekoe.idss.model.CriterionGroup;
-import de.stekoe.idss.model.CriterionPage;
-import de.stekoe.idss.model.OrderableUtil;
-import de.stekoe.idss.service.CriterionGroupService;
-import de.stekoe.idss.service.CriterionPageService;
+import de.stekoe.oasis.model.CriterionGroup;
+import de.stekoe.oasis.model.CriterionPage;
+import de.stekoe.oasis.model.OrderableUtil;
+import de.stekoe.oasis.service.CriterionGroupService;
+import de.stekoe.oasis.service.CriterionPageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -22,7 +22,7 @@ public class ProjectCriterionGroupController {
     CriterionPageService criterionPageService;
 
     @RequestMapping(value = "/project/{pid}/criteriongroup/{gid}/move/{direction}")
-    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.idss.model.PermissionType).MANAGE_CRITERIONS)")
+    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.oasis.model.PermissionType).MANAGE_CRITERIONS)")
     public String move(@PathVariable String gid, @PathVariable String direction, RedirectAttributes redirectAttributes) {
         direction = direction.toUpperCase();
 

@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Entity
 class ReferenceCriterionSelection {
     private Map<String, List<String>> selectedReferenceCriterions = new HashMap<>();
 

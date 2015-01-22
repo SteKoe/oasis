@@ -1,9 +1,9 @@
 package de.stekoe.oasis;
 
-import de.stekoe.idss.model.CriterionGroup;
-import de.stekoe.idss.model.NominalScaledCriterion;
-import de.stekoe.idss.service.CriterionGroupService;
-import de.stekoe.idss.service.CriterionService;
+import de.stekoe.oasis.model.CriterionGroup;
+import de.stekoe.oasis.model.NominalScaledCriterion;
+import de.stekoe.oasis.service.CriterionGroupService;
+import de.stekoe.oasis.service.CriterionService;
 import de.stekoe.oasis.web.project.criterions.XmlImport;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

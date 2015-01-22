@@ -1,8 +1,8 @@
 package de.stekoe.oasis.web.company;
 
-import de.stekoe.idss.model.*;
-import de.stekoe.idss.service.CompanyRoleService;
-import de.stekoe.idss.service.CompanyService;
+import de.stekoe.oasis.model.*;
+import de.stekoe.oasis.service.CompanyRoleService;
+import de.stekoe.oasis.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -31,7 +31,7 @@ public class CompanyRoleController {
     CompanyRoleService companyRoleService;
 
     @RequestMapping(value = "/{id}/role", method = RequestMethod.GET)
-    @PreAuthorize("@permissionManager.hasCompanyPermission(principal, #id, T(de.stekoe.idss.model.PermissionType).MANAGE_ROLES)")
+    @PreAuthorize("@permissionManager.hasCompanyPermission(principal, #id, T(de.stekoe.oasis.model.PermissionType).MANAGE_ROLES)")
     public ModelAndView listRole(@PathVariable String id) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
@@ -45,7 +45,7 @@ public class CompanyRoleController {
     }
 
     @RequestMapping(value = "/{id}/role", method = RequestMethod.POST)
-    @PreAuthorize("@permissionManager.hasCompanyPermission(principal, #id, T(de.stekoe.idss.model.PermissionType).MANAGE_ROLES)")
+    @PreAuthorize("@permissionManager.hasCompanyPermission(principal, #id, T(de.stekoe.oasis.model.PermissionType).MANAGE_ROLES)")
     public ModelAndView saveRole(@PathVariable String id, @Valid CompanyRoleDescriptor companyRoleDescriptor, BindingResult bindingResult) {
         Company company = companyService.findOne(id);
 
@@ -84,7 +84,7 @@ public class CompanyRoleController {
     }
 
     @RequestMapping(value = "/{id}/role/create", method = RequestMethod.GET)
-    @PreAuthorize("@permissionManager.hasCompanyPermission(principal, #id, T(de.stekoe.idss.model.PermissionType).MANAGE_ROLES)")
+    @PreAuthorize("@permissionManager.hasCompanyPermission(principal, #id, T(de.stekoe.oasis.model.PermissionType).MANAGE_ROLES)")
     public ModelAndView createRole(@PathVariable String id) {
         Company company = companyService.findOne(id);
         List<Permission> allPermissions = new ArrayList<>();
@@ -102,7 +102,7 @@ public class CompanyRoleController {
     }
 
     @RequestMapping(value = "/{id}/role/{rid}", method = RequestMethod.GET)
-    @PreAuthorize("@permissionManager.hasCompanyPermission(principal, #id, T(de.stekoe.idss.model.PermissionType).MANAGE_ROLES)")
+    @PreAuthorize("@permissionManager.hasCompanyPermission(principal, #id, T(de.stekoe.oasis.model.PermissionType).MANAGE_ROLES)")
     public ModelAndView listRole(@PathVariable String id, @PathVariable String rid) {
         Company company = companyService.findOne(id);
         CompanyRole companyRole = company.getRoles().stream().filter(role -> role.getId().equals(rid)).findAny().get();
@@ -121,7 +121,7 @@ public class CompanyRoleController {
     }
 
     @RequestMapping(value = "/{id}/role/{rid}/delete", method = RequestMethod.GET)
-    @PreAuthorize("@permissionManager.hasCompanyPermission(principal, #id, T(de.stekoe.idss.model.PermissionType).MANAGE_ROLES)")
+    @PreAuthorize("@permissionManager.hasCompanyPermission(principal, #id, T(de.stekoe.oasis.model.PermissionType).MANAGE_ROLES)")
     public String deleteRole(@PathVariable String id, @PathVariable String rid, RedirectAttributes redirectAttributes) {
         Company company = companyService.findOne(id);
 

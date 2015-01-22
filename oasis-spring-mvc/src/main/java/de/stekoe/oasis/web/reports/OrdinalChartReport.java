@@ -2,7 +2,7 @@ package de.stekoe.oasis.web.reports;
 
 import de.stekoe.amcharts.*;
 import de.stekoe.amcharts.addition.Color;
-import de.stekoe.idss.model.*;
+import de.stekoe.oasis.model.*;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;

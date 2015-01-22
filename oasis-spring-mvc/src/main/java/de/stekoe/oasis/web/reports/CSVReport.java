@@ -1,6 +1,6 @@
 package de.stekoe.oasis.web.reports;
 
-import de.stekoe.idss.model.*;
+import de.stekoe.oasis.model.*;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.QuoteMode;

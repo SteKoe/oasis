@@ -28,7 +28,7 @@ import java.util.Locale;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "de.stekoe.oasis")
-@Import({ThymeleafConfig.class, SecurityConfig.class, WebConfig.class, MailConfig.class})
+@Import({ThymeleafConfig.class, SecurityConfig.class, ApplicationInitializer.class, WebConfig.class, MailConfig.class})
 @ImportResource("classpath:services/BeanLocations.xml")
 @PropertySource({"classpath:application.properties"})
 public class ApplicationContext extends WebMvcConfigurerAdapter {

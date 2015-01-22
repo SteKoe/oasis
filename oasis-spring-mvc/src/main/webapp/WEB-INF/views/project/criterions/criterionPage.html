@@ -45,11 +45,11 @@
             <div th:if="${criterionPage.pageElements.size() > 0}" class="criterion-page-body">
                 <div th:each="pageElement,iter : ${criterionPage.pageElements}" th:remove="tag">
                     <!-- CriterionGroup -->
-                    <div th:if="${pageElement instanceof T(de.stekoe.idss.model.CriterionGroup)}" th:remove="tag">
+                    <div th:if="${pageElement instanceof T(de.stekoe.oasis.model.CriterionGroup)}" th:remove="tag">
                         <div th:replace="/project/criterions/criterionGroup"></div>
                     </div>
                     <!-- SSC -->
-                    <div th:with="criterion=${pageElement}" th:if="${pageElement instanceof T(de.stekoe.idss.model.SingleScaledCriterion)}" th:remove="tag">
+                    <div th:with="criterion=${pageElement}" th:if="${pageElement instanceof T(de.stekoe.oasis.model.SingleScaledCriterion)}" th:remove="tag">
                         <div  th:replace="/project/criterions/generic/singleScaledCriterion"></div>
                     </div>
                 </div>

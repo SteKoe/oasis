@@ -1,21 +1,26 @@
 package de.stekoe.oasis.web.project;
 
-import de.stekoe.idss.model.Criterion;
-import de.stekoe.idss.model.MeasurementValue;
-import de.stekoe.idss.model.Project;
-import de.stekoe.idss.model.SingleScaledCriterion;
-import de.stekoe.idss.service.CriterionService;
-import de.stekoe.idss.service.ProjectService;
+import de.stekoe.oasis.model.Criterion;
+import de.stekoe.oasis.model.MeasurementValue;
+import de.stekoe.oasis.model.Project;
+import de.stekoe.oasis.model.SingleScaledCriterion;
+import de.stekoe.oasis.service.CriterionService;
+import de.stekoe.oasis.service.ProjectService;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.*;
 
 @Controller
 public class ProjectCompareController {
+
+    Logger logger = Logger.getLogger(ProjectCompareController.class);
 
     @Autowired
     ProjectService projectService;
@@ -27,10 +32,9 @@ public class ProjectCompareController {
     private Map<Criterion, List<MeasurementValueCompareResult>> nonMatchingCriterions = new LinkedHashMap<>();
 
     @RequestMapping(value = "/project/compare")
-    public ModelAndView compare() {
-
-        Project left = projectService.findOne("8bef880f-ed76-4bfd-9853-ade6af487028");
-        Project right = projectService.findOne("537a4187-a27a-403b-a7ab-9654af6eef17");
+    public ModelAndView compare(@RequestParam("left") String pid1, @RequestParam("right") String pid2) {
+        Project left = projectService.findOne(pid1);
+        Project right = projectService.findOne(pid2);
 
         List<Criterion> leftCriterions = criterionService.findAllForReport(left.getId());
         List<Criterion> rightCriterions = criterionService.findAllForReport(right.getId());
@@ -38,6 +42,9 @@ public class ProjectCompareController {
         computeEqualCriterions(leftCriterions, rightCriterions);
 
         ModelAndView model = new ModelAndView("/project/compare");
+        model.addObject("projects", Arrays.asList(left, right));
+        model.addObject("projectLeft", left);
+        model.addObject("projectRight", right);
         model.addObject("matchingCriterions", matchingCriterions);
         model.addObject("nonMatchingCriterions", nonMatchingCriterions);
         return model;
@@ -57,7 +64,7 @@ public class ProjectCompareController {
     }
 
     private List<MeasurementValueCompareResult> computeEqualMeasurementValues(Criterion leftCriterion, Criterion rightCriterion) {
-        List<MeasurementValueCompareResult> mvcrs = new LinkedList<MeasurementValueCompareResult>();
+        List<MeasurementValueCompareResult> mvcrs = new LinkedList<>();
         if(leftCriterion instanceof SingleScaledCriterion && rightCriterion instanceof SingleScaledCriterion) {
             SingleScaledCriterion leftSsc = (SingleScaledCriterion) leftCriterion;
             SingleScaledCriterion rightSsc = (SingleScaledCriterion) rightCriterion;
@@ -75,7 +82,7 @@ public class ProjectCompareController {
 
             leftValues.forEach(leftValue -> {
                 MeasurementValueCompareResult mvcr = new MeasurementValueCompareResult();
-                mvcr.setLeft((MeasurementValue) leftValue);
+                mvcr.setLeft(leftValue);
 
                 Optional<MeasurementValue> any = rightValues.stream().filter(val -> val.getValue().equalsIgnoreCase(leftValue.getValue())).findAny();
 

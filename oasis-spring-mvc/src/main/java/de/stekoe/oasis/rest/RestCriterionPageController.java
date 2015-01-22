@@ -1,10 +1,10 @@
 package de.stekoe.oasis.rest;
 
-import de.stekoe.idss.model.CriterionPage;
-import de.stekoe.idss.model.CriterionPageDescriptor;
-import de.stekoe.idss.model.Project;
-import de.stekoe.idss.service.CriterionPageService;
-import de.stekoe.idss.service.ProjectService;
+import de.stekoe.oasis.model.CriterionPage;
+import de.stekoe.oasis.model.CriterionPageDescriptor;
+import de.stekoe.oasis.model.Project;
+import de.stekoe.oasis.service.CriterionPageService;
+import de.stekoe.oasis.service.ProjectService;
 import de.stekoe.oasis.beans.PermissionManager;
 import de.stekoe.oasis.web.JSONValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,7 @@ public class RestCriterionPageController {
     JSONValidator jsonValidator;
 
     @RequestMapping(value = "/api/project/{pid}/criterionpage/{cpid}", method = RequestMethod.GET)
-    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.idss.model.PermissionType).MANAGE_CRITERIONS)")
+    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.oasis.model.PermissionType).MANAGE_CRITERIONS)")
     @ResponseBody
     public String get(@PathVariable String pid, @PathVariable String cpid) {
         CriterionPage criterionPage = criterionPageService.findOne(cpid);
@@ -50,7 +50,7 @@ public class RestCriterionPageController {
     }
 
     @RequestMapping(value = "/api/project/{pid}/criterionpage", method = RequestMethod.POST)
-    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.idss.model.PermissionType).MANAGE_CRITERIONS)")
+    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.oasis.model.PermissionType).MANAGE_CRITERIONS)")
     @ResponseBody
     public String post(@PathVariable String pid, @Valid @RequestBody CriterionPageDescriptor criterionPageDescriptor, BindingResult bindingResult, Locale locale) {
         JsonObjectBuilder json = Json.createObjectBuilder();
@@ -70,7 +70,7 @@ public class RestCriterionPageController {
     }
 
     @RequestMapping(value = "/api/project/{pid}/criterionpage/{cpid}", method = RequestMethod.PUT)
-    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.idss.model.PermissionType).MANAGE_CRITERIONS)")
+    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.oasis.model.PermissionType).MANAGE_CRITERIONS)")
     @ResponseBody
     public String put(@PathVariable String pid, @PathVariable String cpid, @Valid @RequestBody CriterionPageDescriptor criterionPageDescriptor, BindingResult bindingResult, Locale locale) {
         JsonObjectBuilder json = Json.createObjectBuilder();
@@ -89,7 +89,7 @@ public class RestCriterionPageController {
     }
 
     @RequestMapping(value = "/api/project/{pid}/criterionpage/{cpid}", method = RequestMethod.DELETE)
-    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.idss.model.PermissionType).MANAGE_CRITERIONS)")
+    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.oasis.model.PermissionType).MANAGE_CRITERIONS)")
     @ResponseBody
     public String delete(@PathVariable String pid, @PathVariable String cpid) {
         try {

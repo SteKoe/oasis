@@ -1,11 +1,11 @@
 package de.stekoe.oasis.web.project;
 
-import de.stekoe.idss.model.Document;
-import de.stekoe.idss.model.PermissionType;
-import de.stekoe.idss.model.Project;
-import de.stekoe.idss.service.DocumentService;
-import de.stekoe.idss.service.ProjectService;
-import de.stekoe.idss.service.UserService;
+import de.stekoe.oasis.model.Document;
+import de.stekoe.oasis.model.PermissionType;
+import de.stekoe.oasis.model.Project;
+import de.stekoe.oasis.service.DocumentService;
+import de.stekoe.oasis.service.ProjectService;
+import de.stekoe.oasis.service.UserService;
 import de.stekoe.oasis.beans.PermissionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -45,7 +45,7 @@ public class ProjectDocumentController {
     PermissionManager permissionManager;
 
     @RequestMapping(value = "/project/{pid}/document", method = RequestMethod.GET)
-    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.idss.model.PermissionType).UPLOAD_FILE)")
+    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.oasis.model.PermissionType).UPLOAD_FILE)")
     public ModelAndView list(@PathVariable String pid) {
         Project project = projectService.findOne(pid);
 
@@ -58,12 +58,12 @@ public class ProjectDocumentController {
     }
 
     @RequestMapping(value = "/project/{pid}/document/{did}", method = RequestMethod.GET)
-    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.idss.model.PermissionType).UPLOAD_FILE)")
+    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.oasis.model.PermissionType).UPLOAD_FILE)")
     public void download(@PathVariable String pid, @PathVariable String did, HttpServletResponse response) {
         try {
             Document document = documentService.findOne(did);
             response.setContentType(document.getContentType());
-            response.setContentLengthLong(document.getSize());
+            response.setContentLength((int) document.getSize());
 
             String headerKey = "Content-Disposition";
             String headerValue = String.format("attachment; filename=\"%s\"", document.getName());
@@ -95,7 +95,7 @@ public class ProjectDocumentController {
      * ==== REST API ===================================================================================================
      */
     @RequestMapping(value = "/api/project/{pid}/document", method = RequestMethod.POST)
-    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.idss.model.PermissionType).UPLOAD_FILE)")
+    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.oasis.model.PermissionType).UPLOAD_FILE)")
     public String post(@PathVariable String pid, @RequestParam MultipartFile file, RedirectAttributes redirectAttributes, Locale locale) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
@@ -125,7 +125,7 @@ public class ProjectDocumentController {
     }
 
     @RequestMapping(value = "/api/project/{pid}/document/{did}", method = RequestMethod.DELETE)
-    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.idss.model.PermissionType).UPLOAD_FILE)")
+    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.oasis.model.PermissionType).UPLOAD_FILE)")
     public @ResponseBody String post(@PathVariable String pid, @PathVariable String did) {
         if(canDelete(did, pid)) {
             // Delete Document from Project

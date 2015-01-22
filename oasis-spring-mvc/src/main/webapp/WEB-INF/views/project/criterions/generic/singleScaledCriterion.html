@@ -35,10 +35,10 @@
         </div>
         <div class="measure">
 
-            <div th:if="${criterion instanceof T(de.stekoe.idss.model.NominalScaledCriterion)}" th:remove="tag">
+            <div th:if="${criterion instanceof T(de.stekoe.oasis.model.NominalScaledCriterion)}" th:remove="tag">
                 <div th:replace="/project/criterions/generic/nominalScaledCriterion"></div>
             </div>
-            <div th:if="${criterion instanceof T(de.stekoe.idss.model.OrdinalScaledCriterion)}" th:remove="tag">
+            <div th:if="${criterion instanceof T(de.stekoe.oasis.model.OrdinalScaledCriterion)}" th:remove="tag">
                 <div th:replace="/project/criterions/generic/ordinalScaledCriterion"></div>
             </div>
         </div>

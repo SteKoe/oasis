@@ -1,11 +1,11 @@
 package de.stekoe.oasis.rest;
 
-import de.stekoe.idss.model.CriterionGroup;
-import de.stekoe.idss.model.CriterionGroupDescriptor;
-import de.stekoe.idss.model.CriterionPage;
-import de.stekoe.idss.model.PageElement;
-import de.stekoe.idss.service.CriterionGroupService;
-import de.stekoe.idss.service.CriterionPageService;
+import de.stekoe.oasis.model.CriterionGroup;
+import de.stekoe.oasis.model.CriterionGroupDescriptor;
+import de.stekoe.oasis.model.CriterionPage;
+import de.stekoe.oasis.model.PageElement;
+import de.stekoe.oasis.service.CriterionGroupService;
+import de.stekoe.oasis.service.CriterionPageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

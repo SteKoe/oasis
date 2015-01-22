@@ -1,7 +1,7 @@
 package de.stekoe.oasis.web.reports;
 
-import de.stekoe.idss.model.Criterion;
-import de.stekoe.idss.model.UserChoices;
+import de.stekoe.oasis.model.Criterion;
+import de.stekoe.oasis.model.UserChoices;
 
 import java.util.Arrays;
 import java.util.List;

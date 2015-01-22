@@ -26,7 +26,7 @@
     </label>
 </div>
 
-<div class="checkbox" th:if="${criterion instanceof T(de.stekoe.idss.model.NominalScaledCriterion)}">
+<div class="checkbox" th:if="${criterion instanceof T(de.stekoe.oasis.model.NominalScaledCriterion)}">
     <label>
         <input type="checkbox" th:field="*{multipleChoice}">
         <span th:text="#{label.criterion.allowMultipleChoice}" th:remove="tag"></span>

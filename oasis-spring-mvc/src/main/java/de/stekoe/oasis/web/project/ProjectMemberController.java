@@ -1,10 +1,10 @@
 package de.stekoe.oasis.web.project;
 
-import de.stekoe.idss.model.*;
-import de.stekoe.idss.service.ProjectMemberService;
-import de.stekoe.idss.service.ProjectRoleService;
-import de.stekoe.idss.service.ProjectService;
-import de.stekoe.idss.service.UserService;
+import de.stekoe.oasis.model.*;
+import de.stekoe.oasis.service.ProjectMemberService;
+import de.stekoe.oasis.service.ProjectRoleService;
+import de.stekoe.oasis.service.ProjectService;
+import de.stekoe.oasis.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -40,7 +40,7 @@ public class ProjectMemberController {
     ProjectMemberService projectMemberService;
 
     @RequestMapping(value = "/project/{pid}/member", method = RequestMethod.GET)
-    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.idss.model.PermissionType).MANAGE_MEMBER)")
+    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.oasis.model.PermissionType).MANAGE_MEMBER)")
     public ModelAndView edit(@PathVariable String pid) {
         Project project = projectService.findOne(pid);
 
@@ -62,7 +62,7 @@ public class ProjectMemberController {
      * ==== REST API ===================================================================================================
      */
     @RequestMapping(value = "/api/project/{pid}/member", method = RequestMethod.GET)
-    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.idss.model.PermissionType).MANAGE_MEMBER)")
+    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.oasis.model.PermissionType).MANAGE_MEMBER)")
     @ResponseBody
     public Set<ProjectMemberDescriptor> apiList(@PathVariable String pid) {
         Set<ProjectMemberDescriptor> pm = new HashSet<>();
@@ -76,7 +76,7 @@ public class ProjectMemberController {
     }
 
     @RequestMapping(value = "/api/project/{pid}/member/{mid}", method = RequestMethod.DELETE, produces="application/json")
-    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.idss.model.PermissionType).MANAGE_MEMBER)")
+    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.oasis.model.PermissionType).MANAGE_MEMBER)")
     @ResponseBody
     public String delete(@PathVariable String pid, @PathVariable String mid) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -98,7 +98,7 @@ public class ProjectMemberController {
     }
 
     @RequestMapping(value = "/api/project/{pid}/member", method = RequestMethod.POST)
-    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.idss.model.PermissionType).MANAGE_MEMBER)")
+    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.oasis.model.PermissionType).MANAGE_MEMBER)")
     @ResponseBody
     public String post(@PathVariable String pid, @RequestBody MultiValueMap<String,String> body) {
         String userid = body.getFirst("userid");
@@ -121,7 +121,7 @@ public class ProjectMemberController {
     }
 
     @RequestMapping(value = "/api/project/{pid}/member/{mid}", method = RequestMethod.GET)
-    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.idss.model.PermissionType).MANAGE_MEMBER)")
+    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.oasis.model.PermissionType).MANAGE_MEMBER)")
     @ResponseBody
     public ProjectMemberDescriptor get(@PathVariable String pid, @PathVariable String mid) {
         ProjectMember projectMember = projectMemberService.findOne(mid);
@@ -129,7 +129,7 @@ public class ProjectMemberController {
     }
 
     @RequestMapping(value = "/api/project/{pid}/member/{mid}", method = RequestMethod.PUT)
-    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.idss.model.PermissionType).MANAGE_MEMBER)")
+    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.oasis.model.PermissionType).MANAGE_MEMBER)")
     @ResponseBody
     public String put(@PathVariable String pid, @PathVariable String mid, @RequestBody MultiValueMap<String,String> body) {
         String projectRole = body.getFirst("projectRole");

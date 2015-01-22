@@ -1,7 +1,7 @@
 package de.stekoe.oasis.service;
 
-import de.stekoe.idss.model.Company;
-import de.stekoe.idss.model.User;
+import de.stekoe.oasis.model.Company;
+import de.stekoe.oasis.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;

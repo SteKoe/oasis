@@ -1,9 +1,9 @@
 package de.stekoe.oasis.rest;
 
-import de.stekoe.idss.model.Project;
-import de.stekoe.idss.model.ProjectRole;
-import de.stekoe.idss.service.ProjectRoleService;
-import de.stekoe.idss.service.ProjectService;
+import de.stekoe.oasis.model.Project;
+import de.stekoe.oasis.model.ProjectRole;
+import de.stekoe.oasis.service.ProjectRoleService;
+import de.stekoe.oasis.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

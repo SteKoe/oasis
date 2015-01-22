@@ -1,13 +1,25 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="layout_containered">
-<body>
-    <div layout:fragment="content">
-        <h3 th:text="#{label.compare}">
-            Compare
-        </h3>
+      layout:decorator="layout">
+<body th:with="colClass = 'col-md-' + ${12/projects.size()}">
+    <div layout:fragment="content" th:class="${projects.size() <= 3} ? 'container' : ''">
+        <h2 th:text="#{label.project.compare}">
+            Projekte vergleichen
+        </h2>
+        <div th:text="${t}"></div>
+        <div class="row">
+            <div th:class="${colClass}">
+                <h3 th:text="#{label.project} + ': ' + ${projectLeft.name}"></h3>
+                <div class="description" th:utext="${projectLeft.description}"></div>
+            </div>
+            <div th:class="${colClass}">
+                <h3 th:text="#{label.project} + ': ' + ${projectRight.name}"></h3>
+                <div class="description" th:utext="${projectRight.description}"></div>
+            </div>
+        </div>
 
+        <hr>
 
         <th:block  th:each="matchingCriterion : ${matchingCriterions}">
             <h5 th:text="${matchingCriterion.key.name}"></h5>

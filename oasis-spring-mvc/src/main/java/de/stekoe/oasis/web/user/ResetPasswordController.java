@@ -1,9 +1,9 @@
 package de.stekoe.oasis.web.user;
 
-import de.stekoe.idss.model.User;
-import de.stekoe.idss.model.UserStatus;
-import de.stekoe.idss.service.AuthService;
-import de.stekoe.idss.service.UserService;
+import de.stekoe.oasis.model.User;
+import de.stekoe.oasis.model.UserStatus;
+import de.stekoe.oasis.service.AuthService;
+import de.stekoe.oasis.service.UserService;
 import de.stekoe.oasis.service.MailService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;

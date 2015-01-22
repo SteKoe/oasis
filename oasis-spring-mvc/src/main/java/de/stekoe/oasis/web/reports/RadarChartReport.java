@@ -5,8 +5,8 @@ import de.stekoe.amcharts.AmLegend;
 import de.stekoe.amcharts.AmRadarChart;
 import de.stekoe.amcharts.ValueAxis;
 import de.stekoe.amcharts.addition.Color;
-import de.stekoe.idss.model.*;
-import de.stekoe.idss.service.EmployeeService;
+import de.stekoe.oasis.model.*;
+import de.stekoe.oasis.service.EmployeeService;
 
 import java.util.*;
 

@@ -22,8 +22,6 @@
                         modal.on('submit', 'form', function(e) {
                               e.preventDefault();
 
-                              console.log();
-
                               var data = {
                                     name: $(this).find('#name').val(),
                                     description: $(this).find('#description').val()
@@ -101,6 +99,29 @@
                               });
                         }
                   });
+
+                  $('body').on('click', 'input.compare', function() {
+                        var $compareButton = $('.btn-compare');
+                        var $projects = $('input.compare:checked');
+                        var selectedProjects = $projects.length;
+                        if(selectedProjects >= 2) {
+                              $compareButton.removeClass('disabled');
+                              var href = $compareButton.attr('href');
+                              href = href.split('?')[0];
+                              href += '?left=' + $projects.eq(0).data('id')
+                              href += '&right=' + $projects.eq(1).data('id')
+                              $compareButton.attr('href', href);
+                        } else {
+                              $compareButton.addClass('disabled');
+                        }
+                  });
+
+                  $('body').on('click', '.btn-compare', function(e) {
+                        var selectedProjects = $('input.compare:checked').length;
+                        if(selectedProjects !== 2) {
+                              e.preventDefault();
+                        }
+                  });
             });
             tinymce.init({
                   selector: "textarea.editor",
@@ -113,12 +134,20 @@
       </script>
 </head>
 <body layout:fragment="content">
-      <div>
-            <a href="" class="btn btn-default btn-primary" data-toggle="modal" data-target="#addProjectModal">
+      <p>
+            <a href="" class="btn btn-primary" data-toggle="modal" data-target="#addProjectModal">
                   <span class="fa fa-plus"></span>
                   <span th:text="#{label.create(#{label.project})}"></span>
             </a>
-      </div>
+            <a th:href="@{/project/compare}" class="btn btn-default btn-compare disabled">
+                  <span class="fa "></span>
+                  <span th:text="#{label.compare}"></span>
+            </a>
+      </p>
+
+      <p th:text="#{label.project.compare.hint}" class="text-info">
+            Um Projekte zu vergleichen, wählen Sie genau zwei Projekte aus und klicken auf "Vergleichen"!
+      </p>
 
       <table class="table">
             <thead>
@@ -130,7 +159,10 @@
             <tbody>
                   <tr th:each="project : ${projects}">
                         <td>
-                              <span th:text="${project.name}"></span>
+                              <label>
+                                    <input type="checkbox" th:attr="data-id=${project.id}" class="compare">&nbsp;
+                                    <span th:text="${project.name}" style="font-weight: normal"></span>
+                              </label>
                         </td>
                         <td class="actions text-right">
                               <a th:href="@{/project/{id}(id=${project.id})}" class="btn btn-xs btn-default" th:text="#{label.details}">

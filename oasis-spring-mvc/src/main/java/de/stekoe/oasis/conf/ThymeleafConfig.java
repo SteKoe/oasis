@@ -1,9 +1,8 @@
-package de.stekoe.oasis.conf;
+  package de.stekoe.oasis.conf;
 
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.thymeleaf.extras.springsecurity3.dialect.SpringSecurityDialect;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
@@ -16,7 +15,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Configuration
-@PropertySource("classpath:thymeleaf.properties")
 public class ThymeleafConfig {
 
     @Bean
@@ -36,7 +34,7 @@ public class ThymeleafConfig {
     @Bean
     public TemplateResolver emailTemplateResolver() {
         ClassLoaderTemplateResolver emailTemplateResolver = new ClassLoaderTemplateResolver();
-        emailTemplateResolver.setPrefix("mail/");
+        emailTemplateResolver.setPrefix("/WEB-INF/mail/");
         emailTemplateResolver.setSuffix(".html");
         emailTemplateResolver.setTemplateMode("LEGACYHTML5");
         emailTemplateResolver.setCharacterEncoding("UTF-8");

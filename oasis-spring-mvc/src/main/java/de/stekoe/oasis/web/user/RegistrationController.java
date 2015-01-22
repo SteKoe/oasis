@@ -1,7 +1,7 @@
 package de.stekoe.oasis.web.user;
 
-import de.stekoe.idss.model.*;
-import de.stekoe.idss.service.*;
+import de.stekoe.oasis.model.*;
+import de.stekoe.oasis.service.*;
 import de.stekoe.oasis.service.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;

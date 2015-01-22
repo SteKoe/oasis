@@ -1,13 +1,13 @@
 package de.stekoe.oasis.web.project;
 
-import de.stekoe.idss.model.CriterionPage;
-import de.stekoe.idss.model.Project;
-import de.stekoe.idss.model.User;
-import de.stekoe.idss.model.UserChoices;
-import de.stekoe.idss.service.CriterionPageService;
-import de.stekoe.idss.service.ProjectService;
-import de.stekoe.idss.service.UserChoicesService;
-import de.stekoe.idss.service.UserService;
+import de.stekoe.oasis.model.CriterionPage;
+import de.stekoe.oasis.model.Project;
+import de.stekoe.oasis.model.User;
+import de.stekoe.oasis.model.UserChoices;
+import de.stekoe.oasis.service.CriterionPageService;
+import de.stekoe.oasis.service.ProjectService;
+import de.stekoe.oasis.service.UserChoicesService;
+import de.stekoe.oasis.service.UserService;
 import de.stekoe.oasis.web.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;

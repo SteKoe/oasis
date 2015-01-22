@@ -1,10 +1,10 @@
 package de.stekoe.oasis.web.company;
 
-import de.stekoe.idss.model.Company;
-import de.stekoe.idss.model.CompanyRole;
-import de.stekoe.idss.model.Employee;
-import de.stekoe.idss.service.AddressService;
-import de.stekoe.idss.service.CompanyService;
+import de.stekoe.oasis.model.Company;
+import de.stekoe.oasis.model.CompanyRole;
+import de.stekoe.oasis.model.Employee;
+import de.stekoe.oasis.service.AddressService;
+import de.stekoe.oasis.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -50,7 +50,7 @@ public class CompanyController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    @PreAuthorize("@permissionManager.hasCompanyPermission(principal, #id, T(de.stekoe.idss.model.PermissionType).READ)")
+    @PreAuthorize("@permissionManager.hasCompanyPermission(principal, #id, T(de.stekoe.oasis.model.PermissionType).READ)")
     public ModelAndView index(@PathVariable String id) {
         Company company = companyService.findOne(id);
 

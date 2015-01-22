@@ -1,12 +1,12 @@
 package de.stekoe.oasis.web.project.criterions;
 
-import de.stekoe.idss.model.CriterionGroup;
-import de.stekoe.idss.model.CriterionPage;
-import de.stekoe.idss.model.Project;
-import de.stekoe.idss.service.CriterionGroupService;
-import de.stekoe.idss.service.CriterionPageService;
-import de.stekoe.idss.service.ProjectService;
-import de.stekoe.idss.service.ReferenceCriterionGroupService;
+import de.stekoe.oasis.model.CriterionGroup;
+import de.stekoe.oasis.model.CriterionPage;
+import de.stekoe.oasis.model.Project;
+import de.stekoe.oasis.service.CriterionGroupService;
+import de.stekoe.oasis.service.CriterionPageService;
+import de.stekoe.oasis.service.ProjectService;
+import de.stekoe.oasis.service.ReferenceCriterionGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;

@@ -1,9 +1,9 @@
 package de.stekoe.oasis.web.company;
 
-import de.stekoe.idss.model.Address;
-import de.stekoe.idss.model.Company;
-import de.stekoe.idss.service.AddressService;
-import de.stekoe.idss.service.CompanyService;
+import de.stekoe.oasis.model.Address;
+import de.stekoe.oasis.model.Company;
+import de.stekoe.oasis.service.AddressService;
+import de.stekoe.oasis.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -32,7 +32,7 @@ public class CompanyAddressController {
     MessageSource messageSource;
 
     @RequestMapping(value = "/{id}/address", method = RequestMethod.GET)
-    @PreAuthorize("@permissionManager.hasCompanyPermission(principal, #id, T(de.stekoe.idss.model.PermissionType).MANAGE_ADDRESSES)")
+    @PreAuthorize("@permissionManager.hasCompanyPermission(principal, #id, T(de.stekoe.oasis.model.PermissionType).MANAGE_ADDRESSES)")
     public ModelAndView listAddress(@PathVariable String id) {
         ModelAndView model = new ModelAndView("/company/address");
         Company company = companyService.findOne(id);
@@ -42,7 +42,7 @@ public class CompanyAddressController {
     }
 
     @RequestMapping(value = "/{id}/address/create", method = RequestMethod.GET)
-    @PreAuthorize("@permissionManager.hasCompanyPermission(principal, #id, T(de.stekoe.idss.model.PermissionType).MANAGE_ADDRESSES)")
+    @PreAuthorize("@permissionManager.hasCompanyPermission(principal, #id, T(de.stekoe.oasis.model.PermissionType).MANAGE_ADDRESSES)")
     public ModelAndView createAddress(@PathVariable String id) {
         ModelAndView model = new ModelAndView("/company/address_edit");
         Company company = companyService.findOne(id);
@@ -53,7 +53,7 @@ public class CompanyAddressController {
     }
 
     @RequestMapping(value = "/{id}/address/{aid}", method = RequestMethod.GET)
-    @PreAuthorize("@permissionManager.hasCompanyPermission(principal, #id, T(de.stekoe.idss.model.PermissionType).MANAGE_ADDRESSES)")
+    @PreAuthorize("@permissionManager.hasCompanyPermission(principal, #id, T(de.stekoe.oasis.model.PermissionType).MANAGE_ADDRESSES)")
     public ModelAndView listAddress(@PathVariable String id, @PathVariable String aid) {
         ModelAndView model = new ModelAndView("/company/address_edit");
         Company company = companyService.findOne(id);
@@ -64,7 +64,7 @@ public class CompanyAddressController {
     }
 
     @RequestMapping(value = "/{id}/address", method = RequestMethod.POST)
-    @PreAuthorize("@permissionManager.hasCompanyPermission(principal, #id, T(de.stekoe.idss.model.PermissionType).MANAGE_ADDRESSES)")
+    @PreAuthorize("@permissionManager.hasCompanyPermission(principal, #id, T(de.stekoe.oasis.model.PermissionType).MANAGE_ADDRESSES)")
     public ModelAndView saveAddress(@PathVariable String id, @Valid Address address, BindingResult bindingResult) {
         Company company = companyService.findOne(id);
 
@@ -89,7 +89,7 @@ public class CompanyAddressController {
     }
 
     @RequestMapping(value = "/{id}/address/{aid}/delete", method = RequestMethod.GET)
-    @PreAuthorize("@permissionManager.hasCompanyPermission(principal, #id, T(de.stekoe.idss.model.PermissionType).MANAGE_ADDRESSES)")
+    @PreAuthorize("@permissionManager.hasCompanyPermission(principal, #id, T(de.stekoe.oasis.model.PermissionType).MANAGE_ADDRESSES)")
     public String deleteAddress(@PathVariable String id, @PathVariable String aid, RedirectAttributes redirectAttributes) {
         Company company = companyService.findOne(id);
 

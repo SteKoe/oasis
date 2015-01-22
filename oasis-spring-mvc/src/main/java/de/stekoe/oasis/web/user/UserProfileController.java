@@ -1,14 +1,14 @@
 package de.stekoe.oasis.web.user;
 
 import de.bripkens.gravatar.Gravatar;
-import de.stekoe.idss.model.Company;
-import de.stekoe.idss.model.Employee;
-import de.stekoe.idss.model.User;
-import de.stekoe.idss.model.UserProfile;
-import de.stekoe.idss.service.CompanyService;
-import de.stekoe.idss.service.EmailAddressAlreadyInUseException;
-import de.stekoe.idss.service.UserService;
-import de.stekoe.idss.service.UsernameAlreadyInUseException;
+import de.stekoe.oasis.model.Company;
+import de.stekoe.oasis.model.Employee;
+import de.stekoe.oasis.model.User;
+import de.stekoe.oasis.model.UserProfile;
+import de.stekoe.oasis.service.CompanyService;
+import de.stekoe.oasis.service.EmailAddressAlreadyInUseException;
+import de.stekoe.oasis.service.UserService;
+import de.stekoe.oasis.service.UsernameAlreadyInUseException;
 import org.apache.commons.codec.binary.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;

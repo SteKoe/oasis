@@ -1,8 +1,8 @@
 package de.stekoe.oasis.web.project;
 
-import de.stekoe.idss.model.*;
-import de.stekoe.idss.service.ProjectService;
-import de.stekoe.idss.service.UserService;
+import de.stekoe.oasis.model.*;
+import de.stekoe.oasis.service.ProjectService;
+import de.stekoe.oasis.service.UserService;
 import de.stekoe.oasis.web.JSONValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -54,7 +54,7 @@ public class ProjectController {
     }
 
     @RequestMapping(value = "/project/{id}", method = RequestMethod.GET)
-    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #id, T(de.stekoe.idss.model.PermissionType).UPDATE)")
+    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #id, T(de.stekoe.oasis.model.PermissionType).UPDATE)")
     public ModelAndView show(@PathVariable String id) {
         Project project = projectService.findOne(id);
 
@@ -72,7 +72,7 @@ public class ProjectController {
     }
 
     @RequestMapping(value = "/project/{id}/edit", method = RequestMethod.GET)
-    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #id, T(de.stekoe.idss.model.PermissionType).UPDATE)")
+    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #id, T(de.stekoe.oasis.model.PermissionType).UPDATE)")
     public ModelAndView edit(@PathVariable String id) {
         Project project = projectService.findOne(id);
 
@@ -85,7 +85,7 @@ public class ProjectController {
 
 
     @RequestMapping(value = "/project/{id}", method = RequestMethod.POST)
-    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #id, T(de.stekoe.idss.model.PermissionType).UPDATE)")
+    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #id, T(de.stekoe.oasis.model.PermissionType).UPDATE)")
     public String save(@ModelAttribute Project project, BindingResult bindingResult, @PathVariable String id) {
         if(bindingResult.hasErrors()) {
             return "project/edit";

@@ -1,9 +1,9 @@
 package de.stekoe.oasis.web.project.criterions;
 
-import de.stekoe.idss.model.*;
-import de.stekoe.idss.service.CriterionPageService;
-import de.stekoe.idss.service.CriterionService;
-import de.stekoe.idss.service.ProjectService;
+import de.stekoe.oasis.model.*;
+import de.stekoe.oasis.service.CriterionPageService;
+import de.stekoe.oasis.service.CriterionService;
+import de.stekoe.oasis.service.ProjectService;
 import de.stekoe.oasis.web.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -30,7 +30,7 @@ public class ProjectCriterionsController {
     CriterionService criterionService;
 
     @RequestMapping(value = "/project/{pid}/criterions")
-    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.idss.model.PermissionType).MANAGE_CRITERIONS)")
+    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.oasis.model.PermissionType).MANAGE_CRITERIONS)")
     public ModelAndView list(@PathVariable String pid, @RequestParam(required = false) Integer page) {
         if(page == null) {
             page = new Integer(0);
@@ -54,7 +54,7 @@ public class ProjectCriterionsController {
     }
 
     @RequestMapping(value = "/project/{pid}/criterions/{cpid}/select")
-    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.idss.model.PermissionType).MANAGE_CRITERIONS)")
+    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.oasis.model.PermissionType).MANAGE_CRITERIONS)")
     public ModelAndView selectType(@PathVariable String pid, @PathVariable String cpid) {
         Project project = projectService.findOne(pid);
 
@@ -66,7 +66,7 @@ public class ProjectCriterionsController {
     }
 
     @RequestMapping(value = "/project/{pid}/criterion/{cid}/edit", method = RequestMethod.GET)
-    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.idss.model.PermissionType).MANAGE_CRITERIONS)")
+    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.oasis.model.PermissionType).MANAGE_CRITERIONS)")
     public ModelAndView editCriterion(@PathVariable String pid, @PathVariable String cid) {
         Project project = projectService.findOne(pid);
         SingleScaledCriterion criterion = criterionService.findSingleScaledCriterionById(cid);

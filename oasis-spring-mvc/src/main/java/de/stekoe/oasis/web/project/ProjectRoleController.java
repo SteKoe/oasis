@@ -1,10 +1,10 @@
 package de.stekoe.oasis.web.project;
 
-import de.stekoe.idss.model.*;
-import de.stekoe.idss.service.ProjectMemberService;
-import de.stekoe.idss.service.ProjectRoleService;
-import de.stekoe.idss.service.ProjectService;
-import de.stekoe.idss.service.UserService;
+import de.stekoe.oasis.model.*;
+import de.stekoe.oasis.service.ProjectMemberService;
+import de.stekoe.oasis.service.ProjectRoleService;
+import de.stekoe.oasis.service.ProjectService;
+import de.stekoe.oasis.service.UserService;
 import de.stekoe.oasis.web.JSONValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -45,7 +45,7 @@ public class ProjectRoleController {
     JSONValidator jsonValidator;
 
     @RequestMapping(value = "/project/{pid}/role", method = RequestMethod.GET)
-    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.idss.model.PermissionType).MANAGE_ROLES)")
+    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.oasis.model.PermissionType).MANAGE_ROLES)")
     public ModelAndView list(@PathVariable String pid) {
         Project project = projectService.findOne(pid);
 
@@ -61,7 +61,7 @@ public class ProjectRoleController {
      */
 
     @RequestMapping(value = "/api/project/{pid}/role", method = RequestMethod.POST)
-    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.idss.model.PermissionType).MANAGE_ROLES)")
+    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.oasis.model.PermissionType).MANAGE_ROLES)")
     @ResponseBody
     public String post(@PathVariable String pid, @Valid @RequestBody ProjectRoleDescriptor role, BindingResult bindingResult, Locale locale) {
 
@@ -97,7 +97,7 @@ public class ProjectRoleController {
     }
 
     @RequestMapping(value = "/api/project/{pid}/role/{rid}", method = RequestMethod.DELETE)
-    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.idss.model.PermissionType).MANAGE_ROLES)")
+    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.oasis.model.PermissionType).MANAGE_ROLES)")
     @ResponseBody
     public String delete(@PathVariable String pid, @PathVariable String rid) {
         if(canDelete(pid,rid)) {
@@ -114,7 +114,7 @@ public class ProjectRoleController {
     }
 
     @RequestMapping(value = "/api/project/{pid}/role/{rid}", method = RequestMethod.GET)
-    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.idss.model.PermissionType).MANAGE_ROLES)")
+    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.oasis.model.PermissionType).MANAGE_ROLES)")
     @ResponseBody
     public ProjectRoleDescriptor get(@PathVariable String pid, @PathVariable String rid) {
         ProjectRole projectRole = projectRoleService.findOne(rid);
@@ -123,7 +123,7 @@ public class ProjectRoleController {
     }
 
     @RequestMapping(value = "/api/project/{pid}/role/{rid}", method = RequestMethod.PUT)
-    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.idss.model.PermissionType).MANAGE_ROLES)")
+    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.oasis.model.PermissionType).MANAGE_ROLES)")
     @ResponseBody
     public String edit(@PathVariable String pid, @PathVariable String rid, @RequestBody ProjectRoleDescriptor projectRoleDescriptor) {
         ProjectRole projectRole = projectRoleService.findOne(rid);

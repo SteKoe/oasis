@@ -1,10 +1,10 @@
 package de.stekoe.oasis.web.project.criterions;
 
-import de.stekoe.idss.model.*;
-import de.stekoe.idss.service.CriterionGroupService;
-import de.stekoe.idss.service.CriterionPageService;
-import de.stekoe.idss.service.CriterionService;
-import de.stekoe.idss.service.ProjectService;
+import de.stekoe.oasis.model.*;
+import de.stekoe.oasis.service.CriterionGroupService;
+import de.stekoe.oasis.service.CriterionPageService;
+import de.stekoe.oasis.service.CriterionService;
+import de.stekoe.oasis.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -35,7 +35,7 @@ public class NominalScaledCriterionController {
     CriterionService criterionService;
 
     @RequestMapping(value = "/project/{pid}/criterions/{cpid}/nominal", method = RequestMethod.GET)
-    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.idss.model.PermissionType).MANAGE_CRITERIONS)")
+    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.oasis.model.PermissionType).MANAGE_CRITERIONS)")
     public ModelAndView createForm(@PathVariable String pid, @PathVariable String cpid) {
         Project project = projectService.findOne(pid);
 
@@ -48,7 +48,7 @@ public class NominalScaledCriterionController {
     }
 
     @RequestMapping(value = "/project/{pid}/criterion/{cpid}/nominal", method = RequestMethod.POST)
-    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.idss.model.PermissionType).MANAGE_CRITERIONS)")
+    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.oasis.model.PermissionType).MANAGE_CRITERIONS)")
     public ModelAndView post(@PathVariable String pid, @PathVariable String cpid, @Valid @ModelAttribute("criterion") NominalScaledCriterion nsc, BindingResult bindingResult) {
         if(!bindingResult.hasErrors()) {
             CriterionPage criterionPage = criterionPageService.findOne(cpid);
@@ -80,7 +80,7 @@ public class NominalScaledCriterionController {
     }
 
     @RequestMapping(value = "/project/{pid}/criterion/nominal/{cid}", method = RequestMethod.POST)
-    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.idss.model.PermissionType).MANAGE_CRITERIONS)")
+    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.oasis.model.PermissionType).MANAGE_CRITERIONS)")
     public String put(@PathVariable String pid, @PathVariable String cid, @ModelAttribute NominalScaledCriterion nsc) {
 
         NominalScaledCriterion ssc = (NominalScaledCriterion) criterionService.findSingleScaledCriterionById(cid);

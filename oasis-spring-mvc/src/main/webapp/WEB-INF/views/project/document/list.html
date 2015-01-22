@@ -74,7 +74,7 @@
                         </a>
                         |
                         <span th:text="#{label.file.size}">Größe</span>:
-                        <span th:text="${document.size}">
+                        <span th:text="${T(org.apache.commons.io.FileUtils).byteCountToDisplaySize(document.size)}">
                             453.0 kb
                         </span>
                     </div>

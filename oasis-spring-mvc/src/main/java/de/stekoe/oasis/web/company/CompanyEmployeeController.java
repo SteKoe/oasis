@@ -1,10 +1,10 @@
 package de.stekoe.oasis.web.company;
 
-import de.stekoe.idss.model.*;
-import de.stekoe.idss.service.AddressService;
-import de.stekoe.idss.service.AuthService;
-import de.stekoe.idss.service.CompanyService;
-import de.stekoe.idss.service.UserService;
+import de.stekoe.oasis.model.*;
+import de.stekoe.oasis.service.AddressService;
+import de.stekoe.oasis.service.AuthService;
+import de.stekoe.oasis.service.CompanyService;
+import de.stekoe.oasis.service.UserService;
 import de.stekoe.oasis.service.MailService;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.log4j.Logger;
@@ -52,7 +52,7 @@ public class CompanyEmployeeController {
     MailService mailService;
 
     @RequestMapping(value = "/{id}/employee", method = RequestMethod.GET)
-    @PreAuthorize("@permissionManager.hasCompanyPermission(principal, #id, T(de.stekoe.idss.model.PermissionType).MANAGE_MEMBER)")
+    @PreAuthorize("@permissionManager.hasCompanyPermission(principal, #id, T(de.stekoe.oasis.model.PermissionType).MANAGE_MEMBER)")
     public ModelAndView listEmployee(@PathVariable String id) {
         Company company = companyService.findOne(id);
 
@@ -63,7 +63,7 @@ public class CompanyEmployeeController {
     }
 
     @RequestMapping(value = "/{id}/employee/{eid}", method = RequestMethod.GET)
-    @PreAuthorize("@permissionManager.hasCompanyPermission(principal, #id, T(de.stekoe.idss.model.PermissionType).MANAGE_MEMBER)")
+    @PreAuthorize("@permissionManager.hasCompanyPermission(principal, #id, T(de.stekoe.oasis.model.PermissionType).MANAGE_MEMBER)")
     public ModelAndView listEmployee(@PathVariable String id, @PathVariable String eid) {
         Company company = companyService.findOne(id);
         Employee employee = company.getEmployees().stream().map(emp -> (Employee) emp).filter(emp -> emp.getId().equals(eid)).findAny().get();
@@ -82,7 +82,7 @@ public class CompanyEmployeeController {
     }
 
     @RequestMapping(value = "/{cid}/employee", method = RequestMethod.POST)
-    @PreAuthorize("@permissionManager.hasCompanyPermission(principal, #cid, T(de.stekoe.idss.model.PermissionType).MANAGE_MEMBER)")
+    @PreAuthorize("@permissionManager.hasCompanyPermission(principal, #cid, T(de.stekoe.oasis.model.PermissionType).MANAGE_MEMBER)")
     public String saveEmployee(@PathVariable String cid, @Valid EmployeeDescriptor employeeDescriptor, BindingResult bindingResult, HttpServletRequest request, Locale locale, RedirectAttributes redirectAttributes) {
         Company company = companyService.findOne(cid);
         Employee existingEmployee = company.getEmployee(employeeDescriptor.getEmail());
@@ -149,7 +149,7 @@ public class CompanyEmployeeController {
     }
 
     @RequestMapping(value = "/{id}/employee/create", method = RequestMethod.GET)
-    @PreAuthorize("@permissionManager.hasCompanyPermission(principal, #id, T(de.stekoe.idss.model.PermissionType).MANAGE_MEMBER)")
+    @PreAuthorize("@permissionManager.hasCompanyPermission(principal, #id, T(de.stekoe.oasis.model.PermissionType).MANAGE_MEMBER)")
     public ModelAndView createEmployee(@PathVariable String id) {
         ModelAndView model = new ModelAndView("/company/employee_edit");
         Company company = companyService.findOne(id);
@@ -161,7 +161,7 @@ public class CompanyEmployeeController {
     }
 
     @RequestMapping(value = "/{cid}/employee/{eid}/activate", method = RequestMethod.GET)
-    @PreAuthorize("@permissionManager.hasCompanyPermission(principal, #cid, T(de.stekoe.idss.model.PermissionType).MANAGE_MEMBER)")
+    @PreAuthorize("@permissionManager.hasCompanyPermission(principal, #cid, T(de.stekoe.oasis.model.PermissionType).MANAGE_MEMBER)")
     public String activateEmployee(@PathVariable String cid, @PathVariable String eid, HttpServletRequest request) {
         Company company = companyService.findOne(cid);
         Optional<Employee> first = company.getEmployees().stream().filter(emp -> emp.getId().equals(eid)).findFirst();
@@ -176,7 +176,7 @@ public class CompanyEmployeeController {
     }
 
     @RequestMapping(value = "/{cid}/employee/{eid}/delete", method = RequestMethod.GET)
-    @PreAuthorize("@permissionManager.hasCompanyPermission(principal, #cid, T(de.stekoe.idss.model.PermissionType).MANAGE_MEMBER)")
+    @PreAuthorize("@permissionManager.hasCompanyPermission(principal, #cid, T(de.stekoe.oasis.model.PermissionType).MANAGE_MEMBER)")
     public String deleteEmployee(@PathVariable String cid, @PathVariable String eid) {
         Company company = companyService.findOne(cid);
         Optional<Employee> first = company.getEmployees().stream().filter(emp -> emp.getId().equals(eid)).findFirst();

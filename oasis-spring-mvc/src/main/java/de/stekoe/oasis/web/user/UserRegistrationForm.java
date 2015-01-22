@@ -1,6 +1,6 @@
 package de.stekoe.oasis.web.user;
 
-import de.stekoe.idss.model.CompanyDescriptor;
+import de.stekoe.oasis.model.CompanyDescriptor;
 import de.stekoe.oasis.web.validator.FieldMatch;
 import de.stekoe.oasis.web.validator.FieldXor;
 

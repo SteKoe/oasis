@@ -8,7 +8,7 @@
                 </p>
             </div>
             <div class="col-md-4 col-xs-12">
-                <h3>CONTACT</h3>
+                <h3 class="text-capitalized" th:text="#{label.contact}">CONTACT</h3>
                 <address>
                     <i class="fa fa-map-marker"></i> Universitätsstraße 9, D-45141 Essen<br />
                     <i class="fa fa-phone"></i> +49 (201) 183 4041<br />
@@ -16,11 +16,7 @@
                 </address>
             </div>
             <div class="col-md-4 col-xs-12 supporter">
-                <h3>SUPPORTED BY</h3>
-                <a href="http://www.iml.fraunhofer.de">
-                    <img th:src="@{/img/logos/iml_logo_190.png}">
-                </a>
-                <br />
+                <h3 class="text-capitalized" th:text="#{label.supported_by}"></h3>
                 <a href="http://www.uni-due.de">
                     <img th:src="@{/img/logos/ude_logo_190.png}">
                 </a>

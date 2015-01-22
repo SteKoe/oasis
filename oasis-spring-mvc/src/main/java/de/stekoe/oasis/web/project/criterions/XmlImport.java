@@ -1,6 +1,6 @@
 package de.stekoe.oasis.web.project.criterions;
 
-import de.stekoe.idss.model.*;
+import de.stekoe.oasis.model.*;
 import org.apache.log4j.Logger;
 import org.dom4j.*;
 import org.dom4j.Document;

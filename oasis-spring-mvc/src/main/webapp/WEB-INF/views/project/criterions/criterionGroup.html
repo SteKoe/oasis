@@ -33,7 +33,7 @@
     </div>
     <div class="panel-body">
         <div th:each="criterion,iter : ${pageElement.criterions}" th:remove="tag">
-            <div th:remove="tag" th:if="${criterion instanceof T(de.stekoe.idss.model.SingleScaledCriterion)}" th:include="/project/criterions/generic/singleScaledCriterion"></div>
+            <div th:remove="tag" th:if="${criterion instanceof T(de.stekoe.oasis.model.SingleScaledCriterion)}" th:include="/project/criterions/generic/singleScaledCriterion"></div>
         </div>
     </div>
 </div>

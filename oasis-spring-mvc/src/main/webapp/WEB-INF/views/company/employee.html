@@ -113,10 +113,10 @@
                     <small th:text="${employee.role != null ? employee.role.name : ''}"></small>
                 </td>
                 <td class="actions text-right">
-                    <a th:if="${employee.user.username != #authentication.name && employee.employeeStatus != T(de.stekoe.idss.model.UserStatus).ACTIVATION_PENDING}" th:href="@{/company/{cid}/employee/{eid}(cid=${company.id},eid=${employee.id})}" class="btn btn-xs btn-default" th:text="#{label.details}">
+                    <a th:if="${employee.user.username != #authentication.name && employee.employeeStatus != T(de.stekoe.oasis.model.UserStatus).ACTIVATION_PENDING}" th:href="@{/company/{cid}/employee/{eid}(cid=${company.id},eid=${employee.id})}" class="btn btn-xs btn-default" th:text="#{label.details}">
                         Details
                     </a>
-                    <a th:if="${employee.user.username != #authentication.name && employee.employeeStatus == T(de.stekoe.idss.model.UserStatus).ACTIVATION_PENDING}" th:href="@{/company/{cid}/employee/{eid}/activate(cid=${company.id},eid=${employee.id})}" class="btn btn-xs btn-default" th:text="#{label.activate}">
+                    <a th:if="${employee.user.username != #authentication.name && employee.employeeStatus == T(de.stekoe.oasis.model.UserStatus).ACTIVATION_PENDING}" th:href="@{/company/{cid}/employee/{eid}/activate(cid=${company.id},eid=${employee.id})}" class="btn btn-xs btn-default" th:text="#{label.activate}">
                         Aktivieren
                     </a>
                     <a th:if="${employee.user.username != #authentication.name}" th:href="@{/company/{cid}/employee/{eid}/delete(cid=${company.id},eid=${employee.id})}" class="btn btn-xs btn-danger btn-delete" th:text="#{label.delete}">

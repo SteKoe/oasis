@@ -1,8 +1,8 @@
 package de.stekoe.oasis.rest;
 
-import de.stekoe.idss.model.*;
-import de.stekoe.idss.service.ProjectService;
-import de.stekoe.idss.service.UserService;
+import de.stekoe.oasis.model.*;
+import de.stekoe.oasis.service.ProjectService;
+import de.stekoe.oasis.service.UserService;
 import de.stekoe.oasis.web.JSONValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -31,7 +31,7 @@ public class RestProjectController {
     JSONValidator jsonValidator;
 
     @RequestMapping(value = "/api/project/{pid}", method = RequestMethod.DELETE)
-    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.idss.model.PermissionType).DELETE)")
+    @PreAuthorize("@permissionManager.hasProjectPermission(principal, #pid, T(de.stekoe.oasis.model.PermissionType).DELETE)")
     @ResponseBody
     public String delete(@PathVariable String pid) {
         projectService.delete(pid);

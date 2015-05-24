@@ -1,3 +1,5 @@
+# OASIS - Online Assessed Innovations [![Build Status](https://travis-ci.org/SteKoe/oasis.svg?branch=spring-mvc)](https://travis-ci.org/SteKoe/oasis)
+
 Die Software *OASIS – Online Assessed Innovations* ist am [Lehrstuhl für Wirtschaftsinformatik und Unternehmensmodellierung](http://www.wi-inf.uni-duisburg-essen.de/FGFrank/) der [Universität Duisburg-Essen](https://www.uni-due.de) im Rahmen des Projektes [Hospital Engineering – Innovationspfade für das Krankenhaus der Zukunft](http://www.wi-inf.uni-duisburg-essen.de/FGFrank/index.php?lang=de&amp;groupId=1&amp;contentType=Project&amp;projId=21) entstanden. 
 
 Für die Förderung des Projektes (Förderkennzeichen 005-GW01-066E) danken wir der Landesregierung Nordrhein-Westfalen und der Europäischen Union.
